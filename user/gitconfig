@@ -1,0 +1,5 @@
+[pull]
+	rebase = merge
+[user]
+	name = Nathan Acks
+	email = nathan.acks@delphi-strategy.com
