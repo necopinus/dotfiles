@@ -20,6 +20,7 @@ sudo apt autoremove --purge --autoremove
 sudo apt clean
 
 flatpak update
+flatpak uninstall --unused
 
 # Cleanup unneeded software.
 #
