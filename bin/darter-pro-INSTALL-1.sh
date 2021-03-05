@@ -19,6 +19,8 @@ sudo apt full-upgrade
 sudo apt autoremove --purge --autoremove
 sudo apt clean
 
+flatpak update
+
 # Cleanup unneeded software.
 #
 sudo apt purge --autoremove --purge \
@@ -52,6 +54,10 @@ sudo rm -rf /usr/share/fonts/truetype/libreoffice
 #
 sudo apt install \
 bundler \
+code \
+dconf-editor \
+dino-im \
+discord \
 dos2unix \
 fonts-cascadia-code \
 fonts-croscore \
@@ -69,6 +75,26 @@ p7zip-full \
 qalc \
 virtualbox-ext-pack \
 virtualbox-guest-additions-iso
+
+flatpak install --user flathub com.github.bleakgrey.tootle
+flatpak install --user flathub com.toggl.TogglDesktop
+flatpak install --user flathub fi.skyjake.Lagrange
+flatpak install --user flathub fr.handbrake.ghb
+flatpak install --user flathub io.github.quodlibet.ExFalso
+flatpak install --user flathub io.github.quodlibet.QuodLibet
+flatpak install --user flathub org.gimp.GIMP
+flatpak install --user flathub org.gnome.Fractal
+flatpak install --user flathub org.gnome.Maps
+flatpak install --user flathub org.gnome.Shotwell
+flatpak install --user flathub org.gnome.SoundJuicer
+flatpak install --user flathub org.inkscape.Inkscape
+flatpak install --user flathub org.jitsi.jitsi-meet
+flatpak install --user flathub org.keepassxc.KeePassXC
+flatpak install --user flathub org.signal.Signal
+flatpak install --user flathub org.stellarium.Stellarium
+flatpak install --user flathub org.videolan.VLC
+flatpak install --user flathub uk.co.ibboard.cawbird
+flatpak install --user flathub us.zoom.Zoom
 
 # No firewall is enabled by default, because apparently we still live in
 # 1995.
