@@ -200,6 +200,7 @@ cp $CONFIG_PATH/config/systemd/user/hydroxide.service  $HOME/.config/systemd/use
 cp $CONFIG_PATH/config/systemd/user/onedrive@.service  $HOME/.config/systemd/user/onedrive@.service
 cp $CONFIG_PATH/gitconfig                              $HOME/.gitconfig
 cp $CONFIG_PATH/local/bin/backup-cloud.sh              $HOME/.local/bin/backup-cloud.sh
+cp $CONFIG_PATH/local/bin/backup-local.sh              $HOME/.local/bin/backup-local.sh
 cp $CONFIG_PATH/local/bin/update-gam.sh                $HOME/.local/bin/update-gam.sh
 cp $CONFIG_PATH/local/bin/update-hydroxide.sh          $HOME/.local/bin/update-hydroxide.sh
 cp $CONFIG_PATH/local/bin/update-system.sh             $HOME/.local/bin/update-system.sh
