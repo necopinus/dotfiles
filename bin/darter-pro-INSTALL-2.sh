@@ -27,6 +27,23 @@ if [[ -z "$BACKUP_PASSWORD" ]]; then
 	exit 1
 fi
 
+# Confirm that we've finished part 1.
+#
+echo "This script should *only* be run after OneDrive has been fully synced"
+echo "to this machine. IF A FULL INITIAL SYNC HAS NOT YET FINISHED USE CTRL+C"
+echo "TO EXIT NOW!"
+echo ""
+read -p "Press any key to continue... " -n1 -s
+echo ""
+
+# Enable and start OneDrive sync processes.
+#
+systemctl --user enable onedrive@DelphiStrategy.service
+systemctl --user enable onedrive@EcoPunk.service
+
+systemctl --user start onedrive@DelphiStrategy.service
+systemctl --user start onedrive@EcoPunk.service
+
 # Extract GAM configuration.
 #
 if [[ -f $BACKUP_PATH/GAM.tar.7z ]]; then
@@ -38,6 +55,12 @@ if [[ -f $BACKUP_PATH/GAM.tar.7z ]]; then
 fi
 
 # Extract Proton Technologies data and configuration.
+#
+# If Hydroxide needs to be reauthenticated for some reason (for example,
+# if some of the files in ~/.config/hydroxide are corrupt), then this
+# can be done using:
+#
+#     hydroxide auth USER.NAME@protonmail.com
 #
 if [[ -f $BACKUP_PATH/ProtonTechnologies.tar.7z ]]; then
 	(
@@ -107,3 +130,7 @@ if [[ -d $BACKUP_PATH/VirtualBox ]]; then
 	rm -rf $HOME/VirtualBox
 	cp -apvrf $BACKUP_PATH/VirtualBox $HOME/VirtualBox
 fi
+
+# Run the initial Keybase setup/configuration.
+#
+run_keybase
