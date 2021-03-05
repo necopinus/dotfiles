@@ -83,6 +83,7 @@ dino-im \
 discord \
 dos2unix \
 endpoint-verification \
+exfatprogs \
 fonts-cascadia-code \
 fonts-croscore \
 fonts-crosextra-caladea \
