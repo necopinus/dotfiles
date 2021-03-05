@@ -55,6 +55,15 @@ fi
 # Backup code repos.
 #
 if [[ -d $HOME/Code ]]; then
+	find $HOME/Code -mindepth 1 -maxdepth 1 -type d -print0 | \
+	while read -d '' GIT_DIR; do
+		(
+			cd "$GIT_DIR"
+			git add -A -v
+			git commit -m "Commit all changes before backup pull"
+			git pull
+		)
+	done
 	(
 		cd $HOME/Code
 		find . -mindepth 1 -maxdepth 1 -type d -exec tar -cvf "{}.tar" "{}" \;
