@@ -63,6 +63,7 @@ gnome-calculator \
 gnome-calendar \
 gnome-contacts \
 gnome-font-viewer \
+gnome-weather \
 gucharmap \
 libreoffice-core \
 simple-scan \
@@ -84,7 +85,6 @@ discord \
 dos2unix \
 endpoint-verification \
 exfatprogs \
-fonts-cascadia-code \
 fonts-croscore \
 fonts-crosextra-caladea \
 fonts-crosextra-carlito \
@@ -109,7 +109,6 @@ virtualbox-ext-pack \
 virtualbox-guest-additions-iso \
 yubikey-manager
 
-flatpak install --user flathub com.github.bleakgrey.tootle
 flatpak install --user flathub com.toggl.TogglDesktop
 flatpak install --user flathub fi.skyjake.Lagrange
 flatpak install --user flathub fr.handbrake.ghb
@@ -117,14 +116,11 @@ flatpak install --user flathub io.github.quodlibet.ExFalso
 flatpak install --user flathub io.github.quodlibet.QuodLibet
 flatpak install --user flathub org.gimp.GIMP
 flatpak install --user flathub org.gnome.Fractal
-flatpak install --user flathub org.gnome.Maps
 flatpak install --user flathub org.gnome.Shotwell
 flatpak install --user flathub org.gnome.SoundJuicer
 flatpak install --user flathub org.inkscape.Inkscape
-flatpak install --user flathub org.jitsi.jitsi-meet
 flatpak install --user flathub org.keepassxc.KeePassXC
 flatpak install --user flathub org.signal.Signal
-flatpak install --user flathub org.stellarium.Stellarium
 flatpak install --user flathub org.videolan.VLC
 flatpak install --user flathub uk.co.ibboard.cawbird
 flatpak install --user flathub us.zoom.Zoom
@@ -144,7 +140,6 @@ rm -rf "$BUILD_DIR"
 #
 source $CONFIG_PATH/local/bin/update-gam.sh
 source $CONFIG_PATH/local/bin/update-hydroxide.sh
-source $CONFIG_PATH/local/bin/update-ykman.sh
 
 # Apply application settings, when possible.
 #
@@ -163,7 +158,7 @@ gsettings set org.gnome.desktop.peripherals.touchpad     natural-scroll         
 gsettings set org.gnome.desktop.privacy                  recent-files-max-age         30
 gsettings set org.gnome.desktop.privacy                  remove-old-temp-files        true
 gsettings set org.gnome.desktop.privacy                  remove-old-trash-files       true
-gsettings set org.gnome.desktop.search-providers         enabled                      "['org.gnome.Weather.desktop','io.github.quodlibet.QuodLibet.desktop']"
+gsettings set org.gnome.desktop.search-providers         enabled                      "['io.github.quodlibet.QuodLibet.desktop']"
 gsettings set org.gnome.desktop.wm.keybindings           switch-applications          "['<Super>Tab']"
 gsettings set org.gnome.desktop.wm.keybindings           switch-applications-backward "['<Shift><Super>Tab']"
 gsettings set org.gnome.desktop.wm.keybindings           switch-windows               "['<Alt>Tab']"
@@ -180,9 +175,7 @@ gsettings set org.gnome.shell.extensions.dash-to-dock    preferred-monitor      
 gsettings set org.gnome.shell.extensions.dash-to-dock    show-mounts                  false
 gsettings set org.gnome.shell.extensions.dash-to-dock    show-trash                   false
 gsettings set org.gnome.shell.extensions.dash-to-dock    transparency-mode            "FIXED"
-gsettings set org.gnome.shell.weather                    automatic-location           true
 gsettings set org.gnome.system.location                  enabled                      true
-gsettings set org.gnome.Weather                          automatic-location           true
 gsettings set org.gtk.Settings.FileChooser               clock-format                 "24h"
 
 # Restore scripts and configurations from this repo.
@@ -191,7 +184,6 @@ mkdir -p $HOME/.cache/onedrive
 mkdir -p $HOME/.config/systemd/user
 mkdir -p $HOME/.config/onedrive/{DelphiStrategy,EcoPunk}
 mkdir -p $HOME/.local/bin
-mkdir -p $HOME/.local/share/applications
 
 cp $CONFIG_PATH/bash_aliases                           $HOME/.bash_aliases
 cp $CONFIG_PATH/config/onedrive/DelphiStrategy/config  $HOME/.config/onedrive/DelphiStrategy/config
@@ -204,8 +196,6 @@ cp $CONFIG_PATH/local/bin/backup-local.sh              $HOME/.local/bin/backup-l
 cp $CONFIG_PATH/local/bin/update-gam.sh                $HOME/.local/bin/update-gam.sh
 cp $CONFIG_PATH/local/bin/update-hydroxide.sh          $HOME/.local/bin/update-hydroxide.sh
 cp $CONFIG_PATH/local/bin/update-system.sh             $HOME/.local/bin/update-system.sh
-cp $CONFIG_PATH/local/bin/update-ykman.sh              $HOME/.local/bin/update-ykman.sh
-cp $CONFIG_PATH/local/share/applications/ykman.desktop $HOME/.local/share/applications/ykman.desktop
 
 chmod 755 $HOME/.local/bin/*
 
