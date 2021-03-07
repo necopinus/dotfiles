@@ -98,6 +98,7 @@ graphicsmagick \
 graphviz \
 ibus-typing-booster \
 jhead \
+neovim \
 nodejs \
 offlineimap \
 onedrive \
