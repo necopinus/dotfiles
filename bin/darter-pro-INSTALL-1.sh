@@ -172,6 +172,7 @@ gsettings set org.gnome.settings-daemon.plugins.color    night-light-temperature
 gsettings set org.gnome.shell                            enabled-extensions           "['alt-tab-raise-first-window@system76.com','always-show-workspaces@system76.com','ding@rastersoft.com','pop-shell@system76.com','pop-shop-details@system76.com','system76-power@system76.com','ubuntu-appindicators@ubuntu.com','bluetooth-quick-connect@bjarosze.gmail.com','dash-to-dock@micxgx.gmail.com']"
 gsettings set org.gnome.shell.extensions.dash-to-dock    dash-max-icon-size           64
 gsettings set org.gnome.shell.extensions.dash-to-dock    dock-position                "BOTTOM"
+gsettings set org.gnome.shell.extensions.dash-to-dock    multi-monitor                true
 gsettings set org.gnome.shell.extensions.dash-to-dock    preferred-monitor            0
 gsettings set org.gnome.shell.extensions.dash-to-dock    show-mounts                  false
 gsettings set org.gnome.shell.extensions.dash-to-dock    show-trash                   false
