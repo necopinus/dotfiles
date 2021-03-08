@@ -92,6 +92,7 @@ fonts-noto \
 fonts-roboto \
 gnome-shell-extension-bluetooth-quick-connect \
 gnome-shell-extension-dashtodock \
+gnome-tweaks \
 golang \
 google-chrome-stable \
 graphicsmagick \
@@ -153,6 +154,7 @@ gsettings set org.freedesktop.ibus.engine.typing-booster inputmethod            
 gsettings set org.gnome.desktop.input-sources            mru-sources                  "[('xkb','us'),('ibus','typing-booster')]"
 gsettings set org.gnome.desktop.input-sources            sources                      "[('xkb','us'),('ibus','typing-booster')]"
 gsettings set org.gnome.desktop.interface                clock-format                 "24h"
+gsettings set org.gnome.desktop.interface                font-name                    "Fira Sans Semi-Light 11"
 gsettings set org.gnome.desktop.interface                gtk-im-module                "ibus"
 gsettings set org.gnome.desktop.media-handling           autorun-never                true
 gsettings set org.gnome.desktop.peripherals.touchpad     natural-scroll               true
@@ -164,6 +166,7 @@ gsettings set org.gnome.desktop.wm.keybindings           switch-applications    
 gsettings set org.gnome.desktop.wm.keybindings           switch-applications-backward "['<Shift><Super>Tab']"
 gsettings set org.gnome.desktop.wm.keybindings           switch-windows               "['<Alt>Tab']"
 gsettings set org.gnome.desktop.wm.keybindings           switch-windows-backward      "['<Shift><Alt>Tab']"
+gsettings set org.gnome.desktop.wm.preferences           titlebar-font                "Fira Sans Semi-Bold 11"
 gsettings set org.gnome.gnome-system-monitor             solaris-mode                 false
 gsettings set org.gnome.nautilus.list-view               use-tree-view                true
 gsettings set org.gnome.nautilus.preferences             default-folder-viewer        "list-view"
