@@ -104,6 +104,7 @@ nodejs \
 offlineimap \
 onedrive \
 optipng \
+pandoc \
 p7zip-full \
 qalc \
 vdirsyncer \
