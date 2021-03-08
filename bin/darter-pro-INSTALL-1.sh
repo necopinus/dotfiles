@@ -107,6 +107,7 @@ optipng \
 pandoc \
 p7zip-full \
 qalc \
+texlive \
 vdirsyncer \
 virtualbox-ext-pack \
 virtualbox-guest-additions-iso \
