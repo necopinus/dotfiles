@@ -1,0 +1,16 @@
+# https://gist.github.com/jakewarren/477ecd1149abe908cbd5cf7a7c9abaa3
+#
+[Unit]
+Description=Load cgroup configs
+After=remote-fs.target
+
+[Service]
+Type=forking
+ExecStartPre=/bin/echo "Processing /etc/cgconfig.conf..."
+ExecStartPre=/usr/sbin/cgconfigparser -l /etc/cgconfig.conf
+ExecStartPre=/bin/echo "Processing /etc/cgrules.conf..."
+ExecStart=/usr/sbin/cgrulesengd --logfile=/var/log/cgrulesengd.log
+Restart=on-failure
+
+[Install]
+WantedBy=multi-user.target

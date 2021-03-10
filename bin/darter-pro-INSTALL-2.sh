@@ -4,7 +4,7 @@
 # dotfiles.
 #
 SCRIPT_PATH="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)/$(basename "${BASH_SOURCE[0]}")"
-CONFIG_PATH="$(dirname "$SCRIPT_PATH")/../user/"
+CONFIG_PATH="$(dirname "$SCRIPT_PATH")/../"
 
 # Set backup path.
 #

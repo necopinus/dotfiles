@@ -4,11 +4,23 @@
 # dotfiles.
 #
 SCRIPT_PATH="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)/$(basename "${BASH_SOURCE[0]}")"
-CONFIG_PATH="$(dirname "$SCRIPT_PATH")/../user/"
+CONFIG_PATH="$(dirname "$SCRIPT_PATH")/../"
 
 # 1991 called. They want their disabled-by-default firewall back.
 #
 sudo ufw enable
+
+# Set up system files.
+#
+sudo cp $CONFIG_PATH/system/etc/cgconfig.conf                  /etc/cgconfig.conf
+sudo cp $CONFIG_PATH/system/etc/cgrules.conf                   /etc/cgrules.conf
+sudo cp $CONFIG_PATH/system/etc/systemd/system/cgroups.service /etc/systemd/system/cgroups.service
+
+sudo chmod 644 /etc/cgconfig.conf
+sudo chmod 644 /etc/cgrules.conf
+sudo chmod 644 /etc/systemd/system/cgroups.service
+
+sudo ln -s /etc/systemd/system/cgroups.service /etc/systemd/system/multi-user.target.wants/cgroups.service
 
 # Add the Brave repository.
 #
@@ -41,7 +53,7 @@ sudo apt-add-repository ppa:yubico/stable
 # Make sure all components are up-to-date.
 #
 sudo apt install apt-transport-https
-source $CONFIG_PATH/local/bin/update-system.sh
+source $CONFIG_PATH/user/local/bin/update-system.sh
 
 # Cleanup unneeded software.
 #
@@ -78,6 +90,7 @@ sudo rm -rf /usr/share/fonts/truetype/libreoffice
 sudo apt install \
 brave-browser \
 bundler \
+cgroup-tools \
 code \
 dconf-editor \
 dino-im \
@@ -143,8 +156,8 @@ rm -rf "$BUILD_DIR"
 # Additional "loose" installs. These are all handled through update
 # scripts (which fortunately can also handle the initial installation.
 #
-source $CONFIG_PATH/local/bin/update-gam.sh
-source $CONFIG_PATH/local/bin/update-hydroxide.sh
+source $CONFIG_PATH/user/local/bin/update-gam.sh
+source $CONFIG_PATH/user/local/bin/update-hydroxide.sh
 
 # Apply application settings, when possible.
 #
@@ -193,17 +206,17 @@ mkdir -p $HOME/.config/systemd/user
 mkdir -p $HOME/.config/onedrive/{DelphiStrategy,EcoPunk}
 mkdir -p $HOME/.local/bin
 
-cp $CONFIG_PATH/bash_aliases                           $HOME/.bash_aliases
-cp $CONFIG_PATH/config/onedrive/DelphiStrategy/config  $HOME/.config/onedrive/DelphiStrategy/config
-cp $CONFIG_PATH/config/onedrive/EcoPunk/config         $HOME/.config/onedrive/EcoPunk/config
-cp $CONFIG_PATH/config/systemd/user/hydroxide.service  $HOME/.config/systemd/user/hydroxide.service
-cp $CONFIG_PATH/config/systemd/user/onedrive@.service  $HOME/.config/systemd/user/onedrive@.service
-cp $CONFIG_PATH/gitconfig                              $HOME/.gitconfig
-cp $CONFIG_PATH/local/bin/backup-cloud.sh              $HOME/.local/bin/backup-cloud.sh
-cp $CONFIG_PATH/local/bin/backup-local.sh              $HOME/.local/bin/backup-local.sh
-cp $CONFIG_PATH/local/bin/update-gam.sh                $HOME/.local/bin/update-gam.sh
-cp $CONFIG_PATH/local/bin/update-hydroxide.sh          $HOME/.local/bin/update-hydroxide.sh
-cp $CONFIG_PATH/local/bin/update-system.sh             $HOME/.local/bin/update-system.sh
+cp $CONFIG_PATH/user/bash_aliases                           $HOME/.bash_aliases
+cp $CONFIG_PATH/user/config/onedrive/DelphiStrategy/config  $HOME/.config/onedrive/DelphiStrategy/config
+cp $CONFIG_PATH/user/config/onedrive/EcoPunk/config         $HOME/.config/onedrive/EcoPunk/config
+cp $CONFIG_PATH/user/config/systemd/user/hydroxide.service  $HOME/.config/systemd/user/hydroxide.service
+cp $CONFIG_PATH/user/config/systemd/user/onedrive@.service  $HOME/.config/systemd/user/onedrive@.service
+cp $CONFIG_PATH/user/gitconfig                              $HOME/.gitconfig
+cp $CONFIG_PATH/user/local/bin/backup-cloud.sh              $HOME/.local/bin/backup-cloud.sh
+cp $CONFIG_PATH/user/local/bin/backup-local.sh              $HOME/.local/bin/backup-local.sh
+cp $CONFIG_PATH/user/local/bin/update-gam.sh                $HOME/.local/bin/update-gam.sh
+cp $CONFIG_PATH/user/local/bin/update-hydroxide.sh          $HOME/.local/bin/update-hydroxide.sh
+cp $CONFIG_PATH/user/local/bin/update-system.sh             $HOME/.local/bin/update-system.sh
 
 chmod 755 $HOME/.local/bin/*
 
