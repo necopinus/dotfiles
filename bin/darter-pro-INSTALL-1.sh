@@ -99,6 +99,7 @@ graphicsmagick \
 graphviz \
 ibus-typing-booster \
 jhead \
+mpack \
 neovim \
 nodejs \
 offlineimap \
