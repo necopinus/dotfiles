@@ -131,11 +131,6 @@ if [[ -d $BACKUP_PATH/VirtualBox ]]; then
 	cp -apvrf $BACKUP_PATH/VirtualBox $HOME/VirtualBox
 fi
 
-# Enable Joplin autostart.
-#
-mkdir -p $HOME/.config/autostart
-cp $CONFIG_PATH/user/config/autostart/joplin_autostart.desktop $HOME/.config/autostart/joplin_autostart.desktop
-
 # Run the initial Keybase setup/configuration.
 #
 run_keybase
