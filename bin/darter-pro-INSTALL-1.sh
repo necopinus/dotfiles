@@ -185,6 +185,7 @@ gsettings set org.gnome.desktop.wm.keybindings           switch-windows         
 gsettings set org.gnome.desktop.wm.keybindings           switch-windows-backward      "['<Shift><Alt>Tab']"
 gsettings set org.gnome.desktop.wm.preferences           titlebar-font                "Fira Sans Semi-Bold 11"
 gsettings set org.gnome.gnome-system-monitor             solaris-mode                 false
+gsettings set org.gnome.mutter                           experimental-features        "['x11-randr-fractional-scaling']"
 gsettings set org.gnome.nautilus.list-view               use-tree-view                true
 gsettings set org.gnome.nautilus.preferences             default-folder-viewer        "list-view"
 gsettings set org.gnome.settings-daemon.plugins.color    night-light-enabled          true
