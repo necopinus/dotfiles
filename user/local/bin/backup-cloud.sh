@@ -83,4 +83,4 @@ fi
 echo ""
 echo "The following files are NOT backed up to OneDrive:"
 echo ""
-find $HOME -type f -not -ipath '*/.*' -not -ipath '*/Code/*' -not -ipath '*/OneDrive/*' -not -ipath '*/Proton/*' -not -ipath '*/VirtualBox/*'
+find $HOME -type f -not -ipath "$HOME/.*" -not -ipath "$HOME/Code/*" -not -ipath "$HOME/go/*" -not -ipath "$HOME/OneDrive/*" -not -ipath "$HOME/Proton/*" -not -ipath "$HOME/VirtualBox/*"
