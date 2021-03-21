@@ -132,7 +132,7 @@ flatpak install --user flathub fi.skyjake.Lagrange
 flatpak install --user flathub fr.handbrake.ghb
 flatpak install --user flathub io.github.quodlibet.ExFalso
 flatpak install --user flathub io.github.quodlibet.QuodLibet
-flatpak install --user flathub net.cozic.joplin_desktop
+flatpak install --user flathub md.obsidian.Obsidian
 flatpak install --user flathub org.gimp.GIMP
 flatpak install --user flathub org.gnome.Fractal
 flatpak install --user flathub org.gnome.Shotwell
