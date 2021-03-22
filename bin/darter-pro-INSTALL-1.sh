@@ -93,7 +93,6 @@ bundler \
 cgroup-tools \
 code \
 dconf-editor \
-dino-im \
 discord \
 dos2unix \
 endpoint-verification \
@@ -134,25 +133,13 @@ flatpak install --user flathub io.github.quodlibet.ExFalso
 flatpak install --user flathub io.github.quodlibet.QuodLibet
 flatpak install --user flathub md.obsidian.Obsidian
 flatpak install --user flathub org.gimp.GIMP
-flatpak install --user flathub org.gnome.Fractal
 flatpak install --user flathub org.gnome.Shotwell
 flatpak install --user flathub org.gnome.SoundJuicer
 flatpak install --user flathub org.inkscape.Inkscape
 flatpak install --user flathub org.keepassxc.KeePassXC
 flatpak install --user flathub org.signal.Signal
 flatpak install --user flathub org.videolan.VLC
-flatpak install --user flathub uk.co.ibboard.cawbird
 flatpak install --user flathub us.zoom.Zoom
-
-# Keybase, annoyingly, requires us to download a .deb file to install.
-#
-BUILD_DIR="$(mktemp -d)"
-(
-	cd "$BUILD_DIR"
-	curl -O https://prerelease.keybase.io/keybase_amd64.deb
-	sudo apt install ./keybase_amd64.deb
-)
-rm -rf "$BUILD_DIR"
 
 # Additional "loose" installs. These are all handled through update
 # scripts (which fortunately can also handle the initial installation.
