@@ -10,18 +10,6 @@ CONFIG_PATH="$(dirname "$SCRIPT_PATH")/../"
 #
 sudo ufw enable
 
-# Set up system files.
-#
-sudo cp $CONFIG_PATH/system/etc/cgconfig.conf                  /etc/cgconfig.conf
-sudo cp $CONFIG_PATH/system/etc/cgrules.conf                   /etc/cgrules.conf
-sudo cp $CONFIG_PATH/system/etc/systemd/system/cgroups.service /etc/systemd/system/cgroups.service
-
-sudo chmod 644 /etc/cgconfig.conf
-sudo chmod 644 /etc/cgrules.conf
-sudo chmod 644 /etc/systemd/system/cgroups.service
-
-sudo ln -s /etc/systemd/system/cgroups.service /etc/systemd/system/multi-user.target.wants/cgroups.service
-
 # Add the Brave repository.
 #
 curl -s https://brave-browser-apt-release.s3.brave.com/brave-core.asc | sudo apt-key --keyring /etc/apt/trusted.gpg.d/brave-browser-release.gpg add -
@@ -90,18 +78,12 @@ sudo rm -rf /usr/share/fonts/truetype/libreoffice
 sudo apt install \
 brave-browser \
 bundler \
-cgroup-tools \
 code \
 dconf-editor \
 discord \
 dos2unix \
 endpoint-verification \
 exfatprogs \
-fonts-croscore \
-fonts-crosextra-caladea \
-fonts-crosextra-carlito \
-fonts-noto \
-fonts-roboto \
 gnome-shell-extension-bluetooth-quick-connect \
 gnome-shell-extension-dashtodock \
 gnome-tweaks \
@@ -112,16 +94,14 @@ graphviz \
 ibus-typing-booster \
 jhead \
 mpack \
-neovim \
 nodejs \
 offlineimap \
 onedrive \
 optipng \
-pandoc \
 p7zip-full \
 qalc \
-texlive \
 vdirsyncer \
+vim \
 virtualbox-ext-pack \
 virtualbox-guest-additions-iso \
 yubikey-manager
@@ -129,13 +109,9 @@ yubikey-manager
 flatpak install --user flathub com.toggl.TogglDesktop
 flatpak install --user flathub fi.skyjake.Lagrange
 flatpak install --user flathub fr.handbrake.ghb
-flatpak install --user flathub io.github.quodlibet.ExFalso
-flatpak install --user flathub io.github.quodlibet.QuodLibet
 flatpak install --user flathub md.obsidian.Obsidian
 flatpak install --user flathub org.gimp.GIMP
-flatpak install --user flathub org.gnome.Shotwell
 flatpak install --user flathub org.gnome.SoundJuicer
-flatpak install --user flathub org.inkscape.Inkscape
 flatpak install --user flathub org.keepassxc.KeePassXC
 flatpak install --user flathub org.signal.Signal
 flatpak install --user flathub org.videolan.VLC
