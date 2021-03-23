@@ -59,6 +59,7 @@ firefox-locale-ru \
 firefox-locale-zh-hans \
 firefox-locale-zh-hant \
 geary \
+gedit \
 gnome-calculator \
 gnome-calendar \
 gnome-contacts \
