@@ -116,11 +116,11 @@ flatpak install --user flathub org.gnome.SoundJuicer
 flatpak install --user flathub org.keepassxc.KeePassXC
 flatpak install --user flathub org.signal.Signal
 flatpak install --user flathub org.videolan.VLC
-flatpak install --user flathub us.zoom.Zoom
 
 # Additional "loose" installs. These are all handled through update
 # scripts (which fortunately can also handle the initial installation.
 #
+source $CONFIG_PATH/user/local/bin/update-zoom.sh
 source $CONFIG_PATH/user/local/bin/update-gam.sh
 source $CONFIG_PATH/user/local/bin/update-hydroxide.sh
 
@@ -184,6 +184,7 @@ cp $CONFIG_PATH/user/local/bin/backup-local.sh             $HOME/.local/bin/back
 cp $CONFIG_PATH/user/local/bin/update-gam.sh               $HOME/.local/bin/update-gam.sh
 cp $CONFIG_PATH/user/local/bin/update-hydroxide.sh         $HOME/.local/bin/update-hydroxide.sh
 cp $CONFIG_PATH/user/local/bin/update-system.sh            $HOME/.local/bin/update-system.sh
+cp $CONFIG_PATH/user/local/bin/update-zoom.sh              $HOME/.local/bin/update-zoom.sh
 
 chmod 755 $HOME/.local/bin/*
 
