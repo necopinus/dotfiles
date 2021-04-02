@@ -62,6 +62,7 @@ if [[ -d $HOME/Code ]]; then
 			git add -A -v
 			git commit -m "Commit all changes before backup pull"
 			git pull
+			git push
 		)
 	done
 	(
