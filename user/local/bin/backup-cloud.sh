@@ -62,7 +62,9 @@ if [[ -d $HOME/Code ]]; then
 			git add -A -v
 			git commit -m "Commit all changes before backup pull"
 			git pull
-			git push
+			if [[ $(git config --get remote.origin.url | grep -cE '^http') -eq 0 ]]; then
+				git push
+			fi
 		)
 	done
 	(
