@@ -126,7 +126,9 @@ source $CONFIG_PATH/user/local/bin/update-hydroxide.sh
 
 # Apply application settings, when possible.
 #
-# FIXME: How can I do this for flatpak apps?
+# To access/manipulate gsettings in a flatpak, use:
+#
+#   flatpak run --command=gsettings $APP_REF $GSETTINGS_COMMAND_LINE
 #
 gsettings set ca.desrt.dconf-editor.Settings             show-warning                 false
 gsettings set org.freedesktop.ibus.engine.typing-booster dictionary                   "en_US"
@@ -171,6 +173,10 @@ gsettings set org.gnome.shell.extensions.pop-shell       tile-by-default        
 gsettings set org.gnome.shell.window-switcher            current-workspace-only       false
 gsettings set org.gnome.system.location                  enabled                      true
 gsettings set org.gtk.Settings.FileChooser               clock-format                 "24h"
+
+# Apply settings for relocatable schemas.
+#
+gsettings set org.gnome.desktop.notifications.application:/org/gnome/desktop/notifications/application/gnome-power-panel/ enable false
 
 # Restore scripts and configurations from this repo.
 #
