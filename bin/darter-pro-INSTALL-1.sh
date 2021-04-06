@@ -163,8 +163,9 @@ gsettings set org.gnome.shell.extensions.dash-to-dock    preferred-monitor      
 gsettings set org.gnome.shell.extensions.dash-to-dock    show-mounts                  false
 gsettings set org.gnome.shell.extensions.dash-to-dock    show-trash                   false
 gsettings set org.gnome.shell.extensions.dash-to-dock    transparency-mode            "FIXED"
-gsettings set org.gnome.shell.extensions.pop-shell       gap-inner                    1
-gsettings set org.gnome.shell.extensions.pop-shell       gap-outer                    1
+gsettings set org.gnome.shell.extensions.pop-shell       active-hint                  true
+gsettings set org.gnome.shell.extensions.pop-shell       gap-inner                    0
+gsettings set org.gnome.shell.extensions.pop-shell       gap-outer                    0
 gsettings set org.gnome.shell.extensions.pop-shell       show-title                   false
 gsettings set org.gnome.shell.extensions.pop-shell       tile-by-default              true
 gsettings set org.gnome.shell.window-switcher            current-workspace-only       false
