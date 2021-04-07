@@ -100,6 +100,7 @@ offlineimap \
 onedrive \
 optipng \
 p7zip-full \
+python3-wxgtk4.0 \
 qalc \
 vdirsyncer \
 vim \
