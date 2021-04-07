@@ -166,6 +166,8 @@ gsettings set org.gnome.shell.extensions.dash-to-dock    dash-max-icon-size     
 gsettings set org.gnome.shell.extensions.dash-to-dock    dock-position                "BOTTOM"
 gsettings set org.gnome.shell.extensions.dash-to-dock    multi-monitor                true
 gsettings set org.gnome.shell.extensions.dash-to-dock    preferred-monitor            0
+gsettings set org.gnome.shell.extensions.dash-to-dock    shortcut                     "['<Super><Shift>a']"
+gsettings set org.gnome.shell.extensions.dash-to-dock    shortcut-text                "<Super><Shift>a"
 gsettings set org.gnome.shell.extensions.dash-to-dock    show-mounts                  false
 gsettings set org.gnome.shell.extensions.dash-to-dock    show-trash                   false
 gsettings set org.gnome.shell.extensions.dash-to-dock    transparency-mode            "FIXED"
