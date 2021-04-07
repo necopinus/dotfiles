@@ -92,7 +92,7 @@ golang \
 google-chrome-stable \
 graphicsmagick \
 graphviz \
-grub-pc-bin \
+grub-pc \
 ibus-typing-booster \
 jhead \
 libgtk-3-dev \
