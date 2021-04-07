@@ -94,6 +94,7 @@ graphicsmagick \
 graphviz \
 ibus-typing-booster \
 jhead \
+libgtk-3-dev \
 mpack \
 nodejs \
 offlineimap \
