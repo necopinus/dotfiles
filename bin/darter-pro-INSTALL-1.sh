@@ -92,6 +92,7 @@ golang \
 google-chrome-stable \
 graphicsmagick \
 graphviz \
+grub-pc-bin \
 ibus-typing-booster \
 jhead \
 libgtk-3-dev \
@@ -107,6 +108,7 @@ vdirsyncer \
 vim \
 virtualbox-ext-pack \
 virtualbox-guest-additions-iso \
+wimtools \
 yubikey-manager
 
 flatpak install --user flathub com.toggl.TogglDesktop
