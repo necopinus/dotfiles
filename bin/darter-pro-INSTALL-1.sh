@@ -109,6 +109,7 @@ vim \
 virtualbox-ext-pack \
 virtualbox-guest-additions-iso \
 wimtools \
+xdotool \
 yubikey-manager
 
 flatpak install --user flathub com.toggl.TogglDesktop
