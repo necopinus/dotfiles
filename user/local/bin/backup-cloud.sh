@@ -75,6 +75,16 @@ if [[ -d $HOME/Code ]]; then
 	)
 fi
 
+# Backup Obsidian backups.
+#
+if [[ -d $HOME/.local/share/obsidian-backups ]]; then
+	(
+		cd $HOME/.local/share
+		tar -cvf - obsidian-backups | 7z a -p$BACKUP_PASSWORD -si Obsidian.tar.7z
+		mv -v Obsidian.tar.7z $BACKUP_PATH/
+	)
+fi
+
 # Backup VirtualBox.
 #
 if [[ -d $HOME/VirtualBox ]]; then
