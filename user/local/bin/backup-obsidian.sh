@@ -23,7 +23,7 @@ function backupVault {
 	if [[ -z "$BACKUP_PREV" ]]; then
 		cp -apvrf "$VAULT_SRC" "$BACKUP_ROOT"/$BACKUP_NEXT
 	else
-		cp -apvrf --link "$BACKUP_ROOT"/$BACKUP_PREV "$BACKUP_ROOT"/$BACKUP_NEXT
+		cp -aprf --link "$BACKUP_ROOT"/$BACKUP_PREV "$BACKUP_ROOT"/$BACKUP_NEXT
 		rsync -av --delete --force --human-readable --progress "$VAULT_SRC"/ "$BACKUP_ROOT"/$BACKUP_NEXT/
 	fi
 }

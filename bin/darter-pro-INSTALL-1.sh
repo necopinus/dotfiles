@@ -200,6 +200,7 @@ cp $CONFIG_PATH/user/config/systemd/user/onedrive@.service $HOME/.config/systemd
 cp $CONFIG_PATH/user/gitconfig                             $HOME/.gitconfig
 cp $CONFIG_PATH/user/local/bin/backup-cloud.sh             $HOME/.local/bin/backup-cloud.sh
 cp $CONFIG_PATH/user/local/bin/backup-local.sh             $HOME/.local/bin/backup-local.sh
+cp $CONFIG_PATH/user/local/bin/backup-obsidian.sh          $HOME/.local/bin/backup-obsidian.sh
 cp $CONFIG_PATH/user/local/bin/update-gam.sh               $HOME/.local/bin/update-gam.sh
 cp $CONFIG_PATH/user/local/bin/update-hydroxide.sh         $HOME/.local/bin/update-hydroxide.sh
 cp $CONFIG_PATH/user/local/bin/update-system.sh            $HOME/.local/bin/update-system.sh
