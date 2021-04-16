@@ -36,7 +36,7 @@ if [[ -d $HOME/Documents/TPIN ]]; then
 		cd $HOME/Documents
 		mkdir -p $HOME/Downloads
 		rm -rf $HOME/Downloads/TPIN-Obsidian.zip
-		zip -r $HOME/Downloads/TPIN-Obsidian.zip TPIN
+		zip -qr $HOME/Downloads/TPIN-Obsidian.zip TPIN
 	)
 fi
 if [[ -d $HOME/OneDrive/DelphiStrategy/Zibaldone ]]; then
