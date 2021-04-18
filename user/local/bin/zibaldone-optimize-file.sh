@@ -15,7 +15,7 @@ SIZE=1200
 # Asset locations
 #
 ASSETS_LIVE="$HOME/OneDrive/DelphiStrategy/Zibaldone/📦 Assets"
-ASSETS_BACK="$HOME/OneDrive/DelphiStrategy/Zibaldone Original Assets"
+ASSETS_BACK="$HOME/OneDrive/DelphiStrategy/Zibaldone (Original 📦 Assets)"
 
 # Parse commandline
 #

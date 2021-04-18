@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 
 ASSETS_LIVE="$HOME/OneDrive/DelphiStrategy/Zibaldone/📦 Assets"
-ASSETS_BACK="$HOME/OneDrive/DelphiStrategy/Zibaldone Original Assets"
+ASSETS_BACK="$HOME/OneDrive/DelphiStrategy/Zibaldone (Original 📦 Assets)"
 
 while IFS= read -d '' -r FILE; do
 	FILE_NAME="$(basename "$FILE")"
