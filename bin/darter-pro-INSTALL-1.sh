@@ -206,6 +206,8 @@ cp $CONFIG_PATH/user/local/bin/update-gam.sh               $HOME/.local/bin/upda
 cp $CONFIG_PATH/user/local/bin/update-hydroxide.sh         $HOME/.local/bin/update-hydroxide.sh
 cp $CONFIG_PATH/user/local/bin/update-system.sh            $HOME/.local/bin/update-system.sh
 cp $CONFIG_PATH/user/local/bin/update-zoom.sh              $HOME/.local/bin/update-zoom.sh
+cp $CONFIG_PATH/user/local/bin/zibaldone-new-assets.sh     $HOME/.local/bin/zibaldone-new-assets.sh
+cp $CONFIG_PATH/user/local/bin/zibaldone-optimize-file.sh  $HOME/.local/bin/zibaldone-optimize-file.sh
 
 chmod 755 $HOME/.local/bin/*
 
