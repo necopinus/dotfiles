@@ -77,7 +77,7 @@ if [[ ! -f "$FILE_BACK" ]]; then
 		mv -v "$FILE_LIVE" "$FILE_BACK"
 		bash -c "$CONVERT -resize '${SIZE}x${SIZE}^>' -strip '$FILE_BACK' TGA:- | $CJPEG -optimize -progressive -outfile '$FILE_LIVE'"
 	elif [[ "${FILE_LIVE: -4}" == ".png" ]]; then
-		optipng -o4 "$FILE_LIVE"
+		optipng -o7 "$FILE_LIVE"
 		cp -v "$FILE_LIVE" "$FILE_BACK"
 	else
 		cp -v "$FILE_LIVE" "$FILE_BACK"
