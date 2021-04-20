@@ -86,6 +86,7 @@ dos2unix \
 endpoint-verification \
 exfatprogs \
 ffmpeg \
+git-lfs \
 gnome-shell-extension-bluetooth-quick-connect \
 gnome-shell-extension-dashtodock \
 gnome-tweaks \
