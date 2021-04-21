@@ -30,15 +30,15 @@ function backupVault {
 
 # Backups
 #
-if [[ -d $HOME/Documents/TPIN ]]; then
-	backupVault $HOME/Documents/TPIN
+if [[ -d $HOME/Code/notes-tpin ]]; then
+	backupVault $HOME/Code/notes-tpin
 	(
-		cd $HOME/Documents
+		cd $HOME/Code
 		mkdir -p $HOME/Downloads
 		rm -rf $HOME/Downloads/TPIN-Obsidian.zip
-		zip -qr $HOME/Downloads/TPIN-Obsidian.zip TPIN
+		zip -qr $HOME/Downloads/TPIN-Obsidian.zip notes-tpin
 	)
 fi
-if [[ -d $HOME/OneDrive/DelphiStrategy/Zibaldone ]]; then
-	backupVault $HOME/OneDrive/DelphiStrategy/Zibaldone
+if [[ -d $HOME/Code/notes-necopinus ]]; then
+	backupVault $HOME/Code/notes-necopinus
 fi
