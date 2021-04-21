@@ -66,7 +66,7 @@ gnome-contacts \
 gnome-font-viewer \
 gnome-weather \
 gucharmap \
-libreoffice-core \
+libreoffice-common \
 simple-scan \
 totem
 
