@@ -124,16 +124,6 @@ mkdir -p $HOME/Code
 	mv yakcollective website-yakcollective.org
 )
 
-# Restore Obsidian backup directory.
-#
-if [[ -f $BACKUP_PATH/Obsidian.tar.7z ]]; then
-        (
-                cd $HOME/.local/share
-		rm -rf obsidian-backups
-		7z x -p$BACKUP_PASSWORD -so $BACKUP_PATH/Obsidian.tar.7z | tar -xvf -
-        )
-fi
-
 # Restore VirtualBox data.
 #
 if [[ -d $BACKUP_PATH/VirtualBox ]]; then

@@ -75,13 +75,24 @@ if [[ -d $HOME/Code ]]; then
 	)
 fi
 
-# Backup Obsidian backups.
+# Obsidian backups.
 #
-if [[ -d $HOME/.local/share/obsidian-backups ]]; then
+if [[ -d $HOME/Documents/TPIN ]]; then
 	(
-		cd $HOME/.local/share
-		tar -cvf - obsidian-backups | 7z a -p$BACKUP_PASSWORD -si Obsidian.tar.7z
-		mv -v Obsidian.tar.7z $BACKUP_PATH/
+		cd $HOME/Documents
+		mkdir -p $HOME/Downloads
+		rm -f $HOME/Downloads/TPIN-Obsidian.zip
+		zip -r -f $HOME/Downloads/TPIN-Obsidian.zip TPIN "TPIN - Large File Backup"
+	)
+fi
+if [[ -d $HOME/OneDrive/DelphiStrategy/Zibaldone ]]; then
+	(
+		cd $HOME/OneDrive/DelphiStrategy
+		mkdir -p $HOME/Downloads
+		rm -f $HOME/Downloads/Obsidian.zip
+		zip -r -f $HOME/Downloads/Obsidian.zip Zibaldone "Zibaldone - Large File Backup"
+		mkdir -p $HOME/OneDrive/EcoPunk/Documents/Backups
+		mv $HOME/Downloads/Obsidian.zip $HOME/OneDrive/EcoPunk/Documents/Backups/Obsidian.zip
 	)
 fi
 
