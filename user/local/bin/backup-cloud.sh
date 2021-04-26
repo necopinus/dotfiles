@@ -82,7 +82,7 @@ if [[ -d $HOME/Documents/TPIN ]]; then
 		cd $HOME/Documents
 		mkdir -p $HOME/Downloads
 		rm -f $HOME/Downloads/TPIN-Obsidian.zip
-		zip -r -f $HOME/Downloads/TPIN-Obsidian.zip TPIN "TPIN - Large File Backup"
+		zip -r $HOME/Downloads/TPIN-Obsidian.zip TPIN "TPIN - Large File Backup"
 	)
 fi
 if [[ -d $HOME/OneDrive/DelphiStrategy/Zibaldone ]]; then
@@ -90,7 +90,7 @@ if [[ -d $HOME/OneDrive/DelphiStrategy/Zibaldone ]]; then
 		cd $HOME/OneDrive/DelphiStrategy
 		mkdir -p $HOME/Downloads
 		rm -f $HOME/Downloads/Obsidian.zip
-		zip -r -f $HOME/Downloads/Obsidian.zip Zibaldone "Zibaldone - Large File Backup"
+		zip -r $HOME/Downloads/Obsidian.zip Zibaldone "Zibaldone - Large File Backup"
 		mkdir -p $HOME/OneDrive/EcoPunk/Documents/Backups
 		mv $HOME/Downloads/Obsidian.zip $HOME/OneDrive/EcoPunk/Documents/Backups/Obsidian.zip
 	)
