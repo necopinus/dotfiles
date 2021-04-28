@@ -195,18 +195,19 @@ mkdir -p $HOME/.config/systemd/user
 mkdir -p $HOME/.config/onedrive/{DelphiStrategy,EcoPunk}
 mkdir -p $HOME/.local/bin
 
-cp $CONFIG_PATH/user/bash_aliases                          $HOME/.bash_aliases
-cp $CONFIG_PATH/user/config/onedrive/DelphiStrategy/config $HOME/.config/onedrive/DelphiStrategy/config
-cp $CONFIG_PATH/user/config/onedrive/EcoPunk/config        $HOME/.config/onedrive/EcoPunk/config
-cp $CONFIG_PATH/user/config/systemd/user/hydroxide.service $HOME/.config/systemd/user/hydroxide.service
-cp $CONFIG_PATH/user/config/systemd/user/onedrive@.service $HOME/.config/systemd/user/onedrive@.service
-cp $CONFIG_PATH/user/gitconfig                             $HOME/.gitconfig
-cp $CONFIG_PATH/user/local/bin/backup-cloud.sh             $HOME/.local/bin/backup-cloud.sh
-cp $CONFIG_PATH/user/local/bin/backup-local.sh             $HOME/.local/bin/backup-local.sh
-cp $CONFIG_PATH/user/local/bin/update-gam.sh               $HOME/.local/bin/update-gam.sh
-cp $CONFIG_PATH/user/local/bin/update-hydroxide.sh         $HOME/.local/bin/update-hydroxide.sh
-cp $CONFIG_PATH/user/local/bin/update-system.sh            $HOME/.local/bin/update-system.sh
-cp $CONFIG_PATH/user/local/bin/update-zoom.sh              $HOME/.local/bin/update-zoom.sh
+cp $CONFIG_PATH/user/bash_aliases                               $HOME/.bash_aliases
+cp $CONFIG_PATH/user/config/onedrive/DelphiStrategy/config      $HOME/.config/onedrive/DelphiStrategy/config
+cp $CONFIG_PATH/user/config/onedrive/EcoPunk/config             $HOME/.config/onedrive/EcoPunk/config
+cp $CONFIG_PATH/user/config/systemd/user/hydroxide.service      $HOME/.config/systemd/user/hydroxide.service
+cp $CONFIG_PATH/user/config/systemd/user/onedrive@.service      $HOME/.config/systemd/user/onedrive@.service
+cp $CONFIG_PATH/user/gitconfig                                  $HOME/.gitconfig
+cp $CONFIG_PATH/user/local/bin/backup-cloud.sh                  $HOME/.local/bin/backup-cloud.sh
+cp $CONFIG_PATH/user/local/bin/backup-local.sh                  $HOME/.local/bin/backup-local.sh
+cp $CONFIG_PATH/user/local/bin/update-gam.sh                    $HOME/.local/bin/update-gam.sh
+cp $CONFIG_PATH/user/local/bin/update-hydroxide.sh              $HOME/.local/bin/update-hydroxide.sh
+cp $CONFIG_PATH/user/local/bin/update-system.sh                 $HOME/.local/bin/update-system.sh
+cp $CONFIG_PATH/user/local/bin/update-zoom.sh                   $HOME/.local/bin/update-zoom.sh
+cp $CONFIG_PATH/user/openshot_qt/profiles/pixelbook-google-meet $HOME/.openshot_qt/profiles/pixelbook-google-meet
 
 chmod 755 $HOME/.local/bin/*
 
