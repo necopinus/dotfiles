@@ -121,6 +121,7 @@ flatpak install --user flathub md.obsidian.Obsidian
 flatpak install --user flathub org.gimp.GIMP
 flatpak install --user flathub org.gnome.SoundJuicer
 flatpak install --user flathub org.keepassxc.KeePassXC
+flatpak install --user flathub org.openshot.OpenShot
 flatpak install --user flathub org.signal.Signal
 flatpak install --user flathub org.videolan.VLC
 
