@@ -163,8 +163,6 @@ gsettings set org.gnome.desktop.wm.preferences           titlebar-font          
 gsettings set org.gnome.gnome-system-monitor             solaris-mode                 false
 gsettings set org.gnome.nautilus.list-view               use-tree-view                true
 gsettings set org.gnome.nautilus.preferences             default-folder-viewer        "list-view"
-gsettings set org.gnome.settings-daemon.plugins.color    night-light-enabled          true
-gsettings set org.gnome.settings-daemon.plugins.color    night-light-temperature      3700
 gsettings set org.gnome.shell                            enabled-extensions           "['alt-tab-raise-first-window@system76.com','always-show-workspaces@system76.com','ding@rastersoft.com','pop-shell@system76.com','pop-shop-details@system76.com','system76-power@system76.com','ubuntu-appindicators@ubuntu.com','bluetooth-quick-connect@bjarosze.gmail.com','dash-to-dock@micxgx.gmail.com']"
 gsettings set org.gnome.shell.extensions.dash-to-dock    dash-max-icon-size           64
 gsettings set org.gnome.shell.extensions.dash-to-dock    dock-position                "BOTTOM"
