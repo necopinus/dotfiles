@@ -85,9 +85,6 @@ discord \
 dos2unix \
 endpoint-verification \
 exfatprogs \
-ffmpeg \
-git-lfs \
-gnome-shell-extension-bluetooth-quick-connect \
 gnome-shell-extension-dashtodock \
 gnome-tweaks \
 golang \
@@ -97,21 +94,17 @@ graphviz \
 grub-pc \
 ibus-typing-booster \
 jhead \
-libgtk-3-dev \
-mpack \
 nodejs \
 offlineimap \
 onedrive \
 optipng \
 p7zip-full \
-python3-wxgtk4.0 \
 qalc \
-vdirsyncer \
 vim \
 virtualbox-ext-pack \
 virtualbox-guest-additions-iso \
-wimtools \
 xdotool \
+youtube-dl \
 yubikey-manager
 
 flatpak install --user flathub com.toggl.TogglDesktop
@@ -154,7 +147,6 @@ gsettings set org.gnome.desktop.peripherals.touchpad     natural-scroll         
 gsettings set org.gnome.desktop.privacy                  recent-files-max-age         30
 gsettings set org.gnome.desktop.privacy                  remove-old-temp-files        true
 gsettings set org.gnome.desktop.privacy                  remove-old-trash-files       true
-gsettings set org.gnome.desktop.search-providers         enabled                      "['io.github.quodlibet.QuodLibet.desktop']"
 gsettings set org.gnome.desktop.wm.keybindings           switch-applications          "['<Super>Tab']"
 gsettings set org.gnome.desktop.wm.keybindings           switch-applications-backward "['<Shift><Super>Tab']"
 gsettings set org.gnome.desktop.wm.keybindings           switch-windows               "['<Alt>Tab']"
@@ -163,7 +155,7 @@ gsettings set org.gnome.desktop.wm.preferences           titlebar-font          
 gsettings set org.gnome.gnome-system-monitor             solaris-mode                 false
 gsettings set org.gnome.nautilus.list-view               use-tree-view                true
 gsettings set org.gnome.nautilus.preferences             default-folder-viewer        "list-view"
-gsettings set org.gnome.shell                            enabled-extensions           "['alt-tab-raise-first-window@system76.com','always-show-workspaces@system76.com','ding@rastersoft.com','pop-shell@system76.com','pop-shop-details@system76.com','system76-power@system76.com','ubuntu-appindicators@ubuntu.com','bluetooth-quick-connect@bjarosze.gmail.com','dash-to-dock@micxgx.gmail.com']"
+gsettings set org.gnome.shell                            enabled-extensions           "['alt-tab-raise-first-window@system76.com','always-show-workspaces@system76.com','ding@rastersoft.com','pop-shell@system76.com','pop-shop-details@system76.com','system76-power@system76.com','ubuntu-appindicators@ubuntu.com','dash-to-dock@micxgx.gmail.com']"
 gsettings set org.gnome.shell.extensions.dash-to-dock    dash-max-icon-size           64
 gsettings set org.gnome.shell.extensions.dash-to-dock    dock-position                "BOTTOM"
 gsettings set org.gnome.shell.extensions.dash-to-dock    multi-monitor                true
