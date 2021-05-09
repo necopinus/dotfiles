@@ -75,16 +75,6 @@ if [[ -f $BACKUP_PATH/ProtonTechnologies.tar.7z ]]; then
 	)
 fi
 
-# Extract SSH configuration.
-#
-if [[ -f $BACKUP_PATH/SSH.tar.7z ]]; then
-	(
-		cd $HOME
-		rm -rf .ssh
-		7z x -p$BACKUP_PASSWORD -so $BACKUP_PATH/SSH.tar.7z | tar -xvf -
-	)
-fi
-
 # Restore all git repos.
 #
 mkdir -p $HOME/Code

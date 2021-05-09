@@ -42,16 +42,6 @@ if [[ -d $HOME/Proton ]]; then
 	)
 fi
 
-# Backup SSH configuration.
-#
-if [[ -d $HOME/.ssh ]]; then
-	(
-		cd $HOME
-		tar -cvf - .ssh | 7z a -p$BACKUP_PASSWORD -si SSH.tar.7z
-		mv -v SSH.tar.7z $BACKUP_PATH/
-	)
-fi
-
 # Backup code repos.
 #
 if [[ -d $HOME/Code ]]; then
