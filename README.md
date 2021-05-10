@@ -14,3 +14,5 @@ Various configuration files & scripts.
 4. Replace **XXX** in `~/.config/backup-password` with the **Backup File 7zip Password** from `~/OneDrive/EcoPunk/Documents/KeePass.kdbx`.
 5. Run `./bin/darter-pro-INSTALL-2.sh`.
 6. Finish configuring applications.
+
+Test
