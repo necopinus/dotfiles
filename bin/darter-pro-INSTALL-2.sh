@@ -79,24 +79,35 @@ fi
 #
 mkdir -p $HOME/Code
 (
+	git config --global user.signingkey "$(gpg --list-keys nathan.acks@cardboard-iguana.com | grep -E "^      [0-9A-Z]{40}$" | sed -e "s/^ *//")"
 	cd $HOME/Code
 	git clone https://github.com/keeweb/keeweb.git
 	mv keeweb app-keeweb
-	GIT_SSH_COMMAND="ssh -i $HOME/.ssh/id_ed25519_tpin -F /dev/null" git clone git@bitbucket.org:tpin-it-security/keeweb-overlay.git
+	GIT_SSH_COMMAND="ssh -i $HOME/.ssh/id_rsa -F /dev/null" git clone git@bitbucket.org:tpin-it-security/keeweb-overlay.git
 	mv keeweb-overlay app-keeweb-overlay
 	cd app-keeweb-overlay
-	git config core.sshCommand "ssh -i $HOME/.ssh/id_ed25519_tpin -F /dev/null"
+	git config core.sshCommand "ssh -i $HOME/.ssh/id_rsa -F /dev/null"
 	git config user.email "nathan.acks@publicinterestnetwork.org"
+	git config user.signingkey "$(gpg --list-keys nathan.acks@publicinterestnetwork.org | grep -E "^      [0-9A-Z]{40}$" | sed -e "s/^ *//")"
 	cd ..
-	GIT_SSH_COMMAND="ssh -i $HOME/.ssh/id_ed25519_tpin -F /dev/null"git clone git@bitbucket.org:tpin-it-security/assets-okta.git
+	GIT_SSH_COMMAND="ssh -i $HOME/.ssh/id_rsa -F /dev/null"git clone git@bitbucket.org:tpin-it-security/assets-okta.git
 	cd assets-okta
-	git config core.sshCommand "ssh -i $HOME/.ssh/id_ed25519_tpin -F /dev/null"
+	git config core.sshCommand "ssh -i $HOME/.ssh/id_rsa -F /dev/null"
 	git config user.email "nathan.acks@publicinterestnetwork.org"
+	git config user.signingkey "$(gpg --list-keys nathan.acks@publicinterestnetwork.org | grep -E "^      [0-9A-Z]{40}$" | sed -e "s/^ *//")"
 	cd ..
-	GIT_SSH_COMMAND="ssh -i $HOME/.ssh/id_ed25519_tpin -F /dev/null"git clone git@bitbucket.org:tpin-it-security/automation-it-lifecycle.git
+	GIT_SSH_COMMAND="ssh -i $HOME/.ssh/id_rsa -F /dev/null"git clone git@bitbucket.org:tpin-it-security/automation-it-lifecycle.git
 	cd automation-it-lifecycle
-	git config core.sshCommand "ssh -i $HOME/.ssh/id_ed25519_tpin -F /dev/null"
+	git config core.sshCommand "ssh -i $HOME/.ssh/id_rsa -F /dev/null"
 	git config user.email "nathan.acks@publicinterestnetwork.org"
+	git config user.signingkey "$(gpg --list-keys nathan.acks@publicinterestnetwork.org | grep -E "^      [0-9A-Z]{40}$" | sed -e "s/^ *//")"
+	cd ..
+	GIT_SSH_COMMAND="ssh -i $HOME/.ssh/id_rsa -F /dev/null"git clone git@bitbucket.org:tpin-it-security/computer-setup.git
+	mv computer-setup automation-computer-setup
+	cd automation-computer-setup
+	git config core.sshCommand "ssh -i $HOME/.ssh/id_rsa -F /dev/null"
+	git config user.email "nathan.acks@publicinterestnetwork.org"
+	git config user.signingkey "$(gpg --list-keys nathan.acks@publicinterestnetwork.org | grep -E "^      [0-9A-Z]{40}$" | sed -e "s/^ *//")"
 	cd ..
 	git clone git@github.com:necopinus/backups.git
 	mv backups backups-necopinus
