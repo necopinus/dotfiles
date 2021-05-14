@@ -42,29 +42,6 @@ if [[ -d $HOME/Proton ]]; then
 	)
 fi
 
-# Backup code repos.
-#
-if [[ -d $HOME/Code ]]; then
-	find $HOME/Code -mindepth 1 -maxdepth 1 -type d -print0 | \
-	while read -d '' GIT_DIR; do
-		(
-			cd "$GIT_DIR"
-			git add -A -v
-			git commit -m "Commit all changes before backup pull"
-			git pull
-			if [[ $(git config --get remote.origin.url | grep -cE '^http') -eq 0 ]]; then
-				git push
-			fi
-		)
-	done
-	(
-		cd $HOME/Code
-		find . -mindepth 1 -maxdepth 1 -type d -exec tar -cvf "{}.tar" "{}" \;
-		mkdir -p $BACKUP_PATH/Code
-		mv -v *.tar $BACKUP_PATH/Code/
-	)
-fi
-
 # Obsidian backups.
 #
 if [[ -d $HOME/Documents/TPIN ]]; then
