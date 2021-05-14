@@ -58,10 +58,3 @@ fi
 #if [[ -d $HOME/VirtualBox ]]; then
 #	rsync -av --delete --force --human-readable --progress $HOME/VirtualBox/ $BACKUP_PATH/VirtualBox/
 #fi
-
-# Warn on files not backed up to OneDrive...
-#
-echo ""
-echo "The following files are NOT backed up to OneDrive:"
-echo ""
-find $HOME -type f -not -ipath "$HOME/.*" -not -ipath "$HOME/Code/*" -not -ipath "$HOME/go/*" -not -ipath "$HOME/OneDrive/*" -not -ipath "$HOME/Proton/*" -not -ipath "$HOME/VirtualBox/*"
