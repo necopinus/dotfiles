@@ -127,7 +127,7 @@ mkdir -p $HOME/Code
 
 # Restore VirtualBox data.
 #
-if [[ -d $BACKUP_PATH/VirtualBox ]]; then
-	rm -rf $HOME/VirtualBox
-	cp -apvrf $BACKUP_PATH/VirtualBox $HOME/VirtualBox
-fi
+#if [[ -d $BACKUP_PATH/VirtualBox ]]; then
+#	rm -rf $HOME/VirtualBox
+#	cp -apvrf $BACKUP_PATH/VirtualBox $HOME/VirtualBox
+#fi

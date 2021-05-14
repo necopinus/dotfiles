@@ -88,9 +88,9 @@ fi
 
 # Backup VirtualBox.
 #
-if [[ -d $HOME/VirtualBox ]]; then
-	rsync -av --delete --force --human-readable --progress $HOME/VirtualBox/ $BACKUP_PATH/VirtualBox/
-fi
+#if [[ -d $HOME/VirtualBox ]]; then
+#	rsync -av --delete --force --human-readable --progress $HOME/VirtualBox/ $BACKUP_PATH/VirtualBox/
+#fi
 
 # Warn on files not backed up to OneDrive...
 #
