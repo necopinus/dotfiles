@@ -103,6 +103,7 @@ qalc \
 vim \
 virtualbox-ext-pack \
 virtualbox-guest-additions-iso \
+virtualenv \
 xdotool \
 youtube-dl \
 yubikey-manager
