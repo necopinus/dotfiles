@@ -22,7 +22,7 @@ if [[ "$LOCAL_VERSION" != "$REMOTE_VERSION" ]]; then
 		cd "$BUILD_DIR"
 		curl -L -O https://github.com/jay0lee/GAM/releases/download/v${REMOTE_VERSION}/gam-${REMOTE_VERSION}-linux-x86_64-glibc${GLIBC_VERSION}.tar.xz
 		mkdir -p $HOME/.local/bin
-		tar -xJf gam-${REMOTE_VERSION}-linux-x86_64-glibc${GLIBC_VERSION}.tar.xz -C $HOME/.local/bin gam
+		tar -xJf gam-${REMOTE_VERSION}-linux-x86_64-glibc${GLIBC_VERSION}.tar.xz -C $HOME/.local/bin --strip-components=1 gam/gam
 		mkdir -p $HOME/.cache/versions
 		echo "$REMOTE_VERSION" > $HOME/.cache/versions/gam
 	)
