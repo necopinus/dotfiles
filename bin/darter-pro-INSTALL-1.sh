@@ -108,7 +108,6 @@ xdotool \
 youtube-dl \
 yubikey-manager
 
-flatpak install --user flathub com.toggl.TogglDesktop
 flatpak install --user flathub fi.skyjake.Lagrange
 flatpak install --user flathub fr.handbrake.ghb
 flatpak install --user flathub md.obsidian.Obsidian

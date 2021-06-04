@@ -42,29 +42,6 @@ if [[ -d $HOME/Proton ]]; then
 	)
 fi
 
-# Backup code repos.
-#
-if [[ -d $HOME/Code ]]; then
-	find $HOME/Code -mindepth 1 -maxdepth 1 -type d -print0 | \
-	while read -d '' GIT_DIR; do
-		(
-			cd "$GIT_DIR"
-			git add -A -v
-			git commit -m "Commit all changes before backup pull"
-			git pull
-			if [[ $(git config --get remote.origin.url | grep -cE '^http') -eq 0 ]]; then
-				git push
-			fi
-		)
-	done
-	(
-		cd $HOME/Code
-		find . -mindepth 1 -maxdepth 1 -type d -exec tar -cvf "{}.tar" "{}" \;
-		mkdir -p $BACKUP_PATH/Code
-		mv -v *.tar $BACKUP_PATH/Code/
-	)
-fi
-
 # Obsidian backups.
 #
 if [[ -d $HOME/Documents/TPIN ]]; then
@@ -75,26 +52,9 @@ if [[ -d $HOME/Documents/TPIN ]]; then
 		zip -r $HOME/Downloads/TPIN-Obsidian.zip TPIN "TPIN - Large File Backup"
 	)
 fi
-if [[ -d $HOME/OneDrive/DelphiStrategy/Zibaldone ]]; then
-	(
-		cd $HOME/OneDrive/DelphiStrategy
-		mkdir -p $HOME/Downloads
-		rm -f $HOME/Downloads/Obsidian.zip
-		zip -r $HOME/Downloads/Obsidian.zip Zibaldone "Zibaldone - Large File Backup"
-		mkdir -p $HOME/OneDrive/EcoPunk/Documents/Backups
-		mv $HOME/Downloads/Obsidian.zip $HOME/OneDrive/EcoPunk/Documents/Backups/Obsidian.zip
-	)
-fi
 
 # Backup VirtualBox.
 #
 #if [[ -d $HOME/VirtualBox ]]; then
 #	rsync -av --delete --force --human-readable --progress $HOME/VirtualBox/ $BACKUP_PATH/VirtualBox/
 #fi
-
-# Warn on files not backed up to OneDrive...
-#
-echo ""
-echo "The following files are NOT backed up to OneDrive:"
-echo ""
-find $HOME -type f -not -ipath "$HOME/.*" -not -ipath "$HOME/Code/*" -not -ipath "$HOME/go/*" -not -ipath "$HOME/OneDrive/*" -not -ipath "$HOME/Proton/*" -not -ipath "$HOME/VirtualBox/*"
