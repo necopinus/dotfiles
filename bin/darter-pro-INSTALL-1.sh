@@ -167,7 +167,7 @@ gsettings set org.gnome.shell.extensions.dash-to-dock    show-trash             
 gsettings set org.gnome.shell.extensions.dash-to-dock    transparency-mode            "FIXED"
 gsettings set org.gnome.shell.window-switcher            current-workspace-only       false
 gsettings set org.gnome.sound-juicer                     audio-profile                "audio/mpeg"
-gsettings set org.gnome.sound-juicer                     file-pattern                 "%dN - %ta - %tt"
+gsettings set org.gnome.sound-juicer                     file-pattern                 "%at - %dn - %ta - %tt"
 gsettings set org.gnome.sound-juicer                     path-pattern                 "%at"
 gsettings set org.gnome.system.location                  enabled                      true
 gsettings set org.gtk.Settings.FileChooser               clock-format                 "24h"
