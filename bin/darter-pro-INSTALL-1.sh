@@ -92,14 +92,18 @@ google-chrome-stable \
 graphicsmagick \
 graphviz \
 grub-pc \
+handbrake \
 ibus-typing-booster \
+id3v2 \
 jhead \
+lame \
 nodejs \
 offlineimap \
 onedrive \
 optipng \
 p7zip-full \
 qalc \
+ripit \
 vim \
 virtualbox-ext-pack \
 virtualbox-guest-additions-iso \
@@ -109,10 +113,8 @@ youtube-dl \
 yubikey-manager
 
 flatpak install --user flathub fi.skyjake.Lagrange
-flatpak install --user flathub fr.handbrake.ghb
 flatpak install --user flathub md.obsidian.Obsidian
 flatpak install --user flathub org.gimp.GIMP
-flatpak install --user flathub org.gnome.SoundJuicer
 flatpak install --user flathub org.keepassxc.KeePassXC
 flatpak install --user flathub org.openshot.OpenShot
 flatpak install --user flathub org.signal.Signal
