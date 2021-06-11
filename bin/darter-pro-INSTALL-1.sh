@@ -102,6 +102,7 @@ optipng \
 p7zip-full \
 qalc \
 sound-juicer \
+soundconverter \
 vim \
 virtualbox-ext-pack \
 virtualbox-guest-additions-iso \
@@ -171,6 +172,9 @@ gsettings set org.gnome.sound-juicer                     file-pattern           
 gsettings set org.gnome.sound-juicer                     path-pattern                 "%at"
 gsettings set org.gnome.system.location                  enabled                      true
 gsettings set org.gtk.Settings.FileChooser               clock-format                 "24h"
+gsettings set org.soundconverter                         audio-profile                ""
+gsettings set org.soundconverter                         mp3-vbr-quality              0
+gsettings set org.soundconverter                         output-mime-type             "audio/mpeg"
 
 # Apply settings for relocatable schemas.
 #
