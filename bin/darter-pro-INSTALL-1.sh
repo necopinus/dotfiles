@@ -95,6 +95,7 @@ grub-pc \
 handbrake \
 ibus-typing-booster \
 jhead \
+jq \
 nodejs \
 offlineimap \
 onedrive \
