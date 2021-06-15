@@ -8,7 +8,7 @@ CONFIG_PATH="$(dirname "$SCRIPT_PATH")/../"
 
 # Set backup path.
 #
-BACKUP_PATH=$HOME/Documents/Backups
+BACKUP_PATH=$HOME/OneDrive/Documents/Backups
 if [[ ! -d $BACKUP_PATH ]]; then
 	echo "Backup path $BACKUP_PATH does not exist!"
 	exit 1

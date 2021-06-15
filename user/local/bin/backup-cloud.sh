@@ -2,7 +2,7 @@
 
 # Set backup path.
 #
-BACKUP_PATH=$HOME/Documents/Backups
+BACKUP_PATH=$HOME/OneDrive/Documents/Backups
 if [[ ! -d $BACKUP_PATH ]]; then
 	echo "Backup path $BACKUP_PATH does not exist!"
 	exit 1
@@ -44,12 +44,13 @@ fi
 
 # Obsidian backups.
 #
-if [[ -d $HOME/Documents/TPIN ]]; then
+if [[ -d $HOME/OneDrive/Documents/TPIN ]]; then
 	(
-		cd $HOME/Documents
-		mkdir -p $HOME/Downloads
-		rm -f $HOME/Downloads/TPIN-Obsidian.zip
-		zip -r $HOME/Downloads/TPIN-Obsidian.zip TPIN "TPIN - Large File Backup"
+		cd $HOME/OneDrive/Documents
+		[[ -f $HOME/TPIN-Obsidian.zip ]] && rm -f $HOME/TPIN-Obsidian.zip
+		zip -r $HOME/TPIN-Obsidian.zip TPIN "TPIN - Large File Backup"
+		[[ ! -d $HOME/OneDrive/Downloads ]] && mkdir -p $HOME/OneDrive/Downloads
+		mv $HOME/TPIN-Obsidian.zip $HOME/OneDrive/Downloads/TPIN-Obsidian.zip
 	)
 fi
 
