@@ -1,11 +1,11 @@
 [Unit]
-Description=OneDrive for %i
+Description=OneDrive
 Documentation=https://github.com/abraunegg/onedrive
 After=network-online.target
 Wants=network-online.target
 
 [Service]
-ExecStart=/usr/bin/onedrive --monitor --verbose --confdir=%h/.config/onedrive/%i
+ExecStart=/usr/bin/onedrive --monitor --verbose
 Restart=on-failure
 RestartSec=3
 RestartPreventExitStatus=3

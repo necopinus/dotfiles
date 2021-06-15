@@ -185,14 +185,13 @@ gsettings set org.gnome.desktop.notifications.application:/org/gnome/desktop/not
 #
 mkdir -p $HOME/.cache/onedrive
 mkdir -p $HOME/.config/systemd/user
-mkdir -p $HOME/.config/onedrive/{DelphiStrategy,EcoPunk}
+mkdir -p $HOME/.config/onedrive
 mkdir -p $HOME/.local/bin
 
 cp $CONFIG_PATH/user/bash_aliases                               $HOME/.bash_aliases
-cp $CONFIG_PATH/user/config/onedrive/DelphiStrategy/config      $HOME/.config/onedrive/DelphiStrategy/config
-cp $CONFIG_PATH/user/config/onedrive/EcoPunk/config             $HOME/.config/onedrive/EcoPunk/config
+cp $CONFIG_PATH/user/config/onedrive/config                     $HOME/.config/onedrive/config
 cp $CONFIG_PATH/user/config/systemd/user/hydroxide.service      $HOME/.config/systemd/user/hydroxide.service
-cp $CONFIG_PATH/user/config/systemd/user/onedrive@.service      $HOME/.config/systemd/user/onedrive@.service
+cp $CONFIG_PATH/user/config/systemd/user/onedrive.service       $HOME/.config/systemd/user/onedrive.service
 cp $CONFIG_PATH/user/gitconfig                                  $HOME/.gitconfig
 cp $CONFIG_PATH/user/local/bin/backup-cloud.sh                  $HOME/.local/bin/backup-cloud.sh
 cp $CONFIG_PATH/user/local/bin/backup-local.sh                  $HOME/.local/bin/backup-local.sh

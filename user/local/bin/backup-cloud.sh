@@ -2,7 +2,7 @@
 
 # Set backup path.
 #
-BACKUP_PATH=$HOME/OneDrive/EcoPunk/Documents/Backups
+BACKUP_PATH=$HOME/Documents/Backups
 if [[ ! -d $BACKUP_PATH ]]; then
 	echo "Backup path $BACKUP_PATH does not exist!"
 	exit 1

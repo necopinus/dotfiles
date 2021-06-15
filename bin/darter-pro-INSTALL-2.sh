@@ -8,7 +8,7 @@ CONFIG_PATH="$(dirname "$SCRIPT_PATH")/../"
 
 # Set backup path.
 #
-BACKUP_PATH=$HOME/OneDrive/EcoPunk/Documents/Backups
+BACKUP_PATH=$HOME/Documents/Backups
 if [[ ! -d $BACKUP_PATH ]]; then
 	echo "Backup path $BACKUP_PATH does not exist!"
 	exit 1
@@ -30,19 +30,16 @@ fi
 # Confirm that we've finished part 1.
 #
 echo "This script should *only* be run after OneDrive has been fully synced"
-echo "to this machine. IF A FULL INITIAL SYNC HAS NOT YET FINISHED USE CTRL+C"
-echo "TO EXIT NOW!"
+echo "to this machine and XDG_DATA bind mounts configured. IF THESE STEPS ARE"
+echo "NOT YET FINISHED USE CTRL+C TO EXIT NOW!"
 echo ""
 read -p "Press any key to continue... " -n1 -s
 echo ""
 
 # Enable and start OneDrive sync processes.
 #
-systemctl --user enable onedrive@DelphiStrategy.service
-systemctl --user enable onedrive@EcoPunk.service
-
-systemctl --user start onedrive@DelphiStrategy.service
-systemctl --user start onedrive@EcoPunk.service
+systemctl --user enable onedrive.service
+systemctl --user start onedrive.service
 
 # Extract GAM configuration.
 #
