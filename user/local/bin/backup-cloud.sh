@@ -49,8 +49,6 @@ if [[ -d $HOME/OneDrive/Documents/TPIN ]]; then
 		cd $HOME/OneDrive/Documents
 		[[ -f $HOME/TPIN-Obsidian.zip ]] && rm -f $HOME/TPIN-Obsidian.zip
 		zip -r $HOME/TPIN-Obsidian.zip TPIN "TPIN - Large File Backup"
-		[[ ! -d $HOME/OneDrive/Downloads ]] && mkdir -p $HOME/OneDrive/Downloads
-		mv $HOME/TPIN-Obsidian.zip $HOME/OneDrive/Downloads/TPIN-Obsidian.zip
 	)
 fi
 
