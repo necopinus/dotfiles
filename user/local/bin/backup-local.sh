@@ -34,5 +34,5 @@ if [[ "$BACKUP_FS" = "exfat" ]]; then
 	rsync -vrltD --delete --force --human-readable --modify-window=1 --progress $HOME/OneDrive/Templates/ $BACKUP_PATH/Templates/
 	rsync -vrltD --delete --force --human-readable --modify-window=1 --progress $HOME/OneDrive/Videos/    $BACKUP_PATH/Videos/
 else
-	rsync -avx --delete --force --human-readable --progress $HOME/ $BACKUP_PATH/home/
+	rsync -av --delete --force --human-readable --progress $HOME/ $BACKUP_PATH/home/
 fi
