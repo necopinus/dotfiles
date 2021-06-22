@@ -121,6 +121,14 @@ flatpak install --user flathub org.openshot.OpenShot
 flatpak install --user flathub org.signal.Signal
 flatpak install --user flathub org.videolan.VLC
 
+# Install youtube-dl directly using pip for my user. This is necessary
+# because downloads are almost always broken with older versions of
+# youtube-dl. We keep the system version installed, however, to make
+# sure that youtube-dl's dependencies are present in a fashion that's
+# easier to maintain.
+#
+pip install --user --upgrade youtube-dl
+
 # Additional "loose" installs. These are all handled through update
 # scripts (which fortunately can also handle the initial installation.
 #

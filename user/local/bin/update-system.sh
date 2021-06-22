@@ -7,3 +7,5 @@ sudo apt clean
 
 flatpak update
 flatpak uninstall --unused
+
+pip install --user --upgrade youtube-dl
