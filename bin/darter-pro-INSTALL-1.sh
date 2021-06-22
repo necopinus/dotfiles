@@ -93,7 +93,6 @@ graphicsmagick \
 graphviz \
 grub-pc \
 handbrake \
-html-xml-utils \
 ibus-typing-booster \
 jhead \
 jq \
@@ -102,6 +101,7 @@ offlineimap \
 onedrive \
 optipng \
 p7zip-full \
+python3-bs4 \
 qalc \
 sound-juicer \
 soundconverter \
