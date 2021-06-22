@@ -93,6 +93,7 @@ graphicsmagick \
 graphviz \
 grub-pc \
 handbrake \
+html-xml-utils \
 ibus-typing-booster \
 jhead \
 jq \
