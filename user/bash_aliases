@@ -1,4 +1,19 @@
-# Abuse Debian's automatic sourcing of ~/.bash_aliases to set the GAM
-# configuration path.
+########################################################################
+# Abuse Debian's automatic sourcing of ~/.bash_aliases to override
+# various configuration defaults.
+
+# Set the GAM configuration path.
 #
 export GAMUSERCONFIGDIR="$HOME/.gam"
+
+# Rationalize $HISTSIZE and $HISTFILESIZE.
+#
+if [[ -n "$HISTSIZE" ]] && [[ -n "$HISTFILESIZE" ]]; then
+	if [[ $HISTSIZE -gt 0 ]] && [[ $HISTFILESIZE -gt 0 ]]; then
+		if [[ $HISTSIZE -gt $HISTFILESIZE ]]; then
+			export HISTFILESIZE=$HISTSIZE
+		else
+			export HISTSIZE=$HISTFILESIZE
+		fi
+	fi
+fi

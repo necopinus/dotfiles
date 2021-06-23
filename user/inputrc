@@ -1,0 +1,5 @@
+# Use up/down to search command history that begins with the string to
+# the left of the current cursor position.
+#
+"\e[A": history-search-backward
+"\e[B": history-search-forward
