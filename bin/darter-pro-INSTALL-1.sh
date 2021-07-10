@@ -48,18 +48,6 @@ source $CONFIG_PATH/user/local/bin/update-system.sh
 # Cleanup unneeded software.
 #
 sudo apt purge --autoremove --purge \
-firefox \
-firefox-locale-ar \
-firefox-locale-de \
-firefox-locale-en \
-firefox-locale-es \
-firefox-locale-fr \
-firefox-locale-it \
-firefox-locale-ja \
-firefox-locale-pt \
-firefox-locale-ru \
-firefox-locale-zh-hans \
-firefox-locale-zh-hant \
 geary \
 gedit \
 gnome-calculator \
@@ -87,8 +75,6 @@ discord \
 dos2unix \
 endpoint-verification \
 exfatprogs \
-gnome-shell-extension-dashtodock \
-gnome-tweaks \
 golang \
 google-chrome-stable \
 graphicsmagick \
@@ -144,49 +130,53 @@ source $CONFIG_PATH/user/local/bin/update-hydroxide.sh
 #
 #   flatpak run --command=gsettings $APP_REF $GSETTINGS_COMMAND_LINE
 #
-gsettings set ca.desrt.dconf-editor.Settings             show-warning                 false
-gsettings set org.freedesktop.ibus.engine.typing-booster dictionary                   "en_US"
-gsettings set org.freedesktop.ibus.engine.typing-booster emojipredictions             true
-gsettings set org.freedesktop.ibus.engine.typing-booster inputmethod                  "NoIME"
-gsettings set org.gnome.desktop.input-sources            mru-sources                  "[('xkb','us'),('ibus','typing-booster')]"
-gsettings set org.gnome.desktop.input-sources            sources                      "[('xkb','us'),('ibus','typing-booster')]"
-gsettings set org.gnome.desktop.interface                clock-format                 "24h"
-gsettings set org.gnome.desktop.interface                document-font-name           "Roboto Slab 13"
-gsettings set org.gnome.desktop.interface                font-name                    "Fira Sans Semi-Light 13"
-gsettings set org.gnome.desktop.interface                monospace-font-name          "Fira Mono 13"
-gsettings set org.gnome.desktop.interface                gtk-im-module                "ibus"
-gsettings set org.gnome.desktop.media-handling           autorun-never                true
-gsettings set org.gnome.desktop.peripherals.touchpad     natural-scroll               true
-gsettings set org.gnome.desktop.privacy                  recent-files-max-age         30
-gsettings set org.gnome.desktop.privacy                  remove-old-temp-files        true
-gsettings set org.gnome.desktop.privacy                  remove-old-trash-files       true
-gsettings set org.gnome.desktop.wm.keybindings           switch-applications          "['<Super>Tab']"
-gsettings set org.gnome.desktop.wm.keybindings           switch-applications-backward "['<Shift><Super>Tab']"
-gsettings set org.gnome.desktop.wm.keybindings           switch-windows               "['<Alt>Tab']"
-gsettings set org.gnome.desktop.wm.keybindings           switch-windows-backward      "['<Shift><Alt>Tab']"
-gsettings set org.gnome.desktop.wm.preferences           titlebar-font                "Fira Sans Semi-Bold 13"
-gsettings set org.gnome.gnome-system-monitor             solaris-mode                 false
-gsettings set org.gnome.nautilus.list-view               use-tree-view                true
-gsettings set org.gnome.nautilus.preferences             default-folder-viewer        "list-view"
-gsettings set org.gnome.shell                            enabled-extensions           "['alt-tab-raise-first-window@system76.com','always-show-workspaces@system76.com','ding@rastersoft.com','pop-shell@system76.com','pop-shop-details@system76.com','system76-power@system76.com','ubuntu-appindicators@ubuntu.com','dash-to-dock@micxgx.gmail.com']"
-gsettings set org.gnome.shell.extensions.dash-to-dock    dash-max-icon-size           64
-gsettings set org.gnome.shell.extensions.dash-to-dock    dock-position                "BOTTOM"
-gsettings set org.gnome.shell.extensions.dash-to-dock    multi-monitor                true
-gsettings set org.gnome.shell.extensions.dash-to-dock    preferred-monitor            0
-gsettings set org.gnome.shell.extensions.dash-to-dock    shortcut                     "['<Super><Shift>a']"
-gsettings set org.gnome.shell.extensions.dash-to-dock    shortcut-text                "<Super><Shift>a"
-gsettings set org.gnome.shell.extensions.dash-to-dock    show-mounts                  false
-gsettings set org.gnome.shell.extensions.dash-to-dock    show-trash                   false
-gsettings set org.gnome.shell.extensions.dash-to-dock    transparency-mode            "FIXED"
-gsettings set org.gnome.shell.window-switcher            current-workspace-only       false
-gsettings set org.gnome.sound-juicer                     audio-profile                "audio/mpeg"
-gsettings set org.gnome.sound-juicer                     file-pattern                 "%at - %dn - %ta - %tt"
-gsettings set org.gnome.sound-juicer                     path-pattern                 "%at"
-gsettings set org.gnome.system.location                  enabled                      true
-gsettings set org.gtk.Settings.FileChooser               clock-format                 "24h"
-gsettings set org.soundconverter                         audio-profile                ""
-gsettings set org.soundconverter                         mp3-vbr-quality              0
-gsettings set org.soundconverter                         output-mime-type             "audio/mpeg"
+gsettings set ca.desrt.dconf-editor.Settings             show-warning                   false
+gsettings set org.freedesktop.ibus.engine.typing-booster dictionary                     "en_US"
+gsettings set org.freedesktop.ibus.engine.typing-booster emojipredictions               true
+gsettings set org.freedesktop.ibus.engine.typing-booster inputmethod                    "NoIME"
+gsettings set org.gnome.desktop.input-sources            mru-sources                    "[('xkb','us'),('ibus','typing-booster')]"
+gsettings set org.gnome.desktop.input-sources            sources                        "[('xkb','us'),('ibus','typing-booster')]"
+gsettings set org.gnome.desktop.interface                clock-format                   "24h"
+gsettings set org.gnome.desktop.interface                document-font-name             "Roboto Slab 13"
+gsettings set org.gnome.desktop.interface                font-name                      "Fira Sans Semi-Light 13"
+gsettings set org.gnome.desktop.interface                gtk-im-module                  "ibus"
+gsettings set org.gnome.desktop.interface                monospace-font-name            "Fira Mono 13"
+gsettings set org.gnome.desktop.media-handling           autorun-never                  true
+gsettings set org.gnome.desktop.notifications            show-in-lock-screen            true
+gsettings set org.gnome.desktop.peripherals.touchpad     natural-scroll                 true
+gsettings set org.gnome.desktop.privacy                  recent-files-max-age           30
+gsettings set org.gnome.desktop.privacy                  remove-old-temp-files          true
+gsettings set org.gnome.desktop.privacy                  remove-old-trash-files         true
+gsettings set org.gnome.desktop.privacy                  report-technical-problems      false
+gsettings set org.gnome.desktop.sound                    allow-volume-above-100-percent true
+gsettings set org.gnome.desktop.wm.keybindings           switch-applications            "['<Super>Tab']"
+gsettings set org.gnome.desktop.wm.keybindings           switch-applications-backward   "['<Shift><Super>Tab']"
+gsettings set org.gnome.desktop.wm.keybindings           switch-windows                 "['<Alt>Tab']"
+gsettings set org.gnome.desktop.wm.keybindings           switch-windows-backward        "['<Shift><Alt>Tab']"
+gsettings set org.gnome.desktop.wm.preferences           button-layout                  "appmenu:minimize,maximize,close"
+gsettings set org.gnome.desktop.wm.preferences           titlebar-font                  "Fira Sans Semi-Bold 13"
+gsettings set org.gnome.gnome-screenshot                 delay                          5
+gsettings set org.gnome.gnome-screenshot                 last-save-directory            "file://$HOME/Downloads"
+gsettings set org.gnome.gnome-system-monitor             solaris-mode                   false
+gsettings set org.gnome.gnome-system-monitor.proctree    sort-col                       8
+gsettings set org.gnome.nautilus.list-view               use-tree-view                  true
+gsettings set org.gnome.nautilus.preferences             default-folder-viewer          "list-view"
+gsettings set org.gnome.shell                            remember-mount-password        true
+gsettings set org.gnome.shell.extensions.dash-to-dock    dash-max-icon-size             60
+gsettings set org.gnome.shell.extensions.dash-to-dock    dock-fixed                     false
+gsettings set org.gnome.shell.extensions.dash-to-dock    extend-height                  false
+gsettings set org.gnome.shell.extensions.dash-to-dock    intellihide                    true
+gsettings set org.gnome.shell.extensions.dash-to-dock    multi-monitor                  true
+gsettings set org.gnome.shell.extensions.pop-cosmic      clock-alignment                "RIGHT"
+gsettings set org.gnome.shell.weather                    automatic-location             true
+gsettings set org.gnome.shell.window-switcher            current-workspace-only         false
+gsettings set org.gnome.sound-juicer                     audio-profile                  "audio/mpeg"
+gsettings set org.gnome.sound-juicer                     file-pattern                   "%at - %dn - %ta - %tt"
+gsettings set org.gnome.sound-juicer                     path-pattern                   "%at"
+gsettings set org.gnome.system.location                  enabled                        true
+gsettings set org.gtk.Settings.FileChooser               clock-format                   "24h"
+gsettings set org.soundconverter                         mp3-vbr-quality                0
+gsettings set org.soundconverter                         output-mime-type               "audio/mpeg"
 
 # Apply settings for relocatable schemas.
 #
