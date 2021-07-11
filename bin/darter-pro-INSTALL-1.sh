@@ -10,11 +10,6 @@ CONFIG_PATH="$(dirname "$SCRIPT_PATH")/../"
 #
 sudo ufw enable
 
-# Add the Brave repository.
-#
-curl -s https://brave-browser-apt-release.s3.brave.com/brave-core.asc | sudo apt-key --keyring /etc/apt/trusted.gpg.d/brave-browser-release.gpg add -
-echo "deb [arch=amd64] https://brave-browser-apt-release.s3.brave.com/ stable main" | sudo tee /etc/apt/sources.list.d/brave-browser-release.list
-
 # Add the Google Endpoint Verification repository (needed for work).
 #
 curl -s https://packages.cloud.google.com/apt/doc/apt-key.gpg | sudo apt-key --keyring /etc/apt/trusted.gpg.d/google.gpg add -
@@ -67,7 +62,6 @@ sudo rm -rf /usr/share/fonts/truetype/libreoffice
 # Install new applications.
 #
 sudo apt install \
-brave-browser \
 bundler \
 code \
 dconf-editor \
