@@ -131,6 +131,7 @@ gsettings set org.freedesktop.ibus.engine.typing-booster inputmethod            
 gsettings set org.gnome.desktop.input-sources            mru-sources                    "[('xkb','us'),('ibus','typing-booster')]"
 gsettings set org.gnome.desktop.input-sources            sources                        "[('xkb','us'),('ibus','typing-booster')]"
 gsettings set org.gnome.desktop.interface                clock-format                   "24h"
+gsettings set org.gnome.desktop.interface                clock-show-weekday             true
 gsettings set org.gnome.desktop.interface                document-font-name             "Roboto Slab 13"
 gsettings set org.gnome.desktop.interface                font-name                      "Fira Sans Semi-Light 13"
 gsettings set org.gnome.desktop.interface                gtk-im-module                  "ibus"
