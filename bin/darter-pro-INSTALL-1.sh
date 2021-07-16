@@ -162,6 +162,7 @@ gsettings set org.gnome.shell.extensions.dash-to-dock    dock-fixed             
 gsettings set org.gnome.shell.extensions.dash-to-dock    extend-height                  false
 gsettings set org.gnome.shell.extensions.dash-to-dock    intellihide                    true
 gsettings set org.gnome.shell.extensions.dash-to-dock    multi-monitor                  true
+gsettings set org.gnome.shell.extensions.dash-to-dock    show-mounts                    false
 gsettings set org.gnome.shell.extensions.pop-cosmic      clock-alignment                "RIGHT"
 gsettings set org.gnome.shell.weather                    automatic-location             true
 gsettings set org.gnome.shell.window-switcher            current-workspace-only         false
