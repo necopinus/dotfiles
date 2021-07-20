@@ -1,11 +1,19 @@
-########################################################################
 # Abuse Debian's automatic sourcing of ~/.bash_aliases to override
 # various configuration defaults.
 
-# Set the GAM configuration path.
+# Pull GAM configuration data and set custom path.
 #
-if [[ -d "$HOME/.gam" ]]; then
-	export GAMUSERCONFIGDIR="$HOME/.gam"
+if [[ -d "/mnt/chromeos/GoogleDrive/MyDrive/gam" ]]; then
+	rsync -aq --delete --force /mnt/chromeos/GoogleDrive/MyDrive/gam/ $HOME/.gam/
+fi
+export GAMUSERCONFIGDIR="$HOME/.gam"
+
+# Start GNOME Keyring on Chrome OS.
+#
+source /etc/os-release
+if [[ -n "$DISPLAY" ]] && [[ "$ID" == "debian" ]]; then
+	eval $(gnome-keyring-daemon --start)
+	export SSH_AUTH_SOCK
 fi
 
 # Rationalize $HISTSIZE and $HISTFILESIZE.

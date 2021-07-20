@@ -1,6 +1,12 @@
 #!/usr/bin/env bash
 
-GLIBC_VERSION="2.31"
+source /etc/os-release
+
+if [[ "$ID" == "debian" ]]; then
+	GLIBC_VERSION="2.27"
+else
+	GLIBC_VERSION="2.31"
+fi
 
 # Get local version.
 #
@@ -31,4 +37,3 @@ else
 	echo "GAM is already at v${REMOTE_VERSION}"
 	touch $HOME/.cache/versions/gam
 fi
-

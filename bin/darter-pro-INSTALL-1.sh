@@ -10,6 +10,10 @@ CONFIG_PATH="$(dirname "$SCRIPT_PATH")/../"
 #
 sudo ufw enable
 
+# Install prerequisites.
+#
+sudo apt install apt-transport-https
+
 # Add the Google Endpoint Verification repository (needed for work).
 #
 curl -s https://packages.cloud.google.com/apt/doc/apt-key.gpg | sudo apt-key --keyring /etc/apt/trusted.gpg.d/google.gpg add -
@@ -37,7 +41,6 @@ sudo apt-add-repository ppa:yubico/stable
 
 # Make sure all components are up-to-date.
 #
-sudo apt install apt-transport-https
 source $CONFIG_PATH/user/local/bin/update-system.sh
 
 # Cleanup unneeded software.
@@ -69,6 +72,7 @@ discord \
 dos2unix \
 endpoint-verification \
 exfatprogs \
+fonts-noto \
 golang \
 google-chrome-stable \
 graphicsmagick \
@@ -179,6 +183,7 @@ mkdir -p $HOME/.config/onedrive
 mkdir -p $HOME/.local/bin
 
 cp $CONFIG_PATH/user/bash_aliases                               $HOME/.bash_aliases
+cp $CONFIG_PATH/user/bash_logout                                $HOME/.bash_logout
 cp $CONFIG_PATH/user/config/onedrive/config                     $HOME/.config/onedrive/config
 cp $CONFIG_PATH/user/config/systemd/user/hydroxide.service      $HOME/.config/systemd/user/hydroxide.service
 cp $CONFIG_PATH/user/config/systemd/user/onedrive.service       $HOME/.config/systemd/user/onedrive.service

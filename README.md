@@ -4,7 +4,7 @@ Various configuration files & scripts.
 
 ## Pop!_OS on the System76 Darter Pro 5
 
-1. Clone and run the first stage configuration. The system will be
+1. Clone repo and run the first stage configuration. The system will be
    rebooted when this is done.
 
 	```bash
@@ -47,7 +47,9 @@ Various configuration files & scripts.
 
 1. Install the Linux developer environment.
 
-2. Clone and run the configuration.
+2. Set up new per-device SSH/GPG keys.
+
+3. Clone repo and run the configuration script.
 
 	```bash
 	mkdir ~/_setup
@@ -57,13 +59,12 @@ Various configuration files & scripts.
 	./dotfiles/bin/chrome-os-INSTALL.sh
 	```
 
-3. Set up new per-device SSH/GPG keys.
-
 4. Clean up the `~/_setup` directory.
 
 	```bash
-	~/_setup/dotfiles/bin/darter-pro-INSTALL-3.sh
 	rm -rf ~/_setup
 	```
 
-5. Configure any graphical applications.
+5. Restart the Linux VM
+
+6. Configure any graphical applications.
