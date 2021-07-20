@@ -64,6 +64,15 @@ rm -f ./code_*.deb
 flatpak remote-add --user --if-not-exists flathub https://flathub.org/repo/flathub.flatpakrepo
 flatpak install --user flathub md.obsidian.Obsidian
 
+# Flatpak cursor scaling fix. See:
+#
+#     https://github.com/flatpak/flatpak/issues/740#issuecomment-721643798
+#
+# But why does this work?!?
+#
+mkdir -p $HOME/.icons/default/cursors
+cp -aprf /usr/share/icons/Adwaita/cursors/* $HOME/.icons/default/cursors/
+
 # Additional "loose" installs. These are all handled through update
 # scripts (which fortunately can also handle the initial installation.
 #
