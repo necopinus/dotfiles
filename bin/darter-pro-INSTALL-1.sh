@@ -79,6 +79,7 @@ graphicsmagick \
 graphviz \
 grub-pc \
 handbrake \
+htop \
 ibus-typing-booster \
 jhead \
 jq \
@@ -183,7 +184,6 @@ mkdir -p $HOME/.config/onedrive
 mkdir -p $HOME/.local/bin
 
 cp $CONFIG_PATH/user/bash_aliases                               $HOME/.bash_aliases
-cp $CONFIG_PATH/user/bash_logout                                $HOME/.bash_logout
 cp $CONFIG_PATH/user/config/onedrive/config                     $HOME/.config/onedrive/config
 cp $CONFIG_PATH/user/config/systemd/user/hydroxide.service      $HOME/.config/systemd/user/hydroxide.service
 cp $CONFIG_PATH/user/config/systemd/user/onedrive.service       $HOME/.config/systemd/user/onedrive.service

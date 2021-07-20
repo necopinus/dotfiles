@@ -40,6 +40,7 @@ fonts-noto \
 golang \
 graphicsmagick \
 graphviz \
+htop \
 jhead \
 jq \
 nano \
@@ -61,8 +62,13 @@ rm -f ./code_*.deb
 
 # Setup Flatpak and install Obsidian.
 #
+# Note that Obsidian seems to experience performance issues when using
+# Crostini's hardware acceleration, so we explicitly disable this as
+# well.
+#
 flatpak remote-add --user --if-not-exists flathub https://flathub.org/repo/flathub.flatpakrepo
 flatpak install --user flathub md.obsidian.Obsidian
+flatpak override --user --env LIBGL_ALWAYS_SOFTWARE=1 md.obsidian.Obsidian
 
 # Flatpak cursor scaling fix. See:
 #
@@ -90,16 +96,27 @@ gsettings set ca.desrt.dconf-editor.Settings show-warning false
 # Restore scripts and configurations from this repo.
 #
 mkdir -p $HOME/.local/bin
+mkdir -p $HOME/.local/share/applications
 
-cp $CONFIG_PATH/user/bash_aliases               $HOME/.bash_aliases
-cp $CONFIG_PATH/user/bash_logout                $HOME/.bash_logout
-cp $CONFIG_PATH/user/gitconfig                  $HOME/.gitconfig
-cp $CONFIG_PATH/user/inputrc                    $HOME/.inputrc
-cp $CONFIG_PATH/user/local/bin/update-gam.sh    $HOME/.local/bin/update-gam.sh
-cp $CONFIG_PATH/user/local/bin/update-system.sh $HOME/.local/bin/update-system.sh
-cp $CONFIG_PATH/user/local/bin/update-zoom.sh   $HOME/.local/bin/update-zoom.sh
+cp $CONFIG_PATH/user/bash_aliases                          $HOME/.bash_aliases
+cp $CONFIG_PATH/user/gitconfig                             $HOME/.gitconfig
+cp $CONFIG_PATH/user/inputrc                               $HOME/.inputrc
+cp $CONFIG_PATH/user/local/bin/update-gam.sh               $HOME/.local/bin/update-gam.sh
+cp $CONFIG_PATH/user/local/bin/update-system.sh            $HOME/.local/bin/update-system.sh
+cp $CONFIG_PATH/user/local/bin/update-zoom.sh              $HOME/.local/bin/update-zoom.sh
+cp $CONFIG_PATH/user/local/share/applications/Zoom.desktop $HOME/.local/share/applications/Zoom.desktop
 
 chmod 755 $HOME/.local/bin/*
+
+# Copy GAM data into Crostini (since GAM seems to have locking problems
+# when accessing this directly from the Google Drive share).
+#
+# We copy this back on each login to try to ensure a good backup.
+#
+# NOTE: Google Drive/My Drive/gam needs to be shared with Linux (and
+# preferably marked for offline use)!
+#
+rsync -av --delete --force --human-readable --progress /mnt/chromeos/GoogleDrive/MyDrive/gam/  $HOME/.gam/
 
 # Restore all git repos.
 #
