@@ -5,7 +5,7 @@ sudo apt full-upgrade
 sudo apt autoremove --purge --autoremove
 sudo apt clean
 
-flatpak update
-flatpak uninstall --unused
-
-pip install --user --upgrade youtube-dl
+if [[ -n "$(which flatpak)" ]]; then
+	flatpak update
+	flatpak uninstall --unused
+fi

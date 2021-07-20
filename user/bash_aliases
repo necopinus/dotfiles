@@ -4,7 +4,9 @@
 
 # Set the GAM configuration path.
 #
-export GAMUSERCONFIGDIR="$HOME/.gam"
+if [[ -d "$HOME/.gam" ]]; then
+	export GAMUSERCONFIGDIR="$HOME/.gam"
+fi
 
 # Rationalize $HISTSIZE and $HISTFILESIZE.
 #

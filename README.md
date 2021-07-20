@@ -42,3 +42,28 @@ Various configuration files & scripts.
 	```
 
 6. Finish configuring applications.
+
+## Chrome OS
+
+1. Install the Linux developer environment.
+
+2. Clone and run the configuration.
+
+	```bash
+	mkdir ~/_setup
+	cd ~/_setup
+	git clone https://github.com/necopinus/dotfiles.git
+	chmod 755 dotfiles/bin/*
+	./dotfiles/bin/chrome-os-INSTALL.sh
+	```
+
+3. Set up new per-device SSH/GPG keys.
+
+4. Clean up the `~/_setup` directory.
+
+	```bash
+	~/_setup/dotfiles/bin/darter-pro-INSTALL-3.sh
+	rm -rf ~/_setup
+	```
+
+5. Configure any graphical applications.
