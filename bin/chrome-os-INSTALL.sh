@@ -47,6 +47,7 @@ nano \
 nodejs \
 optipng \
 p7zip-full \
+poppler-utils \
 powershell \
 python3-bs4 \
 qalc \
