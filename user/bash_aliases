@@ -15,7 +15,7 @@ fi
 #
 source /etc/os-release
 if [[ -z "$SSH_AUTH_SOCK" ]] && [[ -n "$DISPLAY" ]] && [[ "$ID" == "debian" ]] && [[ "$(hostname)" == "penguin" ]]; then
-	eval $(gnome-keyring-daemon --daemonize --start)
+	eval $(gnome-keyring-daemon --daemonize --start 2> /dev/null)
 	export SSH_AUTH_SOCK
 fi
 
