@@ -34,8 +34,8 @@ source $CONFIG_PATH/user/local/bin/update-system.sh
 sudo apt install \
 bundler \
 dconf-editor \
+dnsutils \
 dos2unix \
-flatpak \
 fonts-noto \
 golang \
 graphicsmagick \
@@ -61,25 +61,6 @@ curl -L -J -O "https://code.visualstudio.com/sha/download?build=stable&os=linux-
 sudo apt install ./code_*.deb
 rm -f ./code_*.deb
 
-# Setup Flatpak and install Obsidian.
-#
-# Note that Obsidian seems to experience performance issues when using
-# Crostini's hardware acceleration, so we explicitly disable this as
-# well.
-#
-flatpak remote-add --user --if-not-exists flathub https://flathub.org/repo/flathub.flatpakrepo
-flatpak install --user flathub md.obsidian.Obsidian
-flatpak override --user --env LIBGL_ALWAYS_SOFTWARE=1 md.obsidian.Obsidian
-
-# Flatpak cursor scaling fix. See:
-#
-#     https://github.com/flatpak/flatpak/issues/740#issuecomment-721643798
-#
-# But why does this work?!?
-#
-mkdir -p $HOME/.icons/default/cursors
-cp -aprf /usr/share/icons/Adwaita/cursors/* $HOME/.icons/default/cursors/
-
 # Additional "loose" installs. These are all handled through update
 # scripts (which fortunately can also handle the initial installation.
 #
@@ -87,10 +68,6 @@ source $CONFIG_PATH/user/local/bin/update-gam.sh
 source $CONFIG_PATH/user/local/bin/update-zoom.sh
 
 # Apply application settings, when possible.
-#
-# To access/manipulate gsettings in a flatpak, use:
-#
-#   flatpak run --command=gsettings $APP_REF $GSETTINGS_COMMAND_LINE
 #
 gsettings set ca.desrt.dconf-editor.Settings show-warning false
 
@@ -117,7 +94,10 @@ chmod 755 $HOME/.local/bin/*
 # NOTE: Google Drive/My Drive/gam needs to be shared with Linux (and
 # preferably marked for offline use)!
 #
-rsync -av --delete --force --human-readable --progress /mnt/chromeos/GoogleDrive/MyDrive/gam/  $HOME/.gam/
+rsync -av --delete --force --human-readable --no-group --progress /mnt/chromeos/GoogleDrive/MyDrive/gam/ $HOME/.gam/
+chown -R ${USER}.${USER} $HOME/.gam
+chmod 700 $HOME/.gam
+chmod 600 $HOME/.gam/*
 
 # Restore all git repos.
 #
