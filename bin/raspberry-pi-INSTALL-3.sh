@@ -55,6 +55,10 @@ mkdir -p $HOME/Code
 	git config --global user.email nathan.acks@cardboard-iguana.com
 	git config --global user.signingkey "$(gpg --list-keys nathan.acks@cardboard-iguana.com | grep -E "^      [0-9A-Z]{40}$" | sed -e "s/^ *//")"
 	cd $HOME/Code
+	git clone git@github.com:The-Yak-Collective/onboarding_robot.git
+	mv onboarding_robot automation-onboarding-robot
+	git clone git@github.com:The-Yak-Collective/project_ui.git
+	mv project_ui automation-project-ui
 	git clone git@github.com:necopinus/backups.git
 	mv backups backups-necopinus
 	git clone git@github.com:The-Yak-Collective/backups.git
