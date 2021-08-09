@@ -44,11 +44,15 @@ fi
 
 # Obsidian backups.
 #
-if [[ -d $HOME/OneDrive/Documents/TPIN ]]; then
+if [[ -d $HOME/Obsidian ]]; then
+	mkdir -p $BACKUP_PATH/Obsidian
 	(
-		cd $HOME/OneDrive/Documents
-		[[ -f $HOME/TPIN-Obsidian.zip ]] && rm -f $HOME/TPIN-Obsidian.zip
-		zip -r $HOME/TPIN-Obsidian.zip TPIN "TPIN - Large File Backup"
+		cd $HOME/Obsidian
+		find . -mindepth 1 -maxdepth 1 -type d -exec rsync -av --delete --force --human-readable --progress "{}"/ $BACKUP_PATH/Obsidian/"{}"/ \;
+		if [[ -d TPIN ]]; then
+			[[ -f $HOME/Notes.zip ]] && rm -f $HOME/Notes.zip
+			zip -r $HOME/Notes.zip TPIN
+		fi
 	)
 fi
 

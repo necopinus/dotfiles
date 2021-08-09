@@ -6,6 +6,14 @@
 SCRIPT_PATH="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)/$(basename "${BASH_SOURCE[0]}")"
 CONFIG_PATH="$(dirname "$SCRIPT_PATH")/../"
 
+# Set backup path.
+#
+BACKUP_PATH=$HOME/OneDrive/Documents/Backups
+if [[ ! -d $BACKUP_PATH ]]; then
+	echo "Backup path $BACKUP_PATH does not exist!"
+	exit 1
+fi
+
 # Confirm that we've finished part 1.
 #
 echo "This script should *only* be run after OneDrive has been fully synced"
@@ -25,3 +33,18 @@ echo ""
 [[ -d $HOME/OneDrive/Public    ]] && rm -rf $HOME/Public    && ln -s $HOME/OneDrive/Public    $HOME/Public
 [[ -d $HOME/OneDrive/Templates ]] && rm -rf $HOME/Templates && ln -s $HOME/OneDrive/Templates $HOME/Templates
 [[ -d $HOME/OneDrive/Videos    ]] && rm -rf $HOME/Videos    && ln -s $HOME/OneDrive/Videos    $HOME/Videos
+
+# Restore Obsidian data.
+#
+if [[ -d $BACKUP_PATH/Obsidian ]]; then
+	rm -rf $HOME/Obsidian
+	cp -apvrf $BACKUP_PATH/Obsidian $HOME/Obsidian
+	rm -rf $HOME/Obsidian/*\ -\ Large\ File\ Backup
+fi
+
+# Restore VirtualBox data.
+#
+#if [[ -d $BACKUP_PATH/VirtualBox ]]; then
+#	rm -rf $HOME/VirtualBox
+#	cp -apvrf $BACKUP_PATH/VirtualBox $HOME/VirtualBox
+#fi
