@@ -87,6 +87,7 @@ optipng \
 p7zip-full \
 python3-bs4 \
 qalc \
+rclone \
 sound-juicer \
 soundconverter \
 swig \
