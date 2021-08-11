@@ -25,14 +25,16 @@ fi
 # The backup, which is really just mirroring content.
 #
 if [[ "$BACKUP_FS" = "exfat" ]]; then
-	rsync -vrltD --delete --force --human-readable --modify-window=1 --progress $HOME/OneDrive/Desktop/   $BACKUP_PATH/Desktop/
-	rsync -vrltD --delete --force --human-readable --modify-window=1 --progress $HOME/OneDrive/Documents/ $BACKUP_PATH/Documents/
-	rsync -vrltD --delete --force --human-readable --modify-window=1 --progress $HOME/OneDrive/Downloads/ $BACKUP_PATH/Downloads/
-	rsync -vrltD --delete --force --human-readable --modify-window=1 --progress $HOME/OneDrive/Music/     $BACKUP_PATH/Music/
-	rsync -vrltD --delete --force --human-readable --modify-window=1 --progress $HOME/OneDrive/Pictures/  $BACKUP_PATH/Pictures/
-	rsync -vrltD --delete --force --human-readable --modify-window=1 --progress $HOME/OneDrive/Public/    $BACKUP_PATH/Public/
-	rsync -vrltD --delete --force --human-readable --modify-window=1 --progress $HOME/OneDrive/Templates/ $BACKUP_PATH/Templates/
-	rsync -vrltD --delete --force --human-readable --modify-window=1 --progress $HOME/OneDrive/Videos/    $BACKUP_PATH/Videos/
+	(
+		cd $HOME
+		while IFS= read -r -d '' OBJECT; do
+			if [[ -d "$OBJECT" ]]; then
+				rsync -vrltD --delete --force --human-readable --modify-window=1 --progress $HOME/"$OBJECT"/ $BACKUP_PATH/"$OBJECT"/
+			elif [[ -f "$OBJECT" ]]; then
+				rsync -vrltD --delete --force --human-readable --modify-window=1 --progress $HOME/"$OBJECT"  $BACKUP_PATH/"$OBJECT"
+			fi
+		done < <(find . -mindepth 1 -maxdepth 1 -not -ipath './.*' -print0)
+	)
 else
 	rsync -av --delete --force --human-readable --progress $HOME/ $BACKUP_PATH/home/
 fi
