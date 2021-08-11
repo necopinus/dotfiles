@@ -6,81 +6,89 @@
 SCRIPT_PATH="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)/$(basename "${BASH_SOURCE[0]}")"
 CONFIG_PATH="$(dirname "$SCRIPT_PATH")/../"
 
-# Install prerequisites.
+# Make sure that locale is properly set.
 #
-sudo apt install apt-transport-https
+sudo dpkg-reconfigure locales
 
-# Add the Google Endpoint Verification repository (needed for work).
+# Make sure that the timezone is properly set.
 #
-curl -s https://packages.cloud.google.com/apt/doc/apt-key.gpg | sudo apt-key --keyring /etc/apt/trusted.gpg.d/google.gpg add -
-echo "deb https://packages.cloud.google.com/apt endpoint-verification main" | sudo tee -a /etc/apt/sources.list.d/endpoint-verification.list
-
-# Add the NodeSource repository. See:
-#
-#     https://node.dev/node-binary
-#
-curl -s https://deb.nodesource.com/gpgkey/nodesource.gpg.key | sudo apt-key --keyring /etc/apt/trusted.gpg.d/nodesource.gpg add -
-sudo apt-add-repository https://deb.nodesource.com/node_14.x
+sudo dpkg-reconfigure tzdata
 
 # Add the "official" OneDrive client for Linux repository.
 #
-# This is necessary because the version in the Ubuntu (and derivatives)
+# This is necessary because the version in the Debian (and derivatives)
 # repos is chronically out-of-date. See:
 #
-#     https://github.com/abraunegg/onedrive/blob/master/docs/INSTALL.md#installing-from-distribution-packages
+#     https://github.com/abraunegg/onedrive/blob/master/docs/ubuntu-package-install.md
 #
-sudo add-apt-repository ppa:yann1ck/onedrive
-
-# Add the Yubico PPA, again because Ubuntu's repos are out-of-date.
-#
-sudo apt-add-repository ppa:yubico/stable
+(
+	TEMPDIR=$(mktemp -d)
+	cd $TEMPDIR
+	curl -L -O https://download.opensuse.org/repositories/home:/npreining:/debian-ubuntu-onedrive/Debian_10/Release.key
+	gpg --no-default-keyring --keyring ./temp-keyring.gpg --import Release.key
+	gpg --no-default-keyring --keyring ./temp-keyring.gpg --export --output onedrive.gpg
+	sudo mkdir -p /usr/local/share/keyrings
+	sudo mv onedrive.gpg /usr/local/share/keyrings/onedrive.gpg
+	sudo chown root:root /usr/local/share/keyrings/onedrive.gpg
+	sudo chmod 644 /usr/local/share/keyrings/onedrive.gpg
+	cd /tmp
+	rm -rf $TEMPDIR
+)
+echo "deb [signed-by=/usr/local/share/keyrings/onedrive.gpg] https://download.opensuse.org/repositories/home:/npreining:/debian-ubuntu-onedrive/Debian_10/ ./" | sudo tee -a /etc/apt/sources.list.d/onedrive.list
 
 # Make sure all components are up-to-date.
 #
 source $CONFIG_PATH/user/local/bin/update-system.sh
 
+# Remove /usr/bin/python2 -> /usr/bin/python symlink (and eliminate
+# associated login warning). See:
+#
+#     https://www.kali.org/docs/general-use/python3-transition/
+#
+sudo apt remove --purge --autoremove python-is-python2
+
 # Install new applications.
 #
 sudo apt install \
-bundler \
-code \
+code-oss \
 dconf-editor \
-discord \
-dos2unix \
-endpoint-verification \
 exfatprogs \
+flatpak \
 fonts-noto \
 golang \
-google-chrome-stable \
 graphicsmagick \
-graphviz \
-grub-pc \
 handbrake \
 htop \
-ibus-typing-booster \
 jhead \
 jq \
-nodejs \
+keepassxc \
+libpcsclite-dev \
 offlineimap \
 onedrive \
 optipng \
-p7zip-full \
-python3-bs4 \
 qalc \
+rclone \
 sound-juicer \
 soundconverter \
-vim \
-youtube-dl \
-yubikey-manager
+swig \
+youtube-dl
 
+# The above packages supercede some installed packages, so we do some
+# additional cleanup here.
+#
+sudo apt autoremove --purge --autoremove
+
+# Setup Flatpak and install Obsidian.
+#
+flatpak remote-add --user --if-not-exists flathub https://flathub.org/repo/flathub.flatpakrepo
 flatpak install --user flathub md.obsidian.Obsidian
-flatpak install --user flathub org.keepassxc.KeePassXC
 
 # Additional "loose" installs. These are all handled through update
 # scripts (which fortunately can also handle the initial installation.
 #
 source $CONFIG_PATH/user/local/bin/update-hydroxide.sh
 source $CONFIG_PATH/user/local/bin/update-youtube-dl.sh
+source $CONFIG_PATH/user/local/bin/update-yubikey-manager.sh
 
 # Apply application settings, when possible.
 #
@@ -88,18 +96,13 @@ source $CONFIG_PATH/user/local/bin/update-youtube-dl.sh
 #
 #   flatpak run --command=gsettings $APP_REF $GSETTINGS_COMMAND_LINE
 #
-gsettings set ca.desrt.dconf-editor.Settings             show-warning     false
-gsettings set org.freedesktop.ibus.engine.typing-booster dictionary       "en_US"
-gsettings set org.freedesktop.ibus.engine.typing-booster emojipredictions true
-gsettings set org.freedesktop.ibus.engine.typing-booster inputmethod      "NoIME"
-gsettings set org.gnome.desktop.input-sources            mru-sources      "[('xkb','us'),('ibus','typing-booster')]"
-gsettings set org.gnome.desktop.input-sources            sources          "[('xkb','us'),('ibus','typing-booster')]"
-gsettings set org.gnome.sound-juicer                     audio-profile    "audio/mpeg"
-gsettings set org.gnome.sound-juicer                     file-pattern     "%at - %dn - %ta - %tt"
-gsettings set org.gnome.sound-juicer                     path-pattern     "%at"
-gsettings set org.gtk.Settings.FileChooser               clock-format     "24h"
-gsettings set org.soundconverter                         mp3-vbr-quality  0
-gsettings set org.soundconverter                         output-mime-type "audio/mpeg"
+gsettings set ca.desrt.dconf-editor.Settings show-warning     false
+gsettings set org.gnome.sound-juicer         audio-profile    "audio/mpeg"
+gsettings set org.gnome.sound-juicer         file-pattern     "%at - %dn - %ta - %tt"
+gsettings set org.gnome.sound-juicer         path-pattern     "%at"
+gsettings set org.gtk.Settings.FileChooser   clock-format     "24h"
+gsettings set org.soundconverter             mp3-vbr-quality  0
+gsettings set org.soundconverter             output-mime-type "audio/mpeg"
 
 # Restore scripts and configurations from this repo.
 #
@@ -119,6 +122,7 @@ cp $CONFIG_PATH/user/local/bin/backup-local.sh                  $HOME/.local/bin
 cp $CONFIG_PATH/user/local/bin/update-hydroxide.sh              $HOME/.local/bin/update-hydroxide.sh
 cp $CONFIG_PATH/user/local/bin/update-system.sh                 $HOME/.local/bin/update-system.sh
 cp $CONFIG_PATH/user/local/bin/update-youtube-dl.sh             $HOME/.local/bin/update-youtube-dl.sh
+cp $CONFIG_PATH/user/local/bin/update-yubikey-manager.sh        $HOME/.local/bin/update-yubikey-manager.sh
 
 chmod 755 $HOME/.local/bin/*
 
