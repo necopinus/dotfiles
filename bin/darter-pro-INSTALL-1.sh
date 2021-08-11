@@ -35,10 +35,6 @@ sudo apt-add-repository https://deb.nodesource.com/node_14.x
 #
 sudo add-apt-repository ppa:yann1ck/onedrive
 
-# Add the Yubico PPA, again because Ubuntu's repos are out-of-date.
-#
-sudo apt-add-repository ppa:yubico/stable
-
 # Make sure all components are up-to-date.
 #
 source $CONFIG_PATH/user/local/bin/update-system.sh
@@ -83,6 +79,7 @@ htop \
 ibus-typing-booster \
 jhead \
 jq \
+libpcsclite-dev \
 nodejs \
 offlineimap \
 onedrive \
@@ -92,13 +89,13 @@ python3-bs4 \
 qalc \
 sound-juicer \
 soundconverter \
+swig \
 vim \
 virtualbox-ext-pack \
 virtualbox-guest-additions-iso \
 virtualenv \
 xdotool \
-youtube-dl \
-yubikey-manager
+youtube-dl
 
 flatpak install --user flathub fi.skyjake.Lagrange
 flatpak install --user flathub md.obsidian.Obsidian
@@ -114,6 +111,7 @@ flatpak install --user flathub org.videolan.VLC
 source $CONFIG_PATH/user/local/bin/update-gam.sh
 source $CONFIG_PATH/user/local/bin/update-hydroxide.sh
 source $CONFIG_PATH/user/local/bin/update-youtube-dl.sh
+source $CONFIG_PATH/user/local/bin/update-yubikey-manager.sh
 source $CONFIG_PATH/user/local/bin/update-zoom.sh
 
 # Apply application settings, when possible.
@@ -195,6 +193,7 @@ cp $CONFIG_PATH/user/local/bin/update-gam.sh                    $HOME/.local/bin
 cp $CONFIG_PATH/user/local/bin/update-hydroxide.sh              $HOME/.local/bin/update-hydroxide.sh
 cp $CONFIG_PATH/user/local/bin/update-system.sh                 $HOME/.local/bin/update-system.sh
 cp $CONFIG_PATH/user/local/bin/update-youtube-dl.sh             $HOME/.local/bin/update-youtube-dl.sh
+cp $CONFIG_PATH/user/local/bin/update-yubikey-manager.sh        $HOME/.local/bin/update-yubikey-manager.sh
 cp $CONFIG_PATH/user/local/bin/update-zoom.sh                   $HOME/.local/bin/update-zoom.sh
 cp $CONFIG_PATH/user/openshot_qt/profiles/pixelbook-google-meet $HOME/.openshot_qt/profiles/pixelbook-google-meet
 
