@@ -16,7 +16,7 @@ else
 	echo "Backup password file $HOME/.config/backup-password does not exist!"
 	exit 1
 fi
-if [[ -z "$BACKUP_PASSWORD" ]]; then
+if [[ -z "$BACKUP_PASSWORD" ]] || [[ "$BACKUP_PASSWORD" == "XXX"  ]]; then
 	echo "Backup password does not appear to be set!"
 	exit 1
 fi
