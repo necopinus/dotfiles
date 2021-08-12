@@ -106,6 +106,16 @@ flatpak install --user flathub org.openshot.OpenShot
 flatpak install --user flathub org.signal.Signal
 flatpak install --user flathub org.videolan.VLC
 
+# Install Keybase.
+#
+BUILD_DIR="$(mktemp -d)"
+(
+	cd "$BUILD_DIR"
+	curl -L -O https://prerelease.keybase.io/keybase_amd64.deb
+	sudo apt install ./keybase_amd64.deb
+)
+rm -rf "$BUILD_DIR"
+
 # Additional "loose" installs. These are all handled through update
 # scripts (which fortunately can also handle the initial installation.
 #
