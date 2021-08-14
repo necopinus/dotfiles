@@ -42,7 +42,7 @@ if [[ -d $HOME/Proton ]]; then
 	)
 fi
 
-# Obsidian backups.
+# Backup Obsidian.
 #
 if [[ -d $HOME/Obsidian ]]; then
 	mkdir -p $BACKUP_PATH/Obsidian
@@ -61,3 +61,24 @@ fi
 #if [[ -d $HOME/VirtualBox ]]; then
 #	rsync -av --delete --force --human-readable --progress $HOME/VirtualBox/ $BACKUP_PATH/VirtualBox/
 #fi
+
+# Make sure that code repos are all up-to-date.
+#
+if [[ -d $HOME/Code ]]; then
+	CODE_ROOT=$HOME/Code
+elif [[ -d $HOME/code ]]; then
+	CODE_ROOT=$HOME/code
+else
+	CODE_ROOT=""
+fi
+if [[ -n "$CODE_ROOT" ]]; then
+	(
+		cd $CODE_ROOT
+		while IFS= read -r -d '' OBJECT; do
+			cd "$OBJECT"
+			git pull
+			git push
+			cd ..
+		done < <(find . -mindepth 1 -maxdepth 1 -type d -print0)
+	)
+fi
