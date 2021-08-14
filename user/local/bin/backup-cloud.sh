@@ -37,7 +37,7 @@ if [[ -d $HOME/Proton ]]; then
 	(
 		cd $HOME
 		$HOME/Proton/.bin/backup.sh
-		tar -cvf - .config/hydroxide Proton | 7z a -p$BACKUP_PASSWORD -si ProtonTechnologies.tar.7z
+		tar -cvf - Proton | 7z a -p$BACKUP_PASSWORD -si ProtonTechnologies.tar.7z
 		mv -v ProtonTechnologies.tar.7z $BACKUP_PATH/
 	)
 fi

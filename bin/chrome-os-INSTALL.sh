@@ -37,7 +37,6 @@ dconf-editor \
 dnsutils \
 dos2unix \
 fonts-noto \
-golang \
 graphicsmagick \
 graphviz \
 htop \

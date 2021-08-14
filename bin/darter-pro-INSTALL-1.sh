@@ -69,7 +69,6 @@ dos2unix \
 endpoint-verification \
 exfatprogs \
 fonts-noto \
-golang \
 google-chrome-stable \
 graphicsmagick \
 graphviz \
@@ -81,7 +80,6 @@ jhead \
 jq \
 libpcsclite-dev \
 nodejs \
-offlineimap \
 onedrive \
 optipng \
 p7zip-full \
@@ -120,7 +118,6 @@ rm -rf "$BUILD_DIR"
 # scripts (which fortunately can also handle the initial installation.
 #
 source $CONFIG_PATH/user/local/bin/update-gam.sh
-source $CONFIG_PATH/user/local/bin/update-hydroxide.sh
 source $CONFIG_PATH/user/local/bin/update-youtube-dl.sh
 source $CONFIG_PATH/user/local/bin/update-yubikey-manager.sh
 source $CONFIG_PATH/user/local/bin/update-zoom.sh
@@ -194,14 +191,12 @@ mkdir -p $HOME/.local/bin
 
 cp $CONFIG_PATH/user/bash_aliases                               $HOME/.bash_aliases
 cp $CONFIG_PATH/user/config/onedrive/config                     $HOME/.config/onedrive/config
-cp $CONFIG_PATH/user/config/systemd/user/hydroxide.service      $HOME/.config/systemd/user/hydroxide.service
 cp $CONFIG_PATH/user/config/systemd/user/onedrive.service       $HOME/.config/systemd/user/onedrive.service
 cp $CONFIG_PATH/user/gitconfig                                  $HOME/.gitconfig
 cp $CONFIG_PATH/user/inputrc                                    $HOME/.inputrc
 cp $CONFIG_PATH/user/local/bin/backup-cloud.sh                  $HOME/.local/bin/backup-cloud.sh
 cp $CONFIG_PATH/user/local/bin/backup-local.sh                  $HOME/.local/bin/backup-local.sh
 cp $CONFIG_PATH/user/local/bin/update-gam.sh                    $HOME/.local/bin/update-gam.sh
-cp $CONFIG_PATH/user/local/bin/update-hydroxide.sh              $HOME/.local/bin/update-hydroxide.sh
 cp $CONFIG_PATH/user/local/bin/update-system.sh                 $HOME/.local/bin/update-system.sh
 cp $CONFIG_PATH/user/local/bin/update-youtube-dl.sh             $HOME/.local/bin/update-youtube-dl.sh
 cp $CONFIG_PATH/user/local/bin/update-yubikey-manager.sh        $HOME/.local/bin/update-yubikey-manager.sh

@@ -73,21 +73,13 @@ mkdir -p $HOME/Code
 
 # Extract Proton Technologies data and configuration.
 #
-# If Hydroxide needs to be reauthenticated for some reason (for example,
-# if some of the files in ~/.config/hydroxide are corrupt), then this
-# can be done using:
-#
-#     hydroxide auth USER.NAME@protonmail.com
-#
 if [[ -f $BACKUP_PATH/ProtonTechnologies.tar.7z ]]; then
 	(
 		cd $HOME
-		rm -rf Proton .config/hydroxide
+		rm -rf Proton
 		7z x -p$BACKUP_PASSWORD -so $BACKUP_PATH/ProtonTechnologies.tar.7z | tar -xvf -
-		find .config/hydroxide -type d -exec chmod 700 "{}" \;
-		find .config/hydroxide -type f -exec chmod 600 "{}" \;
 		find Proton -type d -exec chmod 700 "{}" \;
 		find Proton -type f -exec chmod 600 "{}" \;
-		chmod 700 .config/hydroxide Proton Proton/.bin/backup.sh
+		chmod 700 Proton Proton/.bin/backup.sh
 	)
 fi

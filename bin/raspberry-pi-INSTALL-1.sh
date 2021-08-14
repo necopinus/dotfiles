@@ -55,7 +55,6 @@ dconf-editor \
 exfatprogs \
 flatpak \
 fonts-noto \
-golang \
 graphicsmagick \
 handbrake \
 htop \
@@ -63,7 +62,6 @@ jhead \
 jq \
 keepassxc \
 libpcsclite-dev \
-offlineimap \
 onedrive \
 optipng \
 qalc \
@@ -86,7 +84,6 @@ flatpak install --user flathub md.obsidian.Obsidian
 # Additional "loose" installs. These are all handled through update
 # scripts (which fortunately can also handle the initial installation.
 #
-source $CONFIG_PATH/user/local/bin/update-hydroxide.sh
 source $CONFIG_PATH/user/local/bin/update-youtube-dl.sh
 source $CONFIG_PATH/user/local/bin/update-yubikey-manager.sh
 
@@ -113,13 +110,11 @@ mkdir -p $HOME/.local/bin
 
 cp $CONFIG_PATH/user/bash_aliases                               $HOME/.bash_aliases
 cp $CONFIG_PATH/user/config/onedrive/config                     $HOME/.config/onedrive/config
-cp $CONFIG_PATH/user/config/systemd/user/hydroxide.service      $HOME/.config/systemd/user/hydroxide.service
 cp $CONFIG_PATH/user/config/systemd/user/onedrive.service       $HOME/.config/systemd/user/onedrive.service
 cp $CONFIG_PATH/user/gitconfig                                  $HOME/.gitconfig
 cp $CONFIG_PATH/user/inputrc                                    $HOME/.inputrc
 cp $CONFIG_PATH/user/local/bin/backup-cloud.sh                  $HOME/.local/bin/backup-cloud.sh
 cp $CONFIG_PATH/user/local/bin/backup-local.sh                  $HOME/.local/bin/backup-local.sh
-cp $CONFIG_PATH/user/local/bin/update-hydroxide.sh              $HOME/.local/bin/update-hydroxide.sh
 cp $CONFIG_PATH/user/local/bin/update-system.sh                 $HOME/.local/bin/update-system.sh
 cp $CONFIG_PATH/user/local/bin/update-youtube-dl.sh             $HOME/.local/bin/update-youtube-dl.sh
 cp $CONFIG_PATH/user/local/bin/update-yubikey-manager.sh        $HOME/.local/bin/update-yubikey-manager.sh
