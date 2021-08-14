@@ -28,7 +28,7 @@ if [[ "$BACKUP_FS" = "exfat" ]]; then
 	(
 		cd $HOME
 		while IFS= read -r -d '' OBJECT; do
-			if [[ -d "$OBJECT" ]]; then
+			if [[ -d "$OBJECT" ]] && [[ "$OBJECT" != "./Code" ]] && [[ "$OBJECT" != "./code" ]] && [[ "$OBJECT" != "./Proton" ]]; then
 				rsync -vrltD --delete --force --human-readable --modify-window=1 --progress $HOME/"$OBJECT"/ $BACKUP_PATH/"$OBJECT"/
 			elif [[ -f "$OBJECT" ]]; then
 				rsync -vrltD --delete --force --human-readable --modify-window=1 --progress $HOME/"$OBJECT"  $BACKUP_PATH/"$OBJECT"
