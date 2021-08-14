@@ -70,16 +70,3 @@ mkdir -p $HOME/Code
 	git clone git@github.com:The-Yak-Collective/yakcollective.git
 	mv yakcollective website-yakcollective.org
 )
-
-# Extract Proton Technologies data and configuration.
-#
-if [[ -f $BACKUP_PATH/ProtonTechnologies.tar.7z ]]; then
-	(
-		cd $HOME
-		rm -rf Proton
-		7z x -p$BACKUP_PASSWORD -so $BACKUP_PATH/ProtonTechnologies.tar.7z | tar -xvf -
-		find Proton -type d -exec chmod 700 "{}" \;
-		find Proton -type f -exec chmod 600 "{}" \;
-		chmod 700 Proton Proton/.bin/backup.sh
-	)
-fi
