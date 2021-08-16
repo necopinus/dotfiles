@@ -2,54 +2,24 @@
 
 # Set backup path.
 #
-BACKUP_PATH=$HOME/OneDrive/Documents/Backups
+BACKUP_PATH=$HOME/Documents/Backups
 if [[ ! -d $BACKUP_PATH ]]; then
 	echo "Backup path $BACKUP_PATH does not exist!"
 	exit 1
 fi
 
-# Import backup password.
+# Import backup password and backup GAM configuration.
 #
 if [[ -f $HOME/.config/backup-password ]]; then
 	source $HOME/.config/backup-password
-else
-	echo "Backup password file $HOME/.config/backup-password does not exist!"
-	exit 1
 fi
-if [[ -z "$BACKUP_PASSWORD" ]] || [[ "$BACKUP_PASSWORD" == "XXX"  ]]; then
-	echo "Backup password does not appear to be set!"
-	exit 1
-fi
-
-# Backup GAM configuration.
-#
-if [[ -d $HOME/.gam ]]; then
+if [[ -d $HOME/.gam ]] && [[ -n "$BACKUP_PASSWORD" ]] && [[ "$BACKUP_PASSWORD" != "XXX"  ]]; then
 	(
 		cd $HOME
 		tar -cvf - .gam | 7z a -p$BACKUP_PASSWORD -si GAM.tar.7z
 		mv -v GAM.tar.7z $BACKUP_PATH/
 	)
 fi
-
-# Backup Obsidian.
-#
-if [[ -d $HOME/Obsidian ]]; then
-	mkdir -p $BACKUP_PATH/Obsidian
-	(
-		cd $HOME/Obsidian
-		find . -mindepth 1 -maxdepth 1 -type d -exec rsync -av --delete --force --human-readable --progress "{}"/ $BACKUP_PATH/Obsidian/"{}"/ \;
-		if [[ -d TPIN ]]; then
-			[[ -f $HOME/Notes.zip ]] && rm -f $HOME/Notes.zip
-			zip -r $HOME/Notes.zip TPIN
-		fi
-	)
-fi
-
-# Backup VirtualBox.
-#
-#if [[ -d $HOME/VirtualBox ]]; then
-#	rsync -av --delete --force --human-readable --progress $HOME/VirtualBox/ $BACKUP_PATH/VirtualBox/
-#fi
 
 # Make sure that code repos are all up-to-date.
 #
@@ -66,8 +36,29 @@ if [[ -n "$CODE_ROOT" ]]; then
 		while IFS= read -r -d '' OBJECT; do
 			cd "$OBJECT"
 			git pull
-			git push
+			if [[ "$(git config --get remote.origin.url)" =~ [^/]+@[^/]+\.[^/]+:.+\.git ]]; then
+				 git push
+			fi
 			cd ..
 		done < <(find . -mindepth 1 -maxdepth 1 -type d -print0)
 	)
+fi
+
+# Update Google Drive local mirror.
+#
+if [[ -d $HOME/GoogleDrive ]] && [[ -f $HOME/.config/rclone/rclone.conf ]]; then
+	rclone sync --drive-acknowledge-abuse --exclude /xdg-user-dirs/** --fast-list --progress --verbose google:/ $HOME/GoogleDrive/
+fi
+
+# Sync user data directories.
+#
+if [[ -f $HOME/.config/rclone/rclone.conf ]] && [[ -d $HOME/.rclonesyncwd ]]; then
+	[[ -d $HOME/Desktop   ]] && rclonesync google:/xdg-user-dirs/Desktop/   $HOME/Desktop/   --check-access --max-deletes 5 --rc-verbose --remove-empty-directories --rclone-args --drive-acknowledge-abuse --fast-list
+	[[ -d $HOME/Documents ]] && rclonesync google:/xdg-user-dirs/Documents/ $HOME/Documents/ --check-access --max-deletes 5 --rc-verbose --remove-empty-directories --rclone-args --drive-acknowledge-abuse --fast-list
+	[[ -d $HOME/Downloads ]] && rclonesync google:/xdg-user-dirs/Downloads/ $HOME/Downloads/ --check-access --max-deletes 5 --rc-verbose --remove-empty-directories --rclone-args --drive-acknowledge-abuse --fast-list
+	[[ -d $HOME/Music     ]] && rclonesync google:/xdg-user-dirs/Music/     $HOME/Music/     --check-access --max-deletes 5 --rc-verbose --remove-empty-directories --rclone-args --drive-acknowledge-abuse --fast-list
+	[[ -d $HOME/Pictures  ]] && rclonesync google:/xdg-user-dirs/Pictures/  $HOME/Pictures/  --check-access --max-deletes 5 --rc-verbose --remove-empty-directories --rclone-args --drive-acknowledge-abuse --fast-list
+	[[ -d $HOME/Public    ]] && rclonesync google:/xdg-user-dirs/Public/    $HOME/Public/    --check-access --max-deletes 5 --rc-verbose --remove-empty-directories --rclone-args --drive-acknowledge-abuse --fast-list
+	[[ -d $HOME/Templates ]] && rclonesync google:/xdg-user-dirs/Templates/ $HOME/Templates/ --check-access --max-deletes 5 --rc-verbose --remove-empty-directories --rclone-args --drive-acknowledge-abuse --fast-list
+	[[ -d $HOME/Videos    ]] && rclonesync google:/xdg-user-dirs/Videos/    $HOME/Videos     --check-access --max-deletes 5 --rc-verbose --remove-empty-directories --rclone-args --drive-acknowledge-abuse --fast-list
 fi

@@ -14,8 +14,11 @@ sudo apt install apt-transport-https software-properties-common
 #
 #     https://node.dev/node-binary
 #
-curl -s https://deb.nodesource.com/gpgkey/nodesource.gpg.key | sudo apt-key --keyring /etc/apt/trusted.gpg.d/nodesource.gpg add -
-sudo apt-add-repository https://deb.nodesource.com/node_14.x
+#
+sudo mkdir -p /usr/local/share/keyrings
+curl -s https://deb.nodesource.com/gpgkey/nodesource.gpg.key | gpg --dearmor | sudo tee /usr/local/share/keyrings/nodesource.gpg
+echo "deb     [signed-by=/usr/local/share/keyrings/nodesource.gpg] https://deb.nodesource.com/node_14.x buster main" | sudo tee    /etc/apt/sources.list.d/nodesource.list"
+echo "deb-src [signed-by=/usr/local/share/keyrings/nodesource.gpg] https://deb.nodesource.com/node_14.x buster main" | sudo tee -a /etc/apt/sources.list.d/nodesource.list"
 
 # Add Microsoft repos. See:
 #

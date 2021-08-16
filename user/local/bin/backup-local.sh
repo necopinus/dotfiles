@@ -11,9 +11,9 @@ fi
 
 # Determine *which* backup vault we're using. If it's the exFAT vault
 # then we can't backup symlinks, etc. In this case, we just backup
-# OneDrive, as those folders contain all of the data I care about.
-# Otherwise, back up all of $HOME in order to capture additional
-# configuration files (and potentially enable a full restore!).
+# user data. Otherwise, back up all of $HOME in order to capture
+# additional configuration files (and potentially enable a full
+# restore!).
 #
 BACKUP_FS="$(mount | grep $BACKUP_PATH | sed -e 's/ (.*$//;s/^.* type //')"
 if [[ "$BACKUP_FS" != "exfat" ]] && [[ "$BACKUP_FS" != "ext4" ]]; then

@@ -13,27 +13,22 @@ sudo ufw enable
 # Install prerequisites.
 #
 sudo apt install apt-transport-https
+sudo mkdir -p /usr/local/share/keyrings
 
 # Add the Google Endpoint Verification repository (needed for work).
 #
-curl -s https://packages.cloud.google.com/apt/doc/apt-key.gpg | sudo apt-key --keyring /etc/apt/trusted.gpg.d/google.gpg add -
-echo "deb https://packages.cloud.google.com/apt endpoint-verification main" | sudo tee -a /etc/apt/sources.list.d/endpoint-verification.list
+curl -L -O https://packages.cloud.google.com/apt/doc/apt-key.gpg
+sudo mv apt-key.gpg /usr/local/share/keyrings/google.gpg
+sudo chown root:root /usr/local/share/keyrings/google.gpg
+echo "deb [signed-by=/usr/local/share/keyrings/google.gpg] https://packages.cloud.google.com/apt endpoint-verification main" | sudo tee /etc/apt/sources.list.d/endpoint-verification.list
 
 # Add the NodeSource repository. See:
 #
 #     https://node.dev/node-binary
 #
-curl -s https://deb.nodesource.com/gpgkey/nodesource.gpg.key | sudo apt-key --keyring /etc/apt/trusted.gpg.d/nodesource.gpg add -
-sudo apt-add-repository https://deb.nodesource.com/node_14.x
-
-# Add the "official" OneDrive client for Linux repository.
-#
-# This is necessary because the version in the Ubuntu (and derivatives)
-# repos is chronically out-of-date. See:
-#
-#     https://github.com/abraunegg/onedrive/blob/master/docs/INSTALL.md#installing-from-distribution-packages
-#
-sudo add-apt-repository ppa:yann1ck/onedrive
+curl -s https://deb.nodesource.com/gpgkey/nodesource.gpg.key | gpg --dearmor | sudo tee /usr/local/share/keyrings/nodesource.gpg
+echo "deb     [signed-by=/usr/local/share/keyrings/nodesource.gpg] https://deb.nodesource.com/node_14.x groovy main" | sudo tee    /etc/apt/sources.list.d/nodesource.list"
+echo "deb-src [signed-by=/usr/local/share/keyrings/nodesource.gpg] https://deb.nodesource.com/node_14.x groovy main" | sudo tee -a /etc/apt/sources.list.d/nodesource.list"
 
 # Make sure all components are up-to-date.
 #
@@ -80,12 +75,10 @@ jhead \
 jq \
 libpcsclite-dev \
 nodejs \
-onedrive \
 optipng \
 p7zip-full \
 python3-bs4 \
 qalc \
-rclone \
 sound-juicer \
 soundconverter \
 swig \
@@ -106,18 +99,16 @@ flatpak install --user flathub org.videolan.VLC
 
 # Install Keybase.
 #
-BUILD_DIR="$(mktemp -d)"
-(
-	cd "$BUILD_DIR"
-	curl -L -O https://prerelease.keybase.io/keybase_amd64.deb
-	sudo apt install ./keybase_amd64.deb
-)
-rm -rf "$BUILD_DIR"
+curl -L -O https://prerelease.keybase.io/keybase_amd64.deb
+sudo apt install ./keybase_amd64.deb
+rm -f ./keybase_amd64.deb
 
 # Additional "loose" installs. These are all handled through update
 # scripts (which fortunately can also handle the initial installation.
 #
 source $CONFIG_PATH/user/local/bin/update-gam.sh
+source $CONFIG_PATH/user/local/bin/update-rclone.sh
+source $CONFIG_PATH/user/local/bin/update-rclonesync.sh
 source $CONFIG_PATH/user/local/bin/update-youtube-dl.sh
 source $CONFIG_PATH/user/local/bin/update-yubikey-manager.sh
 source $CONFIG_PATH/user/local/bin/update-zoom.sh
@@ -184,19 +175,16 @@ gsettings set org.gnome.desktop.notifications.application:/org/gnome/desktop/not
 
 # Restore scripts and configurations from this repo.
 #
-mkdir -p $HOME/.cache/onedrive
-mkdir -p $HOME/.config/systemd/user
-mkdir -p $HOME/.config/onedrive
 mkdir -p $HOME/.local/bin
 
 cp $CONFIG_PATH/user/bash_aliases                               $HOME/.bash_aliases
-cp $CONFIG_PATH/user/config/onedrive/config                     $HOME/.config/onedrive/config
-cp $CONFIG_PATH/user/config/systemd/user/onedrive.service       $HOME/.config/systemd/user/onedrive.service
 cp $CONFIG_PATH/user/gitconfig                                  $HOME/.gitconfig
 cp $CONFIG_PATH/user/inputrc                                    $HOME/.inputrc
 cp $CONFIG_PATH/user/local/bin/backup-cloud.sh                  $HOME/.local/bin/backup-cloud.sh
 cp $CONFIG_PATH/user/local/bin/backup-local.sh                  $HOME/.local/bin/backup-local.sh
 cp $CONFIG_PATH/user/local/bin/update-gam.sh                    $HOME/.local/bin/update-gam.sh
+cp $CONFIG_PATH/user/local/bin/update-rclone.sh                 $HOME/.local/bin/update-rclone.sh
+cp $CONFIG_PATH/user/local/bin/update-rclonesync.sh             $HOME/.local/bin/update-rclonesync.sh
 cp $CONFIG_PATH/user/local/bin/update-system.sh                 $HOME/.local/bin/update-system.sh
 cp $CONFIG_PATH/user/local/bin/update-youtube-dl.sh             $HOME/.local/bin/update-youtube-dl.sh
 cp $CONFIG_PATH/user/local/bin/update-yubikey-manager.sh        $HOME/.local/bin/update-yubikey-manager.sh

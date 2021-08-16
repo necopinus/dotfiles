@@ -2,7 +2,7 @@
 
 Various configuration files & scripts.
 
-## Pop!_OS on the System76 Darter Pro 5
+## Kali Linux on the Raspberry Pi 4B
 
 1. Clone repo and run the first stage configuration. The system will be
    rebooted when this is done.
@@ -12,32 +12,16 @@ Various configuration files & scripts.
 	cd ~/_setup
 	git clone https://github.com/necopinus/dotfiles.git
 	chmod 755 dotfiles/bin/*
-	./dotfiles/bin/darter-pro-INSTALL-1.sh
+	./dotfiles/bin/raspberry-pi-INSTALL-1.sh
 	```
 
-2. Get a full sync of OneDrive. This can take a while, and be a bit
-   twitchy (if possible, it's better/faster to restore
-   `~/.cache/onedrive`, `~/.config/onedrive`, and `~/OneDrive` from a
-   local backup).
+2. Configure rclone and new per-device SSH/GPG keys.
 
-	```bash
-	onedrive --synchronize --verbose --resync
-	```
-
-3. Run the second stage configuration.
-
-	```bash
-	~/_setup/dotfiles/bin/darter-pro-INSTALL-2.sh
-	```
-
-4. Set up KeePassXC, `~/.config/backup-password`, and new per-device
-   SSH/GPG keys.
-
-5. Run the third stage configuration and clean up the `~/_setup`
+5. Run the second stage configuration and clean up the `~/_setup`
    directory.
 
 	```bash
-	~/_setup/dotfiles/bin/darter-pro-INSTALL-3.sh
+	~/_setup/dotfiles/bin/raspberry-pi-INSTALL-2.sh
 	rm -rf ~/_setup
 	```
 
@@ -68,3 +52,37 @@ Various configuration files & scripts.
 5. Restart the Linux VM
 
 6. Configure any graphical applications.
+
+## Pop!_OS on the System76 Darter Pro 5
+
+1. Clone repo and run the first stage configuration. The system will be
+   rebooted when this is done.
+
+	```bash
+	mkdir ~/_setup
+	cd ~/_setup
+	git clone https://github.com/necopinus/dotfiles.git
+	chmod 755 dotfiles/bin/*
+	./dotfiles/bin/darter-pro-INSTALL-1.sh
+	```
+
+2. Configure rclone.
+
+3. Run the second stage configuration.
+
+	```bash
+	~/_setup/dotfiles/bin/darter-pro-INSTALL-2.sh
+	```
+
+4. Set up KeePassXC, `~/.config/backup-password`, and new per-device
+   SSH/GPG keys.
+
+5. Run the third stage configuration and clean up the `~/_setup`
+   directory.
+
+	```bash
+	~/_setup/dotfiles/bin/darter-pro-INSTALL-3.sh
+	rm -rf ~/_setup
+	```
+
+6. Finish configuring applications.
