@@ -116,4 +116,5 @@ mkdir -p $HOME/code
 	git clone git@bitbucket.org:tpin-it-security/automation-it-lifecycle.git
 	git clone git@bitbucket.org:tpin-it-security/computer-setup.git
 	mv computer-setup automation-computer-setup
+	git clone https://github.com/necopinus/dotfiles.git
 )
