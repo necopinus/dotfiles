@@ -81,6 +81,7 @@ mkdir -p $HOME/.local/share/applications
 cp $CONFIG_PATH/user/bash_aliases                          $HOME/.bash_aliases
 cp $CONFIG_PATH/user/gitconfig                             $HOME/.gitconfig
 cp $CONFIG_PATH/user/inputrc                               $HOME/.inputrc
+cp $CONFIG_PATH/user/local/bin/update-full.sh              $HOME/.local/bin/update-full.sh
 cp $CONFIG_PATH/user/local/bin/update-gam.sh               $HOME/.local/bin/update-gam.sh
 cp $CONFIG_PATH/user/local/bin/update-system.sh            $HOME/.local/bin/update-system.sh
 cp $CONFIG_PATH/user/local/bin/update-zoom.sh              $HOME/.local/bin/update-zoom.sh
