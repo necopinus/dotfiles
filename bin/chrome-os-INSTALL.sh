@@ -114,7 +114,6 @@ mkdir -p $HOME/code
 	git clone git@bitbucket.org:tpin-it-security/keeweb-overlay.git
 	mv keeweb-overlay app-keeweb-overlay
 	git clone git@bitbucket.org:tpin-it-security/assets-okta.git
-	git clone git@bitbucket.org:tpin-it-security/automation-it-lifecycle.git
 	git clone git@bitbucket.org:tpin-it-security/computer-setup.git
 	mv computer-setup automation-computer-setup
 	git clone https://github.com/necopinus/dotfiles.git

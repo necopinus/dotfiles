@@ -58,12 +58,6 @@ mkdir -p $HOME/Code
 	git config user.email "nathan.acks@publicinterestnetwork.org"
 	git config user.signingkey "$(gpg --list-keys nathan.acks@publicinterestnetwork.org | grep -E "^      [0-9A-Z]{40}$" | sed -e "s/^ *//")"
 	cd ..
-	GIT_SSH_COMMAND="ssh -i $HOME/.ssh/id_rsa -F /dev/null" git clone git@bitbucket.org:tpin-it-security/automation-it-lifecycle.git
-	cd automation-it-lifecycle
-	git config core.sshCommand "ssh -i $HOME/.ssh/id_rsa -F /dev/null"
-	git config user.email "nathan.acks@publicinterestnetwork.org"
-	git config user.signingkey "$(gpg --list-keys nathan.acks@publicinterestnetwork.org | grep -E "^      [0-9A-Z]{40}$" | sed -e "s/^ *//")"
-	cd ..
 	GIT_SSH_COMMAND="ssh -i $HOME/.ssh/id_rsa -F /dev/null" git clone git@bitbucket.org:tpin-it-security/computer-setup.git
 	mv computer-setup automation-computer-setup
 	cd automation-computer-setup
