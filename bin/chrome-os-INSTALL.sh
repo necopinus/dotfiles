@@ -39,6 +39,7 @@ bundler \
 dconf-editor \
 dnsutils \
 dos2unix \
+ffmpeg \
 fonts-noto \
 graphicsmagick \
 graphviz \
