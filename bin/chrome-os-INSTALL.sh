@@ -39,6 +39,7 @@ bundler \
 dconf-editor \
 dnsutils \
 dos2unix \
+firefox-esr \
 ffmpeg \
 fonts-noto \
 graphicsmagick \
