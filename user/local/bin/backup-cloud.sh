@@ -53,12 +53,12 @@ fi
 # Sync user data directories.
 #
 if [[ -f $HOME/.config/rclone/rclone.conf ]] && [[ -d $HOME/.rclonesyncwd ]]; then
-	[[ -d $HOME/Desktop   ]] && rclonesync google:/xdg-user-dirs/Desktop/   $HOME/Desktop/   --check-access --max-deletes 5 --rc-verbose --remove-empty-directories --rclone-args --drive-acknowledge-abuse --fast-list
-	[[ -d $HOME/Documents ]] && rclonesync google:/xdg-user-dirs/Documents/ $HOME/Documents/ --check-access --max-deletes 5 --rc-verbose --remove-empty-directories --rclone-args --drive-acknowledge-abuse --fast-list
-	[[ -d $HOME/Downloads ]] && rclonesync google:/xdg-user-dirs/Downloads/ $HOME/Downloads/ --check-access --max-deletes 5 --rc-verbose --remove-empty-directories --rclone-args --drive-acknowledge-abuse --fast-list
-	[[ -d $HOME/Music     ]] && rclonesync google:/xdg-user-dirs/Music/     $HOME/Music/     --check-access --max-deletes 5 --rc-verbose --remove-empty-directories --rclone-args --drive-acknowledge-abuse --fast-list
-	[[ -d $HOME/Pictures  ]] && rclonesync google:/xdg-user-dirs/Pictures/  $HOME/Pictures/  --check-access --max-deletes 5 --rc-verbose --remove-empty-directories --rclone-args --drive-acknowledge-abuse --fast-list
-	[[ -d $HOME/Public    ]] && rclonesync google:/xdg-user-dirs/Public/    $HOME/Public/    --check-access --max-deletes 5 --rc-verbose --remove-empty-directories --rclone-args --drive-acknowledge-abuse --fast-list
-	[[ -d $HOME/Templates ]] && rclonesync google:/xdg-user-dirs/Templates/ $HOME/Templates/ --check-access --max-deletes 5 --rc-verbose --remove-empty-directories --rclone-args --drive-acknowledge-abuse --fast-list
-	[[ -d $HOME/Videos    ]] && rclonesync google:/xdg-user-dirs/Videos/    $HOME/Videos     --check-access --max-deletes 5 --rc-verbose --remove-empty-directories --rclone-args --drive-acknowledge-abuse --fast-list
+	[[ -d $HOME/Desktop   ]] && rclonesync google:/xdg-user-dirs/Desktop/   $HOME/Desktop/   --check-access --check-filename .keep --max-deletes 5 --rc-verbose --remove-empty-directories --rclone-args --drive-acknowledge-abuse --fast-list
+	[[ -d $HOME/Documents ]] && rclonesync google:/xdg-user-dirs/Documents/ $HOME/Documents/ --check-access --check-filename .keep --max-deletes 5 --rc-verbose --remove-empty-directories --rclone-args --drive-acknowledge-abuse --fast-list
+	[[ -d $HOME/Downloads ]] && rclonesync google:/xdg-user-dirs/Downloads/ $HOME/Downloads/ --check-access --check-filename .keep --max-deletes 5 --rc-verbose --remove-empty-directories --rclone-args --drive-acknowledge-abuse --fast-list
+	[[ -d $HOME/Music     ]] && rclonesync google:/xdg-user-dirs/Music/     $HOME/Music/     --check-access --check-filename .keep --max-deletes 5 --rc-verbose --remove-empty-directories --rclone-args --drive-acknowledge-abuse --fast-list
+	[[ -d $HOME/Pictures  ]] && rclonesync google:/xdg-user-dirs/Pictures/  $HOME/Pictures/  --check-access --check-filename .keep --max-deletes 5 --rc-verbose --remove-empty-directories --rclone-args --drive-acknowledge-abuse --fast-list
+	[[ -d $HOME/Public    ]] && rclonesync google:/xdg-user-dirs/Public/    $HOME/Public/    --check-access --check-filename .keep --max-deletes 5 --rc-verbose --remove-empty-directories --rclone-args --drive-acknowledge-abuse --fast-list
+	[[ -d $HOME/Templates ]] && rclonesync google:/xdg-user-dirs/Templates/ $HOME/Templates/ --check-access --check-filename .keep --max-deletes 5 --rc-verbose --remove-empty-directories --rclone-args --drive-acknowledge-abuse --fast-list
+	[[ -d $HOME/Videos    ]] && rclonesync google:/xdg-user-dirs/Videos/    $HOME/Videos     --check-access --check-filename .keep --max-deletes 5 --rc-verbose --remove-empty-directories --rclone-args --drive-acknowledge-abuse --fast-list
 fi
