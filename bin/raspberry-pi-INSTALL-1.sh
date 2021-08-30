@@ -14,6 +14,11 @@ sudo dpkg-reconfigure locales
 #
 sudo dpkg-reconfigure tzdata
 
+# Allow ports for "local" Hugo and Jekyll development.
+#
+sudo ufw allow in on usb0 from 10.55.0.0/29 to 10.55.0.1 port 1313 proto tcp
+sudo ufw allow in on usb0 from 10.55.0.0/29 to 10.55.0.1 port 4000 proto tcp
+
 # Make sure all components are up-to-date.
 #
 source $CONFIG_PATH/user/local/bin/update-system.sh
@@ -30,7 +35,6 @@ sudo apt remove --purge --autoremove python-is-python2
 sudo apt install \
 code-oss \
 dconf-editor \
-exfatprogs \
 flatpak \
 fonts-noto \
 graphicsmagick \
@@ -39,13 +43,13 @@ htop \
 jhead \
 jq \
 keepassxc \
-libpcsclite-dev \
 optipng \
 qalc \
 sound-juicer \
 soundconverter \
-swig \
-youtube-dl
+youtube-dl \
+yubikey-manager \
+yubikey-personalization-gui
 
 # The above packages supercede some installed packages, so we do some
 # additional cleanup here.
@@ -62,8 +66,6 @@ flatpak install --user flathub md.obsidian.Obsidian
 #
 source $CONFIG_PATH/user/local/bin/update-rclone.sh
 source $CONFIG_PATH/user/local/bin/update-rclonesync.sh
-source $CONFIG_PATH/user/local/bin/update-youtube-dl.sh
-source $CONFIG_PATH/user/local/bin/update-yubikey-manager.sh
 
 # Apply application settings, when possible.
 #
@@ -92,8 +94,7 @@ cp $CONFIG_PATH/user/local/bin/update-full.sh            $HOME/.local/bin/update
 cp $CONFIG_PATH/user/local/bin/update-rclone.sh          $HOME/.local/bin/update-rclone.sh
 cp $CONFIG_PATH/user/local/bin/update-rclonesync.sh      $HOME/.local/bin/update-rclonesync.sh
 cp $CONFIG_PATH/user/local/bin/update-system.sh          $HOME/.local/bin/update-system.sh
-cp $CONFIG_PATH/user/local/bin/update-youtube-dl.sh      $HOME/.local/bin/update-youtube-dl.sh
-cp $CONFIG_PATH/user/local/bin/update-yubikey-manager.sh $HOME/.local/bin/update-yubikey-manager.sh
+cp $CONFIG_PATH/user/tmux.conf                           $HOME/.tmux.conf
 
 chmod 755 $HOME/.local/bin/*
 
@@ -103,4 +104,5 @@ echo "A reboot is required for some features to become available."
 echo ""
 read -p "When ready, press any key to reboot... " -n1 -s
 echo ""
+
 sudo reboot

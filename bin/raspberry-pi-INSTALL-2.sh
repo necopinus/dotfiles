@@ -17,7 +17,7 @@ echo ""
 
 # Create backup directory for Google Drive and pull initial mirror.
 #
-mkdir p $HOME/GoogleDrive
+mkdir -p $HOME/GoogleDrive
 rclone sync --bwlimit 8500k --drive-acknowledge-abuse --exclude /xdg-user-dirs/** --fast-list --progress --verbose google:/ $HOME/GoogleDrive/
 
 # Sync actual user data directories.

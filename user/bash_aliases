@@ -13,10 +13,30 @@ fi
 
 # Start GNOME Keyring on Chrome OS.
 #
-source /etc/os-release
-if [[ -z "$SSH_AUTH_SOCK" ]] && [[ -n "$DISPLAY" ]] && [[ "$ID" == "debian" ]] && [[ "$(hostname)" == "penguin" ]]; then
+if [[ "$HOSTNAME" == "penguin" ]]; then
 	eval $(gnome-keyring-daemon --daemonize --start 2> /dev/null)
 	export SSH_AUTH_SOCK
+fi
+
+# Start ssh-agent on Kali (when logging in on console).
+#
+if [[ "$HOSTNAME" == "kali" ]]; then
+	if [[ $(pgrep -u "$USER" -c ssh-agent) -eq 0 ]]; then
+		ssh-agent > "$XDG_RUNTIME_DIR/ssh-agent.env"
+	fi
+	if [[ -z "$SSH_AUTH_SOCK" ]]; then
+		source "$XDG_RUNTIME_DIR/ssh-agent.env"
+	fi
+	if [[ "$(ssh-add -L)" = "The agent has no identities." ]]; then
+		ssh-add
+	fi
+fi
+
+# Make sure that GPG TTY is set right when SSHing into Kali.
+#
+if [[ "$HOSTNAME" == "kali" ]] && [[ -z "$DISPLAY" ]]; then
+	export GPG_TTY=$(tty)
+	gpg-connect-agent updatestartuptty /bye >/dev/null
 fi
 
 # Rationalize $HISTSIZE and $HISTFILESIZE.
