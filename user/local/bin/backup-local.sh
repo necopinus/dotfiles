@@ -36,5 +36,6 @@ if [[ "$BACKUP_FS" = "exfat" ]]; then
 		done < <(find . -mindepth 1 -maxdepth 1 -not -ipath './.*' -print0)
 	)
 else
-	rsync -av --delete --force --human-readable --progress $HOME/ $BACKUP_PATH/home/
+	mkdir -p $BACKUP_PATH/$HOSTNAME
+	rsync -av --delete --force --human-readable --progress $HOME/ $BACKUP_PATH/$HOSTNAME/
 fi
