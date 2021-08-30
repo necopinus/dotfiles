@@ -36,7 +36,11 @@ fi
 #
 if [[ "$HOSTNAME" == "kali" ]] && [[ -z "$DISPLAY" ]]; then
 	export GPG_TTY=$(tty)
-	gpg-connect-agent updatestartuptty /bye >/dev/null
+	GPG_AGENT_COMMAND="gpg-connect-agent updatestartuptty /bye > /dev/null"
+	if [[ ! " ${PROMPT_COMMAND[*]} " =~ " $GPG_AGENT_COMMAND " ]]; then
+		PROMPT_COMMAND+=("$GPG_AGENT_COMMAND")
+		export PROMPT_COMMAND
+	fi
 fi
 
 # Rationalize $HISTSIZE and $HISTFILESIZE.
