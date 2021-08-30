@@ -106,11 +106,11 @@ chmod 600 $HOME/.gam/*
 
 # Restore all git repos.
 #
-mkdir -p $HOME/code
+mkdir -p $HOME/Code
 (
 	git config --global user.email nathan.acks@publicinterestnetwork.org
 	git config --global user.signingkey "$(gpg --list-keys nathan.acks@publicinterestnetwork.org | grep -E "^      [0-9A-Z]{40}$" | sed -e "s/^ *//")"
-	cd $HOME/code
+	cd $HOME/Code
 	git clone https://github.com/keeweb/keeweb.git
 	mv keeweb app-keeweb
 	git clone git@bitbucket.org:tpin-it-security/keeweb-overlay.git
@@ -120,3 +120,7 @@ mkdir -p $HOME/code
 	mv computer-setup automation-computer-setup
 	git clone https://github.com/necopinus/dotfiles.git
 )
+
+# Create "Downloads" symlink.
+#
+ln -s /mnt/chromeos/MyFiles/Downloads $HOME/Downloads
