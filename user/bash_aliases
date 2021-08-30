@@ -43,6 +43,15 @@ if [[ "$HOSTNAME" == "kali" ]] && [[ -z "$DISPLAY" ]]; then
 	fi
 fi
 
+# Make sure that ~/.local/bin is added to our path. Note that we only do
+# this if we're *not* in a login shell, since the Debian default
+# ~/.profile (which all of the distros I'm currently using inherit) adds
+# this component blindly.
+#
+if [[ -d $HOME/.local/bin ]] && [[ ! "$PATH" =~ "$HOME/.local/bin" ]]; then
+	shopt -q login_shell || export PATH="$HOME/.local/bin:$PATH"
+fi
+
 # Rationalize $HISTSIZE and $HISTFILESIZE.
 #
 if [[ -n "$HISTSIZE" ]] && [[ -n "$HISTFILESIZE" ]]; then
