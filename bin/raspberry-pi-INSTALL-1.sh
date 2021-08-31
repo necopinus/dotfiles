@@ -30,6 +30,12 @@ source $CONFIG_PATH/user/local/bin/update-system.sh
 #
 sudo apt remove --purge --autoremove python-is-python2
 
+# Remove colord, as I don't use this system for image editing or
+# watching movies, and it generates annoying prompts when running
+# XFCE over XRDP.
+#
+sudo apt purge --autoremove --purge colord
+
 # Install new applications.
 #
 sudo apt install \
