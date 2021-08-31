@@ -34,7 +34,7 @@ if [[ "$LOCAL_VERSION" != "$REMOTE_VERSION" ]] && [[ "$ARCH" != "xxxxx" ]]; then
 		curl -L -O https://github.com/rclone/rclone/releases/download/v${REMOTE_VERSION}/rclone-v${REMOTE_VERSION}-linux-${ARCH}.deb
 		sudo apt install ./rclone-v${REMOTE_VERSION}-linux-${ARCH}.deb
 		mkdir -p $HOME/.cache/versions
-		echo "$REMOTE_VERSION" > $HOME/.cache/versions/gam
+		echo "$REMOTE_VERSION" > $HOME/.cache/versions/rclone
 	)
 	rm -rf "$BUILD_DIR"
 else
