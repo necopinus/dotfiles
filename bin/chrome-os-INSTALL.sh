@@ -47,6 +47,7 @@ graphviz \
 htop \
 jhead \
 jq \
+mpack \
 nano \
 nodejs \
 optipng \
