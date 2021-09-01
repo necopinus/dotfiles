@@ -43,6 +43,7 @@ code-oss \
 dconf-editor \
 flatpak \
 fonts-noto \
+golang \
 graphicsmagick \
 handbrake \
 htop \
@@ -70,6 +71,7 @@ flatpak install --user flathub md.obsidian.Obsidian
 # Additional "loose" installs. These are all handled through update
 # scripts (which fortunately can also handle the initial installation.
 #
+source $CONFIG_PATH/user/local/bin/update-keybase.sh
 source $CONFIG_PATH/user/local/bin/update-rclone.sh
 source $CONFIG_PATH/user/local/bin/update-rclonesync.sh
 
@@ -97,6 +99,7 @@ cp $CONFIG_PATH/user/inputrc                             $HOME/.inputrc
 cp $CONFIG_PATH/user/local/bin/backup-cloud.sh           $HOME/.local/bin/backup-cloud.sh
 cp $CONFIG_PATH/user/local/bin/backup-local.sh           $HOME/.local/bin/backup-local.sh
 cp $CONFIG_PATH/user/local/bin/update-full.sh            $HOME/.local/bin/update-full.sh
+cp $CONFIG_PATH/user/local/bin/update-keybase.sh         $HOME/.local/bin/update-keybase.sh
 cp $CONFIG_PATH/user/local/bin/update-rclone.sh          $HOME/.local/bin/update-rclone.sh
 cp $CONFIG_PATH/user/local/bin/update-rclonesync.sh      $HOME/.local/bin/update-rclonesync.sh
 cp $CONFIG_PATH/user/local/bin/update-system.sh          $HOME/.local/bin/update-system.sh
