@@ -29,9 +29,9 @@ if [[ "$BACKUP_FS" = "exfat" ]] || [[ "$BACKUP_FS" = "fuseblk" ]]; then
 		cd $HOME
 		while IFS= read -r -d '' OBJECT; do
 			if [[ -d "$OBJECT" ]] && [[ "$OBJECT" != "./Code" ]] && [[ "$OBJECT" != "./code" ]]; then
-				rsync -vrltD --delete --force --human-readable --modify-window=1 --progress $HOME/"$OBJECT"/ $BACKUP_PATH/"$OBJECT"/
+				rsync -vrltD --checksum --delete --force --human-readable --modify-window=1 --no-times --progress $HOME/"$OBJECT"/ $BACKUP_PATH/"$OBJECT"/
 			elif [[ -f "$OBJECT" ]]; then
-				rsync -vrltD --delete --force --human-readable --modify-window=1 --progress $HOME/"$OBJECT"  $BACKUP_PATH/"$OBJECT"
+				rsync -vrltD --checksum --delete --force --human-readable --modify-window=1 --no-times --progress $HOME/"$OBJECT"  $BACKUP_PATH/"$OBJECT"
 			fi
 		done < <(find . -mindepth 1 -maxdepth 1 -not -ipath './.*' -print0)
 	)
