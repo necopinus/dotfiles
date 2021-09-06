@@ -16,7 +16,7 @@ fi
 # restore!).
 #
 BACKUP_FS="$(mount | grep $BACKUP_PATH | sed -e 's/ (.*$//;s/^.* type //')"
-if [[ "$BACKUP_FS" != "exfat" ]] && [[ "$BACKUP_FS" != "ext4" ]]; then
+if [[ "$BACKUP_FS" != "exfat" ]] && [[ "$BACKUP_FS" != "fuseblk" ]] && [[ "$BACKUP_FS" != "ext4" ]]; then
 	echo "Expected $BACKUP_PATH to be an external exFAT or ext4 file system."
 	echo "Please ensure the backup vault is mounted and functioning properly."
 	exit 1
@@ -24,7 +24,7 @@ fi
 
 # The backup, which is really just mirroring content.
 #
-if [[ "$BACKUP_FS" = "exfat" ]]; then
+if [[ "$BACKUP_FS" = "exfat" ]] || [[ "$BACKUP_FS" = "fuseblk" ]]; then
 	(
 		cd $HOME
 		while IFS= read -r -d '' OBJECT; do
