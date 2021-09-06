@@ -24,18 +24,35 @@ fi
 
 # The backup, which is really just mirroring content.
 #
-if [[ "$BACKUP_FS" = "exfat" ]] || [[ "$BACKUP_FS" = "fuseblk" ]]; then
+# NOTE: Once the Re4son Raspberry Pi kernel that Kali Linux uses is
+# upgraded to 4.9+, it shouldn't be necessary to use exfat-fuse anymore
+# and the fuseblk stanza here (and test above) can be dropped. (It
+# might also make sense to uninstall exfat-utils and exfat-fuse at that
+# time in favor of the exfatprogs package that's supported by Samsung.)
+#
+if [[ "$BACKUP_FS" = "exfat" ]]; then
 	(
 		cd $HOME
 		while IFS= read -r -d '' OBJECT; do
 			if [[ -d "$OBJECT" ]] && [[ "$OBJECT" != "./Code" ]] && [[ "$OBJECT" != "./code" ]]; then
-				rsync -vrltD --checksum --delete --force --human-readable --modify-window=1 --no-times --progress $HOME/"$OBJECT"/ $BACKUP_PATH/"$OBJECT"/
+				rsync -vrltD --delete --force --human-readable --modify-window=1 --progress $HOME/"$OBJECT"/ $BACKUP_PATH/"$OBJECT"/
 			elif [[ -f "$OBJECT" ]]; then
-				rsync -vrltD --checksum --delete --force --human-readable --modify-window=1 --no-times --progress $HOME/"$OBJECT"  $BACKUP_PATH/"$OBJECT"
+				rsync -vrltD --delete --force --human-readable --modify-window=1 --progress $HOME/"$OBJECT"  $BACKUP_PATH/"$OBJECT"
 			fi
 		done < <(find . -mindepth 1 -maxdepth 1 -not -ipath './.*' -print0)
 	)
-else
+elif [[ "$BACKUP_FS" = "fuseblk" ]]; then
+	(
+		cd $HOME
+		while IFS= read -r -d '' OBJECT; do
+			if [[ -d "$OBJECT" ]] && [[ "$OBJECT" != "./Code" ]] && [[ "$OBJECT" != "./code" ]]; then
+				rsync -vrltD --checksum --delete --force --human-readable --no-times --progress $HOME/"$OBJECT"/ $BACKUP_PATH/"$OBJECT"/
+			elif [[ -f "$OBJECT" ]]; then
+				rsync -vrltD --checksum --delete --force --human-readable --no-times --progress $HOME/"$OBJECT"  $BACKUP_PATH/"$OBJECT"
+			fi
+		done < <(find . -mindepth 1 -maxdepth 1 -not -ipath './.*' -print0)
+	)
+elif [[ "$BACKUP_FS" = "ext4" ]]; then
 	mkdir -p $BACKUP_PATH/$HOSTNAME
 	rsync -av --delete --force --human-readable --progress $HOME/ $BACKUP_PATH/$HOSTNAME/
 fi
