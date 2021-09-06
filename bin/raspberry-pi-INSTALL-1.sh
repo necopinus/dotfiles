@@ -41,6 +41,7 @@ sudo apt purge --autoremove --purge colord
 sudo apt install \
 code-oss \
 dconf-editor \
+exfat-utils \
 flatpak \
 fonts-noto \
 golang \
