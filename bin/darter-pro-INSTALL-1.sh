@@ -90,7 +90,6 @@ xdotool \
 youtube-dl
 
 flatpak install --user flathub fi.skyjake.Lagrange
-flatpak install --user flathub md.obsidian.Obsidian
 flatpak install --user flathub org.gimp.GIMP
 flatpak install --user flathub org.keepassxc.KeePassXC
 flatpak install --user flathub org.openshot.OpenShot
