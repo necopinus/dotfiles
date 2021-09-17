@@ -15,21 +15,6 @@ sudo ufw enable
 sudo apt install apt-transport-https
 sudo mkdir -p /usr/local/share/keyrings
 
-# Add the Google Endpoint Verification repository (needed for work).
-#
-curl -L -O https://packages.cloud.google.com/apt/doc/apt-key.gpg
-sudo mv apt-key.gpg /usr/local/share/keyrings/google.gpg
-sudo chown root:root /usr/local/share/keyrings/google.gpg
-echo "deb [signed-by=/usr/local/share/keyrings/google.gpg] https://packages.cloud.google.com/apt endpoint-verification main" | sudo tee /etc/apt/sources.list.d/endpoint-verification.list
-
-# Add the NodeSource repository. See:
-#
-#     https://node.dev/node-binary
-#
-curl -s https://deb.nodesource.com/gpgkey/nodesource.gpg.key | gpg --dearmor | sudo tee /usr/local/share/keyrings/nodesource.gpg
-echo "deb     [signed-by=/usr/local/share/keyrings/nodesource.gpg] https://deb.nodesource.com/node_14.x groovy main" | sudo tee    /etc/apt/sources.list.d/nodesource.list"
-echo "deb-src [signed-by=/usr/local/share/keyrings/nodesource.gpg] https://deb.nodesource.com/node_14.x groovy main" | sudo tee -a /etc/apt/sources.list.d/nodesource.list"
-
 # Make sure all components are up-to-date.
 #
 source $CONFIG_PATH/user/local/bin/update-system.sh
@@ -61,10 +46,8 @@ code \
 dconf-editor \
 discord \
 dos2unix \
-endpoint-verification \
 exfatprogs \
 fonts-noto \
-google-chrome-stable \
 graphicsmagick \
 graphviz \
 grub-pc \
@@ -74,7 +57,6 @@ ibus-typing-booster \
 jhead \
 jq \
 libpcsclite-dev \
-nodejs \
 optipng \
 p7zip-full \
 python3-bs4 \
@@ -92,7 +74,6 @@ youtube-dl
 flatpak install --user flathub fi.skyjake.Lagrange
 flatpak install --user flathub org.gimp.GIMP
 flatpak install --user flathub org.keepassxc.KeePassXC
-flatpak install --user flathub org.openshot.OpenShot
 flatpak install --user flathub org.signal.Signal
 flatpak install --user flathub org.videolan.VLC
 
@@ -105,12 +86,10 @@ rm -f ./keybase_amd64.deb
 # Additional "loose" installs. These are all handled through update
 # scripts (which fortunately can also handle the initial installation.
 #
-source $CONFIG_PATH/user/local/bin/update-gam.sh
 source $CONFIG_PATH/user/local/bin/update-rclone.sh
 source $CONFIG_PATH/user/local/bin/update-rclonesync.sh
 source $CONFIG_PATH/user/local/bin/update-youtube-dl.sh
 source $CONFIG_PATH/user/local/bin/update-yubikey-manager.sh
-source $CONFIG_PATH/user/local/bin/update-zoom.sh
 
 # Apply application settings, when possible.
 #
@@ -182,14 +161,11 @@ cp $CONFIG_PATH/user/inputrc                                    $HOME/.inputrc
 cp $CONFIG_PATH/user/local/bin/backup-cloud.sh                  $HOME/.local/bin/backup-cloud.sh
 cp $CONFIG_PATH/user/local/bin/backup-local.sh                  $HOME/.local/bin/backup-local.sh
 cp $CONFIG_PATH/user/local/bin/update-full.sh                   $HOME/.local/bin/update-full.sh
-cp $CONFIG_PATH/user/local/bin/update-gam.sh                    $HOME/.local/bin/update-gam.sh
 cp $CONFIG_PATH/user/local/bin/update-rclone.sh                 $HOME/.local/bin/update-rclone.sh
 cp $CONFIG_PATH/user/local/bin/update-rclonesync.sh             $HOME/.local/bin/update-rclonesync.sh
 cp $CONFIG_PATH/user/local/bin/update-system.sh                 $HOME/.local/bin/update-system.sh
 cp $CONFIG_PATH/user/local/bin/update-youtube-dl.sh             $HOME/.local/bin/update-youtube-dl.sh
 cp $CONFIG_PATH/user/local/bin/update-yubikey-manager.sh        $HOME/.local/bin/update-yubikey-manager.sh
-cp $CONFIG_PATH/user/local/bin/update-zoom.sh                   $HOME/.local/bin/update-zoom.sh
-cp $CONFIG_PATH/user/openshot_qt/profiles/pixelbook-google-meet $HOME/.openshot_qt/profiles/pixelbook-google-meet
 
 chmod 755 $HOME/.local/bin/*
 
