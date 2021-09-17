@@ -169,13 +169,6 @@ cp $CONFIG_PATH/user/local/bin/update-yubikey-manager.sh        $HOME/.local/bin
 
 chmod 755 $HOME/.local/bin/*
 
-# Create a stub ~/.config/backup-password file. The actual value for
-# "XXX" will need to be filled in from KeePassXC.
-#
-echo 'BACKUP_PASSWORD="XXX"' > $HOME/.config/backup-password
-chmod 700 $HOME/.config
-chmod 600 $HOME/.config/backup-password
-
 # Disable the VirtualBox web service. We don't need it, and it just
 # likes to fail and make systemd complain anyway.
 #

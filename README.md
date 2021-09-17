@@ -17,7 +17,7 @@ Various configuration files & scripts.
 
 2. Configure rclone and new per-device SSH/GPG keys.
 
-5. Run the second stage configuration and clean up the `~/_setup`
+3. Run the second stage configuration and clean up the `~/_setup`
    directory.
 
 	```bash
@@ -25,7 +25,7 @@ Various configuration files & scripts.
 	rm -rf ~/_setup
 	```
 
-6. Finish configuring applications.
+4. Finish configuring applications.
 
 ## Chrome OS
 
@@ -66,23 +66,14 @@ Various configuration files & scripts.
 	./dotfiles/bin/darter-pro-INSTALL-1.sh
 	```
 
-2. Configure rclone.
+2. Configure rclone and new per-device SSH/GPG keys.
 
-3. Run the second stage configuration.
-
-	```bash
-	~/_setup/dotfiles/bin/darter-pro-INSTALL-2.sh
-	```
-
-4. Set up KeePassXC, `~/.config/backup-password`, and new per-device
-   SSH/GPG keys.
-
-5. Run the third stage configuration and clean up the `~/_setup`
+3. Run the second stage configuration and clean up the `~/_setup`
    directory.
 
 	```bash
-	~/_setup/dotfiles/bin/darter-pro-INSTALL-3.sh
+	~/_setup/dotfiles/bin/darter-pro-INSTALL-2.sh
 	rm -rf ~/_setup
 	```
 
-6. Finish configuring applications.
+4. Finish configuring applications.

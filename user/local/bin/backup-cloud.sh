@@ -8,19 +8,6 @@ if [[ ! -d $BACKUP_PATH ]]; then
 	exit 1
 fi
 
-# Import backup password and backup GAM configuration.
-#
-if [[ -f $HOME/.config/backup-password ]]; then
-	source $HOME/.config/backup-password
-fi
-if [[ -d $HOME/.gam ]] && [[ -n "$BACKUP_PASSWORD" ]] && [[ "$BACKUP_PASSWORD" != "XXX"  ]]; then
-	(
-		cd $HOME
-		tar -cvf - .gam | 7z a -p$BACKUP_PASSWORD -si GAM.tar.7z
-		mv -v GAM.tar.7z $BACKUP_PATH/
-	)
-fi
-
 # Make sure that code repos are all up-to-date.
 #
 if [[ -d $HOME/Code ]]; then

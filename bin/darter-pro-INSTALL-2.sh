@@ -30,3 +30,30 @@ rclonesync google:/xdg-user-dirs/Pictures/  $HOME/Pictures/  --first-sync --max-
 rclonesync google:/xdg-user-dirs/Public/    $HOME/Public/    --first-sync --max-deletes 5 --rc-verbose --remove-empty-directories --rclone-args --bwlimit 8500k --drive-acknowledge-abuse --fast-list
 rclonesync google:/xdg-user-dirs/Templates/ $HOME/Templates/ --first-sync --max-deletes 5 --rc-verbose --remove-empty-directories --rclone-args --bwlimit 8500k --drive-acknowledge-abuse --fast-list
 rclonesync google:/xdg-user-dirs/Videos/    $HOME/Videos     --first-sync --max-deletes 5 --rc-verbose --remove-empty-directories --rclone-args --bwlimit 8500k --drive-acknowledge-abuse --fast-list
+
+# Restore all git repos.
+#
+mkdir -p $HOME/Code
+(
+	git config --global user.email nathan.acks@cardboard-iguana.com
+	git config --global user.signingkey "$(gpg --list-keys nathan.acks@cardboard-iguana.com | grep -E "^      [0-9A-Z]{40}$" | sed -e "s/^ *//")"
+	cd $HOME/Code
+	git clone git@github.com:The-Yak-Collective/onboarding_robot.git
+	mv onboarding_robot automation-onboarding-robot
+	git clone git@github.com:The-Yak-Collective/project_ui.git
+	mv project_ui automation-project-ui
+	git clone git@github.com:necopinus/backups.git
+	mv backups backups-necopinus
+	git clone git@github.com:The-Yak-Collective/backups.git
+	mv backups backups-yak-collective
+	git clone git@github.com:The-Yak-Collective/infrastructure-map.git
+	mv infrastructure-map doc-infrastructure-map
+	git clone git@github.com:necopinus/dotfiles.git
+	git clone git@bitbucket.org:necopinus/hugo-theme-story.git
+	git clone git@bitbucket.org:necopinus/website-chateaumaxmin.info.git
+	git clone git@bitbucket.org:necopinus/website-delphi-strategy.com.git
+	git clone git@bitbucket.org:necopinus/website-digital-orrery.com.git
+	git clone git@bitbucket.org:necopinus/website-ecopunk.info.git
+	git clone git@github.com:The-Yak-Collective/yakcollective.git
+	mv yakcollective website-yakcollective.org
+)
