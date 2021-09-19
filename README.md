@@ -2,6 +2,18 @@
 
 Various configuration files & scripts.
 
+## iSH
+
+```shell
+apk add git
+mkdir ~/Code
+cd ~/Code
+git clone https://github.com/necopinus/dotfiles.git
+chmod 755 dotfiles/bin/*
+./dotfiles/bin/ish-INSTALL.sh
+cd ..
+```
+
 ## Kali Linux on the Raspberry Pi 4B
 
 1. Clone repo and run the first stage configuration. The system will be
