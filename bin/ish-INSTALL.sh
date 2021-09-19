@@ -1,10 +1,10 @@
-#!/usr/bin/env ash
+#!/usr/bin/env bash
 
 # Get the path to this script, so that we can correctly find relevant
 # dotfiles.
 #
-SCRIPT_PATH="`realpath "$0"`"
-CONFIG_PATH="`dirname "$SCRIPT_PATH"`/../"
+SCRIPT_PATH="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)/$(basename "${BASH_SOURCE[0]}")"
+CONFIG_PATH="$(dirname "$SCRIPT_PATH")/../"
 
 # Make sure all components are up-to-date.
 #
@@ -40,7 +40,6 @@ source $CONFIG_PATH/user/local/bin/update-youtube-dl.sh
 #
 mkdir -p $HOME/.local/bin
 
-cp $CONFIG_PATH/user/inputrc                        $HOME/.inputrc
 cp $CONFIG_PATH/user/local/bin/update-full.sh       $HOME/.local/bin/update-full.sh
 cp $CONFIG_PATH/user/local/bin/update-system.sh     $HOME/.local/bin/update-system.sh
 cp $CONFIG_PATH/user/local/bin/update-youtube-dl.sh $HOME/.local/bin/update-youtube-dl.sh

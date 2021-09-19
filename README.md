@@ -5,7 +5,7 @@ Various configuration files & scripts.
 ## iSH
 
 ```shell
-apk add git
+apk add bash git
 mkdir ~/Code
 cd ~/Code
 git clone https://github.com/necopinus/dotfiles.git
