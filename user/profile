@@ -1,0 +1,7 @@
+# ONLY USED ON iSH!
+
+# Make sure that ~/.local/bin is added to our path.
+#
+if [ -d $HOME/.local/bin ]; then
+	export PATH="$HOME/.local/bin:$PATH"
+fi

@@ -13,6 +13,7 @@ source $CONFIG_PATH/user/local/bin/update-system.sh
 # Install new applications from system repos.
 #
 apk add \
+build-base \
 dos2unix \
 drill \
 ffmpeg \
@@ -22,13 +23,14 @@ graphviz \
 jq \
 man-db-doc \
 nano \
-nodejs-current \
 optipng \
 p7zip \
 poppler-utils \
+py3-beautifulsoup4 \
 py3-pip \
 py3-virtualenv \
 ruby-bundler \
+ruby-dev \
 youtube-dl
 
 # Additional "loose" installs. These are all handled through update
@@ -40,8 +42,30 @@ source $CONFIG_PATH/user/local/bin/update-youtube-dl.sh
 #
 mkdir -p $HOME/.local/bin
 
+cp $CONFIG_PATH/user/profile                        $HOME/.profile
 cp $CONFIG_PATH/user/local/bin/update-full.sh       $HOME/.local/bin/update-full.sh
 cp $CONFIG_PATH/user/local/bin/update-system.sh     $HOME/.local/bin/update-system.sh
 cp $CONFIG_PATH/user/local/bin/update-youtube-dl.sh $HOME/.local/bin/update-youtube-dl.sh
 
 chmod 755 $HOME/.local/bin/*
+
+# Pull all git repos (that make sense).
+#
+mkdir -p $HOME/Code
+(
+	cd $HOME/Code
+	git clone https://github.com/The-Yak-Collective/onboarding_robot.git
+	mv onboarding_robot automation-onboarding-robot
+	git clone https://github.com/The-Yak-Collective/project_ui.git
+	mv project_ui automation-project-ui
+	git clone https://github.com/The-Yak-Collective/infrastructure-map.git
+	mv infrastructure-map doc-infrastructure-map
+	#git clone https://github.com/necopinus/dotfiles.git
+	git clone https://bitbucket.org/necopinus/hugo-theme-story.git
+	git clone https://bitbucket.org/necopinus/website-chateaumaxmin.info.git
+	git clone https://bitbucket.org/necopinus/website-delphi-strategy.com.git
+	git clone https://bitbucket.org/necopinus/website-digital-orrery.com.git
+	git clone https://bitbucket.org/necopinus/website-ecopunk.info.git
+	git clone https://github.com/The-Yak-Collective/yakcollective.git
+	mv yakcollective website-yakcollective.org
+)
