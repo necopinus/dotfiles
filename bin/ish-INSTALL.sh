@@ -31,6 +31,8 @@ py3-pip \
 py3-virtualenv \
 ruby-bundler \
 ruby-dev \
+ruby-json \
+tmux \
 youtube-dl
 
 # Additional "loose" installs. These are all handled through update
@@ -61,11 +63,6 @@ mkdir -p $HOME/Code
 	git clone https://github.com/The-Yak-Collective/infrastructure-map.git
 	mv infrastructure-map doc-infrastructure-map
 	#git clone https://github.com/necopinus/dotfiles.git
-	git clone https://bitbucket.org/necopinus/hugo-theme-story.git
-	git clone https://bitbucket.org/necopinus/website-chateaumaxmin.info.git
-	git clone https://bitbucket.org/necopinus/website-delphi-strategy.com.git
-	git clone https://bitbucket.org/necopinus/website-digital-orrery.com.git
-	git clone https://bitbucket.org/necopinus/website-ecopunk.info.git
 	git clone https://github.com/The-Yak-Collective/yakcollective.git
 	mv yakcollective website-yakcollective.org
 )
