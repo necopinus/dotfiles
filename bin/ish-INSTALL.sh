@@ -51,18 +51,13 @@ cp $CONFIG_PATH/user/local/bin/update-youtube-dl.sh $HOME/.local/bin/update-yout
 
 chmod 755 $HOME/.local/bin/*
 
-# Pull all git repos (that make sense).
+# Set up iOS mounts.
 #
-mkdir -p $HOME/Code
-(
-	cd $HOME/Code
-	git clone https://github.com/The-Yak-Collective/onboarding_robot.git
-	mv onboarding_robot automation-onboarding-robot
-	git clone https://github.com/The-Yak-Collective/project_ui.git
-	mv project_ui automation-project-ui
-	git clone https://github.com/The-Yak-Collective/infrastructure-map.git
-	mv infrastructure-map doc-infrastructure-map
-	#git clone https://github.com/necopinus/dotfiles.git
-	git clone https://github.com/The-Yak-Collective/yakcollective.git
-	mv yakcollective website-yakcollective.org
-)
+mkdir Code
+mount -t ios none Code
+
+mkdir Downloads
+mount -t ios none Downloads
+
+mkdir Obsidian
+mount -t ios none Obsidian

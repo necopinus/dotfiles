@@ -6,12 +6,13 @@ Various configuration files & scripts.
 
 ```shell
 apk add bash git
-mkdir ~/Code
-cd ~/Code
+mkdir ~/_setup
+cd ~/_setup
 git clone https://github.com/necopinus/dotfiles.git
 chmod 755 dotfiles/bin/*
 ./dotfiles/bin/ish-INSTALL.sh
 cd ..
+rm -rf ~/_setup
 ```
 
 ## Kali Linux on the Raspberry Pi 4B
