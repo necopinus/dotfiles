@@ -21,6 +21,11 @@ sudo dpkg-reconfigure tzdata
 #
 sudo ufw allow in on usb0 from 10.55.0.0/29 to 10.55.0.1 port 1313 proto tcp
 
+# Disable the Raspberry Pi's default overscan, as this doesn't play nice
+# with any of my monitors.
+#
+sudo sed -i -e 's/^#disable_overscan=1$/disable_overscan=1/' /boot/config.txt
+
 # Make sure all components are up-to-date.
 #
 source $CONFIG_PATH/user/local/bin/update-system.sh
