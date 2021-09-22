@@ -97,6 +97,12 @@ gsettings set org.gtk.Settings.FileChooser   clock-format     "24h"
 gsettings set org.soundconverter             mp3-vbr-quality  0
 gsettings set org.soundconverter             output-mime-type "audio/mpeg"
 
+xfconf-query -c displays      -p /AutoEnableProfiles         -t bool   -s true
+xfconf-query -c displays      -p /Notify                     -t bool   -s true
+xfconf-query -c xfce4-panel   -p /plugins/plugin-15/timezone -t string -s "US/Mountain"
+xfconf-query -c xfce4-session -p /general/AutoSave           -t bool   -s false
+xfconf-query -c xfce4-session -p /general/PromptOnLogout     -t bool   -s false
+
 # Restore scripts and configurations from this repo.
 #
 mkdir -p $HOME/.local/bin
