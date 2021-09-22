@@ -14,10 +14,12 @@ sudo dpkg-reconfigure locales
 #
 sudo dpkg-reconfigure tzdata
 
-# Allow ports for "local" Hugo and Jekyll development.
+# Allow ports for "local" Hugo development.
+#
+# NOTE: NoMachine uses port 4000, which conflicts with Jekyll's default
+# development server port.
 #
 sudo ufw allow in on usb0 from 10.55.0.0/29 to 10.55.0.1 port 1313 proto tcp
-sudo ufw allow in on usb0 from 10.55.0.0/29 to 10.55.0.1 port 4000 proto tcp
 
 # Make sure all components are up-to-date.
 #
