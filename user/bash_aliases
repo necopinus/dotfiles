@@ -24,11 +24,13 @@ if [[ "$HOSTNAME" == "kali" ]]; then
 	if [[ $(pgrep -u "$USER" -c ssh-agent) -eq 0 ]]; then
 		ssh-agent > "$XDG_RUNTIME_DIR/ssh-agent.env"
 	fi
-	if [[ -z "$SSH_AUTH_SOCK" ]]; then
-		source "$XDG_RUNTIME_DIR/ssh-agent.env"
-	fi
-	if [[ "$(ssh-add -L)" = "The agent has no identities." ]]; then
-		ssh-add
+	if [[ -f "$XDG_RUNTIME_DIR/ssh-agent.env" ]]; then
+		if [[ -z "$SSH_AUTH_SOCK" ]]; then
+			source "$XDG_RUNTIME_DIR/ssh-agent.env"
+		fi
+		if [[ "$(ssh-add -L)" = "The agent has no identities." ]]; then
+			ssh-add
+		fi
 	fi
 fi
 
