@@ -14,12 +14,10 @@ sudo dpkg-reconfigure locales
 #
 sudo dpkg-reconfigure tzdata
 
-# Allow ports for "local" Hugo development.
-#
-# NOTE: NoMachine uses port 4000, which conflicts with Jekyll's default
-# development server port.
+# Allow ports for "local" Hugo and Jekyll development.
 #
 sudo ufw allow in on usb0 from 10.55.0.0/29 to 10.55.0.1 port 1313 proto tcp
+sudo ufw allow in on usb0 from 10.55.0.0/29 to 10.55.0.1 port 4000 proto tcp
 
 # Disable the Raspberry Pi's default overscan, as this doesn't play nice
 # with any of my monitors.
