@@ -3,7 +3,9 @@
 
 # Set custom configuration path.
 #
-export GAMUSERCONFIGDIR="$HOME/.gam"
+if [[ -n "$(which gam)" ]]; then
+	export GAMUSERCONFIGDIR="$HOME/.gam"
+fi
 
 # Backup GAM configuration data.
 #
