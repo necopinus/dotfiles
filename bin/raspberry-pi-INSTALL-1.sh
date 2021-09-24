@@ -16,6 +16,9 @@ sudo dpkg-reconfigure tzdata
 
 # Allow ports for "local" Hugo and Jekyll development.
 #
+sudo ufw allow in on eth0 from 10.55.0.0/29 to 10.55.0.2 port 1313 proto tcp
+sudo ufw allow in on eth0 from 10.55.0.0/29 to 10.55.0.2 port 4000 proto tcp
+
 sudo ufw allow in on usb0 from 10.55.0.0/29 to 10.55.0.1 port 1313 proto tcp
 sudo ufw allow in on usb0 from 10.55.0.0/29 to 10.55.0.1 port 4000 proto tcp
 
