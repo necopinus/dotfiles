@@ -26,13 +26,8 @@ if [[ "$HOSTNAME" == "kali" ]]; then
 	if [[ $(pgrep -u "$USER" -c ssh-agent) -eq 0 ]]; then
 		ssh-agent > "$XDG_RUNTIME_DIR/ssh-agent.env"
 	fi
-	if [[ -f "$XDG_RUNTIME_DIR/ssh-agent.env" ]]; then
-		if [[ -z "$SSH_AUTH_SOCK" ]]; then
-			source "$XDG_RUNTIME_DIR/ssh-agent.env"
-		fi
-		if [[ "$(ssh-add -L)" = "The agent has no identities." ]]; then
-			ssh-add
-		fi
+	if [[ -f "$XDG_RUNTIME_DIR/ssh-agent.env" ]] && [[ -z "$SSH_AUTH_SOCK" ]]; then
+		source "$XDG_RUNTIME_DIR/ssh-agent.env"
 	fi
 fi
 
@@ -45,6 +40,12 @@ if [[ "$HOSTNAME" == "kali" ]] && [[ -z "$DISPLAY" ]]; then
 		PROMPT_COMMAND+=("$GPG_AGENT_COMMAND")
 		export PROMPT_COMMAND
 	fi
+fi
+
+# Add SSH identities.
+#
+if [[ -n "$SSH_AUTH_SOCK" ]] && [[ "$(ssh-add -L)" = "The agent has no identities." ]]; then
+	ssh-add
 fi
 
 # Make sure that ~/.local/bin is added to our path. Note that we only do
