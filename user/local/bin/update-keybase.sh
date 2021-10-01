@@ -12,6 +12,10 @@ fi
 #
 REMOTE_VERSION="$(curl -s https://api.github.com/repos/keybase/client/releases/latest | grep -Po '"tag_name": ?"v\K.*?(?=")')"
 
+# FIXME: Lock Keybase version until issue 24479 is resolved.
+#
+REMOTE_VERSION="5.7.1"
+
 # Get system architecture.
 #
 UNAME_ARCH="$(uname -m)"
@@ -65,8 +69,11 @@ if [[ "$LOCAL_VERSION" != "$REMOTE_VERSION" ]]; then
 		echo "Keybase updated to v${REMOTE_VERSION}. A reboot is STRONGLY recommended."
 	)
 	rm -rf "$BUILD_DIR"
-	unset KEYBASE_SKIP_32_BIT KEYBASE_BUILD_ARM_ONLY
 else
 	echo "Keybase is already at v${REMOTE_VERSION}"
 	touch $HOME/.cache/versions/keybase
 fi
+
+# Unset Keybase build variables.
+#
+unset KEYBASE_SKIP_32_BIT KEYBASE_BUILD_ARM_ONLY
