@@ -61,6 +61,7 @@ jq \
 keepassxc \
 optipng \
 qalc \
+seclists \
 sound-juicer \
 soundconverter \
 youtube-dl \
