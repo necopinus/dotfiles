@@ -9,6 +9,7 @@ CONFIG_PATH="$(dirname "$SCRIPT_PATH")/../"
 # 1991 called. They want their disabled-by-default firewall back.
 #
 sudo ufw enable
+sudo ufw default deny
 
 # Install prerequisites.
 #
