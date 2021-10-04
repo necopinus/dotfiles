@@ -14,6 +14,7 @@ source $CONFIG_PATH/user/local/bin/update-system.sh
 #
 apk add \
 build-base \
+curl \
 dos2unix \
 drill \
 ffmpeg \
@@ -21,7 +22,8 @@ go \
 graphicsmagick \
 graphviz \
 jq \
-man-db-doc \
+mandoc \
+man-pages \
 nano \
 optipng \
 p7zip \
