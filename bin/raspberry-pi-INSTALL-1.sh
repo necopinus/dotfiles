@@ -47,6 +47,7 @@ sudo apt purge --autoremove --purge colord
 # Install new applications.
 #
 sudo apt install \
+burpsuite \
 code-oss \
 dconf-editor \
 exfat-utils \
