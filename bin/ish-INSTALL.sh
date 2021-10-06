@@ -34,6 +34,7 @@ py3-virtualenv \
 ruby-bundler \
 ruby-dev \
 ruby-json \
+sqlite \
 tmux \
 youtube-dl
 
