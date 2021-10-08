@@ -1,6 +1,16 @@
 # Abuse Debian's automatic sourcing of ~/.bash_aliases to override
 # various configuration defaults.
 
+# Make sure that ~/.local/bin is added to our path. We save the old path
+# so that we can restore it at the end of this file if we're (1) on a
+# Debian-derived OS and (2) we're running a login shell, since the
+# default Debian ~/.profile blindly adds ~/.local/bin in this case.
+#
+if [[ -d $HOME/.local/bin ]]; then
+	OLD_PATH="$PATH"
+	export PATH="$HOME/.local/bin:$PATH"
+fi
+
 # Set custom configuration path.
 #
 if [[ -n "$(which gam)" ]]; then
@@ -48,15 +58,6 @@ if [[ -n "$SSH_AUTH_SOCK" ]] && [[ "$(ssh-add -L)" = "The agent has no identitie
 	ssh-add
 fi
 
-# Make sure that ~/.local/bin is added to our path. Note that we only do
-# this if we're *not* in a login shell, since the Debian default
-# ~/.profile (which all of the distros I'm currently using inherit) adds
-# this component blindly.
-#
-if [[ -d $HOME/.local/bin ]] && [[ ! "$PATH" =~ "$HOME/.local/bin" ]]; then
-	shopt -q login_shell || export PATH="$HOME/.local/bin:$PATH"
-fi
-
 # Rationalize $HISTSIZE and $HISTFILESIZE.
 #
 if [[ -n "$HISTSIZE" ]] && [[ -n "$HISTFILESIZE" ]]; then
@@ -66,5 +67,18 @@ if [[ -n "$HISTSIZE" ]] && [[ -n "$HISTFILESIZE" ]]; then
 		else
 			export HISTSIZE=$HISTFILESIZE
 		fi
+	fi
+fi
+
+# Restore OLD_PATH if this is a Debian-derived distribution to prevent
+# ~/.local/bin from being doubled-up in our final PATH.
+#
+if [[ -f /etc/os-release ]]; then
+	source /etc/os-release
+fi
+if [[ "$ID" = "debian" ]] || [[ "$ID_LIKE" =~ "debian" ]]; then
+	if [[ -n "$OLD_PATH" ]] && [[ "$PATH" =~ "$HOME/.local/bin" ]]; then
+		shopt -q login_shell && export PATH="$OLD_PATH"
+		unset OLD_PATH
 	fi
 fi
