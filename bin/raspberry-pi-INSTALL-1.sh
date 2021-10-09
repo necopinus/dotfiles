@@ -53,6 +53,7 @@ dconf-editor \
 exfat-utils \
 flatpak \
 fonts-noto \
+gobuster \
 golang \
 graphicsmagick \
 handbrake \
