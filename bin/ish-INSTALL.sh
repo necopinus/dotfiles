@@ -25,6 +25,7 @@ jq \
 mandoc \
 man-pages \
 nano \
+openssl \
 optipng \
 p7zip \
 poppler-utils \
