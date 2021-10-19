@@ -63,6 +63,7 @@ jq \
 keepassxc \
 optipng \
 qalc \
+qtqr \
 seclists \
 sound-juicer \
 soundconverter \
@@ -75,6 +76,18 @@ yubikey-personalization-gui
 #
 sudo apt autoremove --purge --autoremove
 
+# Install (beta) ARM64 build of Insync. See:
+#
+#     https://forums.insynchq.com/t/arm64-headless-test-build/17680
+#
+BUILD_DIR="$(mktemp -d)"
+(
+	cd "$BUILD_DIR"
+	curl -L -O https://d2t3ff60b2tol4.cloudfront.net/test_builds/insync-headless_3.1.6.10648-stretch_arm64.deb
+	sudo apt install ./insync-headless_3.1.6.10648-stretch_arm64.deb
+)
+rm -rf "$BUILD_DIR"
+
 # Setup Flatpak and install Obsidian.
 #
 flatpak remote-add --user --if-not-exists flathub https://flathub.org/repo/flathub.flatpakrepo
@@ -84,8 +97,6 @@ flatpak install --user flathub md.obsidian.Obsidian
 # scripts (which fortunately can also handle the initial installation.
 #
 source $CONFIG_PATH/user/local/bin/update-keybase.sh
-source $CONFIG_PATH/user/local/bin/update-rclone.sh
-source $CONFIG_PATH/user/local/bin/update-rclonesync.sh
 
 # Apply application settings, when possible.
 #
@@ -109,21 +120,55 @@ xfconf-query -c xfce4-session -p /general/PromptOnLogout     -t bool   -s false
 
 # Restore scripts and configurations from this repo.
 #
+mkdir -p $HOME/.config/gtk-3.0
+mkdir -p $HOME/.config/systemd/user/default.target.wants
 mkdir -p $HOME/.local/bin
 
-cp $CONFIG_PATH/user/bash_aliases                        $HOME/.bash_aliases
-cp $CONFIG_PATH/user/gitconfig                           $HOME/.gitconfig
-cp $CONFIG_PATH/user/inputrc                             $HOME/.inputrc
-cp $CONFIG_PATH/user/local/bin/backup-cloud.sh           $HOME/.local/bin/backup-cloud.sh
-cp $CONFIG_PATH/user/local/bin/backup-local.sh           $HOME/.local/bin/backup-local.sh
-cp $CONFIG_PATH/user/local/bin/update-full.sh            $HOME/.local/bin/update-full.sh
-cp $CONFIG_PATH/user/local/bin/update-keybase.sh         $HOME/.local/bin/update-keybase.sh
-cp $CONFIG_PATH/user/local/bin/update-rclone.sh          $HOME/.local/bin/update-rclone.sh
-cp $CONFIG_PATH/user/local/bin/update-rclonesync.sh      $HOME/.local/bin/update-rclonesync.sh
-cp $CONFIG_PATH/user/local/bin/update-system.sh          $HOME/.local/bin/update-system.sh
-cp $CONFIG_PATH/user/tmux.conf                           $HOME/.tmux.conf
+cp $CONFIG_PATH/user/bash_aliases                                $HOME/.bash_aliases
+cp $CONFIG_PATH/user/config/gtk-3.0/bookmarks-kali               $HOME/.config/gtk-3.0/bookmarks
+cp $CONFIG_PATH/user/config/systemd/user/insync-headless.service $HOME/.config/systemd/user/insync-headless.service
+cp $CONFIG_PATH/user/config/user-dirs.dirs                       $HOME/.config/user-dirs.dirs
+cp $CONFIG_PATH/user/gitconfig                                   $HOME/.gitconfig
+cp $CONFIG_PATH/user/inputrc                                     $HOME/.inputrc
+cp $CONFIG_PATH/user/local/bin/backup-cloud.sh                   $HOME/.local/bin/backup-cloud.sh
+cp $CONFIG_PATH/user/local/bin/backup-local.sh                   $HOME/.local/bin/backup-local.sh
+cp $CONFIG_PATH/user/local/bin/update-full.sh                    $HOME/.local/bin/update-full.sh
+cp $CONFIG_PATH/user/local/bin/update-keybase.sh                 $HOME/.local/bin/update-keybase.sh
+cp $CONFIG_PATH/user/local/bin/update-system.sh                  $HOME/.local/bin/update-system.sh
+cp $CONFIG_PATH/user/tmux.conf                                   $HOME/.tmux.conf
 
 chmod 755 $HOME/.local/bin/*
+
+ln -s $HOME/.config/systemd/user/insync-headless.service $HOME/.config/systemd/user/default.target.wants/insync-headless.service
+
+rm -rf $HOME/Music $HOME/Pictures $HOME/Templats $HOME/Videos
+
+# Restore all git repos.
+#
+mkdir -p $HOME/Code
+(
+	git config --global user.email nathan.acks@cardboard-iguana.com
+	git config --global user.signingkey "$(gpg --list-keys nathan.acks@cardboard-iguana.com | grep -E "^      [0-9A-Z]{40}$" | sed -e "s/^ *//")"
+	cd $HOME/Code
+	git clone git@github.com:The-Yak-Collective/onboarding_robot.git
+	mv onboarding_robot automation-onboarding-robot
+	git clone git@github.com:The-Yak-Collective/project_ui.git
+	mv project_ui automation-project-ui
+	git clone git@github.com:necopinus/backups.git
+	mv backups backups-necopinus
+	git clone git@github.com:The-Yak-Collective/backups.git
+	mv backups backups-yak-collective
+	git clone git@github.com:The-Yak-Collective/infrastructure-map.git
+	mv infrastructure-map doc-infrastructure-map
+	git clone git@github.com:necopinus/dotfiles.git
+	git clone git@bitbucket.org:necopinus/hugo-theme-story.git
+	git clone git@bitbucket.org:necopinus/website-chateaumaxmin.info.git
+	git clone git@bitbucket.org:necopinus/website-delphi-strategy.com.git
+	git clone git@bitbucket.org:necopinus/website-digital-orrery.com.git
+	git clone git@bitbucket.org:necopinus/website-ecopunk.info.git
+	git clone git@github.com:The-Yak-Collective/yakcollective.git
+	mv yakcollective website-yakcollective.org
+)
 
 # Finish up part 1.
 #

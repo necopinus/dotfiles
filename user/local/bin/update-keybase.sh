@@ -62,8 +62,9 @@ if [[ "$LOCAL_VERSION" != "$REMOTE_VERSION" ]]; then
 		./packaging/linux/build_binaries.sh production build_dir
 		mkdir -p $HOME/.local/bin
 		mv build_dir/binaries/arm64/usr/bin/keybase $HOME/.local/bin/keybase
-		mkdir -p $HOME/.config/systemd/user
+		mkdir -p $HOME/.config/systemd/user/default.target.wants
 		sed -e 's#/usr/bin/keybase#%h/.local/bin/keybase#' packaging/linux/systemd/keybase.service > $HOME/.config/systemd/user/keybase.service
+		ln -sf $HOME/.config/systemd/user/keybase.service $HOME/.config/systemd/user/default.target.wants/keybase.service
 		mkdir -p $HOME/.cache/versions
 		echo "$REMOTE_VERSION" > $HOME/.cache/versions/keybase
 		echo "Keybase updated to v${REMOTE_VERSION}. A reboot is STRONGLY recommended."
