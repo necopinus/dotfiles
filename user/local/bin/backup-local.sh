@@ -29,9 +29,9 @@ if [[ -d $HOME/Code ]]; then
 elif [[ -d $HOME/code ]]; then
 	CODE_ROOT=$HOME/code
 else
-	CODE_ROOT=""
+	CODE_ROOT="N/A"
 fi
-if [[ -n "$CODE_ROOT" ]]; then
+if [[ "$CODE_ROOT" != "N/A" ]]; then
 	(
 		cd $CODE_ROOT
 		while IFS= read -r -d '' OBJECT; do
@@ -43,6 +43,12 @@ if [[ -n "$CODE_ROOT" ]]; then
 			cd ..
 		done < <(find . -mindepth 1 -maxdepth 1 -type d -print0)
 	)
+fi
+
+# Mirror Yak Collective Roam backup into Google Drive.
+#
+if [[ "$CODE_ROOT" != "N/A" ]] && [[ -d "$CODE_ROOT/backups-yak-collective/Roam" ]] && [[ -d "$HOME/Yak Collective/Backups" ]]; then
+	rsync -av --delete --force --human-readable --progress $CODE_ROOT/backups-yak-collective/Roam/ $HOME/"Yak Collective"/Backups/Roam/
 fi
 
 # The backup, which is really just mirroring content.
