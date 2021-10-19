@@ -159,7 +159,6 @@ mkdir -p $HOME/.local/bin
 cp $CONFIG_PATH/user/bash_aliases                               $HOME/.bash_aliases
 cp $CONFIG_PATH/user/gitconfig                                  $HOME/.gitconfig
 cp $CONFIG_PATH/user/inputrc                                    $HOME/.inputrc
-cp $CONFIG_PATH/user/local/bin/backup-cloud.sh                  $HOME/.local/bin/backup-cloud.sh
 cp $CONFIG_PATH/user/local/bin/backup-local.sh                  $HOME/.local/bin/backup-local.sh
 cp $CONFIG_PATH/user/local/bin/update-full.sh                   $HOME/.local/bin/update-full.sh
 cp $CONFIG_PATH/user/local/bin/update-rclone.sh                 $HOME/.local/bin/update-rclone.sh

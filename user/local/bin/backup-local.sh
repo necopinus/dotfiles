@@ -22,6 +22,29 @@ if [[ "$BACKUP_FS" != "exfat" ]] && [[ "$BACKUP_FS" != "fuseblk" ]] && [[ "$BACK
 	exit 1
 fi
 
+# Make sure that code repos are all up-to-date.
+#
+if [[ -d $HOME/Code ]]; then
+	CODE_ROOT=$HOME/Code
+elif [[ -d $HOME/code ]]; then
+	CODE_ROOT=$HOME/code
+else
+	CODE_ROOT=""
+fi
+if [[ -n "$CODE_ROOT" ]]; then
+	(
+		cd $CODE_ROOT
+		while IFS= read -r -d '' OBJECT; do
+			cd "$OBJECT"
+			git pull
+			if [[ "$(git config --get remote.origin.url)" =~ [^/]+@[^/]+\.[^/]+:.+\.git ]]; then
+				 git push
+			fi
+			cd ..
+		done < <(find . -mindepth 1 -maxdepth 1 -type d -print0)
+	)
+fi
+
 # The backup, which is really just mirroring content.
 #
 # NOTE: Once the Re4son Raspberry Pi kernel that Kali Linux uses is

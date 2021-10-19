@@ -130,7 +130,6 @@ cp $CONFIG_PATH/user/config/systemd/user/insync-headless.service $HOME/.config/s
 cp $CONFIG_PATH/user/config/user-dirs.dirs                       $HOME/.config/user-dirs.dirs
 cp $CONFIG_PATH/user/gitconfig                                   $HOME/.gitconfig
 cp $CONFIG_PATH/user/inputrc                                     $HOME/.inputrc
-cp $CONFIG_PATH/user/local/bin/backup-cloud.sh                   $HOME/.local/bin/backup-cloud.sh
 cp $CONFIG_PATH/user/local/bin/backup-local.sh                   $HOME/.local/bin/backup-local.sh
 cp $CONFIG_PATH/user/local/bin/update-full.sh                    $HOME/.local/bin/update-full.sh
 cp $CONFIG_PATH/user/local/bin/update-keybase.sh                 $HOME/.local/bin/update-keybase.sh
