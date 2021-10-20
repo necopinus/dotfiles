@@ -108,27 +108,6 @@ rm -rf ~/_setup
 	rm -rf ~/_setup
 	```
 
-4. Configure `insync-headless` for all of my accounts:
-
-	```bash
-	# Add Google account. To get an auth code, go to:
-	#
-	#     https://insynchq.com/auth?cloud=gd
-	#
-	insync-headless account add --auth-code $AUTH_CODE --cloud gd --path $SYNC_PATH --export-options MS_OFFICE
-
-	# Turn on sync for all files.
-	#
-	env TERM=xterm insync-headless selective-sync
-
-	# Repeat the above for each account...
-
-	insync-headless subscription show
-	#
-	# Go to heeps://insynchq.com/dashboard to update the
-	# machine ID.
-	#
-	insync-headless subscription refresh
-	```
+4. Configure Insync for all of my accounts.
 
 5. Finish configuring applications.

@@ -165,25 +165,22 @@ gsettings set org.gnome.desktop.notifications.application:/org/gnome/desktop/not
 # Restore scripts and configurations from this repo.
 #
 mkdir -p $HOME/.config/gtk-3.0
-mkdir -p $HOME/.config/systemd/user/default.target.wants
 mkdir -p $HOME/.local/bin
 
-cp $CONFIG_PATH/user/bash_aliases                                $HOME/.bash_aliases
-cp $CONFIG_PATH/user/config/gtk-3.0/bookmarks-pop-os             $HOME/.config/gtk-3.0/bookmarks
-cp $CONFIG_PATH/user/config/systemd/user/insync-headless.service $HOME/.config/systemd/user/insync-headless.service
-cp $CONFIG_PATH/user/config/user-dirs.dirs                       $HOME/.config/user-dirs.dirs
-cp $CONFIG_PATH/user/gitconfig                                   $HOME/.gitconfig
-cp $CONFIG_PATH/user/inputrc                                     $HOME/.inputrc
-cp $CONFIG_PATH/user/local/bin/backup-local.sh                   $HOME/.local/bin/backup-local.sh
-cp $CONFIG_PATH/user/local/bin/update-full.sh                    $HOME/.local/bin/update-full.sh
-cp $CONFIG_PATH/user/local/bin/update-system.sh                  $HOME/.local/bin/update-system.sh
-cp $CONFIG_PATH/user/local/bin/update-youtube-dl.sh              $HOME/.local/bin/update-youtube-dl.sh
-cp $CONFIG_PATH/user/local/bin/update-yubikey-manager.sh         $HOME/.local/bin/update-yubikey-manager.sh
+cp $CONFIG_PATH/user/bash_aliases                        $HOME/.bash_aliases
+cp $CONFIG_PATH/user/config/gtk-3.0/bookmarks-pop-os     $HOME/.config/gtk-3.0/bookmarks
+cp $CONFIG_PATH/user/config/user-dirs.dirs               $HOME/.config/user-dirs.dirs
+cp $CONFIG_PATH/user/gitconfig                           $HOME/.gitconfig
+cp $CONFIG_PATH/user/inputrc                             $HOME/.inputrc
+cp $CONFIG_PATH/user/local/bin/backup-local.sh           $HOME/.local/bin/backup-local.sh
+cp $CONFIG_PATH/user/local/bin/update-full.sh            $HOME/.local/bin/update-full.sh
+cp $CONFIG_PATH/user/local/bin/update-system.sh          $HOME/.local/bin/update-system.sh
+cp $CONFIG_PATH/user/local/bin/update-youtube-dl.sh      $HOME/.local/bin/update-youtube-dl.sh
+cp $CONFIG_PATH/user/local/bin/update-yubikey-manager.sh $HOME/.local/bin/update-yubikey-manager.sh
 
 chmod 755 $HOME/.local/bin/*
 
-ln -s $HOME/.config/systemd/user/insync-headless.service $HOME/.config/systemd/user/default.target.wants/insync-headless.service
-
+mkdir -p $HOME/Google $HOME/"Yak Collective"
 rm -rf $HOME/Music $HOME/Pictures $HOME/Templats $HOME/Videos
 
 # Disable the VirtualBox web service. We don't need it, and it just
