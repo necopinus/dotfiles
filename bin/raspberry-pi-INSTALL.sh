@@ -47,6 +47,7 @@ sudo apt purge --autoremove --purge colord
 # Install new applications.
 #
 sudo apt install \
+asciinema \
 burpsuite \
 code-oss \
 dconf-editor \
