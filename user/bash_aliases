@@ -70,6 +70,15 @@ if [[ -n "$HISTSIZE" ]] && [[ -n "$HISTFILESIZE" ]]; then
 	fi
 fi
 
+# Aliases.
+#
+if [[ -n "$(which msfconsole)" ]]; then
+	alias msfconsole="env GO111MODULE=off msfconsole"
+fi
+if [[ -n "$(which insync-headless)" ]]; then
+	alias insync-headless="env TERM=xterm insync-headless"
+fi
+
 # Restore OLD_PATH if this is a Debian-derived distribution to prevent
 # ~/.local/bin from being doubled-up in our final PATH.
 #
