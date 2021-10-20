@@ -142,6 +142,11 @@ ln -s $HOME/.config/systemd/user/insync-headless.service $HOME/.config/systemd/u
 
 rm -rf $HOME/Music $HOME/Pictures $HOME/Templats $HOME/Videos
 
+# Set up Metasploit.
+#
+sudo systemctl enable postgresql.service
+sudo msfdb init
+
 # Restore all git repos.
 #
 mkdir -p $HOME/Code
