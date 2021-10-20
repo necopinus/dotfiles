@@ -84,11 +84,21 @@ curl -L -O https://prerelease.keybase.io/keybase_amd64.deb
 sudo apt install ./keybase_amd64.deb
 rm -f ./keybase_amd64.deb
 
+# Install Insync.
+#
+BUILD_DIR="$(mktemp -d)"
+(
+	cd "$BUILD_DIR"
+	curl -L -O https://d2t3ff60b2tol4.cloudfront.net/builds/insync_3.5.4.50130-focal_amd64.deb
+	curl -L -O https://d2t3ff60b2tol4.cloudfront.net/builds/insync-nautilus_3.4.0.40973_all.deb
+	sudo apt install ./insync_3.5.4.50130-focal_amd64.deb
+	sudo apt install ./insync-nautilus_3.4.0.40973_all.deb
+)
+rm -rf "$BUILD_DIR"
+
 # Additional "loose" installs. These are all handled through update
 # scripts (which fortunately can also handle the initial installation.
 #
-source $CONFIG_PATH/user/local/bin/update-rclone.sh
-source $CONFIG_PATH/user/local/bin/update-rclonesync.sh
 source $CONFIG_PATH/user/local/bin/update-youtube-dl.sh
 source $CONFIG_PATH/user/local/bin/update-yubikey-manager.sh
 
@@ -154,27 +164,61 @@ gsettings set org.gnome.desktop.notifications.application:/org/gnome/desktop/not
 
 # Restore scripts and configurations from this repo.
 #
+mkdir -p $HOME/.config/gtk-3.0
+mkdir -p $HOME/.config/systemd/user/default.target.wants
 mkdir -p $HOME/.local/bin
 
-cp $CONFIG_PATH/user/bash_aliases                               $HOME/.bash_aliases
-cp $CONFIG_PATH/user/gitconfig                                  $HOME/.gitconfig
-cp $CONFIG_PATH/user/inputrc                                    $HOME/.inputrc
-cp $CONFIG_PATH/user/local/bin/backup-local.sh                  $HOME/.local/bin/backup-local.sh
-cp $CONFIG_PATH/user/local/bin/update-full.sh                   $HOME/.local/bin/update-full.sh
-cp $CONFIG_PATH/user/local/bin/update-rclone.sh                 $HOME/.local/bin/update-rclone.sh
-cp $CONFIG_PATH/user/local/bin/update-rclonesync.sh             $HOME/.local/bin/update-rclonesync.sh
-cp $CONFIG_PATH/user/local/bin/update-system.sh                 $HOME/.local/bin/update-system.sh
-cp $CONFIG_PATH/user/local/bin/update-youtube-dl.sh             $HOME/.local/bin/update-youtube-dl.sh
-cp $CONFIG_PATH/user/local/bin/update-yubikey-manager.sh        $HOME/.local/bin/update-yubikey-manager.sh
+cp $CONFIG_PATH/user/bash_aliases                                $HOME/.bash_aliases
+cp $CONFIG_PATH/user/config/gtk-3.0/bookmarks-pop-os             $HOME/.config/gtk-3.0/bookmarks
+cp $CONFIG_PATH/user/config/systemd/user/insync-headless.service $HOME/.config/systemd/user/insync-headless.service
+cp $CONFIG_PATH/user/config/user-dirs.dirs                       $HOME/.config/user-dirs.dirs
+cp $CONFIG_PATH/user/gitconfig                                   $HOME/.gitconfig
+cp $CONFIG_PATH/user/inputrc                                     $HOME/.inputrc
+cp $CONFIG_PATH/user/local/bin/backup-local.sh                   $HOME/.local/bin/backup-local.sh
+cp $CONFIG_PATH/user/local/bin/update-full.sh                    $HOME/.local/bin/update-full.sh
+cp $CONFIG_PATH/user/local/bin/update-system.sh                  $HOME/.local/bin/update-system.sh
+cp $CONFIG_PATH/user/local/bin/update-youtube-dl.sh              $HOME/.local/bin/update-youtube-dl.sh
+cp $CONFIG_PATH/user/local/bin/update-yubikey-manager.sh         $HOME/.local/bin/update-yubikey-manager.sh
 
 chmod 755 $HOME/.local/bin/*
+
+ln -s $HOME/.config/systemd/user/insync-headless.service $HOME/.config/systemd/user/default.target.wants/insync-headless.service
+
+rm -rf $HOME/Music $HOME/Pictures $HOME/Templats $HOME/Videos
 
 # Disable the VirtualBox web service. We don't need it, and it just
 # likes to fail and make systemd complain anyway.
 #
 sudo systemctl disable vboxweb.service
 
-# Finish up part 1.
+# Restore all git repos.
+#
+mkdir -p $HOME/Code
+(
+	git config --global user.email nathan.acks@cardboard-iguana.com
+	git config --global user.signingkey "$(gpg --list-keys nathan.acks@cardboard-iguana.com | grep -E "^      [0-9A-Z]{40}$" | sed -e "s/^ *//")"
+	cd $HOME/Code
+	git clone git@github.com:The-Yak-Collective/onboarding_robot.git
+	mv onboarding_robot automation-onboarding-robot
+	git clone git@github.com:The-Yak-Collective/project_ui.git
+	mv project_ui automation-project-ui
+	git clone git@github.com:necopinus/backups.git
+	mv backups backups-necopinus
+	git clone git@github.com:The-Yak-Collective/backups.git
+	mv backups backups-yak-collective
+	git clone git@github.com:The-Yak-Collective/infrastructure-map.git
+	mv infrastructure-map doc-infrastructure-map
+	git clone git@github.com:necopinus/dotfiles.git
+	git clone git@bitbucket.org:necopinus/hugo-theme-story.git
+	git clone git@bitbucket.org:necopinus/website-chateaumaxmin.info.git
+	git clone git@bitbucket.org:necopinus/website-delphi-strategy.com.git
+	git clone git@bitbucket.org:necopinus/website-digital-orrery.com.git
+	git clone git@bitbucket.org:necopinus/website-ecopunk.info.git
+	git clone git@github.com:The-Yak-Collective/yakcollective.git
+	mv yakcollective website-yakcollective.org
+)
+
+# Finish up.
 #
 echo "A reboot is required for some features to become available."
 echo ""

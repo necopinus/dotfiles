@@ -89,7 +89,9 @@ rm -rf ~/_setup
 
 ## Pop!_OS on the System76 Darter Pro 5
 
-1. Clone repo and run the first stage configuration. The system will be
+1. Set up new per-device SSH/GPG keys.
+
+2. Clone repo and run the first stage configuration. The system will be
    rebooted when this is done.
 
 	```bash
@@ -97,17 +99,36 @@ rm -rf ~/_setup
 	cd ~/_setup
 	git clone https://github.com/necopinus/dotfiles.git
 	chmod 755 dotfiles/bin/*
-	./dotfiles/bin/darter-pro-INSTALL-1.sh
+	./dotfiles/bin/darter-pro-INSTALL.sh
 	```
 
-2. Configure rclone and new per-device SSH/GPG keys.
-
-3. Run the second stage configuration and clean up the `~/_setup`
-   directory.
+3. Clean up the `~/_setup` directory.
 
 	```bash
-	~/_setup/dotfiles/bin/darter-pro-INSTALL-2.sh
 	rm -rf ~/_setup
 	```
 
-4. Finish configuring applications.
+4. Configure `insync-headless` for all of my accounts:
+
+	```bash
+	# Add Google account. To get an auth code, go to:
+	#
+	#     https://insynchq.com/auth?cloud=gd
+	#
+	insync-headless account add --auth-code $AUTH_CODE --cloud gd --path $SYNC_PATH --export-options MS_OFFICE
+
+	# Turn on sync for all files.
+	#
+	env TERM=xterm insync-headless selective-sync
+
+	# Repeat the above for each account...
+
+	insync-headless subscription show
+	#
+	# Go to heeps://insynchq.com/dashboard to update the
+	# machine ID.
+	#
+	insync-headless subscription refresh
+	```
+
+5. Finish configuring applications.
