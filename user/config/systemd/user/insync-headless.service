@@ -4,6 +4,8 @@ Description=Insync Headless
 [Service]
 ExecStart=/usr/bin/insync-headless start --no-daemon
 ExecStop=/usr/bin/insync-headless quit
+Restart=on-failure
+RestartSec=10
 
 [Install]
 WantedBy=default.target
