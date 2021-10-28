@@ -65,6 +65,7 @@ keepassxc \
 optipng \
 qalc \
 qtqr \
+rlwrap \
 seclists \
 sound-juicer \
 soundconverter \
