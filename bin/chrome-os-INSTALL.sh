@@ -36,10 +36,8 @@ source $CONFIG_PATH/user/local/bin/update-system.sh
 #
 sudo apt install \
 bundler \
-dconf-editor \
 dnsutils \
 dos2unix \
-firefox-esr \
 ffmpeg \
 fonts-noto \
 graphicsmagick \
@@ -71,10 +69,6 @@ rm -f ./code_*.deb
 #
 source $CONFIG_PATH/user/local/bin/update-gam.sh
 source $CONFIG_PATH/user/local/bin/update-zoom.sh
-
-# Apply application settings, when possible.
-#
-gsettings set ca.desrt.dconf-editor.Settings show-warning false
 
 # Restore scripts and configurations from this repo.
 #
