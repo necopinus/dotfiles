@@ -61,7 +61,6 @@ handbrake \
 htop \
 jhead \
 jq \
-keepassxc \
 optipng \
 qalc \
 qtqr \

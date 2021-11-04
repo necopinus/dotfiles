@@ -74,7 +74,6 @@ youtube-dl
 
 flatpak install --user flathub fi.skyjake.Lagrange
 flatpak install --user flathub org.gimp.GIMP
-flatpak install --user flathub org.keepassxc.KeePassXC
 flatpak install --user flathub org.signal.Signal
 flatpak install --user flathub org.videolan.VLC
 
