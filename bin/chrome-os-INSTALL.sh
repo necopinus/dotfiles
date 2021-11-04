@@ -17,8 +17,8 @@ sudo apt install apt-transport-https software-properties-common
 #
 sudo mkdir -p /usr/local/share/keyrings
 curl -s https://deb.nodesource.com/gpgkey/nodesource.gpg.key | gpg --dearmor | sudo tee /usr/local/share/keyrings/nodesource.gpg
-echo "deb     [signed-by=/usr/local/share/keyrings/nodesource.gpg] https://deb.nodesource.com/node_14.x buster main" | sudo tee    /etc/apt/sources.list.d/nodesource.list"
-echo "deb-src [signed-by=/usr/local/share/keyrings/nodesource.gpg] https://deb.nodesource.com/node_14.x buster main" | sudo tee -a /etc/apt/sources.list.d/nodesource.list"
+echo "deb     [signed-by=/usr/local/share/keyrings/nodesource.gpg] https://deb.nodesource.com/node_14.x buster main" | sudo tee    /etc/apt/sources.list.d/nodesource.list
+echo "deb-src [signed-by=/usr/local/share/keyrings/nodesource.gpg] https://deb.nodesource.com/node_14.x buster main" | sudo tee -a /etc/apt/sources.list.d/nodesource.list
 
 # Add Microsoft repos. See:
 #
@@ -27,6 +27,13 @@ echo "deb-src [signed-by=/usr/local/share/keyrings/nodesource.gpg] https://deb.n
 curl -O https://packages.microsoft.com/config/debian/10/packages-microsoft-prod.deb
 sudo apt install ./packages-microsoft-prod.deb
 rm -f ./packages-microsoft-prod.deb
+
+# Add Google repos. See:
+#
+#     https://cloud.google.com/sdk/docs/install#deb
+#
+curl https://packages.cloud.google.com/apt/doc/apt-key.gpg | sudo apt-key --keyring /usr/local/share/keyrings/cloud.google.gpg add -
+echo "deb [signed-by=/usr/local/share/keyrings/cloud.google.gpg] https://packages.cloud.google.com/apt cloud-sdk main" | sudo tee /etc/apt/sources.list.d/google-cloud-sdk.list
 
 # Make sure all components are up-to-date.
 #
@@ -40,6 +47,7 @@ dnsutils \
 dos2unix \
 ffmpeg \
 fonts-noto \
+google-cloud-sdk \
 graphicsmagick \
 graphviz \
 htop \
