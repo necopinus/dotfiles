@@ -37,6 +37,7 @@ ruby-dev \
 ruby-json \
 sqlite \
 tmux \
+vim \
 youtube-dl
 
 # Additional "loose" installs. These are all handled through update
