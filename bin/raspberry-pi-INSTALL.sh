@@ -121,27 +121,34 @@ xfconf-query -c xfce4-session -p /general/PromptOnLogout     -t bool   -s false
 
 # Restore scripts and configurations from this repo.
 #
-mkdir -p $HOME/.config/gtk-3.0
 mkdir -p $HOME/.config/systemd/user/default.target.wants
 mkdir -p $HOME/.local/bin
+mkdir -p $HOME/.local/share
 
-cp $CONFIG_PATH/user/bash_aliases                                $HOME/.bash_aliases
-cp $CONFIG_PATH/user/config/gtk-3.0/bookmarks                    $HOME/.config/gtk-3.0/bookmarks
-cp $CONFIG_PATH/user/config/systemd/user/insync-headless.service $HOME/.config/systemd/user/insync-headless.service
-cp $CONFIG_PATH/user/config/user-dirs.dirs                       $HOME/.config/user-dirs.dirs
-cp $CONFIG_PATH/user/gitconfig                                   $HOME/.gitconfig
-cp $CONFIG_PATH/user/inputrc                                     $HOME/.inputrc
-cp $CONFIG_PATH/user/local/bin/backup-local.sh                   $HOME/.local/bin/backup-local.sh
-cp $CONFIG_PATH/user/local/bin/update-full.sh                    $HOME/.local/bin/update-full.sh
-cp $CONFIG_PATH/user/local/bin/update-keybase.sh                 $HOME/.local/bin/update-keybase.sh
-cp $CONFIG_PATH/user/local/bin/update-system.sh                  $HOME/.local/bin/update-system.sh
-cp $CONFIG_PATH/user/tmux.conf                                   $HOME/.tmux.conf
+cp    $CONFIG_PATH/user/bash_aliases                                $HOME/.bash_aliases
+cp    $CONFIG_PATH/user/config/systemd/user/insync-headless.service $HOME/.config/systemd/user/insync-headless.service
+cp    $CONFIG_PATH/user/gitconfig                                   $HOME/.gitconfig
+cp    $CONFIG_PATH/user/inputrc                                     $HOME/.inputrc
+cp    $CONFIG_PATH/user/local/bin/backup-local.sh                   $HOME/.local/bin/backup-local.sh
+cp    $CONFIG_PATH/user/local/bin/update-full.sh                    $HOME/.local/bin/update-full.sh
+cp    $CONFIG_PATH/user/local/bin/update-keybase.sh                 $HOME/.local/bin/update-keybase.sh
+cp    $CONFIG_PATH/user/local/bin/update-system.sh                  $HOME/.local/bin/update-system.sh
+cp -r $CONFIG_PATH/user/local/share/red-team                        $HOME/.local/share/red-team
+cp    $CONFIG_PATH/user/tmux.conf                                   $HOME/.tmux.conf
 
 chmod 755 $HOME/.local/bin/*
 
 ln -s $HOME/.config/systemd/user/insync-headless.service $HOME/.config/systemd/user/default.target.wants/insync-headless.service
 
-rm -rf $HOME/Music $HOME/Pictures $HOME/Templats $HOME/Videos
+mkdir -p $HOME/Google/{"Cardboard Iguana",Personal,"Yak Collective"}
+
+# Uncompress rockyou.txt.
+#
+if [[ -f /usr/share/wordlists/rockyou.txt.gz ]]; then
+	mkdir -p $HOME/.local/share/red-team/wordlists
+	cp /usr/share/wordlists/rockyou.txt.gz $HOME/.local/share/red-team/wordlists/
+	gunzip $HOME/.local/share/red-team/wordlists/rockyou.txt.gz
+fi
 
 # Set up Metasploit.
 #
