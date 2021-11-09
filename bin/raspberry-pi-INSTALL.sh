@@ -126,7 +126,7 @@ mkdir -p $HOME/.config/systemd/user/default.target.wants
 mkdir -p $HOME/.local/bin
 
 cp $CONFIG_PATH/user/bash_aliases                                $HOME/.bash_aliases
-cp $CONFIG_PATH/user/config/gtk-3.0/bookmarks-kali               $HOME/.config/gtk-3.0/bookmarks
+cp $CONFIG_PATH/user/config/gtk-3.0/bookmarks                    $HOME/.config/gtk-3.0/bookmarks
 cp $CONFIG_PATH/user/config/systemd/user/insync-headless.service $HOME/.config/systemd/user/insync-headless.service
 cp $CONFIG_PATH/user/config/user-dirs.dirs                       $HOME/.config/user-dirs.dirs
 cp $CONFIG_PATH/user/gitconfig                                   $HOME/.gitconfig

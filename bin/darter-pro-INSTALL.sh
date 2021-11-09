@@ -16,6 +16,14 @@ sudo ufw default deny
 sudo apt install apt-transport-https
 sudo mkdir -p /usr/local/share/keyrings
 
+# Add Google repos. See:
+#
+#     https://support.google.com/a/users/answer/9018161#linuxhelper
+#
+curl https://packages.cloud.google.com/apt/doc/apt-key.gpg | sudo apt-key --keyring /usr/local/share/keyrings/cloud.google.gpg add -
+echo "deb [signed-by=/usr/local/share/keyrings/cloud.google.gpg] https://packages.cloud.google.com/apt cloud-sdk main" | sudo tee /etc/apt/sources.list.d/google-cloud-sdk.list
+echo "deb [signed-by=/usr/local/share/keyrings/cloud.google.gpg] https://packages.cloud.google.com/apt endpoint-verification main" | sudo tee /etc/apt/sources.list.d/endpoint-verification.list
+
 # Make sure all components are up-to-date.
 #
 source $CONFIG_PATH/user/local/bin/update-system.sh
@@ -23,6 +31,18 @@ source $CONFIG_PATH/user/local/bin/update-system.sh
 # Cleanup unneeded software.
 #
 sudo apt purge --autoremove --purge \
+firefox \
+firefox-locale-ar \
+firefox-locale-de \
+firefox-locale-en \
+firefox-locale-es \
+firefox-locale-fr \
+firefox-locale-it \
+firefox-locale-ja \
+firefox-locale-pt \
+firefox-locale-ru \
+firefox-locale-zh-hans \
+firefox-locale-zh-hant \
 geary \
 gedit \
 gnome-calculator \
@@ -47,8 +67,11 @@ code \
 dconf-editor \
 discord \
 dos2unix \
+endpoint-verification \
 exfatprogs \
 fonts-noto \
+google-chrome-stable \
+google-cloud-sdk \
 graphicsmagick \
 graphviz \
 grub-pc \
@@ -69,6 +92,7 @@ vim \
 virtualbox-ext-pack \
 virtualbox-guest-additions-iso \
 virtualenv \
+winetricks \
 xdotool \
 youtube-dl
 
@@ -98,8 +122,10 @@ rm -rf "$BUILD_DIR"
 # Additional "loose" installs. These are all handled through update
 # scripts (which fortunately can also handle the initial installation.
 #
+source $CONFIG_PATH/user/local/bin/update-gam.sh
 source $CONFIG_PATH/user/local/bin/update-youtube-dl.sh
 source $CONFIG_PATH/user/local/bin/update-yubikey-manager.sh
+source $CONFIG_PATH/user/local/bin/update-zoom.sh
 
 # Apply application settings, when possible.
 #
@@ -163,24 +189,22 @@ gsettings set org.gnome.desktop.notifications.application:/org/gnome/desktop/not
 
 # Restore scripts and configurations from this repo.
 #
-mkdir -p $HOME/.config/gtk-3.0
 mkdir -p $HOME/.local/bin
 
 cp $CONFIG_PATH/user/bash_aliases                        $HOME/.bash_aliases
-cp $CONFIG_PATH/user/config/gtk-3.0/bookmarks-pop-os     $HOME/.config/gtk-3.0/bookmarks
-cp $CONFIG_PATH/user/config/user-dirs.dirs               $HOME/.config/user-dirs.dirs
 cp $CONFIG_PATH/user/gitconfig                           $HOME/.gitconfig
 cp $CONFIG_PATH/user/inputrc                             $HOME/.inputrc
 cp $CONFIG_PATH/user/local/bin/backup-local.sh           $HOME/.local/bin/backup-local.sh
 cp $CONFIG_PATH/user/local/bin/update-full.sh            $HOME/.local/bin/update-full.sh
+cp $CONFIG_PATH/user/local/bin/update-gam.sh             $HOME/.local/bin/update-gam.sh
 cp $CONFIG_PATH/user/local/bin/update-system.sh          $HOME/.local/bin/update-system.sh
 cp $CONFIG_PATH/user/local/bin/update-youtube-dl.sh      $HOME/.local/bin/update-youtube-dl.sh
 cp $CONFIG_PATH/user/local/bin/update-yubikey-manager.sh $HOME/.local/bin/update-yubikey-manager.sh
+cp $CONFIG_PATH/user/local/bin/update-zoom.sh            $HOME/.local/bin/update-zoom.sh
 
 chmod 755 $HOME/.local/bin/*
 
-mkdir -p $HOME/Google $HOME/"Yak Collective"
-rm -rf $HOME/Music $HOME/Pictures $HOME/Templats $HOME/Videos
+mkdir -p $HOME/Google/{"Cardboard Iguana",Personal,"Yak Collective"}
 
 # Disable the VirtualBox web service. We don't need it, and it just
 # likes to fail and make systemd complain anyway.

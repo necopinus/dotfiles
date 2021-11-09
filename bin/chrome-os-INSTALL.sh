@@ -9,13 +9,12 @@ CONFIG_PATH="$(dirname "$SCRIPT_PATH")/../"
 # Install prerequisites.
 #
 sudo apt install apt-transport-https software-properties-common
+sudo mkdir -p /usr/local/share/keyrings
 
 # Add the NodeSource repository. See:
 #
 #     https://node.dev/node-binary
 #
-#
-sudo mkdir -p /usr/local/share/keyrings
 curl -s https://deb.nodesource.com/gpgkey/nodesource.gpg.key | gpg --dearmor | sudo tee /usr/local/share/keyrings/nodesource.gpg
 echo "deb     [signed-by=/usr/local/share/keyrings/nodesource.gpg] https://deb.nodesource.com/node_14.x buster main" | sudo tee    /etc/apt/sources.list.d/nodesource.list
 echo "deb-src [signed-by=/usr/local/share/keyrings/nodesource.gpg] https://deb.nodesource.com/node_14.x buster main" | sudo tee -a /etc/apt/sources.list.d/nodesource.list
