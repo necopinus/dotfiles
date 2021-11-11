@@ -19,14 +19,6 @@ curl -s https://deb.nodesource.com/gpgkey/nodesource.gpg.key | gpg --dearmor | s
 echo "deb     [signed-by=/usr/local/share/keyrings/nodesource.gpg] https://deb.nodesource.com/node_14.x buster main" | sudo tee    /etc/apt/sources.list.d/nodesource.list
 echo "deb-src [signed-by=/usr/local/share/keyrings/nodesource.gpg] https://deb.nodesource.com/node_14.x buster main" | sudo tee -a /etc/apt/sources.list.d/nodesource.list
 
-# Add Microsoft repos. See:
-#
-#     https://docs.microsoft.com/en-us/powershell/scripting/install/installing-powershell-core-on-linux#debian-10
-#
-curl -O https://packages.microsoft.com/config/debian/10/packages-microsoft-prod.deb
-sudo apt install ./packages-microsoft-prod.deb
-rm -f ./packages-microsoft-prod.deb
-
 # Add Google repos. See:
 #
 #     https://cloud.google.com/sdk/docs/install#deb
@@ -41,35 +33,17 @@ source $CONFIG_PATH/user/local/bin/update-system.sh
 # Install new applications from system repos.
 #
 sudo apt install \
-bundler \
 dnsutils \
-dos2unix \
 ffmpeg \
 fonts-noto \
 google-cloud-sdk \
 graphicsmagick \
-graphviz \
 htop \
-jhead \
-jq \
-mpack \
 nano \
 nodejs \
-optipng \
-p7zip-full \
 poppler-utils \
-powershell \
-python3-bs4 \
 qalc \
-rsync \
-seahorse \
-virtualenv
-
-# Install VS Code.
-#
-curl -L -J -O "https://code.visualstudio.com/sha/download?build=stable&os=linux-deb-x64"
-sudo apt install ./code_*.deb
-rm -f ./code_*.deb
+seahorse
 
 # Additional "loose" installs. These are all handled through update
 # scripts (which fortunately can also handle the initial installation.

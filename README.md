@@ -61,7 +61,7 @@ rm -rf ~/_setup
 
 5. Finish configuring applications.
 
-## Chrome OS
+## Chrome OS (Work)
 
 1. Install the Linux developer environment.
 
@@ -74,7 +74,7 @@ rm -rf ~/_setup
 	cd ~/_setup
 	git clone https://github.com/necopinus/dotfiles.git
 	chmod 755 dotfiles/bin/*
-	./dotfiles/bin/chrome-os-INSTALL.sh
+	./dotfiles/bin/chrome-os-work-INSTALL.sh
 	```
 
 4. Restart the Linux VM
