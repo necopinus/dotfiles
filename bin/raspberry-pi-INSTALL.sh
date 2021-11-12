@@ -62,6 +62,7 @@ htop \
 jhead \
 jq \
 optipng \
+python3-capstone \
 qalc \
 qtqr \
 rlwrap \
@@ -98,6 +99,7 @@ flatpak install --user flathub md.obsidian.Obsidian
 # scripts (which fortunately can also handle the initial installation.
 #
 source $CONFIG_PATH/user/local/bin/update-keybase.sh
+source $CONFIG_PATH/user/local/bin/update-volatility.sh
 
 # Apply application settings, when possible.
 #
@@ -133,6 +135,7 @@ cp    $CONFIG_PATH/user/local/bin/backup-local.sh                   $HOME/.local
 cp    $CONFIG_PATH/user/local/bin/update-full.sh                    $HOME/.local/bin/update-full.sh
 cp    $CONFIG_PATH/user/local/bin/update-keybase.sh                 $HOME/.local/bin/update-keybase.sh
 cp    $CONFIG_PATH/user/local/bin/update-system.sh                  $HOME/.local/bin/update-system.sh
+cp    $CONFIG_PATH/user/local/bin/update-volatility.sh              $HOME/.local/bin/update-volatility.sh
 cp -r $CONFIG_PATH/user/local/share/red-team                        $HOME/.local/share/red-team
 cp    $CONFIG_PATH/user/tmux.conf                                   $HOME/.tmux.conf
 
