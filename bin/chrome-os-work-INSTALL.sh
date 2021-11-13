@@ -43,6 +43,7 @@ nano \
 nodejs \
 poppler-utils \
 qalc \
+rsync \
 seahorse
 
 # Additional "loose" installs. These are all handled through update
