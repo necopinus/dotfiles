@@ -66,7 +66,6 @@ bundler \
 code \
 dconf-editor \
 discord \
-dos2unix \
 endpoint-verification \
 exfatprogs \
 fonts-noto \
@@ -78,25 +77,20 @@ grub-pc \
 handbrake \
 htop \
 ibus-typing-booster \
-jhead \
 jq \
-libpcsclite-dev \
 optipng \
-p7zip-full \
 python3-bs4 \
+python3-pip \
 qalc \
 sound-juicer \
 soundconverter \
-swig \
 vim \
 virtualbox-ext-pack \
 virtualbox-guest-additions-iso \
-virtualenv \
 winetricks \
 xdotool \
 youtube-dl
 
-flatpak install --user flathub fi.skyjake.Lagrange
 flatpak install --user flathub org.gimp.GIMP
 flatpak install --user flathub org.signal.Signal
 flatpak install --user flathub org.videolan.VLC
@@ -126,6 +120,14 @@ source $CONFIG_PATH/user/local/bin/update-gam.sh
 source $CONFIG_PATH/user/local/bin/update-youtube-dl.sh
 source $CONFIG_PATH/user/local/bin/update-yubikey-manager.sh
 source $CONFIG_PATH/user/local/bin/update-zoom.sh
+
+# Download and install the YubiKey Manager icon.
+#
+mkdir -p $HOME/.local/share/icons
+(
+	cd $HOME/.local/share/icons
+	curl -L -O https://raw.githubusercontent.com/Yubico/yubikey-manager-qt/master/resources/icons/ykman.png
+)
 
 # Apply application settings, when possible.
 #
@@ -190,17 +192,19 @@ gsettings set org.gnome.desktop.notifications.application:/org/gnome/desktop/not
 # Restore scripts and configurations from this repo.
 #
 mkdir -p $HOME/.local/bin
+mkdir -p $HOME/.local/share/applications
 
-cp $CONFIG_PATH/user/bash_aliases                        $HOME/.bash_aliases
-cp $CONFIG_PATH/user/gitconfig                           $HOME/.gitconfig
-cp $CONFIG_PATH/user/inputrc                             $HOME/.inputrc
-cp $CONFIG_PATH/user/local/bin/backup-local.sh           $HOME/.local/bin/backup-local.sh
-cp $CONFIG_PATH/user/local/bin/update-full.sh            $HOME/.local/bin/update-full.sh
-cp $CONFIG_PATH/user/local/bin/update-gam.sh             $HOME/.local/bin/update-gam.sh
-cp $CONFIG_PATH/user/local/bin/update-system.sh          $HOME/.local/bin/update-system.sh
-cp $CONFIG_PATH/user/local/bin/update-youtube-dl.sh      $HOME/.local/bin/update-youtube-dl.sh
-cp $CONFIG_PATH/user/local/bin/update-yubikey-manager.sh $HOME/.local/bin/update-yubikey-manager.sh
-cp $CONFIG_PATH/user/local/bin/update-zoom.sh            $HOME/.local/bin/update-zoom.sh
+cp $CONFIG_PATH/user/bash_aliases                           $HOME/.bash_aliases
+cp $CONFIG_PATH/user/gitconfig                              $HOME/.gitconfig
+cp $CONFIG_PATH/user/inputrc                                $HOME/.inputrc
+cp $CONFIG_PATH/user/local/bin/backup-local.sh              $HOME/.local/bin/backup-local.sh
+cp $CONFIG_PATH/user/local/bin/update-full.sh               $HOME/.local/bin/update-full.sh
+cp $CONFIG_PATH/user/local/bin/update-gam.sh                $HOME/.local/bin/update-gam.sh
+cp $CONFIG_PATH/user/local/bin/update-system.sh             $HOME/.local/bin/update-system.sh
+cp $CONFIG_PATH/user/local/bin/update-youtube-dl.sh         $HOME/.local/bin/update-youtube-dl.sh
+cp $CONFIG_PATH/user/local/bin/update-yubikey-manager.sh    $HOME/.local/bin/update-yubikey-manager.sh
+cp $CONFIG_PATH/user/local/bin/update-zoom.sh               $HOME/.local/bin/update-zoom.sh
+cp $CONFIG_PATH/user/local/share/applications/ykman.desktop $HOME/.local/share/applications/ykman.desktop
 
 chmod 755 $HOME/.local/bin/*
 

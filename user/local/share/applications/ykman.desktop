@@ -1,0 +1,6 @@
+[Desktop Entry]
+Name=YubiKey Manager
+Exec=yubikey-manager
+Terminal=false
+Type=Application
+Icon=ykman
