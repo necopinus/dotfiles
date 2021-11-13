@@ -14,14 +14,6 @@ sudo dpkg-reconfigure locales
 #
 sudo dpkg-reconfigure tzdata
 
-# Allow ports for "local" Hugo and Jekyll development.
-#
-sudo ufw allow in on eth0 from 10.54.0.0/29 to 10.54.0.1 port 1313 proto tcp
-sudo ufw allow in on eth0 from 10.54.0.0/29 to 10.54.0.1 port 4000 proto tcp
-
-sudo ufw allow in on usb0 from 10.55.0.0/29 to 10.55.0.1 port 1313 proto tcp
-sudo ufw allow in on usb0 from 10.55.0.0/29 to 10.55.0.1 port 4000 proto tcp
-
 # Disable the Raspberry Pi's default overscan, as this doesn't play nice
 # with any of my monitors.
 #
@@ -51,24 +43,15 @@ asciinema \
 burpsuite \
 code-oss \
 dconf-editor \
-exfat-utils \
-flatpak \
 fonts-noto \
 gobuster \
 golang \
 graphicsmagick \
-handbrake \
 htop \
-jhead \
-jq \
-optipng \
 python3-capstone \
 qalc \
-qtqr \
 rlwrap \
 seclists \
-sound-juicer \
-soundconverter \
 youtube-dl \
 yubikey-manager \
 yubikey-personalization-gui
@@ -77,23 +60,6 @@ yubikey-personalization-gui
 # additional cleanup here.
 #
 sudo apt autoremove --purge --autoremove
-
-# Install (beta) ARM64 build of Insync. See:
-#
-#     https://forums.insynchq.com/t/arm64-headless-test-build/17680
-#
-BUILD_DIR="$(mktemp -d)"
-(
-	cd "$BUILD_DIR"
-	curl -L -O https://d2t3ff60b2tol4.cloudfront.net/test_builds/insync-headless_3.1.6.10648-stretch_arm64.deb
-	sudo apt install ./insync-headless_3.1.6.10648-stretch_arm64.deb
-)
-rm -rf "$BUILD_DIR"
-
-# Setup Flatpak and install Obsidian.
-#
-flatpak remote-add --user --if-not-exists flathub https://flathub.org/repo/flathub.flatpakrepo
-flatpak install --user flathub md.obsidian.Obsidian
 
 # Additional "loose" installs. These are all handled through update
 # scripts (which fortunately can also handle the initial installation.
@@ -107,13 +73,8 @@ source $CONFIG_PATH/user/local/bin/update-volatility.sh
 #
 #   flatpak run --command=gsettings $APP_REF $GSETTINGS_COMMAND_LINE
 #
-gsettings set ca.desrt.dconf-editor.Settings show-warning     false
-gsettings set org.gnome.sound-juicer         audio-profile    "audio/mpeg"
-gsettings set org.gnome.sound-juicer         file-pattern     "%at - %dn - %ta - %tt"
-gsettings set org.gnome.sound-juicer         path-pattern     "%at"
-gsettings set org.gtk.Settings.FileChooser   clock-format     "24h"
-gsettings set org.soundconverter             mp3-vbr-quality  0
-gsettings set org.soundconverter             output-mime-type "audio/mpeg"
+gsettings set ca.desrt.dconf-editor.Settings show-warning false
+gsettings set org.gtk.Settings.FileChooser   clock-format "24h"
 
 xfconf-query -c displays      -p /AutoEnableProfiles         -t bool   -s true
 xfconf-query -c displays      -p /Notify                     -t bool   -s true
@@ -123,25 +84,21 @@ xfconf-query -c xfce4-session -p /general/PromptOnLogout     -t bool   -s false
 
 # Restore scripts and configurations from this repo.
 #
-mkdir -p $HOME/.config/systemd/user/default.target.wants
 mkdir -p $HOME/.local/bin
 mkdir -p $HOME/.local/share
 
-cp    $CONFIG_PATH/user/bash_aliases                                $HOME/.bash_aliases
-cp    $CONFIG_PATH/user/config/systemd/user/insync-headless.service $HOME/.config/systemd/user/insync-headless.service
-cp    $CONFIG_PATH/user/gitconfig                                   $HOME/.gitconfig
-cp    $CONFIG_PATH/user/inputrc                                     $HOME/.inputrc
-cp    $CONFIG_PATH/user/local/bin/backup-local.sh                   $HOME/.local/bin/backup-local.sh
-cp    $CONFIG_PATH/user/local/bin/update-full.sh                    $HOME/.local/bin/update-full.sh
-cp    $CONFIG_PATH/user/local/bin/update-keybase.sh                 $HOME/.local/bin/update-keybase.sh
-cp    $CONFIG_PATH/user/local/bin/update-system.sh                  $HOME/.local/bin/update-system.sh
-cp    $CONFIG_PATH/user/local/bin/update-volatility.sh              $HOME/.local/bin/update-volatility.sh
-cp -r $CONFIG_PATH/user/local/share/red-team                        $HOME/.local/share/red-team
-cp    $CONFIG_PATH/user/tmux.conf                                   $HOME/.tmux.conf
+cp    $CONFIG_PATH/user/bash_aliases                   $HOME/.bash_aliases
+cp    $CONFIG_PATH/user/gitconfig                      $HOME/.gitconfig
+cp    $CONFIG_PATH/user/inputrc                        $HOME/.inputrc
+cp    $CONFIG_PATH/user/local/bin/backup-local.sh      $HOME/.local/bin/backup-local.sh
+cp    $CONFIG_PATH/user/local/bin/update-full.sh       $HOME/.local/bin/update-full.sh
+cp    $CONFIG_PATH/user/local/bin/update-keybase.sh    $HOME/.local/bin/update-keybase.sh
+cp    $CONFIG_PATH/user/local/bin/update-system.sh     $HOME/.local/bin/update-system.sh
+cp    $CONFIG_PATH/user/local/bin/update-volatility.sh $HOME/.local/bin/update-volatility.sh
+cp -r $CONFIG_PATH/user/local/share/red-team           $HOME/.local/share/red-team
+cp    $CONFIG_PATH/user/tmux.conf                      $HOME/.tmux.conf
 
 chmod 755 $HOME/.local/bin/*
-
-ln -s $HOME/.config/systemd/user/insync-headless.service $HOME/.config/systemd/user/default.target.wants/insync-headless.service
 
 mkdir -p $HOME/Google/{"Cardboard Iguana",Personal,"Yak Collective"}
 
