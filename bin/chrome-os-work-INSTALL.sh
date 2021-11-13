@@ -74,7 +74,6 @@ cp $CONFIG_PATH/user/local/bin/update-gam.sh                               $HOME
 cp $CONFIG_PATH/user/local/bin/update-obsidian.sh                          $HOME/.local/bin/update-obsidian.sh
 cp $CONFIG_PATH/user/local/bin/update-system.sh                            $HOME/.local/bin/update-system.sh
 cp $CONFIG_PATH/user/local/bin/update-zoom.sh                              $HOME/.local/bin/update-zoom.sh
-cp $CONFIG_PATH/user/local/share/applications/Zoom.desktop                 $HOME/.local/share/applications/Zoom.desktop
 cp $CONFIG_PATH/user/local/share/applications/md.obsidian.Obsidian.desktop $HOME/.local/share/applications/md.obsidian.Obsidian.desktop
 
 chmod 755 $HOME/.local/bin/*
