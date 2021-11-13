@@ -117,15 +117,17 @@ rm -rf "$BUILD_DIR"
 # scripts (which fortunately can also handle the initial installation.
 #
 source $CONFIG_PATH/user/local/bin/update-gam.sh
+source $CONFIG_PATH/user/local/bin/update-obsidian.sh
 source $CONFIG_PATH/user/local/bin/update-youtube-dl.sh
 source $CONFIG_PATH/user/local/bin/update-yubikey-manager.sh
 source $CONFIG_PATH/user/local/bin/update-zoom.sh
 
-# Download and install the YubiKey Manager icon.
+# Download and install additional application icons.
 #
 mkdir -p $HOME/.local/share/icons
 (
 	cd $HOME/.local/share/icons
+	curl -L -O https://raw.githubusercontent.com/flathub/md.obsidian.Obsidian/master/md.obsidian.Obsidian.png
 	curl -L -O https://raw.githubusercontent.com/Yubico/yubikey-manager-qt/master/resources/icons/ykman.png
 )
 
@@ -194,17 +196,19 @@ gsettings set org.gnome.desktop.notifications.application:/org/gnome/desktop/not
 mkdir -p $HOME/.local/bin
 mkdir -p $HOME/.local/share/applications
 
-cp $CONFIG_PATH/user/bash_aliases                           $HOME/.bash_aliases
-cp $CONFIG_PATH/user/gitconfig                              $HOME/.gitconfig
-cp $CONFIG_PATH/user/inputrc                                $HOME/.inputrc
-cp $CONFIG_PATH/user/local/bin/backup-local.sh              $HOME/.local/bin/backup-local.sh
-cp $CONFIG_PATH/user/local/bin/update-full.sh               $HOME/.local/bin/update-full.sh
-cp $CONFIG_PATH/user/local/bin/update-gam.sh                $HOME/.local/bin/update-gam.sh
-cp $CONFIG_PATH/user/local/bin/update-system.sh             $HOME/.local/bin/update-system.sh
-cp $CONFIG_PATH/user/local/bin/update-youtube-dl.sh         $HOME/.local/bin/update-youtube-dl.sh
-cp $CONFIG_PATH/user/local/bin/update-yubikey-manager.sh    $HOME/.local/bin/update-yubikey-manager.sh
-cp $CONFIG_PATH/user/local/bin/update-zoom.sh               $HOME/.local/bin/update-zoom.sh
-cp $CONFIG_PATH/user/local/share/applications/ykman.desktop $HOME/.local/share/applications/ykman.desktop
+cp $CONFIG_PATH/user/bash_aliases                                          $HOME/.bash_aliases
+cp $CONFIG_PATH/user/gitconfig                                             $HOME/.gitconfig
+cp $CONFIG_PATH/user/inputrc                                               $HOME/.inputrc
+cp $CONFIG_PATH/user/local/bin/backup-local.sh                             $HOME/.local/bin/backup-local.sh
+cp $CONFIG_PATH/user/local/bin/update-full.sh                              $HOME/.local/bin/update-full.sh
+cp $CONFIG_PATH/user/local/bin/update-gam.sh                               $HOME/.local/bin/update-gam.sh
+cp $CONFIG_PATH/user/local/bin/update-obsidian.sh                          $HOME/.local/bin/update-obsidian.sh
+cp $CONFIG_PATH/user/local/bin/update-system.sh                            $HOME/.local/bin/update-system.sh
+cp $CONFIG_PATH/user/local/bin/update-youtube-dl.sh                        $HOME/.local/bin/update-youtube-dl.sh
+cp $CONFIG_PATH/user/local/bin/update-yubikey-manager.sh                   $HOME/.local/bin/update-yubikey-manager.sh
+cp $CONFIG_PATH/user/local/bin/update-zoom.sh                              $HOME/.local/bin/update-zoom.sh
+cp $CONFIG_PATH/user/local/share/applications/md.obsidian.Obsidian.desktop $HOME/.local/share/applications/md.obsidian.Obsidian.desktop
+cp $CONFIG_PATH/user/local/share/applications/ykman.desktop                $HOME/.local/share/applications/ykman.desktop
 
 chmod 755 $HOME/.local/bin/*
 
