@@ -78,6 +78,10 @@ cp $CONFIG_PATH/user/local/share/applications/md.obsidian.Obsidian.desktop $HOME
 
 chmod 755 $HOME/.local/bin/*
 
+# Fix the Obsidian .desktop file Exec path.
+#
+sed -i e "s#^Exec=obsidian#Exec=$HOME/.local/bin/obsidian#" $HOME/.local/share/applications/md.obsidian.Obsidian.desktop
+
 # Copy GAM data into Crostini (since GAM seems to have locking problems
 # when accessing this directly from the Google Drive share).
 #
