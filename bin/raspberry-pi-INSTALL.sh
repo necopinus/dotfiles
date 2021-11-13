@@ -90,7 +90,7 @@ mkdir -p $HOME/.local/share
 cp    $CONFIG_PATH/user/bash_aliases                   $HOME/.bash_aliases
 cp    $CONFIG_PATH/user/gitconfig                      $HOME/.gitconfig
 cp    $CONFIG_PATH/user/inputrc                        $HOME/.inputrc
-cp    $CONFIG_PATH/user/local/bin/backup-local.sh      $HOME/.local/bin/backup-local.sh
+cp    $CONFIG_PATH/user/local/bin/backup.sh            $HOME/.local/bin/backup.sh
 cp    $CONFIG_PATH/user/local/bin/update-full.sh       $HOME/.local/bin/update-full.sh
 cp    $CONFIG_PATH/user/local/bin/update-keybase.sh    $HOME/.local/bin/update-keybase.sh
 cp    $CONFIG_PATH/user/local/bin/update-system.sh     $HOME/.local/bin/update-system.sh
