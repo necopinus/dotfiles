@@ -49,21 +49,32 @@ seahorse
 # scripts (which fortunately can also handle the initial installation.
 #
 source $CONFIG_PATH/user/local/bin/update-gam.sh
+source $CONFIG_PATH/user/local/bin/update-obsidian.sh
 source $CONFIG_PATH/user/local/bin/update-zoom.sh
+
+# Download and install Obsidian's (Flatpak) icon.
+#
+mkdir -p $HOME/.local/share/icons
+(
+	cd $HOME/.local/share/icons
+	curl -L -O https://raw.githubusercontent.com/flathub/md.obsidian.Obsidian/master/md.obsidian.Obsidian.png
+)
 
 # Restore scripts and configurations from this repo.
 #
 mkdir -p $HOME/.local/bin
 mkdir -p $HOME/.local/share/applications
 
-cp $CONFIG_PATH/user/bash_aliases                          $HOME/.bash_aliases
-cp $CONFIG_PATH/user/gitconfig                             $HOME/.gitconfig
-cp $CONFIG_PATH/user/inputrc                               $HOME/.inputrc
-cp $CONFIG_PATH/user/local/bin/update-full.sh              $HOME/.local/bin/update-full.sh
-cp $CONFIG_PATH/user/local/bin/update-gam.sh               $HOME/.local/bin/update-gam.sh
-cp $CONFIG_PATH/user/local/bin/update-system.sh            $HOME/.local/bin/update-system.sh
-cp $CONFIG_PATH/user/local/bin/update-zoom.sh              $HOME/.local/bin/update-zoom.sh
-cp $CONFIG_PATH/user/local/share/applications/Zoom.desktop $HOME/.local/share/applications/Zoom.desktop
+cp $CONFIG_PATH/user/bash_aliases                                          $HOME/.bash_aliases
+cp $CONFIG_PATH/user/gitconfig                                             $HOME/.gitconfig
+cp $CONFIG_PATH/user/inputrc                                               $HOME/.inputrc
+cp $CONFIG_PATH/user/local/bin/update-full.sh                              $HOME/.local/bin/update-full.sh
+cp $CONFIG_PATH/user/local/bin/update-gam.sh                               $HOME/.local/bin/update-gam.sh
+cp $CONFIG_PATH/user/local/bin/update-obsidian.sh                          $HOME/.local/bin/update-obsidian.sh
+cp $CONFIG_PATH/user/local/bin/update-system.sh                            $HOME/.local/bin/update-system.sh
+cp $CONFIG_PATH/user/local/bin/update-zoom.sh                              $HOME/.local/bin/update-zoom.sh
+cp $CONFIG_PATH/user/local/share/applications/Zoom.desktop                 $HOME/.local/share/applications/Zoom.desktop
+cp $CONFIG_PATH/user/local/share/applications/md.obsidian.Obsidian.desktop $HOME/.local/share/applications/md.obsidian.Obsidian.desktop
 
 chmod 755 $HOME/.local/bin/*
 

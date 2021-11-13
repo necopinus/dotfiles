@@ -1,0 +1,7 @@
+[Desktop Entry]
+Name=Obsidian
+Exec=$HOME/.local/bin/obsidian %u
+Terminal=false
+Type=Application
+Icon=md.obsidian.Obsidian
+MimeType=x-scheme-handler/obsidian;
