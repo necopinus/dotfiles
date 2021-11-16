@@ -43,6 +43,7 @@ nano \
 nodejs \
 poppler-utils \
 qalc \
+qgis \
 rsync \
 seahorse
 
