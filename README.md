@@ -19,7 +19,7 @@ rm -rf ~/_setup
 
 1. Set up new per-device SSH/GPG keys.
 
-2. Clone repo and run the first stage configuration. The system will be
+2. Clone repo and run the configuration script. The system will be
    rebooted when this is done.
 
 	```bash
@@ -36,30 +36,7 @@ rm -rf ~/_setup
 	rm -rf ~/_setup
 	```
 
-4. Configure `insync-headless` for all of my accounts:
-
-	```bash
-	# Add Google account. To get an auth code, go to:
-	#
-	#     https://insynchq.com/auth?cloud=gd
-	#
-	insync-headless account add --auth-code $AUTH_CODE --cloud gd --path $SYNC_PATH --export-options MS_OFFICE
-
-	# Turn on sync for all files.
-	#
-	env TERM=xterm insync-headless selective-sync
-
-	# Repeat the above for each account...
-
-	insync-headless subscription show
-	#
-	# Go to heeps://insynchq.com/dashboard to update the
-	# machine ID.
-	#
-	insync-headless subscription refresh
-	```
-
-5. Finish configuring applications.
+4. Finish configuring applications.
 
 ## Chrome OS (Work)
 
@@ -77,7 +54,7 @@ rm -rf ~/_setup
 	./dotfiles/bin/chrome-os-work-INSTALL.sh
 	```
 
-4. Restart the Linux VM
+4. Restart the Linux VM.
 
 5. Clean up the `~/_setup` directory.
 
@@ -85,7 +62,7 @@ rm -rf ~/_setup
 	rm -rf ~/_setup
 	```
 
-6. Configure any graphical applications.
+6. Finish configuring applications.
 
 ## Pop!_OS on the System76 Darter Pro 5
 
@@ -108,6 +85,4 @@ rm -rf ~/_setup
 	rm -rf ~/_setup
 	```
 
-4. Configure Insync for all of my accounts.
-
-5. Finish configuring applications.
+4. Finish configuring applications.
