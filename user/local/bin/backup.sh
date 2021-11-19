@@ -84,7 +84,8 @@ elif [[ "$BACKUP_FS" = "fuseblk" ]]; then
 elif [[ "$BACKUP_FS" = "ext4" ]]; then
 	mkdir -p $BACKUP_PATH/$HOSTNAME
 	rsync -av --delete --force --human-readable --progress $HOME/ $BACKUP_PATH/$HOSTNAME/
-	if [[ -d $BACKUP_PATH/../ROOTFS/home/kali ]]; then
-		rsync -av --delete --force --human-readable --progress $BACKUP_PATH/../ROOTFS/home/kali/ $BACKUP_PATH/kali/
+	if [[ -d $BACKUP_PATH/../BOOT ]] && [[ -d $BACKUP_PATH/../ROOTFS ]]; then
+		rsync -av --delete --force --human-readable --progress $BACKUP_PATH/../BOOT/ $BACKUP_PATH/kali/BOOT/
+		rsync -av --delete --force --human-readable --progress $BACKUP_PATH/../ROOTFS/ $BACKUP_PATH/kali/ROOTFS/
 	fi
 fi
