@@ -78,6 +78,7 @@ handbrake \
 htop \
 ibus-typing-booster \
 jq \
+npm \
 optipng \
 python3-bs4 \
 python3-pip \
