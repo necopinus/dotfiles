@@ -16,6 +16,15 @@ sudo ufw default deny
 sudo apt install apt-transport-https
 sudo mkdir -p /usr/local/share/keyrings
 
+# Add Brave repo. See:
+#
+#     https://brave.com/linux/
+#
+
+curl -L -O https://brave-browser-apt-release.s3.brave.com/brave-browser-archive-keyring.gpg
+sudo mv brave-browser-archive-keyring.gpg /usr/local/share/keyrings/brave-browser-archive-keyring.gpg
+echo "deb [signed-by=/usr/local/share/keyrings/brave-browser-archive-keyring.gpg arch=amd64] https://brave-browser-apt-release.s3.brave.com/ stable main" | sudo tee /etc/apt/sources.list.d/brave-browser-release.list
+
 # Add Google repos. See:
 #
 #     https://support.google.com/a/users/answer/9018161#linuxhelper
@@ -62,6 +71,7 @@ sudo rm -rf /usr/share/fonts/truetype/libreoffice
 # Install new applications.
 #
 sudo apt install \
+brave-browser \
 bundler \
 code \
 dconf-editor \
