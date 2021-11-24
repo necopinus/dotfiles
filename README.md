@@ -9,8 +9,8 @@ apk add bash git
 mkdir ~/_setup
 cd ~/_setup
 git clone https://github.com/necopinus/dotfiles.git
-chmod 755 dotfiles/bin/*
-./dotfiles/bin/ish-INSTALL.sh
+chmod 755 dotfiles/installers/*
+./dotfiles/installers/ish.sh
 cd ..
 rm -rf ~/_setup
 ```
@@ -26,8 +26,8 @@ rm -rf ~/_setup
 	mkdir ~/_setup
 	cd ~/_setup
 	git clone https://github.com/necopinus/dotfiles.git
-	chmod 755 dotfiles/bin/*
-	./dotfiles/bin/raspberry-pi-INSTALL.sh
+	chmod 755 dotfiles/installers/*
+	./dotfiles/bin/kali-linux-raspberry-pi.sh
 	```
 
 3. Clean up the `~/_setup` directory.
@@ -38,7 +38,7 @@ rm -rf ~/_setup
 
 4. Finish configuring applications.
 
-## Chrome OS (Work)
+## Chrome OS
 
 1. Install the Linux developer environment.
 
@@ -50,8 +50,8 @@ rm -rf ~/_setup
 	mkdir ~/_setup
 	cd ~/_setup
 	git clone https://github.com/necopinus/dotfiles.git
-	chmod 755 dotfiles/bin/*
-	./dotfiles/bin/chrome-os-work-INSTALL.sh
+	chmod 755 dotfiles/installers/*
+	./dotfiles/installers/chrome-os.sh
 	```
 
 4. Restart the Linux VM.
@@ -64,7 +64,7 @@ rm -rf ~/_setup
 
 6. Finish configuring applications.
 
-## Pop!_OS on the System76 Darter Pro 5
+## Pop!_OS
 
 1. Set up new per-device SSH/GPG keys.
 
@@ -75,8 +75,8 @@ rm -rf ~/_setup
 	mkdir ~/_setup
 	cd ~/_setup
 	git clone https://github.com/necopinus/dotfiles.git
-	chmod 755 dotfiles/bin/*
-	./dotfiles/bin/darter-pro-INSTALL.sh
+	chmod 755 dotfiles/installers/*
+	./dotfiles/installers/darter-pro.sh
 	```
 
 3. Clean up the `~/_setup` directory.
