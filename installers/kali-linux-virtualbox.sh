@@ -50,12 +50,14 @@ source $CONFIG_PATH/user/local/bin/update-volatility.sh
 gsettings set ca.desrt.dconf-editor.Settings show-warning false
 gsettings set org.gtk.Settings.FileChooser   clock-format "24h"
 
-xfconf-query -n -c displays            -p /AutoEnableProfiles               -t bool   -s true
-xfconf-query -n -c displays            -p /Notify                           -t bool   -s true
-xfconf-query -n -c xfce4-panel         -p /plugins/plugin-15/timezone       -t string -s "US/Mountain"
-xfconf-query -n -c xfce4-power-manager -p /xfce4-power-manager/dpms-enabled -t bool   -s false
-xfconf-query -n -c xfce4-session       -p /general/AutoSave                 -t bool   -s false
-xfconf-query -n -c xfce4-session       -p /general/PromptOnLogout           -t bool   -s false
+xfconf-query -n -c displays            -p /AutoEnableProfiles                   -t bool   -s true
+xfconf-query -n -c displays            -p /Notify                               -t bool   -s true
+xfconf-query -n -c xfce4-panel         -p /plugins/plugin-15/timezone           -t string -s "US/Mountain"
+xfconf-query -n -c xfce4-power-manager -p /xfce4-power-manager/blank-on-ac      -t int   -s 0
+xfconf-query -n -c xfce4-power-manager -p /xfce4-power-manager/blank-on-battery -t int   -s 0
+xfconf-query -n -c xfce4-power-manager -p /xfce4-power-manager/dpms-enabled     -t bool   -s false
+xfconf-query -n -c xfce4-session       -p /general/AutoSave                     -t bool   -s false
+xfconf-query -n -c xfce4-session       -p /general/PromptOnLogout               -t bool   -s false
 
 # Restore scripts and configurations from this repo.
 #
