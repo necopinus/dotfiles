@@ -11,6 +11,10 @@ CONFIG_PATH="$(dirname "$SCRIPT_PATH")/../"
 sudo ufw enable
 sudo ufw default deny
 
+# Allow port 3131 TCP for Deskreen.
+#
+sudo ufw allow from 0.0.0.0/0 port 3131 proto tcp
+
 # Install prerequisites.
 #
 sudo apt install apt-transport-https
@@ -20,7 +24,6 @@ sudo mkdir -p /usr/local/share/keyrings
 #
 #     https://brave.com/linux/
 #
-
 curl -L -O https://brave-browser-apt-release.s3.brave.com/brave-browser-archive-keyring.gpg
 sudo mv brave-browser-archive-keyring.gpg /usr/local/share/keyrings/brave-browser-archive-keyring.gpg
 echo "deb [signed-by=/usr/local/share/keyrings/brave-browser-archive-keyring.gpg arch=amd64] https://brave-browser-apt-release.s3.brave.com/ stable main" | sudo tee /etc/apt/sources.list.d/brave-browser-release.list
@@ -127,6 +130,7 @@ rm -rf "$BUILD_DIR"
 # Additional "loose" installs. These are all handled through update
 # scripts (which fortunately can also handle the initial installation.
 #
+source $CONFIG_PATH/user/local/bin/update-deskreen.sh
 source $CONFIG_PATH/user/local/bin/update-gam.sh
 source $CONFIG_PATH/user/local/bin/update-obsidian.sh
 source $CONFIG_PATH/user/local/bin/update-youtube-dl.sh
@@ -140,6 +144,8 @@ mkdir -p $HOME/.local/share/icons
 	cd $HOME/.local/share/icons
 	curl -L -O https://raw.githubusercontent.com/flathub/md.obsidian.Obsidian/master/md.obsidian.Obsidian.png
 	curl -L -O https://raw.githubusercontent.com/Yubico/yubikey-manager-qt/master/resources/icons/ykman.png
+	curl -L -O https://raw.githubusercontent.com/pavlobu/deskreen/master/resources/icon.png
+	mv icon.png deskreen.png
 )
 
 # Apply application settings, when possible.
@@ -213,6 +219,7 @@ cp $CONFIG_PATH/user/gitconfig                                             $HOME
 cp $CONFIG_PATH/user/inputrc                                               $HOME/.inputrc
 cp $CONFIG_PATH/user/local/bin/backup.sh                                   $HOME/.local/bin/backup.sh
 cp $CONFIG_PATH/user/local/bin/update-full.sh                              $HOME/.local/bin/update-full.sh
+cp $CONFIG_PATH/user/local/bin/update-deskreen.sh                          $HOME/.local/bin/update-deskreen.sh
 cp $CONFIG_PATH/user/local/bin/update-gam.sh                               $HOME/.local/bin/update-gam.sh
 cp $CONFIG_PATH/user/local/bin/update-obsidian.sh                          $HOME/.local/bin/update-obsidian.sh
 cp $CONFIG_PATH/user/local/bin/update-system.sh                            $HOME/.local/bin/update-system.sh
