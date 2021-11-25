@@ -14,11 +14,6 @@ sudo dpkg-reconfigure locales
 #
 sudo dpkg-reconfigure tzdata
 
-# Disable the Raspberry Pi's default overscan, as this doesn't play nice
-# with any of my monitors.
-#
-sudo sed -i -e 's/^#disable_overscan=1$/disable_overscan=1/' /boot/config.txt
-
 # Make sure all components are up-to-date.
 #
 source $CONFIG_PATH/user/local/bin/update-system.sh
@@ -30,31 +25,20 @@ source $CONFIG_PATH/user/local/bin/update-system.sh
 #
 sudo apt remove --purge --autoremove python-is-python2
 
-# Remove colord, as I don't use this system for image editing or
-# watching movies, and it generates annoying prompts when running
-# XFCE over XRDP.
-#
-sudo apt purge --autoremove --purge colord
-
 # Install new applications.
 #
 sudo apt install \
 asciinema \
 burpsuite \
-code-oss \
 dconf-editor \
 fonts-noto \
 gobuster \
 golang \
-graphicsmagick \
 htop \
 python3-capstone \
 qalc \
 rlwrap \
-seclists \
-youtube-dl \
-yubikey-manager \
-yubikey-personalization-gui
+seclists
 
 # The above packages supercede some installed packages, so we do some
 # additional cleanup here.
@@ -64,7 +48,6 @@ sudo apt autoremove --purge --autoremove
 # Additional "loose" installs. These are all handled through update
 # scripts (which fortunately can also handle the initial installation.
 #
-source $CONFIG_PATH/user/local/bin/update-keybase.sh
 source $CONFIG_PATH/user/local/bin/update-volatility.sh
 
 # Apply application settings, when possible.
@@ -88,14 +71,11 @@ mkdir -p $HOME/.local/bin
 mkdir -p $HOME/.local/share
 
 cp    $CONFIG_PATH/user/bash_aliases                   $HOME/.bash_aliases
-cp    $CONFIG_PATH/user/gitconfig                      $HOME/.gitconfig
 cp    $CONFIG_PATH/user/inputrc                        $HOME/.inputrc
 cp    $CONFIG_PATH/user/local/bin/update-full.sh       $HOME/.local/bin/update-full.sh
-cp    $CONFIG_PATH/user/local/bin/update-keybase.sh    $HOME/.local/bin/update-keybase.sh
 cp    $CONFIG_PATH/user/local/bin/update-system.sh     $HOME/.local/bin/update-system.sh
 cp    $CONFIG_PATH/user/local/bin/update-volatility.sh $HOME/.local/bin/update-volatility.sh
 cp -r $CONFIG_PATH/user/local/share/red-team           $HOME/.local/share/red-team
-cp    $CONFIG_PATH/user/tmux.conf                      $HOME/.tmux.conf
 
 chmod 755 $HOME/.local/bin/*
 
@@ -111,33 +91,6 @@ fi
 #
 sudo systemctl enable postgresql.service
 sudo msfdb init
-
-# Restore all git repos.
-#
-mkdir -p $HOME/Code
-(
-	git config --global user.email nathan.acks@cardboard-iguana.com
-	git config --global user.signingkey "$(gpg --list-keys nathan.acks@cardboard-iguana.com | grep -E "^      [0-9A-Z]{40}$" | sed -e "s/^ *//")"
-	cd $HOME/Code
-	git clone git@github.com:The-Yak-Collective/onboarding_robot.git
-	mv onboarding_robot automation-onboarding-robot
-	git clone git@github.com:The-Yak-Collective/project_ui.git
-	mv project_ui automation-project-ui
-	git clone git@github.com:necopinus/backups.git
-	mv backups backups-necopinus
-	git clone git@github.com:The-Yak-Collective/backups.git
-	mv backups backups-yak-collective
-	git clone git@github.com:The-Yak-Collective/infrastructure-map.git
-	mv infrastructure-map doc-infrastructure-map
-	git clone git@github.com:necopinus/dotfiles.git
-	git clone git@bitbucket.org:necopinus/hugo-theme-story.git
-	git clone git@bitbucket.org:necopinus/website-chateaumaxmin.info.git
-	git clone git@bitbucket.org:necopinus/website-delphi-strategy.com.git
-	git clone git@bitbucket.org:necopinus/website-digital-orrery.com.git
-	git clone git@bitbucket.org:necopinus/website-ecopunk.info.git
-	git clone git@github.com:The-Yak-Collective/yakcollective.git
-	mv yakcollective website-yakcollective.org
-)
 
 # Finish up part 1.
 #
