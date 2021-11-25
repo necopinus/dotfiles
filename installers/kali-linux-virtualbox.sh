@@ -6,13 +6,9 @@
 SCRIPT_PATH="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)/$(basename "${BASH_SOURCE[0]}")"
 CONFIG_PATH="$(dirname "$SCRIPT_PATH")/../"
 
-# Make sure that locale is properly set.
+# Make sure that my user has access to all VirtualBox mounts, etc.
 #
-sudo dpkg-reconfigure locales
-
-# Make sure that the timezone is properly set.
-#
-sudo dpkg-reconfigure tzdata
+sudo adduser $USER vboxsf
 
 # Make sure all components are up-to-date.
 #
@@ -29,21 +25,16 @@ sudo apt remove --purge --autoremove python-is-python2
 #
 sudo apt install \
 asciinema \
-burpsuite \
 dconf-editor \
 fonts-noto \
 gobuster \
 golang \
 htop \
 python3-capstone \
+python3-pip \
 qalc \
 rlwrap \
 seclists
-
-# The above packages supercede some installed packages, so we do some
-# additional cleanup here.
-#
-sudo apt autoremove --purge --autoremove
 
 # Additional "loose" installs. These are all handled through update
 # scripts (which fortunately can also handle the initial installation.
@@ -59,11 +50,12 @@ source $CONFIG_PATH/user/local/bin/update-volatility.sh
 gsettings set ca.desrt.dconf-editor.Settings show-warning false
 gsettings set org.gtk.Settings.FileChooser   clock-format "24h"
 
-xfconf-query -c displays      -p /AutoEnableProfiles         -t bool   -s true
-xfconf-query -c displays      -p /Notify                     -t bool   -s true
-xfconf-query -c xfce4-panel   -p /plugins/plugin-15/timezone -t string -s "US/Mountain"
-xfconf-query -c xfce4-session -p /general/AutoSave           -t bool   -s false
-xfconf-query -c xfce4-session -p /general/PromptOnLogout     -t bool   -s false
+xfconf-query -n -c displays            -p /AutoEnableProfiles               -t bool   -s true
+xfconf-query -n -c displays            -p /Notify                           -t bool   -s true
+xfconf-query -n -c xfce4-panel         -p /plugins/plugin-15/timezone       -t string -s "US/Mountain"
+xfconf-query -n -c xfce4-power-manager -p /xfce4-power-manager/dpms-enabled -t bool   -s false
+xfconf-query -n -c xfce4-session       -p /general/AutoSave                 -t bool   -s false
+xfconf-query -n -c xfce4-session       -p /general/PromptOnLogout           -t bool   -s false
 
 # Restore scripts and configurations from this repo.
 #

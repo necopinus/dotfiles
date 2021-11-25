@@ -15,6 +15,27 @@ cd ..
 rm -rf ~/_setup
 ```
 
+## Kali Linux in VirtualBox
+
+1. Clone repo and run the configuration script. The system will be
+   rebooted when this is done.
+
+	```bash
+	mkdir ~/_setup
+	cd ~/_setup
+	git clone https://github.com/necopinus/dotfiles.git
+	chmod 755 dotfiles/installers/*
+	./dotfiles/bin/kali-linux-virtualbox.sh
+	```
+
+2. Clean up the `~/_setup` directory.
+
+	```bash
+	rm -rf ~/_setup
+	```
+
+3. Finish configuring applications.
+
 ## Kali Linux on the Raspberry Pi 4B
 
 1. Set up new per-device SSH/GPG keys.
