@@ -4,7 +4,6 @@
 "\e[A": history-search-backward
 "\e[B": history-search-forward
 
-########################################################################
 # When using the Apple Magic Keyboard on an iPad Pro with Blink
 # Terminal, arrow keys codes seem to be sent in "keypad" mode.
 #

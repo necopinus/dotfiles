@@ -70,6 +70,7 @@ cp    $CONFIG_PATH/user/local/bin/update-full.sh       $HOME/.local/bin/update-f
 cp    $CONFIG_PATH/user/local/bin/update-system.sh     $HOME/.local/bin/update-system.sh
 cp    $CONFIG_PATH/user/local/bin/update-volatility.sh $HOME/.local/bin/update-volatility.sh
 cp -r $CONFIG_PATH/user/local/share/red-team           $HOME/.local/share/red-team
+cp    $CONFIG_PATH/user/zshenv                         $HOME/.zshenv
 
 chmod 755 $HOME/.local/bin/*
 
