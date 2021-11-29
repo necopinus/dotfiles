@@ -25,6 +25,7 @@ sudo apt remove --purge --autoremove python-is-python2
 #
 sudo apt install \
 asciinema \
+beef-xss \
 dconf-editor \
 fonts-noto \
 gobuster \

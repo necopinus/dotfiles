@@ -11,9 +11,10 @@ CONFIG_PATH="$(dirname "$SCRIPT_PATH")/../"
 sudo ufw enable
 sudo ufw default deny
 
-# Allow port 3131 TCP for Deskreen.
+# Allow port 3131 TCP + WebRTC ports for Deskreen.
 #
-sudo ufw allow from 0.0.0.0/0 port 3131 proto tcp
+sudo ufw allow from 0.0.0.0/0 port  3131       proto tcp
+sudo ufw allow from 0.0.0.0/0 port 49800:49899 proto tcp
 
 # Install prerequisites.
 #
