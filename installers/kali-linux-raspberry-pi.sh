@@ -41,6 +41,7 @@ sudo apt purge --autoremove --purge colord
 sudo apt install \
 asciinema \
 beef-xss \
+bloodhound \
 burpsuite \
 code-oss \
 dconf-editor \
