@@ -79,6 +79,7 @@ brave-browser \
 bundler \
 code \
 dconf-editor \
+default-jre \
 discord \
 endpoint-verification \
 exfatprogs \
@@ -92,6 +93,7 @@ handbrake \
 htop \
 ibus-typing-booster \
 jq \
+network-manager-openvpn-gnome \
 npm \
 optipng \
 python3-bs4 \
@@ -125,6 +127,19 @@ BUILD_DIR="$(mktemp -d)"
 	curl -L -O https://d2t3ff60b2tol4.cloudfront.net/builds/insync-nautilus_3.4.0.40973_all.deb
 	sudo apt install ./insync_3.5.4.50130-focal_amd64.deb
 	sudo apt install ./insync-nautilus_3.4.0.40973_all.deb
+)
+rm -rf "$BUILD_DIR"
+
+# Install SonicWall NetExtender
+#
+BUILD_DIR="$(mktemp -d)"
+(
+	cd "$BUILD_DIR"
+	NETEXTENDER_INSTALLER="NetExtender.Linux-10.2.828.x86_64.tgz"
+	curl -L -O https://software.sonicwall.com/NetExtender/$NETEXTENDER_INSTALLER
+	tar -xzf $NETEXTENDER_INSTALLER
+	cd netExtenderClient
+	sudo ./install
 )
 rm -rf "$BUILD_DIR"
 
