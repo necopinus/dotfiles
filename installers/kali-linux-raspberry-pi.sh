@@ -90,15 +90,15 @@ sudo cp /etc/skel/.config/powershell/Microsoft.PowerShell_profile.ps1 $HOME/.con
 sudo cp /etc/skel/.config/xfce4/panel/cpugraph-13.rc                  $HOME/.config/xfce4/panel/cpugraph-13.rc
 sudo cp /etc/skel/.config/xfce4/panel/genmon-15.rc                    $HOME/.config/xfce4/panel/genmon-15.rc
 
-chown $USER.$USER $HOME/.bash_logout
-chown $USER.$USER $HOME/.bashrc
-chown $USER.$USER $HOME/.face
-chown $USER.$USER $HOME/.profile
-chown $USER.$USER $HOME/.zshrc
-chown $USER.$USER $HOME/.java/.userPrefs/burp/prefs.xml
-chown $USER.$USER $HOME/.config/powershell/Microsoft.PowerShell_profile.ps1
-chown $USER.$USER $HOME/.config/xfce4/panel/cpugraph-13.rc
-chown $USER.$USER $HOME/.config/xfce4/panel/genmon-15.rc 
+sudo chown $USER.$USER $HOME/.bash_logout
+sudo chown $USER.$USER $HOME/.bashrc
+sudo chown $USER.$USER $HOME/.face
+sudo chown $USER.$USER $HOME/.profile
+sudo chown $USER.$USER $HOME/.zshrc
+sudo chown $USER.$USER $HOME/.java/.userPrefs/burp/prefs.xml
+sudo chown $USER.$USER $HOME/.config/powershell/Microsoft.PowerShell_profile.ps1
+sudo chown $USER.$USER $HOME/.config/xfce4/panel/cpugraph-13.rc
+sudo chown $USER.$USER $HOME/.config/xfce4/panel/genmon-15.rc 
 
 chmod 644 $HOME/.bash_logout
 chmod 644 $HOME/.bashrc
