@@ -78,7 +78,7 @@ chmod 644 $HOME/.zshrc
 chmod 644 $HOME/.java/.userPrefs/burp/prefs.xml
 chmod 644 $HOME/.config/powershell/Microsoft.PowerShell_profile.ps1
 chmod 644 $HOME/.config/xfce4/panel/cpugraph-13.rc
-chmod 644 $HOME/.config/xfce4/panel/genmon-15.rc 
+chmod 644 $HOME/.config/xfce4/panel/genmon-15.rc
 
 # Apply application settings, when possible.
 #
