@@ -6,6 +6,11 @@
 SCRIPT_PATH="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)/$(basename "${BASH_SOURCE[0]}")"
 CONFIG_PATH="$(dirname "$SCRIPT_PATH")/../"
 
+# For whatever reason the Raspberry Pi images use /bin/bash as the
+# default shell, while Kali in general uses /usr/bin/zsh.
+#
+chsh --shell /usr/bin/zsh
+
 # Make sure that locale is properly set.
 #
 sudo dpkg-reconfigure locales
