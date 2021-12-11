@@ -93,6 +93,7 @@ handbrake \
 htop \
 ibus-typing-booster \
 jq \
+libjpeg-turbo-progs \
 network-manager-openvpn-gnome \
 npm \
 optipng \
