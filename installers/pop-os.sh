@@ -110,6 +110,7 @@ xdotool \
 youtube-dl
 
 flatpak install --user flathub org.gimp.GIMP
+flatpak install --user flathub org.gnome.clocks
 flatpak install --user flathub org.signal.Signal
 flatpak install --user flathub org.videolan.VLC
 
