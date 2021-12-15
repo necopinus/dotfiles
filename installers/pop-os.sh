@@ -44,6 +44,10 @@ source $CONFIG_PATH/user/local/bin/update-system.sh
 # Cleanup unneeded software.
 #
 sudo apt purge --autoremove --purge \
+baobab \
+eog \
+evince \
+file-roller \
 firefox \
 firefox-locale-ar \
 firefox-locale-de \
@@ -62,9 +66,12 @@ gnome-calculator \
 gnome-calendar \
 gnome-contacts \
 gnome-font-viewer \
+gnome-power-manager \
 gnome-weather \
 gucharmap \
 libreoffice-common \
+popsicle-gtk \
+seahorse \
 simple-scan \
 totem
 
@@ -77,10 +84,7 @@ sudo rm -rf /usr/share/fonts/truetype/libreoffice
 sudo apt install \
 brave-browser \
 bundler \
-code \
-dconf-editor \
 default-jre \
-discord \
 endpoint-verification \
 exfatprogs \
 fonts-noto \
@@ -89,9 +93,7 @@ google-cloud-sdk \
 graphicsmagick \
 graphviz \
 grub-pc \
-handbrake \
 htop \
-ibus-typing-booster \
 jq \
 libjpeg-turbo-progs \
 network-manager-openvpn-gnome \
@@ -100,8 +102,6 @@ optipng \
 python3-bs4 \
 python3-pip \
 qalc \
-sound-juicer \
-soundconverter \
 vim \
 virtualbox-ext-pack \
 virtualbox-guest-additions-iso \
@@ -109,10 +109,24 @@ winetricks \
 xdotool \
 youtube-dl
 
+flatpak install --user flathub ca.desrt.dconf-editor
+flatpak install --user flathub com.discordapp.Discord
+flatpak install --user flathub com.system76.Popsicle
+flatpak install --user flathub com.visualstudio.code
+flatpak install --user flathub fr.handbrake.ghb
+flatpak install --user flathub md.obsidian.Obsidian
 flatpak install --user flathub org.gimp.GIMP
-flatpak install --user flathub org.gnome.clocks
+flatpak install --user flathub org.gnome.baobab
+flatpak install --user flathub org.gnome.eog
+flatpak install --user flathub org.gnome.Evince
+flatpak install --user flathub org.gnome.FileRoller
+flatpak install --user flathub org.gnome.PowerStats
+flatpak install --user flathub org.gnome.seahorse.Application
+flatpak install --user flathub org.gnome.SoundJuicer
 flatpak install --user flathub org.signal.Signal
+flatpak install --user flathub org.soundconverter.SoundConverter
 flatpak install --user flathub org.videolan.VLC
+flatpak install --user flathub us.zoom.Zoom
 
 # Install Keybase.
 #
@@ -150,17 +164,14 @@ rm -rf "$BUILD_DIR"
 #
 source $CONFIG_PATH/user/local/bin/update-deskreen.sh
 source $CONFIG_PATH/user/local/bin/update-gam.sh
-source $CONFIG_PATH/user/local/bin/update-obsidian.sh
 source $CONFIG_PATH/user/local/bin/update-youtube-dl.sh
 source $CONFIG_PATH/user/local/bin/update-yubikey-manager.sh
-source $CONFIG_PATH/user/local/bin/update-zoom.sh
 
 # Download and install additional application icons.
 #
 mkdir -p $HOME/.local/share/icons
 (
 	cd $HOME/.local/share/icons
-	curl -L -O https://raw.githubusercontent.com/flathub/md.obsidian.Obsidian/master/md.obsidian.Obsidian.png
 	curl -L -O https://raw.githubusercontent.com/Yubico/yubikey-manager-qt/master/resources/icons/ykman.png
 	curl -L -O https://raw.githubusercontent.com/pavlobu/deskreen/master/resources/icon.png
 	mv icon.png deskreen.png
@@ -168,16 +179,7 @@ mkdir -p $HOME/.local/share/icons
 
 # Apply application settings, when possible.
 #
-# To access/manipulate gsettings in a flatpak, use:
-#
-#   flatpak run --command=gsettings $APP_REF $GSETTINGS_COMMAND_LINE
-#
 gsettings set ca.desrt.dconf-editor.Settings             show-warning                   false
-gsettings set org.freedesktop.ibus.engine.typing-booster dictionary                     "en_US"
-gsettings set org.freedesktop.ibus.engine.typing-booster emojipredictions               true
-gsettings set org.freedesktop.ibus.engine.typing-booster inputmethod                    "NoIME"
-gsettings set org.gnome.desktop.input-sources            mru-sources                    "[('xkb','us'),('ibus','typing-booster')]"
-gsettings set org.gnome.desktop.input-sources            sources                        "[('xkb','us'),('ibus','typing-booster')]"
 gsettings set org.gnome.desktop.interface                clock-format                   "24h"
 gsettings set org.gnome.desktop.interface                clock-show-weekday             true
 gsettings set org.gnome.desktop.interface                document-font-name             "Roboto Slab 13"
@@ -215,13 +217,14 @@ gsettings set org.gnome.shell.extensions.dash-to-dock    show-mounts            
 gsettings set org.gnome.shell.extensions.pop-cosmic      clock-alignment                "RIGHT"
 gsettings set org.gnome.shell.weather                    automatic-location             true
 gsettings set org.gnome.shell.window-switcher            current-workspace-only         false
-gsettings set org.gnome.sound-juicer                     audio-profile                  "audio/mpeg"
-gsettings set org.gnome.sound-juicer                     file-pattern                   "%at - %dn - %ta - %tt"
-gsettings set org.gnome.sound-juicer                     path-pattern                   "%at"
 gsettings set org.gnome.system.location                  enabled                        true
 gsettings set org.gtk.Settings.FileChooser               clock-format                   "24h"
-gsettings set org.soundconverter                         mp3-vbr-quality                0
-gsettings set org.soundconverter                         output-mime-type               "audio/mpeg"
+
+flatpak run --command=gsettings org.gnome.SoundJuicer             set org.gnome.sound-juicer audio-profile    "audio/mpeg"
+flatpak run --command=gsettings org.gnome.SoundJuicer             set org.gnome.sound-juicer file-pattern     "%at - %dn - %ta - %tt"
+flatpak run --command=gsettings org.gnome.SoundJuicer             set org.gnome.sound-juicer path-pattern     "%at"
+flatpak run --command=gsettings org.soundconverter.SoundConverter set org.soundconverter     mp3-vbr-quality  0
+flatpak run --command=gsettings org.soundconverter.SoundConverter set org.soundconverter     output-mime-type "audio/mpeg"
 
 # Apply settings for relocatable schemas.
 #
@@ -239,12 +242,9 @@ cp $CONFIG_PATH/user/local/bin/backup.sh                                   $HOME
 cp $CONFIG_PATH/user/local/bin/update-full.sh                              $HOME/.local/bin/update-full.sh
 cp $CONFIG_PATH/user/local/bin/update-deskreen.sh                          $HOME/.local/bin/update-deskreen.sh
 cp $CONFIG_PATH/user/local/bin/update-gam.sh                               $HOME/.local/bin/update-gam.sh
-cp $CONFIG_PATH/user/local/bin/update-obsidian.sh                          $HOME/.local/bin/update-obsidian.sh
 cp $CONFIG_PATH/user/local/bin/update-system.sh                            $HOME/.local/bin/update-system.sh
 cp $CONFIG_PATH/user/local/bin/update-youtube-dl.sh                        $HOME/.local/bin/update-youtube-dl.sh
 cp $CONFIG_PATH/user/local/bin/update-yubikey-manager.sh                   $HOME/.local/bin/update-yubikey-manager.sh
-cp $CONFIG_PATH/user/local/bin/update-zoom.sh                              $HOME/.local/bin/update-zoom.sh
-cp $CONFIG_PATH/user/local/share/applications/md.obsidian.Obsidian.desktop $HOME/.local/share/applications/md.obsidian.Obsidian.desktop
 cp $CONFIG_PATH/user/local/share/applications/ykman.desktop                $HOME/.local/share/applications/ykman.desktop
 
 chmod 755 $HOME/.local/bin/*
