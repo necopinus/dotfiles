@@ -88,6 +88,7 @@ default-jre \
 endpoint-verification \
 exfatprogs \
 fonts-noto \
+gnome-shell-extension-bluetooth-quick-connect \
 google-chrome-stable \
 google-cloud-sdk \
 graphicsmagick \
@@ -123,6 +124,7 @@ flatpak install --user flathub org.gnome.FileRoller
 flatpak install --user flathub org.gnome.PowerStats
 flatpak install --user flathub org.gnome.seahorse.Application
 flatpak install --user flathub org.gnome.SoundJuicer
+flatpak install --user flathub org.gnome.Weather
 flatpak install --user flathub org.signal.Signal
 flatpak install --user flathub org.soundconverter.SoundConverter
 flatpak install --user flathub org.videolan.VLC
@@ -207,6 +209,7 @@ gsettings set org.gnome.gnome-system-monitor.proctree    sort-col               
 gsettings set org.gnome.nautilus.list-view               use-tree-view                  true
 gsettings set org.gnome.nautilus.preferences             default-folder-viewer          "list-view"
 gsettings set org.gnome.settings-daemon.plugins.color    night-light-enabled            true
+gsettings set org.gnome.shell                            enabled-extensions             "/org/gnome/shell/enabled-extensions ['ding@rastersoft.com', 'pop-cosmic@system76.com', 'pop-shell@system76.com', 'system76-power@system76.com', 'ubuntu-appindicators@ubuntu.com', 'cosmic-dock@system76.com', 'cosmic-workspaces@system76.com', 'bluetooth-quick-connect@bjarosze.gmail.com']"
 gsettings set org.gnome.shell                            remember-mount-password        true
 gsettings set org.gnome.shell.extensions.dash-to-dock    dash-max-icon-size             60
 gsettings set org.gnome.shell.extensions.dash-to-dock    dock-fixed                     false
