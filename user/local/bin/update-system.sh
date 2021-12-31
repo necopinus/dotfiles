@@ -10,6 +10,10 @@ elif [[ -n "$(which apt)" ]]; then
 	sudo apt clean
 fi
 
+if [[ -n "$(which ruby)" ]] && [[ -n "$(which gem)" ]]; then
+	gem update --user-install
+fi
+
 if [[ -n "$(which flatpak)" ]]; then
 	flatpak update
 	flatpak uninstall --unused

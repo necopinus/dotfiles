@@ -44,6 +44,10 @@ seclists
 source $CONFIG_PATH/user/local/bin/update-kerbrute.sh
 source $CONFIG_PATH/user/local/bin/update-volatility.sh
 
+# Setup Evil-WinRM.
+#
+gem install --user-install evil-winrm
+
 # Refresh files from /etc/skel.
 #
 mkdir -p $HOME/.config/powershell
@@ -104,9 +108,10 @@ mkdir -p $HOME/.local/bin
 mkdir -p $HOME/.local/share
 
 cp    $CONFIG_PATH/user/bash_aliases                   $HOME/.bash_aliases
+cp    $CONFIG_PATH/user/gemrc                          $HOME/.gemrc
 cp    $CONFIG_PATH/user/inputrc                        $HOME/.inputrc
 cp    $CONFIG_PATH/user/local/bin/update-full.sh       $HOME/.local/bin/update-full.sh
-cp    $CONFIG_PATH/user/local/bin/update-kerbrute.sh     $HOME/.local/bin/update-kerbrute.sh
+cp    $CONFIG_PATH/user/local/bin/update-kerbrute.sh   $HOME/.local/bin/update-kerbrute.sh
 cp    $CONFIG_PATH/user/local/bin/update-system.sh     $HOME/.local/bin/update-system.sh
 cp    $CONFIG_PATH/user/local/bin/update-volatility.sh $HOME/.local/bin/update-volatility.sh
 cp -r $CONFIG_PATH/user/local/share/red-team           $HOME/.local/share/red-team

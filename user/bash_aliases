@@ -1,6 +1,12 @@
 # Abuse Debian's automatic sourcing of ~/.bash_aliases to override
 # various configuration defaults.
 
+# Make sure that locally installed Ruby gems are in our path.
+#
+if [[ -n "$(which ruby)" ]] && [[ -n "$(which gem)" ]]; then
+	export PATH="$(ruby -r rubygems -e 'puts Gem.user_dir')/bin:$PATH"
+fi
+
 # Make sure that ~/.local/bin is added to our path. We save the old path
 # so that we can restore it at the end of this file if we're (1) on a
 # Debian-derived OS and (2) we're running a login shell, since the

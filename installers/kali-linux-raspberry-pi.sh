@@ -74,6 +74,10 @@ sudo apt autoremove --purge --autoremove
 source $CONFIG_PATH/user/local/bin/update-keybase.sh
 source $CONFIG_PATH/user/local/bin/update-volatility.sh
 
+# Setup Evil-WinRM.
+#
+gem install --user-install evil-winrm
+
 # Refresh files from /etc/skel.
 #
 mkdir -p $HOME/.config/powershell
@@ -131,6 +135,7 @@ mkdir -p $HOME/.local/bin
 mkdir -p $HOME/.local/share
 
 cp    $CONFIG_PATH/user/bash_aliases                   $HOME/.bash_aliases
+cp    $CONFIG_PATH/user/gemrc                          $HOME/.gemrc
 cp    $CONFIG_PATH/user/gitconfig                      $HOME/.gitconfig
 cp    $CONFIG_PATH/user/inputrc                        $HOME/.inputrc
 cp    $CONFIG_PATH/user/local/bin/update-full.sh       $HOME/.local/bin/update-full.sh
