@@ -55,6 +55,7 @@ gobuster \
 golang \
 graphicsmagick \
 htop \
+libreadline-dev \
 python3-capstone \
 qalc \
 rlwrap \
