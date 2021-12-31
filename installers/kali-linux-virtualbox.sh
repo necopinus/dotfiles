@@ -32,6 +32,7 @@ fonts-noto \
 gobuster \
 golang \
 htop \
+libreadline-dev \
 python3-capstone \
 python3-pip \
 qalc \

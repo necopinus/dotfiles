@@ -97,6 +97,7 @@ grub-pc \
 htop \
 jq \
 libjpeg-turbo-progs \
+libreadline-dev \
 network-manager-openvpn-gnome \
 npm \
 optipng \
