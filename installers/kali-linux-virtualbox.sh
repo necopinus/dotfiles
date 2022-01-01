@@ -33,6 +33,7 @@ gobuster \
 golang \
 htop \
 libreadline-dev \
+libssl-dev \
 python3-capstone \
 python3-pip \
 qalc \
