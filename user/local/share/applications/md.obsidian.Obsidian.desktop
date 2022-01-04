@@ -1,8 +1,0 @@
-[Desktop Entry]
-Name=Obsidian
-Exec=obsidian %u
-Terminal=false
-Type=Application
-Icon=md.obsidian.Obsidian
-StartupWMClass=obsidian
-MimeType=x-scheme-handler/obsidian;

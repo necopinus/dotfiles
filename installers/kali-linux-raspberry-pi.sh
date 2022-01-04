@@ -56,6 +56,8 @@ golang \
 graphicsmagick \
 htop \
 libreadline-dev \
+maven \
+openjdk-11-jdk \
 python3-capstone \
 qalc \
 rlwrap \

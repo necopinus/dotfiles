@@ -34,6 +34,8 @@ golang \
 htop \
 libreadline-dev \
 libssl-dev \
+maven \
+openjdk-11-jdk \
 python3-capstone \
 python3-pip \
 qalc \

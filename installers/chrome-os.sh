@@ -35,6 +35,7 @@ source $CONFIG_PATH/user/local/bin/update-system.sh
 sudo apt install \
 dnsutils \
 ffmpeg \
+flatpak
 fonts-noto \
 google-cloud-sdk \
 graphicsmagick \
@@ -46,20 +47,17 @@ qalc \
 rsync \
 seahorse
 
+# Setup Flatpak and install apps.
+#
+flatpak remote-add --user --if-not-exists flathub https://flathub.org/repo/flathub.flatpakrepo
+
+flatpak install --user flathub md.obsidian.Obsidian
+flatpak install --user flathub us.zoom.Zoom
+
 # Additional "loose" installs. These are all handled through update
 # scripts (which fortunately can also handle the initial installation.
 #
 source $CONFIG_PATH/user/local/bin/update-gam.sh
-source $CONFIG_PATH/user/local/bin/update-obsidian.sh
-source $CONFIG_PATH/user/local/bin/update-zoom.sh
-
-# Download and install Obsidian's (Flatpak) icon.
-#
-mkdir -p $HOME/.local/share/icons
-(
-	cd $HOME/.local/share/icons
-	curl -L -O https://raw.githubusercontent.com/flathub/md.obsidian.Obsidian/master/md.obsidian.Obsidian.png
-)
 
 # Restore scripts and configurations from this repo.
 #
@@ -71,17 +69,9 @@ cp $CONFIG_PATH/user/gitconfig                                             $HOME
 cp $CONFIG_PATH/user/inputrc                                               $HOME/.inputrc
 cp $CONFIG_PATH/user/local/bin/update-full.sh                              $HOME/.local/bin/update-full.sh
 cp $CONFIG_PATH/user/local/bin/update-gam.sh                               $HOME/.local/bin/update-gam.sh
-cp $CONFIG_PATH/user/local/bin/update-obsidian.sh                          $HOME/.local/bin/update-obsidian.sh
 cp $CONFIG_PATH/user/local/bin/update-system.sh                            $HOME/.local/bin/update-system.sh
-cp $CONFIG_PATH/user/local/bin/update-zoom.sh                              $HOME/.local/bin/update-zoom.sh
-cp $CONFIG_PATH/user/local/share/applications/md.obsidian.Obsidian.desktop $HOME/.local/share/applications/md.obsidian.Obsidian.desktop
 
 chmod 755 $HOME/.local/bin/*
-
-# Fix the Obsidian .desktop file paths, because Chrome OS can be kind
-# of oblivious to files installed in ~/.local.
-#
-sed -i -e "s#^Exec=obsidian %u$#Exec=$HOME/.local/bin/obsidian %u#;s#^Icon=md\.obsidian\.Obsidian$#Icon=$HOME/.local/share/icons/md.obsidian.Obsidian.png#" $HOME/.local/share/applications/md.obsidian.Obsidian.desktop
 
 # Copy GAM data into Crostini (since GAM seems to have locking problems
 # when accessing this directly from the Google Drive share).
