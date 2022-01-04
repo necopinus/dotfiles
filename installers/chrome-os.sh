@@ -33,6 +33,7 @@ source $CONFIG_PATH/user/local/bin/update-system.sh
 # Install new applications from system repos.
 #
 sudo apt install \
+apt-utils \
 dnsutils \
 ffmpeg \
 flatpak
