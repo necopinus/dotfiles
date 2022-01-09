@@ -171,16 +171,6 @@ source $CONFIG_PATH/user/local/bin/update-radicle.sh
 source $CONFIG_PATH/user/local/bin/update-youtube-dl.sh
 source $CONFIG_PATH/user/local/bin/update-yubikey-manager.sh
 
-# Download and install additional application icons.
-#
-mkdir -p $HOME/.local/share/icons
-(
-	cd $HOME/.local/share/icons
-	curl -L -O https://raw.githubusercontent.com/Yubico/yubikey-manager-qt/master/resources/icons/ykman.png
-	curl -L -O https://raw.githubusercontent.com/pavlobu/deskreen/master/resources/icon.png
-	mv icon.png deskreen.png
-)
-
 # Apply application settings, when possible.
 #
 gsettings set ca.desrt.dconf-editor.Settings             show-warning                   false
@@ -238,21 +228,19 @@ gsettings set org.gnome.desktop.notifications.application:/org/gnome/desktop/not
 # Restore scripts and configurations from this repo.
 #
 mkdir -p $HOME/.local/bin
-mkdir -p $HOME/.local/share/applications
 
-cp $CONFIG_PATH/user/bash_aliases                                          $HOME/.bash_aliases
-cp $CONFIG_PATH/user/gemrc                                                 $HOME/.gemrc
-cp $CONFIG_PATH/user/gitconfig                                             $HOME/.gitconfig
-cp $CONFIG_PATH/user/inputrc                                               $HOME/.inputrc
-cp $CONFIG_PATH/user/local/bin/backup.sh                                   $HOME/.local/bin/backup.sh
-cp $CONFIG_PATH/user/local/bin/update-full.sh                              $HOME/.local/bin/update-full.sh
-cp $CONFIG_PATH/user/local/bin/update-deskreen.sh                          $HOME/.local/bin/update-deskreen.sh
-cp $CONFIG_PATH/user/local/bin/update-gam.sh                               $HOME/.local/bin/update-gam.sh
-cp $CONFIG_PATH/user/local/bin/update-radicle.sh                           $HOME/.local/bin/update-radicle.sh
-cp $CONFIG_PATH/user/local/bin/update-system.sh                            $HOME/.local/bin/update-system.sh
-cp $CONFIG_PATH/user/local/bin/update-youtube-dl.sh                        $HOME/.local/bin/update-youtube-dl.sh
-cp $CONFIG_PATH/user/local/bin/update-yubikey-manager.sh                   $HOME/.local/bin/update-yubikey-manager.sh
-cp $CONFIG_PATH/user/local/share/applications/ykman.desktop                $HOME/.local/share/applications/ykman.desktop
+cp $CONFIG_PATH/user/bash_aliases                        $HOME/.bash_aliases
+cp $CONFIG_PATH/user/gemrc                               $HOME/.gemrc
+cp $CONFIG_PATH/user/gitconfig                           $HOME/.gitconfig
+cp $CONFIG_PATH/user/inputrc                             $HOME/.inputrc
+cp $CONFIG_PATH/user/local/bin/backup.sh                 $HOME/.local/bin/backup.sh
+cp $CONFIG_PATH/user/local/bin/update-full.sh            $HOME/.local/bin/update-full.sh
+cp $CONFIG_PATH/user/local/bin/update-deskreen.sh        $HOME/.local/bin/update-deskreen.sh
+cp $CONFIG_PATH/user/local/bin/update-gam.sh             $HOME/.local/bin/update-gam.sh
+cp $CONFIG_PATH/user/local/bin/update-radicle.sh         $HOME/.local/bin/update-radicle.sh
+cp $CONFIG_PATH/user/local/bin/update-system.sh          $HOME/.local/bin/update-system.sh
+cp $CONFIG_PATH/user/local/bin/update-youtube-dl.sh      $HOME/.local/bin/update-youtube-dl.sh
+cp $CONFIG_PATH/user/local/bin/update-yubikey-manager.sh $HOME/.local/bin/update-yubikey-manager.sh
 
 chmod 755 $HOME/.local/bin/*
 

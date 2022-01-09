@@ -19,9 +19,16 @@ if [[ "$LOCAL_VERSION" != "$REMOTE_VERSION" ]]; then
 	(
 		cd "$BUILD_DIR"
 		curl -L -O https://github.com/pavlobu/deskreen/releases/download/v${REMOTE_VERSION}/Deskreen-${REMOTE_VERSION}.AppImage
+		mv Deskreen-${REMOTE_VERSION}.AppImage deskreen
+		chmod +x deskreen
+		./deskreen --appimage-extract deskreen.desktop
+		./deskreen --appimage-extract usr/share/icons/hicolor/1024x1024/apps/deskreen.png
 		mkdir -p $HOME/.local/bin
-		mv Deskreen-${REMOTE_VERSION}.AppImage $HOME/.local/bin/deskreen
-		chmod +x $HOME/.local/bin/deskreen
+		mv deskreen $HOME/.local/bin/deskreen
+		mkdir -p $HOME/.local/share/icons
+		mv squashfs-root/usr/share/icons/hicolor/1024x1024/apps/deskreen.png $HOME/.local/share/icons/deskreen.png
+		mkdir -p $HOME/.local/share/applications
+		sed -e "s#^Exec=.*#Exec=$HOME/.local/bin/deskreen#" squashfs-root/deskreen.desktop > $HOME/.local/share/applications/deskreen.desktop
 		mkdir -p $HOME/.cache/versions
 		echo "$REMOTE_VERSION" > $HOME/.cache/versions/deskreen
 	)
