@@ -11,3 +11,4 @@ UPDATE_PATH=$HOME/.local/bin
 [[ -x $UPDATE_PATH/update-kerbrute.sh        ]] && $UPDATE_PATH/update-kerbrute.sh
 [[ -x $UPDATE_PATH/update-yubikey-manager.sh ]] && $UPDATE_PATH/update-yubikey-manager.sh
 [[ -x $UPDATE_PATH/update-deskreen.sh        ]] && $UPDATE_PATH/update-deskreen.sh
+[[ -x $UPDATE_PATH/update-radicle.sh         ]] && $UPDATE_PATH/update-radicle.sh

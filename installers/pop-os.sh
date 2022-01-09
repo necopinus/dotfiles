@@ -167,6 +167,7 @@ rm -rf "$BUILD_DIR"
 #
 source $CONFIG_PATH/user/local/bin/update-deskreen.sh
 source $CONFIG_PATH/user/local/bin/update-gam.sh
+source $CONFIG_PATH/user/local/bin/update-radicle.sh
 source $CONFIG_PATH/user/local/bin/update-youtube-dl.sh
 source $CONFIG_PATH/user/local/bin/update-yubikey-manager.sh
 
@@ -247,6 +248,7 @@ cp $CONFIG_PATH/user/local/bin/backup.sh                                   $HOME
 cp $CONFIG_PATH/user/local/bin/update-full.sh                              $HOME/.local/bin/update-full.sh
 cp $CONFIG_PATH/user/local/bin/update-deskreen.sh                          $HOME/.local/bin/update-deskreen.sh
 cp $CONFIG_PATH/user/local/bin/update-gam.sh                               $HOME/.local/bin/update-gam.sh
+cp $CONFIG_PATH/user/local/bin/update-radicle.sh                           $HOME/.local/bin/update-radicle.sh
 cp $CONFIG_PATH/user/local/bin/update-system.sh                            $HOME/.local/bin/update-system.sh
 cp $CONFIG_PATH/user/local/bin/update-youtube-dl.sh                        $HOME/.local/bin/update-youtube-dl.sh
 cp $CONFIG_PATH/user/local/bin/update-yubikey-manager.sh                   $HOME/.local/bin/update-yubikey-manager.sh
