@@ -32,6 +32,7 @@ fonts-noto \
 gobuster \
 golang \
 htop \
+jython \
 libreadline-dev \
 libssl-dev \
 maven \

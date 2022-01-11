@@ -55,6 +55,7 @@ gobuster \
 golang \
 graphicsmagick \
 htop \
+jython \
 libreadline-dev \
 maven \
 openjdk-11-jdk \
