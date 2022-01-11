@@ -107,6 +107,7 @@ qalc \
 vim \
 virtualbox-ext-pack \
 virtualbox-guest-additions-iso \
+webp \
 xdotool \
 youtube-dl
 
