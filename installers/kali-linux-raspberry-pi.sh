@@ -148,20 +148,21 @@ xfconf-query -n -c xfce4-session -p /general/PromptOnLogout     -t bool   -s fal
 # Restore scripts and configurations from this repo.
 #
 mkdir -p $HOME/.local/bin
-mkdir -p $HOME/.local/share
+mkdir -p $HOME/.local/share/applications
 
-cp    $CONFIG_PATH/user/bash_aliases                   $HOME/.bash_aliases
-cp    $CONFIG_PATH/user/gemrc                          $HOME/.gemrc
-cp    $CONFIG_PATH/user/gitconfig                      $HOME/.gitconfig
-cp    $CONFIG_PATH/user/inputrc                        $HOME/.inputrc
-cp    $CONFIG_PATH/user/local/bin/update-full.sh       $HOME/.local/bin/update-full.sh
-cp    $CONFIG_PATH/user/local/bin/update-keybase.sh    $HOME/.local/bin/update-keybase.sh
-cp    $CONFIG_PATH/user/local/bin/update-system.sh     $HOME/.local/bin/update-system.sh
-cp    $CONFIG_PATH/user/local/bin/update-volatility.sh $HOME/.local/bin/update-volatility.sh
-cp    $CONFIG_PATH/user/local/bin/update-xsrfprobe.sh  $HOME/.local/bin/update-xsrfprobe.sh
-cp -r $CONFIG_PATH/user/local/share/red-team           $HOME/.local/share/red-team
-cp    $CONFIG_PATH/user/tmux.conf                      $HOME/.tmux.conf
-cp    $CONFIG_PATH/user/zshenv                         $HOME/.zshenv
+cp    $CONFIG_PATH/user/bash_aliases                                  $HOME/.bash_aliases
+cp    $CONFIG_PATH/user/gemrc                                         $HOME/.gemrc
+cp    $CONFIG_PATH/user/gitconfig                                     $HOME/.gitconfig
+cp    $CONFIG_PATH/user/inputrc                                       $HOME/.inputrc
+cp    $CONFIG_PATH/user/local/bin/update-full.sh                      $HOME/.local/bin/update-full.sh
+cp    $CONFIG_PATH/user/local/bin/update-keybase.sh                   $HOME/.local/bin/update-keybase.sh
+cp    $CONFIG_PATH/user/local/bin/update-system.sh                    $HOME/.local/bin/update-system.sh
+cp    $CONFIG_PATH/user/local/bin/update-volatility.sh                $HOME/.local/bin/update-volatility.sh
+cp    $CONFIG_PATH/user/local/bin/update-xsrfprobe.sh                 $HOME/.local/bin/update-xsrfprobe.sh
+cp    $CONFIG_PATH/user/local/applications/firefox-burp-suite.desktop $HOME/.local/share/applications/firefox-burp-suite.desktop
+cp -r $CONFIG_PATH/user/local/share/red-team                          $HOME/.local/share/red-team
+cp    $CONFIG_PATH/user/tmux.conf                                     $HOME/.tmux.conf
+cp    $CONFIG_PATH/user/zshenv                                        $HOME/.zshenv
 
 chmod 755 $HOME/.local/bin/*
 

@@ -1,0 +1,11 @@
+[Desktop Entry]
+Name=Firefox (Burp Suite)
+Comment=Browse the World Wide Web (proxied with Burp Suite)
+GenericName=Web Browser (Burp Suite)
+X-GNOME-FullName=Firefox ESR (Burp Suite)
+Exec=/usr/lib/firefox-esr/firefox-esr -P "Burp Suite" %u
+Terminal=false
+X-MultipleArgs=false
+Type=ApplicationIcon=firefox-esrCategories=Network;WebBrowser;
+MimeType=text/html;text/xml;application/xhtml+xml;application/xml;application/vnd.mozilla.xul+xml;application/rss+xml;application/rdf+xml;image/gif;image/jpeg;image/png;x-scheme-handler/http;x-scheme-handler/https;StartupWMClass=Firefox-esr
+StartupNotify=true
