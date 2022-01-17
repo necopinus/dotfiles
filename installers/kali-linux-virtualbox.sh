@@ -48,6 +48,7 @@ seclists
 #
 source $CONFIG_PATH/user/local/bin/update-kerbrute.sh
 source $CONFIG_PATH/user/local/bin/update-volatility.sh
+source $CONFIG_PATH/user/local/bin/update-xsrfprobe.sh
 
 # Setup Evil-WinRM.
 #
@@ -77,7 +78,7 @@ sudo chown $USER.$USER $HOME/.zshrc
 sudo chown $USER.$USER $HOME/.java/.userPrefs/burp/prefs.xml
 sudo chown $USER.$USER $HOME/.config/powershell/Microsoft.PowerShell_profile.ps1
 sudo chown $USER.$USER $HOME/.config/xfce4/panel/cpugraph-13.rc
-sudo chown $USER.$USER $HOME/.config/xfce4/panel/genmon-15.rc 
+sudo chown $USER.$USER $HOME/.config/xfce4/panel/genmon-15.rc
 
 chmod 644 $HOME/.bash_logout
 chmod 644 $HOME/.bashrc
@@ -119,6 +120,7 @@ cp    $CONFIG_PATH/user/local/bin/update-full.sh       $HOME/.local/bin/update-f
 cp    $CONFIG_PATH/user/local/bin/update-kerbrute.sh   $HOME/.local/bin/update-kerbrute.sh
 cp    $CONFIG_PATH/user/local/bin/update-system.sh     $HOME/.local/bin/update-system.sh
 cp    $CONFIG_PATH/user/local/bin/update-volatility.sh $HOME/.local/bin/update-volatility.sh
+cp    $CONFIG_PATH/user/local/bin/update-xsrfprobe.sh  $HOME/.local/bin/update-xsrfprobe.sh
 cp -r $CONFIG_PATH/user/local/share/red-team           $HOME/.local/share/red-team
 cp    $CONFIG_PATH/user/zshenv                         $HOME/.zshenv
 

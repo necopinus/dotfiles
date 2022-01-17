@@ -8,6 +8,7 @@ UPDATE_PATH=$HOME/.local/bin
 [[ -x $UPDATE_PATH/update-youtube-dl.sh      ]] && $UPDATE_PATH/update-youtube-dl.sh
 [[ -x $UPDATE_PATH/update-keybase.sh         ]] && $UPDATE_PATH/update-keybase.sh
 [[ -x $UPDATE_PATH/update-volatility.sh      ]] && $UPDATE_PATH/update-volatility.sh
+[[ -x $UPDATE_PATH/update-xsrfprobe.sh       ]] && $UPDATE_PATH/update-xsrfprobe.sh
 [[ -x $UPDATE_PATH/update-kerbrute.sh        ]] && $UPDATE_PATH/update-kerbrute.sh
 [[ -x $UPDATE_PATH/update-yubikey-manager.sh ]] && $UPDATE_PATH/update-yubikey-manager.sh
 [[ -x $UPDATE_PATH/update-deskreen.sh        ]] && $UPDATE_PATH/update-deskreen.sh
