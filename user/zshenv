@@ -9,6 +9,12 @@ if [[ -n "$(which ruby)" ]] && [[ -n "$(which gem)" ]]; then
 	export PATH="$(ruby -r rubygems -e 'puts Gem.user_dir')/bin:$PATH"
 fi
 
+# Make sure that locally installed NPM packages are in our path.
+#
+if [[ -d "$HOME/node_modules/.bin" ]]; then
+	export PATH="$HOME/node_modules/.bin:$PATH"
+fi
+
 # Make sure that ~/.local/bin is added to our path.
 #
 if [[ -d $HOME/.local/bin ]]; then

@@ -11,7 +11,17 @@ elif [[ -n "$(which apt)" ]]; then
 fi
 
 if [[ "$HOSTNAME" != "Nathans-iPad" ]] && [[ -n "$(which ruby)" ]] && [[ -n "$(which gem)" ]]; then
-	gem update --user-install
+	(
+		cd $HOME
+		gem update --user-install
+	)
+fi
+
+if [[ "$HOSTNAME" != "Nathans-iPad" ]] && [[ -n "$(which node)" ]] && [[ -n "$(which npm)" ]]; then
+	(
+		cd $HOME
+		npm update
+	)
 fi
 
 if [[ -n "$(which flatpak)" ]]; then

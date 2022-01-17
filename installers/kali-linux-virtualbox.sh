@@ -36,6 +36,7 @@ jython \
 libreadline-dev \
 libssl-dev \
 maven \
+npm \
 openjdk-11-jdk \
 python3-capstone \
 python3-pip \
@@ -52,7 +53,17 @@ source $CONFIG_PATH/user/local/bin/update-xsrfprobe.sh
 
 # Setup Evil-WinRM.
 #
-gem install --user-install evil-winrm
+(
+	cd $HOME
+	gem install --user-install evil-winrm
+)
+
+# Setup JWT-Cracker.
+#
+(
+	cd $HOME
+	npm install jwt-cracker
+)
 
 # Refresh files from /etc/skel.
 #
