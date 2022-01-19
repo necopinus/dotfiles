@@ -108,6 +108,7 @@ vim \
 virtualbox-ext-pack \
 virtualbox-guest-additions-iso \
 webp \
+whois \
 xdotool \
 youtube-dl
 
