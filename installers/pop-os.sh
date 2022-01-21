@@ -95,7 +95,6 @@ graphicsmagick \
 graphviz \
 grub-pc \
 htop \
-httrack \
 jq \
 libjpeg-turbo-progs \
 libreadline-dev \
