@@ -10,7 +10,7 @@ fi
 
 # Get remote version.
 #
-REMOTE_VERSION="$(curl -s https://api.github.com/repos/keybase/client/releases/latest | grep -Po '"tag_name": ?"v\K.*?(?=")')"
+REMOTE_VERSION="$(curl -L -s https://api.github.com/repos/keybase/client/releases/latest | grep -Po '"tag_name": ?"v\K.*?(?=")')"
 
 # Get system architecture.
 #

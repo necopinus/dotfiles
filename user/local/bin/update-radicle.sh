@@ -10,7 +10,7 @@ fi
 
 # Get remote version.
 #
-REMOTE_VERSION="$(curl -s https://api.github.com/repos/radicle-dev/radicle-upstream/tags | grep -Po '"name": ?"v\K.*?(?=")' | head -1)"
+REMOTE_VERSION="$(curl -L -s https://api.github.com/repos/radicle-dev/radicle-upstream/tags | grep -Po '"name": ?"v\K.*?(?=")' | head -1)"
 
 # Install/update if there is a new version.
 #
