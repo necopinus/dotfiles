@@ -22,6 +22,7 @@ go \
 graphicsmagick \
 graphviz \
 jq \
+libwebp-tools \
 mandoc \
 man-pages \
 nano \
