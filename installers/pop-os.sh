@@ -104,6 +104,7 @@ optipng \
 python3-bs4 \
 python3-pip \
 qalc \
+simplescreenrecorder \
 vim \
 virtualbox-ext-pack \
 virtualbox-guest-additions-iso \
