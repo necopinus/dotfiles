@@ -131,7 +131,6 @@ flatpak install --user flathub org.gnome.SoundJuicer
 flatpak install --user flathub org.gnome.Weather
 flatpak install --user flathub org.signal.Signal
 flatpak install --user flathub org.soundconverter.SoundConverter
-flatpak install --user flathub uk.co.ibboard.cawbird
 flatpak install --user flathub org.videolan.VLC
 flatpak install --user flathub us.zoom.Zoom
 
