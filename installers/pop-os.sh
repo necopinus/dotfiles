@@ -129,6 +129,7 @@ flatpak install --user flathub org.gnome.PowerStats
 flatpak install --user flathub org.gnome.seahorse.Application
 flatpak install --user flathub org.gnome.SoundJuicer
 flatpak install --user flathub org.gnome.Weather
+flatpak install --user flathub org.libreoffice.LibreOffice
 flatpak install --user flathub org.signal.Signal
 flatpak install --user flathub org.soundconverter.SoundConverter
 flatpak install --user flathub org.videolan.VLC
