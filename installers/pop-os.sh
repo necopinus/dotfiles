@@ -158,7 +158,7 @@ rm -rf "$BUILD_DIR"
 BUILD_DIR="$(mktemp -d)"
 (
 	cd "$BUILD_DIR"
-	NETEXTENDER_INSTALLER="NetExtender.Linux-10.2.828.x86_64.tgz"
+	NETEXTENDER_INSTALLER="NetExtender.Linux-10.2.835.x86_64.tgz"
 	curl -L -O https://software.sonicwall.com/NetExtender/$NETEXTENDER_INSTALLER
 	tar -xzf $NETEXTENDER_INSTALLER
 	cd netExtenderClient
