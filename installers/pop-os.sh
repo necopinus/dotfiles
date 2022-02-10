@@ -118,6 +118,7 @@ flatpak install --user flathub com.discordapp.Discord
 flatpak install --user flathub com.system76.Popsicle
 flatpak install --user flathub com.usebottles.bottles
 flatpak install --user flathub com.visualstudio.code
+flatpak install --user flathub fi.skyjake.Lagrange
 flatpak install --user flathub fr.handbrake.ghb
 flatpak install --user flathub md.obsidian.Obsidian
 flatpak install --user flathub org.gimp.GIMP
