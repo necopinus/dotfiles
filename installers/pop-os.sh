@@ -275,11 +275,25 @@ mkdir -p $HOME/Code
 	git clone git@github.com:The-Yak-Collective/infrastructure-map.git
 	mv infrastructure-map doc-infrastructure-map
 	git clone git@github.com:necopinus/dotfiles.git
-	git clone git@bitbucket.org:necopinus/hugo-theme-story.git
-	git clone git@bitbucket.org:necopinus/website-chateaumaxmin.info.git
-	git clone git@bitbucket.org:necopinus/website-delphi-strategy.com.git
-	git clone git@bitbucket.org:necopinus/website-digital-orrery.com.git
-	git clone git@bitbucket.org:necopinus/website-ecopunk.info.git
+	git clone git@github.com:necopinus/resume.git
+	git clone git@github.com:necopinus/zibaldone.git
+	mv zibaldone notes-necopinus
+	git clone git@github.com:necopinus/tpin-notes.git
+	mv tpin-notes notes-tpin
+	git clone git@github.com:necopinus/cardboard-iguana.com.git
+	mv cardboard-iguana.com website-cardboard-iguana.com
+	git clone git@github.com:necopinus/chateaumaxmin.info.git
+	mv chateaumaxmin.info website-chateaumaxmin.info
+	git clone git@github.com:necopinus/ecopunk.info.git
+	mv ecopunk.info website-ecopunk.info
+	git clone git@github.com:necopinus/ellen-and-nathan.info.git
+	mv ellen-and-nathan.info website-ellen-and-nathan.info
+	git clone git@github.com:necopinus/delphi-strategy.com.git
+	mv delphi-strategy.com website-delphi-strategy.com
+	git clone git@github.com:necopinus/digital-orrery.com.git
+	mv digital-orrery.com website-digital-orrery.com
+	git clone git@github.com:necopinus/necopinus.xyz.git
+	mv necopinus.xyz website-necopinus.xyz
 	git clone git@github.com:The-Yak-Collective/yakcollective.git
 	mv yakcollective website-yakcollective.org
 )
