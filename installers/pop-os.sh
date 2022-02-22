@@ -105,6 +105,7 @@ python3-bs4 \
 python3-pip \
 qalc \
 simplescreenrecorder \
+solaar \
 vim \
 virtualbox-ext-pack \
 virtualbox-guest-additions-iso \
