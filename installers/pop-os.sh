@@ -234,9 +234,10 @@ gsettings set org.gnome.desktop.notifications.application:/org/gnome/desktop/not
 
 # Restore scripts and configurations from this repo.
 #
-mkdir -p $HOME/.local/bin
+mkdir -p $HOME/.config/autostart $HOME/.local/bin
 
 cp $CONFIG_PATH/user/bash_aliases                        $HOME/.bash_aliases
+cp $CONFIG_PATH/user/config/autostart/solaar.desktop     $HOME/.config/autostart/solaar.desktop
 cp $CONFIG_PATH/user/gemrc                               $HOME/.gemrc
 cp $CONFIG_PATH/user/gitconfig                           $HOME/.gitconfig
 cp $CONFIG_PATH/user/inputrc                             $HOME/.inputrc
