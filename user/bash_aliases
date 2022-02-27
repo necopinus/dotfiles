@@ -13,6 +13,18 @@ if [[ -d "$HOME/node_modules/.bin" ]]; then
 	export PATH="$HOME/node_modules/.bin:$PATH"
 fi
 
+# Add ~/.cargo/bin to the path, if it exists.
+#
+if [[ -d "$HOME/.cargo/bin" ]]; then
+	export PATH="$HOME/.cargo/bin:$PATH"
+fi
+
+# Add ~/.radicle/bin to the path, if it exists.
+#
+if [[ -d "$HOME/.radicle/bin" ]]; then
+	export PATH="$HOME/.radicle/bin:$PATH"
+fi
+
 # Make sure that ~/.local/bin is added to our path. We save the old path
 # so that we can restore it at the end of this file if we're (1) on a
 # Debian-derived OS and (2) we're running a login shell, since the

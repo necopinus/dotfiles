@@ -37,3 +37,9 @@ else
 	echo "Radicle is already at v${REMOTE_VERSION}"
 	touch $HOME/.cache/versions/radicle
 fi
+
+# Install/update CLI tooling. See:
+#
+#     https://radicle.network/get-started.html
+#
+cargo install --force --locked --git https://seed.alt-clients.radicle.xyz/radicle-cli.git radicle-cli

@@ -84,6 +84,7 @@ sudo rm -rf /usr/share/fonts/truetype/libreoffice
 sudo apt install \
 brave-browser \
 bundler \
+cmake \
 default-jre \
 endpoint-verification \
 exfatprogs \
@@ -104,6 +105,7 @@ optipng \
 python3-bs4 \
 python3-pip \
 qalc \
+rust-all \
 simplescreenrecorder \
 solaar \
 vim \
