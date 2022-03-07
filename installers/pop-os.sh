@@ -103,6 +103,7 @@ network-manager-openvpn-gnome \
 npm \
 optipng \
 python3-bs4 \
+python3-openssl \
 python3-pip \
 qalc \
 rust-all \
@@ -178,6 +179,7 @@ source $CONFIG_PATH/user/local/bin/update-deskreen.sh
 source $CONFIG_PATH/user/local/bin/update-gam.sh
 source $CONFIG_PATH/user/local/bin/update-radicle.sh
 source $CONFIG_PATH/user/local/bin/update-youtube-dl.sh
+source $CONFIG_PATH/user/local/bin/update-google-api-python-client.sh
 source $CONFIG_PATH/user/local/bin/update-yubikey-manager.sh
 
 # Apply application settings, when possible.
@@ -238,19 +240,20 @@ gsettings set org.gnome.desktop.notifications.application:/org/gnome/desktop/not
 #
 mkdir -p $HOME/.config/autostart $HOME/.local/bin
 
-cp $CONFIG_PATH/user/bash_aliases                        $HOME/.bash_aliases
-cp $CONFIG_PATH/user/config/autostart/solaar.desktop     $HOME/.config/autostart/solaar.desktop
-cp $CONFIG_PATH/user/gemrc                               $HOME/.gemrc
-cp $CONFIG_PATH/user/gitconfig                           $HOME/.gitconfig
-cp $CONFIG_PATH/user/inputrc                             $HOME/.inputrc
-cp $CONFIG_PATH/user/local/bin/backup.sh                 $HOME/.local/bin/backup.sh
-cp $CONFIG_PATH/user/local/bin/update-full.sh            $HOME/.local/bin/update-full.sh
-cp $CONFIG_PATH/user/local/bin/update-deskreen.sh        $HOME/.local/bin/update-deskreen.sh
-cp $CONFIG_PATH/user/local/bin/update-gam.sh             $HOME/.local/bin/update-gam.sh
-cp $CONFIG_PATH/user/local/bin/update-radicle.sh         $HOME/.local/bin/update-radicle.sh
-cp $CONFIG_PATH/user/local/bin/update-system.sh          $HOME/.local/bin/update-system.sh
-cp $CONFIG_PATH/user/local/bin/update-youtube-dl.sh      $HOME/.local/bin/update-youtube-dl.sh
-cp $CONFIG_PATH/user/local/bin/update-yubikey-manager.sh $HOME/.local/bin/update-yubikey-manager.sh
+cp $CONFIG_PATH/user/bash_aliases                                 $HOME/.bash_aliases
+cp $CONFIG_PATH/user/config/autostart/solaar.desktop              $HOME/.config/autostart/solaar.desktop
+cp $CONFIG_PATH/user/gemrc                                        $HOME/.gemrc
+cp $CONFIG_PATH/user/gitconfig                                    $HOME/.gitconfig
+cp $CONFIG_PATH/user/inputrc                                      $HOME/.inputrc
+cp $CONFIG_PATH/user/local/bin/backup.sh                          $HOME/.local/bin/backup.sh
+cp $CONFIG_PATH/user/local/bin/update-full.sh                     $HOME/.local/bin/update-full.sh
+cp $CONFIG_PATH/user/local/bin/update-deskreen.sh                 $HOME/.local/bin/update-deskreen.sh
+cp $CONFIG_PATH/user/local/bin/update-gam.sh                      $HOME/.local/bin/update-gam.sh
+cp $CONFIG_PATH/user/local/bin/update-google-api-python-client.sh $HOME/.local/bin/update-google-api-python-client.sh
+cp $CONFIG_PATH/user/local/bin/update-radicle.sh                  $HOME/.local/bin/update-radicle.sh
+cp $CONFIG_PATH/user/local/bin/update-system.sh                   $HOME/.local/bin/update-system.sh
+cp $CONFIG_PATH/user/local/bin/update-youtube-dl.sh               $HOME/.local/bin/update-youtube-dl.sh
+cp $CONFIG_PATH/user/local/bin/update-yubikey-manager.sh          $HOME/.local/bin/update-yubikey-manager.sh
 
 chmod 755 $HOME/.local/bin/*
 
