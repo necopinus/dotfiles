@@ -79,6 +79,8 @@ sudo apt autoremove --purge --autoremove
 source $CONFIG_PATH/user/local/bin/update-keybase.sh
 source $CONFIG_PATH/user/local/bin/update-volatility.sh
 source $CONFIG_PATH/user/local/bin/update-xsrfprobe.sh
+source $CONFIG_PATH/user/local/bin/update-kiterunner.sh
+source $CONFIG_PATH/user/local/bin/update-ngrok.sh
 
 # Setup Evil-WinRM.
 #
@@ -156,6 +158,8 @@ cp    $CONFIG_PATH/user/gitconfig                                     $HOME/.git
 cp    $CONFIG_PATH/user/inputrc                                       $HOME/.inputrc
 cp    $CONFIG_PATH/user/local/bin/update-full.sh                      $HOME/.local/bin/update-full.sh
 cp    $CONFIG_PATH/user/local/bin/update-keybase.sh                   $HOME/.local/bin/update-keybase.sh
+cp    $CONFIG_PATH/user/local/bin/update-kiterunner.sh                $HOME/.local/bin/update-kiterunner.sh
+cp    $CONFIG_PATH/user/local/bin/update-ngrok.sh                     $HOME/.local/bin/update-ngrok.sh
 cp    $CONFIG_PATH/user/local/bin/update-system.sh                    $HOME/.local/bin/update-system.sh
 cp    $CONFIG_PATH/user/local/bin/update-volatility.sh                $HOME/.local/bin/update-volatility.sh
 cp    $CONFIG_PATH/user/local/bin/update-xsrfprobe.sh                 $HOME/.local/bin/update-xsrfprobe.sh
