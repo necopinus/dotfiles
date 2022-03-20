@@ -55,6 +55,7 @@ gobuster \
 golang \
 graphicsmagick \
 htop \
+jq \
 jython \
 libreadline-dev \
 maven \
