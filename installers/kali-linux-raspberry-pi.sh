@@ -51,6 +51,7 @@ burpsuite \
 code-oss \
 dconf-editor \
 fonts-noto \
+ghidra \
 gobuster \
 golang \
 graphicsmagick \
@@ -58,10 +59,12 @@ htop \
 jq \
 jython \
 libreadline-dev \
+libssl-dev \
 maven \
 npm \
 openjdk-11-jdk \
 python3-capstone \
+python3-pip \
 qalc \
 rlwrap \
 seclists \
@@ -142,11 +145,14 @@ chmod 644 $HOME/.config/xfce4/panel/genmon-15.rc
 gsettings set ca.desrt.dconf-editor.Settings show-warning false
 gsettings set org.gtk.Settings.FileChooser   clock-format "24h"
 
-xfconf-query -n -c displays      -p /AutoEnableProfiles         -t bool   -s true
-xfconf-query -n -c displays      -p /Notify                     -t bool   -s true
-xfconf-query -n -c xfce4-panel   -p /plugins/plugin-15/timezone -t string -s "US/Mountain"
-xfconf-query -n -c xfce4-session -p /general/AutoSave           -t bool   -s false
-xfconf-query -n -c xfce4-session -p /general/PromptOnLogout     -t bool   -s false
+xfconf-query -n -c displays            -p /AutoEnableProfiles         -t bool   -s true
+xfconf-query -n -c displays            -p /Notify                     -t bool   -s true
+xfconf-query -n -c xfce4-panel         -p /plugins/plugin-15/timezone -t string -s "US/Mountain"
+xfconf-query -n -c xfce4-power-manager -p /xfce4-power-manager/blank-on-ac      -t int    -s 0
+xfconf-query -n -c xfce4-power-manager -p /xfce4-power-manager/blank-on-battery -t int    -s 0
+xfconf-query -n -c xfce4-power-manager -p /xfce4-power-manager/dpms-enabled     -t bool   -s false
+xfconf-query -n -c xfce4-session       -p /general/AutoSave           -t bool   -s false
+xfconf-query -n -c xfce4-session       -p /general/PromptOnLogout     -t bool   -s false
 
 # Restore scripts and configurations from this repo.
 #

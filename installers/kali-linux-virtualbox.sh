@@ -27,10 +27,13 @@ sudo apt install \
 asciinema \
 beef-xss \
 bloodhound \
+code-oss \
 dconf-editor \
 fonts-noto \
+ghidra \
 gobuster \
 golang \
+graphicsmagick \
 htop \
 jq \
 jython \
@@ -43,7 +46,8 @@ python3-capstone \
 python3-pip \
 qalc \
 rlwrap \
-seclists
+seclists \
+youtube-dl
 
 # Additional "loose" installs. These are all handled through update
 # scripts (which fortunately can also handle the initial installation.
@@ -125,7 +129,6 @@ xfconf-query -n -c xfce4-session       -p /general/PromptOnLogout               
 # Restore scripts and configurations from this repo.
 #
 mkdir -p $HOME/.local/bin
-mkdir -p $HOME/.local/share
 
 cp    $CONFIG_PATH/user/bash_aliases                   $HOME/.bash_aliases
 cp    $CONFIG_PATH/user/gemrc                          $HOME/.gemrc
