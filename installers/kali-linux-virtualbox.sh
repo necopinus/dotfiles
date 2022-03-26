@@ -132,6 +132,7 @@ cp    $CONFIG_PATH/user/local/bin/update-system.sh     $HOME/.local/bin/update-s
 cp    $CONFIG_PATH/user/local/bin/update-volatility.sh $HOME/.local/bin/update-volatility.sh
 cp    $CONFIG_PATH/user/local/bin/update-xsrfprobe.sh  $HOME/.local/bin/update-xsrfprobe.sh
 cp -r $CONFIG_PATH/user/local/share/red-team           $HOME/.local/share/red-team
+cp    $CONFIG_PATH/user/zpath                          $HOME/.zpath
 cp    $CONFIG_PATH/user/zprofile                       $HOME/.zprofile
 cp    $CONFIG_PATH/user/zshenv                         $HOME/.zshenv
 

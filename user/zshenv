@@ -3,40 +3,10 @@
 #
 #     https://medium.com/@rajsek/zsh-bash-startup-files-loading-order-bashrc-zshrc-etc-e30045652f2e
 
-# Make sure that locally installed Ruby gems are in our path.
+# Set up path, if applicable.
 #
-if [[ -n "$(which ruby)" ]] && [[ -n "$(which gem)" ]]; then
-	export PATH="$(ruby -r rubygems -e 'puts Gem.user_dir')/bin:$PATH"
-fi
-
-# Make sure that locally installed NPM packages are in our path.
-#
-if [[ -d "$HOME/node_modules/.bin" ]]; then
-	export PATH="$HOME/node_modules/.bin:$PATH"
-fi
-
-# Add ~/.cargo/bin to the path, if it exists.
-#
-if [[ -d "$HOME/.cargo/bin" ]]; then
-	export PATH="$HOME/.cargo/bin:$PATH"
-fi
-
-# Add ~/go/bin to the path, if it exists.
-#
-if [[ -d "$HOME/go/bin" ]]; then
-	export PATH="$HOME/go/bin:$PATH"
-fi
-
-# Add ~/.radicle/bin to the path, if it exists.
-#
-if [[ -d "$HOME/.radicle/bin" ]]; then
-	export PATH="$HOME/.radicle/bin:$PATH"
-fi
-
-# Make sure that ~/.local/bin is added to our path.
-#
-if [[ -d $HOME/.local/bin ]]; then
-	export PATH="$HOME/.local/bin:$PATH"
+if [[ ! -o login]]; then
+	source $HOME/.zpath
 fi
 
 # Custom aliases.
@@ -44,9 +14,3 @@ fi
 if [[ -n "$(which msfconsole)" ]]; then
 	alias msfconsole="env GO111MODULE=off msfconsole"
 fi
-
-# Set flag to indicate that ~/.zshenv has been loaded. Needed because
-# this file is loaded under XFCE but not TMUX over SSH, so we *also* will
-# try to source it from ~/.zprofile *if* this flag isn't set.
-#
-export ZSHENV="$HOME/.zshenv"

@@ -164,6 +164,7 @@ cp    $CONFIG_PATH/user/local/bin/update-xsrfprobe.sh                 $HOME/.loc
 cp    $CONFIG_PATH/user/local/applications/firefox-burp-suite.desktop $HOME/.local/share/applications/firefox-burp-suite.desktop
 cp -r $CONFIG_PATH/user/local/share/red-team                          $HOME/.local/share/red-team
 cp    $CONFIG_PATH/user/tmux.conf                                     $HOME/.tmux.conf
+cp    $CONFIG_PATH/user/zpath                                         $HOME/.zpath
 cp    $CONFIG_PATH/user/zprofile                                      $HOME/.zprofile
 cp    $CONFIG_PATH/user/zshenv                                        $HOME/.zshenv
 

@@ -1,5 +1,5 @@
-# Source ~/.zshenv if it has not already been loaded.
+# Set up path, if applicable.
 #
-if [[ -z "$ZSHENV" ]] && [[ -f "$HOME/.zshenv" ]]; then
-	source $HOME/.zshenv
+if [[ -o login]]; then
+	source $HOME/.zpath
 fi

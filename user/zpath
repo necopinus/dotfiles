@@ -1,0 +1,44 @@
+# Add elements to the path for ZSH. This either needs to be called in
+# ~/.zshenv (for non-login shells) or ~/.zprofile (for login shells).
+# The reason we need to do this in two different ways is that when ZSH
+# is a login shell, it sources /etc/zsh/zprofile, which on Kali sources
+# /etc/profile, which resets our PATH (thus wiping out anything we do in
+# ~/.zshenv)... But in X11 ~/.zprofile never gets sourced at all (since
+# we're already logged in, and X11 has set up our environment). So we
+# need to call this in both places.
+
+# Make sure that locally installed Ruby gems are in our path.
+#
+if [[ -n "$(which ruby)" ]] && [[ -n "$(which gem)" ]]; then
+	export PATH="$(ruby -r rubygems -e 'puts Gem.user_dir')/bin:$PATH"
+fi
+
+# Make sure that locally installed NPM packages are in our path.
+#
+if [[ -d "$HOME/node_modules/.bin" ]]; then
+	export PATH="$HOME/node_modules/.bin:$PATH"
+fi
+
+# Add ~/.cargo/bin to the path, if it exists.
+#
+if [[ -d "$HOME/.cargo/bin" ]]; then
+	export PATH="$HOME/.cargo/bin:$PATH"
+fi
+
+# Add ~/go/bin to the path, if it exists.
+#
+if [[ -d "$HOME/go/bin" ]]; then
+	export PATH="$HOME/go/bin:$PATH"
+fi
+
+# Add ~/.radicle/bin to the path, if it exists.
+#
+if [[ -d "$HOME/.radicle/bin" ]]; then
+	export PATH="$HOME/.radicle/bin:$PATH"
+fi
+
+# Make sure that ~/.local/bin is added to our path.
+#
+if [[ -d $HOME/.local/bin ]]; then
+	export PATH="$HOME/.local/bin:$PATH"
+fi
