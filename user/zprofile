@@ -1,0 +1,5 @@
+# Source ~/.zshenv if it has not already been loaded.
+#
+if [[ -z "$ZSHENV" ]] && [[ -f "$HOME/.zshenv"]]; then
+	source $HOME/.zshenv
+fi

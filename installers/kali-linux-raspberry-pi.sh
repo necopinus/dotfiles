@@ -70,6 +70,7 @@ sudo apt autoremove --purge --autoremove
 # Additional "loose" installs. These are all handled through update
 # scripts (which fortunately can also handle the initial installation.
 #
+source $CONFIG_PATH/user/local/bin/update-kerbrute.sh
 source $CONFIG_PATH/user/local/bin/update-keybase.sh
 source $CONFIG_PATH/user/local/bin/update-volatility.sh
 source $CONFIG_PATH/user/local/bin/update-xsrfprobe.sh
@@ -153,6 +154,7 @@ cp    $CONFIG_PATH/user/gemrc                                         $HOME/.gem
 cp    $CONFIG_PATH/user/gitconfig                                     $HOME/.gitconfig
 cp    $CONFIG_PATH/user/inputrc                                       $HOME/.inputrc
 cp    $CONFIG_PATH/user/local/bin/update-full.sh                      $HOME/.local/bin/update-full.sh
+cp    $CONFIG_PATH/user/local/bin/update-kerbrute.sh                  $HOME/.local/bin/update-kerbrute.sh
 cp    $CONFIG_PATH/user/local/bin/update-keybase.sh                   $HOME/.local/bin/update-keybase.sh
 cp    $CONFIG_PATH/user/local/bin/update-kiterunner.sh                $HOME/.local/bin/update-kiterunner.sh
 cp    $CONFIG_PATH/user/local/bin/update-ngrok.sh                     $HOME/.local/bin/update-ngrok.sh
@@ -162,6 +164,7 @@ cp    $CONFIG_PATH/user/local/bin/update-xsrfprobe.sh                 $HOME/.loc
 cp    $CONFIG_PATH/user/local/applications/firefox-burp-suite.desktop $HOME/.local/share/applications/firefox-burp-suite.desktop
 cp -r $CONFIG_PATH/user/local/share/red-team                          $HOME/.local/share/red-team
 cp    $CONFIG_PATH/user/tmux.conf                                     $HOME/.tmux.conf
+cp    $CONFIG_PATH/user/zprofile                                      $HOME/.zprofile
 cp    $CONFIG_PATH/user/zshenv                                        $HOME/.zshenv
 
 chmod 755 $HOME/.local/bin/*

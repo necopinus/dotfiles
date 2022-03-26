@@ -21,6 +21,12 @@ if [[ -d "$HOME/.cargo/bin" ]]; then
 	export PATH="$HOME/.cargo/bin:$PATH"
 fi
 
+# Add ~/go/bin to the path, if it exists.
+#
+if [[ -d "$HOME/go/bin" ]]; then
+	export PATH="$HOME/go/bin:$PATH"
+fi
+
 # Add ~/.radicle/bin to the path, if it exists.
 #
 if [[ -d "$HOME/.radicle/bin" ]]; then
@@ -38,3 +44,9 @@ fi
 if [[ -n "$(which msfconsole)" ]]; then
 	alias msfconsole="env GO111MODULE=off msfconsole"
 fi
+
+# Set flag to indicate that ~/.zshenv has been loaded. Needed because
+# this file is loaded under XFCE but not TMUX over SSH, so we *also* will
+# try to source it from ~/.zprofile *if* this flag isn't set.
+#
+export ZSHENV="$HOME/.zshenv"
