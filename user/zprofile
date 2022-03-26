@@ -1,5 +1,5 @@
 # Set up path, if applicable.
 #
-if [[ -o login]]; then
+if [[ -o login ]]; then
 	source $HOME/.zpath
 fi
