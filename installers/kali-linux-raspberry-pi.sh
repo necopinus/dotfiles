@@ -45,16 +45,10 @@ sudo apt purge --autoremove --purge colord
 #
 sudo apt install \
 asciinema \
-beef-xss \
-bloodhound \
 burpsuite \
-code-oss \
-dconf-editor \
-fonts-noto \
 ghidra \
 gobuster \
 golang \
-graphicsmagick \
 htop \
 jq \
 jython \
@@ -66,9 +60,7 @@ openjdk-11-jdk \
 python3-capstone \
 python3-pip \
 qalc \
-rlwrap \
 seclists \
-youtube-dl \
 yubikey-manager \
 yubikey-personalization-gui
 
@@ -142,17 +134,16 @@ chmod 644 $HOME/.config/xfce4/panel/genmon-15.rc
 #
 #   flatpak run --command=gsettings $APP_REF $GSETTINGS_COMMAND_LINE
 #
-gsettings set ca.desrt.dconf-editor.Settings show-warning false
-gsettings set org.gtk.Settings.FileChooser   clock-format "24h"
+gsettings set org.gtk.Settings.FileChooser clock-format "24h"
 
-xfconf-query -n -c displays            -p /AutoEnableProfiles         -t bool   -s true
-xfconf-query -n -c displays            -p /Notify                     -t bool   -s true
-xfconf-query -n -c xfce4-panel         -p /plugins/plugin-15/timezone -t string -s "US/Mountain"
+xfconf-query -n -c displays            -p /AutoEnableProfiles                   -t bool   -s true
+xfconf-query -n -c displays            -p /Notify                               -t bool   -s true
+xfconf-query -n -c xfce4-panel         -p /plugins/plugin-15/timezone           -t string -s "US/Mountain"
 xfconf-query -n -c xfce4-power-manager -p /xfce4-power-manager/blank-on-ac      -t int    -s 0
 xfconf-query -n -c xfce4-power-manager -p /xfce4-power-manager/blank-on-battery -t int    -s 0
 xfconf-query -n -c xfce4-power-manager -p /xfce4-power-manager/dpms-enabled     -t bool   -s false
-xfconf-query -n -c xfce4-session       -p /general/AutoSave           -t bool   -s false
-xfconf-query -n -c xfce4-session       -p /general/PromptOnLogout     -t bool   -s false
+xfconf-query -n -c xfce4-session       -p /general/AutoSave                     -t bool   -s false
+xfconf-query -n -c xfce4-session       -p /general/PromptOnLogout               -t bool   -s false
 
 # Restore scripts and configurations from this repo.
 #
@@ -190,31 +181,14 @@ fi
 sudo systemctl enable postgresql.service
 sudo msfdb init
 
-# Restore all git repos.
+# Restore select git repos.
 #
 mkdir -p $HOME/Code
 (
 	git config --global user.email nathan.acks@cardboard-iguana.com
 	git config --global user.signingkey "$(gpg --list-keys nathan.acks@cardboard-iguana.com | grep -E "^      [0-9A-Z]{40}$" | sed -e "s/^ *//")"
 	cd $HOME/Code
-	git clone git@github.com:The-Yak-Collective/onboarding_robot.git
-	mv onboarding_robot automation-onboarding-robot
-	git clone git@github.com:The-Yak-Collective/project_ui.git
-	mv project_ui automation-project-ui
-	git clone git@github.com:necopinus/backups.git
-	mv backups backups-necopinus
-	git clone git@github.com:The-Yak-Collective/backups.git
-	mv backups backups-yak-collective
-	git clone git@github.com:The-Yak-Collective/infrastructure-map.git
-	mv infrastructure-map doc-infrastructure-map
 	git clone git@github.com:necopinus/dotfiles.git
-	git clone git@bitbucket.org:necopinus/hugo-theme-story.git
-	git clone git@bitbucket.org:necopinus/website-chateaumaxmin.info.git
-	git clone git@bitbucket.org:necopinus/website-delphi-strategy.com.git
-	git clone git@bitbucket.org:necopinus/website-digital-orrery.com.git
-	git clone git@bitbucket.org:necopinus/website-ecopunk.info.git
-	git clone git@github.com:The-Yak-Collective/yakcollective.git
-	mv yakcollective website-yakcollective.org
 )
 
 # Finish up part 1.

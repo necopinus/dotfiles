@@ -11,11 +11,6 @@ CONFIG_PATH="$(dirname "$SCRIPT_PATH")/../"
 sudo ufw enable
 sudo ufw default deny
 
-# Allow port 3131 TCP + WebRTC ports for Deskreen.
-#
-sudo ufw allow from 0.0.0.0/0 port  3131       proto tcp
-sudo ufw allow from 0.0.0.0/0 port 49800:49899 proto tcp
-
 # Install prerequisites.
 #
 sudo apt install apt-transport-https
@@ -119,7 +114,6 @@ youtube-dl
 
 flatpak install --user flathub ca.desrt.dconf-editor
 flatpak install --user flathub com.discordapp.Discord
-flatpak install --user flathub com.system76.Popsicle
 flatpak install --user flathub com.usebottles.bottles
 flatpak install --user flathub com.visualstudio.code
 flatpak install --user flathub fi.skyjake.Lagrange
@@ -130,10 +124,8 @@ flatpak install --user flathub org.gnome.baobab
 flatpak install --user flathub org.gnome.eog
 flatpak install --user flathub org.gnome.Evince
 flatpak install --user flathub org.gnome.FileRoller
-flatpak install --user flathub org.gnome.PowerStats
 flatpak install --user flathub org.gnome.seahorse.Application
 flatpak install --user flathub org.gnome.SoundJuicer
-flatpak install --user flathub org.gnome.Weather
 flatpak install --user flathub org.libreoffice.LibreOffice
 flatpak install --user flathub org.mozilla.firefox
 flatpak install --user flathub org.signal.Signal
@@ -175,7 +167,6 @@ rm -rf "$BUILD_DIR"
 # Additional "loose" installs. These are all handled through update
 # scripts (which fortunately can also handle the initial installation.
 #
-source $CONFIG_PATH/user/local/bin/update-deskreen.sh
 source $CONFIG_PATH/user/local/bin/update-gam.sh
 source $CONFIG_PATH/user/local/bin/update-radicle.sh
 source $CONFIG_PATH/user/local/bin/update-youtube-dl.sh
@@ -221,7 +212,6 @@ gsettings set org.gnome.shell.extensions.dash-to-dock    intellihide            
 gsettings set org.gnome.shell.extensions.dash-to-dock    multi-monitor                  true
 gsettings set org.gnome.shell.extensions.dash-to-dock    show-mounts                    false
 gsettings set org.gnome.shell.extensions.pop-cosmic      clock-alignment                "RIGHT"
-gsettings set org.gnome.shell.weather                    automatic-location             true
 gsettings set org.gnome.shell.window-switcher            current-workspace-only         false
 gsettings set org.gnome.system.location                  enabled                        true
 gsettings set org.gtk.Settings.FileChooser               clock-format                   "24h"
@@ -247,7 +237,6 @@ cp $CONFIG_PATH/user/gitconfig                                    $HOME/.gitconf
 cp $CONFIG_PATH/user/inputrc                                      $HOME/.inputrc
 cp $CONFIG_PATH/user/local/bin/backup.sh                          $HOME/.local/bin/backup.sh
 cp $CONFIG_PATH/user/local/bin/update-full.sh                     $HOME/.local/bin/update-full.sh
-cp $CONFIG_PATH/user/local/bin/update-deskreen.sh                 $HOME/.local/bin/update-deskreen.sh
 cp $CONFIG_PATH/user/local/bin/update-gam.sh                      $HOME/.local/bin/update-gam.sh
 cp $CONFIG_PATH/user/local/bin/update-google-api-python-client.sh $HOME/.local/bin/update-google-api-python-client.sh
 cp $CONFIG_PATH/user/local/bin/update-radicle.sh                  $HOME/.local/bin/update-radicle.sh

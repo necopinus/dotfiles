@@ -25,15 +25,9 @@ sudo apt remove --purge --autoremove python-is-python2
 #
 sudo apt install \
 asciinema \
-beef-xss \
-bloodhound \
-code-oss \
-dconf-editor \
-fonts-noto \
 ghidra \
 gobuster \
 golang \
-graphicsmagick \
 htop \
 jq \
 jython \
@@ -45,9 +39,7 @@ openjdk-11-jdk \
 python3-capstone \
 python3-pip \
 qalc \
-rlwrap \
-seclists \
-youtube-dl
+seclists
 
 # Additional "loose" installs. These are all handled through update
 # scripts (which fortunately can also handle the initial installation.
@@ -114,8 +106,7 @@ chmod 644 $HOME/.config/xfce4/panel/genmon-15.rc
 #
 #   flatpak run --command=gsettings $APP_REF $GSETTINGS_COMMAND_LINE
 #
-gsettings set ca.desrt.dconf-editor.Settings show-warning false
-gsettings set org.gtk.Settings.FileChooser   clock-format "24h"
+gsettings set org.gtk.Settings.FileChooser clock-format "24h"
 
 xfconf-query -n -c displays            -p /AutoEnableProfiles                   -t bool   -s true
 xfconf-query -n -c displays            -p /Notify                               -t bool   -s true
