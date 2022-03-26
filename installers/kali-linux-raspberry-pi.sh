@@ -53,12 +53,10 @@ htop \
 jq \
 jython \
 libreadline-dev \
-libssl-dev \
 maven \
 npm \
 openjdk-11-jdk \
 python3-capstone \
-python3-pip \
 qalc \
 seclists \
 yubikey-manager \
