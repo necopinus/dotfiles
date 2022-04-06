@@ -10,6 +10,18 @@ elif [[ -n "$(which apt)" ]]; then
 	sudo apt clean
 fi
 
+if [[ -d /etc/skel ]]; then
+	while IFS= read -d '' -r SKEL_DIR; do
+		HOME_DIR="$(echo "$SKEL_DIR" | sed -e "s#^/etc/skel#$HOME#")"
+		mkdir -p "$HOME_DIR"
+	done < <(find /etc/skel -mindepth 1 -type d -print0)
+
+	while IFS= read -d '' -r SKEL_FILE; do
+		HOME_FILE="$(echo "$SKEL_FILE" | sed -e "s#^/etc/skel#$HOME#")"
+		cp -apf "$SKEL_FILE" "$HOME_FILE"
+	done < <(find /etc/skel -type f -print0)
+fi
+
 if [[ "$HOSTNAME" != "Nathans-iPad" ]] && [[ -n "$(which ruby)" ]] && [[ -n "$(which gem)" ]]; then
 	(
 		cd $HOME
