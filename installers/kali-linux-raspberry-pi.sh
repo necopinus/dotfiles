@@ -91,42 +91,6 @@ source $CONFIG_PATH/user/local/bin/update-ngrok.sh
 	npm install jwt-cracker
 )
 
-# Refresh files from /etc/skel.
-#
-mkdir -p $HOME/.config/powershell
-mkdir -p $HOME/.config/xfce4/panel
-mkdir -p $HOME/.java/.userPrefs/burp
-
-sudo cp /etc/skel/.bash_logout                                        $HOME/.bash_logout
-sudo cp /etc/skel/.bashrc                                             $HOME/.bashrc
-sudo cp /etc/skel/.face                                               $HOME/.face
-sudo cp /etc/skel/.profile                                            $HOME/.profile
-sudo cp /etc/skel/.zshrc                                              $HOME/.zshrc
-sudo cp /etc/skel/.java/.userPrefs/burp/prefs.xml                     $HOME/.java/.userPrefs/burp/prefs.xml
-sudo cp /etc/skel/.config/powershell/Microsoft.PowerShell_profile.ps1 $HOME/.config/powershell/Microsoft.PowerShell_profile.ps1
-sudo cp /etc/skel/.config/xfce4/panel/cpugraph-13.rc                  $HOME/.config/xfce4/panel/cpugraph-13.rc
-sudo cp /etc/skel/.config/xfce4/panel/genmon-15.rc                    $HOME/.config/xfce4/panel/genmon-15.rc
-
-sudo chown $USER.$USER $HOME/.bash_logout
-sudo chown $USER.$USER $HOME/.bashrc
-sudo chown $USER.$USER $HOME/.face
-sudo chown $USER.$USER $HOME/.profile
-sudo chown $USER.$USER $HOME/.zshrc
-sudo chown $USER.$USER $HOME/.java/.userPrefs/burp/prefs.xml
-sudo chown $USER.$USER $HOME/.config/powershell/Microsoft.PowerShell_profile.ps1
-sudo chown $USER.$USER $HOME/.config/xfce4/panel/cpugraph-13.rc
-sudo chown $USER.$USER $HOME/.config/xfce4/panel/genmon-15.rc
-
-chmod 644 $HOME/.bash_logout
-chmod 644 $HOME/.bashrc
-chmod 644 $HOME/.face
-chmod 644 $HOME/.profile
-chmod 644 $HOME/.zshrc
-chmod 644 $HOME/.java/.userPrefs/burp/prefs.xml
-chmod 644 $HOME/.config/powershell/Microsoft.PowerShell_profile.ps1
-chmod 644 $HOME/.config/xfce4/panel/cpugraph-13.rc
-chmod 644 $HOME/.config/xfce4/panel/genmon-15.rc
-
 # Apply application settings, when possible.
 #
 # To access/manipulate gsettings in a flatpak, use:
