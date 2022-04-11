@@ -205,9 +205,9 @@ gsettings set org.gnome.nautilus.preferences             default-folder-viewer  
 gsettings set org.gnome.settings-daemon.plugins.color    night-light-enabled            true
 gsettings set org.gnome.shell                            enabled-extensions             "/org/gnome/shell/enabled-extensions ['ding@rastersoft.com', 'pop-cosmic@system76.com', 'pop-shell@system76.com', 'system76-power@system76.com', 'ubuntu-appindicators@ubuntu.com', 'cosmic-dock@system76.com', 'cosmic-workspaces@system76.com', 'bluetooth-quick-connect@bjarosze.gmail.com']"
 gsettings set org.gnome.shell                            remember-mount-password        true
-gsettings set org.gnome.shell.extensions.dash-to-dock    dash-max-icon-size             36
-gsettings set org.gnome.shell.extensions.dash-to-dock    dock-fixed                     true
-gsettings set org.gnome.shell.extensions.dash-to-dock    extend-height                  true
+gsettings set org.gnome.shell.extensions.dash-to-dock    dash-max-icon-size             60
+gsettings set org.gnome.shell.extensions.dash-to-dock    dock-fixed                     false
+gsettings set org.gnome.shell.extensions.dash-to-dock    extend-height                  false
 gsettings set org.gnome.shell.extensions.dash-to-dock    intellihide                    true
 gsettings set org.gnome.shell.extensions.dash-to-dock    multi-monitor                  true
 gsettings set org.gnome.shell.extensions.dash-to-dock    show-mounts                    false
