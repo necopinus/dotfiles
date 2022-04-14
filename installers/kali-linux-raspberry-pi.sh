@@ -58,6 +58,7 @@ npm \
 openjdk-11-jdk \
 python3-capstone \
 qalc \
+ruby-httpclient \
 seclists \
 yubikey-manager \
 yubikey-personalization-gui

@@ -39,6 +39,7 @@ openjdk-11-jdk \
 python3-capstone \
 python3-pip \
 qalc \
+ruby-httpclient \
 seclists
 
 # Additional "loose" installs. These are all handled through update
