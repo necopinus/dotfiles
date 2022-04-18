@@ -83,6 +83,7 @@ cmake \
 default-jre \
 endpoint-verification \
 exfatprogs \
+expect \
 fonts-noto \
 gnome-shell-extension-bluetooth-quick-connect \
 google-chrome-stable \
