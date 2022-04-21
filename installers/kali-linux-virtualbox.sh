@@ -33,6 +33,7 @@ jq \
 jython \
 libreadline-dev \
 libssl-dev \
+linux-exploit-suggester \
 maven \
 npm \
 openjdk-11-jdk \

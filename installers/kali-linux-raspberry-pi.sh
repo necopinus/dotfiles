@@ -53,6 +53,7 @@ htop \
 jq \
 jython \
 libreadline-dev \
+linux-exploit-suggester \
 maven \
 npm \
 openjdk-11-jdk \
