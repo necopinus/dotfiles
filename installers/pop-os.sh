@@ -115,6 +115,7 @@ youtube-dl
 
 flatpak install --user flathub ca.desrt.dconf-editor
 flatpak install --user flathub com.discordapp.Discord
+flatpak install --user flathub com.slack.Slack
 flatpak install --user flathub com.usebottles.bottles
 flatpak install --user flathub com.visualstudio.code
 flatpak install --user flathub fi.skyjake.Lagrange
