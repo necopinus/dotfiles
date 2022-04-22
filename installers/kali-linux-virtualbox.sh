@@ -25,6 +25,7 @@ sudo apt remove --purge --autoremove python-is-python2
 #
 sudo apt install \
 asciinema \
+gcc-mingw-w64-x86-64 \
 ghidra \
 gobuster \
 golang \
