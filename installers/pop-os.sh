@@ -255,6 +255,11 @@ mkdir -p $HOME/Google/{"Cardboard Iguana",Personal,"Yak Collective"}
 #
 sudo systemctl disable vboxweb.service
 
+# Add the current user to the vboxusers group. This is necessary to
+# enable USB pass-through.
+#
+sudo usermod -aG vboxusers $USER
+
 # Restore all git repos.
 #
 mkdir -p $HOME/Code
