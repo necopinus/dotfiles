@@ -46,6 +46,7 @@ sudo apt purge --autoremove --purge colord
 sudo apt install \
 asciinema \
 burpsuite \
+gcc-mingw-w64-x86-64 \
 ghidra \
 gobuster \
 golang \
