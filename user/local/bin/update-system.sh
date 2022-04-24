@@ -52,5 +52,9 @@ if [[ "$HOSTNAME" == "kali" ]] && [[ "$(uname -m)" == "aarch64" ]] && [[ -f /boo
 		)
 		rm -rf "$BUILD_DIR"
 	fi
-	sudo mkinitramfs -o /boot/initramfs.gz $(ls -1 /lib/modules | grep -e '-Re4son-v8l+$' | sort | tail -1)
+	KERNEL_VERSION=$(ls -1 /lib/modules | grep -e '-Re4son-v8l+$' | sort | tail -1)
+	if [[ -f /usr/src/linux-headers-$KERNEL_VERSION/.config ]]; then
+		sudo cp /usr/src/linux-headers-$KERNEL_VERSION/.config /boot/config-$KERNEL_VERSION
+	fi
+	sudo mkinitramfs -o /boot/initramfs.gz $KERNEL_VERSION
 fi
