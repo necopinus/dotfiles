@@ -128,6 +128,7 @@ flatpak install --user flathub org.gnome.Evince
 flatpak install --user flathub org.gnome.FileRoller
 flatpak install --user flathub org.gnome.seahorse.Application
 flatpak install --user flathub org.gnome.SoundJuicer
+flatpak install --user flathub org.keepassxc.KeePassXC
 flatpak install --user flathub org.libreoffice.LibreOffice
 flatpak install --user flathub org.mozilla.firefox
 flatpak install --user flathub org.signal.Signal
@@ -247,6 +248,8 @@ cp $CONFIG_PATH/user/local/bin/update-youtube-dl.sh               $HOME/.local/b
 cp $CONFIG_PATH/user/local/bin/update-yubikey-manager.sh          $HOME/.local/bin/update-yubikey-manager.sh
 
 chmod 755 $HOME/.local/bin/*
+
+ln -s $HOME/.local/share/flatpak/exports/share/applications/org.keepassxc.KeePassXC.desktop $HOME/.config/autostart/
 
 mkdir -p $HOME/Google/{"Cardboard Iguana",Personal,"Yak Collective"}
 
