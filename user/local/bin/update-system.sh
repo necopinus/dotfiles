@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-if [[ "$HOSTNAME" == "Nathans-iPad" ]] && [[ -n "$(which apk)" ]]; then
+if [[ -n "$(which apk)" ]]; then
 	apk update
 	apk upgrade
 elif [[ -n "$(which apt)" ]]; then
@@ -22,14 +22,14 @@ if [[ -d /etc/skel ]]; then
 	done < <(find /etc/skel -type f -print0)
 fi
 
-if [[ "$HOSTNAME" != "Nathans-iPad" ]] && [[ -n "$(which ruby)" ]] && [[ -n "$(which gem)" ]]; then
+if [[ -n "$(which ruby)" ]] && [[ -n "$(which gem)" ]]; then
 	(
 		cd $HOME
 		gem update --user-install
 	)
 fi
 
-if [[ "$HOSTNAME" != "Nathans-iPad" ]] && [[ -n "$(which node)" ]] && [[ -n "$(which npm)" ]]; then
+if [[ -n "$(which node)" ]] && [[ -n "$(which npm)" ]]; then
 	(
 		cd $HOME
 		npm update
