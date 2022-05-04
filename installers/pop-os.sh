@@ -196,6 +196,7 @@ source $CONFIG_PATH/user/local/bin/update-yubikey-manager.sh
 #
 gsettings set ca.desrt.dconf-editor.Settings             show-warning                   false
 gsettings set org.gnome.desktop.interface                clock-format                   "24h"
+gsettings set org.gnome.desktop.datetime                 automatic-timezone             false
 gsettings set org.gnome.desktop.interface                clock-show-weekday             true
 gsettings set org.gnome.desktop.interface                document-font-name             "Roboto Slab 13"
 gsettings set org.gnome.desktop.interface                font-name                      "Fira Sans Semi-Light 13"
