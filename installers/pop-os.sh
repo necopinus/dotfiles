@@ -32,6 +32,14 @@ curl https://packages.cloud.google.com/apt/doc/apt-key.gpg | sudo apt-key --keyr
 echo "deb [signed-by=/usr/local/share/keyrings/cloud.google.gpg] https://packages.cloud.google.com/apt cloud-sdk main" | sudo tee /etc/apt/sources.list.d/google-cloud-sdk.list
 echo "deb [signed-by=/usr/local/share/keyrings/cloud.google.gpg] https://packages.cloud.google.com/apt endpoint-verification main" | sudo tee /etc/apt/sources.list.d/endpoint-verification.list
 
+# Add ProtonVPN repo. See:
+#
+#     https://protonvpn.com/support/linux-ubuntu-vpn-setup/
+#
+curl -L -O https://protonvpn.com/download/protonvpn-stable-release_1.0.1-1_all.deb
+sudo apt install ./protonvpn-stable-release_1.0.1-1_all.deb
+rm -f ./protonvpn-stable-release_1.0.1-1_all.deb
+
 # Make sure all components are up-to-date.
 #
 source $CONFIG_PATH/user/local/bin/update-system.sh
@@ -85,6 +93,7 @@ endpoint-verification \
 exfatprogs \
 expect \
 fonts-noto \
+gir1.2-appindicator3-0.1 \
 gnome-shell-extension-bluetooth-quick-connect \
 google-chrome-stable \
 google-cloud-sdk \
@@ -98,6 +107,7 @@ libreadline-dev \
 network-manager-openvpn-gnome \
 npm \
 optipng \
+protonvpn \
 python3-bs4 \
 python3-openssl \
 python3-pip \
@@ -141,6 +151,12 @@ flatpak install --user flathub us.zoom.Zoom
 curl -L -O https://prerelease.keybase.io/keybase_amd64.deb
 sudo apt install ./keybase_amd64.deb
 rm -f ./keybase_amd64.deb
+
+# Install ProtonMail Import-Export app
+#
+curl -L -O https://protonmail.com/download/ie/protonmail-import-export-app_1.3.3-1_amd64.deb
+sudo apt install ./protonmail-import-export-app_1.3.3-1_amd64.deb
+rm -f ./protonmail-import-export-app_1.3.3-1_amd64.deb
 
 # Install Insync.
 #
@@ -250,6 +266,7 @@ cp $CONFIG_PATH/user/local/bin/update-yubikey-manager.sh          $HOME/.local/b
 chmod 755 $HOME/.local/bin/*
 
 ln -s $HOME/.local/share/flatpak/exports/share/applications/org.keepassxc.KeePassXC.desktop $HOME/.config/autostart/
+ln -s /usr/share/applications/protonvpn.desktop                                             $HOME/.config/autostart/protonvpn.desktop
 
 mkdir -p $HOME/Google/{"Cardboard Iguana",Personal,"Yak Collective"}
 
