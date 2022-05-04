@@ -115,7 +115,6 @@ qalc \
 rust-all \
 simplescreenrecorder \
 solaar \
-ttf-mscorefonts-installer \
 vim \
 virtualbox-ext-pack \
 virtualbox-guest-additions-iso \
