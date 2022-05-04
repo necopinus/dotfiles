@@ -24,16 +24,9 @@ fi
 
 # Make sure that code repos are all up-to-date.
 #
-if [[ -d $HOME/Code ]]; then
-	CODE_ROOT=$HOME/Code
-elif [[ -d $HOME/code ]]; then
-	CODE_ROOT=$HOME/code
-else
-	CODE_ROOT="N/A"
-fi
-if [[ "$CODE_ROOT" != "N/A" ]]; then
+if [[ -d $HOME/code ]]; then
 	(
-		cd $CODE_ROOT
+		cd $HOME/code
 		while IFS= read -r -d '' OBJECT; do
 			cd "$OBJECT"
 			git pull
@@ -47,8 +40,8 @@ fi
 
 # Mirror Yak Collective Roam backup into Google Drive.
 #
-if [[ "$CODE_ROOT" != "N/A" ]] && [[ -d "$CODE_ROOT/backups-yak-collective/Roam" ]] && [[ -d "$HOME/Google/Yak Collective/Backups" ]]; then
-	rsync -av --delete --force --human-readable --progress $CODE_ROOT/backups-yak-collective/Roam/ $HOME/Google/"Yak Collective"/Backups/Roam/
+if [[ -d "$HOME/code/backups-yak-collective/Roam" ]] && [[ -d "$HOME/google/Yak Collective/Backups" ]]; then
+	rsync -av --delete --force --human-readable --progress $HOME/code/backups-yak-collective/Roam/ $HOME/google/"Yak Collective"/Backups/Roam/
 fi
 
 # The backup, which is really just mirroring content.
@@ -63,7 +56,7 @@ if [[ "$BACKUP_FS" = "exfat" ]]; then
 	(
 		cd $HOME
 		while IFS= read -r -d '' OBJECT; do
-			if [[ -d "$OBJECT" ]] && [[ "$OBJECT" != "./Code" ]] && [[ "$OBJECT" != "./code" ]]; then
+			if [[ -d "$OBJECT" ]] && [[ "$OBJECT" != "./code" ]]; then
 				rsync -vrltD --delete --force --human-readable --modify-window=1 --progress $HOME/"$OBJECT"/ $BACKUP_PATH/"$OBJECT"/
 			elif [[ -f "$OBJECT" ]]; then
 				rsync -vrltD --delete --force --human-readable --modify-window=1 --progress $HOME/"$OBJECT"  $BACKUP_PATH/"$OBJECT"
@@ -74,7 +67,7 @@ elif [[ "$BACKUP_FS" = "fuseblk" ]]; then
 	(
 		cd $HOME
 		while IFS= read -r -d '' OBJECT; do
-			if [[ -d "$OBJECT" ]] && [[ "$OBJECT" != "./Code" ]] && [[ "$OBJECT" != "./code" ]]; then
+			if [[ -d "$OBJECT" ]] && [[ "$OBJECT" != "./code" ]]; then
 				rsync -vrltD --checksum --delete --force --human-readable --no-times --progress $HOME/"$OBJECT"/ $BACKUP_PATH/"$OBJECT"/
 			elif [[ -f "$OBJECT" ]]; then
 				rsync -vrltD --checksum --delete --force --human-readable --no-times --progress $HOME/"$OBJECT"  $BACKUP_PATH/"$OBJECT"

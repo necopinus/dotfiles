@@ -272,7 +272,7 @@ chmod 755 $HOME/.local/bin/*
 ln -s $HOME/.local/share/flatpak/exports/share/applications/org.keepassxc.KeePassXC.desktop $HOME/.config/autostart/
 ln -s /usr/share/applications/protonvpn.desktop                                             $HOME/.config/autostart/protonvpn.desktop
 
-mkdir -p $HOME/Google/{"Cardboard Iguana",Personal,"Yak Collective"}
+mkdir -p $HOME/google/{cardboard-iguana,personal,yak-collective}
 
 # Disable the VirtualBox web service. We don't need it, and it just
 # likes to fail and make systemd complain anyway.
@@ -286,11 +286,11 @@ sudo usermod -aG vboxusers $USER
 
 # Restore all git repos.
 #
-mkdir -p $HOME/Code
+mkdir -p $HOME/code
 (
 	git config --global user.email nathan.acks@cardboard-iguana.com
 	git config --global user.signingkey "$(gpg --list-keys nathan.acks@cardboard-iguana.com | grep -E "^      [0-9A-Z]{40}$" | sed -e "s/^ *//")"
-	cd $HOME/Code
+	cd $HOME/code
 	git clone git@github.com:The-Yak-Collective/onboarding_robot.git
 	mv onboarding_robot automation-onboarding-robot
 	git clone git@github.com:The-Yak-Collective/project_ui.git

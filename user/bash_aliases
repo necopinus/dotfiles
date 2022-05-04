@@ -47,12 +47,6 @@ if [[ -n "$(which gam)" ]]; then
 	export GAMUSERCONFIGDIR="$HOME/.gam"
 fi
 
-# Backup GAM configuration data.
-#
-if [[ -d "$GAMUSERCONFIGDIR" ]] && [[ -d "/mnt/chromeos/GoogleDrive/MyDrive/gam" ]]; then
-	rsync -acq --delete --force "$GAMUSERCONFIGDIR/" /mnt/chromeos/GoogleDrive/MyDrive/gam/
-fi
-
 # Start GNOME Keyring on Chrome OS.
 #
 if [[ "$HOSTNAME" == "penguin" ]]; then

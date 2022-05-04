@@ -152,11 +152,11 @@ sudo msfdb init
 
 # Restore select git repos.
 #
-mkdir -p $HOME/Code
+mkdir -p $HOME/code
 (
 	git config --global user.email nathan.acks@cardboard-iguana.com
 	git config --global user.signingkey "$(gpg --list-keys nathan.acks@cardboard-iguana.com | grep -E "^      [0-9A-Z]{40}$" | sed -e "s/^ *//")"
-	cd $HOME/Code
+	cd $HOME/code
 	git clone git@github.com:necopinus/dotfiles.git
 )
 
