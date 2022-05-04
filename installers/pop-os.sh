@@ -224,13 +224,16 @@ gsettings set org.gnome.nautilus.preferences             default-folder-viewer  
 gsettings set org.gnome.settings-daemon.plugins.color    night-light-enabled            true
 gsettings set org.gnome.shell                            enabled-extensions             "/org/gnome/shell/enabled-extensions ['ding@rastersoft.com', 'pop-cosmic@system76.com', 'pop-shell@system76.com', 'system76-power@system76.com', 'ubuntu-appindicators@ubuntu.com', 'cosmic-dock@system76.com', 'cosmic-workspaces@system76.com', 'bluetooth-quick-connect@bjarosze.gmail.com']"
 gsettings set org.gnome.shell                            remember-mount-password        true
+gsettings set org.gnome.shell.extensions.dash-to-dock    click-action                   "minimize-or-previews"
 gsettings set org.gnome.shell.extensions.dash-to-dock    dash-max-icon-size             60
-gsettings set org.gnome.shell.extensions.dash-to-dock    dock-fixed                     false
-gsettings set org.gnome.shell.extensions.dash-to-dock    extend-height                  false
-gsettings set org.gnome.shell.extensions.dash-to-dock    intellihide                    true
-gsettings set org.gnome.shell.extensions.dash-to-dock    multi-monitor                  true
+gsettings set org.gnome.shell.extensions.dash-to-dock    dock-fixed                     true
+gsettings set org.gnome.shell.extensions.dash-to-dock    dock-position                  "LEFT"
+gsettings set org.gnome.shell.extensions.dash-to-dock    extend-height                  true
+gsettings set org.gnome.shell.extensions.dash-to-dock    intellihide                    false
+gsettings set org.gnome.shell.extensions.dash-to-dock    multi-monitor                  false
 gsettings set org.gnome.shell.extensions.dash-to-dock    show-mounts                    false
 gsettings set org.gnome.shell.extensions.pop-cosmic      clock-alignment                "RIGHT"
+gsettings set org.gnome.shell.extensions.pop-cosmic      workspace-picker-left          false
 gsettings set org.gnome.shell.window-switcher            current-workspace-only         false
 gsettings set org.gnome.system.location                  enabled                        true
 gsettings set org.gtk.Settings.FileChooser               clock-format                   "24h"
