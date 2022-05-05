@@ -94,7 +94,7 @@ exfatprogs \
 expect \
 fonts-noto \
 gir1.2-appindicator3-0.1 \
-gnome-shell-extension-bluetooth-quick-connect \
+gnome-screenshot \
 google-chrome-stable \
 google-cloud-sdk \
 graphicsmagick \
