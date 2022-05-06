@@ -16,7 +16,7 @@ fi
 # restore!).
 #
 BACKUP_FS="$(mount | grep $BACKUP_PATH | sed -e 's/ (.*$//;s/^.* type //')"
-if [[ "$BACKUP_FS" != "exfat" ]] && [[ "$BACKUP_FS" != "fuseblk" ]] && [[ "$BACKUP_FS" != "ext4" ]]; then
+if [[ "$BACKUP_FS" != "exfat" ]] && [[ "$BACKUP_FS" != "ext4" ]]; then
 	echo "Expected $BACKUP_PATH to be an external exFAT or ext4 file system."
 	echo "Please ensure the backup vault is mounted and functioning properly."
 	exit 1
@@ -46,12 +46,6 @@ fi
 
 # The backup, which is really just mirroring content.
 #
-# NOTE: Once the Re4son Raspberry Pi kernel that Kali Linux uses is
-# upgraded to 4.9+, it shouldn't be necessary to use exfat-fuse anymore
-# and the fuseblk stanza here (and test above) can be dropped. (It
-# might also make sense to uninstall exfat-utils and exfat-fuse at that
-# time in favor of the exfatprogs package that's supported by Samsung.)
-#
 if [[ "$BACKUP_FS" = "exfat" ]]; then
 	(
 		cd $HOME
@@ -60,17 +54,6 @@ if [[ "$BACKUP_FS" = "exfat" ]]; then
 				rsync -vrltD --delete --force --human-readable --modify-window=1 --progress $HOME/"$OBJECT"/ $BACKUP_PATH/"$OBJECT"/
 			elif [[ -f "$OBJECT" ]]; then
 				rsync -vrltD --delete --force --human-readable --modify-window=1 --progress $HOME/"$OBJECT"  $BACKUP_PATH/"$OBJECT"
-			fi
-		done < <(find . -mindepth 1 -maxdepth 1 -not -ipath './.*' -print0)
-	)
-elif [[ "$BACKUP_FS" = "fuseblk" ]]; then
-	(
-		cd $HOME
-		while IFS= read -r -d '' OBJECT; do
-			if [[ -d "$OBJECT" ]] && [[ "$OBJECT" != "./code" ]]; then
-				rsync -vrltD --checksum --delete --force --human-readable --no-times --progress $HOME/"$OBJECT"/ $BACKUP_PATH/"$OBJECT"/
-			elif [[ -f "$OBJECT" ]]; then
-				rsync -vrltD --checksum --delete --force --human-readable --no-times --progress $HOME/"$OBJECT"  $BACKUP_PATH/"$OBJECT"
 			fi
 		done < <(find . -mindepth 1 -maxdepth 1 -not -ipath './.*' -print0)
 	)
