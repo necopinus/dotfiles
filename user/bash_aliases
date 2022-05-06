@@ -41,19 +41,6 @@ if [[ -d $HOME/.local/bin ]]; then
 	export PATH="$HOME/.local/bin:$PATH"
 fi
 
-# Set custom configuration path.
-#
-if [[ -n "$(which gam)" ]]; then
-	export GAMUSERCONFIGDIR="$HOME/.gam"
-fi
-
-# Start GNOME Keyring on Chrome OS.
-#
-if [[ "$HOSTNAME" == "penguin" ]]; then
-	eval $(gnome-keyring-daemon --daemonize --start 2> /dev/null)
-	export SSH_AUTH_SOCK
-fi
-
 # Start ssh-agent on Kali (when logging in on console).
 #
 if [[ "$HOSTNAME" == "kali" ]]; then

@@ -24,14 +24,6 @@ curl -L -O https://brave-browser-apt-release.s3.brave.com/brave-browser-archive-
 sudo mv brave-browser-archive-keyring.gpg /usr/local/share/keyrings/brave-browser-archive-keyring.gpg
 echo "deb [signed-by=/usr/local/share/keyrings/brave-browser-archive-keyring.gpg arch=amd64] https://brave-browser-apt-release.s3.brave.com/ stable main" | sudo tee /etc/apt/sources.list.d/brave-browser-release.list
 
-# Add Google repos. See:
-#
-#     https://support.google.com/a/users/answer/9018161#linuxhelper
-#
-curl https://packages.cloud.google.com/apt/doc/apt-key.gpg | sudo apt-key --keyring /usr/local/share/keyrings/cloud.google.gpg add -
-echo "deb [signed-by=/usr/local/share/keyrings/cloud.google.gpg] https://packages.cloud.google.com/apt cloud-sdk main" | sudo tee /etc/apt/sources.list.d/google-cloud-sdk.list
-echo "deb [signed-by=/usr/local/share/keyrings/cloud.google.gpg] https://packages.cloud.google.com/apt endpoint-verification main" | sudo tee /etc/apt/sources.list.d/endpoint-verification.list
-
 # Add ProtonVPN repo. See:
 #
 #     https://protonvpn.com/support/linux-ubuntu-vpn-setup/
@@ -88,15 +80,11 @@ sudo apt install \
 brave-browser \
 bundler \
 cmake \
-default-jre \
-endpoint-verification \
 exfatprogs \
 expect \
 fonts-noto \
 gir1.2-appindicator3-0.1 \
 gnome-screenshot \
-google-chrome-stable \
-google-cloud-sdk \
 graphicsmagick \
 graphviz \
 grub-pc \
@@ -104,7 +92,6 @@ htop \
 jq \
 libjpeg-turbo-progs \
 libreadline-dev \
-network-manager-openvpn-gnome \
 npm \
 optipng \
 protonvpn \
@@ -113,20 +100,17 @@ python3-openssl \
 python3-pip \
 qalc \
 rust-all \
-simplescreenrecorder \
 solaar \
 vim \
 virtualbox-ext-pack \
 virtualbox-guest-additions-iso \
 webp \
 whois \
-xdotool \
 youtube-dl
 
 flatpak install --user flathub ca.desrt.dconf-editor
 flatpak install --user flathub com.discordapp.Discord
 flatpak install --user flathub com.slack.Slack
-flatpak install --user flathub com.usebottles.bottles
 flatpak install --user flathub com.visualstudio.code
 flatpak install --user flathub fi.skyjake.Lagrange
 flatpak install --user flathub fr.handbrake.ghb
@@ -144,7 +128,6 @@ flatpak install --user flathub org.mozilla.firefox
 flatpak install --user flathub org.signal.Signal
 flatpak install --user flathub org.soundconverter.SoundConverter
 flatpak install --user flathub org.videolan.VLC
-flatpak install --user flathub us.zoom.Zoom
 
 # Install Keybase.
 #
@@ -170,74 +153,59 @@ BUILD_DIR="$(mktemp -d)"
 )
 rm -rf "$BUILD_DIR"
 
-# Install SonicWall NetExtender
-#
-BUILD_DIR="$(mktemp -d)"
-(
-	cd "$BUILD_DIR"
-	NETEXTENDER_INSTALLER="NetExtender.Linux-10.2.835.x86_64.tgz"
-	curl -L -O https://software.sonicwall.com/NetExtender/$NETEXTENDER_INSTALLER
-	tar -xzf $NETEXTENDER_INSTALLER
-	cd netExtenderClient
-	sudo ./install
-)
-rm -rf "$BUILD_DIR"
-
 # Additional "loose" installs. These are all handled through update
 # scripts (which fortunately can also handle the initial installation.
 #
-source $CONFIG_PATH/user/local/bin/update-gam.sh
 source $CONFIG_PATH/user/local/bin/update-radicle.sh
 source $CONFIG_PATH/user/local/bin/update-youtube-dl.sh
-source $CONFIG_PATH/user/local/bin/update-google-api-python-client.sh
 source $CONFIG_PATH/user/local/bin/update-yubikey-manager.sh
 
 # Apply application settings, when possible.
 #
-gsettings set ca.desrt.dconf-editor.Settings             show-warning                   false
-gsettings set org.gnome.desktop.interface                clock-format                   "24h"
-gsettings set org.gnome.desktop.datetime                 automatic-timezone             false
-gsettings set org.gnome.desktop.interface                clock-show-weekday             true
-gsettings set org.gnome.desktop.interface                document-font-name             "Roboto Slab 13"
-gsettings set org.gnome.desktop.interface                font-name                      "Fira Sans Semi-Light 13"
-gsettings set org.gnome.desktop.interface                gtk-im-module                  "ibus"
-gsettings set org.gnome.desktop.interface                monospace-font-name            "Fira Mono 13"
-gsettings set org.gnome.desktop.media-handling           autorun-never                  true
-gsettings set org.gnome.desktop.notifications            show-in-lock-screen            true
-gsettings set org.gnome.desktop.peripherals.touchpad     natural-scroll                 true
-gsettings set org.gnome.desktop.privacy                  recent-files-max-age           30
-gsettings set org.gnome.desktop.privacy                  remove-old-temp-files          true
-gsettings set org.gnome.desktop.privacy                  remove-old-trash-files         true
-gsettings set org.gnome.desktop.privacy                  report-technical-problems      false
-gsettings set org.gnome.desktop.sound                    allow-volume-above-100-percent true
-gsettings set org.gnome.desktop.wm.keybindings           switch-applications            "['<Super>Tab']"
-gsettings set org.gnome.desktop.wm.keybindings           switch-applications-backward   "['<Shift><Super>Tab']"
-gsettings set org.gnome.desktop.wm.keybindings           switch-windows                 "['<Alt>Tab']"
-gsettings set org.gnome.desktop.wm.keybindings           switch-windows-backward        "['<Shift><Alt>Tab']"
-gsettings set org.gnome.desktop.wm.preferences           button-layout                  "appmenu:minimize,maximize,close"
-gsettings set org.gnome.desktop.wm.preferences           titlebar-font                  "Fira Sans Semi-Bold 13"
-gsettings set org.gnome.gnome-screenshot                 delay                          5
-gsettings set org.gnome.gnome-screenshot                 last-save-directory            "file://$HOME/Downloads"
-gsettings set org.gnome.gnome-system-monitor             solaris-mode                   false
-gsettings set org.gnome.gnome-system-monitor.proctree    sort-col                       8
-gsettings set org.gnome.nautilus.list-view               use-tree-view                  true
-gsettings set org.gnome.nautilus.preferences             default-folder-viewer          "list-view"
-gsettings set org.gnome.settings-daemon.plugins.color    night-light-enabled            true
-gsettings set org.gnome.shell                            enabled-extensions             "/org/gnome/shell/enabled-extensions ['ding@rastersoft.com', 'pop-cosmic@system76.com', 'pop-shell@system76.com', 'system76-power@system76.com', 'ubuntu-appindicators@ubuntu.com', 'cosmic-dock@system76.com', 'cosmic-workspaces@system76.com', 'bluetooth-quick-connect@bjarosze.gmail.com']"
-gsettings set org.gnome.shell                            remember-mount-password        true
-gsettings set org.gnome.shell.extensions.dash-to-dock    click-action                   "minimize-or-previews"
-gsettings set org.gnome.shell.extensions.dash-to-dock    dash-max-icon-size             60
-gsettings set org.gnome.shell.extensions.dash-to-dock    dock-fixed                     true
-gsettings set org.gnome.shell.extensions.dash-to-dock    dock-position                  "LEFT"
-gsettings set org.gnome.shell.extensions.dash-to-dock    extend-height                  true
-gsettings set org.gnome.shell.extensions.dash-to-dock    intellihide                    false
-gsettings set org.gnome.shell.extensions.dash-to-dock    multi-monitor                  false
-gsettings set org.gnome.shell.extensions.dash-to-dock    show-mounts                    false
-gsettings set org.gnome.shell.extensions.pop-cosmic      clock-alignment                "RIGHT"
-gsettings set org.gnome.shell.extensions.pop-cosmic      workspace-picker-left          false
-gsettings set org.gnome.shell.window-switcher            current-workspace-only         false
-gsettings set org.gnome.system.location                  enabled                        true
-gsettings set org.gtk.Settings.FileChooser               clock-format                   "24h"
+gsettings set ca.desrt.dconf-editor.Settings          show-warning                   false
+gsettings set org.gnome.desktop.interface             clock-format                   "24h"
+gsettings set org.gnome.desktop.datetime              automatic-timezone             false
+gsettings set org.gnome.desktop.interface             clock-show-weekday             true
+gsettings set org.gnome.desktop.interface             document-font-name             "Roboto Slab 13"
+gsettings set org.gnome.desktop.interface             font-name                      "Fira Sans Semi-Light 13"
+gsettings set org.gnome.desktop.interface             gtk-im-module                  "ibus"
+gsettings set org.gnome.desktop.interface             monospace-font-name            "Fira Mono 13"
+gsettings set org.gnome.desktop.media-handling        autorun-never                  true
+gsettings set org.gnome.desktop.notifications         show-in-lock-screen            true
+gsettings set org.gnome.desktop.peripherals.touchpad  natural-scroll                 true
+gsettings set org.gnome.desktop.privacy               recent-files-max-age           30
+gsettings set org.gnome.desktop.privacy               remove-old-temp-files          true
+gsettings set org.gnome.desktop.privacy               remove-old-trash-files         true
+gsettings set org.gnome.desktop.privacy               report-technical-problems      false
+gsettings set org.gnome.desktop.sound                 allow-volume-above-100-percent true
+gsettings set org.gnome.desktop.wm.keybindings        switch-applications            "['<Super>Tab']"
+gsettings set org.gnome.desktop.wm.keybindings        switch-applications-backward   "['<Shift><Super>Tab']"
+gsettings set org.gnome.desktop.wm.keybindings        switch-windows                 "['<Alt>Tab']"
+gsettings set org.gnome.desktop.wm.keybindings        switch-windows-backward        "['<Shift><Alt>Tab']"
+gsettings set org.gnome.desktop.wm.preferences        button-layout                  "appmenu:minimize,maximize,close"
+gsettings set org.gnome.desktop.wm.preferences        titlebar-font                  "Fira Sans Semi-Bold 13"
+gsettings set org.gnome.gnome-screenshot              delay                          5
+gsettings set org.gnome.gnome-screenshot              last-save-directory            "file://$HOME/Downloads"
+gsettings set org.gnome.gnome-system-monitor          solaris-mode                   false
+gsettings set org.gnome.gnome-system-monitor.proctree sort-col                       8
+gsettings set org.gnome.nautilus.list-view            use-tree-view                  true
+gsettings set org.gnome.nautilus.preferences          default-folder-viewer          "list-view"
+gsettings set org.gnome.settings-daemon.plugins.color night-light-enabled            true
+gsettings set org.gnome.shell                         enabled-extensions             "/org/gnome/shell/enabled-extensions ['ding@rastersoft.com', 'pop-cosmic@system76.com', 'pop-shell@system76.com', 'system76-power@system76.com', 'ubuntu-appindicators@ubuntu.com', 'cosmic-dock@system76.com', 'cosmic-workspaces@system76.com', 'bluetooth-quick-connect@bjarosze.gmail.com']"
+gsettings set org.gnome.shell                         remember-mount-password        true
+gsettings set org.gnome.shell.extensions.dash-to-dock click-action                   "minimize-or-previews"
+gsettings set org.gnome.shell.extensions.dash-to-dock dash-max-icon-size             60
+gsettings set org.gnome.shell.extensions.dash-to-dock dock-fixed                     true
+gsettings set org.gnome.shell.extensions.dash-to-dock dock-position                  "LEFT"
+gsettings set org.gnome.shell.extensions.dash-to-dock extend-height                  true
+gsettings set org.gnome.shell.extensions.dash-to-dock intellihide                    false
+gsettings set org.gnome.shell.extensions.dash-to-dock multi-monitor                  false
+gsettings set org.gnome.shell.extensions.dash-to-dock show-mounts                    false
+gsettings set org.gnome.shell.extensions.pop-cosmic   clock-alignment                "RIGHT"
+gsettings set org.gnome.shell.extensions.pop-cosmic   workspace-picker-left          false
+gsettings set org.gnome.shell.window-switcher         current-workspace-only         false
+gsettings set org.gnome.system.location               enabled                        true
+gsettings set org.gtk.Settings.FileChooser            clock-format                   "24h"
 
 flatpak run --command=gsettings org.gnome.SoundJuicer             set org.gnome.sound-juicer audio-profile    "audio/mpeg"
 flatpak run --command=gsettings org.gnome.SoundJuicer             set org.gnome.sound-juicer file-pattern     "%at - %dn - %ta - %tt"
@@ -253,19 +221,17 @@ gsettings set org.gnome.desktop.notifications.application:/org/gnome/desktop/not
 #
 mkdir -p $HOME/.config/autostart $HOME/.local/bin
 
-cp $CONFIG_PATH/user/bash_aliases                                 $HOME/.bash_aliases
-cp $CONFIG_PATH/user/config/autostart/solaar.desktop              $HOME/.config/autostart/solaar.desktop
-cp $CONFIG_PATH/user/gemrc                                        $HOME/.gemrc
-cp $CONFIG_PATH/user/gitconfig                                    $HOME/.gitconfig
-cp $CONFIG_PATH/user/inputrc                                      $HOME/.inputrc
-cp $CONFIG_PATH/user/local/bin/backup.sh                          $HOME/.local/bin/backup.sh
-cp $CONFIG_PATH/user/local/bin/update-full.sh                     $HOME/.local/bin/update-full.sh
-cp $CONFIG_PATH/user/local/bin/update-gam.sh                      $HOME/.local/bin/update-gam.sh
-cp $CONFIG_PATH/user/local/bin/update-google-api-python-client.sh $HOME/.local/bin/update-google-api-python-client.sh
-cp $CONFIG_PATH/user/local/bin/update-radicle.sh                  $HOME/.local/bin/update-radicle.sh
-cp $CONFIG_PATH/user/local/bin/update-system.sh                   $HOME/.local/bin/update-system.sh
-cp $CONFIG_PATH/user/local/bin/update-youtube-dl.sh               $HOME/.local/bin/update-youtube-dl.sh
-cp $CONFIG_PATH/user/local/bin/update-yubikey-manager.sh          $HOME/.local/bin/update-yubikey-manager.sh
+cp $CONFIG_PATH/user/bash_aliases                        $HOME/.bash_aliases
+cp $CONFIG_PATH/user/config/autostart/solaar.desktop     $HOME/.config/autostart/solaar.desktop
+cp $CONFIG_PATH/user/gemrc                               $HOME/.gemrc
+cp $CONFIG_PATH/user/gitconfig                           $HOME/.gitconfig
+cp $CONFIG_PATH/user/inputrc                             $HOME/.inputrc
+cp $CONFIG_PATH/user/local/bin/backup.sh                 $HOME/.local/bin/backup.sh
+cp $CONFIG_PATH/user/local/bin/update-full.sh            $HOME/.local/bin/update-full.sh
+cp $CONFIG_PATH/user/local/bin/update-radicle.sh         $HOME/.local/bin/update-radicle.sh
+cp $CONFIG_PATH/user/local/bin/update-system.sh          $HOME/.local/bin/update-system.sh
+cp $CONFIG_PATH/user/local/bin/update-youtube-dl.sh      $HOME/.local/bin/update-youtube-dl.sh
+cp $CONFIG_PATH/user/local/bin/update-yubikey-manager.sh $HOME/.local/bin/update-yubikey-manager.sh
 
 chmod 755 $HOME/.local/bin/*
 
@@ -305,8 +271,6 @@ mkdir -p $HOME/code
 	git clone git@github.com:necopinus/resume.git
 	git clone git@github.com:necopinus/zibaldone.git
 	mv zibaldone notes-necopinus
-	git clone git@github.com:necopinus/tpin-notes.git
-	mv tpin-notes notes-tpin
 	git clone git@github.com:necopinus/cardboard-iguana.com.git
 	mv cardboard-iguana.com website-cardboard-iguana.com
 	git clone git@github.com:necopinus/chateaumaxmin.info.git
