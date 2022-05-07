@@ -195,11 +195,11 @@ gsettings set org.gnome.shell                         enabled-extensions        
 gsettings set org.gnome.shell                         remember-mount-password        true
 gsettings set org.gnome.shell.extensions.dash-to-dock click-action                   "minimize-or-previews"
 gsettings set org.gnome.shell.extensions.dash-to-dock dash-max-icon-size             60
-gsettings set org.gnome.shell.extensions.dash-to-dock dock-fixed                     true
-gsettings set org.gnome.shell.extensions.dash-to-dock dock-position                  "LEFT"
-gsettings set org.gnome.shell.extensions.dash-to-dock extend-height                  true
-gsettings set org.gnome.shell.extensions.dash-to-dock intellihide                    false
-gsettings set org.gnome.shell.extensions.dash-to-dock multi-monitor                  false
+gsettings set org.gnome.shell.extensions.dash-to-dock dock-fixed                     false
+gsettings set org.gnome.shell.extensions.dash-to-dock dock-position                  "BOTTOM"
+gsettings set org.gnome.shell.extensions.dash-to-dock extend-height                  false
+gsettings set org.gnome.shell.extensions.dash-to-dock intellihide                    true
+gsettings set org.gnome.shell.extensions.dash-to-dock multi-monitor                  true
 gsettings set org.gnome.shell.extensions.dash-to-dock show-mounts                    false
 gsettings set org.gnome.shell.extensions.pop-cosmic   clock-alignment                "RIGHT"
 gsettings set org.gnome.shell.extensions.pop-cosmic   workspace-picker-left          false
