@@ -104,6 +104,7 @@ solaar \
 vim \
 virtualbox-ext-pack \
 virtualbox-guest-additions-iso \
+virtualenv \
 webp \
 whois \
 youtube-dl
