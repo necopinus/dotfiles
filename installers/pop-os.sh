@@ -204,9 +204,6 @@ gsettings set org.gnome.shell.extensions.dash-to-dock multi-monitor             
 gsettings set org.gnome.shell.extensions.dash-to-dock show-mounts                    true
 gsettings set org.gnome.shell.extensions.pop-cosmic   clock-alignment                "RIGHT"
 gsettings set org.gnome.shell.extensions.pop-cosmic   workspace-picker-left          false
-gsettings set org.gnome.shell.extensions.pop-shell    active-hint                    true
-gsettings set org.gnome.shell.extensions.pop-shell    show-title                     false
-gsettings set org.gnome.shell.extensions.pop-shell    tile-by-default                true
 gsettings set org.gnome.shell.window-switcher         current-workspace-only         false
 gsettings set org.gnome.system.location               enabled                        true
 gsettings set org.gtk.Settings.FileChooser            clock-format                   "24h"
