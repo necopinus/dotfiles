@@ -55,6 +55,7 @@ sudo apt purge --autoremove --purge colord
 sudo apt install \
 build-essential \
 burpsuite \
+chromium \
 code-oss \
 exfatprogs \
 fonts-noto \
