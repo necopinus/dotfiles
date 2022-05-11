@@ -13,24 +13,16 @@ source $CONFIG_PATH/user/local/bin/update-system.sh
 # Install new applications from system repos.
 #
 apk add \
-build-base \
 curl \
-dos2unix \
 drill \
 ffmpeg \
 graphicsmagick \
-graphviz \
-jq \
 libwebp-tools \
 mandoc \
 man-pages \
 nano \
 openssl \
-optipng \
-p7zip \
-poppler-utils \
-sqlite \
-vim
+p7zip
 
 # Restore scripts and configurations from this repo.
 #

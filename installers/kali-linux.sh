@@ -53,15 +53,12 @@ sudo apt purge --autoremove --purge colord
 # Install new applications.
 #
 sudo apt install \
-asciinema \
 build-essential \
 burpsuite \
 code-oss \
-dconf-editor \
 exfatprogs \
 fonts-noto \
 gcc-mingw-w64-x86-64 \
-ghidra \
 gimp \
 gobuster \
 golang \
@@ -84,9 +81,7 @@ qalc \
 ruby-httpclient \
 rust-all \
 seclists \
-simplescreenrecorder \
 solaar \
-soundconverter \
 vlc \
 webp \
 youtube-dl \
@@ -160,15 +155,6 @@ cp    $CONFIG_PATH/user/zprofile                       $HOME/.zprofile
 cp    $CONFIG_PATH/user/zshenv                         $HOME/.zshenv
 
 chmod 755 $HOME/.local/bin/*
-
-# The Burp Suite browser doesn't work on Linux ARM, so we need to use a
-# custom Firefox profile instead. Install the .desktop file, if
-# applicable.
-#
-if [[ "$(uname -m)" != "x86_64" ]]; then
-	mkdir -p $HOME/.local/share/applications
-	cp $CONFIG_PATH/user/local/applications/firefox-burp-suite.desktop $HOME/.local/share/applications/firefox-burp-suite.desktop
-fi
 
 # Uncompress rockyou.txt.
 #
