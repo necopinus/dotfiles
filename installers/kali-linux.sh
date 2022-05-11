@@ -131,8 +131,6 @@ xfconf-query -n -c xfce4-panel         -p /plugins/plugin-15/timezone           
 xfconf-query -n -c xfce4-power-manager -p /xfce4-power-manager/blank-on-ac      -t int    -s 0
 xfconf-query -n -c xfce4-power-manager -p /xfce4-power-manager/blank-on-battery -t int    -s 0
 xfconf-query -n -c xfce4-power-manager -p /xfce4-power-manager/dpms-enabled     -t bool   -s false
-xfconf-query -n -c xfce4-session       -p /general/AutoSave                     -t bool   -s false
-xfconf-query -n -c xfce4-session       -p /general/PromptOnLogout               -t bool   -s false
 
 # Restore scripts and configurations from this repo.
 #
