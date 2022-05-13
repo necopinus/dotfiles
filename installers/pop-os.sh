@@ -250,6 +250,7 @@ mkdir -p $HOME/code
 	git config --global user.email nathan.acks@cardboard-iguana.com
 	git config --global user.signingKey "$(gpg --list-keys nathan.acks@cardboard-iguana.com | grep -E "^      [0-9A-Z]{40}$" | sed -e "s/^ *//")"
 	git config --global commit.gpgSign true
+	git config --global pull.rebase false
 	cd $HOME/code
 	git clone git@github.com:The-Yak-Collective/onboarding_robot.git
 	mv onboarding_robot automation-onboarding-robot
