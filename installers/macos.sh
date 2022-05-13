@@ -21,6 +21,14 @@ bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/in
 #
 eval "$(/opt/homebrew/bin/brew shellenv)"
 
+# Disable Homebrew analytics.
+#
+brew analytics off
+
+# Add the cask-drivers tap to Homebrew.
+#
+brew tap homebrew/cask-drivers
+
 # Install new applications.
 #
 brew install \
