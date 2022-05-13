@@ -25,6 +25,7 @@ eval "$(/opt/homebrew/bin/brew shellenv)"
 #
 brew install \
 brave-browser \
+burp-suite \
 coreutils \
 diffutils \
 discord \
@@ -37,6 +38,7 @@ gimp \
 gnu-sed \
 gnu-tar \
 gnupg \
+gobuster \
 gpg-suite-no-mail \
 graphicsmagick \
 graphviz \
@@ -54,6 +56,7 @@ microsoft-excel \
 microsoft-powerpoint \
 microsoft-remote-desktop \
 microsoft-word \
+nmap \
 node \
 obsidian \
 optipng \
@@ -65,6 +68,7 @@ rsync \
 rust \
 signal \
 slack \
+testssl \
 virtualenv \
 visual-studio-code \
 ykman \

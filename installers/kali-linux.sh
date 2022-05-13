@@ -59,6 +59,7 @@ chromium \
 exfatprogs \
 fonts-noto \
 gcc-mingw-w64-x86-64 \
+ghidra \
 gobuster \
 golang \
 htop \
