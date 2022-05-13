@@ -56,15 +56,11 @@ sudo apt install \
 build-essential \
 burpsuite \
 chromium \
-code-oss \
 exfatprogs \
 fonts-noto \
 gcc-mingw-w64-x86-64 \
-gimp \
 gobuster \
 golang \
-graphicsmagick \
-handbrake \
 htop \
 jq \
 jython \
@@ -74,20 +70,11 @@ linux-exploit-suggester \
 maven \
 npm \
 openjdk-11-jdk \
-optipng \
-poppler-utils \
 python3-capstone \
 python3-pip \
 qalc \
 ruby-httpclient \
-rust-all \
-seclists \
-solaar \
-vlc \
-webp \
-youtube-dl \
-yubikey-manager \
-yubikey-personalization-gui
+seclists
 
 # The above packages supercede some installed packages, so we do some
 # additional cleanup here.

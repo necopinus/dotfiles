@@ -1,6 +1,0 @@
-[user]
-	name = Nathan Acks
-[pull]
-	rebase = false
-[commit]
-	gpgsign = true

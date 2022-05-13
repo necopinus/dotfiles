@@ -112,20 +112,16 @@ flatpak install --user flathub com.discordapp.Discord
 flatpak install --user flathub com.slack.Slack
 flatpak install --user flathub com.visualstudio.code
 flatpak install --user flathub fi.skyjake.Lagrange
-flatpak install --user flathub fr.handbrake.ghb
 flatpak install --user flathub md.obsidian.Obsidian
 flatpak install --user flathub org.gimp.GIMP
-flatpak install --user flathub org.gnome.baobab
 flatpak install --user flathub org.gnome.eog
 flatpak install --user flathub org.gnome.Evince
 flatpak install --user flathub org.gnome.FileRoller
 flatpak install --user flathub org.gnome.seahorse.Application
-flatpak install --user flathub org.gnome.SoundJuicer
 flatpak install --user flathub org.keepassxc.KeePassXC
 flatpak install --user flathub org.libreoffice.LibreOffice
 flatpak install --user flathub org.mozilla.firefox
 flatpak install --user flathub org.signal.Signal
-flatpak install --user flathub org.soundconverter.SoundConverter
 flatpak install --user flathub org.videolan.VLC
 
 # Install Keybase.
@@ -205,24 +201,17 @@ gsettings set org.gnome.shell.window-switcher         current-workspace-only    
 gsettings set org.gnome.system.location               enabled                        true
 gsettings set org.gtk.Settings.FileChooser            clock-format                   "24h"
 
-flatpak run --command=gsettings org.gnome.SoundJuicer             set org.gnome.sound-juicer audio-profile    "audio/mpeg"
-flatpak run --command=gsettings org.gnome.SoundJuicer             set org.gnome.sound-juicer file-pattern     "%at - %dn - %ta - %tt"
-flatpak run --command=gsettings org.gnome.SoundJuicer             set org.gnome.sound-juicer path-pattern     "%at"
-flatpak run --command=gsettings org.soundconverter.SoundConverter set org.soundconverter     mp3-vbr-quality  0
-flatpak run --command=gsettings org.soundconverter.SoundConverter set org.soundconverter     output-mime-type "audio/mpeg"
-
 # Apply settings for relocatable schemas.
 #
 gsettings set org.gnome.desktop.notifications.application:/org/gnome/desktop/notifications/application/gnome-power-panel/ enable false
 
 # Restore scripts and configurations from this repo.
 #
-mkdir -p $HOME/.config/autostart $HOME/.local/bin
+mkdir -p $HOME/.config/autostart $HOME/.local/bin $HOME/.ssh
 
 cp $CONFIG_PATH/user/bash_aliases                        $HOME/.bash_aliases
 cp $CONFIG_PATH/user/config/autostart/solaar.desktop     $HOME/.config/autostart/solaar.desktop
 cp $CONFIG_PATH/user/gemrc                               $HOME/.gemrc
-cp $CONFIG_PATH/user/gitconfig                           $HOME/.gitconfig
 cp $CONFIG_PATH/user/inputrc                             $HOME/.inputrc
 cp $CONFIG_PATH/user/local/bin/backup.sh                 $HOME/.local/bin/backup.sh
 cp $CONFIG_PATH/user/local/bin/update-full.sh            $HOME/.local/bin/update-full.sh
@@ -230,11 +219,13 @@ cp $CONFIG_PATH/user/local/bin/update-radicle.sh         $HOME/.local/bin/update
 cp $CONFIG_PATH/user/local/bin/update-system.sh          $HOME/.local/bin/update-system.sh
 cp $CONFIG_PATH/user/local/bin/update-youtube-dl.sh      $HOME/.local/bin/update-youtube-dl.sh
 cp $CONFIG_PATH/user/local/bin/update-yubikey-manager.sh $HOME/.local/bin/update-yubikey-manager.sh
+cp $CONFIG_PATH/user/ssh/config                          $HOME/.ssh/config
 
 chmod 755 $HOME/.local/bin/*
+chmod 700 $HOME/.ssh
+chmod 600 $HOME/.ssh/*
 
 ln -s $HOME/.local/share/flatpak/exports/share/applications/org.keepassxc.KeePassXC.desktop $HOME/.config/autostart/
-ln -s /usr/share/applications/protonvpn.desktop                                             $HOME/.config/autostart/protonvpn.desktop
 
 mkdir -p $HOME/google/{cardboard-iguana,personal,yak-collective}
 
@@ -252,8 +243,10 @@ sudo usermod -aG vboxusers $USER
 #
 mkdir -p $HOME/code
 (
+	git config --global user.name "Nathan Acks"
 	git config --global user.email nathan.acks@cardboard-iguana.com
-	git config --global user.signingkey "$(gpg --list-keys nathan.acks@cardboard-iguana.com | grep -E "^      [0-9A-Z]{40}$" | sed -e "s/^ *//")"
+	git config --global user.signingKey "$(gpg --list-keys nathan.acks@cardboard-iguana.com | grep -E "^      [0-9A-Z]{40}$" | sed -e "s/^ *//")"
+	git config --global commit.gpgSign true
 	cd $HOME/code
 	git clone git@github.com:The-Yak-Collective/onboarding_robot.git
 	mv onboarding_robot automation-onboarding-robot

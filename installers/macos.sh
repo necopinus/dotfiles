@@ -11,11 +11,6 @@ CONFIG_PATH="$(dirname "$SCRIPT_PATH")/../"
 xcode-select --install
 read -p "Press any key once Xcode has finished installing... " -n1 -s
 
-# Install a better Zsh configuration.
-#
-curl -L -o $HOME/.zshrc "https://git.grml.org/?p=grml-etc-core.git;a=blob_plain;f=etc/zsh/zshrc;hb=HEAD"
-curl -L -o $HOME/.zshrc.local "https://git.grml.org/?p=grml-etc-core.git;a=blob_plain;f=etc/skel/.zshrc;hb=HEAD"
-
 # Install Homebrew. See:
 #
 #     https://brew.sh/
@@ -24,12 +19,6 @@ bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/in
 
 # Add Homebrew to our path.
 #
-cat >> $HOME/.zshrc.local << EOF
-
-# Add Homebrew to the shell's PATH.
-#
-eval "\$(/opt/homebrew/bin/brew shellenv)"
-EOF
 eval "$(/opt/homebrew/bin/brew shellenv)"
 
 # Install new applications.
@@ -82,9 +71,18 @@ ykman \
 youtube-dl \
 zoom
 
-# Add additional paths.
+# Install a better Zsh configuration.
+#
+curl -L -o $HOME/.zshrc "https://git.grml.org/?p=grml-etc-core.git;a=blob_plain;f=etc/zsh/zshrc;hb=HEAD"
+curl -L -o $HOME/.zshrc.local "https://git.grml.org/?p=grml-etc-core.git;a=blob_plain;f=etc/skel/.zshrc;hb=HEAD"
+
+# Add additional Homebrew paths.
 #
 cat >> $HOME/.zshrc.local << EOF
+
+# Add Homebrew to the shell's PATH.
+#
+eval "\$(/opt/homebrew/bin/brew shellenv)"
 
 # Additional paths.
 #
@@ -93,19 +91,24 @@ EOF
 
 # Restore scripts and configurations from this repo.
 #
-mkdir -p $HOME/.local/bin
+mkdir -p $HOME/.local/bin $HOME/.ssh
 
 cp $CONFIG_PATH/user/local/bin/update-full.sh   $HOME/.local/bin/update-full.sh
 cp $CONFIG_PATH/user/local/bin/update-system.sh $HOME/.local/bin/update-system.sh
+cp $CONFIG_PATH/user/ssh/config                 $HOME/.ssh/config
 
-chmod +x $HOME/.local/bin/*
+chmod 755 $HOME/.local/bin/*
+chmod 700 $HOME/.ssh
+chmod 600 $HOME/.ssh/*
 
 # Restore all git repos.
 #
 mkdir -p $HOME/code
 (
+	git config --global user.name "Nathan Acks"
 	git config --global user.email nathan.acks@cardboard-iguana.com
-#	git config --global user.signingkey "$(gpg --list-keys nathan.acks@cardboard-iguana.com | grep -E "^      [0-9A-Z]{40}$" | sed -e "s/^ *//")"
+#	git config --global user.signingKey "$(gpg --list-keys nathan.acks@cardboard-iguana.com | grep -E "^      [0-9A-Z]{40}$" | sed -e "s/^ *//")"
+	git config --global commit.gpgSign true
 	cd $HOME/code
 	git clone git@github.com:The-Yak-Collective/onboarding_robot.git
 	mv onboarding_robot automation-onboarding-robot
