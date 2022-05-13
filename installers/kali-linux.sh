@@ -74,7 +74,8 @@ python3-capstone \
 python3-pip \
 qalc \
 ruby-httpclient \
-seclists
+seclists \
+testssl.sh
 
 # The above packages supercede some installed packages, so we do some
 # additional cleanup here.

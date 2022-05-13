@@ -103,6 +103,7 @@ python3-pip \
 qalc \
 rust-all \
 solaar \
+testssl.sh \
 virtualbox-ext-pack \
 virtualbox-guest-additions-iso \
 virtualenv \
