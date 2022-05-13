@@ -265,6 +265,8 @@ mkdir -p $HOME/code
 	git clone git@github.com:necopinus/resume.git
 	git clone git@github.com:necopinus/zibaldone.git
 	mv zibaldone notes-necopinus
+	git clone https://github.com/danielmiessler/SecLists.git
+	mv SecLists seclists
 	git clone git@github.com:necopinus/cardboard-iguana.com.git
 	mv cardboard-iguana.com website-cardboard-iguana.com
 	git clone git@github.com:necopinus/chateaumaxmin.info.git
