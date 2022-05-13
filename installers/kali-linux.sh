@@ -64,7 +64,6 @@ gobuster \
 golang \
 htop \
 jq \
-jython \
 libreadline-dev \
 libssl-dev \
 linux-exploit-suggester \
