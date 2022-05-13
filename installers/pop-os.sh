@@ -85,6 +85,7 @@ expect \
 fonts-noto \
 gir1.2-appindicator3-0.1 \
 gnome-screenshot \
+gobuster \
 graphicsmagick \
 graphviz \
 grub-pc \
@@ -92,6 +93,7 @@ htop \
 jq \
 libjpeg-turbo-progs \
 libreadline-dev \
+nmap \
 npm \
 optipng \
 protonvpn \
