@@ -91,13 +91,6 @@ source $CONFIG_PATH/user/local/bin/update-xsrfprobe.sh
 source $CONFIG_PATH/user/local/bin/update-kiterunner.sh
 source $CONFIG_PATH/user/local/bin/update-ngrok.sh
 
-# Setup Evil-WinRM.
-#
-(
-	cd $HOME
-	gem install --user-install evil-winrm
-)
-
 # Setup JWT-Cracker.
 #
 (
