@@ -33,26 +33,23 @@ brew tap homebrew/cask-drivers
 #
 brew install \
 brave-browser \
-burp-suite \
 coreutils \
+curl \
 diffutils \
 discord \
 expect \
 ffmpeg \
 findutils \
-firefox \
 free-gpgmail \
 gimp \
 gnu-sed \
 gnu-tar \
 gnupg \
-gobuster \
 gpg-suite-no-mail \
 graphicsmagick \
 graphviz \
 grep \
 handbrake \
-htop \
 insync \
 jq \
 keepassxc \
@@ -66,7 +63,6 @@ microsoft-excel \
 microsoft-powerpoint \
 microsoft-remote-desktop \
 microsoft-word \
-nmap \
 node \
 obsidian \
 optipng \
@@ -75,14 +71,13 @@ poppler \
 protonvpn \
 radicle-upstream \
 rsync \
+ruby \
 rust \
 signal \
 slack \
-testssl \
 virtualenv \
 visual-studio-code \
 webp \
-ykman \
 youtube-dl \
 zoom
 
@@ -140,8 +135,6 @@ mkdir -p $HOME/code
 	git clone git@github.com:necopinus/resume.git
 	git clone git@github.com:necopinus/zibaldone.git
 	mv zibaldone notes-necopinus
-	git clone https://github.com/danielmiessler/SecLists.git
-	mv SecLists seclists
 	git clone git@github.com:necopinus/cardboard-iguana.com.git
 	mv cardboard-iguana.com website-cardboard-iguana.com
 	git clone git@github.com:necopinus/chateaumaxmin.info.git
