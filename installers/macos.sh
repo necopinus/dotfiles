@@ -81,6 +81,7 @@ slack \
 testssl \
 virtualenv \
 visual-studio-code \
+webp \
 ykman \
 youtube-dl \
 zoom

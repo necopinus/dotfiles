@@ -62,6 +62,7 @@ gcc-mingw-w64-x86-64 \
 ghidra \
 gobuster \
 golang \
+graphicsmagick \
 htop \
 jq \
 libreadline-dev \
@@ -75,7 +76,8 @@ python3-pip \
 qalc \
 ruby-httpclient \
 seclists \
-testssl.sh
+testssl.sh \
+webp
 
 # The above packages supercede some installed packages, so we do some
 # additional cleanup here.
