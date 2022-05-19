@@ -34,28 +34,21 @@ brew tap homebrew/cask-drivers
 brew install \
 brave-browser \
 coreutils \
-curl \
 diffutils \
 discord \
 expect \
 ffmpeg \
-findutils \
 free-gpgmail \
 gimp \
-gnu-sed \
-gnu-tar \
-gnupg \
 gpg-suite-no-mail \
 graphicsmagick \
 graphviz \
-grep \
 handbrake \
 insync \
 jq \
 keepassxc \
 keybase \
 lagrange \
-libjpeg-turbo \
 libqalculate \
 logitech-options \
 logitech-unifying \
@@ -70,8 +63,6 @@ parallels \
 poppler \
 protonvpn \
 radicle-upstream \
-rsync \
-ruby \
 rust \
 signal \
 slack \
@@ -96,7 +87,7 @@ eval "\$(/opt/homebrew/bin/brew shellenv)"
 
 # Additional paths.
 #
-export PATH="\$HOME/.local/bin:/opt/homebrew/opt/coreutils/libexec/gnubin:/opt/homebrew/opt/findutils/libexec/gnubin:/opt/homebrew/opt/gnu-sed/libexec/gnubin:/opt/homebrew/opt/gnu-tar/libexec/gnubin:/opt/homebrew/opt/grep/libexec/gnubin:/opt/homebrew/opt/jpeg-turbo/bin:\$PATH"
+export PATH="\$HOME/.local/bin:/opt/homebrew/opt/coreutils/libexec/gnubin:/opt/homebrew/opt/jpeg-turbo/bin:\$PATH"
 EOF
 
 # Restore scripts and configurations from this repo.
