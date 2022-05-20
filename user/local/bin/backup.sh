@@ -42,8 +42,8 @@ fi
 
 # Mirror Yak Collective Roam backup into Google Drive.
 #
-if [[ -d "$HOME/Documents/backups-yakcollective/Roam" ]] && [[ -d "$HOME/google/Yak Collective/Backups" ]]; then
-	rsync -av --delete --force --human-readable --progress $HOME/Documents/backups-yak-collective/Roam/ $HOME/google/"Yak Collective"/Backups/Roam/
+if [[ -d "$HOME/Documents/backups-yakcollective/Roam" ]] && [[ -d "$HOME/Documents/google-yakcollective/Backups" ]]; then
+	rsync -av --delete --force --human-readable --progress $HOME/Documents/backups-yakcollective/Roam/ $HOME/Documents/google-yakcollective/Backups/Roam/
 fi
 
 # The backup, which is really just mirroring content.

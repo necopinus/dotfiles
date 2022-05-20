@@ -230,7 +230,7 @@ chmod 600 $HOME/.ssh/*
 
 ln -s $HOME/.local/share/flatpak/exports/share/applications/org.keepassxc.KeePassXC.desktop $HOME/.config/autostart/
 
-mkdir -p $HOME/google/{cardboard-iguana,personal,yak-collective}
+mkdir -p $HOME/Documents/{google-cardboard-iguana,google-personal,google-yakcollective}
 
 # Disable the VirtualBox web service. We don't need it, and it just
 # likes to fail and make systemd complain anyway.
