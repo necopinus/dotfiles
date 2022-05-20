@@ -7,18 +7,6 @@
 # we're already logged in, and X11 has set up our environment). So we
 # need to call this in both places.
 
-# Make sure that locally installed Ruby gems are in our path.
-#
-if [[ -n "$(which ruby)" ]] && [[ -n "$(which gem)" ]]; then
-	export PATH="$(ruby -r rubygems -e 'puts Gem.user_dir')/bin:$PATH"
-fi
-
-# Make sure that locally installed NPM packages are in our path.
-#
-if [[ -d "$HOME/node_modules/.bin" ]]; then
-	export PATH="$HOME/node_modules/.bin:$PATH"
-fi
-
 # Add ~/.cargo/bin to the path, if it exists.
 #
 if [[ -d "$HOME/.cargo/bin" ]]; then

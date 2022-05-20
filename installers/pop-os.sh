@@ -151,11 +151,12 @@ BUILD_DIR="$(mktemp -d)"
 )
 rm -rf "$BUILD_DIR"
 
+mkdir -p $HOME/Documents/{google-cardboard-iguana,google-personal,google-yakcollective}
+
 # Additional "loose" installs. These are all handled through update
 # scripts (which fortunately can also handle the initial installation.
 #
 source $CONFIG_PATH/user/local/bin/update-radicle.sh
-source $CONFIG_PATH/user/local/bin/update-youtube-dl.sh
 source $CONFIG_PATH/user/local/bin/update-yubikey-manager.sh
 
 # Apply application settings, when possible.
@@ -208,13 +209,26 @@ gsettings set org.gtk.Settings.FileChooser            clock-format              
 #
 gsettings set org.gnome.desktop.notifications.application:/org/gnome/desktop/notifications/application/gnome-power-panel/ enable false
 
+# Local SSH config.
+#
+mkdir -p $HOME/.ssh
+cat > $HOME/.ssh/config << EOF
+# Defaults
+#
+Host *
+	Compression  yes
+	ForwardAgent no
+	IdentityFile ~/.ssh/id_ed25519
+EOF
+chmod 700 $HOME/.ssh
+chmod 600 $HOME/.ssh/*
+
 # Restore scripts and configurations from this repo.
 #
-mkdir -p $HOME/.config/autostart $HOME/.local/bin $HOME/.ssh
+mkdir -p $HOME/.config/autostart $HOME/.local/bin
 
 cp $CONFIG_PATH/user/bash_aliases                        $HOME/.bash_aliases
 cp $CONFIG_PATH/user/config/autostart/solaar.desktop     $HOME/.config/autostart/solaar.desktop
-cp $CONFIG_PATH/user/gemrc                               $HOME/.gemrc
 cp $CONFIG_PATH/user/inputrc                             $HOME/.inputrc
 cp $CONFIG_PATH/user/local/bin/backup.sh                 $HOME/.local/bin/backup.sh
 cp $CONFIG_PATH/user/local/bin/update-full.sh            $HOME/.local/bin/update-full.sh
@@ -222,15 +236,12 @@ cp $CONFIG_PATH/user/local/bin/update-radicle.sh         $HOME/.local/bin/update
 cp $CONFIG_PATH/user/local/bin/update-system.sh          $HOME/.local/bin/update-system.sh
 cp $CONFIG_PATH/user/local/bin/update-youtube-dl.sh      $HOME/.local/bin/update-youtube-dl.sh
 cp $CONFIG_PATH/user/local/bin/update-yubikey-manager.sh $HOME/.local/bin/update-yubikey-manager.sh
-cp $CONFIG_PATH/user/ssh/config                          $HOME/.ssh/config
 
 chmod 755 $HOME/.local/bin/*
-chmod 700 $HOME/.ssh
-chmod 600 $HOME/.ssh/*
 
+# Make sure that KeePassXC auto starts.
+#
 ln -s $HOME/.local/share/flatpak/exports/share/applications/org.keepassxc.KeePassXC.desktop $HOME/.config/autostart/
-
-mkdir -p $HOME/Documents/{google-cardboard-iguana,google-personal,google-yakcollective}
 
 # Disable the VirtualBox web service. We don't need it, and it just
 # likes to fail and make systemd complain anyway.

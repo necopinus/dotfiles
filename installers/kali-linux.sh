@@ -88,17 +88,8 @@ sudo apt autoremove --purge --autoremove
 # scripts (which fortunately can also handle the initial installation.
 #
 source $CONFIG_PATH/user/local/bin/update-kerbrute.sh
-source $CONFIG_PATH/user/local/bin/update-volatility.sh
-source $CONFIG_PATH/user/local/bin/update-xsrfprobe.sh
 source $CONFIG_PATH/user/local/bin/update-kiterunner.sh
 source $CONFIG_PATH/user/local/bin/update-ngrok.sh
-
-# Setup JWT-Cracker.
-#
-(
-	cd $HOME
-	npm install jwt-cracker
-)
 
 # Apply application settings, when possible.
 #
@@ -115,12 +106,23 @@ xfconf-query -n -c xfce4-power-manager -p /xfce4-power-manager/blank-on-ac      
 xfconf-query -n -c xfce4-power-manager -p /xfce4-power-manager/blank-on-battery -t int    -s 0
 xfconf-query -n -c xfce4-power-manager -p /xfce4-power-manager/dpms-enabled     -t bool   -s false
 
+# Local SSH config.
+#
+mkdir -p $HOME/.ssh
+cat > $HOME/.ssh/config << EOF
+# Defaults
+#
+Host *
+	ForwardAgent no
+EOF
+chmod 700 $HOME/.ssh
+chmod 600 $HOME/.ssh/*
+
 # Restore scripts and configurations from this repo.
 #
 mkdir -p $HOME/.local/bin
 
 cp    $CONFIG_PATH/user/bash_aliases                   $HOME/.bash_aliases
-cp    $CONFIG_PATH/user/gemrc                          $HOME/.gemrc
 cp    $CONFIG_PATH/user/inputrc                        $HOME/.inputrc
 cp    $CONFIG_PATH/user/local/bin/backup.sh            $HOME/.local/bin/backup.sh
 cp    $CONFIG_PATH/user/local/bin/update-full.sh       $HOME/.local/bin/update-full.sh

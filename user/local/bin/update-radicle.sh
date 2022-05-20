@@ -34,7 +34,7 @@ if [[ "$LOCAL_VERSION" != "$REMOTE_VERSION" ]]; then
 	)
 	rm -rf "$BUILD_DIR"
 else
-	echo "Radicle is already at v${REMOTE_VERSION}"
+	echo "Radicle Upstream is already at v${REMOTE_VERSION}"
 	touch $HOME/.cache/versions/radicle
 fi
 

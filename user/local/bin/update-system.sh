@@ -5,9 +5,6 @@ if [[ -n "$(which brew)" ]]; then
 	brew upgrade
 	brew autoremove
 	brew cleanup -s
-elif [[ -n "$(which apk)" ]]; then
-	apk update
-	apk upgrade
 elif [[ -n "$(which apt)" ]]; then
 	sudo apt update
 	sudo apt full-upgrade
@@ -25,20 +22,6 @@ if [[ -d /etc/skel ]]; then
 		HOME_FILE="$(echo "$SKEL_FILE" | sed -e "s#^/etc/skel#$HOME#")"
 		cp -apf "$SKEL_FILE" "$HOME_FILE"
 	done < <(find /etc/skel -type f -print0)
-fi
-
-if [[ -n "$(which ruby)" ]] && [[ -n "$(which gem)" ]]; then
-	(
-		cd $HOME
-		gem update --user-install
-	)
-fi
-
-if [[ -n "$(which node)" ]] && [[ -n "$(which npm)" ]]; then
-	(
-		cd $HOME
-		npm update
-	)
 fi
 
 if [[ -n "$(which flatpak)" ]]; then

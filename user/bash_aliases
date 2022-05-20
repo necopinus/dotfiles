@@ -1,18 +1,6 @@
 # Abuse Debian's automatic sourcing of ~/.bash_aliases to override
 # various configuration defaults.
 
-# Make sure that locally installed Ruby gems are in our path.
-#
-if [[ -n "$(which ruby)" ]] && [[ -n "$(which gem)" ]]; then
-	export PATH="$(ruby -r rubygems -e 'puts Gem.user_dir')/bin:$PATH"
-fi
-
-# Make sure that locally installed NPM packages are in our path.
-#
-if [[ -d "$HOME/node_modules/.bin" ]]; then
-	export PATH="$HOME/node_modules/.bin:$PATH"
-fi
-
 # Add ~/.cargo/bin to the path, if it exists.
 #
 if [[ -d "$HOME/.cargo/bin" ]]; then
@@ -41,34 +29,6 @@ if [[ -d $HOME/.local/bin ]]; then
 	export PATH="$HOME/.local/bin:$PATH"
 fi
 
-# Start ssh-agent on Kali (when logging in on console).
-#
-if [[ "$HOSTNAME" == "kali" ]]; then
-	if [[ $(pgrep -u "$USER" -c ssh-agent) -eq 0 ]]; then
-		ssh-agent > "$XDG_RUNTIME_DIR/ssh-agent.env"
-	fi
-	if [[ -f "$XDG_RUNTIME_DIR/ssh-agent.env" ]] && [[ -z "$SSH_AUTH_SOCK" ]]; then
-		source "$XDG_RUNTIME_DIR/ssh-agent.env"
-	fi
-fi
-
-# Make sure that GPG TTY is set right when SSHing into Kali.
-#
-if [[ "$HOSTNAME" == "kali" ]] && [[ -z "$DISPLAY" ]]; then
-	export GPG_TTY=$(tty)
-	GPG_AGENT_COMMAND="gpg-connect-agent updatestartuptty /bye > /dev/null"
-	if [[ ! " ${PROMPT_COMMAND[*]} " =~ " $GPG_AGENT_COMMAND " ]]; then
-		PROMPT_COMMAND+=("$GPG_AGENT_COMMAND")
-		export PROMPT_COMMAND
-	fi
-fi
-
-# Add SSH identities.
-#
-if [[ -n "$SSH_AUTH_SOCK" ]] && [[ "$(ssh-add -L)" = "The agent has no identities." ]]; then
-	ssh-add
-fi
-
 # Rationalize $HISTSIZE and $HISTFILESIZE.
 #
 if [[ -n "$HISTSIZE" ]] && [[ -n "$HISTFILESIZE" ]]; then
@@ -83,9 +43,6 @@ fi
 
 # Aliases.
 #
-if [[ -n "$(which msfconsole)" ]]; then
-	alias msfconsole="env GO111MODULE=off msfconsole"
-fi
 if [[ -n "$(which insync-headless)" ]]; then
 	alias insync-headless="env TERM=xterm insync-headless"
 fi

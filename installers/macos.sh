@@ -90,17 +90,28 @@ eval "\$(/opt/homebrew/bin/brew shellenv)"
 export PATH="\$HOME/.local/bin:/opt/homebrew/opt/coreutils/libexec/gnubin:/opt/homebrew/opt/jpeg-turbo/bin:\$PATH"
 EOF
 
+# Local SSH config.
+#
+mkdir -p $HOME/.ssh
+cat > $HOME/.ssh/config << EOF
+# Defaults
+#
+Host *
+	Compression  yes
+	ForwardAgent no
+	IdentityFile ~/.ssh/id_ed25519
+EOF
+chmod 700 $HOME/.ssh
+chmod 600 $HOME/.ssh/*
+
 # Restore scripts and configurations from this repo.
 #
-mkdir -p $HOME/.local/bin $HOME/.ssh
+mkdir -p $HOME/.local/bin
 
 cp $CONFIG_PATH/user/local/bin/update-full.sh   $HOME/.local/bin/update-full.sh
 cp $CONFIG_PATH/user/local/bin/update-system.sh $HOME/.local/bin/update-system.sh
-cp $CONFIG_PATH/user/ssh/config                 $HOME/.ssh/config
 
 chmod 755 $HOME/.local/bin/*
-chmod 700 $HOME/.ssh
-chmod 600 $HOME/.ssh/*
 
 # Restore all git repos.
 #
