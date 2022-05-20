@@ -153,9 +153,8 @@ sudo msfdb init
 
 # Restore select git repos.
 #
-mkdir -p $HOME/code
 (
-	cd $HOME/code
+	cd $HOME/Documents
 	git clone https://github.com/necopinus/dotfiles.git
 )
 

@@ -22,26 +22,28 @@ if [[ "$BACKUP_FS" != "exfat" ]] && [[ "$BACKUP_FS" != "ext4" ]]; then
 	exit 1
 fi
 
-# Make sure that code repos are all up-to-date.
+# Make sure that Git repos are all up-to-date.
 #
-if [[ -d $HOME/code ]]; then
+if [[ -d $HOME/Documents ]]; then
 	(
-		cd $HOME/code
+		cd $HOME/Documents
 		while IFS= read -r -d '' OBJECT; do
-			cd "$OBJECT"
-			git pull
-			if [[ "$(git config --get remote.origin.url)" =~ [^/]+@[^/]+\.[^/]+:.+\.git ]]; then
-				 git push
+			if [[ -d $OBJECT/.git ]]; then
+				cd "$OBJECT"
+				git pull
+				if [[ "$(git config --get remote.origin.url)" =~ [^/]+@[^/]+\.[^/]+:.+\.git ]]; then
+					 git push
+				fi
+				cd ..
 			fi
-			cd ..
 		done < <(find . -mindepth 1 -maxdepth 1 -type d -print0)
 	)
 fi
 
 # Mirror Yak Collective Roam backup into Google Drive.
 #
-if [[ -d "$HOME/code/backups-yak-collective/Roam" ]] && [[ -d "$HOME/google/Yak Collective/Backups" ]]; then
-	rsync -av --delete --force --human-readable --progress $HOME/code/backups-yak-collective/Roam/ $HOME/google/"Yak Collective"/Backups/Roam/
+if [[ -d "$HOME/Documents/backups-yakcollective/Roam" ]] && [[ -d "$HOME/google/Yak Collective/Backups" ]]; then
+	rsync -av --delete --force --human-readable --progress $HOME/Documents/backups-yak-collective/Roam/ $HOME/google/"Yak Collective"/Backups/Roam/
 fi
 
 # The backup, which is really just mirroring content.
@@ -50,7 +52,7 @@ if [[ "$BACKUP_FS" = "exfat" ]]; then
 	(
 		cd $HOME
 		while IFS= read -r -d '' OBJECT; do
-			if [[ -d "$OBJECT" ]] && [[ "$OBJECT" != "./code" ]]; then
+			if [[ -d "$OBJECT" ]]; then
 				rsync -vrltD --delete --force --human-readable --modify-window=1 --progress $HOME/"$OBJECT"/ $BACKUP_PATH/"$OBJECT"/
 			elif [[ -f "$OBJECT" ]]; then
 				rsync -vrltD --delete --force --human-readable --modify-window=1 --progress $HOME/"$OBJECT"  $BACKUP_PATH/"$OBJECT"

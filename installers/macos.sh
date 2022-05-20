@@ -104,42 +104,31 @@ chmod 600 $HOME/.ssh/*
 
 # Restore all git repos.
 #
-mkdir -p $HOME/code
 (
 	git config --global user.name "Nathan Acks"
 	git config --global user.email nathan.acks@cardboard-iguana.com
 #	git config --global user.signingKey "$(gpg --list-keys nathan.acks@cardboard-iguana.com | grep -E "^      [0-9A-Z]{40}$" | sed -e "s/^ *//")"
 	git config --global commit.gpgSign true
 	git config --global pull.rebase false
-	cd $HOME/code
-	git clone git@github.com:The-Yak-Collective/onboarding_robot.git
-	mv onboarding_robot automation-onboarding-robot
-	git clone git@github.com:The-Yak-Collective/project_ui.git
-	mv project_ui automation-project-ui
+	cd $HOME/Documents
 	git clone git@github.com:necopinus/backups.git
 	mv backups backups-necopinus
 	git clone git@github.com:The-Yak-Collective/backups.git
-	mv backups backups-yak-collective
-	git clone git@github.com:The-Yak-Collective/infrastructure-map.git
-	mv infrastructure-map doc-infrastructure-map
-	git clone git@github.com:necopinus/dotfiles.git
-	git clone git@github.com:necopinus/resume.git
-	git clone git@github.com:necopinus/zibaldone.git
-	mv zibaldone notes-necopinus
+	mv backups backups-yakcollective
 	git clone git@github.com:necopinus/cardboard-iguana.com.git
-	mv cardboard-iguana.com website-cardboard-iguana.com
 	git clone git@github.com:necopinus/chateaumaxmin.info.git
-	mv chateaumaxmin.info website-chateaumaxmin.info
-	git clone git@github.com:necopinus/ecopunk.info.git
-	mv ecopunk.info website-ecopunk.info
-	git clone git@github.com:necopinus/ellen-and-nathan.info.git
-	mv ellen-and-nathan.info website-ellen-and-nathan.info
 	git clone git@github.com:necopinus/delphi-strategy.com.git
-	mv delphi-strategy.com website-delphi-strategy.com
 	git clone git@github.com:necopinus/digital-orrery.com.git
-	mv digital-orrery.com website-digital-orrery.com
+	git clone git@github.com:necopinus/dotfiles.git
+	git clone git@github.com:necopinus/ecopunk.info.git
+	git clone git@github.com:necopinus/ellen-and-nathan.info.git
+	git clone git@github.com:The-Yak-Collective/infrastructure-map.git
+	git clone git@github.com:The-Yak-Collective/lunchtime-tickets.git
 	git clone git@github.com:necopinus/necopinus.xyz.git
-	mv necopinus.xyz website-necopinus.xyz
+	git clone git@github.com:The-Yak-Collective/onboarding_robot.git
+	git clone git@github.com:The-Yak-Collective/project_ui.git
+	git clone git@github.com:necopinus/resume.git
+	git clone git@github.com:necopinus/website-theme.git
 	git clone git@github.com:The-Yak-Collective/yakcollective.git
-	mv yakcollective website-yakcollective.org
+	git clone git@github.com:necopinus/zibaldone.git
 )
