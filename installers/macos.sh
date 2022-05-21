@@ -40,7 +40,6 @@ discord \
 expect \
 ffmpeg \
 free-gpgmail \
-gimp \
 gpg-suite-no-mail \
 graphicsmagick \
 graphviz \
@@ -55,7 +54,6 @@ logitech-options \
 logitech-unifying \
 microsoft-excel \
 microsoft-powerpoint \
-microsoft-remote-desktop \
 microsoft-word \
 node \
 obsidian \
