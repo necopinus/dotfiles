@@ -89,7 +89,6 @@ gobuster \
 graphicsmagick \
 graphviz \
 grub-pc \
-htop \
 jq \
 libjpeg-turbo-progs \
 libreadline-dev \
@@ -123,7 +122,6 @@ flatpak install --user flathub org.gnome.FileRoller
 flatpak install --user flathub org.gnome.seahorse.Application
 flatpak install --user flathub org.keepassxc.KeePassXC
 flatpak install --user flathub org.libreoffice.LibreOffice
-flatpak install --user flathub org.mozilla.firefox
 flatpak install --user flathub org.signal.Signal
 flatpak install --user flathub org.videolan.VLC
 
