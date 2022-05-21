@@ -32,6 +32,7 @@ brew tap homebrew/cask-drivers
 # Install new applications.
 #
 brew install \
+adobe-creative-cloud \
 brave-browser \
 coreutils \
 diffutils \
