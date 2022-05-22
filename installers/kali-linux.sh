@@ -63,6 +63,7 @@ ghidra \
 gobuster \
 golang \
 graphicsmagick \
+htop \
 jq \
 libreadline-dev \
 libssl-dev \
