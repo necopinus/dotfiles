@@ -33,43 +33,73 @@ brew tap homebrew/cask-drivers
 #
 brew install \
 adobe-creative-cloud \
+aircrack-ng \
+apktool \
 brave-browser \
+burp-suite \
 coreutils \
 diffutils \
 discord \
 expect \
 ffmpeg \
+ffuf \
+firefox \
 free-gpgmail \
+ghidra \
+go \
+gobuster \
 gpg-suite-no-mail \
 graphicsmagick \
 graphviz \
 handbrake \
+hashcat \
+hydra \
 insync \
+john-jumbo \
 jq \
 keepassxc \
 keybase \
+kindle \
 lagrange \
 libqalculate \
 logitech-options \
 logitech-unifying \
+metasploit \
 microsoft-excel \
 microsoft-powerpoint \
+microsoft-remote-desktop \
 microsoft-word \
+netcat \
+nikto \
+nmap \
 node \
 obsidian \
 optipng \
 parallels \
 poppler \
+postman \
+powershell \
 protonvpn \
 radicle-upstream \
+rlwrap \
 rust \
 signal \
 slack \
+slowhttptest \
+socat \
+sqlmap \
+temurin \
+testssl \
 virtualenv \
 visual-studio-code \
 webp \
 youtube-dl \
 zoom
+
+# Wireshark is available through Homebrew as both a formula and a cask.
+# We want the cask version (the macOS "native" app).
+#
+brew install --cask wireshark
 
 # Install a better Zsh configuration.
 #

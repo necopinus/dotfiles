@@ -77,21 +77,29 @@ sudo rm -rf /usr/share/fonts/truetype/libreoffice
 # Install new applications.
 #
 sudo apt install \
+aircrack-ng \
+apktool \
 brave-browser \
 bundler \
 cmake \
 exfatprogs \
 expect \
+ffuf \
 fonts-noto \
 gir1.2-appindicator3-0.1 \
 gnome-screenshot \
 gobuster \
+golang \
 graphicsmagick \
 graphviz \
 grub-pc \
+hashcat \
+hydra \
+john \
 jq \
 libjpeg-turbo-progs \
 libreadline-dev \
+nikto \
 nmap \
 npm \
 optipng \
@@ -100,21 +108,29 @@ python3-bs4 \
 python3-openssl \
 python3-pip \
 qalc \
+rdesktop \
+rlwrap \
 rust-all \
+slowhttptest \
+socat \
 solaar \
+sqlmap \
 testssl.sh \
 virtualbox-ext-pack \
 virtualbox-guest-additions-iso \
 virtualenv \
 webp \
+wireshark \
 youtube-dl
 
 flatpak install --user flathub ca.desrt.dconf-editor
 flatpak install --user flathub com.discordapp.Discord
+flatpak install --user flathub com.getpostman.Postman
 flatpak install --user flathub com.slack.Slack
 flatpak install --user flathub com.visualstudio.code
 flatpak install --user flathub fi.skyjake.Lagrange
 flatpak install --user flathub md.obsidian.Obsidian
+flatpak install --user flathub org.ghidra_sre.Ghidra
 flatpak install --user flathub org.gimp.GIMP
 flatpak install --user flathub org.gnome.eog
 flatpak install --user flathub org.gnome.Evince
@@ -122,6 +138,7 @@ flatpak install --user flathub org.gnome.FileRoller
 flatpak install --user flathub org.gnome.seahorse.Application
 flatpak install --user flathub org.keepassxc.KeePassXC
 flatpak install --user flathub org.libreoffice.LibreOffice
+flatpak install --user flathub org.mozilla.firefox
 flatpak install --user flathub org.signal.Signal
 flatpak install --user flathub org.videolan.VLC
 
@@ -250,6 +267,11 @@ sudo systemctl disable vboxweb.service
 # enable USB pass-through.
 #
 sudo usermod -aG vboxusers $USER
+
+# Add the current user to the wireshark group. This is necessary to
+# allow for packet capture without root privileges.
+#
+sudo usermod -aG wireshark $USER
 
 # Restore all git repos.
 #
