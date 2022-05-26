@@ -137,20 +137,25 @@ chmod 600 $HOME/.ssh/*
 #
 mkdir -p $HOME/.local/bin
 
-cp $CONFIG_PATH/user/local/bin/update-full.sh   $HOME/.local/bin/update-full.sh
+cp $CONFIG_PATH/user/local/bin/update.sh        $HOME/.local/bin/update.sh
 cp $CONFIG_PATH/user/local/bin/update-system.sh $HOME/.local/bin/update-system.sh
 
 chmod 755 $HOME/.local/bin/*
 
+# Pre-create Insync directories.
+#
+mkdir -p $HOME/Google/{cardboard-iguana,personal,yakcollective}
+
 # Restore all git repos.
 #
+mkdir $HOME/Repos
 (
 	git config --global user.name "Nathan Acks"
 	git config --global user.email nathan.acks@cardboard-iguana.com
 #	git config --global user.signingKey "$(gpg --list-keys nathan.acks@cardboard-iguana.com | grep -E "^      [0-9A-Z]{40}$" | sed -e "s/^ *//")"
 	git config --global commit.gpgSign true
 	git config --global pull.rebase false
-	cd $HOME/Documents
+	cd $HOME/Repos
 	git clone git@github.com:necopinus/backups.git
 	mv backups backups-necopinus
 	git clone git@github.com:The-Yak-Collective/backups.git
@@ -168,6 +173,7 @@ chmod 755 $HOME/.local/bin/*
 	git clone git@github.com:The-Yak-Collective/onboarding_robot.git
 	git clone git@github.com:The-Yak-Collective/project_ui.git
 	git clone git@github.com:necopinus/resume.git
+	git clone https://github.com/danielmiessler/SecLists.git
 	git clone git@github.com:necopinus/website-theme.git
 	git clone git@github.com:The-Yak-Collective/yakcollective.git
 	git clone git@github.com:necopinus/zibaldone.git

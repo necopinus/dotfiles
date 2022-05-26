@@ -166,7 +166,7 @@ BUILD_DIR="$(mktemp -d)"
 )
 rm -rf "$BUILD_DIR"
 
-mkdir -p $HOME/Documents/{google-cardboard-iguana,google-personal,google-yakcollective}
+mkdir -p $HOME/Google/{cardboard-iguana,personal,yakcollective}
 
 # Additional "loose" installs. These are all handled through update
 # scripts (which fortunately can also handle the initial installation.
@@ -246,7 +246,7 @@ cp $CONFIG_PATH/user/bash_aliases                        $HOME/.bash_aliases
 cp $CONFIG_PATH/user/config/autostart/solaar.desktop     $HOME/.config/autostart/solaar.desktop
 cp $CONFIG_PATH/user/inputrc                             $HOME/.inputrc
 cp $CONFIG_PATH/user/local/bin/backup.sh                 $HOME/.local/bin/backup.sh
-cp $CONFIG_PATH/user/local/bin/update-full.sh            $HOME/.local/bin/update-full.sh
+cp $CONFIG_PATH/user/local/bin/update.sh                 $HOME/.local/bin/update.sh
 cp $CONFIG_PATH/user/local/bin/update-radicle.sh         $HOME/.local/bin/update-radicle.sh
 cp $CONFIG_PATH/user/local/bin/update-system.sh          $HOME/.local/bin/update-system.sh
 cp $CONFIG_PATH/user/local/bin/update-youtube-dl.sh      $HOME/.local/bin/update-youtube-dl.sh
@@ -275,13 +275,14 @@ sudo usermod -aG wireshark $USER
 
 # Restore all git repos.
 #
+mkdir $HOME/Repos
 (
 	git config --global user.name "Nathan Acks"
 	git config --global user.email nathan.acks@cardboard-iguana.com
 	git config --global user.signingKey "$(gpg --list-keys nathan.acks@cardboard-iguana.com | grep -E "^      [0-9A-Z]{40}$" | sed -e "s/^ *//")"
 	git config --global commit.gpgSign true
 	git config --global pull.rebase false
-	cd $HOME/Documents
+	cd $HOME/Repos
 	git clone git@github.com:necopinus/backups.git
 	mv backups backups-necopinus
 	git clone git@github.com:The-Yak-Collective/backups.git
@@ -299,6 +300,7 @@ sudo usermod -aG wireshark $USER
 	git clone git@github.com:The-Yak-Collective/onboarding_robot.git
 	git clone git@github.com:The-Yak-Collective/project_ui.git
 	git clone git@github.com:necopinus/resume.git
+	git clone https://github.com/danielmiessler/SecLists.git
 	git clone git@github.com:necopinus/website-theme.git
 	git clone git@github.com:The-Yak-Collective/yakcollective.git
 	git clone git@github.com:necopinus/zibaldone.git

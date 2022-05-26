@@ -24,9 +24,9 @@ fi
 
 # Make sure that Git repos are all up-to-date.
 #
-if [[ -d $HOME/Documents ]]; then
+if [[ -d $HOME/Repos ]]; then
 	(
-		cd $HOME/Documents
+		cd $HOME/Repos
 		while IFS= read -r -d '' OBJECT; do
 			if [[ -d $OBJECT/.git ]]; then
 				cd "$OBJECT"
@@ -42,8 +42,8 @@ fi
 
 # Mirror Yak Collective Roam backup into Google Drive.
 #
-if [[ -d "$HOME/Documents/backups-yakcollective/Roam" ]] && [[ -d "$HOME/Documents/google-yakcollective/Backups" ]]; then
-	rsync -av --delete --force --human-readable --progress $HOME/Documents/backups-yakcollective/Roam/ $HOME/Documents/google-yakcollective/Backups/Roam/
+if [[ -d "$HOME/Repos/backups-yakcollective/Roam" ]] && [[ -d "$HOME/Repos/yakcollective/Backups" ]]; then
+	rsync -av --delete --force --human-readable --progress $HOME/Repos/backups-yakcollective/Roam/ $HOME/Repos/yakcollective/Backups/Roam/
 fi
 
 # The backup, which is really just mirroring content.
