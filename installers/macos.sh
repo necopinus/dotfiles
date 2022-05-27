@@ -116,7 +116,15 @@ eval "\$(/opt/homebrew/bin/brew shellenv)"
 
 # Additional paths.
 #
-export PATH="\$HOME/.local/bin:/opt/homebrew/opt/coreutils/libexec/gnubin:/opt/homebrew/opt/jpeg-turbo/bin:\$PATH"
+export PATH="\$HOME/.local/bin:/opt/homebrew/opt/coreutils/libexec/gnubin:\$PATH"
+
+# Prefix the GRML prompt when in an active virtualenv.
+#
+function virtual_env_prompt () {
+	REPLY=\${VIRTUAL_ENV+(${VIRTUAL_ENV:t}) }
+}
+grml_theme_add_token  virtual-env -f virtual_env_prompt '%F{magenta}' '%f'
+zstyle ':prompt:grml:left:setup' items rc virtual-env change-root user at host path vcs percent
 EOF
 
 # Local SSH config.
