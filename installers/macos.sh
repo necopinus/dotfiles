@@ -59,7 +59,6 @@ john-jumbo \
 jq \
 keepassxc \
 keybase \
-kindle \
 lagrange \
 libqalculate \
 logitech-options \
@@ -81,6 +80,7 @@ postman \
 powershell \
 protonvpn \
 radicle-upstream \
+ripgrep \
 rlwrap \
 rust \
 signal \

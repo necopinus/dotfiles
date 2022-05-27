@@ -109,6 +109,7 @@ python3-openssl \
 python3-pip \
 qalc \
 rdesktop \
+ripgrep \
 rlwrap \
 rust-all \
 slowhttptest \

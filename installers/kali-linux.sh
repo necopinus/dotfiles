@@ -74,6 +74,7 @@ openjdk-11-jdk \
 python3-capstone \
 python3-pip \
 qalc \
+ripgrep \
 ruby-httpclient \
 seclists \
 testssl.sh \
