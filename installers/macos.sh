@@ -78,8 +78,8 @@ parallels \
 poppler \
 postman \
 powershell \
-protonvpn \
 radicle-upstream \
+remarkable \
 ripgrep \
 rlwrap \
 rust \
@@ -91,6 +91,7 @@ sqlmap \
 temurin \
 testssl \
 virtualenv \
+viscosity \
 visual-studio-code \
 webp \
 youtube-dl \
