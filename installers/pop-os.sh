@@ -24,7 +24,7 @@ curl -L -O https://brave-browser-apt-release.s3.brave.com/brave-browser-archive-
 sudo mv brave-browser-archive-keyring.gpg /usr/local/share/keyrings/brave-browser-archive-keyring.gpg
 echo "deb [signed-by=/usr/local/share/keyrings/brave-browser-archive-keyring.gpg arch=amd64] https://brave-browser-apt-release.s3.brave.com/ stable main" | sudo tee /etc/apt/sources.list.d/brave-browser-release.list
 
-# Add ProtonVPN repo. See:
+# Add Proton VPN repo. See:
 #
 #     https://protonvpn.com/support/linux-ubuntu-vpn-setup/
 #
