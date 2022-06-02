@@ -108,6 +108,7 @@ python3-bs4 \
 python3-openssl \
 python3-pip \
 qalc \
+qtqr \
 rdesktop \
 ripgrep \
 rlwrap \
