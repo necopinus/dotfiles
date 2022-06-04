@@ -2,7 +2,6 @@
  * Everforest Light Hard color scheme. See:
  *
  *     https://gist.github.com/sainnhe/6432f83181c4520ea87b5211fed27950
- *
  */
 black         = "#5c6a72";
 red           = "#f85552";
@@ -41,7 +40,6 @@ t.prefs_.set("cursor-color", "rgba(140, 161, 1, 0.4)"); // green @ 40%
  * Additional options. See:
  *
  *     https://chromium.googlesource.com/apps/libapps/+/HEAD/hterm/js/hterm_preference_manager.js
- *
  */
 t.prefs_.set("cursor-blink",          true);
 t.prefs_.set("enable-bold",           true);
