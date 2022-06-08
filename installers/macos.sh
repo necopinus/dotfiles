@@ -61,6 +61,7 @@ jq \
 keepassxc \
 keybase \
 lagrange \
+libdvdcss \
 libqalculate \
 logitech-options \
 logitech-unifying \
