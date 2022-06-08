@@ -44,6 +44,7 @@ expect \
 ffmpeg \
 ffuf \
 firefox \
+freac \
 free-gpgmail \
 ghidra \
 go \
@@ -82,6 +83,7 @@ radicle-upstream \
 remarkable \
 ripgrep \
 rlwrap \
+roam-research \
 rust \
 signal \
 slack \
