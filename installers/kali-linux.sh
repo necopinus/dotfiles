@@ -63,6 +63,7 @@ ghidra \
 gobuster \
 golang \
 graphicsmagick \
+gufw \
 htop \
 jq \
 libreadline-dev \
@@ -91,6 +92,31 @@ sudo apt autoremove --purge --autoremove
 source $CONFIG_PATH/user/local/bin/update-kerbrute.sh
 source $CONFIG_PATH/user/local/bin/update-kiterunner.sh
 source $CONFIG_PATH/user/local/bin/update-ngrok.sh
+
+# 1991 called. They want their disabled-by-default firewall back.
+#
+sudo ufw enable
+sudo ufw default deny
+
+# Make sure wireless connections do NOT auto-connect!
+#
+cat > /tmp/nm-autoconnect-false << EOF
+#!/usr/bin/bash                                                                                                                                       
+                                                                                                                                                      
+while IFS= read -d '' -r NMCONNECTION; do                                                                                                             
+	UUID="$(grep uuid "$NMCONNECTION" | sed -e 's/.*=//')"
+	TYPE="$(nmcli --fields connection.type connection show "$UUID" | sed -e 's/.*\s//')"
+	if [[ "$TYPE" == "802-11-wireless" ]]; then
+		AUTOCONNECT="$(nmcli --fields connection.autoconnect connection show "$UUID" | sed -e 's/.*\s//')"
+		if [[ "$AUTOCONNECT" == "yes" ]]; then
+			nmcli connection modify "$UUID" connection.autoconnect no
+		fi
+	fi
+done < <(find /etc/NetworkManager/system-connections -type f -iname '*.nmconnection' -print0)
+EOF
+sudo mv /tmp/nm-autoconnect-false /etc/cron.hourly/nm-autoconnect-false
+sudo chown root.root /etc/cron.hourly/nm-autoconnect-false
+sudo chmod 755 /etc/cron.hourly/nm-autoconnect-false
 
 # Apply application settings, when possible.
 #
