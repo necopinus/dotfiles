@@ -98,12 +98,16 @@ source $CONFIG_PATH/user/local/bin/update-ngrok.sh
 sudo ufw enable
 sudo ufw default deny
 
+# Make sure that Bluetooth is disabled on startup.
+#
+sudo sed -i -e 's/^AutoEnable=true$/#AutoEnable=true/' /etc/bluetooth/main.conf
+
 # Make sure wireless connections do NOT auto-connect!
 #
 cat > /tmp/nm-autoconnect-false << EOF
-#!/usr/bin/bash                                                                                                                                       
-                                                                                                                                                      
-while IFS= read -d '' -r NMCONNECTION; do                                                                                                             
+#!/usr/bin/bash
+
+while IFS= read -d '' -r NMCONNECTION; do
 	UUID="$(grep uuid "$NMCONNECTION" | sed -e 's/.*=//')"
 	TYPE="$(nmcli --fields connection.type connection show "$UUID" | sed -e 's/.*\s//')"
 	if [[ "$TYPE" == "802-11-wireless" ]]; then
