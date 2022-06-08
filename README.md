@@ -12,7 +12,7 @@ Various configuration files & scripts.
 	cd ~/_setup
 	git clone https://github.com/necopinus/dotfiles.git
 	chmod 755 dotfiles/installers/*
-	./dotfiles/bin/kali-linux-virtualbox.sh
+	./dotfiles/installers/kali-linux.sh
 	```
 
 2. Clean up the `~/_setup` directory.
