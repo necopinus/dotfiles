@@ -86,6 +86,7 @@ ripgrep \
 rlwrap \
 roam-research \
 rust \
+safe-multisig \
 signal \
 slack \
 slowhttptest \
