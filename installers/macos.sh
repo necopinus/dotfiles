@@ -43,7 +43,6 @@ discord \
 expect \
 ffmpeg \
 ffuf \
-firefox \
 freac \
 free-gpgmail \
 ghidra \
