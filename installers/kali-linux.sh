@@ -184,6 +184,13 @@ fi
 sudo systemctl enable postgresql.service
 sudo msfdb init
 
+# Some Burp Suite extensions need Jython.
+#
+(
+	cd $HOME/Documents
+	curl -L -O https://repo1.maven.org/maven2/org/python/jython-standalone/2.7.2/jython-standalone-2.7.2.jar
+)
+
 # Restore select git repos.
 #
 mkdir $HOME/Repos
