@@ -29,6 +29,11 @@ brew analytics off
 #
 brew tap homebrew/cask-drivers
 
+# Add the cask-versions tap to Homebrew so that we can install a
+# version of VMWare that's compatible with Apple Silicon.
+#
+brew tap homebrew/cask-versions
+
 # Install new applications.
 #
 brew install \
@@ -43,7 +48,6 @@ discord \
 expect \
 ffmpeg \
 ffuf \
-freac \
 free-gpgmail \
 ghidra \
 go \
@@ -51,7 +55,6 @@ gobuster \
 gpg-suite-no-mail \
 graphicsmagick \
 graphviz \
-handbrake \
 hashcat \
 hydra \
 insync \
@@ -60,7 +63,6 @@ jq \
 keepassxc \
 keybase \
 lagrange \
-libdvdcss \
 libqalculate \
 logitech-options \
 logitech-unifying \
@@ -97,6 +99,7 @@ testssl \
 virtualenv \
 viscosity \
 visual-studio-code \
+vmware-fusion-tech-preview \
 webp \
 youtube-dl \
 zoom

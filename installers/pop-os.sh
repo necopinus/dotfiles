@@ -93,10 +93,12 @@ golang \
 graphicsmagick \
 graphviz \
 grub-pc \
+handbrake \
 hashcat \
 hydra \
 john \
 jq \
+libdvd-pkg \
 libjpeg-turbo-progs \
 libreadline-dev \
 nikto \
@@ -138,6 +140,7 @@ flatpak install --user flathub org.gnome.eog
 flatpak install --user flathub org.gnome.Evince
 flatpak install --user flathub org.gnome.FileRoller
 flatpak install --user flathub org.gnome.seahorse.Application
+flatpak install --user flathub org.gnome.SoundJuicer
 flatpak install --user flathub org.keepassxc.KeePassXC
 flatpak install --user flathub org.libreoffice.LibreOffice
 flatpak install --user flathub org.mozilla.firefox
@@ -249,6 +252,12 @@ gsettings set org.gtk.Settings.FileChooser            clock-format              
 # Apply settings for relocatable schemas.
 #
 gsettings set org.gnome.desktop.notifications.application:/org/gnome/desktop/notifications/application/gnome-power-panel/ enable false
+
+# Apply settings to flatpaks.
+#
+flatpak run --command=gsettings org.gnome.SoundJuicer set org.gnome.sound-juicer audio-profile    "audio/mpeg"
+flatpak run --command=gsettings org.gnome.SoundJuicer set org.gnome.sound-juicer file-pattern     "%at - %dn - %ta - %tt"
+flatpak run --command=gsettings org.gnome.SoundJuicer set org.gnome.sound-juicer path-pattern     "%at"
 
 # Local SSH config.
 #
