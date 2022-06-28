@@ -14,6 +14,7 @@ source $CONFIG_PATH/user/local/bin/update-system.sh
 #
 apk add \
 bash \
+build-base \
 curl \
 drill \
 ffmpeg \
@@ -25,6 +26,8 @@ man-pages \
 nano \
 openssl \
 p7zip \
+py3-virtualenv \
+ruby-bundler \
 youtube-dl
 
 # Restore scripts and configurations from this repo.
@@ -36,11 +39,3 @@ cp $CONFIG_PATH/user/local/bin/update.sh        $HOME/.local/bin/update.sh
 cp $CONFIG_PATH/user/local/bin/update-system.sh $HOME/.local/bin/update-system.sh
 
 chmod +x $HOME/.local/bin/*
-
-# Restore select git repos.
-#
-mkdir $HOME/Repos
-(
-	cd $HOME/Repos
-	git clone https://github.com/necopinus/dotfiles.git
-)
