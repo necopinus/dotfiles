@@ -1,0 +1,25 @@
+# ONLY USED ON ALPINE LINUX!
+
+# Add ~/.cargo/bin to the path, if it exists.
+#
+if [[ -d "$HOME/.cargo/bin" ]]; then
+	export PATH="$HOME/.cargo/bin:$PATH"
+fi
+
+# Add ~/go/bin to the path, if it exists.
+#
+if [[ -d "$HOME/go/bin" ]]; then
+	export PATH="$HOME/go/bin:$PATH"
+fi
+
+# Add ~/.radicle/bin to the path, if it exists.
+#
+if [[ -d "$HOME/.radicle/bin" ]]; then
+	export PATH="$HOME/.radicle/bin:$PATH"
+fi
+
+# Make sure that ~/.local/bin is added to our path.
+#
+if [ -d $HOME/.local/bin ]; then
+	export PATH="$HOME/.local/bin:$PATH"
+fi

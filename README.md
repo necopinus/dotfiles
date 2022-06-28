@@ -2,6 +2,19 @@
 
 Various configuration files & scripts.
 
+## iSH
+
+```bash
+apk add bash git
+mkdir ~/_setup
+cd ~/_setup
+git clone https://github.com/necopinus/dotfiles.git
+chmod 755 dotfiles/installers/*
+./dotfiles/installers/kali-linux.sh
+cd ..
+rm -rf ~/_setup
+```
+
 ## Kali Linux
 
 1. Clone repo and run the configuration script. The system will be
