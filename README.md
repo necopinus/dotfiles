@@ -10,7 +10,7 @@ mkdir ~/_setup
 cd ~/_setup
 git clone https://github.com/necopinus/dotfiles.git
 chmod 755 dotfiles/installers/*
-./dotfiles/installers/kali-linux.sh
+./dotfiles/installers/ish.sh
 cd ..
 rm -rf ~/_setup
 ```
