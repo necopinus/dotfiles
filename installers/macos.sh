@@ -11,6 +11,11 @@ CONFIG_PATH="$(dirname "$SCRIPT_PATH")/../"
 xcode-select --install
 read -p "Press any key once Xcode has finished installing... " -n1 -s
 
+# Make sure that Rosetta is installed.
+#
+sudo softwareupdate --install-rosetta
+read -p "Press any key once Rosetta has finished installing... " -n1 -s
+
 # Install Homebrew. See:
 #
 #     https://brew.sh/
