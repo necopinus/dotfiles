@@ -69,6 +69,7 @@ keepassxc \
 keybase \
 lagrange \
 libqalculate \
+little-snitch \
 logitech-options \
 logitech-unifying \
 metasploit \
