@@ -78,6 +78,7 @@ libqalculate \
 little-snitch \
 logitech-options \
 logitech-unifying \
+malwarebytes \
 metasploit \
 microsoft-excel \
 microsoft-powerpoint \
