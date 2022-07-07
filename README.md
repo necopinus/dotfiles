@@ -17,44 +17,30 @@ rm -rf ~/_setup
 
 ## Kali Linux
 
-1. Clone repo and run the configuration script. The system will be
-   rebooted when this is done.
+```bash
+mkdir ~/_setup
+cd ~/_setup
+git clone https://github.com/necopinus/dotfiles.git
+chmod 755 dotfiles/installers/*
+./dotfiles/installers/kali-linux.sh
+cd ..
+rm -rf ~/_setup
+```
 
-	```bash
-	mkdir ~/_setup
-	cd ~/_setup
-	git clone https://github.com/necopinus/dotfiles.git
-	chmod 755 dotfiles/installers/*
-	./dotfiles/installers/kali-linux.sh
-	```
+Configure applicable GUI applications.
 
-2. Clean up the `~/_setup` directory.
+## Pop!\_OS
 
-	```bash
-	rm -rf ~/_setup
-	```
+Set up new per-device SSH/GPG keys.
 
-3. Finish configuring applications.
+```bash
+mkdir ~/_setup
+cd ~/_setup
+git clone https://github.com/necopinus/dotfiles.git
+chmod 755 dotfiles/installers/*
+./dotfiles/installers/pop-os.sh
+cd ..
+rm -rf ~/_setup
+```
 
-## Pop!_OS
-
-1. Set up new per-device SSH/GPG keys.
-
-2. Clone repo and run the first stage configuration. The system will be
-   rebooted when this is done.
-
-	```bash
-	mkdir ~/_setup
-	cd ~/_setup
-	git clone https://github.com/necopinus/dotfiles.git
-	chmod 755 dotfiles/installers/*
-	./dotfiles/installers/darter-pro.sh
-	```
-
-3. Clean up the `~/_setup` directory.
-
-	```bash
-	rm -rf ~/_setup
-	```
-
-4. Finish configuring applications.
+Configure applicable GUI applications.
