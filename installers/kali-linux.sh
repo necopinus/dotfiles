@@ -161,8 +161,6 @@ cp    $CONFIG_PATH/user/local/bin/update-kerbrute.sh   $HOME/.local/bin/update-k
 cp    $CONFIG_PATH/user/local/bin/update-kiterunner.sh $HOME/.local/bin/update-kiterunner.sh
 cp    $CONFIG_PATH/user/local/bin/update-ngrok.sh      $HOME/.local/bin/update-ngrok.sh
 cp    $CONFIG_PATH/user/local/bin/update-system.sh     $HOME/.local/bin/update-system.sh
-cp    $CONFIG_PATH/user/local/bin/update-volatility.sh $HOME/.local/bin/update-volatility.sh
-cp    $CONFIG_PATH/user/local/bin/update-xsrfprobe.sh  $HOME/.local/bin/update-xsrfprobe.sh
 cp -r $CONFIG_PATH/user/local/share/red-team           $HOME/.local/share/red-team
 cp    $CONFIG_PATH/user/tmux.conf                      $HOME/.tmux.conf
 cp    $CONFIG_PATH/user/zpath                          $HOME/.zpath
