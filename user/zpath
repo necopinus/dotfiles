@@ -4,8 +4,7 @@
 # is a login shell, it sources /etc/zsh/zprofile, which on Kali sources
 # /etc/profile, which resets our PATH (thus wiping out anything we do in
 # ~/.zshenv)... But in X11 ~/.zprofile never gets sourced at all (since
-# we're already logged in, and X11 has set up our environment). So we
-# need to call this in both places.
+# we're already logged in, and X11 has set up our environment).
 
 # Add ~/.cargo/bin to the path, if it exists.
 #
