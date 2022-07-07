@@ -200,3 +200,7 @@ mkdir $HOME/Repos
 	git clone git@github.com:The-Yak-Collective/yakcollective.git
 	git clone git@github.com:necopinus/zibaldone.git
 )
+
+# Finis.
+#
+echo "A reboot is required for some features to become available."

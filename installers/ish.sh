@@ -39,3 +39,7 @@ cp $CONFIG_PATH/user/local/bin/update.sh        $HOME/.local/bin/update.sh
 cp $CONFIG_PATH/user/local/bin/update-system.sh $HOME/.local/bin/update-system.sh
 
 chmod +x $HOME/.local/bin/*
+
+# Finis.
+#
+echo "Restarting iSH is required for some features to become available."

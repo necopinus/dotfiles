@@ -344,7 +344,3 @@ mkdir $HOME/Repos
 # Finish up.
 #
 echo "A reboot is required for some features to become available."
-echo ""
-read -p "When ready, press any key to reboot... " -n1 -s
-echo ""
-sudo reboot
