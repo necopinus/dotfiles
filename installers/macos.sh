@@ -62,6 +62,7 @@ graphicsmagick \
 graphviz \
 hashcat \
 hydra \
+insomnia \
 insync \
 john-jumbo \
 jq \
@@ -95,6 +96,7 @@ rlwrap \
 roam-research \
 rust \
 safe-multisig \
+semgrep \
 signal \
 slack \
 slowhttptest \
