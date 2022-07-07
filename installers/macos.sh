@@ -45,6 +45,9 @@ brew install \
 adobe-creative-cloud \
 aircrack-ng \
 apktool \
+awscli \
+awscurl \
+azure-cli \
 brave-browser \
 burp-suite \
 coreutils \
@@ -53,10 +56,12 @@ discord \
 expect \
 ffmpeg \
 ffuf \
+firefox \
 free-gpgmail \
 ghidra \
 go \
 gobuster \
+google-cloud-sdk \
 gpg-suite-no-mail \
 graphicsmagick \
 graphviz \
@@ -134,13 +139,22 @@ eval "\$(/opt/homebrew/bin/brew shellenv)"
 #
 export PATH="\$HOME/.local/bin:/opt/homebrew/opt/coreutils/libexec/gnubin:\$PATH"
 
+# Google Cloud SDK paths and completions.
+#
+source /opt/homebrew/Caskroom/google-cloud-sdk/latest/google-cloud-sdk/path.zsh.inc
+source /opt/homebrew/Caskroom/google-cloud-sdk/latest/google-cloud-sdk/completion.zsh.inc
+
 # Prefix the GRML prompt when in an active virtualenv.
 #
 function virtual_env_prompt () {
-	REPLY=\${VIRTUAL_ENV+(${VIRTUAL_ENV:t}) }
+	REPLY=\${VIRTUAL_ENV+(\${VIRTUAL_ENV:t}) }
 }
 grml_theme_add_token  virtual-env -f virtual_env_prompt '%F{magenta}' '%f'
 zstyle ':prompt:grml:left:setup' items rc virtual-env change-root user at host path vcs percent
+
+# Keep Nano syntax highlighting up-to-date.
+#
+find -L /opt/homebrew/share/nano -type f -iname '*.nanorc' | sed 's/^/include /' > \$HOME/.nanorc
 EOF
 
 # Local SSH config.
