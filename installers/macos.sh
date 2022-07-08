@@ -34,11 +34,6 @@ brew analytics off
 #
 brew tap homebrew/cask-drivers
 
-# Add the cask-versions tap to Homebrew so that we can install a
-# version of VMWare that's compatible with Apple Silicon.
-#
-brew tap homebrew/cask-versions
-
 # Install new applications.
 #
 brew install \
@@ -113,7 +108,6 @@ testssl \
 virtualenv \
 viscosity \
 visual-studio-code \
-vmware-fusion-tech-preview \
 webp \
 youtube-dl \
 zoom
