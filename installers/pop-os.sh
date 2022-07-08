@@ -79,6 +79,7 @@ sudo rm -rf /usr/share/fonts/truetype/libreoffice
 sudo apt install \
 aircrack-ng \
 apktool \
+asciinema \
 brave-browser \
 bundler \
 cmake \

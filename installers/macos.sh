@@ -40,6 +40,7 @@ brew install \
 adobe-creative-cloud \
 aircrack-ng \
 apktool \
+asciinema \
 awscli \
 awscurl \
 azure-cli \
@@ -73,13 +74,15 @@ libqalculate \
 little-snitch \
 logitech-options \
 logitech-unifying \
+macx-dvd-ripper-pro \
 malwarebytes \
-maven \
+mediahuman-audio-converter \
 metasploit \
 microsoft-excel \
 microsoft-powerpoint \
 microsoft-remote-desktop \
 microsoft-word \
+mingw-w64 \
 nano \
 netcat \
 ngrok \
@@ -97,6 +100,7 @@ remarkable \
 ripgrep \
 rlwrap \
 roam-research \
+ruby
 rust \
 safe-multisig \
 semgrep \
@@ -111,6 +115,7 @@ virtualenv \
 viscosity \
 visual-studio-code \
 webp \
+xld \
 ykman \
 youtube-dl \
 zoom

@@ -53,33 +53,23 @@ sudo apt purge --autoremove --purge colord
 # Install new applications.
 #
 sudo apt install \
+asciinema \
 build-essential \
 burpsuite \
 chromium \
-exfatprogs \
-fonts-noto \
 gcc-mingw-w64-x86-64 \
 ghidra \
 gobuster \
 golang \
-graphicsmagick \
 gufw \
-htop \
 jq \
-libreadline-dev \
-libssl-dev \
 linux-exploit-suggester \
-maven \
-npm \
 openjdk-11-jdk \
-python3-capstone \
 python3-pip \
 qalc \
 ripgrep \
-ruby-httpclient \
 seclists \
-testssl.sh \
-webp
+testssl.sh
 
 # The above packages supercede some installed packages, so we do some
 # additional cleanup here.
