@@ -162,7 +162,7 @@ cp    $CONFIG_PATH/user/local/bin/update-ngrok.sh      $HOME/.local/bin/update-n
 cp    $CONFIG_PATH/user/local/bin/update-system.sh     $HOME/.local/bin/update-system.sh
 cp -r $CONFIG_PATH/user/local/share/red-team           $HOME/.local/share/red-team
 cp    $CONFIG_PATH/user/tmux.conf                      $HOME/.tmux.conf
-cp    $CONFIG_PATH/user/zpath                          $HOME/.zpath
+cp    $CONFIG_PATH/user/zinit                          $HOME/.zinit
 cp    $CONFIG_PATH/user/zprofile                       $HOME/.zprofile
 cp    $CONFIG_PATH/user/zshenv                         $HOME/.zshenv
 

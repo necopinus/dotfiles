@@ -1,7 +1,7 @@
-# Add elements to the path for ZSH. This either needs to be called in
-# ~/.zshenv (for non-login shells) or ~/.zprofile (for login shells).
-# The reason we need to do this in two different ways is that when ZSH
-# is a login shell, it sources /etc/zsh/zprofile, which on Kali sources
+# Additional Zsh configuration either needs to be called in ~/.zshenv
+# (for non-login shells) or ~/.zprofile (for login shells). The reason
+# we need to do this in two different ways is that when ZSH is a login
+# shell it sources /etc/zsh/zprofile, which on Kali sources
 # /etc/profile, which resets our PATH (thus wiping out anything we do in
 # ~/.zshenv)... But in X11 ~/.zprofile never gets sourced at all (since
 # we're already logged in, and X11 has set up our environment).
@@ -29,3 +29,8 @@ fi
 if [[ -d $HOME/.local/bin ]]; then
 	export PATH="$HOME/.local/bin:$PATH"
 fi
+
+# Keep Nano syntax highlighting up-to-date.
+#
+find -L /usr/share/nano -type f -iname '*.nanorc' | sed 's/^/include /' > $HOME/.nanorc
+
