@@ -5,7 +5,7 @@ if [[ -n "$(which brew)" ]]; then
 	brew upgrade
 	brew autoremove
 	brew cleanup -s
-elif [[ -n "$(which apk)"]]; then
+elif [[ -n "$(which apk)" ]]; then
 	apk update
 	apk upgrade
 elif [[ -n "$(which apt)" ]]; then
