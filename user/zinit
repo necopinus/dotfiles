@@ -30,7 +30,21 @@ if [[ -d $HOME/.local/bin ]]; then
 	export PATH="$HOME/.local/bin:$PATH"
 fi
 
+# Homebrew-specific setup.
+#
+if [[ -d /opt/homebrew ]]; then
+	eval "$(/opt/homebrew/bin/brew shellenv)"
+
+	export PATH="/opt/homebrew/opt/coreutils/libexec/gnubin:$PATH"
+
+	source /opt/homebrew/Caskroom/google-cloud-sdk/latest/google-cloud-sdk/path.zsh.inc
+	source /opt/homebrew/Caskroom/google-cloud-sdk/latest/google-cloud-sdk/completion.zsh.inc
+fi
+
 # Keep Nano syntax highlighting up-to-date.
 #
-find -L /usr/share/nano -type f -iname '*.nanorc' | sed 's/^/include /' > $HOME/.nanorc
-
+if [[ -d /opt/homebrew/share/nano ]]; then
+	find -L /opt/homebrew/share/nano -type f -iname '*.nanorc' | sed 's/^/include /' > $HOME/.nanorc
+elif [[ -d /usr/share/nano ]]; then
+	find -L /usr/share/nano -type f -iname '*.nanorc' | sed 's/^/include /' > $HOME/.nanorc
+fi

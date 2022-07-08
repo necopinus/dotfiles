@@ -74,18 +74,20 @@ little-snitch \
 logitech-options \
 logitech-unifying \
 malwarebytes \
+maven \
 metasploit \
 microsoft-excel \
 microsoft-powerpoint \
 microsoft-remote-desktop \
 microsoft-word \
+nano \
 netcat \
+ngrok \
 nikto \
 nmap \
 node \
 obsidian \
 optipng \
-parallels \
 poppler \
 postman \
 powershell \
@@ -109,6 +111,7 @@ virtualenv \
 viscosity \
 visual-studio-code \
 webp \
+ykman \
 youtube-dl \
 zoom
 
@@ -122,34 +125,15 @@ brew install --cask wireshark
 curl -L -o $HOME/.zshrc "https://git.grml.org/?p=grml-etc-core.git;a=blob_plain;f=etc/zsh/zshrc;hb=HEAD"
 curl -L -o $HOME/.zshrc.local "https://git.grml.org/?p=grml-etc-core.git;a=blob_plain;f=etc/skel/.zshrc;hb=HEAD"
 
-# Add additional Homebrew paths.
-#
 cat >> $HOME/.zshrc.local << EOF
-
-# Add Homebrew to the shell's PATH.
-#
-eval "\$(/opt/homebrew/bin/brew shellenv)"
-
-# Additional paths.
-#
-export PATH="\$HOME/.local/bin:/opt/homebrew/opt/coreutils/libexec/gnubin:\$PATH"
-
-# Google Cloud SDK paths and completions.
-#
-source /opt/homebrew/Caskroom/google-cloud-sdk/latest/google-cloud-sdk/path.zsh.inc
-source /opt/homebrew/Caskroom/google-cloud-sdk/latest/google-cloud-sdk/completion.zsh.inc
 
 # Prefix the GRML prompt when in an active virtualenv.
 #
 function virtual_env_prompt () {
 	REPLY=\${VIRTUAL_ENV+(\${VIRTUAL_ENV:t}) }
 }
-grml_theme_add_token  virtual-env -f virtual_env_prompt '%F{magenta}' '%f'
+grml_theme_add_token virtual-env -f virtual_env_prompt '%F{magenta}' '%f'
 zstyle ':prompt:grml:left:setup' items rc virtual-env change-root user at host path vcs percent
-
-# Keep Nano syntax highlighting up-to-date.
-#
-find -L /opt/homebrew/share/nano -type f -iname '*.nanorc' | sed 's/^/include /' > \$HOME/.nanorc
 EOF
 
 # Local SSH config.
@@ -168,10 +152,14 @@ chmod 600 $HOME/.ssh/*
 
 # Restore scripts and configurations from this repo.
 #
-mkdir -p $HOME/.local/bin
+mkdir -p $HOME/.local/{bin,share}
 
-cp $CONFIG_PATH/user/local/bin/update.sh        $HOME/.local/bin/update.sh
-cp $CONFIG_PATH/user/local/bin/update-system.sh $HOME/.local/bin/update-system.sh
+cp    $CONFIG_PATH/user/local/bin/update.sh        $HOME/.local/bin/update.sh
+cp    $CONFIG_PATH/user/local/bin/update-system.sh $HOME/.local/bin/update-system.sh
+cp -r $CONFIG_PATH/user/local/share/red-team       $HOME/.local/share/red-team
+cp    $CONFIG_PATH/user/zinit                      $HOME/.zinit
+cp    $CONFIG_PATH/user/zprofile                   $HOME/.zprofile
+cp    $CONFIG_PATH/user/zshenv                     $HOME/.zshenv
 
 chmod 755 $HOME/.local/bin/*
 
@@ -210,6 +198,16 @@ mkdir $HOME/Repos
 	git clone git@github.com:necopinus/website-theme.git
 	git clone git@github.com:The-Yak-Collective/yakcollective.git
 	git clone git@github.com:necopinus/zibaldone.git
+)
+
+# Uncompress rockyou.txt.
+#
+mkdir -p $HOME/.local/share/red-team/wordlists
+(
+	cd $HOME/.local/share/red-team/wordlists
+	cp $HOME/Repos/SecLists/Passwords/Leaked-Databases/rockyou.txt.tar.gz .
+	tar -xzvf rockyou.txt.tar.gz
+	rm rockyou.txt.tar.gz
 )
 
 # Finis.

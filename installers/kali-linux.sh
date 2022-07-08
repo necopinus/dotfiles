@@ -151,7 +151,7 @@ chmod 600 $HOME/.ssh/*
 
 # Restore scripts and configurations from this repo.
 #
-mkdir -p $HOME/.local/bin
+mkdir -p $HOME/.local/{bin,share}
 
 cp    $CONFIG_PATH/user/bash_aliases                   $HOME/.bash_aliases
 cp    $CONFIG_PATH/user/inputrc                        $HOME/.inputrc
