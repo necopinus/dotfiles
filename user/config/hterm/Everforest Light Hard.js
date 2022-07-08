@@ -20,21 +20,15 @@ brightMagenta = "#df69ba";
 brightCyan    = "#35a77c";
 brightWhite   = "#dfddc8";
 
-/*
- * Note that color-palette-overrides should go "black, red, ..., cyan,
- * white", but we flip the black and white values in order to make
- * things play nicer with Tmux, Zsh, and other tools that seem to be
- * configured to expect terminal with a dark background color.
- */
 t.prefs_.set("color-palette-overrides", [
-	      white,       red,       green,       yellow,       blue,       magenta,       cyan,       black,
-	brightWhite, brightRed, brightGreen, brightYellow, brightBlue, brightMagenta, brightCyan, brightBlack
+	      black,       red,       green,       yellow,       blue,       magenta,       cyan,       white,
+	brightBlack, brightRed, brightGreen, brightYellow, brightBlue, brightMagenta, brightCyan, brightWhite
 ]);
 
 t.prefs_.set("foreground-color", black);
 t.prefs_.set("background-color", "#fff9e8"); // Slightly brighter background
 
-t.prefs_.set("cursor-color", "rgba(140, 161, 1, 0.4)"); // green @ 40%
+t.prefs_.set("cursor-color", "rgba(141, 161, 1, 0.4)"); // green @ 40%
 
 /*
  * Additional options. See:
