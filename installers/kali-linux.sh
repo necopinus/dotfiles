@@ -155,7 +155,6 @@ mkdir -p $HOME/.local/bin
 
 cp    $CONFIG_PATH/user/bash_aliases                   $HOME/.bash_aliases
 cp    $CONFIG_PATH/user/inputrc                        $HOME/.inputrc
-cp    $CONFIG_PATH/user/local/bin/backup.sh            $HOME/.local/bin/backup.sh
 cp    $CONFIG_PATH/user/local/bin/update.sh            $HOME/.local/bin/update.sh
 cp    $CONFIG_PATH/user/local/bin/update-kerbrute.sh   $HOME/.local/bin/update-kerbrute.sh
 cp    $CONFIG_PATH/user/local/bin/update-kiterunner.sh $HOME/.local/bin/update-kiterunner.sh
