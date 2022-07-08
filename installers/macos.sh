@@ -39,6 +39,7 @@ brew tap homebrew/cask-drivers
 brew install \
 adobe-creative-cloud \
 aircrack-ng \
+amethyst \
 apktool \
 asciinema \
 awscli \
