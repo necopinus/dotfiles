@@ -68,6 +68,7 @@ keepassxc \
 libdvd-pkg \
 libjpeg-turbo-progs \
 libreadline-dev \
+libsqlite3-dev \
 nikto \
 nmap \
 npm \
