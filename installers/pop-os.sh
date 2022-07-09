@@ -36,44 +36,6 @@ rm -f ./protonvpn-stable-release_1.0.1-1_all.deb
 #
 source $CONFIG_PATH/user/local/bin/update-system.sh
 
-# Cleanup unneeded software.
-#
-sudo apt purge --autoremove --purge \
-baobab \
-eog \
-evince \
-file-roller \
-firefox \
-firefox-locale-ar \
-firefox-locale-de \
-firefox-locale-en \
-firefox-locale-es \
-firefox-locale-fr \
-firefox-locale-it \
-firefox-locale-ja \
-firefox-locale-pt \
-firefox-locale-ru \
-firefox-locale-zh-hans \
-firefox-locale-zh-hant \
-geary \
-gedit \
-gnome-calculator \
-gnome-calendar \
-gnome-contacts \
-gnome-font-viewer \
-gnome-power-manager \
-gnome-weather \
-gucharmap \
-libreoffice-common \
-popsicle-gtk \
-seahorse \
-simple-scan \
-totem
-
-# Clean up random files/directories.
-#
-sudo rm -rf /usr/share/fonts/truetype/libreoffice
-
 # Install new applications.
 #
 sudo apt install \
@@ -83,10 +45,13 @@ asciinema \
 brave-browser \
 bundler \
 cmake \
+code \
+discord \
 exfatprogs \
 expect \
 ffuf \
 fonts-noto \
+gimp \
 gir1.2-appindicator3-0.1 \
 gnome-screenshot \
 gobuster \
@@ -99,6 +64,7 @@ hashcat \
 hydra \
 john \
 jq \
+keepassxc \
 libdvd-pkg \
 libjpeg-turbo-progs \
 libreadline-dev \
@@ -116,9 +82,11 @@ rdesktop \
 ripgrep \
 rlwrap \
 rust-all \
+slack-desktop \
 slowhttptest \
 socat \
 solaar \
+sound-juicer \
 sqlmap \
 testssl.sh \
 virtualbox-ext-pack \
@@ -128,25 +96,12 @@ webp \
 wireshark \
 youtube-dl
 
-flatpak install --user flathub ca.desrt.dconf-editor
-flatpak install --user flathub com.discordapp.Discord
+#flatpak install --user flathub com.discordapp.Discord
 flatpak install --user flathub com.getpostman.Postman
-flatpak install --user flathub com.slack.Slack
-flatpak install --user flathub com.visualstudio.code
 flatpak install --user flathub fi.skyjake.Lagrange
 flatpak install --user flathub md.obsidian.Obsidian
 flatpak install --user flathub org.ghidra_sre.Ghidra
-flatpak install --user flathub org.gimp.GIMP
-flatpak install --user flathub org.gnome.eog
-flatpak install --user flathub org.gnome.Evince
-flatpak install --user flathub org.gnome.FileRoller
-flatpak install --user flathub org.gnome.seahorse.Application
-flatpak install --user flathub org.gnome.SoundJuicer
-flatpak install --user flathub org.keepassxc.KeePassXC
-flatpak install --user flathub org.libreoffice.LibreOffice
-flatpak install --user flathub org.mozilla.firefox
 flatpak install --user flathub org.signal.Signal
-flatpak install --user flathub org.videolan.VLC
 
 # Install Keybase.
 #
@@ -204,62 +159,6 @@ sudo mv /tmp/nm-autoconnect-false /etc/cron.hourly/nm-autoconnect-false
 sudo chown root.root /etc/cron.hourly/nm-autoconnect-false
 sudo chmod 755 /etc/cron.hourly/nm-autoconnect-false
 
-# Apply application settings, when possible.
-#
-gsettings set ca.desrt.dconf-editor.Settings          show-warning                   false
-gsettings set org.gnome.desktop.interface             clock-format                   "24h"
-gsettings set org.gnome.desktop.datetime              automatic-timezone             false
-gsettings set org.gnome.desktop.interface             clock-show-weekday             true
-gsettings set org.gnome.desktop.interface             document-font-name             "Roboto Slab 13"
-gsettings set org.gnome.desktop.interface             font-name                      "Fira Sans Semi-Light 13"
-gsettings set org.gnome.desktop.interface             gtk-im-module                  "ibus"
-gsettings set org.gnome.desktop.interface             monospace-font-name            "Fira Mono 13"
-gsettings set org.gnome.desktop.media-handling        autorun-never                  true
-gsettings set org.gnome.desktop.notifications         show-in-lock-screen            true
-gsettings set org.gnome.desktop.peripherals.touchpad  natural-scroll                 true
-gsettings set org.gnome.desktop.privacy               recent-files-max-age           30
-gsettings set org.gnome.desktop.privacy               remove-old-temp-files          true
-gsettings set org.gnome.desktop.privacy               remove-old-trash-files         true
-gsettings set org.gnome.desktop.privacy               report-technical-problems      false
-gsettings set org.gnome.desktop.sound                 allow-volume-above-100-percent true
-gsettings set org.gnome.desktop.wm.keybindings        switch-applications            "['<Super>Tab']"
-gsettings set org.gnome.desktop.wm.keybindings        switch-applications-backward   "['<Shift><Super>Tab']"
-gsettings set org.gnome.desktop.wm.keybindings        switch-windows                 "['<Alt>Tab']"
-gsettings set org.gnome.desktop.wm.keybindings        switch-windows-backward        "['<Shift><Alt>Tab']"
-gsettings set org.gnome.desktop.wm.preferences        button-layout                  "appmenu:minimize,maximize,close"
-gsettings set org.gnome.desktop.wm.preferences        titlebar-font                  "Fira Sans Semi-Bold 13"
-gsettings set org.gnome.gnome-screenshot              delay                          5
-gsettings set org.gnome.gnome-screenshot              last-save-directory            "file://$HOME/Downloads"
-gsettings set org.gnome.gnome-system-monitor          solaris-mode                   false
-gsettings set org.gnome.gnome-system-monitor.proctree sort-col                       8
-gsettings set org.gnome.nautilus.list-view            use-tree-view                  true
-gsettings set org.gnome.nautilus.preferences          default-folder-viewer          "list-view"
-gsettings set org.gnome.settings-daemon.plugins.color night-light-enabled            true
-gsettings set org.gnome.shell                         remember-mount-password        true
-gsettings set org.gnome.shell.extensions.dash-to-dock click-action                   "cycle-windows"
-gsettings set org.gnome.shell.extensions.dash-to-dock dash-max-icon-size             36
-gsettings set org.gnome.shell.extensions.dash-to-dock dock-fixed                     true
-gsettings set org.gnome.shell.extensions.dash-to-dock dock-position                  "BOTTOM"
-gsettings set org.gnome.shell.extensions.dash-to-dock extend-height                  true
-gsettings set org.gnome.shell.extensions.dash-to-dock intellihide                    false
-gsettings set org.gnome.shell.extensions.dash-to-dock multi-monitor                  true
-gsettings set org.gnome.shell.extensions.dash-to-dock show-mounts                    true
-gsettings set org.gnome.shell.extensions.pop-cosmic   clock-alignment                "RIGHT"
-gsettings set org.gnome.shell.extensions.pop-cosmic   workspace-picker-left          false
-gsettings set org.gnome.shell.window-switcher         current-workspace-only         false
-gsettings set org.gnome.system.location               enabled                        true
-gsettings set org.gtk.Settings.FileChooser            clock-format                   "24h"
-
-# Apply settings for relocatable schemas.
-#
-gsettings set org.gnome.desktop.notifications.application:/org/gnome/desktop/notifications/application/gnome-power-panel/ enable false
-
-# Apply settings to flatpaks.
-#
-flatpak run --command=gsettings org.gnome.SoundJuicer set org.gnome.sound-juicer audio-profile    "audio/mpeg"
-flatpak run --command=gsettings org.gnome.SoundJuicer set org.gnome.sound-juicer file-pattern     "%at - %dn - %ta - %tt"
-flatpak run --command=gsettings org.gnome.SoundJuicer set org.gnome.sound-juicer path-pattern     "%at"
-
 # Local SSH config.
 #
 mkdir -p $HOME/.ssh
@@ -285,14 +184,13 @@ cp $CONFIG_PATH/user/local/bin/backup.sh                 $HOME/.local/bin/backup
 cp $CONFIG_PATH/user/local/bin/update.sh                 $HOME/.local/bin/update.sh
 cp $CONFIG_PATH/user/local/bin/update-radicle.sh         $HOME/.local/bin/update-radicle.sh
 cp $CONFIG_PATH/user/local/bin/update-system.sh          $HOME/.local/bin/update-system.sh
-cp $CONFIG_PATH/user/local/bin/update-youtube-dl.sh      $HOME/.local/bin/update-youtube-dl.sh
 cp $CONFIG_PATH/user/local/bin/update-yubikey-manager.sh $HOME/.local/bin/update-yubikey-manager.sh
 
 chmod 755 $HOME/.local/bin/*
 
 # Make sure that KeePassXC auto starts.
 #
-ln -s $HOME/.local/share/flatpak/exports/share/applications/org.keepassxc.KeePassXC.desktop $HOME/.config/autostart/
+ln -s /usr/share/applications/org.keepassxc.KeePassXC.desktop $HOME/.config/autostart/
 
 # Disable the VirtualBox web service. We don't need it, and it just
 # likes to fail and make systemd complain anyway.
