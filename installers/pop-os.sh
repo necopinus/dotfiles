@@ -96,7 +96,6 @@ webp \
 wireshark \
 youtube-dl
 
-#flatpak install --user flathub com.discordapp.Discord
 flatpak install --user flathub com.getpostman.Postman
 flatpak install --user flathub fi.skyjake.Lagrange
 flatpak install --user flathub md.obsidian.Obsidian
@@ -162,6 +161,7 @@ sudo chmod 755 /etc/cron.hourly/nm-autoconnect-false
 # Local SSH config.
 #
 mkdir -p $HOME/.ssh
+ssh-keygen -C "nathan.acks@cardboard-iguana.com $(date "+%Y-%m-%d")" -t ed25519
 cat > $HOME/.ssh/config << EOF
 # Defaults
 #
@@ -172,6 +172,9 @@ Host *
 EOF
 chmod 700 $HOME/.ssh
 chmod 600 $HOME/.ssh/*
+echo ""
+echo "Remember to add this SSH key to GitHub and the Raspberry Pi!"
+read -p "Press any key to continue... " -n1 -s
 
 # Restore scripts and configurations from this repo.
 #
@@ -206,6 +209,27 @@ sudo usermod -aG vboxusers $USER
 # allow for packet capture without root privileges.
 #
 sudo usermod -aG wireshark $USER
+
+# Generate new GPG key.
+#
+echo ""
+echo "Create a GPG key for this device. Use the following settings:"
+echo ""
+echo ""
+echo "    * When asked what kind of key you want to use, choose \"(9) ECC and"
+echo "      ECC\"."
+echo "    * When asked what kind of elliptic curve you want to use, choose \"(1)"
+echo "      Curve 25519\"."
+echo "    * When asked how long this key should be valid for, choose echo \"0\" (e.g.,"
+echo "      \"key does not expire\")."
+echo "    * Real name is \"Nathan Acks\", email address is"
+echo "      \"nathan.acks@cardboard-iguana.com\", and the comment is today's date"
+echo "      in YYYY-MM-DD format."
+echo "" 
+gpg --expert --full-generate-key
+echo ""
+echo "Remember to add this GPG key to GitHub!"
+read -p "Press any key to continue... " -n1 -s
 
 # Restore all git repos.
 #
