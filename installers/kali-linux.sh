@@ -112,21 +112,6 @@ sudo mv /tmp/nm-autoconnect-false /etc/cron.hourly/nm-autoconnect-false
 sudo chown root.root /etc/cron.hourly/nm-autoconnect-false
 sudo chmod 755 /etc/cron.hourly/nm-autoconnect-false
 
-# Apply application settings, when possible.
-#
-# To access/manipulate gsettings in a flatpak, use:
-#
-#   flatpak run --command=gsettings $APP_REF $GSETTINGS_COMMAND_LINE
-#
-gsettings set org.gtk.Settings.FileChooser clock-format "24h"
-
-xfconf-query -n -c displays            -p /AutoEnableProfiles                   -t bool   -s true
-xfconf-query -n -c displays            -p /Notify                               -t bool   -s true
-xfconf-query -n -c xfce4-panel         -p /plugins/plugin-15/timezone           -t string -s "US/Mountain"
-xfconf-query -n -c xfce4-power-manager -p /xfce4-power-manager/blank-on-ac      -t int    -s 0
-xfconf-query -n -c xfce4-power-manager -p /xfce4-power-manager/blank-on-battery -t int    -s 0
-xfconf-query -n -c xfce4-power-manager -p /xfce4-power-manager/dpms-enabled     -t bool   -s false
-
 # Local SSH config.
 #
 mkdir -p $HOME/.ssh
