@@ -69,7 +69,8 @@ python3-pip \
 qalc \
 ripgrep \
 seclists \
-testssl.sh
+testssl.sh \
+veil
 
 # The above packages supercede some installed packages, so we do some
 # additional cleanup here.
