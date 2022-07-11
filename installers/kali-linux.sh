@@ -62,6 +62,7 @@ ghidra \
 gobuster \
 golang \
 gufw \
+ike-scan \
 jq \
 linux-exploit-suggester \
 openjdk-11-jdk \
