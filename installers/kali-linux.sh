@@ -67,12 +67,15 @@ ike-scan \
 jq \
 linux-exploit-suggester \
 openjdk-11-jdk \
+oscanner \
 python3-pip \
 qalc \
 ripgrep \
 samdump2 \
 seclists \
+sidguesser \
 testssl.sh \
+tnscmd10g \
 veil
 
 # The above packages supercede some installed packages, so we do some
