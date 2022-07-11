@@ -54,6 +54,7 @@ sudo apt purge --autoremove --purge colord
 #
 sudo apt install \
 asciinema \
+bkhive \
 build-essential \
 burpsuite \
 chromium \
@@ -69,6 +70,7 @@ openjdk-11-jdk \
 python3-pip \
 qalc \
 ripgrep \
+samdump2 \
 seclists \
 testssl.sh \
 veil
