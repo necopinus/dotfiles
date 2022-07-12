@@ -43,15 +43,12 @@ aircrack-ng \
 apktool \
 arp-scan
 asciinema \
-bkhive \
 brave-browser \
-bsdutils \
 bundler \
 cmake \
 code \
 discord \
 dsniff \
-enum4linux \
 exfatprogs \
 expect \
 ffuf \
@@ -77,14 +74,11 @@ libdvd-pkg \
 libjpeg-turbo-progs \
 libreadline-dev \
 libsqlite3-dev \
-metasploit \
-mimikatz \
 nbtscan \
 nikto \
 nmap \
 npm \
 optipng \
-oscanner \
 protonvpn \
 python3-bs4 \
 python3-openssl \
@@ -97,7 +91,6 @@ rlwrap \
 rust-all \
 samdump2 \
 sipcrack \
-sidguesser \
 sipsak \
 slack-desktop \
 slowhttptest \
@@ -106,8 +99,6 @@ solaar \
 sound-juicer \
 sqlmap \
 testssl.sh \
-tnscmd10g \
-veil \
 virtualbox-ext-pack \
 virtualbox-guest-additions-iso \
 virtualenv \
