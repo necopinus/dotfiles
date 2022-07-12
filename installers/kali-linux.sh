@@ -53,34 +53,33 @@ sudo apt purge --autoremove --purge colord
 # Install new applications.
 #
 sudo apt install \
-arp-scan \
+#arp-scan \
 asciinema \
-bkhive \
-bsdutils \
+#bsdutils \
 build-essential \
 burpsuite \
 chromium \
 dsniff \
-enum4linux \
+#enum4linux \
 gcc-mingw-w64-x86-64 \
 ghidra \
 gobuster \
 golang \
 gufw \
-hping3 \
-ike-scan \
+#hping3 \
+#ike-scan \
 ipcalc \
 jq \
 linux-exploit-suggester \
-metasploit \
-mimikatz \
-nbtscan \
+#metasploit-frameworks \
+#mimikatz \
+#nbtscan \
 openjdk-11-jdk \
 oscanner \
 python3-pip \
 qalc \
 ripgrep \
-samdump2 \
+#samdump2 \
 seclists \
 sidguesser \
 sipcrack \
