@@ -53,40 +53,37 @@ sudo apt purge --autoremove --purge colord
 # Install new applications.
 #
 sudo apt install \
-#arp-scan \
 asciinema \
-#bsdutils \
 build-essential \
 burpsuite \
 chromium \
 dsniff \
-#enum4linux \
 gcc-mingw-w64-x86-64 \
 ghidra \
 gobuster \
 golang \
 gufw \
-#hping3 \
-#ike-scan \
 ipcalc \
 jq \
 linux-exploit-suggester \
-#metasploit-frameworks \
-#mimikatz \
-#nbtscan \
 openjdk-11-jdk \
 oscanner \
 python3-pip \
 qalc \
 ripgrep \
-#samdump2 \
 seclists \
 sidguesser \
 sipcrack \
 sipsak \
 testssl.sh \
-tnscmd10g \
-veil
+tnscmd10g
+
+# A few packages are currently only available on Intel.
+#
+if [[ "$(uname -m)" == "x86_64" ]]; then
+	sudo apt install \
+	veil
+fi	
 
 # The above packages supercede some installed packages, so we do some
 # additional cleanup here.
