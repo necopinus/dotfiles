@@ -41,6 +41,7 @@ adobe-creative-cloud \
 aircrack-ng \
 amethyst \
 apktool \
+arp-scan \
 asciinema \
 awscli \
 awscurl \
@@ -63,9 +64,11 @@ gpg-suite-no-mail \
 graphicsmagick \
 graphviz \
 hashcat \
+hping \
 hydra \
 insomnia \
 insync \
+ipcalc \
 john-jumbo \
 jq \
 keepassxc \
@@ -106,6 +109,7 @@ rust \
 safe-multisig \
 semgrep \
 signal \
+sipsak \
 slack \
 slowhttptest \
 socat \

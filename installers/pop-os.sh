@@ -41,12 +41,17 @@ source $CONFIG_PATH/user/local/bin/update-system.sh
 sudo apt install \
 aircrack-ng \
 apktool \
+arp-scan
 asciinema \
+bkhive \
 brave-browser \
+bsdutils \
 bundler \
 cmake \
 code \
 discord \
+dsniff \
+enum4linux \
 exfatprogs \
 expect \
 ffuf \
@@ -61,7 +66,10 @@ graphviz \
 grub-pc \
 handbrake \
 hashcat \
+hping3 \
 hydra \
+ike-scan \
+ipcalc \
 john \
 jq \
 keepassxc \
@@ -69,10 +77,14 @@ libdvd-pkg \
 libjpeg-turbo-progs \
 libreadline-dev \
 libsqlite3-dev \
+metasploit \
+mimikatz \
+nbtscan \
 nikto \
 nmap \
 npm \
 optipng \
+oscanner \
 protonvpn \
 python3-bs4 \
 python3-openssl \
@@ -83,6 +95,10 @@ rdesktop \
 ripgrep \
 rlwrap \
 rust-all \
+samdump2 \
+sipcrack \
+sidguesser \
+sipsak \
 slack-desktop \
 slowhttptest \
 socat \
@@ -90,6 +106,8 @@ solaar \
 sound-juicer \
 sqlmap \
 testssl.sh \
+tnscmd10g \
+veil \
 virtualbox-ext-pack \
 virtualbox-guest-additions-iso \
 virtualenv \
