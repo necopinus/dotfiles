@@ -78,13 +78,6 @@ sipsak \
 testssl.sh \
 tnscmd10g
 
-# A few packages are currently only available on Intel.
-#
-if [[ "$(uname -m)" == "x86_64" ]]; then
-	sudo apt install \
-	veil
-fi	
-
 # The above packages supercede some installed packages, so we do some
 # additional cleanup here.
 #
@@ -96,6 +89,14 @@ sudo apt autoremove --purge --autoremove
 source $CONFIG_PATH/user/local/bin/update-kerbrute.sh
 source $CONFIG_PATH/user/local/bin/update-kiterunner.sh
 source $CONFIG_PATH/user/local/bin/update-ngrok.sh
+
+# Some Burp Suite extensions need Jython.
+#
+mkdir "Burp Suite"
+(
+	cd $HOME/"Burp Suite"
+	curl -L -O https://repo1.maven.org/maven2/org/python/jython-standalone/2.7.2/jython-standalone-2.7.2.jar
+)
 
 # 1991 called. They want their disabled-by-default firewall back.
 #
@@ -169,13 +170,6 @@ fi
 #
 sudo systemctl enable postgresql.service
 sudo msfdb init
-
-# Some Burp Suite extensions need Jython.
-#
-(
-	cd $HOME/Documents
-	curl -L -O https://repo1.maven.org/maven2/org/python/jython-standalone/2.7.2/jython-standalone-2.7.2.jar
-)
 
 # Restore select git repos.
 #

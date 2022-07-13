@@ -80,7 +80,6 @@ optipng \
 poppler \
 postman \
 powershell \
-radamsa \
 radicle-upstream \
 remarkable \
 ripgrep \
