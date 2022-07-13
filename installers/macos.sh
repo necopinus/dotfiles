@@ -109,6 +109,14 @@ zoom
 #
 brew install --cask wireshark
 
+# Some Burp Suite extensions need Jython.
+#
+mkdir "Burp Suite"
+(
+	cd $HOME/"Burp Suite"
+	curl -L -O https://repo1.maven.org/maven2/org/python/jython-standalone/2.7.2/jython-standalone-2.7.2.jar
+)
+
 # Install a better Zsh configuration.
 #
 curl -L -o $HOME/.zshrc "https://git.grml.org/?p=grml-etc-core.git;a=blob_plain;f=etc/zsh/zshrc;hb=HEAD"
