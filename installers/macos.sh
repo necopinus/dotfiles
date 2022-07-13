@@ -59,10 +59,12 @@ ipcalc \
 john-jumbo \
 jq \
 keepassxc \
+keybase \
 lagrange \
 libqalculate \
 little-snitch \
 logitech-options \
+logitech-unifying \
 macx-dvd-ripper-pro \
 malwarebytes \
 mediahuman-audio-converter \
@@ -72,7 +74,6 @@ nano \
 netcat \
 ngrok \
 nikto \
-nmap \
 node \
 obsidian \
 optipng \
