@@ -44,6 +44,7 @@ ffmpeg \
 ffuf \
 firefox \
 ghidra \
+gimp \
 go \
 gobuster \
 google-cloud-sdk \
