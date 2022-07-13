@@ -140,7 +140,7 @@ EOF
 chmod 700 $HOME/.ssh
 chmod 600 $HOME/.ssh/*
 echo ""
-echo "Remember to add this SSH key to GitHub and the Raspberry Pi!"
+echo "Add this SSH key to GitHub and the Raspberry Pi before continuing!"
 read -p "Press any key to continue... " -n1 -s
 
 # Restore scripts and configurations from this repo.
@@ -178,7 +178,7 @@ echo "      in YYYY-MM-DD format."
 echo "" 
 gpg --expert --full-generate-key
 echo ""
-echo "Remember to add this GPG key to GitHub!"
+echo "Add this GPG key to GitHub before continuing!"
 read -p "Press any key to continue... " -n1 -s
 
 # Restore all git repos.
@@ -187,7 +187,7 @@ mkdir $HOME/Repos
 (
 	git config --global user.name "Nathan Acks"
 	git config --global user.email nathan.acks@cardboard-iguana.com
-#	git config --global user.signingKey "$(gpg --list-keys nathan.acks@cardboard-iguana.com | grep -E "^      [0-9A-Z]{40}$" | sed -e "s/^ *//")"
+	git config --global user.signingKey "$(gpg --list-keys nathan.acks@cardboard-iguana.com | grep -E "^      [0-9A-Z]{40}$" | sed -e "s/^ *//")"
 	git config --global commit.gpgSign true
 	git config --global pull.rebase false
 	cd $HOME/Repos

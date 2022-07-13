@@ -183,7 +183,7 @@ EOF
 chmod 700 $HOME/.ssh
 chmod 600 $HOME/.ssh/*
 echo ""
-echo "Remember to add this SSH key to GitHub and the Raspberry Pi!"
+echo "Add this SSH key to GitHub and the Raspberry Pi before continuing!"
 read -p "Press any key to continue... " -n1 -s
 
 # Restore scripts and configurations from this repo.
@@ -238,7 +238,7 @@ echo "      in YYYY-MM-DD format."
 echo "" 
 gpg --expert --full-generate-key
 echo ""
-echo "Remember to add this GPG key to GitHub!"
+echo "Add this GPG key to GitHub before continuing!"
 read -p "Press any key to continue... " -n1 -s
 
 # Restore all git repos.
