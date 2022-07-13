@@ -92,7 +92,6 @@ signal \
 sipsak \
 slowhttptest \
 socat \
-sqlite3 \
 sqlmap \
 temurin \
 testssl \
