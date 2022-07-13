@@ -27,9 +27,7 @@ brew tap homebrew/cask-drivers
 # Install new applications.
 #
 brew install \
-adobe-creative-cloud \
 aircrack-ng \
-amethyst \
 apktool \
 arp-scan \
 asciinema \
@@ -45,7 +43,6 @@ expect \
 ffmpeg \
 ffuf \
 firefox \
-free-gpgmail \
 ghidra \
 go \
 gobuster \
@@ -72,10 +69,6 @@ macx-dvd-ripper-pro \
 malwarebytes \
 mediahuman-audio-converter \
 metasploit \
-microsoft-excel \
-microsoft-powerpoint \
-microsoft-remote-desktop \
-microsoft-word \
 mingw-w64 \
 nano \
 netcat \
@@ -93,14 +86,11 @@ radicle-upstream \
 remarkable \
 ripgrep \
 rlwrap \
-roam-research \
 ruby
 rust \
-safe-multisig \
 semgrep \
 signal \
 sipsak \
-slack \
 slowhttptest \
 socat \
 sqlite3 \
