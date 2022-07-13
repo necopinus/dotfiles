@@ -125,7 +125,9 @@ grml_theme_add_token virtual-env -f virtual_env_prompt '%F{magenta}' '%f'
 zstyle ':prompt:grml:left:setup' items rc virtual-env change-root user at host path vcs percent
 EOF
 
-# Local SSH config.
+# Local SSH config. Note macOS-specific graffiti:
+#
+#     https://developer.apple.com/library/archive/technotes/tn2449/_index.html
 #
 mkdir -p $HOME/.ssh
 ssh-keygen -C "nathan.acks@cardboard-iguana.com $(date "+%Y-%m-%d")" -t ed25519
@@ -133,12 +135,15 @@ cat > $HOME/.ssh/config << EOF
 # Defaults
 #
 Host *
-	Compression  yes
-	ForwardAgent no
-	IdentityFile ~/.ssh/id_ed25519
+	AddKeysToAgent yes
+	Compression    yes
+	ForwardAgent   no
+	IdentityFile   ~/.ssh/id_ed25519
+	UseKeychain    yes
 EOF
 chmod 700 $HOME/.ssh
 chmod 600 $HOME/.ssh/*
+ssh-add
 echo ""
 echo "Add this SSH key to GitHub and the Raspberry Pi before continuing!"
 read -p "Press any key to continue... " -n1 -s
