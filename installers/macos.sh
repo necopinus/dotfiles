@@ -66,7 +66,6 @@ libqalculate \
 little-snitch \
 logitech-options \
 logitech-unifying \
-macfuse \
 macx-dvd-ripper-pro \
 malwarebytes \
 mediahuman-audio-converter \
