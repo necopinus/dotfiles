@@ -63,7 +63,6 @@ lagrange \
 libqalculate \
 little-snitch \
 logitech-options \
-logitech-unifying \
 macx-dvd-ripper-pro \
 malwarebytes \
 mediahuman-audio-converter \
