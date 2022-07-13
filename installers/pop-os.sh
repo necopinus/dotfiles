@@ -136,7 +136,7 @@ BUILD_DIR="$(mktemp -d)"
 )
 rm -rf "$BUILD_DIR"
 
-mkdir -p $HOME/Google/{cardboard-iguana,personal,yakcollective}
+mkdir -p $HOME/Google/{"Cardboard Iguana",Personal,"Yak Collective"}
 
 # Additional "loose" installs. These are all handled through update
 # scripts (which fortunately can also handle the initial installation.
