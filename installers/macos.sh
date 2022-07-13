@@ -86,7 +86,7 @@ radicle-upstream \
 remarkable \
 ripgrep \
 rlwrap \
-ruby
+ruby \
 rust \
 semgrep \
 signal \
