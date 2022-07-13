@@ -47,5 +47,5 @@ if [[ "$HOSTNAME" == "kali" ]] && [[ "$(uname -m)" == "aarch64" ]] && [[ -f /boo
 	if [[ -f /usr/src/linux-headers-$KERNEL_VERSION/.config ]]; then
 		sudo cp /usr/src/linux-headers-$KERNEL_VERSION/.config /boot/config-$KERNEL_VERSION
 	fi
-	sudo mkinitramfs -o /boot/initramfs.gz $KERNEL_VERSION
+	sudo mkinitramfs -o /boot/initramfs.zst $KERNEL_VERSION
 fi
