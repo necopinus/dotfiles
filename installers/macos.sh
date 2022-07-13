@@ -6,16 +6,6 @@
 SCRIPT_PATH="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)/$(basename "${BASH_SOURCE[0]}")"
 CONFIG_PATH="$(dirname "$SCRIPT_PATH")/../"
 
-# Get Xcode and associated tools installed.
-#
-xcode-select --install
-read -p "Press any key once Xcode has finished installing... " -n1 -s
-
-# Make sure that Rosetta is installed.
-#
-sudo softwareupdate --install-rosetta
-read -p "Press any key once Rosetta has finished installing... " -n1 -s
-
 # Install Homebrew. See:
 #
 #     https://brew.sh/

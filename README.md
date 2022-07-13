@@ -15,6 +15,22 @@ cd ..
 rm -rf ~/_setup
 ```
 
+## macOS
+
+```bash
+xcode-select —install
+sudo softwareupdate —install-rosetta
+mkdir ~/_setup
+cd ~/_setup
+git clone https://github.com/necopinus/dotfiles.git
+chmod 755 dotfiles/installers/*
+./dotfiles/installers/macos.sh
+cd ..
+rm -rf ~/_setup
+```
+
+Configure applicable GUI applications and distribute SSH/GPG keys.
+
 ## Kali Linux
 
 ```bash
@@ -31,8 +47,6 @@ Configure applicable GUI applications.
 
 ## Pop!\_OS
 
-Set up new per-device SSH/GPG keys.
-
 ```bash
 mkdir ~/_setup
 cd ~/_setup
@@ -43,4 +57,4 @@ cd ..
 rm -rf ~/_setup
 ```
 
-Configure applicable GUI applications.
+Configure applicable GUI applications and distribute SSH/GPG keys.
