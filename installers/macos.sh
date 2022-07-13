@@ -160,7 +160,7 @@ chmod 755 $HOME/.local/bin/*
 
 # Pre-create Insync directories.
 #
-mkdir -p $HOME/Google/{cardboard-iguana,personal,yakcollective}
+mkdir -p $HOME/Google/{"Cardboard Iguana",Personal,"Yak Collective"}
 
 # Generate new GPG key.
 #
