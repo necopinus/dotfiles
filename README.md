@@ -57,4 +57,4 @@ cd ..
 rm -rf ~/_setup
 ```
 
-Configure applicable GUI applications and distribute SSH/GPG keys.
+Configure applicable GUI applications.

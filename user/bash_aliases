@@ -1,22 +1,10 @@
 # Abuse Debian's automatic sourcing of ~/.bash_aliases to override
 # various configuration defaults.
 
-# Add ~/.cargo/bin to the path, if it exists.
-#
-if [[ -d "$HOME/.cargo/bin" ]]; then
-	export PATH="$HOME/.cargo/bin:$PATH"
-fi
-
 # Add ~/go/bin to the path, if it exists.
 #
 if [[ -d "$HOME/go/bin" ]]; then
 	export PATH="$HOME/go/bin:$PATH"
-fi
-
-# Add ~/.radicle/bin to the path, if it exists.
-#
-if [[ -d "$HOME/.radicle/bin" ]]; then
-	export PATH="$HOME/.radicle/bin:$PATH"
 fi
 
 # Make sure that ~/.local/bin is added to our path. We save the old path
@@ -39,12 +27,6 @@ if [[ -n "$HISTSIZE" ]] && [[ -n "$HISTFILESIZE" ]]; then
 			export HISTSIZE=$HISTFILESIZE
 		fi
 	fi
-fi
-
-# Aliases.
-#
-if [[ -n "$(which insync-headless)" ]]; then
-	alias insync-headless="env TERM=xterm insync-headless"
 fi
 
 # Restore OLD_PATH if this is a Debian-derived distribution to prevent
