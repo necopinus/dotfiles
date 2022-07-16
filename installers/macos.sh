@@ -24,6 +24,10 @@ brew analytics off
 #
 brew tap homebrew/cask-drivers
 
+# Add Radicle tap to Homebrew.
+#
+brew tap radicle/cli https://seed.alt-clients.radicle.xyz/radicle-cli-homebrew.git
+
 # Install new applications.
 #
 brew install \
@@ -81,6 +85,7 @@ optipng \
 poppler \
 postman \
 powershell \
+radicle-cli \
 radicle-upstream \
 remarkable \
 ripgrep \

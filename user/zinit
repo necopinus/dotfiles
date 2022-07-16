@@ -12,6 +12,12 @@ if [[ -d "$HOME/go/bin" ]]; then
 	export PATH="$HOME/go/bin:$PATH"
 fi
 
+# Add Radicle Upstream binary directory to the path, if it exists.
+#
+if [[ -d "$HOME/.radicle/bin" ]]; then
+	export PATH="$HOME/.radicle/bin:$PATH"
+fi
+
 # Make sure that ~/.local/bin is added to our path.
 #
 if [[ -d $HOME/.local/bin ]]; then
