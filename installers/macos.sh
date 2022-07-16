@@ -95,6 +95,7 @@ socat \
 sqlmap \
 temurin \
 testssl \
+theharvester \
 virtualenv \
 viscosity \
 visual-studio-code \
