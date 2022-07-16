@@ -36,7 +36,8 @@ fonts-noto \
 keepassxc \
 qalc \
 virtualbox-ext-pack \
-virtualbox-guest-additions-iso
+virtualbox-guest-additions-iso \
+vlc
 
 flatpak install --user flathub org.signal.Signal
 
