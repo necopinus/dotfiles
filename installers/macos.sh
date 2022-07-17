@@ -43,6 +43,7 @@ burp-suite \
 coreutils \
 diffutils \
 discord \
+electric-sheep \
 expect \
 ffmpeg \
 ffuf \
