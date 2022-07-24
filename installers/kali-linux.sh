@@ -71,6 +71,7 @@ oscanner \
 python3-pip \
 qalc \
 ripgrep \
+rust-all \
 seclists \
 sidguesser \
 sipcrack \
