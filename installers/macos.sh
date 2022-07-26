@@ -38,7 +38,6 @@ asciinema \
 awscli \
 awscurl \
 azure-cli \
-brave-browser \
 burp-suite \
 coreutils \
 diffutils \
@@ -47,7 +46,6 @@ electric-sheep \
 expect \
 ffmpeg \
 ffuf \
-firefox \
 ghidra \
 gimp \
 go \
