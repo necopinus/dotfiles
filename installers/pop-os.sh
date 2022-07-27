@@ -16,14 +16,6 @@ sudo ufw default deny
 sudo apt install apt-transport-https
 sudo mkdir -p /usr/local/share/keyrings
 
-# Add Brave repo. See:
-#
-#     https://brave.com/linux/
-#
-curl -L -O https://brave-browser-apt-release.s3.brave.com/brave-browser-archive-keyring.gpg
-sudo mv brave-browser-archive-keyring.gpg /usr/local/share/keyrings/brave-browser-archive-keyring.gpg
-echo "deb [signed-by=/usr/local/share/keyrings/brave-browser-archive-keyring.gpg arch=amd64] https://brave-browser-apt-release.s3.brave.com/ stable main" | sudo tee /etc/apt/sources.list.d/brave-browser-release.list
-
 # Make sure all components are up-to-date.
 #
 source $CONFIG_PATH/user/local/bin/update-system.sh
@@ -31,7 +23,6 @@ source $CONFIG_PATH/user/local/bin/update-system.sh
 # Install new applications.
 #
 sudo apt install \
-brave-browser \
 fonts-noto \
 keepassxc \
 qalc \
