@@ -99,6 +99,7 @@ sqlmap \
 temurin \
 testssl \
 theharvester \
+tresorit \
 virtualenv \
 viscosity \
 visual-studio-code \
