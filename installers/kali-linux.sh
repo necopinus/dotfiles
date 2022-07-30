@@ -46,7 +46,7 @@ source $CONFIG_PATH/user/local/bin/update-system.sh
 sudo apt remove --purge --autoremove python-is-python2
 
 # Remove colord, as it generates annoying prompts when running XFCE over
-# XRDP on the Raspberry Pi and isn't necesary on a VM.
+# RDP.
 #
 sudo apt purge --autoremove --purge colord
 
@@ -57,6 +57,7 @@ asciinema \
 build-essential \
 burpsuite \
 chromium \
+code-oss \
 dsniff \
 gcc-mingw-w64-x86-64 \
 ghidra \
@@ -66,6 +67,7 @@ gufw \
 ipcalc \
 jq \
 linux-exploit-suggester \
+npm \
 openjdk-11-jdk \
 oscanner \
 python3-pip \
