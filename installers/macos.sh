@@ -85,7 +85,6 @@ poppler \
 postman \
 powershell \
 radicle-cli \
-radicle-upstream \
 remarkable \
 ripgrep \
 rlwrap \
