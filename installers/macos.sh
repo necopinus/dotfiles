@@ -84,6 +84,7 @@ optipng \
 poppler \
 postman \
 powershell \
+protonvpn \
 radicle-cli \
 remarkable \
 ripgrep \
