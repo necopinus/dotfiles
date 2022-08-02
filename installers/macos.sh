@@ -62,7 +62,6 @@ insync \
 ipcalc \
 john-jumbo \
 jq \
-keepassxc \
 keybase \
 lagrange \
 libqalculate \
