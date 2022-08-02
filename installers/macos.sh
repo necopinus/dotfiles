@@ -82,7 +82,6 @@ node \
 obsidian \
 optipng \
 poppler \
-postman \
 powershell \
 protonvpn \
 radicle-cli \
