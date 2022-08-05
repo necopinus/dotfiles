@@ -24,7 +24,6 @@ source $CONFIG_PATH/user/local/bin/update-system.sh
 #
 sudo apt install \
 fonts-noto \
-keepassxc \
 qalc \
 virtualbox-ext-pack \
 virtualbox-guest-additions-iso \
@@ -81,10 +80,6 @@ cp $CONFIG_PATH/user/local/bin/update.sh        $HOME/.local/bin/update.sh
 cp $CONFIG_PATH/user/local/bin/update-system.sh $HOME/.local/bin/update-system.sh
 
 chmod 755 $HOME/.local/bin/*
-
-# Make sure that KeePassXC auto starts.
-#
-ln -s /usr/share/applications/org.keepassxc.KeePassXC.desktop $HOME/.config/autostart/
 
 # Disable the VirtualBox web service. We don't need it, and it just
 # likes to fail and make systemd complain anyway.
