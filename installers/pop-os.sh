@@ -24,7 +24,6 @@ source $CONFIG_PATH/user/local/bin/update-system.sh
 #
 sudo apt install \
 fonts-noto \
-qalc \
 virtualbox-ext-pack \
 virtualbox-guest-additions-iso \
 vlc
