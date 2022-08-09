@@ -57,6 +57,7 @@ graphviz \
 hashcat \
 hping \
 hydra \
+imhex \
 insomnia \
 insync \
 ipcalc \
