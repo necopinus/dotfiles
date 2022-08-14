@@ -74,6 +74,7 @@ malwarebytes \
 mediahuman-audio-converter \
 metasploit \
 mingw-w64 \
+moebius \
 nano \
 netcat \
 ngrok \
