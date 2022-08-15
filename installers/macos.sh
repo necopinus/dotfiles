@@ -31,6 +31,7 @@ brew tap radicle/cli https://seed.alt-clients.radicle.xyz/radicle-cli-homebrew.g
 # Install new applications.
 #
 brew install \
+afl-fuzz \
 aircrack-ng \
 apktool \
 arp-scan \
@@ -38,6 +39,7 @@ asciinema \
 awscli \
 awscurl \
 azure-cli \
+binwalk \
 burp-suite \
 coreutils \
 diffutils \
@@ -51,6 +53,7 @@ gimp \
 go \
 gobuster \
 google-cloud-sdk \
+google-earth-pro \
 gpg-suite-no-mail \
 graphicsmagick \
 graphviz \
@@ -70,11 +73,13 @@ little-snitch \
 logitech-options \
 logitech-unifying \
 macx-dvd-ripper-pro \
+maltego \
 malwarebytes \
 mediahuman-audio-converter \
 metasploit \
 mingw-w64 \
 moebius \
+mqttx \
 nano \
 netcat \
 ngrok \

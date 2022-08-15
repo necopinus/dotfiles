@@ -68,6 +68,7 @@ gufw \
 ipcalc \
 jq \
 linux-exploit-suggester \
+maltego-teeth \
 npm \
 openjdk-11-jdk \
 oscanner \
@@ -81,7 +82,8 @@ sidguesser \
 sipcrack \
 sipsak \
 testssl.sh \
-tnscmd10g
+tnscmd10g \
+youtube-dl
 
 # The above packages supercede some installed packages, so we do some
 # additional cleanup here.
