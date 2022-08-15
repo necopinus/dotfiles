@@ -53,6 +53,7 @@ sudo apt purge --autoremove --purge colord
 # Install new applications.
 #
 sudo apt install \
+afl++ \
 asciinema \
 build-essential \
 burpsuite \
@@ -70,6 +71,7 @@ linux-exploit-suggester \
 npm \
 openjdk-11-jdk \
 oscanner \
+paho.mqtt.c-examples \
 python3-pip \
 qalc \
 ripgrep \
