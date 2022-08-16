@@ -40,6 +40,7 @@ awscli \
 awscurl \
 azure-cli \
 binwalk \
+brave-browser \
 burp-suite \
 coreutils \
 diffutils \
@@ -87,6 +88,7 @@ nikto \
 node \
 obsidian \
 optipng \
+pocket-casts \
 poppler \
 powershell \
 protonvpn \
