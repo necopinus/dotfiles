@@ -60,7 +60,6 @@ burpsuite \
 chromium \
 code-oss \
 dsniff \
-gcc-mingw-w64-x86-64 \
 ghidra \
 gobuster \
 golang \
@@ -69,6 +68,7 @@ ipcalc \
 jq \
 linux-exploit-suggester \
 maltego-teeth \
+mingw-w64 \
 npm \
 openjdk-11-jdk \
 oscanner \
