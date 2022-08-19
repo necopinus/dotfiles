@@ -69,6 +69,7 @@ john-jumbo \
 jq \
 keybase \
 lagrange \
+libimobiledevice \
 libqalculate \
 little-snitch \
 logitech-options \
