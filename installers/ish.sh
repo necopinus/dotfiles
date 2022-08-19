@@ -40,16 +40,6 @@ cp $CONFIG_PATH/user/local/bin/update-system.sh $HOME/.local/bin/update-system.s
 
 chmod +x $HOME/.local/bin/*
 
-# Uncompress rockyou.txt.
-#
-mkdir -p $HOME/.local/share/red-team/wordlists
-(
-	cd $HOME/.local/share/red-team/wordlists
-	curl -O https://raw.githubusercontent.com/danielmiessler/SecLists/master/Passwords/Leaked-Databases/rockyou.txt.tar.gz
-	tar -xzvf rockyou.txt.tar.gz
-	rm rockyou.txt.tar.gz
-)
-
 # Finis.
 #
 echo "Restarting iSH is required for some features to become available."
