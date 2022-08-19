@@ -18,8 +18,8 @@ rm -rf ~/_setup
 ## macOS
 
 ```bash
-xcode-select —install
-sudo softwareupdate —install-rosetta
+xcode-select --install
+sudo softwareupdate --install-rosetta
 mkdir ~/_setup
 cd ~/_setup
 git clone https://github.com/necopinus/dotfiles.git
