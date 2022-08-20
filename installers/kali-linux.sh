@@ -28,12 +28,6 @@ if [[ -f /boot/config.txt ]]; then
 	sudo sed -i -e 's/^#disable_overscan=1$/disable_overscan=1/' /boot/config.txt
 fi
 
-# Make sure that my user has access to all VirtualBox mounts, etc.
-#
-if [[ $(grep -Ec "^vboxsf:" /etc/group) -eq 1 ]]; then
-	sudo adduser $USER vboxsf
-fi
-
 # Make sure all components are up-to-date.
 #
 source $CONFIG_PATH/user/local/bin/update-system.sh
@@ -53,36 +47,21 @@ sudo apt purge --autoremove --purge colord
 # Install new applications.
 #
 sudo apt install \
-afl++ \
-asciinema \
 build-essential \
 burpsuite \
 chromium \
 code-oss \
-dsniff \
-ghidra \
 gobuster \
 golang \
 gufw \
 ipcalc \
 jq \
 linux-exploit-suggester \
-maltego-teeth \
 mingw-w64 \
 npm \
-openjdk-11-jdk \
-oscanner \
-paho.mqtt.c-examples \
 python3-pip \
 qalc \
-ripgrep \
-rust-all \
 seclists \
-sidguesser \
-sipcrack \
-sipsak \
-testssl.sh \
-tnscmd10g \
 youtube-dl
 
 # The above packages supercede some installed packages, so we do some
