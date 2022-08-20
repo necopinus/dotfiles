@@ -74,7 +74,6 @@ mkdir -p $HOME/.config/autostart $HOME/.local/bin
 
 cp $CONFIG_PATH/user/bash_aliases               $HOME/.bash_aliases
 cp $CONFIG_PATH/user/inputrc                    $HOME/.inputrc
-cp $CONFIG_PATH/user/local/bin/backup.sh        $HOME/.local/bin/backup.sh
 cp $CONFIG_PATH/user/local/bin/update.sh        $HOME/.local/bin/update.sh
 cp $CONFIG_PATH/user/local/bin/update-system.sh $HOME/.local/bin/update-system.sh
 
