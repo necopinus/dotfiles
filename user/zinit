@@ -6,12 +6,6 @@
 # ~/.zshenv)... But in X11 ~/.zprofile never gets sourced at all (since
 # we're already logged in, and X11 has set up our environment).
 
-# Add ~/go/bin to the path, if it exists.
-#
-if [[ -d "$HOME/go/bin" ]]; then
-	export PATH="$HOME/go/bin:$PATH"
-fi
-
 # Add Radicle Upstream binary directory to the path, if it exists.
 #
 if [[ -d "$HOME/.radicle/bin" ]]; then
@@ -30,9 +24,6 @@ if [[ -d /opt/homebrew ]]; then
 	eval "$(/opt/homebrew/bin/brew shellenv)"
 
 	export PATH="/opt/homebrew/opt/coreutils/libexec/gnubin:$PATH"
-
-	source /opt/homebrew/Caskroom/google-cloud-sdk/latest/google-cloud-sdk/path.zsh.inc
-	source /opt/homebrew/Caskroom/google-cloud-sdk/latest/google-cloud-sdk/completion.zsh.inc
 fi
 
 # Keep Nano syntax highlighting up-to-date.
