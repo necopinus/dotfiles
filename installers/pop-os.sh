@@ -11,11 +11,6 @@ CONFIG_PATH="$(dirname "$SCRIPT_PATH")/../"
 sudo ufw enable
 sudo ufw default deny
 
-# Install prerequisites.
-#
-sudo apt install apt-transport-https
-sudo mkdir -p /usr/local/share/keyrings
-
 # Make sure all components are up-to-date.
 #
 source $CONFIG_PATH/user/local/bin/update-system.sh
@@ -23,12 +18,9 @@ source $CONFIG_PATH/user/local/bin/update-system.sh
 # Install new applications.
 #
 sudo apt install \
-fonts-noto \
 virtualbox-ext-pack \
 virtualbox-guest-additions-iso \
 vlc
-
-flatpak install --user flathub org.signal.Signal
 
 # Install Insync.
 #
