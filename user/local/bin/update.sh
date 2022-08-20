@@ -8,9 +8,9 @@ UPDATE_PATH=$HOME/.local/bin
 [[ -x $UPDATE_PATH/update-kiterunner.sh      ]] && $UPDATE_PATH/update-kiterunner.sh
 [[ -x $UPDATE_PATH/update-ngrok.sh           ]] && $UPDATE_PATH/update-ngrok.sh
 
-# Make sure that Git repos are all up-to-date.
+# Make sure that Git repos are all up-to-date (except on iSH).
 #
-if [[ -d $HOME/Repos ]]; then
+if [[ -d $HOME/Repos ]] && [[ "$(whoami)" != "root" ]]; then
 	(
 		cd $HOME/Repos
 		while IFS= read -r -d '' REPO; do
