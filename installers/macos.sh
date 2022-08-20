@@ -164,7 +164,7 @@ Host kali
 	RequestTTY    yes
 	RemoteCommand tmux new-session -A -s macos
 	User          kali
-		
+
 # Defaults
 #
 Host *
@@ -217,7 +217,7 @@ echo "      \"key does not expire\")."
 echo "    * Real name is \"Nathan Acks\", email address is"
 echo "      \"nathan.acks@cardboard-iguana.com\", and the comment is today's date"
 echo "      in YYYY-MM-DD format."
-echo "" 
+echo ""
 gpg --expert --full-generate-key
 echo ""
 echo "Add this GPG key to GitHub before continuing!"
@@ -239,11 +239,13 @@ mkdir $HOME/Repos
 	mv backups backups-yakcollective
 	git clone git@github.com:necopinus/cardboard-iguana.com.git
 	git clone git@github.com:necopinus/chateaumaxmin.info.git
+	git clone https://github.com/packetpioneer/defcon30.git
 	git clone git@github.com:necopinus/delphi-strategy.com.git
 	git clone git@github.com:necopinus/digital-orrery.com.git
 	git clone git@github.com:necopinus/dotfiles.git
 	git clone git@github.com:necopinus/ecopunk.info.git
 	git clone git@github.com:necopinus/ellen-and-nathan.info.git
+	git clone https://github.com/romanzaikin/From-Zero-to-Hero-in-Blockchain-Security-DefCon30-Workshop.git
 	git clone git@github.com:The-Yak-Collective/infrastructure-map.git
 	git clone git@github.com:The-Yak-Collective/lunchtime-tickets.git
 	git clone git@github.com:necopinus/necopinus.xyz.git
@@ -251,6 +253,7 @@ mkdir $HOME/Repos
 	git clone git@github.com:The-Yak-Collective/project_ui.git
 	git clone git@github.com:necopinus/resume.git
 	git clone https://github.com/danielmiessler/SecLists.git
+	git clone https://github.com/nikitastupin/solc.git
 	git clone git@github.com:necopinus/website-theme.git
 	git clone git@github.com:The-Yak-Collective/yakcollective.git
 	git clone git@github.com:necopinus/zibaldone.git
