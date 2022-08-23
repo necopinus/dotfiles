@@ -34,10 +34,11 @@ if [[ -d $HOME/virtualenv ]]; then
 		cd $HOME/virtualenv
 		while IFS= read -r -d '' VENV; do
 			cd "$VENV"
-			if [[ -f ./bin/activate ]] && [[ -f requirements.txt ]]; then
+			if [[ -f ./bin/activate ]] && [[ -f requirements.in ]]; then
 				source ./bin/activate
+				pip install --upgrade pip-tools
+				pip-compile --upgrade
 				pip install --upgrade -r requirements.txt
-				pip freeze > requirements.txt
 				deactivate
 			fi
 			if [[ -f ./package.json ]] && [[ -n "$(which npm)" ]]; then
