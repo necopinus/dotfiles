@@ -74,6 +74,7 @@ sudo apt autoremove --purge --autoremove
 #
 source $CONFIG_PATH/user/local/bin/update-kerbrute.sh
 source $CONFIG_PATH/user/local/bin/update-kiterunner.sh
+source $CONFIG_PATH/user/local/bin/update-ligolo.sh
 source $CONFIG_PATH/user/local/bin/update-ngrok.sh
 
 # Some Burp Suite extensions need Jython.
@@ -134,6 +135,7 @@ cp    $CONFIG_PATH/user/inputrc                        $HOME/.inputrc
 cp    $CONFIG_PATH/user/local/bin/update.sh            $HOME/.local/bin/update.sh
 cp    $CONFIG_PATH/user/local/bin/update-kerbrute.sh   $HOME/.local/bin/update-kerbrute.sh
 cp    $CONFIG_PATH/user/local/bin/update-kiterunner.sh $HOME/.local/bin/update-kiterunner.sh
+cp    $CONFIG_PATH/user/local/bin/update-ligolo.sh     $HOME/.local/bin/update-ligolo.sh
 cp    $CONFIG_PATH/user/local/bin/update-ngrok.sh      $HOME/.local/bin/update-ngrok.sh
 cp    $CONFIG_PATH/user/local/bin/update-system.sh     $HOME/.local/bin/update-system.sh
 cp -r $CONFIG_PATH/user/local/share/red-team           $HOME/.local/share/red-team
