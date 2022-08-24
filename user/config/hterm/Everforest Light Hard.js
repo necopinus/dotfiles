@@ -20,9 +20,14 @@ brightMagenta = "#df69ba";
 brightCyan    = "#35a77c";
 brightWhite   = "#dfddc8";
 
+/*
+ * Note that the black and white color slots are reversed here. This is
+ * a quick-and-dirty way of ensuring that (most) terminal apps (which
+ * tend to assume a light-on-dark color scheme) look good.
+ */
 t.prefs_.set("color-palette-overrides", [
-	      black,       red,       green,       yellow,       blue,       magenta,       cyan,       white,
-	brightBlack, brightRed, brightGreen, brightYellow, brightBlue, brightMagenta, brightCyan, brightWhite
+	      white,       red,       green,       yellow,       blue,       magenta,       cyan,       black,
+	brightWhite, brightRed, brightGreen, brightYellow, brightBlue, brightMagenta, brightCyan, brightBlack
 ]);
 
 t.prefs_.set("foreground-color", black);
