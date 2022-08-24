@@ -132,7 +132,7 @@ Host kali-unlock
 Host kali
 	HostName      10.55.0.1
 	RequestTTY    yes
-	RemoteCommand tmux new-session -A -s macos
+	RemoteCommand tmux new-session -A -s macOS
 	User          kali
 
 # Defaults
