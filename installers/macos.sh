@@ -220,6 +220,7 @@ mkdir $HOME/Repos
 	git clone git@github.com:The-Yak-Collective/lunchtime-tickets.git
 	git clone git@github.com:necopinus/necopinus.xyz.git
 	git clone git@github.com:The-Yak-Collective/onboarding_robot.git
+	git clone https://github.com/PowerShellMafia/PowerSploit.git
 	git clone git@github.com:The-Yak-Collective/project_ui.git
 	git clone git@github.com:necopinus/resume.git
 	git clone https://github.com/danielmiessler/SecLists.git
