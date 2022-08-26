@@ -1,5 +1,5 @@
 /*
- * Everforest Light Hard color scheme. See:
+ * Everforest Dark Hard color scheme. See:
  *
  *     https://gist.github.com/sainnhe/6432f83181c4520ea87b5211fed27950
  */
