@@ -5,21 +5,20 @@
  *     https://github.com/chriskempson/base16-unclaimed-schemes/blob/master/greenscreen.yaml
  */
 black         = "#000000";
-
-red           = "#004400";
-green         = "#008800";
-yellow        = "#00cc00";
-blue          = "#002200";
-magenta       = "#006600";
-cyan          = "#00aa00";
+red           = "#002200";
+green         = "#004400";
+yellow        = "#006600";
+blue          = "#008800";
+magenta       = "#00aa00";
+cyan          = "#00cc00";
 white         = "#00ee00";
 brightBlack   = "#001100";
-brightRed     = "#005500";
-brightGreen   = "#009900";
-brightYellow  = "#00dd00";
-brightBlue    = "#003300";
-brightMagenta = "#007700";
-brightCyan    = "#00bb00";
+brightRed     = "#003300";
+brightGreen   = "#005500";
+brightYellow  = "#007700";
+brightBlue    = "#009900";
+brightMagenta = "#00bb00";
+brightCyan    = "#00dd00";
 brightWhite   = "#00ff00";
 
 t.prefs_.set("color-palette-overrides", [
