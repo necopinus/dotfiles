@@ -128,21 +128,20 @@ chmod 600 $HOME/.ssh/*
 
 # Restore scripts and configurations from this repo.
 #
-mkdir -p $HOME/.local/{bin,share}
+mkdir -p $HOME/.local/bin
 
-cp    $CONFIG_PATH/user/bash_aliases                   $HOME/.bash_aliases
-cp    $CONFIG_PATH/user/inputrc                        $HOME/.inputrc
-cp    $CONFIG_PATH/user/local/bin/update.sh            $HOME/.local/bin/update.sh
-cp    $CONFIG_PATH/user/local/bin/update-kerbrute.sh   $HOME/.local/bin/update-kerbrute.sh
-cp    $CONFIG_PATH/user/local/bin/update-kiterunner.sh $HOME/.local/bin/update-kiterunner.sh
-cp    $CONFIG_PATH/user/local/bin/update-ligolo.sh     $HOME/.local/bin/update-ligolo.sh
-cp    $CONFIG_PATH/user/local/bin/update-ngrok.sh      $HOME/.local/bin/update-ngrok.sh
-cp    $CONFIG_PATH/user/local/bin/update-system.sh     $HOME/.local/bin/update-system.sh
-cp -r $CONFIG_PATH/user/local/share/red-team           $HOME/.local/share/red-team
-cp    $CONFIG_PATH/user/tmux.conf                      $HOME/.tmux.conf
-cp    $CONFIG_PATH/user/zinit                          $HOME/.zinit
-cp    $CONFIG_PATH/user/zprofile                       $HOME/.zprofile
-cp    $CONFIG_PATH/user/zshenv                         $HOME/.zshenv
+cp $CONFIG_PATH/user/bash_aliases                   $HOME/.bash_aliases
+cp $CONFIG_PATH/user/inputrc                        $HOME/.inputrc
+cp $CONFIG_PATH/user/local/bin/update.sh            $HOME/.local/bin/update.sh
+cp $CONFIG_PATH/user/local/bin/update-kerbrute.sh   $HOME/.local/bin/update-kerbrute.sh
+cp $CONFIG_PATH/user/local/bin/update-kiterunner.sh $HOME/.local/bin/update-kiterunner.sh
+cp $CONFIG_PATH/user/local/bin/update-ligolo.sh     $HOME/.local/bin/update-ligolo.sh
+cp $CONFIG_PATH/user/local/bin/update-ngrok.sh      $HOME/.local/bin/update-ngrok.sh
+cp $CONFIG_PATH/user/local/bin/update-system.sh     $HOME/.local/bin/update-system.sh
+cp $CONFIG_PATH/user/tmux.conf                      $HOME/.tmux.conf
+cp $CONFIG_PATH/user/zinit                          $HOME/.zinit
+cp $CONFIG_PATH/user/zprofile                       $HOME/.zprofile
+cp $CONFIG_PATH/user/zshenv                         $HOME/.zshenv
 
 chmod 755 $HOME/.local/bin/*
 
@@ -166,6 +165,7 @@ mkdir $HOME/Repos
 	cd $HOME/Repos
 	git clone https://github.com/necopinus/dotfiles.git
 	git clone https://github.com/EmpireProject/Empire.git
+	git clone https://github.com/rebootuser/LinEnum.git
 	git clone https://github.com/besimorhino/powercat.git
 	git clone https://github.com/PowerShellMafia/PowerSploit.git
 	git clone https://github.com/Mr-Un1k0d3r/SCShell.git
