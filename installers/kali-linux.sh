@@ -165,6 +165,7 @@ mkdir $HOME/Repos
 (
 	cd $HOME/Repos
 	git clone https://github.com/necopinus/dotfiles.git
+	git clone https://github.com/EmpireProject/Empire.git
 	git clone https://github.com/PowerShellMafia/PowerSploit.git
 	git clone https://github.com/nikitastupin/solc.git
 	chmod +x solc/linux/aarch64/solc-*

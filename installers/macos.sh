@@ -215,6 +215,7 @@ mkdir $HOME/Repos
 	git clone git@github.com:necopinus/dotfiles.git
 	git clone git@github.com:necopinus/ecopunk.info.git
 	git clone git@github.com:necopinus/ellen-and-nathan.info.git
+	git clone https://github.com/EmpireProject/Empire.git
 	git clone https://github.com/romanzaikin/From-Zero-to-Hero-in-Blockchain-Security-DefCon30-Workshop.git
 	git clone git@github.com:The-Yak-Collective/infrastructure-map.git
 	git clone git@github.com:The-Yak-Collective/lunchtime-tickets.git
