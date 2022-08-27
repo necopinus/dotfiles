@@ -59,6 +59,7 @@ jq \
 linux-exploit-suggester \
 mingw-w64 \
 npm \
+powercat \
 python3-pip \
 qalc \
 seclists \
@@ -166,8 +167,6 @@ mkdir $HOME/Repos
 	git clone https://github.com/necopinus/dotfiles.git
 	git clone https://github.com/EmpireProject/Empire.git
 	git clone https://github.com/rebootuser/LinEnum.git
-	git clone https://github.com/besimorhino/powercat.git
-	git clone https://github.com/PowerShellMafia/PowerSploit.git
 	git clone https://github.com/Mr-Un1k0d3r/SCShell.git
 	git clone https://github.com/nikitastupin/solc.git
 	chmod +x solc/linux/aarch64/solc-*
