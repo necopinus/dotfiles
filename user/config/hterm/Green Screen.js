@@ -30,7 +30,7 @@ t.prefs_.set("color-palette-overrides", [
 	brightBlack, brightRed, brightGreen, brightYellow, brightBlue, brightMagenta, brightCyan, brightWhite
 ]);
 
-t.prefs_.set("foreground-color", white);
+t.prefs_.set("foreground-color", "#00ee00");
 t.prefs_.set("background-color", black);
 
 t.prefs_.set("cursor-color", "rgba(0, 238, 0, 0.4)"); // #00ee00 @ 40%
