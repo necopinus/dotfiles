@@ -1,5 +1,5 @@
 /*
- * https://github.com/chriskempson/tomorrow-theme/blob/master/Xdefaults/XresourceTomorrowNight
+ * https://github.com/chriskempson/tomorrow-theme/blob/master/Xdefaults/XresourceTomorrowNightEighties
  */
 black         = "#2d2d2d";
 red           = "#f2777a";
