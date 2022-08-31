@@ -208,7 +208,7 @@ mkdir $HOME/Repos
 	mv backups backups-necopinus
 	git clone git@github.com:The-Yak-Collective/backups.git
 	mv backups backups-yakcollective
-	git clone git@github.com:necopinus/cardboard-iguana.com.git
+	git clone git@github.com:cardboard-iguana/cardboard-iguana.com.git
 	git clone git@github.com:necopinus/chateaumaxmin.info.git
 	git clone https://github.com/packetpioneer/defcon30.git
 	git clone git@github.com:necopinus/delphi-strategy.com.git
