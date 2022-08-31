@@ -83,6 +83,7 @@ virtualenv \
 viscosity \
 visual-studio-code \
 webp \
+wget \
 xld \
 ykman \
 youtube-dl \
