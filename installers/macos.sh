@@ -41,6 +41,7 @@ discord \
 electric-sheep \
 expect \
 gimp \
+gnu-sed \
 gobuster \
 gpg-suite-no-mail \
 graphicsmagick \
