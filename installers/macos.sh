@@ -72,7 +72,6 @@ node \
 obsidian \
 optipng \
 pocket-casts \
-protonvpn \
 radicle-cli \
 rlwrap \
 ruby \
