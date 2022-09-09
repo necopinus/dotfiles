@@ -98,5 +98,6 @@
   "minimal-style@@text-bold@@light": "#5C6A72",
   "minimal-style@@text-bold@@dark": "#5C6A72",
   "minimal-cards-style@@cards-background@@light": "#FDF7E3",
-  "minimal-cards-style@@cards-background@@dark": "#FDF7E3"
+  "minimal-cards-style@@cards-background@@dark": "#FDF7E3",
+  "minimal-advanced@@styled-scrollbars": true
 }
