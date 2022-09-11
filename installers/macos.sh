@@ -71,6 +71,7 @@ nikto \
 node \
 obsidian \
 optipng \
+orion \
 pocket-casts \
 radicle-cli \
 rlwrap \
