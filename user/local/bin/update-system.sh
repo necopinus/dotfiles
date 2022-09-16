@@ -9,6 +9,9 @@ elif [[ -n "$(which apk)" ]]; then
 	apk update
 	apk upgrade
 elif [[ -n "$(which apt)" ]]; then
+	if [[ "$HOSTNAME" == "kali" ]] && [[ "$(uname -m)" == "aarch64" ]]; then
+		sudo apt-key adv --keyserver keys.gnupg.net --recv-keys 11764EE8AC24832F
+	fi
 	sudo apt update
 	sudo apt full-upgrade
 	sudo apt autoremove --purge --autoremove
