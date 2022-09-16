@@ -1,5 +1,9 @@
 #!/usr/bin/env bash
 
+if [[ -f /etc/os-release ]]; then
+	source /etc/os-release
+fi
+
 if [[ -n "$(which brew)" ]]; then
 	brew update
 	brew upgrade
@@ -9,7 +13,7 @@ elif [[ -n "$(which apk)" ]]; then
 	apk update
 	apk upgrade
 elif [[ -n "$(which apt)" ]]; then
-	if [[ "$HOSTNAME" == "kali" ]] && [[ "$(uname -m)" == "aarch64" ]]; then
+	if [[ "$ID" == "kali" ]] && [[ "$(uname -m)" == "aarch64" ]]; then
 		sudo apt-key adv --keyserver keys.gnupg.net --recv-keys 11764EE8AC24832F
 	fi
 	sudo apt update
@@ -35,7 +39,7 @@ if [[ -n "$(which flatpak)" ]]; then
 	flatpak uninstall --unused
 fi
 
-if [[ "$HOSTNAME" == "kali" ]] && [[ "$(uname -m)" == "aarch64" ]] && [[ -f /boot/initramfs.gz ]]; then
+if [[ "$ID" == "kali" ]] && [[ "$(uname -m)" == "aarch64" ]] && [[ -f /boot/initramfs.gz ]]; then
 	if [[ ! -f /boot/overlays/dwc2.dtbo ]] && [[ $(ls -1 /lib/modules | grep -e '5.4.83-Re4son-v8l+$' | wc -l) -gt 0 ]]; then
 		BUILD_DIR="$(mktemp -d)"
 		(
