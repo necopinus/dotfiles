@@ -73,6 +73,7 @@ obsidian \
 optipng \
 orion \
 pocket-casts \
+qflipper \
 radicle-cli \
 rlwrap \
 ruby \
