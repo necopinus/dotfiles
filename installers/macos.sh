@@ -72,6 +72,7 @@ node \
 obsidian \
 optipng \
 pocket-casts \
+qflipper \
 radicle-cli \
 rlwrap \
 ruby \
