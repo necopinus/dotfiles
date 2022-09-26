@@ -80,6 +80,7 @@ signal \
 socat \
 sqlmap \
 tresorit \
+unison \
 virtualenv \
 viscosity \
 visual-studio-code \
