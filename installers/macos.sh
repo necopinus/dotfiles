@@ -31,15 +31,12 @@ brew tap radicle/cli https://seed.alt-clients.radicle.xyz/radicle-cli-homebrew.g
 # Install new applications.
 #
 brew install \
-apktool \
-binwalk \
 brave-browser \
 burp-suite \
 coreutils \
 diffutils \
 discord \
 electric-sheep \
-expect \
 gimp \
 gnu-sed \
 gobuster \
@@ -80,7 +77,6 @@ signal \
 socat \
 sqlmap \
 tresorit \
-unison \
 virtualenv \
 viscosity \
 visual-studio-code \
