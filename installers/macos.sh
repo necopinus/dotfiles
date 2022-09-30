@@ -24,9 +24,11 @@ brew analytics off
 #
 brew tap homebrew/cask-drivers
 
-# Add Radicle tap to Homebrew.
+# Add Radicle tap to Homebrew. See:
 #
-brew tap radicle/cli https://seed.alt-clients.radicle.xyz/radicle-cli-homebrew.git
+#     https://discord.com/channels/841318878125490186/841342872082579466/1025330364908056607
+#
+brew tap --force-auto-update radicle/cli https://pine.radicle.garden/radicle-cli-homebrew.git
 
 # Install new applications.
 #
