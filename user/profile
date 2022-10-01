@@ -1,7 +1,0 @@
-# ONLY USED ON ALPINE LINUX!
-
-# Make sure that ~/.local/bin is added to our path.
-#
-if [ -d $HOME/.local/bin ]; then
-	export PATH="$HOME/.local/bin:$PATH"
-fi
