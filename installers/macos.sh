@@ -73,7 +73,6 @@ optipng \
 pocket-casts \
 qflipper \
 radicle-cli \
-rlwrap \
 ruby \
 signal \
 socat \
