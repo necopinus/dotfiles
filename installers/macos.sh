@@ -36,6 +36,7 @@ brew install \
 brave-browser \
 burp-suite \
 coreutils \
+diffusionbee \
 diffutils \
 discord \
 electric-sheep \
