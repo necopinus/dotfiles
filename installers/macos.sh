@@ -57,7 +57,7 @@ lagrange \
 libimobiledevice \
 libqalculate \
 little-snitch \
-logitech-options \
+logi-options-plus \
 logitech-unifying \
 macx-dvd-ripper-pro \
 malwarebytes \
