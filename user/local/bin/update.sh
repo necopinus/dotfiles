@@ -36,6 +36,7 @@ if [[ -d $HOME/virtualenv ]]; then
 			cd "$VENV"
 			if [[ -f ./bin/activate ]] && [[ -f requirements.in ]]; then
 				source ./bin/activate
+				pip install --upgrade pip
 				pip install --upgrade pip-tools
 				pip-compile --upgrade
 				pip install --upgrade -r requirements.txt
