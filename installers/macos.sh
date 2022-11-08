@@ -39,6 +39,7 @@ diffusionbee \
 diffutils \
 discord \
 electric-sheep \
+ffmpeg \
 gimp \
 gnu-sed \
 gobuster \
