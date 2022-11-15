@@ -71,7 +71,6 @@ nikto \
 node \
 obsidian \
 optipng \
-orion \
 pocket-casts \
 qflipper \
 radicle-cli \
