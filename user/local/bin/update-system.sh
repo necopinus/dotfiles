@@ -36,7 +36,7 @@ if [[ -n "$(which flatpak)" ]]; then
 	flatpak uninstall --unused
 fi
 
-if [[ "$ID" == "kali" ]] && [[ "$(uname -m)" == "aarch64" ]] && [[ -f /boot/initramfs.gz ]]; then
+if [[ "$ID" == "kali" ]] && [[ "$(uname -m)" == "aarch64" ]] && [[ -f /boot/initramfs.zst ]]; then
 	if [[ ! -f /boot/overlays/dwc2.dtbo ]] && [[ $(ls -1 /lib/modules | grep -e '5.4.83-Re4son-v8l+$' | wc -l) -gt 0 ]]; then
 		BUILD_DIR="$(mktemp -d)"
 		(
@@ -51,5 +51,5 @@ if [[ "$ID" == "kali" ]] && [[ "$(uname -m)" == "aarch64" ]] && [[ -f /boot/init
 	if [[ -f /usr/src/linux-headers-$KERNEL_VERSION/.config ]]; then
 		sudo cp /usr/src/linux-headers-$KERNEL_VERSION/.config /boot/config-$KERNEL_VERSION
 	fi
-	sudo mkinitramfs -o /boot/initramfs.zst $KERNEL_VERSION
+	sudo mkinitramfs -v -o /boot/initramfs.zst $KERNEL_VERSION
 fi
