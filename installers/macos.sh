@@ -125,17 +125,6 @@ EOF
 mkdir -p $HOME/.ssh
 ssh-keygen -C "nathan.acks@cardboard-iguana.com $(date "+%Y-%m-%d")" -t ed25519
 cat > $HOME/.ssh/config << EOF
-# Kali Linux Raspberry Pi
-#
-Host kali-unlock
-	HostName 10.55.0.1
-	User     root
-Host kali
-	HostName      10.55.0.1
-	RequestTTY    yes
-	RemoteCommand tmux new-session -A -s macOS
-	User          kali
-
 # Defaults
 #
 Host *
@@ -149,7 +138,7 @@ chmod 700 $HOME/.ssh
 chmod 600 $HOME/.ssh/*
 ssh-add
 echo ""
-echo "Add this SSH key to GitHub and the Raspberry Pi before continuing!"
+echo "Add this SSH key to GitHub before continuing!"
 read -p "Press any key to continue... " -n1 -s
 
 # Some apps expect ~/.config to already exist.
