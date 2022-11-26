@@ -33,6 +33,7 @@ brew tap --force-auto-update radicle/cli https://pine.radicle.garden/radicle-cli
 # Install new applications.
 #
 brew install \
+brave-browser \
 burp-suite \
 coreutils \
 diffusionbee \
