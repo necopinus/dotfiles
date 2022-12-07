@@ -36,7 +36,6 @@ brew install \
 brave-browser \
 burp-suite \
 coreutils \
-diffusionbee \
 diffutils \
 discord \
 electric-sheep \
@@ -49,7 +48,6 @@ graphicsmagick \
 graphviz \
 hashcat \
 hydra \
-imhex \
 insync \
 ipcalc \
 john-jumbo \
@@ -62,7 +60,6 @@ logi-options-plus \
 logitech-unifying \
 macx-dvd-ripper-pro \
 malwarebytes \
-mediahuman-audio-converter \
 metasploit \
 mingw-w64 \
 nano \
@@ -72,7 +69,6 @@ nikto \
 node \
 obsidian \
 optipng \
-pocket-casts \
 qflipper \
 radicle-cli \
 ruby \
@@ -89,11 +85,6 @@ xld \
 ykman \
 youtube-dl \
 zoom
-
-# Wireshark is available through Homebrew as both a formula and a cask.
-# We want the cask version (the macOS "native" app).
-#
-brew install --cask wireshark
 
 # Some Burp Suite extensions need Jython.
 #
