@@ -69,6 +69,7 @@ nikto \
 node \
 obsidian \
 optipng \
+protonvpn \
 qflipper \
 radicle-cli \
 ruby \
