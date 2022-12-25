@@ -17,9 +17,9 @@ if [[ -d $HOME/Repos ]] && [[ "$(whoami)" != "root" ]]; then
 		while IFS= read -r -d '' REPO; do
 			if [[ -d $REPO/.git ]]; then
 				cd "$REPO"
-				git pull
+				git pull --recurse-submodules
 				if [[ "$(git config --get remote.origin.url)" =~ [^/]+@[^/]+\.[^/]+:.+\.git ]]; then
-					 git push
+					 git push --recurse-submodules=on-demand
 				fi
 				cd ..
 			fi
