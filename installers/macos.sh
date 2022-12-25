@@ -41,6 +41,7 @@ discord \
 electric-sheep \
 ffmpeg \
 gimp \
+git \
 gnu-sed \
 gobuster \
 gpg-suite-no-mail \
