@@ -53,7 +53,6 @@ insync \
 ipcalc \
 john-jumbo \
 jq \
-lagrange \
 libimobiledevice \
 libqalculate \
 little-snitch \
