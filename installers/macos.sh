@@ -40,6 +40,7 @@ diffutils \
 discord \
 electric-sheep \
 ffmpeg \
+firefox \
 gimp \
 git \
 gnu-sed \
