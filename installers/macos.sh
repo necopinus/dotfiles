@@ -38,7 +38,6 @@ burp-suite \
 coreutils \
 diffutils \
 discord \
-electric-sheep \
 ffmpeg \
 firefox \
 gimp \
