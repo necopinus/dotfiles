@@ -66,6 +66,7 @@ nano \
 netcat \
 ngrok \
 nikto \
+nkf \
 node \
 obsidian \
 optipng \
