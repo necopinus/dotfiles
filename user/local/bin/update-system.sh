@@ -51,5 +51,11 @@ if [[ "$ID" == "kali" ]] && [[ "$(uname -m)" == "aarch64" ]] && [[ -f /boot/init
 	if [[ -f /usr/src/linux-headers-$KERNEL_VERSION/.config ]]; then
 		sudo cp /usr/src/linux-headers-$KERNEL_VERSION/.config /boot/config-$KERNEL_VERSION
 	fi
+	if [[ -f /boot/initramfs.bak.zst ]]; then
+		sudo mv /boot/initramfs.bak.zst /boot/initramfs.bak-prev.zst
+	fi
+	if [[ -f /boot/initramfs.zst ]]; then
+		sudo mv /boot/initramfs.zst /boot/initramfs.bak.zst
+	fi
 	sudo mkinitramfs -v -o /boot/initramfs.zst $KERNEL_VERSION
 fi
