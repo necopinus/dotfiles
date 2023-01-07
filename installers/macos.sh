@@ -48,6 +48,7 @@ gpg-suite-no-mail \
 graphicsmagick \
 graphviz \
 hashcat \
+homebrew/cask/handbrake \
 hydra \
 insync \
 ipcalc \
