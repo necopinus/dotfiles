@@ -77,7 +77,6 @@ ruby \
 signal \
 socat \
 sqlmap \
-tresorit \
 virtualenv \
 viscosity \
 visual-studio-code \
