@@ -61,6 +61,7 @@ logi-options-plus \
 logitech-unifying \
 macx-dvd-ripper-pro \
 malwarebytes \
+mediahuman-audio-converter \
 metasploit \
 mingw-w64 \
 nano \
