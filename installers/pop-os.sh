@@ -22,20 +22,6 @@ virtualbox-ext-pack \
 virtualbox-guest-additions-iso \
 vlc
 
-# Install Insync.
-#
-BUILD_DIR="$(mktemp -d)"
-(
-	cd "$BUILD_DIR"
-	curl -L -O https://d2t3ff60b2tol4.cloudfront.net/builds/insync_3.7.6.50356-jammy_amd64.deb
-	curl -L -O https://d2t3ff60b2tol4.cloudfront.net/builds/insync-nautilus_3.4.0.40973_all.deb
-	sudo apt install ./insync_3.7.6.50356-jammy_amd64.deb
-	sudo apt install ./insync-nautilus_3.4.0.40973_all.deb
-)
-rm -rf "$BUILD_DIR"
-
-mkdir -p $HOME/Google
-
 # Make sure that Bluetooth is disabled on startup.
 #
 sudo sed -i -e 's/^AutoEnable=true$/#AutoEnable=true/' /etc/bluetooth/main.conf
