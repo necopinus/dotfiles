@@ -74,6 +74,7 @@ obsidian \
 optipng \
 qflipper \
 radicle-cli \
+readwise-ibooks \
 ruby \
 signal \
 socat \
@@ -84,7 +85,7 @@ visual-studio-code \
 webp \
 wget \
 xld \
-ykman \
+yubico-yubikey-manager \
 youtube-dl \
 zoom
 
