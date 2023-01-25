@@ -38,6 +38,7 @@ burp-suite \
 coreutils \
 diffutils \
 discord \
+farcaster \
 ffmpeg \
 firefox \
 gimp \
