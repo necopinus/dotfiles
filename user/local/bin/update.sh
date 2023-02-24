@@ -2,12 +2,10 @@
 
 UPDATE_PATH=$HOME/.local/bin
 
-[[ -x $UPDATE_PATH/update-system.sh     ]] && $UPDATE_PATH/update-system.sh
+[[ -x $UPDATE_PATH/update-system.sh ]] && $UPDATE_PATH/update-system.sh
 
-[[ -x $UPDATE_PATH/update-kerbrute.sh   ]] && $UPDATE_PATH/update-kerbrute.sh
-[[ -x $UPDATE_PATH/update-kiterunner.sh ]] && $UPDATE_PATH/update-kiterunner.sh
-[[ -x $UPDATE_PATH/update-ligolo.sh     ]] && $UPDATE_PATH/update-ligolo.sh
-[[ -x $UPDATE_PATH/update-ngrok.sh      ]] && $UPDATE_PATH/update-ngrok.sh
+[[ -x $UPDATE_PATH/update-ligolo.sh ]] && $UPDATE_PATH/update-ligolo.sh
+[[ -x $UPDATE_PATH/update-ngrok.sh  ]] && $UPDATE_PATH/update-ngrok.sh
 
 # Make sure that Git repos are all up-to-date (except on iSH).
 #

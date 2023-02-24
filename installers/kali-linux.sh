@@ -32,13 +32,6 @@ fi
 #
 source $CONFIG_PATH/user/local/bin/update-system.sh
 
-# Remove /usr/bin/python2 -> /usr/bin/python symlink (and eliminate
-# associated login warning). See:
-#
-#     https://www.kali.org/docs/general-use/python3-transition/
-#
-sudo apt remove --purge --autoremove python-is-python2
-
 # Remove colord, as it generates annoying prompts when running XFCE over
 # RDP.
 #
@@ -52,7 +45,6 @@ burpsuite \
 chromium \
 code-oss \
 gobuster \
-golang \
 gufw \
 ipcalc \
 jq \
@@ -73,8 +65,6 @@ sudo apt autoremove --purge --autoremove
 # Additional "loose" installs. These are all handled through update
 # scripts (which fortunately can also handle the initial installation.
 #
-source $CONFIG_PATH/user/local/bin/update-kerbrute.sh
-source $CONFIG_PATH/user/local/bin/update-kiterunner.sh
 source $CONFIG_PATH/user/local/bin/update-ligolo.sh
 source $CONFIG_PATH/user/local/bin/update-ngrok.sh
 
@@ -131,18 +121,16 @@ chmod 600 $HOME/.ssh/*
 #
 mkdir -p $HOME/.local/bin
 
-cp $CONFIG_PATH/user/bash_aliases                   $HOME/.bash_aliases
-cp $CONFIG_PATH/user/inputrc                        $HOME/.inputrc
-cp $CONFIG_PATH/user/local/bin/update.sh            $HOME/.local/bin/update.sh
-cp $CONFIG_PATH/user/local/bin/update-kerbrute.sh   $HOME/.local/bin/update-kerbrute.sh
-cp $CONFIG_PATH/user/local/bin/update-kiterunner.sh $HOME/.local/bin/update-kiterunner.sh
-cp $CONFIG_PATH/user/local/bin/update-ligolo.sh     $HOME/.local/bin/update-ligolo.sh
-cp $CONFIG_PATH/user/local/bin/update-ngrok.sh      $HOME/.local/bin/update-ngrok.sh
-cp $CONFIG_PATH/user/local/bin/update-system.sh     $HOME/.local/bin/update-system.sh
-cp $CONFIG_PATH/user/tmux.conf                      $HOME/.tmux.conf
-cp $CONFIG_PATH/user/zinit                          $HOME/.zinit
-cp $CONFIG_PATH/user/zprofile                       $HOME/.zprofile
-cp $CONFIG_PATH/user/zshenv                         $HOME/.zshenv
+cp $CONFIG_PATH/user/bash_aliases               $HOME/.bash_aliases
+cp $CONFIG_PATH/user/inputrc                    $HOME/.inputrc
+cp $CONFIG_PATH/user/local/bin/update.sh        $HOME/.local/bin/update.sh
+cp $CONFIG_PATH/user/local/bin/update-ligolo.sh $HOME/.local/bin/update-ligolo.sh
+cp $CONFIG_PATH/user/local/bin/update-ngrok.sh  $HOME/.local/bin/update-ngrok.sh
+cp $CONFIG_PATH/user/local/bin/update-system.sh $HOME/.local/bin/update-system.sh
+cp $CONFIG_PATH/user/tmux.conf                  $HOME/.tmux.conf
+cp $CONFIG_PATH/user/zinit                      $HOME/.zinit
+cp $CONFIG_PATH/user/zprofile                   $HOME/.zprofile
+cp $CONFIG_PATH/user/zshenv                     $HOME/.zshenv
 
 chmod 755 $HOME/.local/bin/*
 
