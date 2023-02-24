@@ -34,7 +34,6 @@ brew tap --force-auto-update radicle/cli https://pine.radicle.garden/radicle-cli
 #
 brew install \
 brave-browser \
-burp-suite \
 coreutils \
 diffutils \
 discord \
@@ -44,16 +43,11 @@ firefox \
 gimp \
 git \
 gnu-sed \
-gobuster \
 gpg-suite-no-mail \
 graphicsmagick \
 graphviz \
-hashcat \
-homebrew/cask/handbrake \
-hydra \
 insync \
 ipcalc \
-john-jumbo \
 jq \
 libimobiledevice \
 libqalculate \
@@ -63,12 +57,8 @@ logitech-unifying \
 macx-dvd-ripper-pro \
 malwarebytes \
 mediahuman-audio-converter \
-metasploit \
-mingw-w64 \
 nano \
-netcat \
 ngrok \
-nikto \
 nkf \
 node \
 obsidian \
@@ -78,8 +68,6 @@ radicle-cli \
 readwise-ibooks \
 ruby \
 signal \
-socat \
-sqlmap \
 virtualenv \
 viscosity \
 visual-studio-code \
@@ -89,14 +77,6 @@ xld \
 yubico-yubikey-manager \
 youtube-dl \
 zoom
-
-# Some Burp Suite extensions need Jython.
-#
-mkdir "Burp Suite"
-(
-	cd $HOME/"Burp Suite"
-	curl -L -O https://repo1.maven.org/maven2/org/python/jython-standalone/2.7.2/jython-standalone-2.7.2.jar
-)
 
 # Install a better Zsh configuration.
 #
@@ -217,16 +197,6 @@ mkdir $HOME/Repos
 	git clone git@github.com:necopinus/website-theme.git
 	git clone git@github.com:The-Yak-Collective/yakcollective.git
 	git clone git@github.com:necopinus/zibaldone.git
-)
-
-# Uncompress rockyou.txt.
-#
-mkdir -p $HOME/.local/share/red-team/wordlists
-(
-	cd $HOME/.local/share/red-team/wordlists
-	cp $HOME/Repos/SecLists/Passwords/Leaked-Databases/rockyou.txt.tar.gz .
-	tar -xzvf rockyou.txt.tar.gz
-	rm rockyou.txt.tar.gz
 )
 
 # Finis.
