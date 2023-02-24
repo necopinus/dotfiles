@@ -19,36 +19,11 @@ source $CONFIG_PATH/user/local/bin/update-system.sh
 #
 sudo apt install \
 virtualbox-ext-pack \
-virtualbox-guest-additions-iso \
-vlc
-
-# Make sure that Bluetooth is disabled on startup.
-#
-sudo sed -i -e 's/^AutoEnable=true$/#AutoEnable=true/' /etc/bluetooth/main.conf
-
-# Make sure wireless connections do NOT auto-connect!
-#
-cat > /tmp/nm-autoconnect-false << EOF
-#!/usr/bin/bash
-
-while IFS= read -d '' -r NMCONNECTION; do
-	UUID="$(grep uuid "$NMCONNECTION" | sed -e 's/.*=//')"
-	TYPE="$(nmcli --fields connection.type connection show "$UUID" | sed -e 's/.*\s//')"
-	if [[ "$TYPE" == "802-11-wireless" ]]; then
-		AUTOCONNECT="$(nmcli --fields connection.autoconnect connection show "$UUID" | sed -e 's/.*\s//')"
-		if [[ "$AUTOCONNECT" == "yes" ]]; then
-			nmcli connection modify "$UUID" connection.autoconnect no
-		fi
-	fi
-done < <(find /etc/NetworkManager/system-connections -type f -iname '*.nmconnection' -print0)
-EOF
-sudo mv /tmp/nm-autoconnect-false /etc/cron.hourly/nm-autoconnect-false
-sudo chown root.root /etc/cron.hourly/nm-autoconnect-false
-sudo chmod 755 /etc/cron.hourly/nm-autoconnect-false
+virtualbox-guest-additions-iso
 
 # Restore scripts and configurations from this repo.
 #
-mkdir -p $HOME/.config/autostart $HOME/.local/bin
+mkdir -p $HOME/.local/bin
 
 cp $CONFIG_PATH/user/bash_aliases               $HOME/.bash_aliases
 cp $CONFIG_PATH/user/inputrc                    $HOME/.inputrc
