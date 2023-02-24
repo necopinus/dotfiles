@@ -69,7 +69,6 @@ readwise-ibooks \
 ruby \
 signal \
 virtualenv \
-viscosity \
 visual-studio-code \
 webp \
 wget \
