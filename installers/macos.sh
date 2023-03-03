@@ -66,6 +66,7 @@ optipng \
 qflipper \
 radicle-cli \
 readwise-ibooks \
+remarkable \
 ruby \
 signal \
 virtualenv \
