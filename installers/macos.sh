@@ -39,7 +39,6 @@ diffutils \
 discord \
 farcaster \
 ffmpeg \
-firefox \
 gimp \
 git \
 gnu-sed \
