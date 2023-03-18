@@ -37,6 +37,7 @@ brave-browser \
 coreutils \
 diffutils \
 discord \
+exiftool \
 farcaster \
 ffmpeg \
 gimp \
