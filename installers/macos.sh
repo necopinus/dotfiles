@@ -39,7 +39,6 @@ diffutils \
 discord \
 exiftool \
 farcaster \
-fdupes \
 ffmpeg \
 gimp \
 git \
