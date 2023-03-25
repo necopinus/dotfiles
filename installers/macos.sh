@@ -40,7 +40,6 @@ discord \
 exiftool \
 farcaster \
 ffmpeg \
-gimp \
 git \
 gnu-sed \
 gpg-suite-no-mail \
