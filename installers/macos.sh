@@ -51,7 +51,6 @@ ipcalc \
 jq \
 libimobiledevice \
 libqalculate \
-little-snitch \
 logi-options-plus \
 logitech-unifying \
 macx-dvd-ripper-pro \
