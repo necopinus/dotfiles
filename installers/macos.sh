@@ -57,7 +57,6 @@ malwarebytes \
 mediahuman-audio-converter \
 nano \
 ngrok \
-nkf \
 node \
 obsidian \
 optipng \
