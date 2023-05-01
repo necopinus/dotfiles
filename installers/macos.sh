@@ -61,6 +61,7 @@ ruby \
 signal \
 virtualenv \
 visual-studio-code \
+vlc \
 webp \
 wget \
 xld \
