@@ -62,6 +62,7 @@ signal \
 virtualenv \
 visual-studio-code \
 vlc \
+vpn-by-google-one \
 webp \
 wget \
 xld \
