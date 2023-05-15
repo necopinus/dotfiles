@@ -52,7 +52,6 @@ mediahuman-audio-converter \
 nano \
 ngrok \
 node \
-obsidian \
 optipng \
 qflipper \
 readwise-ibooks \
