@@ -10,7 +10,7 @@ if [[ -n "$(which brew)" ]]; then
 	brew autoremove
 	brew cleanup -s
 elif [[ -n "$(which apt)" ]]; then
-	if [[ "$ID" == "kali" ]] && [[ "$(uname -m)" == "aarch64" ]]; then
+	if [[ "$ID" == "kali" ]] && [[ "$(uname -m)" == "aarch64" ]] && [[ -f /boot/config.txt ]]; then
 		sudo apt-key adv --keyserver keys.gnupg.net --recv-keys 11764EE8AC24832F
 	fi
 	sudo apt update
