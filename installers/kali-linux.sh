@@ -146,7 +146,7 @@ fi
 # Set up Metasploit.
 #
 sudo systemctl enable postgresql.service
-sudo msfdb --use-defaults init
+sudo msfdb init
 
 # Restore select git repos.
 #
