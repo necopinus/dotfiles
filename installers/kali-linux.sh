@@ -40,6 +40,7 @@ sudo apt purge --autoremove --purge colord
 # Install new applications.
 #
 sudo apt install \
+armitage \
 build-essential \
 burpsuite \
 chromium \
@@ -145,7 +146,7 @@ fi
 # Set up Metasploit.
 #
 sudo systemctl enable postgresql.service
-sudo msfdb init
+sudo msfdb --use-defaults init
 
 # Restore select git repos.
 #
