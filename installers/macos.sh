@@ -31,6 +31,7 @@ brave-browser \
 coreutils \
 diffutils \
 discord \
+electric-sheep \
 exiftool \
 farcaster \
 ffmpeg \

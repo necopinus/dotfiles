@@ -145,6 +145,7 @@ fi
 
 # Set up Metasploit.
 #
+sudo make-ssl-cert generate-default-snakeoil
 sudo systemctl enable postgresql.service
 sudo msfdb init
 if [[ -f /boot/config.txt ]]; then
