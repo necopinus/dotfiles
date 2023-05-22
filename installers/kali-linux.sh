@@ -166,6 +166,7 @@ mkdir $HOME/Repos
 	git clone https://github.com/nikitastupin/solc.git
 	chmod +x solc/linux/aarch64/solc-*
 	ln -s $HOME/Repos/solc/linux/aarch64 $HOME/.solcx
+	git clone https://github.com/therodri2/username_generator.git
 )
 
 # Finis.

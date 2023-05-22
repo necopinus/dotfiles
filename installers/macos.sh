@@ -186,6 +186,7 @@ mkdir $HOME/Repos
 	git clone https://github.com/Mr-Un1k0d3r/SCShell.git
 	git clone https://github.com/danielmiessler/SecLists.git
 	git clone https://github.com/nikitastupin/solc.git
+	git clone https://github.com/therodri2/username_generator.git
 	git clone git@github.com:necopinus/website-theme.git
 	git clone git@github.com:The-Yak-Collective/yakcollective.git
 	git clone git@github.com:necopinus/zibaldone.git
