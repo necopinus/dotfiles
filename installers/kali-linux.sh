@@ -45,6 +45,7 @@ build-essential \
 burpsuite \
 chromium \
 code-oss \
+cupp \
 gobuster \
 gufw \
 ipcalc \
