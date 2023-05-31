@@ -162,6 +162,7 @@ mkdir $HOME/Repos
 	cd $HOME/Repos
 	git clone https://github.com/necopinus/dotfiles.git
 	git clone https://github.com/EmpireProject/Empire.git
+	git clone https://github.com/cardboard-iguana/hacking-notes.git
 	git clone https://github.com/rebootuser/LinEnum.git
 	git clone https://github.com/Mr-Un1k0d3r/SCShell.git
 	git clone https://github.com/nikitastupin/solc.git
