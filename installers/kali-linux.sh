@@ -150,7 +150,7 @@ sudo make-ssl-cert generate-default-snakeoil
 sudo systemctl enable postgresql.service
 sudo msfdb init
 if [[ -f /boot/config.txt ]]; then
-	ufw allow in on usb0 from 0.0.0.0/0 to 10.55.0.1 port 55553 proto tcp
+	ufw allow in on usb0 from 10.55.0.0/29 to 10.55.0.1 port 55553 proto tcp
 #else
 #	ufw allow in on eth0 from 0.0.0.0/0 to 0.0.0.0/0 port 55553 proto tcp
 fi
