@@ -50,10 +50,7 @@ logitech-unifying \
 macx-dvd-ripper-pro \
 malwarebytes \
 mediahuman-audio-converter \
-microsoft-excel \
-microsoft-powerpoint \
 microsoft-teams \
-microsoft-word \
 nano \
 ngrok \
 node \
