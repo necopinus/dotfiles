@@ -171,26 +171,33 @@ mkdir $HOME/Repos
 	git clone git@github.com:necopinus/delphi-strategy.com.git
 	git clone git@github.com:necopinus/digital-orrery.com.git
 	git clone git@github.com:necopinus/dotfiles.git
-	git clone git@github.com:necopinus/ecopunk.info.git
-	git clone git@github.com:necopinus/ellen-and-nathan.info.git
 	git clone https://github.com/EmpireProject/Empire.git
+	git clone git@github.com:necopinus/essays.git
 	git clone https://github.com/romanzaikin/From-Zero-to-Hero-in-Blockchain-Security-DefCon30-Workshop.git
+	git clone https://github.com/GTFOBins/GTFOBins.github.io.git
+	git clone git@github.com:cardboard-iguana/hacking-notes.git
+	git clone https://github.com/carlospolop/hacktricks.git
+	git clone https://github.com/carlospolop/hacktricks-cloud.git
 	git clone git@github.com:The-Yak-Collective/infrastructure-map.git
+	git clone https://github.com/lmammino/jwt-cracker.git
 	git clone https://github.com/rebootuser/LinEnum.git
 	git clone git@github.com:The-Yak-Collective/lunchtime-tickets.git
 	git clone git@github.com:necopinus/necopinus.xyz.git
+	git clone git@github.com:necopinus/newsletters.git
 	git clone git@github.com:The-Yak-Collective/onboarding_robot.git
+	git clone https://github.com/swisskyrepo/PayloadsAllTheThings.git
+	git clone https://github.com/carlospolop/PEASS-ng.git
 	git clone https://github.com/besimorhino/powercat.git
 	git clone https://github.com/PowerShellMafia/PowerSploit.git
 	git clone git@github.com:The-Yak-Collective/project_ui.git
 	git clone git@github.com:necopinus/resume.git
+	git clone https://github.com/GhostPack/Rubeus.git
 	git clone https://github.com/Mr-Un1k0d3r/SCShell.git
 	git clone https://github.com/danielmiessler/SecLists.git
 	git clone https://github.com/nikitastupin/solc.git
 	git clone https://github.com/therodri2/username_generator.git
 	git clone git@github.com:necopinus/website-theme.git
 	git clone git@github.com:The-Yak-Collective/yakcollective.git
-	git clone git@github.com:necopinus/zibaldone.git
 )
 
 # Finis.

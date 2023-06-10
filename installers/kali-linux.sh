@@ -53,6 +53,7 @@ jq \
 linux-exploit-suggester \
 mingw-w64 \
 npm \
+peass \
 powercat \
 python3-pip \
 qalc \
@@ -162,8 +163,14 @@ mkdir $HOME/Repos
 	cd $HOME/Repos
 	git clone https://github.com/necopinus/dotfiles.git
 	git clone https://github.com/EmpireProject/Empire.git
+	git clone https://github.com/GTFOBins/GTFOBins.github.io.git
 	git clone https://github.com/cardboard-iguana/hacking-notes.git
+	git clone https://github.com/carlospolop/hacktricks.git
+	git clone https://github.com/carlospolop/hacktricks-cloud.git
+	git clone https://github.com/lmammino/jwt-cracker.git
 	git clone https://github.com/rebootuser/LinEnum.git
+	git clone https://github.com/swisskyrepo/PayloadsAllTheThings.git
+	git clone https://github.com/GhostPack/Rubeus.git
 	git clone https://github.com/Mr-Un1k0d3r/SCShell.git
 	git clone https://github.com/nikitastupin/solc.git
 	chmod +x solc/linux/aarch64/solc-*
