@@ -6,6 +6,17 @@
 SCRIPT_PATH="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)/$(basename "${BASH_SOURCE[0]}")"
 CONFIG_PATH="$(dirname "$SCRIPT_PATH")/../"
 
+# Make sure that XCode command line tools are installed. See:
+#
+#     https://gist.github.com/phuctm97/946b5ced8cbfabc2f34e489c447456b1
+#
+xcode-select --install
+until $(xcode-select --print-path &> /dev/null); do
+	echo -n "."
+	sleep 5;
+done
+echo ""
+
 # Install Homebrew. See:
 #
 #     https://brew.sh/
@@ -33,7 +44,6 @@ diffutils \
 discord \
 electric-sheep \
 exiftool \
-farcaster \
 ffmpeg \
 git \
 gnu-sed \
@@ -41,10 +51,7 @@ gpg-suite-no-mail \
 graphicsmagick \
 graphviz \
 insync \
-ipcalc \
 jq \
-libimobiledevice \
-libqalculate \
 logi-options-plus \
 logitech-unifying \
 macx-dvd-ripper-pro \
@@ -52,10 +59,10 @@ malwarebytes \
 mediahuman-audio-converter \
 microsoft-teams \
 nano \
-ngrok \
 node \
 optipng \
 qflipper \
+raspberry-pi-imager \
 readwise-ibooks \
 remarkable \
 ruby \
@@ -65,7 +72,6 @@ visual-studio-code \
 vlc \
 vpn-by-google-one \
 webp \
-wget \
 xld \
 yubico-yubikey-manager \
 youtube-dl \
@@ -167,35 +173,17 @@ mkdir $HOME/Repos
 	mv backups backups-yakcollective
 	git clone git@github.com:cardboard-iguana/cardboard-iguana.com.git
 	git clone git@github.com:necopinus/chateaumaxmin.info.git
-	git clone https://github.com/packetpioneer/defcon30.git
 	git clone git@github.com:necopinus/delphi-strategy.com.git
 	git clone git@github.com:necopinus/digital-orrery.com.git
 	git clone git@github.com:necopinus/dotfiles.git
-	git clone https://github.com/EmpireProject/Empire.git
 	git clone git@github.com:necopinus/essays.git
-	git clone https://github.com/romanzaikin/From-Zero-to-Hero-in-Blockchain-Security-DefCon30-Workshop.git
-	git clone https://github.com/GTFOBins/GTFOBins.github.io.git
 	git clone git@github.com:cardboard-iguana/hacking-notes.git
-	git clone https://github.com/carlospolop/hacktricks.git
-	git clone https://github.com/carlospolop/hacktricks-cloud.git
 	git clone git@github.com:The-Yak-Collective/infrastructure-map.git
-	git clone https://github.com/lmammino/jwt-cracker.git
-	git clone https://github.com/rebootuser/LinEnum.git
 	git clone git@github.com:The-Yak-Collective/lunchtime-tickets.git
 	git clone git@github.com:necopinus/necopinus.xyz.git
 	git clone git@github.com:necopinus/newsletters.git
-	git clone git@github.com:The-Yak-Collective/onboarding_robot.git
-	git clone https://github.com/swisskyrepo/PayloadsAllTheThings.git
-	git clone https://github.com/carlospolop/PEASS-ng.git
-	git clone https://github.com/besimorhino/powercat.git
-	git clone https://github.com/PowerShellMafia/PowerSploit.git
-	git clone git@github.com:The-Yak-Collective/project_ui.git
 	git clone git@github.com:necopinus/resume.git
-	git clone https://github.com/GhostPack/Rubeus.git
-	git clone https://github.com/Mr-Un1k0d3r/SCShell.git
-	git clone https://github.com/danielmiessler/SecLists.git
-	git clone https://github.com/nikitastupin/solc.git
-	git clone https://github.com/therodri2/username_generator.git
+	git clone https://github.com/timhutton/twitter-archive-parser.git
 	git clone git@github.com:necopinus/website-theme.git
 	git clone git@github.com:The-Yak-Collective/yakcollective.git
 )
