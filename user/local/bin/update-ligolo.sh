@@ -2,7 +2,7 @@
 
 # Get local version.
 #
-if [[ -f $HOME/.cache/versions/kiterunner ]]; then
+if [[ -f $HOME/.cache/versions/ligolo ]]; then
 	LOCAL_VERSION="$(cat $HOME/.cache/versions/ligolo)"
 else
 	LOCAL_VERSION="XXX"
