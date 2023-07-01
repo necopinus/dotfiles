@@ -150,6 +150,9 @@ fi
 sudo make-ssl-cert generate-default-snakeoil
 sudo systemctl enable postgresql.service
 sudo msfdb init
+
+# The following rule is needed to access Armitage "remotely" over usb0.
+#
 if [[ -f /boot/config.txt ]]; then
 	ufw allow in on usb0 from 10.55.0.0/29 to 10.55.0.1 port 55553 proto tcp
 #else
