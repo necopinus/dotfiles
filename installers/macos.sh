@@ -47,6 +47,7 @@ exiftool \
 ffmpeg \
 git \
 gnu-sed \
+google-chrome \
 gpg-suite-no-mail \
 graphicsmagick \
 graphviz \
@@ -60,6 +61,7 @@ mediahuman-audio-converter \
 microsoft-teams \
 nano \
 node \
+obsidian \
 optipng \
 qflipper \
 raspberry-pi-imager \
