@@ -40,7 +40,6 @@ brew tap homebrew/cask-drivers
 brew install \
 coreutils \
 diffutils \
-discord \
 electric-sheep \
 exiftool \
 ffmpeg \
@@ -68,14 +67,12 @@ remarkable \
 ruby \
 signal \
 virtualenv \
-visual-studio-code \
 vlc \
 vpn-by-google-one \
 webp \
 xld \
 yubico-yubikey-manager \
-youtube-dl \
-zoom
+youtube-dl
 
 # Install a better Zsh configuration.
 #
