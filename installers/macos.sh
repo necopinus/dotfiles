@@ -38,13 +38,13 @@ brew tap homebrew/cask-drivers
 # Install new applications.
 #
 brew install \
-brave-browser \
 coreutils \
 diffutils \
 discord \
 electric-sheep \
 exiftool \
 ffmpeg \
+gimp \
 git \
 gnu-sed \
 google-chrome \
@@ -58,14 +58,12 @@ logitech-unifying \
 macx-dvd-ripper-pro \
 malwarebytes \
 mediahuman-audio-converter \
-microsoft-teams \
 nano \
 node \
 obsidian \
 optipng \
 qflipper \
 raspberry-pi-imager \
-readwise-ibooks \
 remarkable \
 ruby \
 signal \
