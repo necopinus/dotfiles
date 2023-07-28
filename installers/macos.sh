@@ -61,6 +61,7 @@ nano \
 node \
 obsidian \
 optipng \
+protonvpn \
 qflipper \
 raspberry-pi-imager \
 remarkable \
@@ -68,7 +69,6 @@ ruby \
 signal \
 virtualenv \
 vlc \
-vpn-by-google-one \
 webp \
 xld \
 yubico-yubikey-manager \
