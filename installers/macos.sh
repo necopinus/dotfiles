@@ -43,7 +43,6 @@ diffutils \
 electric-sheep \
 exiftool \
 ffmpeg \
-gimp \
 git \
 gnu-sed \
 google-chrome \
