@@ -51,6 +51,7 @@ graphicsmagick \
 graphviz \
 insync \
 jq \
+keepassxc \
 logi-options-plus \
 logitech-unifying \
 macx-dvd-ripper-pro \
