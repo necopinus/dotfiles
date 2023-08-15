@@ -173,12 +173,9 @@ mkdir $HOME/Repos
 	git clone git@github.com:necopinus/delphi-strategy.com.git
 	git clone git@github.com:necopinus/digital-orrery.com.git
 	git clone git@github.com:necopinus/dotfiles.git
-	git clone git@github.com:necopinus/essays.git
-	git clone git@github.com:cardboard-iguana/hacking-notes.git
 	git clone git@github.com:The-Yak-Collective/infrastructure-map.git
 	git clone git@github.com:The-Yak-Collective/lunchtime-tickets.git
 	git clone git@github.com:necopinus/necopinus.xyz.git
-	git clone git@github.com:necopinus/newsletters.git
 	git clone git@github.com:necopinus/resume.git
 	git clone https://github.com/timhutton/twitter-archive-parser.git
 	git clone git@github.com:necopinus/website-theme.git
