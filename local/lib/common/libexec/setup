@@ -549,7 +549,8 @@ fi
 # Fix permissions
 #
 chmod 700 $HOME/.ssh
-chmod 600 $HOME/.ssh/*
+find $HOME/.ssh -type d -exec chmod 700 "{}" \;
+find $HOME/.ssh -type f -exec chmod 600 "{}" \;
 
 # Generate bat's cache so that custom themes show up
 #
