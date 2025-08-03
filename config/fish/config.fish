@@ -81,7 +81,6 @@ alias more "$(which bat)"
 alias ps "$(which procs)"
 alias pstree "$(which procs) --tree"
 alias rg "$(which rg) --color=auto"
-alias top "$(which btm)"
 
 if test "$TERM" != "linux"
 	alias nano "$(which nvim)"
@@ -104,7 +103,7 @@ if test "$OS" = "linux"
 	end
 end
 
-if [[ "$FLAVOR" == "termux" ]]; then
+if test "$FLAVOR" = "termux"
 	alias cpio "$(which busybox) cpio"
 	alias hexedit "$(which busybox) hexedit"
 	alias ip "$(which busybox) ip"
@@ -113,11 +112,11 @@ if [[ "$FLAVOR" == "termux" ]]; then
 	alias traceroute "$(which busybox) traceroute"
 	alias whois "$(which busybox) whois"
 	alias xxd "$(which busybox) xxd"
-fi
+end
 
 # Convenience function for launching graphical apps from the terminal
 #
-if test "$OS" == "linux"
+if test "$OS" = "linux"
 	function xcv
 		nohup $argv 2> /dev/null
 	end
