@@ -45,6 +45,12 @@ export LESS="-R"
 #
 export BAT_THEME="gruvbox-material-light-hard"
 
+# Source various API keys into the environment
+#
+if [[ -f "$XDG_CONFIG_HOME/api-keys.sh" ]]; then
+	source "$XDG_CONFIG_HOME/api-keys.sh"
+fi
+
 # Set up Homebrew paths, etc.
 #
 if [[ "$FLAVOR" != "termux" ]]; then

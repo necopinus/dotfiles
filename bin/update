@@ -39,7 +39,7 @@ fi
 node --version > "$XDG_CACHE_HOME/versions/node.new"
 
 if [[ "$(cat "${XDG_CACHE_HOME:-$HOME/.cache}/versions/node")" == "$(cat "${XDG_CACHE_HOME:-$HOME/.cache}/versions/node.new")" ]]; then
-	npm upgrade -g $(cat $HOME/.default-npm-packages | xargs)
+	npm update -g $(cat $HOME/.default-npm-packages | xargs)
 	rm "${XDG_CACHE_HOME:-$HOME/.cache}/versions/node.new"
 else
 	rm -rf "$(npm config get prefix)"
