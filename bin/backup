@@ -16,10 +16,10 @@ source ${XDG_CONFIG_HOME:-$HOME/.config}/user-dirs.dirs
 	    -f "$XDG_DOWNLOAD_DIR/backup.tar.xz" -T - <<- EOF
 			$(git --git-dir=$HOME/.dotfiles --work-tree=$HOME ls-tree -r HEAD --name-only)
 			$(test -d .dotfiles && echo ".dotfiles")
-			$(test -d .dvdcss && echo ".dvdcss")
 			$(test -d .gnupg && echo ".gnupg")
 			$(test -d .ssh && echo ".ssh")
-			$(test -d "config/aacs" && echo "config/aacs")
+			$(test -d .dvdcss && echo ".dvdcss")
+			$(test -d "$XDG_CONFIG_HOME/aacs" && echo "$XDG_CONFIG_HOME/aacs")
 			$(test -d "data/calibre" && echo "data/calibre")
 			$(test -d "Library/Preferences/calibre" && echo "Library/Preferences/calibre")
 			$(test -d "$XDG_CONFIG_HOME/calibre" && echo "$XDG_CONFIG_HOME/calibre" | sed "s#$HOME/##")
