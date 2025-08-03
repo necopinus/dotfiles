@@ -173,6 +173,7 @@ if [[ "$FLAVOR" == "macos" ]]; then
 	     stylua \
 	     tinymist \
 	     tmux \
+	     tree-sitter-cli \
 	     tresorit \
 	     uutils-coreutils \
 	     uutils-diffutils \
@@ -339,6 +340,7 @@ elif [[ "$FLAVOR" == "debian" ]]; then
 	     stylua \
 	     tinymist \
 	     tmux \
+	     tree-sitter-cli \
 	     uutils-coreutils \
 	     uutils-diffutils \
 	     uutils-findutils \

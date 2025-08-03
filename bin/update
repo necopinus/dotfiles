@@ -54,7 +54,7 @@ export PATH="$(echo ":$PATH:" | sed "s#:$HOME/local/lib/python/bin:#:#g;s/^://;s
 
 python3 --version > "$XDG_CACHE_HOME/versions/python.new"
 
-if [[ "$(cat "${XDG_CACHE_HOME:-$HOME/.cache}/versions/python")" == "$(python --version)" ]]; then
+if [[ "$(cat "${XDG_CACHE_HOME:-$HOME/.cache}/versions/python")" == "$(python3 --version)" ]]; then
 	$HOME/local/lib/python/bin/python -m pip install -U $(cat $HOME/.default-python-packages | xargs)
 	rm "${XDG_CACHE_HOME:-$HOME/.cache}/versions/python.new"
 else
