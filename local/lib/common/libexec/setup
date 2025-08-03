@@ -165,6 +165,7 @@ if [[ "$FLAVOR" == "macos" ]]; then
 	     rclone \
 	     ripgrep \
 	     rsgain \
+	     rsync \
 	     rust-analyzer \
 	     scroll-reverser \
 	     solidity \
@@ -241,6 +242,7 @@ elif [[ "$FLAVOR" == "termux" ]]; then
 	    rclone \
 	    ripgrep \
 	    rsgain \
+	    rsync \
 	    rust-analyzer \
 	    solidity \
 	    sqlite \
@@ -333,6 +335,7 @@ elif [[ "$FLAVOR" == "debian" ]]; then
 	     rclone \
 	     ripgrep \
 	     rsgain \
+	     rsync \
 	     rust-analyzer \
 	     solidity \
 	     sqlite \
