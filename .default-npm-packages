@@ -1,0 +1,9 @@
+bash-language-server
+dockerfile-language-server-nodejs
+npm
+typescript
+typescript-language-server
+yaml-language-server
+yarn
+@anthropic-ai/claude-code
+@nomicfoundation/solidity-language-server

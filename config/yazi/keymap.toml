@@ -1,0 +1,10 @@
+"$schema" = "https://yazi-rs.github.io/schemas/keymap.json"
+
+[mgr]
+prepend_keymap = [
+	{ on = "H",          run = "plugin duckdb -1",        desc = "Scroll one column to the left"   }, # wylie102/duckdb
+	{ on = "L",          run = "plugin duckdb +1",        desc = "Scroll one column to the right"  }, # wylie102/duckdb
+	{ on = [ "c", "m" ], run = "plugin chmod",            desc = "Chmod on selected files"         }, # yazi-rs/plugins:chmod
+	{ on = [ "g", "o" ], run = "plugin duckdb -open",     desc = "Open with DuckDB"                }, # wylie102/duckdb
+	{ on = [ "g", "u" ], run = "plugin duckdb -ui",       desc = "Open with DuckDB ui"             }  # wylie102/duckdb
+]

@@ -1,0 +1,784 @@
+#!/usr/bin/env bash
+
+set -e
+
+# Determine system information
+#
+# Provides: OS, FLAVOR, ARCH, XDG_*_HOME, XDG_*_DIR, XDG_RUNTIME_DIR
+#
+if [[ -f $HOME/local/lib/common/lib/system.lib.sh ]]; then
+	source $HOME/local/lib/common/lib/system.lib.sh
+else
+	echo "System information library not found!"
+	exit 1
+fi
+
+# Exit if system isn't supported
+#
+if [[ "$OS" == "unsupported" ]] \
+|| [[ "$FLAVOR" == "unsupported" ]] \
+|| [[ "$ARCH" == "unsupported" ]]; then
+	echo "Setup is unsupported on this system."
+	echo ""
+	echo "OS: $OS"
+	echo "FLAVOR: $FLAVOR"
+	echo "ARCH: $ARCH"
+	exit 1
+fi
+
+# Make sure the most current dotfiles version is checked out
+#
+echo "Making sure that the most recent dotfiles are available"
+(
+	cd $HOME
+	git --git-dir=$HOME/.dotfiles --work-tree=$HOME checkout -f
+)
+
+# Enable Touch ID support with sudo on macOS
+#
+if [[ "$OS" == "macos" ]]; then
+	echo "Enabling Touch ID support for sudo"
+	if [[ ! -f /etc/pam.d/sudo_local ]] \
+	|| [[ $(grep -c '^auth .* pam_tid.so' /etc/pam.d/sudo_local) -eq 0 ]]; then
+		sudo tee /etc/pam.d/sudo_local <<- EOF
+		# sudo_local: local config file which survives system update and is included for sudo
+		# uncomment following line to enable Touch ID for sudo
+		auth       sufficient     pam_tid.so
+		EOF
+		sudo chmod -v 444 /etc/pam.d/sudo_local
+	fi
+fi
+
+# Make sure that essential tools are installed
+#
+echo "Ensuring that required command line tools are installed"
+
+if [[ "$FLAVOR" == "macos" ]]; then
+	xcode-select --install || true
+
+	echo "Checking for XCode developer tools installation"
+	until $(xcode-select --print-path &> /dev/null); do
+		sleep 4;
+	done
+elif [[ "$FLAVOR" == "debian" ]]; then
+	sudo apt update
+	sudo apt full-upgrade -y
+	sudo apt install -y \
+	         build-essential \
+	         curl \
+	         file \
+	         git \
+	         gnupg \
+	         procps
+elif [[ "$FLAVOR" == "termux" ]]; then
+	termux-change-repo
+	pkg upgrade
+	pkg install \
+	    tur-repo \
+	    x11-repo
+fi
+
+# Install (or set up) Homebrew
+#
+if [[ "$FLAVOR" != "termux" ]]; then
+	if [[ -z "$(which brew 2> /dev/null)" ]]; then
+		echo "Setting up Homebrew"
+
+		if [[ -x /opt/homebrew/bin/brew ]]; then
+			eval "$(/opt/homebrew/bin/brew shellenv bash)"
+		elif [[ -x /usr/local/bin/brew ]]; then
+			eval "$(/usr/local/bin/brew shellenv bash)"
+		elif [[ -x /home/linuxbrew/.linuxbrew/bin/brew ]]; then
+			eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv bash)"
+		else
+			curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh | env NONINTERACTIVE=1 bash -l
+			if [[ "$OS" == "macos" ]]; then
+				if [[ "$ARCH" == "aarch64" ]]; then
+					eval "$(/opt/homebrew/bin/brew shellenv bash)"
+				elif [[ "$ARCH" == "amd64" ]]; then
+					eval "$(/usr/local/bin/brew shellenv bash)"
+				fi
+			elif [[ "$OS" == "linux" ]]; then
+				eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv bash)"
+			fi
+		fi
+	fi
+
+	echo "Disabling Homebrew analytics"
+	brew analytics off
+fi
+
+# Install additional tooling
+#
+echo "Installing additional tooling"
+
+if [[ "$FLAVOR" == "macos" ]]; then
+	brew install \
+	     aichat \
+	     android-platform-tools \
+	     bat \
+	     calibre \
+	     cryptomator \
+	     curl \
+	     dos2unix \
+	     duckdb \
+	     duf \
+	     dust \
+	     eza \
+	     fd \
+	     ffmpeg \
+	     firefox \
+	     fish \
+	     font-jetbrains-mono-nerd-font \
+	     fzf \
+	     gawk \
+	     git-delta \
+	     glow \
+	     gnupg \
+	     gopls \
+	     hexyl \
+	     homebrew/cask/handbrake \
+	     homebrew/cask/syncthing \
+	     imagemagick \
+	     jpeg-turbo \
+	     jq \
+	     kitty \
+	     less \
+	     lua-language-server \
+	     makemkv \
+	     mediainfo \
+	     mpv \
+	     msgpack-tools \
+	     neovim \
+	     node \
+	     obsidian \
+	     openssh \
+	     optipng \
+	     pandoc \
+	     pinentry-mac \
+	     pngpaste \
+	     poppler \
+	     procs \
+	     proton-drive \
+	     python \
+	     qobuz-downloader \
+	     rclone \
+	     ripgrep \
+	     rsgain \
+	     rust-analyzer \
+	     scroll-reverser \
+	     solidity \
+	     sqlite \
+	     starship \
+	     stylua \
+	     tinymist \
+	     tmux \
+	     tresorit \
+	     uutils-coreutils \
+	     uutils-diffutils \
+	     uutils-findutils \
+	     xld \
+	     xz \
+	     yazi \
+	     yt-dlp \
+	     yubico-yubikey-manager \
+	     zoxide \
+	     zstd \
+	     7zip
+elif [[ "$FLAVOR" == "termux" ]]; then
+	pkg install \
+	    aichat \
+	    android-tools \
+	    awesome \
+	    bat \
+	    binutils \
+	    build-essential \
+	    busybox \
+	    curl \
+	    dbus \
+	    dos2unix \
+	    duckdb \
+	    duf \
+	    dust \
+	    eza \
+	    fd \
+	    ffmpeg \
+	    firefox \
+	    fish \
+	    fontconfig-utils \
+	    fzf \
+	    gawk \
+	    git \
+	    git-delta \
+	    glow \
+	    gnupg \
+	    gopls \
+	    handbrake \
+	    hexyl \
+	    i3 \
+	    imagemagick \
+	    jq \
+	    kitty \
+	    less \
+	    libjpeg-turbo-progs \
+	    lua-language-server \
+	    man \
+	    mediainfo \
+	    mesa-zink \
+	    mpv \
+	    neovim \
+	    nodejs \
+	    openssh \
+	    optipng \
+	    pandoc \
+	    poppler \
+	    procs \
+	    proot-distro \
+	    pulseaudio \
+	    python \
+	    qalc \
+	    rclone \
+	    ripgrep \
+	    rsgain \
+	    rust-analyzer \
+	    solidity \
+	    sqlite \
+	    starship \
+	    stylua \
+	    termux-am \
+	    termux-api \
+	    termux-x11-nightly \
+	    tinymist \
+	    tmux \
+	    unzip \
+	    uuid-utils \
+	    uutils-coreutils \
+	    virglrenderer-android \
+	    virglrenderer-mesa-zink \
+	    vulkan-loader-android \
+	    which \
+	    xorg-server-xephyr \
+	    xsel \
+	    xz-utils \
+	    yazi \
+	    yt-dlp \
+	    zip \
+	    zoxide \
+	    zstd \
+	    7zip
+
+	$HOME/local/lib/linux/common/libexec/update-jetbrains-mono
+
+	$HOME/local/lib/linux/termux/common/bin/debian --install
+	$HOME/local/lib/linux/debian/common/libexec/update-obsidian
+
+	if [[ "$ARCH" == "aarch64" ]]; then
+		$HOME/local/lib/linux/termux/aarch64/bin/kali --install
+	fi
+elif [[ "$FLAVOR" == "debian" ]]; then
+	sudo apt install -y \
+	         apt-utils \
+	         calibre \
+	         dialog \
+	         firefox-esr \
+	         fzf \
+	         gawk \
+	         glow \
+	         gopls \
+	         handbrake \
+	         kitty \
+	         man-db \
+	         pinentry-qt \
+	         qalc \
+	         uuid-runtime \
+	         unzip \
+	         wl-clipboard \
+	         xdg-utils \
+	         xdg-user-dirs \
+	         yubikey-manager-qt \
+	         zip
+
+	brew install \
+	     aichat \
+	     android-platform-tools \
+	     bat \
+	     curl \
+	     dos2unix \
+	     duckdb \
+	     duf \
+	     dust \
+	     eza \
+	     fd \
+	     ffmpeg \
+	     fish \
+	     git-delta \
+	     hexyl \
+	     imagemagick \
+	     jpeg-turbo \
+	     jq \
+	     less \
+	     lua-language-server \
+	     mediainfo \
+	     mpv \
+	     msgpack-tools \
+	     neovim \
+	     node \
+	     openssh \
+	     optipng \
+	     pandoc \
+	     poppler \
+	     procs \
+	     python \
+	     rclone \
+	     ripgrep \
+	     rsgain \
+	     rust-analyzer \
+	     solidity \
+	     sqlite \
+	     starship \
+	     stylua \
+	     tinymist \
+	     tmux \
+	     uutils-coreutils \
+	     uutils-diffutils \
+	     uutils-findutils \
+	     xclip \
+	     xsel \
+	     xz \
+	     yazi \
+	     yt-dlp \
+	     zoxide \
+	     zstd \
+	     7zip
+
+	$HOME/local/lib/linux/common/libexec/update-jetbrains-mono
+
+	sudo apt install \
+	         libatspi2.0-0 \
+	         libnotify4 \
+	         libnss3 \
+	         libsecret-1-0 \
+	         libuuid1 \
+	         libxss1 \
+	         libxtst6 \
+	         xdg-utils \
+	         libgtk-3-0
+	$HOME/local/lib/linux/debian/common/libexec/update-obsidian
+fi
+
+# Install Node.js and Python packages
+#
+if [[ ! -d "$XDG_CACHE_HOME/versions" ]]; then
+	mkdir -p "$XDG_CACHE_HOME/versions"
+fi
+
+npm install -g $(cat $HOME/.default-npm-packages | xargs)
+node --version > "$XDG_CACHE_HOME/versions/node"
+
+python3 -m venv $HOME/local/lib/python
+$HOME/local/lib/python/bin/python -m pip install $(cat $HOME/.default-python-packages | xargs)
+$HOME/local/lib/python/bin/python --version > "$XDG_CACHE_HOME/versions/python"
+
+# Set up directories and symlinks
+#
+echo "Symlinking dotfiles and directories"
+
+if [[ "$FLAVOR" == "termux" ]]; then
+	termux-setup-storage
+fi
+
+touch $XDG_CONFIG_HOME/rclone/rclone.conf
+
+if [[ -d $HOME/.cache ]] && [[ ! -L $HOME/.cache ]]; then
+	mv -v $HOME/.cache $XDG_CACHE_HOME
+	ln -sf $XDG_CACHE_HOME $HOME/.cache
+elif [[ ! -e $HOME/.cache ]]; then
+	mkdir -p $XDG_CACHE_HOME
+	ln -sf $XDG_CACHE_HOME $HOME/.cache
+fi
+
+if [[ -d $HOME/.config ]] && [[ ! -L $HOME/.config ]]; then
+	cp -anv $HOME/.config/* $XDG_CONFIG_HOME/
+	rm -rf  $HOME/.config
+	ln -sf  $XDG_CONFIG_HOME $HOME/.config
+fi
+
+if [[ -d $HOME/.local/bin ]] && [[ ! -L $HOME/.local/bin ]]; then
+	cp -anv $HOME/.local/bin/* $HOME/bin
+	rm -rf  $HOME/.local/bin
+	ln -sf  $HOME/bin $HOME/local/bin
+fi
+
+if [[ -d $HOME/.local ]] && [[ ! -L $HOME/.local ]]; then
+	cp -anv $HOME/.local/* $HOME/local/
+	rm -rf  $HOME/.local
+	ln -sf  $HOME/local $HOME/.local
+	ln -sf  $HOME/local $HOME/.var
+fi
+
+if [[ -e $HOME/config/kitty/open-actions.conf ]] \
+&& [[ ! -L $HOME/config/kitty/open-actions.conf ]]; then
+	rm -f $HOME/config/kitty/open-actions.conf
+	ln -sf launch-actions.conf $HOME/config/kitty/open-actions.conf
+fi
+
+# Set up XDG user directories
+#
+echo "Setting up XDG directories"
+
+cat > config/user-dirs.dirs << EOF
+# This file is written by xdg-user-dirs-update
+# If you want to change or add directories, just edit the line you're
+# interested in. All local changes will be retained on the next run.
+# Format is XDG_xxx_DIR="$HOME/yyy", where yyy is a shell-escaped
+# homedir-relative path, or XDG_xxx_DIR="/yyy", where /yyy is an
+# absolute path. No other format is supported.
+# 
+EOF
+if [[ "$OS" == "macos" ]]; then
+	cat >> config/user-dirs.dirs <<- EOF
+	XDG_DESKTOP_DIR="\$HOME/Desktop"
+	XDG_DOCUMENTS_DIR="\$HOME/Documents"
+	XDG_DOWNLOAD_DIR="\$HOME/Downloads"
+	XDG_MUSIC_DIR="\$HOME/Music"
+	XDG_PICTURES_DIR="\$HOME/Pictures"
+	XDG_PUBLICSHARE_DIR="\$HOME/Public"
+	XDG_TEMPLATES_DIR="\$HOME/Documents/Templates"
+	XDG_VIDEOS_DIR="\$HOME/Movies"
+	EOF
+elif [[ "$FLAVOR" == "termux" ]]; then
+	cat >> config/user-dirs.dirs <<- EOF
+	XDG_DESKTOP_DIR="\$HOME/data/desktop"
+	XDG_DOCUMENTS_DIR="\$HOME/storage/shared/Documents"
+	XDG_DOWNLOAD_DIR="\$HOME/storage/downloads"
+	XDG_MUSIC_DIR="\$HOME/storage/music"
+	XDG_PICTURES_DIR="\$HOME/storage/pictures"
+	XDG_PUBLICSHARE_DIR="\$HOME/public"
+	XDG_TEMPLATES_DIR="\$HOME/storage/shared/Documents/Templates"
+	XDG_VIDEOS_DIR="\$HOME/storage/movies"
+	EOF
+elif [[ "$OS" == "linux" ]]; then
+	cat >> config/user-dirs.dirs <<- EOF
+	XDG_DESKTOP_DIR="\$HOME/data/desktop"
+	XDG_DOCUMENTS_DIR="\$HOME/data"
+	XDG_DOWNLOAD_DIR="\$HOME/downloads"
+	XDG_MUSIC_DIR="\$HOME/data/music"
+	XDG_PICTURES_DIR="\$HOME/data/pictures"
+	XDG_PUBLICSHARE_DIR="\$HOME/public"
+	XDG_TEMPLATES_DIR="\$HOME/data/templates"
+	XDG_VIDEOS_DIR="\$HOME/data/videos"
+	EOF
+fi
+
+source config/user-dirs.dirs
+
+if [[ ! -d "$XDG_DOCUMENTS_DIR" ]]; then
+	mkdir -p "$XDG_DOCUMENTS_DIR"
+	if [[ -d "$HOME/Documents" ]] \
+	&& [[ "$XDG_DOCUMENTS_DIR" != "$HOME/Documents" ]]; then
+		cp -anv "$HOME/Documents"/* "$XDG_DOCUMENTS_DIR"/
+		rm -rf  "$HOME/Documents"
+	fi
+fi
+
+if [[ ! -d "$XDG_DESKTOP_DIR" ]]; then
+	mkdir -p "$XDG_DESKTOP_DIR"
+	if [[ -d "$HOME/Desktop" ]] \
+	&& [[ "$XDG_DESKTOP_DIR" != "$HOME/Desktop" ]]; then
+		cp -anv "$HOME/Desktop"/* "$XDG_DESKTOP_DIR"/
+		rm -rf  "$HOME/Desktop"
+	fi
+fi
+
+if [[ ! -d "$XDG_DOWNLOAD_DIR" ]]; then
+	mkdir -p "$XDG_DOWNLOAD_DIR"
+	if [[ -d "$HOME/Downloads" ]] \
+	&& [[ "$XDG_DOWNLOAD_DIR" != "$HOME/Downloads" ]]; then
+		cp -anv "$HOME/Downloads"/* "$XDG_DOWNLOAD_DIR"/
+		rm -rf  "$HOME/Downloads"
+	fi
+fi
+
+if [[ ! -d "$XDG_MUSIC_DIR" ]]; then
+	mkdir -p "$XDG_MUSIC_DIR"
+	if [[ -d "$HOME/Music" ]] \
+	&& [[ "$XDG_MUSIC_DIR" != "$HOME/Music" ]]; then
+		cp -anv "$HOME/Music"/* "$XDG_MUSIC_DIR"/
+		rm -rf  "$HOME/Music"
+	fi
+fi
+
+if [[ ! -d "$XDG_PICTURES_DIR" ]]; then
+	mkdir -p "$XDG_PICTURES_DIR"
+	if [[ -d "$HOME/Pictures" ]] \
+	&& [[ "$XDG_PICTURES_DIR" != "$HOME/Pictures" ]]; then
+		cp -anv "$HOME/Pictures"/* "$XDG_PICTURES_DIR"/
+		rm -rf  "$HOME/Pictures"
+	fi
+fi
+
+if [[ ! -d "$XDG_PUBLICSHARE_DIR" ]]; then
+	mkdir -p "$XDG_PUBLICSHARE_DIR"
+	if [[ -d "$HOME/Public" ]] \
+	&& [[ "$XDG_PUBLICSHARE_DIR" != "$HOME/Public" ]]; then
+		cp -anv "$HOME/Public"/* "$XDG_PUBLICSHARE_DIR"/
+		rm -rf  "$HOME/Public"
+	fi
+fi
+
+if [[ ! -d "$XDG_TEMPLATES_DIR" ]]; then
+	mkdir -p "$XDG_TEMPLATES_DIR"
+	if [[ -d "$HOME/Templates" ]] \
+	&& [[ "$XDG_TEMPLATES_DIR" != "$HOME/Templates" ]]; then
+		cp -anv "$HOME/Templates"/* "$XDG_TEMPLATES_DIR"/
+		rm -rf  "$HOME/Templates"
+	fi
+fi
+
+if [[ ! -d "$XDG_VIDEOS_DIR" ]]; then
+	mkdir -p "$XDG_VIDEOS_DIR"
+	if [[ -d "$HOME/Videos" ]] \
+	&& [[ "$XDG_VIDEOS_DIR" != "$HOME/Videos" ]]; then
+		cp -anv "$HOME/Videos"/* "$XDG_VIDEOS_DIR"/
+		rm -rf  "$HOME/Videos"
+	fi
+fi
+
+# Fix permissions
+#
+chmod 700 $HOME/.ssh
+chmod 600 $HOME/.ssh/*
+
+# Generate bat's cache so that custom themes show up
+#
+# WARNING: There seems to be a bug in bat where the `cache` command
+#          isn't detected if there's a file or directory called `cache`
+#          that's the child of the current directory. Hence switching to
+#          /, since... ~/cache is a thing in this setup.
+#
+(
+	cd /
+	bat cache --build
+)
+
+# Set up git
+# 
+# TODO: Figure out how to create a custom URL scheme
+#       (delta.hyperlinks-file-link-format) and wrapper script for nvr
+#       so that line numbers become clickable links leading to NeoViM
+#       See:
+#           - https://dandavison.github.io/delta/hyperlinks.html
+#           - https://jyn.dev/how-i-use-my-terminal/
+#
+echo "Configuring git"
+
+git config --global user.name "Nathan Acks"
+git config --global user.email nathan.acks@cardboard-iguana.com
+
+git config --global commit.gpgSign          true
+git config --global core.pager              delta
+git config --global interactive.diffFilter "delta --color-only"
+git config --global merge.conflictStyle     zdiff3
+git config --global pull.rebase             false
+
+git config --global delta.blame-palette                 "#fbf1c7 #f4e8be #f2e5bc"
+git config --global delta.hyperlinks                     true
+git config --global delta.light                          true
+git config --global delta.line-numbers                   true
+git config --global delta.line-numbers-minus-style       red
+git config --global delta.line-numbers-plus-style        green
+git config --global delta.line-numbers-zero-style        normal
+git config --global delta.minus-emph-style              "syntax #f3d0ad"
+git config --global delta.minus-empty-line-marker-style "normal #f7e0bb"
+git config --global delta.minus-non-emph-style          "syntax #f7e0bb"
+git config --global delta.minus-style                   "syntax #f7e0bb"
+git config --global delta.navigate                       true
+git config --global delta.plus-emph-style               "syntax #ddd8a8"
+git config --global delta.plus-empty-line-marker-style  "normal #ede4b7"
+git config --global delta.plus-non-emph-style           "syntax #ede4b7"
+git config --global delta.plus-style                    "syntax #ede4b7"
+git config --global delta.side-by-side                   true
+
+# Set up GPG and SSH, if applicable
+#
+mkdir -p $HOME/.gnupg
+
+if [[ ! -f $HOME/.gnupg/gpg-agent.conf ]] \
+|| [[ $(grep -c enable-ssh-support $HOME/.gnupg/gpg-agent.conf) -eq 0 ]]; then
+	echo "enable-ssh-support" >> $HOME/.gnupg/gpg-agent.conf
+fi
+
+if [[ "$OS" == "macos" ]]; then
+	echo "Setting up pinentry"
+	if [[ ! -f $HOME/.gnupg/gpg-agent.conf ]] \
+	|| [[ $(grep -c pinentry-program $HOME/.gnupg/gpg-agent.conf) -eq 0 ]]; then
+		echo "pinentry-program $HOMEBREW_PREFIX/bin/pinentry-mac" >> $HOME/.gnupg/gpg-agent.conf
+	fi
+fi
+
+if [[ $(ls -1 $HOME/.ssh/id_* 2> /dev/null | wc -l) -eq 0 ]] \
+&& [[ $(gpg --list-secret-keys --with-colons \
+              | grep -cE '^sec:(f|u):') -eq 0 ]]; then
+	echo "Setting up initial SSH and GPG keys"
+
+	# Create a new GPG/SSH keys
+	#
+	gpg --batch --expert --full-generate-key <<- EOF
+	Key-Type: EDDSA
+		Key-Curve: ed25519
+		Key-Usage: sign auth
+	Subkey-Type: ECDH
+		Subkey-Curve: cv25519
+		Subkey-Usage: encrypt
+	Expire-Date: 4m
+	Name-Real: Nathan Acks
+	Name-Email: nathan.acks@cardboard-iguana.com
+	EOF
+
+	# Get the key ID of the new key
+	#
+	NEW_SECRET_KEY_ID="$(
+		gpg --list-secret-keys --with-colons \
+		| grep -E '^sec:(f|u):' \
+		| cut -d: -f 5
+	)"
+
+	# Get the keygrip of the new key
+	#
+	# FIXME: I *think* that the output of --with-colons is ordered, and
+	#        thus the keygrip for the primary key is just the first
+	#        keygrip when this key is displayed. But I can't find any
+	#        good documentation about this, so I may be wrong and this
+	#        may break.
+	#
+	NEW_SECRET_KEY_GRIP="$(
+		gpg --list-secret-keys --with-colons $NEW_SECRET_KEY_ID \
+		| grep -E '^grp:' \
+		| cut -d: -f 10 \
+		| head -1
+	)"
+
+	# SSH setup
+	#
+	gpgconf --kill gpg-agent
+	rm -f "$HOME"/.gnupg/sshcontrol
+	gpg-connect-agent updatestartuptty /bye &> /dev/null
+	ssh-add -l &> /dev/null || true
+	gpg-connect-agent "keyattr $NEW_SECRET_KEY_GRIP Use-for-ssh: true" /bye > /dev/null
+
+	# Update git signing key
+	#
+	git config --global user.signingkey $NEW_SECRET_KEY_ID
+
+	# Print public GPG and SSH keys for new secret key
+	#
+	echo ""
+	echo "-----------------------------------------"
+	echo "New secret key 0x$NEW_SECRET_KEY_ID created"
+	echo "-----------------------------------------"
+	echo ""
+	gpg --list-keys --with-keygrip --keyid-format=long $NEW_SECRET_KEY_ID
+	echo "GPG public key block:"
+	echo ""
+	gpg --armor --export $NEW_SECRET_KEY_ID
+	echo ""
+	echo "SSH public key:"
+	echo ""
+	gpg --export-ssh-key $NEW_SECRET_KEY_ID
+	echo ""
+	echo "You must add the public GPG and SSH key displayed above to GitHub before"
+	echo "continuing."
+	echo ""
+	read -rs -n 1 -p "Press any key to continue once this step is complete."
+	echo ""
+fi
+
+# Check out a few useful code repositories
+#
+echo "Making some useful code repositories available"
+mkdir -p $HOME/src
+(
+	cd $HOME/src
+
+	if [[ ! -d smart-contracts-hacking ]]; then
+		git clone --recurse-submodules \
+		    git@github.com:cardboard-iguana/smart-contracts-hacking.git
+	fi
+	if [[ ! -d resume ]]; then
+		git clone --recurse-submodules \
+		    git@github.com:necopinus/resume.git
+	fi
+	if [[ ! -d website-theme ]]; then
+		git clone --recurse-submodules \
+		    git@github.com:necopinus/website-theme.git
+	fi
+
+	if [[ ! -d backups ]]; then
+		git clone --recurse-submodules \
+		    git@github.com:The-Yak-Collective/backups.git
+	fi
+	if [[ ! -d GPTDiscord ]]; then
+		git clone --recurse-submodules \
+		    git@github.com:The-Yak-Collective/GPTDiscord.git
+	fi
+	if [[ ! -d yakcollective ]]; then
+		git clone --recurse-submodules \
+		    git@github.com:The-Yak-Collective/yakcollective.git
+	fi
+
+	if [[ ! -d cardboard-iguana.com ]]; then
+		git clone --recurse-submodules \
+		    git@github.com:cardboard-iguana/cardboard-iguana.com.git
+	fi
+	if [[ ! -d chateaumaxmin.info ]]; then
+		git clone --recurse-submodules \
+		    git@github.com:necopinus/chateaumaxmin.info.git
+	fi
+	if [[ ! -d delphi-strategy.com ]]; then
+		git clone --recurse-submodules \
+		    git@github.com:necopinus/delphi-strategy.com.git
+	fi
+	if [[ ! -d digital-orrery.com ]]; then
+		git clone --recurse-submodules \
+		    git@github.com:necopinus/digital-orrery.com.git
+	fi
+	if [[ ! -d necopinus.xyz ]]; then
+		git clone --recurse-submodules \
+		    git@github.com:necopinus/necopinus.xyz.git
+	fi
+
+	if [[ ! -d twitter-archive-parser ]]; then
+		git clone --recurse-submodules \
+		    https://github.com/timhutton/twitter-archive-parser.git
+	fi
+)
+
+# Install NeoViM plugins
+#
+# NOTE: This must be done *after* git is setup!
+#
+nvim --headless "+Lazy! sync" +qa
+
+# Install Yazi plugins
+#
+# NOTE: This must be done *after* git is setup!
+#
+ya pkg add wylie102/duckdb || true
+ya pkg add yazi-rs/plugins:chmod || true
+ya pkg add yazi-rs/plugins:full-border || true
+ya pkg add yazi-rs/plugins:git || true
+ya pkg add yazi-rs/plugins:piper || true
+
+# Try (probably futilely) to keep environment variables in sync with the
+# garbage fire that is systemd
+#
+if [[ "$OS" == "linux" ]]; then
+	$HOME/local/lib/linux/common/libexec/update-environment
+fi
+
+# A reboot is STRONGLY recommended
+#
+echo ""
+echo "Configuration complete!"
+echo ""
+echo "It is STRONGLY recommended that you reboot your system NOW."

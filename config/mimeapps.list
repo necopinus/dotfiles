@@ -1,0 +1,8 @@
+[Default Applications]
+application/json=kitty-open.desktop
+application/x-sh=kitty-open.desktop
+application/x-shellscript=kitty-open.desktop
+image/*=kitty-open.desktop
+inode/directory=kitty-open.desktop
+text/*=kitty-open.desktop
+x-scheme-handler/kitty=kitty-open.desktop

@@ -1,0 +1,17 @@
+#!/usr/bin/env zsh
+
+# Abuse the command-not-found functionality to overload the default
+# precmd() in Zsh to print a date/time stamp before each prompt
+
+precmd() {
+    print -Pnr -- "\$TERM_TITLE"
+
+    if [[ "\$NEWLINE_BEFORE_PROMPT" == "yes" ]]; then
+        if [[ -z "\$_NEW_LINE_BEFORE_PROMPT" ]]; then
+            _NEW_LINE_BEFORE_PROMPT=1
+        else
+            print ""
+        fi
+    fi
+    date "+%Y-%m-%d @ %H:%M:%S %Z"
+}

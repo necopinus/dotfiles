@@ -1,0 +1,40 @@
+"$schema" = "https://yazi-rs.github.io/schemas/yazi.json"
+
+[mgr]
+ratio = [ 1, 2, 4 ]
+
+[preview]
+wrap       = "yes"
+tab_size   = 4
+max_width  = 1700
+max_height = 1700
+
+[plugin]
+prepend_previewers = [
+	{ name = "*.csv",     run = "duckdb"                                                                                             }, # wylie102/duckdb
+	{ name = "*.db",      run = "duckdb"                                                                                             }, # wylie102/duckdb
+	{ name = "*.duckdb",  run = "duckdb"                                                                                             }, # wylie102/duckdb
+#	{ name = "*.json",    run = "duckdb"                                                                                             }, # wylie102/duckdb
+	{ name = "*.md",      run = 'piper -- CLICOLOR_FORCE=1 glow -w $w -s ~/config/glow/styles/gruvbox-material-light-hard.json "$1"' }, # yazi-rs/plugins:piper
+	{ name = "*.parquet", run = "duckdb"                                                                                             }, # wylie102/duckdb
+	{ name = "*.tsv",     run = "duckdb"                                                                                             }, # wylie102/duckdb
+#	{ name = "*.txt",     run = "duckdb"                                                                                             }, # wylie102/duckdb
+	{ name = "*.xlsx",    run = "duckdb"                                                                                             }  # wylie102/duckdb
+]
+append_previewers = [
+	{ name = "*", run = 'piper -- hexyl --border=none --terminal-width=$w "$1"' } # yazi-rs/plugins:piper
+]
+
+prepend_fetchers = [
+	{ id = "git", name = "*",  run = "git" }, # yazi-rs/plugins:git
+	{ id = "git", name = "*/", run = "git" }  # yazi-rs/plugins:git
+]
+
+prepend_preloaders = [  
+	{ name = "*.csv",     run = "duckdb", multi = false }, # wylie102/duckdb
+#	{ name = "*.json",    run = "duckdb", multi = false }, # wylie102/duckdb
+	{ name = "*.parquet", run = "duckdb", multi = false }, # wylie102/duckdb
+	{ name = "*.tsv",     run = "duckdb", multi = false }, # wylie102/duckdb
+#	{ name = "*.txt",     run = "duckdb", multi = false }, # wylie102/duckdb
+	{ name = "*.xlsx",    run = "duckdb", multi = false }  # wylie102/duckdb
+]

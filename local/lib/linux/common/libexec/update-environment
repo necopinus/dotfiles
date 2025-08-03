@@ -1,0 +1,20 @@
+#!/usr/bin/env -S bash -l
+
+set -e
+
+# Update current dbus (and systemd) environment
+#
+if [[ -n "$(which dbus-update-activation-environment)" ]]; then
+	dbus-update-activation-environment --systemd --all
+fi
+
+# Sync select current environment variables into systemd user startup
+#
+if [[ ! -d ${XDG_CONFIG_HOME:-$HOME/.config}/environment.d ]]; then
+	mkdir -p ${XDG_CONFIG_HOME:-$HOME/.config}/environment.d
+fi
+if [[ -f ${XDG_CONFIG_HOME:-$HOME/.config}/environment.d/00-defaults.conf ]]; then
+	rm -f ${XDG_CONFIG_HOME:-$HOME/.config}/environment.d/00-defaults.conf
+fi
+env | grep -E '^(.*PATH|SSH_AUTH_SOCK|XDG_.*_HOME|XDG_.*_DIR)=' \
+    | grep -v '^__' > ${XDG_CONFIG_HOME:-$HOME/.config}/environment.d/00-defaults.conf

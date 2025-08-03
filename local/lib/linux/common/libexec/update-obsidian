@@ -1,0 +1,50 @@
+#!/usr/bin/env bash
+
+set -e
+
+NEW_VER="$(
+	curl -fsSL https://api.github.com/repos/obsidianmd/obsidian-releases/releases/latest \
+	   | grep ' *"tag_name": *"v[0-9][0-9.]*"' \
+	   | sed 's/ *"tag_name": *"v\([0-9][0-9.]*\)".*/\1/'
+)"
+
+if [[ -f ${XDG_CACHE_HOME:-$HOME/.cache}/versions/obsidian ]]; then
+	OLD_VER="$(cat ${XDG_CACHE_HOME:-$HOME/.cache}/versions/obsidian)"
+else
+	OLD_VER="0.0.0"
+fi
+
+if [[ "$FLAVOR" == "termux" ]]; then
+	if [[ -d "$PREFIX/var/lib/proot-distro/installed-rootfs/debian/home/necopinus/local/lib" ]]; then
+		INSTALLATION_DIR="$PREFIX/var/lib/proot-distro/installed-rootfs/debian/home/necopinus/local/lib"
+	else
+		echo "ABORTING: Environment is Termux but Debian proot does not appear to be set up"
+		exit 1
+	fi
+else
+	INSTALLATION_DIR="$HOME/local/lib"
+fi
+
+if [[ "$NEW_VER" != "$OLD_VER" ]]; then
+	if [[ "$ARCH" == "amd64" ]]; then
+		curl -fsSL -o /tmp/obsidian.tar.gz \
+		     "https://github.com/obsidianmd/obsidian-releases/releases/download/v${NEW_VER}/obsidian-${NEW_VER}.tar.gz"
+	elif [[ "$ARCH" == "aarch64" ]]; then
+		curl -fsSL -o /tmp/obsidian.tar.gz \
+		     "https://github.com/obsidianmd/obsidian-releases/releases/download/v${NEW_VER}/obsidian-${NEW_VER}-arm64.tar.gz"
+	fi
+
+	tar -xzvf /tmp/obsidian.tar.gz -C /tmp
+	if [[ -d $INSTALLATION_DIR/obsidian ]]; then
+		rm -rf $INSTALLATION_DIR/obsidian
+	fi
+	mv /tmp/obsidian-* $INSTALLATION_DIR/obsidian
+	rm -f /tmp/obsidian.tar.gz
+
+	mkdir -p ${XDG_CACHE_HOME:-$HOME/.cache}/versions
+	echo "$NEW_VER" > ${XDG_CACHE_HOME:-$HOME/.cache}/versions/obsidian
+
+	echo "Obsidian updated to v$NEW_VER"
+else
+	echo "Obsidian is already at v$NEW_VER"
+fi

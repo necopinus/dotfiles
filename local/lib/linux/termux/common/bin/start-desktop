@@ -1,0 +1,69 @@
+#!/usr/bin/env bash
+
+# Convenience function to make sure that our X session is *really* dead
+#
+function clean_up_x_session {
+	TERMUX_ANDROID_USER=$(whoami)
+
+	pkill --full pulseaudio
+	pkill --full virgl_test_server
+	pkill --full com.termux.x11
+
+	pkill -9 dbus
+
+	rm --recursive --force $PREFIX/../home/.config/pulse
+	rm --recursive --force $PREFIX/tmp/dbus-*
+	rm --recursive --force $PREFIX/tmp/.ICE-unix
+	rm --recursive --force $PREFIX/tmp/*-${TERMUX_ANDROID_USER}
+	rm --recursive --force $PREFIX/tmp/*-${TERMUX_ANDROID_USER}.*
+	rm --recursive --force $PREFIX/tmp/*_${TERMUX_ANDROID_USER}
+	rm --recursive --force $PREFIX/tmp/*-necopinus
+	rm --recursive --force $PREFIX/tmp/*-necopinus.*
+	rm --recursive --force $PREFIX/tmp/*_necopinus
+	rm --recursive --force $PREFIX/tmp/*-kali
+	rm --recursive --force $PREFIX/tmp/*-kali.*
+	rm --recursive --force $PREFIX/tmp/*_kali
+	rm --recursive --force $PREFIX/tmp/proot-*
+	rm --recursive --force $PREFIX/tmp/pulse-*
+	rm --recursive --force $PREFIX/tmp/.virgl_test
+	rm --recursive --force $PREFIX/tmp/.X0-lock
+	rm --recursive --force $PREFIX/tmp/.X11-unix
+}
+
+# Actual launch process
+#
+clean_up_x_session
+
+dbus-daemon --session --address=unix:path=$PREFIX/var/run/dbus-session &
+
+termux-x11 :0 &
+
+env MESA_NO_ERROR=1 \
+    MESA_GL_VERSION_OVERRIDE=4.3COMPAT \
+    MESA_GLES_VERSION_OVERRIDE=3.2 \
+    GALLIUM_DRIVER=zink \
+    ZINK_DESCRIPTORS=lazy \
+virgl_test_server --use-egl-surfaceless --use-gles &
+
+if [[ "$(getprop ro.product.manufacturer | tr '[:upper:]' '[:lower:]')" == "samsung" ]]; then
+	env LD_PRELOAD=/system/lib64/libskcodec.so \
+	pulseaudio --start \
+               --load="module-native-protocol-tcp auth-ip-acl=127.0.0.1 auth-anonymous=1" \
+               --exit-idle-time=-1
+else
+	pulseaudio --start \
+	           --load="module-native-protocol-tcp auth-ip-acl=127.0.0.1 auth-anonymous=1" \
+	           --exit-idle-time=-1
+fi
+
+sleep 1 # Sometimes virgl and puleaudio start faster than termux-x11...
+
+am start-activity -W com.termux.x11/com.termux.x11.MainActivity
+
+env DISPLAY=:0 \
+    GALLIUM_DRIVER=virpipe \
+    MESA_GL_VERSION_OVERRIDE=4.0 \
+    PULSE_SERVER=tcp:127.0.0.1 \
+dbus-launch --exit-with-session awesome
+
+clean_up_x_session

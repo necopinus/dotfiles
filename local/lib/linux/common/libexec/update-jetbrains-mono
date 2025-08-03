@@ -1,0 +1,39 @@
+#!/usr/bin/env bash
+
+set -e
+
+NEW_VER="$(
+	curl -fsSL https://api.github.com/repos/ryanoasis/nerd-fonts/releases/latest \
+	   | grep ' *"tag_name": *"v[0-9][0-9.]*"' \
+	   | sed 's/ *"tag_name": *"v\([0-9][0-9.]*\)".*/\1/'
+)"
+
+if [[ -f ${XDG_CACHE_HOME:-$HOME/.cache}/versions/jetbrains-mono ]]; then
+	OLD_VER="$(cat ${XDG_CACHE_HOME:-$HOME/.cache}/versions/jetbrains-mono)"
+else
+	OLD_VER="0.0.0"
+fi
+
+if [[ "$NEW_VER" != "$OLD_VER" ]]; then
+	mkidr -p /tmp/jetbrains-mono
+
+	curl -fsSL -o /tmp/jetbrains-mono/jetbrains-mono.tar.xz \
+	     "https://github.com/ryanoasis/nerd-fonts/releases/download/v${NEW_VER}/JetBrainsMono.tar.xz"
+
+	tar -xJvf /tmp/jetbrains-mono/jetbrains-mono.tar.xz -C /tmp/jetbrains-mono
+
+	mkdir -p ${XDG_DATA_HOME:-$HOME/.local/share}/fonts
+	mv /tmp/jetbrains-mono/*.ttf ${XDG_DATA_HOME:-$HOME/.local/share}/fonts
+	rm -rf /tmp/jetbrains-mono
+
+	cp {XDG_DATA_HOME:-$HOME/.local/share}/fonts/JetBrainsMonoNerdFontMono-Regular.ttf $HOME/.termux/font.ttf
+
+	fc-cache -fv
+
+	mkdir -p ${XDG_CACHE_HOME:-$HOME/.cache}/versions
+	echo "$NEW_VER" > ${XDG_CACHE_HOME:-$HOME/.cache}/versions/jetbrains-mono
+
+	echo "JetBrainsMono Nerd Font updated to v$NEW_VER"
+else
+	echo "JetBrainsMono Nerd Font is already at v$NEW_VER"
+fi

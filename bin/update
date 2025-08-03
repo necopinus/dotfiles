@@ -1,0 +1,120 @@
+#!/usr/bin/env bash
+
+set -e
+
+# System packages
+#
+if [[ -n "$(which apt 2> /dev/null)" ]]; then
+	sudo apt update
+	sudo apt full-upgrade
+	sudo apt autoremove --purge --autoremove
+	sudo apt clean
+fi
+
+if [[ -n "$(which pkg 2> /dev/null)" ]]; then
+	pkg update
+	pkg upgrade
+	pkg autoclean
+fi
+
+# Homebrew
+#
+if [[ -n "$(which brew 2> /dev/null)" ]]; then
+	brew update
+	brew upgrade
+	brew autoremove
+	brew cleanup -s
+fi
+
+# Directory cleanup / setup
+#
+rm -rf ${XDG_CACHE_HOME:-$HOME/.cache}/env
+
+if [[ ! -d "${XDG_CACHE_HOME:-$HOME/.cache}/versions" ]]; then
+	mkdir -p "${XDG_CACHE_HOME:-$HOME/.cache}/versions"
+fi
+
+# Node.js packages
+#
+node --version > "$XDG_CACHE_HOME/versions/node.new"
+
+if [[ "$(cat "${XDG_CACHE_HOME:-$HOME/.cache}/versions/node")" == "$(cat "${XDG_CACHE_HOME:-$HOME/.cache}/versions/node.new")" ]]; then
+	npm upgrade -g $(cat $HOME/.default-npm-packages | xargs)
+	rm "${XDG_CACHE_HOME:-$HOME/.cache}/versions/node.new"
+else
+	rm -rf "$(npm config get prefix)"
+	npm install -g $(cat $HOME/.default-npm-packages | xargs)
+	mv "${XDG_CACHE_HOME:-$HOME/.cache}/versions/node.new" "${XDG_CACHE_HOME:-$HOME/.cache}/versions/node"
+fi
+
+# Python packages
+#
+export OLD_PATH="$PATH"
+export PATH="$(echo ":$PATH:" | sed "s#:$HOME/local/lib/python/bin:#:#g;s/^://;s/:\$//")"
+
+python3 --version > "$XDG_CACHE_HOME/versions/python.new"
+
+if [[ "$(cat "${XDG_CACHE_HOME:-$HOME/.cache}/versions/python")" == "$(python --version)" ]]; then
+	$HOME/local/lib/python/bin/python -m pip install -U $(cat $HOME/.default-python-packages | xargs)
+	rm "${XDG_CACHE_HOME:-$HOME/.cache}/versions/python.new"
+else
+	rm -rf "$HOME/local/lib/python"
+	python3 -m venv $HOME/local/lib/python
+	$HOME/local/lib/python/bin/python -m pip install $(cat $HOME/.default-python-packages | xargs)
+	mv "${XDG_CACHE_HOME:-$HOME/.cache}/versions/python.new" "${XDG_CACHE_HOME:-$HOME/.cache}/versions/python"
+fi
+
+export PATH="$OLD_PATH"
+unset OLD_PATH
+
+# NeoVim extension updates
+#
+nvim --headless "+Lazy! sync" +qa
+
+# Yazi extensions
+#
+ya pkg upgrade
+
+# Artisinal updates
+#
+if [[ "$OS" == "linux" ]]; then
+	$HOME/local/lib/linux/common/libexec/update-jetbrains-mono
+	$HOME/local/lib/linux/common/libexec/update-obsidian
+fi
+
+# Update "containerized" environments
+#
+if [[ "$FLAVOR" == "termux" ]]; then
+	debian --update
+
+	if [[ "$ARCH" == "aarch64" ]]; then
+		kali --update
+	fi
+fi
+
+# Git repositories
+#
+if [[ -d $HOME/src ]]; then
+	(
+		cd $HOME/src
+		while IFS= read -r -d '' OBJECT; do
+			if [[ -d $OBJECT/.git ]]; then
+				echo "Refreshing $(basename $OBJECT)"
+				cd "$OBJECT"
+				git pull --recurse-submodules
+				if [[ "$(git config --get remote.origin.url)" =~ [^/]+@[^/]+\.[^/]+:.+\.git ]]; then
+					git push --recurse-submodules=on-demand
+				fi
+				cd ..
+			fi
+		done < <(find . -mindepth 1 -maxdepth 1 -type d -print0)
+	)
+fi
+
+# macOS system
+#
+# We do this last as this command may force a reboot
+#
+if [[ "$OS" == "macos" ]]; then
+	softwareupdate --install --all --include-config --include-config-data
+fi

@@ -1,5 +1,0 @@
-# Set up path, if applicable.
-#
-if [[ -o login ]]; then
-	source $HOME/.zinit
-fi

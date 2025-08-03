@@ -1,0 +1,171 @@
+#!/usr/bin/env fish
+
+# This shell is now fish
+#
+set -gx SHELL_NAME fish
+
+# Deal with potential PATH pollution
+#
+if set -q PROFILE_PATH
+	fish_add_path -Pm $PROFILE_PATH
+end
+if test -d /Applications/kitty.app/Contents/Resources/man
+	set -gx MANPATH :/Applications/kitty.app/Contents/Resources/man
+else
+	set -e MANPATH
+end
+
+# Initialize tmux, but only once
+#
+if status is-interactive;
+and not set -q TMUX;
+and test "$TERM" != "linux";
+and not test -f "$HOME/_notmux";
+and not test -f "$HOME/_notmux.txt";
+and test $(tmux list-sessions 2> /dev/null | grep "$(hostname -s): " | grep -c "(attached)") -eq 0
+	exec tmux new-session -A -s $(hostname -s)
+else
+	set -e PROFILE_PATH
+end
+
+# Kitty integration
+#
+# We do this here (and set 'shell_integration disabled' in kitty.conf)
+# in order to apply integration in tmux
+#
+if test "$TERM" != "linux"
+	if test "$FLAVOR" = "macos"
+		set -g KITTY_INSTALLATION_DIR /Applications/kitty.app/Contents/Resources/kitty
+	else if test "$FLAVOR" = "debian"
+		set -g KITTY_INSTALLATION_DIR /usr/lib/kitty
+	end
+
+	if set -q KITTY_INSTALLATION_DIR
+		set -g KITTY_SHELL_INTEGRATION enabled
+
+		source "$KITTY_INSTALLATION_DIR/shell-integration/fish/vendor_conf.d/kitty-shell-integration.fish"
+		set -p fish_complete_path "$KITTY_INSTALLATION_DIR/shell-integration/fish/vendor_completions.d"
+	end
+end
+
+# GPG setup
+#
+set -gx GPG_TTY "$(tty)"
+if not set -q SSH_AUTH_SOCK;
+or not set -q gnupg_SSH_AUTH_SOCK_by;
+or test "$gnupg_SSH_AUTH_SOCK_by" -ne $fish_pid
+	set -gx SSH_AUTH_SOCK "$(gpgconf --list-dirs agent-ssh-socket)"
+	set -e  SSH_AGENT_PID
+end
+gpg-connect-agent /bye &> /dev/null &; disown
+
+# Convenience aliases
+#
+alias :e "$EDITOR"
+alias :q exit
+alias cat "$(which bat) -pp"
+alias df "$(which duf) -theme ansi"
+alias diff "$(which delta)"
+alias dotfiles "$(which git) --git-dir=$HOME/.dotfiles --work-tree=$HOME"
+alias du "$(which dust)"
+alias fd "$(which fd) --color auto --hyperlink auto"
+alias fzf "$(which fzf) --style=full --color=16"
+alias glow "$(which glow) -s $XDG_CONFIG_HOME/glow/styles/gruvbox-material-light-hard.json"
+alias grep "$(which grep) --color=auto"
+alias kitten "$(which kitty) +kitten"
+alias la "$(which eza) --classify=auto --color=auto --icons=auto --hyperlink --long --all"
+alias less "$(which bat)"
+alias ll "$(which eza) --classify=auto --color=auto --icons=auto --hyperlink --long"
+alias ls "$(which eza) --classify=auto --color=auto --icons=auto --hyperlink"
+alias more "$(which bat)"
+alias ps "$(which procs)"
+alias pstree "$(which procs) --tree"
+alias rg "$(which rg) --color=auto"
+alias top "$(which btm)"
+
+if test "$TERM" != "linux"
+	alias nano "$(which nvim)"
+	alias nvr "$(which nvr) -s"
+	alias vi "$(which nvim)"
+	alias vim "$(which nvim)"
+	alias vimdiff "$(which nvim) -d"
+end
+
+if test "$OS" = "linux"
+	if set -q DISPLAY
+		alias pbcopy "$(which xsel) --input --clipboard"
+		alias pbpaste "$(which xsel) --output --clipboard"
+	else if set -q WAYLAND_DISPLAY
+		alias pbcopy "$(which wl-copy)"
+		alias pbpaste "$(which wl-paste)"
+	else if test "$FLAVOR" = "termux"
+		alias pbcopy "$(which termux-clipboard-set)"
+		alias pbpaste "$(which termux-clipboard-get)"
+	end
+end
+
+if [[ "$FLAVOR" == "termux" ]]; then
+	alias cpio "$(which busybox) cpio"
+	alias hexedit "$(which busybox) hexedit"
+	alias ip "$(which busybox) ip"
+	alias nc "$(which busybox) nc"
+	alias netcat "$(which busybox) netcat"
+	alias traceroute "$(which busybox) traceroute"
+	alias whois "$(which busybox) whois"
+	alias xxd "$(which busybox) xxd"
+fi
+
+# Convenience function for launching graphical apps from the terminal
+#
+if test "$OS" == "linux"
+	function xcv
+		nohup $argv 2> /dev/null
+	end
+end
+
+# Set prompt
+#
+if test "$TERM" != "linux"
+	if test -n "$(which starship 2> /dev/null)"
+		if not test -s "$XDG_CACHE_HOME/env/starship.init.$SHELL_NAME"
+			starship init $SHELL_NAME > "$XDG_CACHE_HOME/env/starship.init.$SHELL_NAME"
+		end
+
+		source "$XDG_CACHE_HOME/env/starship.init.$SHELL_NAME"
+	end
+end
+
+# Init zoxide; this must be done after anything that might modify fish's
+# behavior
+#
+if test -n "$(which zoxide 2> /dev/null)"
+	if not test -s "$XDG_CACHE_HOME/env/zoxide.init.$SHELL_NAME"
+		zoxide init --cmd cd $SHELL_NAME > "$XDG_CACHE_HOME/env/zoxide.init.$SHELL_NAME"
+	end
+
+	source "$XDG_CACHE_HOME/env/zoxide.init.$SHELL_NAME"
+end
+
+# Yazi convenience function
+#
+# See: https://yazi-rs.github.io/docs/quick-start#shell-wrapper
+#
+function y
+	set CWD_TMP $(mktemp -t "yazi-cwd.XXXXXX")
+	yazi $argv --cwd-file="$CWD_TMP"
+	if read -z CWD < "$CWD_TMP"; and [ -n "$CWD" ]; and [ "$CWD" != "$PWD" ]
+		builtin cd -- "$CWD"
+	end
+	rm -f -- "$CWD_TMP"
+end
+
+# Suppress welcome message
+#
+set -g fish_greeting
+
+# Try (probably futilely) to keep environment variables in sync with the
+# garbage fire that is systemd
+#
+if test "$OS" = "linux"
+	$HOME/local/lib/linux/common/libexec/update-environment
+end

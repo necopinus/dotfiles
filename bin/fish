@@ -1,0 +1,19 @@
+#!/usr/bin/env -S bash -l
+
+# Wrapper to make sure that fish always sees the environment set up in
+# ~/.profile (calling bash above as a login shell using the -l flag
+# forces /etc/profile and ~/.profile to be read)
+
+set -e
+
+# We can't call `fish` directly, because this wrapper needs to exist
+# before the *actual* fish binary in the path; however, since we know 
+# that ~/.profile has been sourced (see above), HOMEBREW_PREFIX is
+# available, and we can exec fish from there (or just user PREFIX on
+# Termux)
+#
+if [[ "$FLAVOR" == "termux" ]]; then
+	exec -l $PREFIX/usr/bin/fish "$@"
+else
+	exec -l $HOMEBREW_PREFIX/bin/fish "$@"
+fi
