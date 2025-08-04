@@ -3,6 +3,7 @@
 # This shell is now fish
 #
 set -gx SHELL_NAME fish
+set -gx THIS_IS_FISH 1
 
 # Deal with potential PATH pollution
 #

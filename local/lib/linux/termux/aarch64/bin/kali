@@ -156,14 +156,12 @@ elif [[ $# -eq 1 ]] && [[ "$1" =~ ^--install$ ]]; then
 		#     FATAL:   Could not create shared memory segment: Function not implemented
 		#     DETAIL:  Failed system call was shmget
 		#
-		proot-distro login kali --no-arch-warning --isolated --user postgres \
-		                        -- pg_createcluster 17 main
-		proot-distro login kali --no-arch-warning --isolated --user postgres \
-		                        -- /etc/init.d/postgresql start
-		proot-distro login kali --no-arch-warning --isolated --user kali \
-		                        -- msfdb init
-		proot-distro login kali --no-arch-warning --isolated --user postgres \
-		                        -- /etc/init.d/postgresql stop
+		proot-distro login kali --no-arch-warning --isolated -- bash -c '
+		             su postgres --command="pg_createcluster 17 main" \
+		          && su postgres --command="/etc/init.d/postgresql start" \
+		          && su kali     --command="msfdb init" \
+		          && su postgres --command="/etc/init.d/postgresql stop"
+		'
 
 		# Hack so that PostgreSQL upgrades don't fail
 		#

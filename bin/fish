@@ -13,7 +13,7 @@ set -e
 # Termux)
 #
 if [[ "$FLAVOR" == "termux" ]]; then
-	exec -l $PREFIX/usr/bin/fish "$@"
+	exec -l $PREFIX/bin/fish "$@"
 else
 	exec -l $HOMEBREW_PREFIX/bin/fish "$@"
 fi
