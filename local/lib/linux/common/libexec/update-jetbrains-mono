@@ -32,7 +32,7 @@ if [[ "$NEW_VER" != "$OLD_VER" ]]; then
 	mv $TMP_DIR/jetbrains-mono/*.ttf ${XDG_DATA_HOME:-$HOME/.local/share}/fonts
 	rm -rf $TMP_DIR/jetbrains-mono
 
-	cp {XDG_DATA_HOME:-$HOME/.local/share}/fonts/JetBrainsMonoNerdFontMono-Regular.ttf $HOME/.termux/font.ttf
+	cp ${XDG_DATA_HOME:-$HOME/.local/share}/fonts/JetBrainsMonoNerdFontMono-Regular.ttf $HOME/.termux/font.ttf
 
 	fc-cache -fv
 
