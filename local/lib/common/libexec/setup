@@ -225,6 +225,7 @@ elif [[ "$FLAVOR" == "termux" ]]; then
 	    kitty \
 	    less \
 	    libjpeg-turbo-progs \
+	    libxslt \
 	    lua-language-server \
 	    man \
 	    mediainfo \
