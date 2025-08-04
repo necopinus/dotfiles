@@ -182,6 +182,7 @@ if [[ "$FLAVOR" == "macos" ]]; then
 	     uutils-findutils \
 	     xld \
 	     xz \
+	     yarn \
 	     yazi \
 	     yt-dlp \
 	     yubico-yubikey-manager \
@@ -265,6 +266,7 @@ elif [[ "$FLAVOR" == "termux" ]]; then
 	    xclip \
 	    xsel \
 	    xz-utils \
+	    yarn \
 	    yazi \
 	    yt-dlp \
 	    zip \
@@ -352,6 +354,7 @@ elif [[ "$FLAVOR" == "debian" ]]; then
 	     xclip \
 	     xsel \
 	     xz \
+	     yarn \
 	     yazi \
 	     yt-dlp \
 	     zoxide \
@@ -379,7 +382,7 @@ if [[ ! -d "$XDG_CACHE_HOME/versions" ]]; then
 	mkdir -p "$XDG_CACHE_HOME/versions"
 fi
 
-npm install -g $(cat $HOME/.default-npm-packages | xargs)
+yarn global add $(cat $HOME/.default-npm-packages | xargs)
 node --version > "$XDG_CACHE_HOME/versions/node"
 
 python3 -m venv $HOME/local/lib/python
