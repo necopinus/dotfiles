@@ -4,26 +4,35 @@ set -e
 
 # System packages
 #
-if [[ -n "$(which apt 2> /dev/null)" ]]; then
-	sudo apt update
-	sudo apt full-upgrade
-	sudo apt autoremove --purge --autoremove
-	sudo apt clean
+if [[ "$FLAVOR" != "termux" ]]; then
+	if [[ -n "$(which apt 2> /dev/null)" ]]; then
+		sudo apt update
+		sudo apt full-upgrade
+		sudo apt autoremove --purge --autoremove
+		sudo apt clean
+	fi
+	if [[ -n "$(which brew 2> /dev/null)" ]]; then
+		brew update
+		brew upgrade
+		brew autoremove
+		brew cleanup -s
+	fi
+else
+	if [[ -n "$(which pkg 2> /dev/null)" ]]; then
+		pkg update
+		pkg upgrade
+		pkg autoclean
+	fi
 fi
 
-if [[ -n "$(which pkg 2> /dev/null)" ]]; then
-	pkg update
-	pkg upgrade
-	pkg autoclean
-fi
-
-# Homebrew
+# Update "containerized" environments
 #
-if [[ -n "$(which brew 2> /dev/null)" ]]; then
-	brew update
-	brew upgrade
-	brew autoremove
-	brew cleanup -s
+if [[ "$FLAVOR" == "termux" ]]; then
+	debian --update
+
+	if [[ "$ARCH" == "aarch64" ]]; then
+		kali --update
+	fi
 fi
 
 # Directory cleanup / setup
@@ -87,16 +96,6 @@ ya pkg upgrade
 if [[ "$OS" == "linux" ]]; then
 	$HOME/local/lib/linux/common/libexec/update-jetbrains-mono
 	$HOME/local/lib/linux/common/libexec/update-obsidian
-fi
-
-# Update "containerized" environments
-#
-if [[ "$FLAVOR" == "termux" ]]; then
-	debian --update
-
-	if [[ "$ARCH" == "aarch64" ]]; then
-		kali --update
-	fi
 fi
 
 # Git repositories

@@ -25,6 +25,7 @@ distro_setup() {
 		kali-nethunter-core \
 		kali-system-cli \
 		kali-tools-top10 \
+		man-db \
 		openssh-client \
 		xsel
 
@@ -44,5 +45,5 @@ distro_setup() {
 	# Additional setup for the default user
 	#
 	run_proot_cmd usermod --append --groups adm,audio,cdrom,dialout,dip,floppy,netdev,plugdev,sudo,staff,users,video kali
-	run_proot_cmd chsh --shell /bin/zsh kali
+	run_proot_cmd chsh --shell /bin/bash kali
 }

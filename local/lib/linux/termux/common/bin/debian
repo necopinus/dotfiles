@@ -86,6 +86,7 @@ elif [[ $# -eq 1 ]] && [[ "$1" =~ ^--install$ ]]; then
 		                                 libuuid1 \
 		                                 libxss1 \
 		                                 libxtst6 \
+		                                 man-db \
 		                                 nano \
 		                                 npm \
 		                                 sudo \

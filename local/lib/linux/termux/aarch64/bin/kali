@@ -55,7 +55,7 @@ if [[ $# -eq 0 ]]; then
 	                --env TMUX_TMPDIR=/home/kali/.local/run \
 	                --bind $HOME/storage/downloads:/home/kali/downloads \
 	                --user kali \
-	                -- /usr/bin/zsh -li
+	                -- /usr/bin/bash -li
 elif [[ $# -eq 1 ]] && [[ "$1" =~ ^--root$ ]]; then
 	exec proot-distro login kali \
 	                --no-arch-warning \
