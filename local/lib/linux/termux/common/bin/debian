@@ -54,6 +54,8 @@ if [[ $# -eq 0 ]]; then
 	                --env TMUX_TMPDIR=/home/necopinus/.local/run \
 	                --bind $HOME/storage/shared/Documents/Obsidian:/home/necopinus/notes \
 	                --bind $HOME/storage/downloads:/home/necopinus/downloads \
+	                --bind $HOME/config/calibre:/home/necopinus/.config/calibre \
+	                --bind $HOME/data/calibre:/home/necopinus/data/calibre \
 	                --bind $HOME/src:/home/necopinus/src \
 	                --user necopinus \
 	                -- /usr/bin/bash -li
@@ -141,8 +143,10 @@ elif [[ $# -eq 1 ]] && [[ "$1" =~ ^--install$ ]]; then
 		cp $HOME/local/lib/linux/termux/common/proot/debian/home/necopinus/.config/tmux/tmux.conf \
 		   $DEBIAN_DIR/home/necopinus/.config/tmux/tmux.conf
 
+		mkdir -p $DEBIAN_DIR/home/necopinus/.config/calibre
 		mkdir -p $DEBIAN_DIR/home/necopinus/.local/run
 
+		mkdir -p $DEBIAN_DIR/home/necopinus/data/calibre
 		mkdir -p $DEBIAN_DIR/home/necopinus/data/desktop
 		mkdir -p $DEBIAN_DIR/home/necopinus/data/music
 		mkdir -p $DEBIAN_DIR/home/necopinus/data/pictures

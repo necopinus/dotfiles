@@ -566,6 +566,15 @@ if [[ ! -d "$XDG_VIDEOS_DIR" ]]; then
 	fi
 fi
 
+# Calibre pre-setup
+#
+if [[ "$OS" == "macos" ]]; then
+	mkdir -p $HOME/Library/Preferences/calibre
+else
+	mkdir -p $XDG_CONFIG_HOME/calibre
+fi
+mkdir -p $HOME/data/calibre
+
 # Fix permissions
 #
 chmod 700 $HOME/.ssh

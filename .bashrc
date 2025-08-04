@@ -2,9 +2,7 @@
 
 # For some reason Termux's Bash reads ~/.profile AFTER ~/.bashrc (?!?!)
 #
-if [[ -z "$PROFILE_INITIALIZED" ]]; then
-	source $HOME/.profile
-fi
+source $HOME/.profile
 
 # Termux always starts Bash, so we need to exec fish here
 #
