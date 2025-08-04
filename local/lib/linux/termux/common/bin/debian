@@ -16,13 +16,13 @@ fi
 # Pass along relevant environment variables
 #
 ENV_ARGS=()
-if [[ -n "\$DISPLAY" ]]; then
+if [[ -n "$DISPLAY" ]]; then
 	ENV_ARGS+=(--env DISPLAY=$DISPLAY)
 	ENV_ARGS+=(--env GALLIUM_DRIVER=virpipe)
 	ENV_ARGS+=(--env MESA_GL_VERSION_OVERRIDE=4.0)
 	ENV_ARGS+=(--shared-tmp)
 fi
-if [[ -n "\$PULSE_SERVER" ]]; then
+if [[ -n "$PULSE_SERVER" ]]; then
 	ENV_ARGS+=(--env PULSE_SERVER=$PULSE_SERVER)
 fi
 
@@ -56,7 +56,7 @@ if [[ $# -eq 0 ]]; then
 	                --bind $HOME/storage/downloads:/home/necopinus/downloads \
 	                --bind $HOME/src:/home/necopinus/src \
 	                --user necopinus \
-					-- /usr/bin/bash -li
+	                -- /usr/bin/bash -li
 elif [[ $# -eq 1 ]] && [[ "$1" =~ ^--root$ ]]; then
 	exec proot-distro login debian \
 	                --no-arch-warning \
@@ -189,7 +189,7 @@ elif [[ $# -eq 1 ]] && [[ "$1" =~ ^--update$ ]]; then
 	fi
 elif [[ $# -eq 1 ]] && [[ "$1" =~ ^--backup$ ]]; then
 	backup_debian_proot
-elif if [[ $# -eq 1 ]] && [[ "$1" =~ ^--archive$ ]]; then
+elif [[ $# -eq 1 ]] && [[ "$1" =~ ^--archive$ ]]; then
 	backup_debian_proot
 	
 	if [[ -d "$DEBIAN_DIR" ]]; then

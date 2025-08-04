@@ -16,14 +16,14 @@ fi
 # Pass along relevant environment variables
 #
 ENV_ARGS=()
-if [[ -n "\$DISPLAY" ]]; then
+if [[ -n "$DISPLAY" ]]; then
 	ENV_ARGS+=(--env DISPLAY=$DISPLAY)
 	ENV_ARGS+=(--env GALLIUM_DRIVER=virpipe)
 	ENV_ARGS+=(--env MESA_GL_VERSION_OVERRIDE=4.0)
 	ENV_ARGS+=(--env QT_QPA_PLATFORMTHEME=qt6ct)
 	ENV_ARGS+=(--shared-tmp)
 fi
-if [[ -n "\$PULSE_SERVER" ]]; then
+if [[ -n "$PULSE_SERVER" ]]; then
 	ENV_ARGS+=(--env PULSE_SERVER=$PULSE_SERVER)
 fi
 
@@ -55,7 +55,7 @@ if [[ $# -eq 0 ]]; then
 	                --env TMUX_TMPDIR=/home/kali/.local/run \
 	                --bind $HOME/storage/downloads:/home/kali/downloads \
 	                --user kali \
-					-- /usr/bin/zsh -li
+	                -- /usr/bin/zsh -li
 elif [[ $# -eq 1 ]] && [[ "$1" =~ ^--root$ ]]; then
 	exec proot-distro login kali \
 	                --no-arch-warning \
