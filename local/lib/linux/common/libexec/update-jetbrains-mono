@@ -15,7 +15,7 @@ else
 fi
 
 if [[ "$NEW_VER" != "$OLD_VER" ]]; then
-	mkidr -p /tmp/jetbrains-mono
+	mkdir -p /tmp/jetbrains-mono
 
 	curl -fsSL -o /tmp/jetbrains-mono/jetbrains-mono.tar.xz \
 	     "https://github.com/ryanoasis/nerd-fonts/releases/download/v${NEW_VER}/JetBrainsMono.tar.xz"

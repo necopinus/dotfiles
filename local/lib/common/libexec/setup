@@ -74,6 +74,7 @@ elif [[ "$FLAVOR" == "termux" ]]; then
 	termux-change-repo
 	pkg upgrade
 	pkg install \
+	    git \
 	    tur-repo \
 	    x11-repo
 fi
