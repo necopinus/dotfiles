@@ -11,6 +11,10 @@ distro_setup() {
 	run_proot_cmd env DEBIAN_FRONTEND=noninteractive apt update       --quiet --assume-yes --fix-missing
 	run_proot_cmd env DEBIAN_FRONTEND=noninteractive apt full-upgrade --quiet --assume-yes --fix-broken
 
+	# NOTE: We can't just install kali-nethunter-full, as the for some
+	#       reason the *-arm-none-eabi-* generate an error during
+	#       decompression
+	#
 	run_proot_cmd env DEBIAN_FRONTEND=noninteractive apt install --quiet --assume-yes \
 		build-essential \
 		dialog \
@@ -21,7 +25,6 @@ distro_setup() {
 		kali-tools-top10 \
 		openssh-client \
 		xsel
-
 
 	run_proot_cmd env DEBIAN_FRONTEND=noninteractive apt autoremove --quiet --assume-yes --purge --autoremove
 	run_proot_cmd env DEBIAN_FRONTEND=noninteractive apt clean      --quiet --assume-yes
