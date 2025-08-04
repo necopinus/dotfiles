@@ -9,6 +9,10 @@ Current iteration heavily inspired by [Drew DeVault](https://drewdevault.com/201
 ## Quick start
 
 ```bash
+if [[ -n "$PREFIX" ]] && [[ -n "$(which pkg 2> /dev/null)" ]]; then
+    pkg install git
+fi
+
 git clone --bare https://github.com/necopinus/dotfiles.git $HOME/.dotfiles
 git --git-dir=$HOME/.dotfiles --work-tree=$HOME checkout -f
 ./local/lib/common/libexec/setup
