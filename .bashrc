@@ -5,9 +5,9 @@
 if [[ "$FLAVOR" == "termux" ]] \
 && [[ -z "$THIS_IS_FISH" ]] \
 && [[ $- =~ i ]] \
-&& [[ ! -f "$HOME/_nofish" ]]
-&& [[ ! -f "$HOME/_nofish.txt" ]]
-&& [[ ! -f "$HOME/storage/shared/Documents/_nofish" ]]
+&& [[ ! -f "$HOME/_nofish" ]] \
+&& [[ ! -f "$HOME/_nofish.txt" ]] \
+&& [[ ! -f "$HOME/storage/shared/Documents/_nofish" ]] \
 && [[ ! -f "$HOME/storage/shared/Documents/_nofish.txt" ]]; then
 	exec $HOME/bin/fish -li
 fi
