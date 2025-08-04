@@ -386,7 +386,7 @@ fi
 yarn global add $(cat $HOME/.default-npm-packages | xargs)
 node --version > "$XDG_CACHE_HOME/versions/node"
 
-python3 -m venv $HOME/local/lib/python
+python3 -m venv --system-site-packages $HOME/local/lib/python
 $HOME/local/lib/python/bin/python -m pip install $(cat $HOME/.default-python-packages | xargs)
 $HOME/local/lib/python/bin/python --version > "$XDG_CACHE_HOME/versions/python"
 
@@ -568,10 +568,17 @@ find $HOME/.ssh -type f -exec chmod 600 "{}" \;
 #          that's the child of the current directory. Hence switching to
 #          /, since... ~/cache is a thing in this setup.
 #
-(
-	cd /
-	bat cache --build
-)
+if [[ "$FLAVOR" == "termux" ]]; then
+	(
+		cd /tmp
+		bat cache --build
+	)
+else
+	(
+		cd $PREFIX/tmp
+		bat cache --build
+	)
+fi
 
 # Set up git
 # 
