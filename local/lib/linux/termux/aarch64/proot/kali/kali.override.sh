@@ -18,6 +18,8 @@ distro_setup() {
 	run_proot_cmd env DEBIAN_FRONTEND=noninteractive apt install --quiet --assume-yes \
 		build-essential \
 		dialog \
+		fonts-liberation2 \
+		fonts-noto \
 		kali-desktop-core \
 		kali-linux-core \
 		kali-nethunter-core \
