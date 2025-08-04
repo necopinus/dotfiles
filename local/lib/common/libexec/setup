@@ -386,7 +386,9 @@ fi
 yarn global add $(cat $HOME/.default-npm-packages | xargs)
 node --version > "$XDG_CACHE_HOME/versions/node"
 
-python3 -m venv --system-site-packages $HOME/local/lib/python
+if [[ ! -f $HOME/local/lib/python/bin/python ]]; then
+	python3 -m venv --system-site-packages $HOME/local/lib/python
+fi
 $HOME/local/lib/python/bin/python -m pip install $(cat $HOME/.default-python-packages | xargs)
 $HOME/local/lib/python/bin/python --version > "$XDG_CACHE_HOME/versions/python"
 
