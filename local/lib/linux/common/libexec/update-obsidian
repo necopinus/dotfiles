@@ -21,8 +21,8 @@ else
 fi
 
 if [[ "$FLAVOR" == "termux" ]]; then
-	if [[ -d "$PREFIX/var/lib/proot-distro/installed-rootfs/debian/home/necopinus/local/lib" ]]; then
-		INSTALLATION_DIR="$PREFIX/var/lib/proot-distro/installed-rootfs/debian/home/necopinus/local/lib"
+	if [[ -d "$PREFIX/var/lib/proot-distro/installed-rootfs/debian/home/necopinus" ]]; then
+		INSTALLATION_DIR="$PREFIX/var/lib/proot-distro/installed-rootfs/debian/home/necopinus/.local/lib"
 	else
 		echo "ABORTING: Environment is Termux but Debian proot does not appear to be set up"
 		exit 1
@@ -40,8 +40,10 @@ if [[ "$NEW_VER" != "$OLD_VER" ]]; then
 		     "https://github.com/obsidianmd/obsidian-releases/releases/download/v${NEW_VER}/obsidian-${NEW_VER}-arm64.tar.gz"
 	fi
 
-	tar -xzvf $TMP_DIR/obsidian.tar.gz -C /tmp
-	if [[ -d $INSTALLATION_DIR/obsidian ]]; then
+	tar -xzvf $TMP_DIR/obsidian.tar.gz -C $TMP_DIR
+	if [[ ! -d $INSTALLATION_DIR ]]; then
+		mkdir -p $INSTALLATION_DIR
+	elif [[ -d $INSTALLATION_DIR/obsidian ]]; then
 		rm -rf $INSTALLATION_DIR/obsidian
 	fi
 	mv $TMP_DIR/obsidian-* $INSTALLATION_DIR/obsidian

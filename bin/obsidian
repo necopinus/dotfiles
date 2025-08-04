@@ -21,7 +21,7 @@ elif [[ "$FLAVOR" == "termux" ]]; then
 	                --bind $HOME/storage/shared/Documents/Obsidian:/home/necopinus/notes \
 	                --bind $HOME/storage/downloads:/home/necopinus/downloads \
 	                --user necopinus \
-	                --     /home/necopinus/local/lib/obsidian/obsidian "$@"
+	                --     /home/necopinus/.local/lib/obsidian/obsidian "$@"
 elif [[ -x "$HOME/local/lib/obsidian/obsidian" ]]; then
 	exec $HOME/local/lib/obsidian/obsidian "$@"
 else

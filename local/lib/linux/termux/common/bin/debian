@@ -87,6 +87,7 @@ elif [[ $# -eq 1 ]] && [[ "$1" =~ ^--install$ ]]; then
 		                                 libxtst6 \
 		                                 nano \
 		                                 npm \
+		                                 sudo \
 		                                 tmux \
 		                                 xdg-utils \
 		                                 xsel \
@@ -103,7 +104,7 @@ elif [[ $# -eq 1 ]] && [[ "$1" =~ ^--install$ ]]; then
 		                                       necopinus
 
 		mkdir -p $DEBIAN_DIR/etc
-		rm $DEBIAN_DIR/etc/localtime
+		rm -f $DEBIAN_DIR/etc/localtime
 		if [[ -f "$DEBIAN_DIR/usr/share/zoneinfo/$ANDROID_TZ" ]]; then
 			cp $(realpath $DEBIAN_DIR/usr/share/zoneinfo/$ANDROID_TZ) \
 			              $DEBIAN_DIR/etc/localtime
