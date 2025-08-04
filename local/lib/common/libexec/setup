@@ -225,12 +225,12 @@ elif [[ "$FLAVOR" == "termux" ]]; then
 	    kitty \
 	    less \
 	    libjpeg-turbo-progs \
-	    libxslt \
 	    lua-language-server \
 	    man \
 	    mediainfo \
 	    mesa-zink \
 	    mpv \
+	    ndk-sysroot-gcc-compact \
 	    neovim \
 	    nodejs \
 	    openssh \
@@ -240,7 +240,7 @@ elif [[ "$FLAVOR" == "termux" ]]; then
 	    procs \
 	    proot-distro \
 	    pulseaudio \
-	    python \
+	    python-lxml \
 	    qalc \
 	    rclone \
 	    ripgrep \
