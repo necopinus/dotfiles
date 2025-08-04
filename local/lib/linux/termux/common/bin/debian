@@ -61,7 +61,7 @@ elif [[ $# -eq 1 ]] && [[ "$1" =~ ^--root$ ]]; then
 	exec proot-distro login debian \
 	                --no-arch-warning \
 	                --isolated \
-	                --user root
+	                --env LANG=en_US.UTF-8
 elif [[ $# -eq 1 ]] && [[ "$1" =~ ^--install$ ]]; then
 	if [[ ! -d "$DEBIAN_DIR" ]]; then
 		proot-distro install debian
@@ -155,7 +155,7 @@ elif [[ $# -eq 1 ]] && [[ "$1" =~ ^--install$ ]]; then
 
 		# Fix bad permissions on /usr/bin/sudo
 		#
-		proot-distro login debian --no-arch-warning --isolated --user root \
+		proot-distro login debian --no-arch-warning --isolated \
 		                          -- chmod u+s /usr/bin/sudo
 	else
 		echo "Debian proot appears to be already installed"
@@ -163,9 +163,6 @@ elif [[ $# -eq 1 ]] && [[ "$1" =~ ^--install$ ]]; then
 	fi
 elif [[ $# -eq 1 ]] && [[ "$1" =~ ^--update$ ]]; then	
 	if [[ -d "$DEBIAN_DIR" ]]; then
-		cp $DEBIAN_DIR/usr/bin/systemctl.bin \
-		   $DEBIAN_DIR/usr/bin/systemctl
-
 		proot-distro login debian --no-arch-warning --isolated \
 		                          -- apt update
 		proot-distro login debian --no-arch-warning --isolated \
@@ -175,14 +172,9 @@ elif [[ $# -eq 1 ]] && [[ "$1" =~ ^--update$ ]]; then
 		proot-distro login debian --no-arch-warning --isolated \
 		                          -- apt clean
 
-		cp $DEBIAN_DIR/usr/bin/systemctl \
-		   $DEBIAN_DIR/usr/bin/systemctl.bin
-		cp $DEBIAN_DIR/usr/bin/systemctl.sh \
-		   $DEBIAN_DIR/usr/bin/systemctl
-
 		# Fix bad permissions on /usr/bin/sudo
 		#
-		proot-distro login debian --no-arch-warning --isolated --user root \
+		proot-distro login debian --no-arch-warning --isolated \
 		                          -- chmod u+s /usr/bin/sudo
 	else
 		echo "Debian proot does not appear to be installed"

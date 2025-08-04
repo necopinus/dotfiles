@@ -275,7 +275,7 @@ elif [[ "$FLAVOR" == "termux" ]]; then
 	$HOME/local/lib/linux/common/libexec/update-jetbrains-mono
 
 	$HOME/local/lib/linux/termux/common/bin/debian --install
-	$HOME/local/lib/linux/debian/common/libexec/update-obsidian
+	$HOME/local/lib/linux/common/libexec/update-obsidian
 
 	if [[ "$ARCH" == "aarch64" ]]; then
 		$HOME/local/lib/linux/termux/aarch64/bin/kali --install

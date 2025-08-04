@@ -60,8 +60,7 @@ elif [[ $# -eq 1 ]] && [[ "$1" =~ ^--root$ ]]; then
 	exec proot-distro login kali \
 	                --no-arch-warning \
 	                --isolated \
-	                --env LANG=en_US.UTF-8 \
-	                --user root
+	                --env LANG=en_US.UTF-8
 elif [[ $# -eq 1 ]] && [[ "$1" =~ ^--install$ ]]; then
 	if [[ ! -d "$KALI_DIR" ]]; then
 		TARBALL_SHA256="$(
@@ -145,7 +144,7 @@ elif [[ $# -eq 1 ]] && [[ "$1" =~ ^--install$ ]]; then
 
 		# Fix bad permissions on /usr/bin/sudo
 		#
-		proot-distro login kali --no-arch-warning --isolated --user root \
+		proot-distro login kali --no-arch-warning --isolated \
 		                        -- chmod u+s /usr/bin/sudo
 
 		# For some reason, setting up PostgreSQL/Metasploit works when
@@ -195,7 +194,7 @@ elif [[ $# -eq 1 ]] && [[ "$1" =~ ^--update$ ]]; then
 
 		# Fix bad permissions on /usr/bin/sudo
 		#
-		proot-distro login kali --no-arch-warning --isolated --user root \
+		proot-distro login kali --no-arch-warning --isolated \
 		                        -- chmod u+s /usr/bin/sudo
 
 		# Hack so that PostgreSQL upgrades don't fail
