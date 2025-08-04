@@ -1,3 +1,5 @@
 #!/usr/bin/env zsh
 
-source $HOME/.profile
+if [[ -z "$PROFILE_INITIALIZED" ]]; then
+	source $HOME/.profile
+fi

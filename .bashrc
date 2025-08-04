@@ -1,5 +1,11 @@
 #!/usr/bin/env bash
 
+# For some reason Termux's Bash reads ~/.profile AFTER ~/.bashrc (?!?!)
+#
+if [[ -z "$PROFILE_INITIALIZED" ]]; then
+	source $HOME/.profile
+fi
+
 # Termux always starts Bash, so we need to exec fish here
 #
 if [[ "$FLAVOR" == "termux" ]] \

@@ -164,3 +164,7 @@ export VISUAL="$EDITOR"
 if [[ -z "$PROFILE_PATH" ]]; then
 	export PROFILE_PATH="$PATH"
 fi
+
+# Check to see if this file has already been read
+#
+export PROFILE_INITIALIZED=1
