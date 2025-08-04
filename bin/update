@@ -43,7 +43,14 @@ if [[ "$(cat "${XDG_CACHE_HOME:-$HOME/.cache}/versions/node")" == "$(cat "${XDG_
 	rm "${XDG_CACHE_HOME:-$HOME/.cache}/versions/node.new"
 else
 	rm -rf "$(npm config get prefix)"
-	yarn global add $(cat $HOME/.default-npm-packages | xargs)
+
+	export OLD_PATH="$PATH"
+	export PATH="$(echo ":$PATH:" | sed "s#:$HOME/local/lib/nodejs/bin:#:#g;s/^://;s/:\$//")"
+	YARN_EXE="$(which yarn)"
+	export PATH="$OLD_PATH"
+	unset OLD_PATH
+
+	$YARN_EXE global add $(cat $HOME/.default-npm-packages | xargs)
 	mv "${XDG_CACHE_HOME:-$HOME/.cache}/versions/node.new" "${XDG_CACHE_HOME:-$HOME/.cache}/versions/node"
 fi
 
