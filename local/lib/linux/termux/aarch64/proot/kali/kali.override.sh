@@ -14,10 +14,14 @@ distro_setup() {
 	run_proot_cmd env DEBIAN_FRONTEND=noninteractive apt install --quiet --assume-yes \
 		build-essential \
 		dialog \
+		kali-desktop-core \
+		kali-linux-core \
 		kali-nethunter-core \
-		kali-nethunter-full \
-		tmux \
+		kali-system-cli \
+		kali-tools-top10 \
+		openssh-client \
 		xsel
+
 
 	run_proot_cmd env DEBIAN_FRONTEND=noninteractive apt autoremove --quiet --assume-yes --purge --autoremove
 	run_proot_cmd env DEBIAN_FRONTEND=noninteractive apt clean      --quiet --assume-yes
