@@ -41,7 +41,8 @@ distro_setup() {
 	run_proot_cmd env DEBIAN_FRONTEND=noninteractive make-ssl-cert generate-default-snakeoil
 	chmod 600 ./etc/ssl/private/ssl-cert-snakeoil.key
 
-	# Add additional groups to the default user
+	# Additional setup for the default user
 	#
 	run_proot_cmd usermod --append --groups adm,audio,cdrom,dialout,dip,floppy,netdev,plugdev,sudo,staff,users,video kali
+	run_proot_cmd chsh --shell /bin/zsh kali
 }
