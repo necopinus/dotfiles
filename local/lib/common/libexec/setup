@@ -228,7 +228,6 @@ elif [[ "$FLAVOR" == "termux" ]]; then
 	    lua-language-server \
 	    man \
 	    mediainfo \
-	    mesa-zink \
 	    mpv \
 	    ndk-sysroot-gcc-compact \
 	    neovim \
@@ -259,9 +258,6 @@ elif [[ "$FLAVOR" == "termux" ]]; then
 	    unzip \
 	    uuid-utils \
 	    uutils-coreutils \
-	    virglrenderer-android \
-	    virglrenderer-mesa-zink \
-	    vulkan-loader-android \
 	    which \
 	    xorg-server-xephyr \
 	    xclip \

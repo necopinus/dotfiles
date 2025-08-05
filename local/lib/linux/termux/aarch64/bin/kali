@@ -16,11 +16,16 @@ fi
 # Pass along relevant environment variables
 #
 ENV_ARGS=()
+ENV_ARGS+=(--env LANG=en_US.UTF-8)
+if [[ "$TERM" =~ ^tmux ]] || [[ "$TERM" =~ ^screen ]]; then
+	ENV_ARGS+=(--env TERM=$TERM)
+	export TERM=$TERM
+else
+	ENV_ARGS+=(--env TERM=xterm-color)
+	export TERM=xterm-color
+fi
 if [[ -n "$DISPLAY" ]]; then
 	ENV_ARGS+=(--env DISPLAY=$DISPLAY)
-	ENV_ARGS+=(--env GALLIUM_DRIVER=virpipe)
-	ENV_ARGS+=(--env MESA_GL_VERSION_OVERRIDE=4.0)
-	ENV_ARGS+=(--env QT_QPA_PLATFORMTHEME=qt6ct)
 	ENV_ARGS+=(--shared-tmp)
 fi
 if [[ -n "$PULSE_SERVER" ]]; then
@@ -50,17 +55,24 @@ if [[ $# -eq 0 ]]; then
 	exec proot-distro login kali \
 	                --no-arch-warning \
 	                --isolated "${ENV_ARGS[@]}" \
-	                --env LANG=en_US.UTF-8 \
 	                --env SHELL=/usr/bin/zsh \
 	                --env TMUX_TMPDIR=/home/kali/.local/run \
 	                --bind $HOME/storage/downloads:/home/kali/downloads \
 	                --user kali \
 	                -- /usr/bin/bash -li
+elif [[ $# -eq 1 ]] && [[ "$1" =~ ^--tmux$ ]]; then
+	exec proot-distro login kali \
+	                --no-arch-warning \
+	                --isolated "${ENV_ARGS[@]}" \
+	                --env SHELL=/usr/bin/zsh \
+	                --env TMUX_TMPDIR=/home/kali/.local/run \
+	                --bind $HOME/storage/downloads:/home/kali/downloads \
+	                --user kali \
+	                -- /usr/bin/tmux
 elif [[ $# -eq 1 ]] && [[ "$1" =~ ^--root$ ]]; then
 	exec proot-distro login kali \
 	                --no-arch-warning \
-	                --isolated \
-	                --env LANG=en_US.UTF-8
+	                --isolated "${ENV_ARGS[@]}"
 elif [[ $# -eq 1 ]] && [[ "$1" =~ ^--install$ ]]; then
 	if [[ ! -d "$KALI_DIR" ]]; then
 		TARBALL_SHA256="$(
@@ -144,7 +156,8 @@ elif [[ $# -eq 1 ]] && [[ "$1" =~ ^--install$ ]]; then
 
 		# Fix bad permissions on /usr/bin/sudo
 		#
-		proot-distro login kali --no-arch-warning --isolated \
+		proot-distro login kali --no-arch-warning \
+		                        --isolated "${ENV_ARGS[@]}" \
 		                        -- chmod u+s /usr/bin/sudo
 
 		# For some reason, setting up PostgreSQL/Metasploit works when
@@ -156,11 +169,13 @@ elif [[ $# -eq 1 ]] && [[ "$1" =~ ^--install$ ]]; then
 		#     FATAL:   Could not create shared memory segment: Function not implemented
 		#     DETAIL:  Failed system call was shmget
 		#
-		proot-distro login kali --no-arch-warning --isolated -- bash -c '
-		             su postgres --command="pg_createcluster 17 main" \
-		          && su postgres --command="/etc/init.d/postgresql start" \
-		          &&                        msfdb init \
-		          && su postgres --command="/etc/init.d/postgresql stop"
+		proot-distro login kali --no-arch-warning \
+		                        --isolated "${ENV_ARGS[@]}" \
+		                        -- bash -c '
+		            su postgres --command="pg_createcluster 17 main" \
+		         && su postgres --command="/etc/init.d/postgresql start" \
+		         &&                        msfdb init \
+		         && su postgres --command="/etc/init.d/postgresql stop"
 		'
 
 		# Hack so that PostgreSQL upgrades don't fail
@@ -176,13 +191,17 @@ elif [[ $# -eq 1 ]] && [[ "$1" =~ ^--update$ ]]; then
 		cp $KALI_DIR/usr/bin/systemctl.bin \
 		   $KALI_DIR/usr/bin/systemctl
 
-		proot-distro login kali --no-arch-warning --isolated \
+		proot-distro login kali --no-arch-warning \
+		                        --isolated "${ENV_ARGS[@]}" \
 		                        -- apt update
-		proot-distro login kali --no-arch-warning --isolated \
+		proot-distro login kali --no-arch-warning \
+		                        --isolated "${ENV_ARGS[@]}" \
 		                        -- apt full-upgrade
-		proot-distro login kali --no-arch-warning --isolated \
+		proot-distro login kali --no-arch-warning \
+		                        --isolated "${ENV_ARGS[@]}" \
 		                        -- apt autoremove --purge --autoremove
-		proot-distro login kali --no-arch-warning --isolated \
+		proot-distro login kali --no-arch-warning \
+		                        --isolated "${ENV_ARGS[@]}" \
 		                        -- apt clean
 
 		cp $KALI_DIR/usr/bin/systemctl \
@@ -192,7 +211,8 @@ elif [[ $# -eq 1 ]] && [[ "$1" =~ ^--update$ ]]; then
 
 		# Fix bad permissions on /usr/bin/sudo
 		#
-		proot-distro login kali --no-arch-warning --isolated \
+		proot-distro login kali --no-arch-warning \
+		                        --isolated "${ENV_ARGS[@]}" \
 		                        -- chmod u+s /usr/bin/sudo
 
 		# Hack so that PostgreSQL upgrades don't fail
@@ -218,7 +238,6 @@ else
 	exec proot-distro login kali \
 	                --no-arch-warning \
 	                --work-dir "$(pwd)" "${ENV_ARGS[@]}" \
-	                --env LANG=en_US.UTF-8 \
 	                --env SHELL=/usr/bin/zsh \
 	                --env TMUX_TMPDIR=/home/kali/.local/run \
 	                --bind $HOME/storage/downloads:/home/kali/downloads \

@@ -16,10 +16,16 @@ fi
 # Pass along relevant environment variables
 #
 ENV_ARGS=()
+ENV_ARGS+=(--env LANG=en_US.UTF-8)
+if [[ "$TERM" =~ ^tmux ]] || [[ "$TERM" =~ ^screen ]]; then
+	ENV_ARGS+=(--env TERM=$TERM)
+	export TERM=$TERM
+else
+	ENV_ARGS+=(--env TERM=xterm-color)
+	export TERM=xterm-color
+fi
 if [[ -n "$DISPLAY" ]]; then
 	ENV_ARGS+=(--env DISPLAY=$DISPLAY)
-	ENV_ARGS+=(--env GALLIUM_DRIVER=virpipe)
-	ENV_ARGS+=(--env MESA_GL_VERSION_OVERRIDE=4.0)
 	ENV_ARGS+=(--shared-tmp)
 fi
 if [[ -n "$PULSE_SERVER" ]]; then
@@ -49,7 +55,6 @@ if [[ $# -eq 0 ]]; then
 	exec proot-distro login debian \
 	                --no-arch-warning \
 	                --isolated "${ENV_ARGS[@]}" \
-	                --env LANG=en_US.UTF-8 \
 	                --env SHELL=/usr/bin/bash \
 	                --env TMUX_TMPDIR=/home/necopinus/.local/run \
 	                --bind $HOME/storage/shared/Documents/Obsidian:/home/necopinus/notes \
@@ -59,11 +64,23 @@ if [[ $# -eq 0 ]]; then
 	                --bind $HOME/src:/home/necopinus/src \
 	                --user necopinus \
 	                -- /usr/bin/bash -li
+elif [[ $# -eq 1 ]] && [[ "$1" =~ ^--tmux$ ]]; then
+	exec proot-distro login debian \
+	                --no-arch-warning \
+	                --isolated "${ENV_ARGS[@]}" \
+	                --env SHELL=/usr/bin/bash \
+	                --env TMUX_TMPDIR=/home/necopinus/.local/run \
+	                --bind $HOME/storage/shared/Documents/Obsidian:/home/necopinus/notes \
+	                --bind $HOME/storage/downloads:/home/necopinus/downloads \
+	                --bind $HOME/config/calibre:/home/necopinus/.config/calibre \
+	                --bind $HOME/data/calibre:/home/necopinus/data/calibre \
+	                --bind $HOME/src:/home/necopinus/src \
+	                --user necopinus \
+	                -- /usr/bin/tmux
 elif [[ $# -eq 1 ]] && [[ "$1" =~ ^--root$ ]]; then
 	exec proot-distro login debian \
 	                --no-arch-warning \
-	                --isolated \
-	                --env LANG=en_US.UTF-8
+	                --isolated "${ENV_ARGS[@]}"
 elif [[ $# -eq 1 ]] && [[ "$1" =~ ^--install$ ]]; then
 	if [[ ! -d "$DEBIAN_DIR" ]]; then
 		proot-distro install debian
@@ -201,7 +218,6 @@ else
 	exec proot-distro login debian \
 	                --no-arch-warning \
 	                --work-dir "$(pwd)" "${ENV_ARGS[@]}" \
-	                --env LANG=en_US.UTF-8 \
 	                --env SHELL=/usr/bin/bash \
 	                --env TMUX_TMPDIR=/home/necopinus/.local/run \
 	                --bind $HOME/storage/shared/Documents/Obsidian:/home/necopinus/notes \
