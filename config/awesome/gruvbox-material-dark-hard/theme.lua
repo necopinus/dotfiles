@@ -108,17 +108,17 @@ theme.font = nerd_font .. " " .. text_font_size
 
 theme.bg_normal = "#282828"
 theme.bg_focus = "#3c3836"
-theme.bg_urgent = "#c14a4a"
+theme.bg_urgent = "#c14a4a" -- Gruvbox Material Light Hard
 theme.bg_minimize = "#141617"
-theme.bg_systray = theme.bg_normal
 
 theme.fg_normal = "#ddc7a1"
 theme.fg_focus = "#ddc7a1"
-theme.fg_urgent = "#f9f5d7"
+theme.fg_urgent = "#f9f5d7" -- Gruvbox Material Light Hard
 theme.fg_minimize = "#d4be98"
 
 theme.useless_gap = dpi(0)
 theme.border_width = dpi(1)
+theme.bg_systray = theme.bg_normal
 theme.border_color_normal = theme.bg_normal
 theme.border_color_active = theme.bg_focus
 theme.border_color_marked = "#a9b665"
@@ -137,7 +137,7 @@ theme.tooltip_bg = theme.bg_minimize
 theme.tooltip_fg = theme.fg_minimize
 
 theme.hotkeys_fg = theme.fg_minimize
-theme.hotkeys_modifiers_fg = theme.fg_focus
+theme.hotkeys_modifiers_fg = theme.fg_urgent
 theme.hotkeys_label_fg = theme.bg_minimize
 
 -- Generate taglist squares:
