@@ -58,8 +58,8 @@ modkey = "Mod4"
 main_menu = awful.menu({
 	items = {
 		{ "termux", terminal },
-		{ "debian", terminal .. " -e debian --tmux" },
-		{ "kali", terminal .. " -e kali --tmux" },
+		{ "debian", terminal .. " -T Debian -e debian --tmux" },
+		{ "kali", terminal .. " -T 'Kali Linux' -e kali --tmux" },
 		{ "-------" },
 		{
 			"hotkeys",
