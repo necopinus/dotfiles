@@ -21,8 +21,8 @@ if [[ "$TERM" =~ ^tmux ]] || [[ "$TERM" =~ ^screen ]]; then
 	ENV_ARGS+=(--env TERM=$TERM)
 	export TERM=$TERM
 else
-	ENV_ARGS+=(--env TERM=xterm-color)
-	export TERM=xterm-color
+	ENV_ARGS+=(--env TERM=xterm-256color)
+	export TERM=xterm-256color
 fi
 if [[ -n "$DISPLAY" ]]; then
 	ENV_ARGS+=(--env DISPLAY=$DISPLAY)
