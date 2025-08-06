@@ -219,7 +219,6 @@ elif [[ "$FLAVOR" == "termux" ]]; then
 	    gopls \
 	    handbrake \
 	    hexyl \
-	    i3 \
 	    imagemagick \
 	    jq \
 	    kitty \
@@ -259,7 +258,6 @@ elif [[ "$FLAVOR" == "termux" ]]; then
 	    uuid-utils \
 	    uutils-coreutils \
 	    which \
-	    xorg-server-xephyr \
 	    xclip \
 	    xsel \
 	    xz-utils \
@@ -432,6 +430,15 @@ if [[ ! -e $HOME/.local ]]; then
 fi
 if [[ ! -e $HOME/.var ]]; then
 	ln -sf  $HOME/local $HOME/.var
+fi
+if [[ "$OS" == "linux" ]]; then
+	if [[ "$FLAVOR" == "termux" ]]; then
+		ln -sf $PREFIX/share/applications/firefox.desktop $HOME/local/share/applications/firefox.desktop
+	elif [[ -f /usr/share/applications/firefox.desktop ]]; then
+		ln -sf /usr/share/applications/firefox.desktop $HOME/local/share/applications/firefox.desktop
+	elif [[ -f /usr/share/applications/firefox-esr.desktop ]]; then
+		ln -sf /usr/share/applications/firefox-esr.desktop $HOME/local/share/applications/firefox.desktop
+	fi
 fi
 
 if [[ -e $HOME/config/kitty/open-actions.conf ]] \

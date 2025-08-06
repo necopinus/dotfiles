@@ -60,7 +60,11 @@ main_menu = awful.menu({
 		{ "termux", terminal },
 		{ "debian", terminal .. " -T Debian -e debian --tmux" },
 		{ "kali", terminal .. " -T 'Kali Linux' -e kali --tmux" },
-		{ "-------" },
+		{ "--------" },
+		{ "firefox", "firefox" },
+		{ "obsidian", "obsidian" },
+		{ "calibre", "calibre" },
+		{ "--------" },
 		{
 			"hotkeys",
 			function()

@@ -140,14 +140,14 @@ end
 
 # Set prompt
 #
-if test "$TERM" != "linux"
-	if test -n "$(which starship 2> /dev/null)"
-		if not test -s "$XDG_CACHE_HOME/env/starship.init.$SHELL_NAME"
-			starship init $SHELL_NAME > "$XDG_CACHE_HOME/env/starship.init.$SHELL_NAME"
-		end
-
-		source "$XDG_CACHE_HOME/env/starship.init.$SHELL_NAME"
+if test "$TERM" != "linux";
+and test -n "$(which starship 2> /dev/null)"
+	if not test -s "$XDG_CACHE_HOME/env/starship.init.$SHELL_NAME"
+		mkdir -p "$XDG_CACHE_HOME/env"
+		starship init $SHELL_NAME > "$XDG_CACHE_HOME/env/starship.init.$SHELL_NAME"
 	end
+
+	source "$XDG_CACHE_HOME/env/starship.init.$SHELL_NAME"
 end
 
 # Init zoxide; this must be done after anything that might modify fish's
@@ -155,6 +155,7 @@ end
 #
 if test -n "$(which zoxide 2> /dev/null)"
 	if not test -s "$XDG_CACHE_HOME/env/zoxide.init.$SHELL_NAME"
+		mkdir -p "$XDG_CACHE_HOME/env"
 		zoxide init --cmd cd $SHELL_NAME > "$XDG_CACHE_HOME/env/zoxide.init.$SHELL_NAME"
 	end
 
