@@ -577,6 +577,10 @@ chmod 700 $HOME/.ssh
 find $HOME/.ssh -type d -exec chmod 700 "{}" \;
 find $HOME/.ssh -type f -exec chmod 600 "{}" \;
 
+chmod 700 $HOME/.gnupg
+find $HOME/.gnupg -type d -exec chmod 700 "{}" \;
+find $HOME/.gnupg -type f -exec chmod 600 "{}" \;
+
 # Generate bat's cache so that custom themes show up
 #
 # WARNING: There seems to be a bug in bat where the `cache` command
@@ -636,21 +640,6 @@ git config --global delta.side-by-side                   true
 
 # Set up GPG and SSH, if applicable
 #
-mkdir -p $HOME/.gnupg
-
-if [[ ! -f $HOME/.gnupg/gpg-agent.conf ]] \
-|| [[ $(grep -c enable-ssh-support $HOME/.gnupg/gpg-agent.conf) -eq 0 ]]; then
-	echo "enable-ssh-support" >> $HOME/.gnupg/gpg-agent.conf
-fi
-
-if [[ "$OS" == "macos" ]]; then
-	echo "Setting up pinentry"
-	if [[ ! -f $HOME/.gnupg/gpg-agent.conf ]] \
-	|| [[ $(grep -c pinentry-program $HOME/.gnupg/gpg-agent.conf) -eq 0 ]]; then
-		echo "pinentry-program $HOMEBREW_PREFIX/bin/pinentry-mac" >> $HOME/.gnupg/gpg-agent.conf
-	fi
-fi
-
 if [[ $(ls -1 $HOME/.ssh/id_* 2> /dev/null | wc -l) -eq 0 ]] \
 && [[ $(gpg --list-secret-keys --with-colons \
               | grep -cE '^sec:(f|u):') -eq 0 ]]; then

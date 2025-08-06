@@ -23,6 +23,8 @@ and not set -q TMUX;
 and test "$TERM" != "linux";
 and not test -f "$HOME/_notmux";
 and not test -f "$HOME/_notmux.txt";
+and not test -f "$HOME/storage/shared/Documents/_notmux";
+and not test -f "$HOME/storage/shared/Documents/_notmux.txt" ]];
 and test $(tmux list-sessions 2> /dev/null | grep "$(hostname -s): " | grep -c "(attached)") -eq 0
 	exec tmux new-session -A -s $(hostname -s)
 else
@@ -123,6 +125,17 @@ if test "$OS" = "linux"
 	function xcv
 		nohup $argv 2> /dev/null
 	end
+end
+
+# Wrap SSH in a function to ensure that the gpg-agent TTY is up-to-date
+#
+# Most tutorials will tell you to insert a `Match host * exec ...` line
+# into ~/.ssh/config, but this won't properly set the TTY in Termux!
+#
+function ssh
+	gpg-connect-agent updatestartuptty /bye 2> /dev/null
+	set SSH_EXEC $(which ssh)
+	$SSH_EXEC $argv
 end
 
 # Set prompt
