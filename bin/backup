@@ -20,6 +20,7 @@ source ${XDG_CONFIG_HOME:-$HOME/.config}/user-dirs.dirs
 			$(test -d .ssh && echo ".ssh")
 			$(test -d .dvdcss && echo ".dvdcss")
 			$(test -d "$XDG_CONFIG_HOME/aacs" && echo "$XDG_CONFIG_HOME/aacs" | sed "s#$HOME/##")
+			$(test -f "$XDG_CONFIG_HOME/shodan/api_key" && echo "$XDG_CONFIG_HOME/shodan/api_key" | sed "s#$HOME/##")
 			$(test -f "$XDG_CONFIG_HOME/api-keys.env.sh" && echo "$XDG_CONFIG_HOME/api-keys.env.sh" | sed "s#$HOME/##")
 			$(test -f "$XDG_CONFIG_HOME/qobuz-dl/config.ini" && echo "$XDG_CONFIG_HOME/qobuz-dl/config.ini" | sed "s#$HOME/##")
 			$(test -d "data/calibre" && echo "data/calibre")
