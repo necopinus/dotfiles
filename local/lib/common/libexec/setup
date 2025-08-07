@@ -604,12 +604,12 @@ find $HOME/.gnupg -type f -exec chmod 600 "{}" \;
 #
 if [[ "$FLAVOR" == "termux" ]]; then
 	(
-		cd /tmp
+		cd $PREFIX/tmp
 		bat cache --build
 	)
 else
 	(
-		cd $PREFIX/tmp
+		cd /tmp
 		bat cache --build
 	)
 fi
@@ -651,6 +651,12 @@ git config --global delta.plus-empty-line-marker-style  "normal #ede4b7"
 git config --global delta.plus-non-emph-style           "syntax #ede4b7"
 git config --global delta.plus-style                    "syntax #ede4b7"
 git config --global delta.side-by-side                   true
+
+# Need to set up GPG environment here to work around Termux issues
+#
+export GPG_TTY=$(tty)
+export SSH_AUTH_SOCK="$(gpgconf --list-dirs agent-ssh-socket)"
+gpg-connect-agent updatestartuptty /bye
 
 # Set up GPG and SSH, if applicable
 #

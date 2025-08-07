@@ -55,7 +55,7 @@ if [[ $# -eq 0 ]]; then
 	exec proot-distro login kali \
 	                --no-arch-warning \
 	                --isolated "${ENV_ARGS[@]}" \
-	                --env SHELL=/usr/bin/zsh \
+	                --env SHELL=/usr/bin/bash \
 	                --env TMUX_TMPDIR=/home/kali/.local/run \
 	                --bind $HOME/storage/downloads:/home/kali/downloads \
 	                --user kali \
@@ -64,7 +64,7 @@ elif [[ $# -eq 1 ]] && [[ "$1" =~ ^--tmux$ ]]; then
 	exec proot-distro login kali \
 	                --no-arch-warning \
 	                --isolated "${ENV_ARGS[@]}" \
-	                --env SHELL=/usr/bin/zsh \
+	                --env SHELL=/usr/bin/bash \
 	                --env TMUX_TMPDIR=/home/kali/.local/run \
 	                --bind $HOME/storage/downloads:/home/kali/downloads \
 	                --user kali \
@@ -96,8 +96,6 @@ elif [[ $# -eq 1 ]] && [[ "$1" =~ ^--install$ ]]; then
 			cp $(realpath $KALI_DIR/usr/share/zoneinfo/UTC) \
 			              $KALI_DIR/etc/localtime
 		fi
-		cp $HOME/local/lib/linux/termux/aarch64/proot/kali/etc/zsh_command_not_found \
-		   $KALI_DIR/etc/zsh_command_not_found
 
 		mkdir -p $KALI_DIR/etc/sudoers.d
 		cp $HOME/local/lib/linux/termux/aarch64/proot/kali/etc/sudoers.d/kali \
@@ -120,8 +118,6 @@ elif [[ $# -eq 1 ]] && [[ "$1" =~ ^--install$ ]]; then
 		   $KALI_DIR/home/kali/.bash_aliases
 		cp $HOME/local/lib/linux/termux/aarch64/proot/kali/home/kali/.inputrc \
 		   $KALI_DIR/home/kali/.inputrc
-		cp $HOME/local/lib/linux/termux/aarch64/proot/kali/home/kali/.zshenv \
-		   $KALI_DIR/home/kali/.zshenv
 
 		mkdir -p $KALI_DIR/home/kali/.BurpSuite
 		cp $HOME/local/lib/linux/termux/aarch64/proot/kali/home/kali/.BurpSuite/UserConfigCommunity.json \
@@ -238,7 +234,7 @@ else
 	exec proot-distro login kali \
 	                --no-arch-warning \
 	                --work-dir "$(pwd)" "${ENV_ARGS[@]}" \
-	                --env SHELL=/usr/bin/zsh \
+	                --env SHELL=/usr/bin/bash \
 	                --env TMUX_TMPDIR=/home/kali/.local/run \
 	                --bind $HOME/storage/downloads:/home/kali/downloads \
 	                --user kali \
