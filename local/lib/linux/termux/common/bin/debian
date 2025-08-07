@@ -97,6 +97,7 @@ elif [[ $# -eq 1 ]] && [[ "$1" =~ ^--install$ ]]; then
 		                                 calibre \
 		                                 dialog \
 		                                 fonts-noto \
+		                                 libasound2 \
 		                                 libatspi2.0-0 \
 		                                 libgtk-3-0 \
 		                                 libnotify4 \
