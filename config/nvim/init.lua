@@ -353,6 +353,7 @@ require("lazy").setup({
 	require("plugins.autopairs"), -- autopairs
 	require("plugins.neo-tree"), -- Browse the file system
 	require("plugins.obsidian"), -- Obsidian compatability/integration
+	require("plugins.codecompanion"), -- LLM integration, similar to Cursor/Windsurf/Zed
 }, {
 	ui = {
 		border = "rounded",

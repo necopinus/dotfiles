@@ -238,7 +238,10 @@ elif [[ "$FLAVOR" == "termux" ]]; then
 	    procs \
 	    proot-distro \
 	    pulseaudio \
+	    python-greenlet \
 	    python-lxml \
+	    python-msgpack \
+	    python-pynvim \
 	    qalc \
 	    rclone \
 	    ripgrep \
@@ -383,6 +386,7 @@ node --version > "$XDG_CACHE_HOME/versions/node"
 if [[ ! -f $HOME/local/lib/python/bin/python ]]; then
 	python3 -m venv --system-site-packages $HOME/local/lib/python
 fi
+$HOME/local/lib/python/bin/python -m pip install -U pip
 $HOME/local/lib/python/bin/python -m pip install $(cat $HOME/.default-python-packages | xargs)
 $HOME/local/lib/python/bin/python --version > "$XDG_CACHE_HOME/versions/python"
 

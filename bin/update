@@ -76,6 +76,7 @@ if [[ "$(cat "${XDG_CACHE_HOME:-$HOME/.cache}/versions/python")" == "$(python3 -
 else
 	rm -rf "$HOME/local/lib/python"
 	python3 -m venv --system-site-packages $HOME/local/lib/python
+	$HOME/local/lib/python/bin/python -m pip install -U pip
 	$HOME/local/lib/python/bin/python -m pip install $(cat $HOME/.default-python-packages | xargs)
 	mv "${XDG_CACHE_HOME:-$HOME/.cache}/versions/python.new" "${XDG_CACHE_HOME:-$HOME/.cache}/versions/python"
 fi

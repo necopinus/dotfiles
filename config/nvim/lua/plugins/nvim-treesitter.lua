@@ -24,7 +24,8 @@ return {
 				-- Basic configuration
 				require("markview").setup({
 					preview = {
-						filetypes = { "md", "markdown", "rmd", "quarto" },
+						filetypes = { "md", "markdown", "rmd", "quarto", "codecompanion" },
+						ignore_buftypes = {},
 						icon_provider = "mini", -- Loaded/Enabled in mini.lua
 					},
 					markdown = {
