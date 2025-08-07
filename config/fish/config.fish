@@ -127,7 +127,8 @@ if test "$OS" = "linux"
 	end
 end
 
-# Wrap SSH in a function to ensure that the gpg-agent TTY is up-to-date
+# Wrap the SSH and Git CLIs in functions to ensure that the gpg-agent
+# TTY is up-to-date
 #
 # Most tutorials will tell you to insert a `Match host * exec ...` line
 # into ~/.ssh/config, but this won't properly set the TTY in Termux!
@@ -136,6 +137,12 @@ function ssh
 	gpg-connect-agent updatestartuptty /bye 2> /dev/null
 	set SSH_EXEC $(which ssh)
 	$SSH_EXEC $argv
+end
+
+function git
+	gpg-connect-agent updatestartuptty /bye 2> /dev/null
+	set GIT_EXEC $(which git)
+	$GIT_EXEC $argv
 end
 
 # Set prompt
