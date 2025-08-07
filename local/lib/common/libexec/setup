@@ -412,6 +412,9 @@ fi
 if [[ ! -e $HOME/.config ]]; then
 	ln -sf  $XDG_CONFIG_HOME $HOME/.config
 fi
+if [[ "$OS" == "macos" ]] && [[ ! -e "$HOME/Library/Application Support/aichat" ]]; then
+	ln -sf  $XDG_CONFIG_HOME/aichat "$HOME/Library/Application Support/aichat"
+fi
 
 if [[ -d $HOME/.local/bin ]] && [[ ! -L $HOME/.local/bin ]]; then
 	cp -anv $HOME/.local/bin/* $HOME/bin/ || true
