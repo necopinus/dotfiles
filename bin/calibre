@@ -16,8 +16,6 @@ elif [[ "$FLAVOR" == "termux" ]]; then
 	                --shared-tmp \
 	                --env  DISPLAY=${DISPLAY:-:0} \
 	                --env  PULSE_SERVER=${PULSE_SERVER:-tcp:127.0.0.1} \
-	                --env  GALLIUM_DRIVER=virpipe \
-	                --env  MESA_GL_VERSION_OVERRIDE=4.0 \
 	                --bind $HOME/config/calibre:/home/necopinus/.config/calibre \
 	                --bind $HOME/data/calibre:/home/necopinus/data/calibre \
 	                --bind $HOME/storage/downloads:/home/necopinus/downloads \
