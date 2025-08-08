@@ -24,7 +24,7 @@ and test "$TERM" != "linux";
 and not test -f "$HOME/_notmux";
 and not test -f "$HOME/_notmux.txt";
 and not test -f "$HOME/storage/shared/Documents/_notmux";
-and not test -f "$HOME/storage/shared/Documents/_notmux.txt" ]];
+and not test -f "$HOME/storage/shared/Documents/_notmux.txt";
 and test $(tmux list-sessions 2> /dev/null | grep "$(hostname -s): " | grep -c "(attached)") -eq 0
 	exec tmux new-session -A -s $(hostname -s)
 else
@@ -181,7 +181,7 @@ end
 function y
 	set CWD_TMP $(mktemp -t "yazi-cwd.XXXXXX")
 	yazi $argv --cwd-file="$CWD_TMP"
-	if read -z CWD < "$CWD_TMP"; and [ -n "$CWD" ]; and [ "$CWD" != "$PWD" ]
+	if read -z CWD < "$CWD_TMP"; and test -n "$CWD"; and test "$CWD" != "$PWD"
 		builtin cd -- "$CWD"
 	end
 	rm -f -- "$CWD_TMP"
