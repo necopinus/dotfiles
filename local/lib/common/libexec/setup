@@ -454,6 +454,10 @@ if [[ -e $HOME/config/kitty/open-actions.conf ]] \
 	ln -sf launch-actions.conf $HOME/config/kitty/open-actions.conf
 fi
 
+if [[ -d $HOME/storage/shared/Documents/Obsidian ]]; then
+	ln -sf $HOME/storage/shared/Documents/Obsidian $HOME/notes
+fi
+
 # Set up XDG user directories
 #
 echo "Setting up XDG directories"

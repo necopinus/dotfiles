@@ -53,7 +53,8 @@ sleep 1 # Sometimes virgl and puleaudio start faster than termux-x11...
 
 am start-activity -W com.termux.x11/com.termux.x11.MainActivity
 
-env DISPLAY=:0 \
+env -u TERM -u TERM_PROGRAM -u TMUX -u TMUX_PANE \
+    DISPLAY=:0 \
     PULSE_SERVER=tcp:127.0.0.1 \
 dbus-launch --exit-with-session awesome
 

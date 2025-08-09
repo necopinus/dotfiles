@@ -25,8 +25,8 @@ and not test -f "$HOME/_notmux";
 and not test -f "$HOME/_notmux.txt";
 and not test -f "$HOME/storage/shared/Documents/_notmux";
 and not test -f "$HOME/storage/shared/Documents/_notmux.txt";
-and test $(tmux list-sessions 2> /dev/null | grep "$(hostname -s): " | grep -c "(attached)") -eq 0
-	exec tmux new-session -A -s $(hostname -s)
+and test $(tmux list-sessions 2> /dev/null | grep "$(hostname -s)$(echo $DISPLAY | sed 's/:/-/'): " | grep -c "(attached)") -eq 0
+	exec tmux new-session -A -s $(hostname -s)$(echo $DISPLAY | sed 's/:/-/')
 else
 	set -e PROFILE_PATH
 end
