@@ -167,6 +167,7 @@ if [[ "$FLAVOR" == "macos" ]]; then
 	     ripgrep \
 	     rsgain \
 	     rsync \
+	     rust \
 	     rust-analyzer \
 	     scroll-reverser \
 	     solidity \
@@ -247,6 +248,7 @@ elif [[ "$FLAVOR" == "termux" ]]; then
 	    ripgrep \
 	    rsgain \
 	    rsync \
+	    rust \
 	    rust-analyzer \
 	    solidity \
 	    sqlite \
@@ -338,6 +340,7 @@ elif [[ "$FLAVOR" == "debian" ]]; then
 	     ripgrep \
 	     rsgain \
 	     rsync \
+	     rust \
 	     rust-analyzer \
 	     solidity \
 	     sqlite \
