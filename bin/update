@@ -99,6 +99,12 @@ if [[ "$OS" == "linux" ]]; then
 	$HOME/local/lib/linux/common/libexec/update-obsidian
 fi
 
+# Need to set up GPG environment here to work around Termux issues
+#
+export GPG_TTY=$(tty)
+export SSH_AUTH_SOCK="$(gpgconf --list-dirs agent-ssh-socket)"
+gpg-connect-agent updatestartuptty /bye
+
 # Git repositories
 #
 if [[ -d $HOME/src ]]; then
