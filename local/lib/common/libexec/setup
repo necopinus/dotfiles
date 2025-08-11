@@ -115,6 +115,7 @@ echo "Installing additional tooling"
 
 if [[ "$FLAVOR" == "macos" ]]; then
 	brew install \
+	     adobe-creative-cloud \
 	     aichat \
 	     android-platform-tools \
 	     bat \
@@ -152,6 +153,7 @@ if [[ "$FLAVOR" == "macos" ]]; then
 	     msgpack-tools \
 	     neovim \
 	     node \
+	     normalize \
 	     obsidian \
 	     openssh \
 	     optipng \
@@ -181,7 +183,6 @@ if [[ "$FLAVOR" == "macos" ]]; then
 	     uutils-coreutils \
 	     uutils-diffutils \
 	     uutils-findutils \
-	     xld \
 	     xz \
 	     yarn \
 	     yazi \
@@ -287,6 +288,7 @@ elif [[ "$FLAVOR" == "debian" ]]; then
 	         apt-utils \
 	         calibre \
 	         dialog \
+	         eject \
 	         firefox-esr \
 	         fzf \
 	         gawk \
@@ -306,6 +308,7 @@ elif [[ "$FLAVOR" == "debian" ]]; then
 	         zip
 
 	brew install \
+	     abcde \
 	     aichat \
 	     android-platform-tools \
 	     bat \
@@ -330,6 +333,7 @@ elif [[ "$FLAVOR" == "debian" ]]; then
 	     msgpack-tools \
 	     neovim \
 	     node \
+	     normalize \
 	     openssh \
 	     optipng \
 	     pandoc \
