@@ -18,6 +18,7 @@ source ${XDG_CONFIG_HOME:-$HOME/.config}/user-dirs.dirs
 			$(test -d .dotfiles && echo ".dotfiles")
 			$(test -d .gnupg && echo ".gnupg")
 			$(test -d .ssh && echo ".ssh")
+			$(test -d .cddb && echo ".cddb")
 			$(test -d .dvdcss && echo ".dvdcss")
 			$(test -d "$XDG_CONFIG_HOME/aacs" && echo "$XDG_CONFIG_HOME/aacs" | sed "s#$HOME/##")
 			$(test -f "$XDG_CONFIG_HOME/shodan/api_key" && echo "$XDG_CONFIG_HOME/shodan/api_key" | sed "s#$HOME/##")
