@@ -213,6 +213,7 @@ return {
 			bashls = {},
 			dockerls = {},
 			gopls = {},
+			jqls = {},
 			lua_ls = {
 				-- cmd = { ... },
 				-- filetypes = { ... },
