@@ -9,3 +9,4 @@ yaml-language-server
 yarn
 @anthropic-ai/claude-code
 @nomicfoundation/solidity-language-server
+@readwise/readwise-mcp
