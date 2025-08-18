@@ -164,6 +164,7 @@ if [[ "$FLAVOR" == "macos" ]]; then
 	     poppler \
 	     procs \
 	     proton-drive \
+	     protonvpn \
 	     python \
 	     qobuz-downloader \
 	     rclone \
