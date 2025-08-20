@@ -112,8 +112,7 @@ elif [[ $# -eq 1 ]] && [[ "$1" =~ ^--install$ ]]; then
 		                                 sudo \
 		                                 tmux \
 		                                 xdg-utils \
-		                                 xsel \
-		                                 yarnpkg
+		                                 xsel
 		proot-distro login debian --no-arch-warning --isolated \
 		                          -- apt autoremove --purge --autoremove
 		proot-distro login debian --no-arch-warning --isolated \
@@ -138,10 +137,6 @@ elif [[ $# -eq 1 ]] && [[ "$1" =~ ^--install$ ]]; then
 		mkdir -p $DEBIAN_DIR/etc/sudoers.d
 		cp $HOME/local/lib/linux/termux/common/proot/debian/etc/sudoers.d/necopinus \
 		   $DEBIAN_DIR/etc/sudoers.d/necopinus
-
-		mkdir -p $DEBIAN_DIR/usr/local/bin
-		ln -sf /usr/bin/yarnpkg \
-		       $DEBIAN_DIR/usr/local/bin/yarn
 
 		mkdir -p $DEBIAN_DIR/home/necopinus
 		cp $HOME/local/lib/linux/termux/common/proot/debian/home/necopinus/.bash_aliases \
