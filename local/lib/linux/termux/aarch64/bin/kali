@@ -41,7 +41,7 @@ function backup_kali_proot {
 		else
 			PROOT_BACKUP_DIR="$HOME"
 		fi
-		proot-distro backup --output "$PROOT_BACKUP_DIR"/kali.tar
+		proot-distro backup kali --output "$PROOT_BACKUP_DIR"/kali.tar
 		xz -v "$PROOT_BACKUP_DIR"/kali.tar
 	else
 		echo "Kali proot does not appear to be installed"
