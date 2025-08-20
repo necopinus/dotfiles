@@ -41,7 +41,7 @@ function backup_debian_proot {
 		else
 			PROOT_BACKUP_DIR="$HOME"
 		fi
-		proot-distro backup --output "$PROOT_BACKUP_DIR"/debian.tar
+		proot-distro backup debian --output "$PROOT_BACKUP_DIR"/debian.tar
 		xz -v "$PROOT_BACKUP_DIR"/debian.tar
 	else
 		echo "Debian proot does not appear to be installed"
