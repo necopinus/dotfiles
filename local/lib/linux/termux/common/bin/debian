@@ -113,7 +113,7 @@ elif [[ $# -eq 1 ]] && [[ "$1" =~ ^--install$ ]]; then
 		                                 tmux \
 		                                 xdg-utils \
 		                                 xsel \
-		                                 yarn
+		                                 yarnpkg
 		proot-distro login debian --no-arch-warning --isolated \
 		                          -- apt autoremove --purge --autoremove
 		proot-distro login debian --no-arch-warning --isolated \
