@@ -195,6 +195,10 @@ vim.o.scrolloff = 10
 -- Keep current working directory in sync with current file
 vim.o.autochdir = true
 
+-- Spell checking
+vim.o.spell = true
+vim.o.spelllang = "en_us"
+
 -- Allow plugins to conceal text
 vim.o.conceallevel = 1
 

@@ -120,6 +120,7 @@ if [[ "$FLAVOR" == "macos" ]]; then
 	     android-platform-tools \
 	     bat \
 	     calibre \
+	     cd-discid \
 	     cryptomator \
 	     curl \
 	     dos2unix \
@@ -174,6 +175,8 @@ if [[ "$FLAVOR" == "macos" ]]; then
 	     rust \
 	     rust-analyzer \
 	     scroll-reverser \
+	     shellcheck \
+	     shfmt \
 	     solidity \
 	     sqlite \
 	     starship \
@@ -193,6 +196,12 @@ if [[ "$FLAVOR" == "macos" ]]; then
 	     zoxide \
 	     zstd \
 	     7zip
+
+	# The following packages need to be built from source to avoid
+	# library API mis-matches
+	#
+	brew install --build-from-source \
+	     abcde
 elif [[ "$FLAVOR" == "termux" ]]; then
 	pkg install \
 	    aichat \
@@ -254,6 +263,8 @@ elif [[ "$FLAVOR" == "termux" ]]; then
 	    rsync \
 	    rust \
 	    rust-analyzer \
+	    shellcheck \
+	    shfmt \
 	    solidity \
 	    sqlite \
 	    starship \
@@ -311,10 +322,10 @@ elif [[ "$FLAVOR" == "debian" ]]; then
 	         zip
 
 	brew install \
-	     abcde \
 	     aichat \
 	     android-platform-tools \
 	     bat \
+	     cd-discid \
 	     curl \
 	     dos2unix \
 	     duckdb \
@@ -350,6 +361,8 @@ elif [[ "$FLAVOR" == "debian" ]]; then
 	     rsync \
 	     rust \
 	     rust-analyzer \
+	     shellcheck \
+	     shfmt \
 	     solidity \
 	     sqlite \
 	     starship \
@@ -370,6 +383,14 @@ elif [[ "$FLAVOR" == "debian" ]]; then
 	     zstd \
 	     7zip
 
+	# The following packages need to be built from source to avoid
+	# library API mis-matches
+	#
+	brew install --build-from-source \
+	     abcde
+
+	# Additional "manual" installs
+	#
 	$HOME/local/lib/linux/common/libexec/update-jetbrains-mono
 
 	sudo apt install \
