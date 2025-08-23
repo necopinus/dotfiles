@@ -1,0 +1,24 @@
+#!/usr/bin/env -S bash -l
+
+# NOTE: Bash is called above as a login shell using the -l flag to force
+# /etc/profile and ~/.profile to be read, since this script may get
+# called by GUI processes where the full shell environment (including
+# Homebrew's path) hasn't been initialized
+
+set -e
+
+if [[ -x /usr/bin/gpgconf ]]; then
+	exec /usr/bin/gpgconf "$@"
+else
+	OLD_PATH="$PATH"
+	export PATH="$(echo ":$PATH:" | sed "s#:$HOME/bin:#:#;s#:$HOME/local/bin:#:#;s#:$HOME/.local/bin:#:#;s#^:##;s#:\$##")"
+
+	GPGCONF_BIN="$(which gpgconf)"
+
+	export PATH="$OLD_PATH"
+	unset OLD_PATH
+
+	if [[ -x "$GPGCONF_BIN" ]]; then
+		exec "$GPGCONF_BIN" "$@"
+	fi
+fi

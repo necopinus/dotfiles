@@ -4,8 +4,8 @@ set -e
 
 # Update current dbus (and systemd) environment
 #
-if [[ -n "$(which dbus-update-activation-environment)" ]]; then
-	if [[ -n "$DISPLAY" ]] || [[ -n "$WAYLAND_DISPLAY" ]]; then
+if [[ -n "$DISPLAY" ]] || [[ -n "$WAYLAND_DISPLAY" ]]; then
+	if [[ -n "$(which dbus-update-activation-environment)" ]]; then
 		dbus-update-activation-environment --systemd --all
 	fi
 fi

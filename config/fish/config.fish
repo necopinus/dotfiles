@@ -86,6 +86,7 @@ alias procs "$(which procs) --theme light"
 alias ps "$(which procs) --theme light"
 alias pstree "$(which procs) --theme light --tree"
 alias rg "$(which rg) --color=auto"
+alias sudo "$(which sudo) -E"
 
 if test "$TERM" != "linux"
 	alias nano "$(which nvim)"

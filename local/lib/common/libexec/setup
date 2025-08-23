@@ -109,6 +109,8 @@ if [[ "$FLAVOR" != "termux" ]]; then
 	brew analytics off
 fi
 
+export PATH="$HOME/bin:$PATH"
+
 # Install additional tooling
 #
 echo "Installing additional tooling"
@@ -650,6 +652,12 @@ else
 	)
 fi
 
+# Need to set up GPG environment here to work around Termux issues
+#
+export GPG_TTY=$(tty)
+export SSH_AUTH_SOCK="$(gpgconf --list-dirs agent-ssh-socket)"
+gpg-connect-agent updatestartuptty /bye
+
 # Set up git
 # 
 # TODO: Figure out how to create a custom URL scheme
@@ -687,12 +695,6 @@ git config --global delta.plus-empty-line-marker-style  "normal #ede4b7"
 git config --global delta.plus-non-emph-style           "syntax #ede4b7"
 git config --global delta.plus-style                    "syntax #ede4b7"
 git config --global delta.side-by-side                   true
-
-# Need to set up GPG environment here to work around Termux issues
-#
-export GPG_TTY=$(tty)
-export SSH_AUTH_SOCK="$(gpgconf --list-dirs agent-ssh-socket)"
-gpg-connect-agent updatestartuptty /bye
 
 # Set up GPG and SSH, if applicable
 #
