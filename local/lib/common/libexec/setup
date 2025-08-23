@@ -149,6 +149,7 @@ if [[ "$FLAVOR" == "macos" ]]; then
 	     jq \
 	     jq-lsp \
 	     kitty \
+	     libqalculate \
 	     less \
 	     lua-language-server \
 	     makemkv \
