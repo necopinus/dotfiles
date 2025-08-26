@@ -9,6 +9,8 @@ KALI_DIR="$PREFIX/var/lib/proot-distro/installed-rootfs/kali"
 ANDROID_TZ=$(getprop persist.sys.timezone)
 
 if [[ -f "$KALI_DIR/usr/share/zoneinfo/$ANDROID_TZ" ]]; then
+	rm $KALI_DIR/etc/localtime || true
+
 	cp $(realpath $KALI_DIR/usr/share/zoneinfo/$ANDROID_TZ) \
 	              $KALI_DIR/etc/localtime
 fi

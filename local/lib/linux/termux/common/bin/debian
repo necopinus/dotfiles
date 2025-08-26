@@ -9,6 +9,8 @@ DEBIAN_DIR="$PREFIX/var/lib/proot-distro/installed-rootfs/debian"
 ANDROID_TZ=$(getprop persist.sys.timezone)
 
 if [[ -f "$DEBIAN_DIR/usr/share/zoneinfo/$ANDROID_TZ" ]]; then
+	rm $DEBIAN_DIR/etc/localtime || true
+
 	cp $(realpath $DEBIAN_DIR/usr/share/zoneinfo/$ANDROID_TZ) \
 	              $DEBIAN_DIR/etc/localtime
 fi
