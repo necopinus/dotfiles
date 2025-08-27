@@ -121,6 +121,7 @@ if [[ "$FLAVOR" == "macos" ]]; then
 	     aichat \
 	     android-platform-tools \
 	     bat \
+	     brave-browser \
 	     calibre \
 	     cd-discid \
 	     cryptomator \
@@ -132,7 +133,6 @@ if [[ "$FLAVOR" == "macos" ]]; then
 	     eza \
 	     fd \
 	     ffmpeg \
-	     firefox \
 	     fish \
 	     font-jetbrains-mono-nerd-font \
 	     fzf \
@@ -223,7 +223,6 @@ elif [[ "$FLAVOR" == "termux" ]]; then
 	    eza \
 	    fd \
 	    ffmpeg \
-	    firefox \
 	    fish \
 	    fontconfig-utils \
 	    fzf \
@@ -301,12 +300,25 @@ elif [[ "$FLAVOR" == "termux" ]]; then
 		$HOME/local/lib/linux/termux/aarch64/bin/kali --install
 	fi
 elif [[ "$FLAVOR" == "debian" ]]; then
+	sudo mkdir -p /usr/share/keyrings
+	sudo curl -fsSLo \
+	     /usr/share/keyrings/brave-browser-archive-keyring.gpg \
+	     https://brave-browser-apt-release.s3.brave.com/brave-browser-archive-keyring.gpg
+	sudo tee /etc/apt/sources.list.d/brave-browser.sources > /dev/null <<- EOF
+		Types: deb
+		URIs: https://brave-browser-apt-release.s3.brave.com
+		Suites: stable
+		Components: main
+		Architectures: amd64 arm64
+		Signed-By: /usr/share/keyrings/brave-browser-archive-keyring.gpg
+		EOF
+
 	sudo apt install -y \
 	         apt-utils \
+	         brave-browser \
 	         calibre \
 	         dialog \
 	         eject \
-	         firefox-esr \
 	         fzf \
 	         gawk \
 	         glow \
@@ -472,15 +484,6 @@ if [[ ! -e $HOME/.local ]]; then
 fi
 if [[ ! -e $HOME/.var ]]; then
 	ln -sf  $HOME/local $HOME/.var
-fi
-if [[ "$OS" == "linux" ]]; then
-	if [[ "$FLAVOR" == "termux" ]]; then
-		ln -sf $PREFIX/share/applications/firefox.desktop $HOME/local/share/applications/firefox.desktop
-	elif [[ -f /usr/share/applications/firefox.desktop ]]; then
-		ln -sf /usr/share/applications/firefox.desktop $HOME/local/share/applications/firefox.desktop
-	elif [[ -f /usr/share/applications/firefox-esr.desktop ]]; then
-		ln -sf /usr/share/applications/firefox-esr.desktop $HOME/local/share/applications/firefox.desktop
-	fi
 fi
 
 if [[ -e $HOME/config/kitty/open-actions.conf ]] \

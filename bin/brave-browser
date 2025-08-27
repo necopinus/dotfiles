@@ -1,0 +1,37 @@
+#!/usr/bin/env -S bash -l
+
+# NOTE: Bash is called above as a login shell using the -l flag to force
+# /etc/profile and ~/.profile to be read, since this script may get
+# called by GUI processes where the full shell environment (including
+# Homebrew's path) hasn't been initialized
+
+set -e
+
+if [[ "$FLAVOR" == "macos" ]]; then
+	exec open -a "Brave Browser.app"
+elif [[ "$FLAVOR" == "termux" ]]; then
+	exec proot-distro login debian \
+	                --no-arch-warning \
+	                --isolated \
+	                --shared-tmp \
+	                --env  DISPLAY=${DISPLAY:-:0} \
+	                --env  PULSE_SERVER=${PULSE_SERVER:-tcp:127.0.0.1} \
+	                --bind $HOME/storage/downloads:/home/necopinus/downloads \
+	                --user necopinus \
+	                --     /usr/bin/brave-browser --no-sandbox "$@"
+else
+	export OLD_PATH="$PATH"
+	export PATH="$(echo ":$PATH:" | sed "s#:$HOME/bin:#:#g;s#:$HOME/local/bin:#:#g;s#:$HOME/.local/bin:#:#g;s/^://;s/:\$//")"
+
+	BRAVE_BROWSER_EXE="$(which brave-browser 2> /dev/null)"
+
+	export PATH="$OLD_PATH"
+	unset OLD_PATH
+
+	if [[ -n "$BRAVE_BROWSER_EXE" ]]; then
+		exec "$BRAVE_BROWSER_EXE" "$@"
+	else
+		echo "Could not locate Brave!"
+		exit 1
+	fi
+fi

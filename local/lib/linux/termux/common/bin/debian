@@ -90,12 +90,27 @@ elif [[ $# -eq 1 ]] && [[ "$1" =~ ^--install$ ]]; then
 		sed -i 's/ main contrib$/ main contrib non-free non-free-firmware/' \
 		       $DEBIAN_DIR/etc/apt/sources.list
 
+
+		mkdir -p $DEBIAN_DIR/usr/share/keyrings
+		curl -fsSLo \
+		     $DEBIAN_DIR/usr/share/keyrings/brave-browser-archive-keyring.gpg \
+		     https://brave-browser-apt-release.s3.brave.com/brave-browser-archive-keyring.gpg
+		tee $DEBIAN_DIR/etc/apt/sources.list.d/brave-browser.sources > /dev/null <<- EOF
+			Types: deb
+			URIs: https://brave-browser-apt-release.s3.brave.com
+			Suites: stable
+			Components: main
+			Architectures: amd64 arm64
+			Signed-By: /usr/share/keyrings/brave-browser-archive-keyring.gpg
+			EOF
+
 		proot-distro login debian --no-arch-warning --isolated \
 		                          -- apt update --fix-missing
 		proot-distro login debian --no-arch-warning --isolated \
 		                          -- apt full-upgrade --fix-broken
 		proot-distro login debian --no-arch-warning --isolated \
 		                          -- apt install \
+		                                 brave-browser \
 		                                 calibre \
 		                                 dialog \
 		                                 fonts-noto \
