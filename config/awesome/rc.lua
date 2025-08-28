@@ -61,7 +61,7 @@ main_menu = awful.menu({
 		{ "debian", terminal .. " -T Debian -e debian --tmux" },
 		{ "kali", terminal .. " -T 'Kali Linux' -e kali --tmux" },
 		{ "--------" },
-		{ "brave", "brave" },
+		{ "brave", "brave-browser" },
 		{ "calibre", "calibre" },
 		{ "obsidian", "obsidian" },
 		{ "--------" },
