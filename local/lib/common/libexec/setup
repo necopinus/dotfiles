@@ -304,6 +304,7 @@ elif [[ "$FLAVOR" == "debian" ]]; then
 
 	sudo apt install -y \
 	         apt-utils \
+	         awesome \
 	         brave-browser \
 	         calibre \
 	         dialog \
