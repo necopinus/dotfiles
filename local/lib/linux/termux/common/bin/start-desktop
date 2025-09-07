@@ -5,8 +5,8 @@
 function clean_up_x_session {
 	TERMUX_ANDROID_USER=$(whoami)
 
+	pkill --full dbus-daemon
 	pkill --full pulseaudio
-	pkill --full virgl_test_server
 	pkill --full com.termux.x11
 
 	pkill -9 dbus
@@ -25,16 +25,16 @@ function clean_up_x_session {
 	rm --recursive --force $PREFIX/tmp/*_kali
 	rm --recursive --force $PREFIX/tmp/proot-*
 	rm --recursive --force $PREFIX/tmp/pulse-*
-	rm --recursive --force $PREFIX/tmp/.virgl_test
 	rm --recursive --force $PREFIX/tmp/.X0-lock
 	rm --recursive --force $PREFIX/tmp/.X11-unix
+	rm --recursive --force $PREFIX/var/run/dbus/pid
 }
 
 # Actual launch process
 #
 clean_up_x_session
 
-dbus-daemon --session --address=unix:path=$PREFIX/var/run/dbus-session &
+dbus-daemon --system --fork --address=unix:path=$PREFIX/var/run/dbus/system_bus_socket
 
 termux-x11 :0 &
 
@@ -48,8 +48,6 @@ else
 	           --load="module-native-protocol-tcp auth-ip-acl=127.0.0.1 auth-anonymous=1" \
 	           --exit-idle-time=-1
 fi
-
-sleep 1 # Sometimes virgl and puleaudio start faster than termux-x11...
 
 am start-activity -W com.termux.x11/com.termux.x11.MainActivity
 
