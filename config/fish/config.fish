@@ -67,21 +67,31 @@ gpg-connect-agent /bye &> /dev/null &; disown
 alias :e "$EDITOR"
 alias :q exit
 alias cat "$(which bat) -pp"
+alias ccat "$(which cat)"
+alias ddf "$(which df)"
+alias ddiff "$(which diff)"
+alias ddu "$(which du)"
 alias df "$(which duf) -theme ansi"
 alias diff "$(which delta)"
 alias du "$(which dust)"
 alias fd "$(which fd) --color auto --hyperlink auto"
+alias ffind "$(which find)"
+alias find "$(which fd) --color auto --hyperlink auto"
 alias fzf "$(which fzf) --style=full --color=16"
 alias glow "$(which glow) -s $XDG_CONFIG_HOME/glow/styles/gruvbox-material-light-hard.json"
-alias grep "$(which grep) --color=auto"
+alias grep "$(which rg) --color=auto"
+alias ggrep "$(which grep) --color=auto"
 alias kitten "$(which kitty) +kitten"
 alias la "$(which eza) --classify=auto --color=auto --icons=auto --hyperlink --long --all"
 alias less "$(which bat)"
 alias ll "$(which eza) --classify=auto --color=auto --icons=auto --hyperlink --long"
+alias lless "$(which less)"
 alias lls "$(which ls)"
 alias ls "$(which eza) --classify=auto --color=auto --icons=auto --hyperlink"
+alias mmore "$(which more)"
 alias more "$(which bat)"
 alias pps "$(which ps)"
+alias ppstree "$(which pstree)"
 alias procs "$(which procs) --theme light"
 alias ps "$(which procs) --theme light"
 alias pstree "$(which procs) --theme light --tree"
@@ -177,19 +187,6 @@ if test -n "$(which zoxide 2> /dev/null)"
 	end
 
 	source "$XDG_CACHE_HOME/env/zoxide.init.$SHELL_NAME"
-end
-
-# Yazi convenience function
-#
-# See: https://yazi-rs.github.io/docs/quick-start#shell-wrapper
-#
-function y
-	set CWD_TMP $(mktemp -t "yazi-cwd.XXXXXX")
-	yazi $argv --cwd-file="$CWD_TMP"
-	if read -z CWD < "$CWD_TMP"; and test -n "$CWD"; and test "$CWD" != "$PWD"
-		builtin cd -- "$CWD"
-	end
-	rm -f -- "$CWD_TMP"
 end
 
 # Suppress welcome message

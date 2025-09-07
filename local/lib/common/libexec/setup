@@ -124,10 +124,10 @@ if [[ "$FLAVOR" == "macos" ]]; then
 	     brave-browser \
 	     calibre \
 	     cd-discid \
+	     charmbracelet/tap/glow \
 	     cryptomator \
 	     curl \
 	     dos2unix \
-	     duckdb \
 	     duf \
 	     dust \
 	     eza \
@@ -138,10 +138,8 @@ if [[ "$FLAVOR" == "macos" ]]; then
 	     fzf \
 	     gawk \
 	     git-delta \
-	     glow \
 	     gnupg \
 	     gopls \
-	     hexyl \
 	     homebrew/cask/handbrake \
 	     homebrew/cask/syncthing \
 	     imagemagick \
@@ -153,8 +151,6 @@ if [[ "$FLAVOR" == "macos" ]]; then
 	     less \
 	     lua-language-server \
 	     makemkv \
-	     mediainfo \
-	     mpv \
 	     msgpack-tools \
 	     neovim \
 	     node \
@@ -169,6 +165,7 @@ if [[ "$FLAVOR" == "macos" ]]; then
 	     procs \
 	     proton-drive \
 	     protonvpn \
+	     pstree \
 	     python \
 	     qobuz-downloader \
 	     rclone \
@@ -191,14 +188,13 @@ if [[ "$FLAVOR" == "macos" ]]; then
 	     uutils-coreutils \
 	     uutils-diffutils \
 	     uutils-findutils \
+	     vlc \
 	     xz \
 	     yarn \
-	     yazi \
 	     yt-dlp \
 	     yubico-yubikey-manager \
 	     zoxide \
-	     zstd \
-	     7zip
+	     zstd
 
 	# The following packages need to be built from source to avoid
 	# library API mis-matches
@@ -217,7 +213,6 @@ elif [[ "$FLAVOR" == "termux" ]]; then
 	    curl \
 	    dbus \
 	    dos2unix \
-	    duckdb \
 	    duf \
 	    dust \
 	    eza \
@@ -233,7 +228,6 @@ elif [[ "$FLAVOR" == "termux" ]]; then
 	    gnupg \
 	    gopls \
 	    handbrake \
-	    hexyl \
 	    imagemagick \
 	    jq \
 	    jq-lsp \
@@ -242,8 +236,6 @@ elif [[ "$FLAVOR" == "termux" ]]; then
 	    libjpeg-turbo-progs \
 	    lua-language-server \
 	    man \
-	    mediainfo \
-	    mpv \
 	    ndk-sysroot-gcc-compact \
 	    neovim \
 	    nodejs \
@@ -284,12 +276,10 @@ elif [[ "$FLAVOR" == "termux" ]]; then
 	    xsel \
 	    xz-utils \
 	    yarn \
-	    yazi \
 	    yt-dlp \
 	    zip \
 	    zoxide \
-	    zstd \
-	    7zip
+	    zstd
 
 	$HOME/local/lib/linux/common/libexec/update-jetbrains-mono
 
@@ -321,12 +311,10 @@ elif [[ "$FLAVOR" == "debian" ]]; then
 	         eject \
 	         fzf \
 	         gawk \
-	         glow \
 	         gopls \
 	         handbrake \
 	         kitty \
 	         man-db \
-	         pinentry-qt \
 	         qalc \
 	         uuid-runtime \
 	         unzip \
@@ -341,9 +329,9 @@ elif [[ "$FLAVOR" == "debian" ]]; then
 	     android-platform-tools \
 	     bat \
 	     cd-discid \
+	     charmbracelet/tap/glow \
 	     curl \
 	     dos2unix \
-	     duckdb \
 	     duf \
 	     dust \
 	     eza \
@@ -351,15 +339,12 @@ elif [[ "$FLAVOR" == "debian" ]]; then
 	     ffmpeg \
 	     fish \
 	     git-delta \
-	     hexyl \
 	     imagemagick \
 	     jpeg-turbo \
 	     jq \
 	     jq-lsp \
 	     less \
 	     lua-language-server \
-	     mediainfo \
-	     mpv \
 	     msgpack-tools \
 	     neovim \
 	     node \
@@ -392,11 +377,9 @@ elif [[ "$FLAVOR" == "debian" ]]; then
 	     xsel \
 	     xz \
 	     yarn \
-	     yazi \
 	     yt-dlp \
 	     zoxide \
-	     zstd \
-	     7zip
+	     zstd
 
 	# The following packages need to be built from source to avoid
 	# library API mis-matches
