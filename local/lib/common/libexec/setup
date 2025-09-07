@@ -125,7 +125,6 @@ if [[ "$FLAVOR" == "macos" ]]; then
 	     calibre \
 	     cd-discid \
 	     charmbracelet/tap/glow \
-	     cryptomator \
 	     curl \
 	     dos2unix \
 	     duf \
