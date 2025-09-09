@@ -163,7 +163,6 @@ if [[ "$FLAVOR" == "macos" ]]; then
 	     poppler \
 	     procs \
 	     proton-drive \
-	     protonvpn \
 	     pstree \
 	     python \
 	     qobuz-downloader \
