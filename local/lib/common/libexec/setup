@@ -66,6 +66,7 @@ elif [[ "$FLAVOR" == "debian" ]]; then
 	sudo apt install -y \
 	         build-essential \
 	         curl \
+	         dialog \
 	         file \
 	         git \
 	         gnupg \
@@ -305,7 +306,6 @@ elif [[ "$FLAVOR" == "debian" ]]; then
 	         apt-utils \
 	         brave-browser \
 	         calibre \
-	         dialog \
 	         eject \
 	         fzf \
 	         gawk \
