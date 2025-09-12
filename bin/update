@@ -13,7 +13,7 @@ if [[ "$FLAVOR" != "termux" ]]; then
 
 		# Actual update
 		#
-		sudo apt update
+		sudo apt update --fix-missing
 		sudo apt full-upgrade
 		sudo apt autoremove --purge --autoremove
 		sudo apt clean
