@@ -6,6 +6,13 @@ set -e
 #
 if [[ "$FLAVOR" != "termux" ]]; then
 	if [[ -n "$(which apt 2> /dev/null)" ]]; then
+		# Attempt to recover from crashes during configuration
+		#
+		sudo dpkg --configure --pending
+		sudo apt install --fix-broken
+
+		# Actual update
+		#
 		sudo apt update
 		sudo apt full-upgrade
 		sudo apt autoremove --purge --autoremove
