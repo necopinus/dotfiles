@@ -313,6 +313,7 @@ elif [[ "$FLAVOR" == "debian" ]]; then
 	         handbrake \
 	         kitty \
 	         man-db \
+	         podman \
 	         qalc \
 	         uuid-runtime \
 	         unzip \
