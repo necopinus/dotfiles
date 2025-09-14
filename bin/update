@@ -95,10 +95,6 @@ unset OLD_PATH
 #
 nvim --headless "+Lazy! sync" +qa
 
-# Yazi extensions
-#
-ya pkg upgrade
-
 # Artisinal updates
 #
 if [[ "$OS" == "linux" ]]; then
