@@ -398,7 +398,6 @@ elif [[ "$FLAVOR" == "debian" ]]; then
 	#         libuuid1 \
 	#         libxss1 \
 	#         libxtst6 \
-	#         xdg-utils \
 	#         libgtk-3-0
 	#$HOME/local/lib/linux/debian/common/libexec/update-obsidian
 fi
