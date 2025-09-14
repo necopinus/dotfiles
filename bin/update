@@ -103,7 +103,9 @@ ya pkg upgrade
 #
 if [[ "$OS" == "linux" ]]; then
 	$HOME/local/lib/linux/common/libexec/update-jetbrains-mono
-	$HOME/local/lib/linux/common/libexec/update-obsidian
+	if [[ -n "$(which obsidian 2> /dev/null)" ]]; then
+		$HOME/local/lib/linux/common/libexec/update-obsidian
+	fi
 fi
 
 # Need to set up GPG environment here to work around Termux issues

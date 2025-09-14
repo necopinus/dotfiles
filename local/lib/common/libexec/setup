@@ -389,17 +389,17 @@ elif [[ "$FLAVOR" == "debian" ]]; then
 	#
 	$HOME/local/lib/linux/common/libexec/update-jetbrains-mono
 
-	sudo apt install \
-	         libatspi2.0-0 \
-	         libnotify4 \
-	         libnss3 \
-	         libsecret-1-0 \
-	         libuuid1 \
-	         libxss1 \
-	         libxtst6 \
-	         xdg-utils \
-	         libgtk-3-0
-	$HOME/local/lib/linux/debian/common/libexec/update-obsidian
+	#sudo apt install \
+	#         libatspi2.0-0 \
+	#         libnotify4 \
+	#         libnss3 \
+	#         libsecret-1-0 \
+	#         libuuid1 \
+	#         libxss1 \
+	#         libxtst6 \
+	#         xdg-utils \
+	#         libgtk-3-0
+	#$HOME/local/lib/linux/debian/common/libexec/update-obsidian
 fi
 
 # Install Node.js and Python packages
