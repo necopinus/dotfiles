@@ -16,6 +16,13 @@ if [[ "$FLAVOR" == "termux" ]] \
 	exec $HOME/bin/fish -li
 fi
 
+# On Debian we should source /etc/bash.bashrc, since it doesn't seem to
+# get sourced automatically sometimes
+#
+if [[ "$FLAVOR" == "debian" ]]; then
+	source /etc/bash.bashrc
+fi
+
 # Deal with potential PATH pollution
 #
 if [[ -n "$PROFILE_PATH" ]] && [[ ! ":$PATH:" =~ :$PROFILE_PATH:* ]]; then
