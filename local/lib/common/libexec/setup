@@ -632,7 +632,7 @@ fi
 # configuration file, so we need to generate ~/.gnupg/gpg-agent.conf
 # by hand.
 #
-mkdir $HOME/.gnupg
+mkdir -p $HOME/.gnupg
 cat > $HOME/.gnupg/gpg-agent.conf << EOF
 pinentry-program $HOME/bin/pinentry
 enable-ssh-support
@@ -744,6 +744,7 @@ if [[ $(ls -1 $HOME/.ssh/id_* 2> /dev/null | wc -l) -eq 0 ]] \
 	gpg-connect-agent updatestartuptty /bye &> /dev/null
 	ssh-add -l &> /dev/null || true
 	gpg-connect-agent "keyattr $NEW_SECRET_KEY_GRIP Use-for-ssh: true" /bye > /dev/null
+	echo "$NEW_SECRET_KEY_GRIP" >> "$HOME"/.gnupg/sshcontrol
 
 	# Update git signing key
 	#
