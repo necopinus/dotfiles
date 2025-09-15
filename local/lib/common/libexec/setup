@@ -302,7 +302,9 @@ elif [[ "$FLAVOR" == "debian" ]]; then
 		Signed-By: /usr/share/keyrings/brave-browser-archive-keyring.gpg
 		EOF
 
+	sudo apt update
 	sudo apt install -y \
+	         android-sdk-platform-tools \
 	         apt-utils \
 	         brave-browser \
 	         calibre \
@@ -325,7 +327,6 @@ elif [[ "$FLAVOR" == "debian" ]]; then
 
 	brew install \
 	     aichat \
-	     android-platform-tools \
 	     bat \
 	     cd-discid \
 	     charmbracelet/tap/glow \
@@ -608,16 +609,6 @@ else
 fi
 mkdir -p $HOME/data/calibre
 
-# Fix permissions
-#
-chmod 700 $HOME/.ssh
-find $HOME/.ssh -type d -exec chmod 700 "{}" \;
-find $HOME/.ssh -type f -exec chmod 600 "{}" \;
-
-chmod 700 $HOME/.gnupg
-find $HOME/.gnupg -type d -exec chmod 700 "{}" \;
-find $HOME/.gnupg -type f -exec chmod 600 "{}" \;
-
 # Generate bat's cache so that custom themes show up
 #
 # WARNING: There seems to be a bug in bat where the `cache` command
@@ -637,14 +628,35 @@ else
 	)
 fi
 
+# The Debian Bookworm gpg-agent seems to need absolute paths in its
+# configuration file, so we need to generate ~/.gnupg/gpg-agent.conf
+# by hand.
+#
+mkdir $HOME/.gnupg
+cat > $HOME/.gnupg/gpg-agent.conf << EOF
+pinentry-program $HOME/bin/pinentry
+enable-ssh-support
+EOF
+
+# Fix permissions
+#
+chmod 700 $HOME/.ssh
+find $HOME/.ssh -type d -exec chmod 700 "{}" \;
+find $HOME/.ssh -type f -exec chmod 600 "{}" \;
+
+chmod 700 $HOME/.gnupg
+find $HOME/.gnupg -type d -exec chmod 700 "{}" \;
+find $HOME/.gnupg -type f -exec chmod 600 "{}" \;
+
 # Need to set up GPG environment here to work around Termux issues
 #
 export GPG_TTY=$(tty)
 export SSH_AUTH_SOCK="$(gpgconf --list-dirs agent-ssh-socket)"
+gpgconf --kill gpg-agent
 gpg-connect-agent updatestartuptty /bye
 
 # Set up git
-# 
+#
 # TODO: Figure out how to create a custom URL scheme
 #       (delta.hyperlinks-file-link-format) and wrapper script for nvr
 #       so that line numbers become clickable links leading to NeoViM
@@ -825,16 +837,6 @@ mkdir -p $HOME/src
 # NOTE: This must be done *after* git is setup!
 #
 nvim --headless "+Lazy! sync" +qa
-
-# Install Yazi plugins
-#
-# NOTE: This must be done *after* git is setup!
-#
-ya pkg add wylie102/duckdb || true
-ya pkg add yazi-rs/plugins:chmod || true
-ya pkg add yazi-rs/plugins:full-border || true
-ya pkg add yazi-rs/plugins:git || true
-ya pkg add yazi-rs/plugins:piper || true
 
 # Try (probably futilely) to keep environment variables in sync with the
 # garbage fire that is systemd
