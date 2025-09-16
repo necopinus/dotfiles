@@ -2,48 +2,53 @@
 -- https://github.com/nvim-neo-tree/neo-tree.nvim
 
 return {
-  'nvim-neo-tree/neo-tree.nvim',
+	"nvim-neo-tree/neo-tree.nvim",
 
-  version = '*',
-  dependencies = {
-    'nvim-lua/plenary.nvim',
-    'nvim-tree/nvim-web-devicons', -- not strictly required, but recommended
-    'MunifTanjim/nui.nvim',
-    'folke/snacks.nvim'
-  },
-  lazy = false,
+	-- FIXME: Rather than not loading at all if vim.g.have_nerd_font is false,
+	--        we should instead fall back to using ASCII "icons". However,
+	--        not loading nvim-web-devicons isn't enough on its own to do this.
+	cond = vim.g.have_nerd_font,
 
-  keys = {
-    { '\\', ':Neotree reveal<CR>', desc = 'NeoTree reveal', silent = true }
-  },
+	version = "*",
+	dependencies = {
+		"nvim-lua/plenary.nvim",
+		"nvim-tree/nvim-web-devicons", -- Recommended, but requires a Nerd Font
+		"MunifTanjim/nui.nvim",
+		"folke/snacks.nvim",
+	},
+	lazy = false,
 
-  config = function()
-    require("neo-tree").setup({
-      window = {
-        mappings = {
-          ["P"] = {
-            "toggle_preview",
-            config = {
-              use_float = true,
-              use_snacks_image = true
-            }
-          }
-        }
-      },
-      filesystem = {
-        filtered_items = {
-          hide_dotfiles = false,
-          hide_gitignored = false,
-          hide_hidden = false
-        },
-        window = {
-          mappings = {
-            ['\\'] = 'close_window'
-          }
-        }
-      }
-    })
-  end
+	keys = {
+		{ "\\", ":Neotree reveal<CR>", desc = "NeoTree reveal", silent = true },
+	},
+
+	config = function()
+		require("neo-tree").setup({
+			window = {
+				mappings = {
+					["P"] = {
+						"toggle_preview",
+						config = {
+							use_float = true,
+							use_snacks_image = true,
+						},
+					},
+				},
+			},
+			filesystem = {
+				filtered_items = {
+					hide_dotfiles = false,
+					hide_gitignored = false,
+					hide_hidden = false,
+				},
+				window = {
+					mappings = {
+						["\\"] = "close_window",
+					},
+				},
+			},
+		})
+	end,
 }
 
 --[[

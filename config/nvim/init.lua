@@ -110,8 +110,17 @@ I hope you enjoy your Neovim journey,
 vim.g.mapleader = " "
 vim.g.maplocalleader = " "
 
--- Set to true if you have a Nerd Font installed and selected in the terminal
-vim.g.have_nerd_font = true
+-- Toggle between more and less basic styling for terminals that lack color and
+-- font styling (Linux console, Android Terminal, etc.)
+if (vim.env.NVIM_PLAIN_DARK_THEME or "false") == "true" then
+	vim.g.have_nerd_font = false
+	vim.o.termguicolors = false
+	vim.o.background = "dark"
+else
+	vim.g.have_nerd_font = true
+	vim.o.termguicolors = true
+	vim.o.background = "light"
+end
 
 -- [[ Setting options ]]
 -- See `:help vim.o`

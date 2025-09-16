@@ -20,7 +20,11 @@ return {
 		require("mini.surround").setup()
 
 		-- Enable icons; used by buffer list and status line sub-plugins
-		require("mini.icons").setup()
+		local icon_style = "ascii"
+		if vim.g.have_nerd_font then
+			icon_style = "glyph"
+		end
+		require("mini.icons").setup({ style = icon_style })
 
 		-- Simple and easy statusline.
 		--  You could remove this setup call if you don't like it,
