@@ -629,14 +629,19 @@ else
 fi
 
 # The Debian Bookworm gpg-agent seems to need absolute paths in its
-# configuration file, so we need to generate ~/.gnupg/gpg-agent.conf
-# by hand.
+# configuration file, but gpg-agent on Termux requires the use of
+# `~` for $HOME (probably because of Android's weird permissions).
+# On macOS, either seem to work.
+#
+# In any case, we must generate ~/.gnupg/gpg-agent.conf by hand.
 #
 mkdir -p $HOME/.gnupg
-cat > $HOME/.gnupg/gpg-agent.conf << EOF
-pinentry-program $HOME/bin/pinentry
-enable-ssh-support
-EOF
+if [[ "$FLAVOR" == "debian" ]]; then
+	echo "pinentry-program $HOME/bin/pinentry" > $HOME/.gnupg/gpg-agent.conf
+else
+	echo "pinentry-program ~/bin/pinentry" > $HOME/.gnupg/gpg-agent.conf
+fi
+echo "enable-ssh-support" >> $HOME/.gnupg/gpg-agent.conf
 
 # Fix permissions
 #
