@@ -17,6 +17,21 @@ set -e
 #
 if [[ "$FLAVOR" == "termux" ]]; then
 	$PREFIX/bin/fish -l "$@"
-else
+elif [[ "$FLAVOR" == "macos" ]]; then
 	$HOMEBREW_PREFIX/bin/fish -l "$@"
+else
+	export OLD_PATH="$PATH"
+	export PATH="$(echo ":$PATH:" | sed "s#:$HOME/bin:#:#g;s#:$HOME/local/bin:#:#g;s#:$HOME/.local/bin:#:#g;s/^://;s/:\$//")"
+
+	FISH_EXE="$(which fish 2> /dev/null)"
+
+	export PATH="$OLD_PATH"
+	unset OLD_PATH
+
+	if [[ -n "$FISH_EXE" ]]; then
+		"$FISH_EXE" -l "$@"
+	else
+		echo "Could not locate fish!"
+		exit 1
+	fi
 fi
