@@ -39,9 +39,13 @@ fi
 # Kitty integration
 #
 if [[ "$TERM" != "linux" ]]; then
-	if [[ "$FLAVOR" == "macos" ]]; then
+	if [[ -d "$HOME/local/lib/kitty.app/lib/kitty" ]]; then
+		export KITTY_INSTALLATION_DIR="$HOME/local/lib/kitty.app/lib/kitty"
+	elif [[ "$FLAVOR" == "macos" ]]; then
 		export KITTY_INSTALLATION_DIR="/Applications/kitty.app/Contents/Resources/kitty"
-	elif [[ "$FLAVOR" == "debian" ]]; then
+	elif [[ "$FLAVOR" == "termux" ]]; then
+		export KITTY_INSTALLATION_DIR="$PREFIX/lib/kitty"
+	elif [[ "$OS" == "linux" ]]; then
 		export KITTY_INSTALLATION_DIR="/usr/lib/kitty"
 	fi
 

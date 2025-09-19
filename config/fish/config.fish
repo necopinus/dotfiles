@@ -37,9 +37,13 @@ end
 # in order to apply integration in tmux
 #
 if test "$TERM" != "linux"
-	if test "$FLAVOR" = "macos"
+	if test -d $HOME/local/lib/kitty.app/lib/kitty
+		set -g KITTY_INSTALLATION_DIR $HOME/local/lib/kitty.app/lib/kitty
+	else if test "$FLAVOR" = "macos"
 		set -g KITTY_INSTALLATION_DIR /Applications/kitty.app/Contents/Resources/kitty
-	else if test "$FLAVOR" = "debian"
+	else if test "$FLAVOR" = "termux"
+		set -g KITTY_INSTALLATION_DIR $PREFIX/lib/kitty
+	else if test "$OS" = "linux"
 		set -g KITTY_INSTALLATION_DIR /usr/lib/kitty
 	end
 
