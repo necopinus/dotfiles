@@ -11,7 +11,7 @@ if [[ "$OS" == "macos" ]]; then
 	exec $(which pinentry-mac) "$@"
 else
 	OLD_PATH="$PATH"
-	export PATH="$(echo ":$PATH:" | sed "s#:$HOME/bin:#:#;s#:$HOME/local/bin:#:#;s#:$HOME/.local/bin:#:#;s#^:##;s#:\$##")"
+	export PATH="$(echo ":$PATH:" | sed "s#:$HOME/bin:#:#g;s#:$HOME/local/bin:#:#g;s#:$HOME/.local/bin:#:#g;s#^:##;s#:\$##")"
 
 	PINENTRY_BIN="$(which pinentry)"
 

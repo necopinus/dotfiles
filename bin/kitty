@@ -11,7 +11,7 @@ if [[ -x $HOME/local/lib/kitty.app/bin/kitty ]]; then
 	exec $HOME/local/lib/kitty.app/bin/kitty "$@"
 else
 	export OLD_PATH="$PATH"
-	export PATH="$(echo ":$PATH:" | sed "s#:$HOME/bin:#:#g;s#:$HOME/local/bin:#:#g;s#:$HOME/.local/bin:#:#g;s/^://;s/:\$//")"
+	export PATH="$(echo ":$PATH:" | sed "s#:$HOME/bin:#:#g;s#:$HOME/local/bin:#:#g;s#:$HOME/.local/bin:#:#g;s#^:##;s#:\$##")"
 
 	KITTY_EXE="$(which kitty 2> /dev/null)"
 

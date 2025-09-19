@@ -18,7 +18,7 @@ fi
 # Update current dbus environment
 #
 if [[ -n "$DISPLAY" ]] || [[ -n "$WAYLAND_DISPLAY" ]]; then
-	if [[ -n "$(which dbus-update-activation-environment)" ]]; then
+	if [[ -n "$(which dbus-update-activation-environment 2> /dev/null)" ]]; then
 		dbus-update-activation-environment --all
 	fi
 fi
@@ -34,7 +34,7 @@ fi
 env | grep -E '^(.*PATH|SSH_AUTH_SOCK|XDG_.*_HOME|XDG_.*_DIR|.*_TOKEN|.*_API_KEY)=' \
     | grep -v '^__' > ${XDG_CONFIG_HOME:-$HOME/.config}/environment.d/00-defaults.conf
 
-if [[ -n "$(which systemctl)" ]]; then
+if [[ -n "$(which systemctl 2> /dev/null)" ]]; then
 	for ENV_VAR in $(cat ${XDG_CONFIG_HOME:-$HOME/.config}/environment.d/00-defaults.conf | sed 's/=.*//'); do
 		systemctl --user import-environment $ENV_VAR
 	done

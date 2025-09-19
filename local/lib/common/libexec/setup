@@ -204,7 +204,6 @@ elif [[ "$FLAVOR" == "termux" ]]; then
 	pkg install \
 	    aichat \
 	    android-tools \
-	    awesome \
 	    bat \
 	    binutils \
 	    build-essential \
@@ -272,6 +271,7 @@ elif [[ "$FLAVOR" == "termux" ]]; then
 	    uutils-coreutils \
 	    which \
 	    xclip \
+	    xfce4 \
 	    xsel \
 	    xz-utils \
 	    yarn \
@@ -316,11 +316,14 @@ elif [[ "$FLAVOR" == "debian" ]]; then
 	         man-db \
 	         podman \
 	         qalc \
+	         ssh \
+	         tigervnc-standalone-server \
 	         uuid-runtime \
 	         unzip \
 	         wl-clipboard \
 	         xdg-utils \
 	         xdg-user-dirs \
+	         xfce4 \
 	         yubikey-manager-qt \
 	         zip
 

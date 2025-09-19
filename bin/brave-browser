@@ -21,7 +21,7 @@ elif [[ "$FLAVOR" == "termux" ]]; then
 	                --     /usr/bin/brave-browser --no-sandbox "$@"
 else
 	export OLD_PATH="$PATH"
-	export PATH="$(echo ":$PATH:" | sed "s#:$HOME/bin:#:#g;s#:$HOME/local/bin:#:#g;s#:$HOME/.local/bin:#:#g;s/^://;s/:\$//")"
+	export PATH="$(echo ":$PATH:" | sed "s#:$HOME/bin:#:#g;s#:$HOME/local/bin:#:#g;s#:$HOME/.local/bin:#:#g;s#^:##;s#:\$##")"
 
 	BRAVE_BROWSER_EXE="$(which brave-browser 2> /dev/null)"
 

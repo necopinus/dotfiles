@@ -11,7 +11,7 @@ if [[ -x /usr/bin/gpg-agent ]]; then
 	exec /usr/bin/gpg-agent "$@"
 else
 	OLD_PATH="$PATH"
-	export PATH="$(echo ":$PATH:" | sed "s#:$HOME/bin:#:#;s#:$HOME/local/bin:#:#;s#:$HOME/.local/bin:#:#;s#^:##;s#:\$##")"
+	export PATH="$(echo ":$PATH:" | sed "s#:$HOME/bin:#:#g;s#:$HOME/local/bin:#:#g;s#:$HOME/.local/bin:#:#g;s#^:##;s#:\$##")"
 
 	GPG_AGENT_BIN="$(which gpg-agent)"
 

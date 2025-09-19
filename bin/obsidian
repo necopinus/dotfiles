@@ -24,7 +24,7 @@ elif [[ -x "$HOME/local/lib/obsidian/obsidian" ]]; then
 	exec $HOME/local/lib/obsidian/obsidian "$@"
 else
 	export OLD_PATH="$PATH"
-	export PATH="$(echo ":$PATH:" | sed "s#:$HOME/bin:#:#g;s#:$HOME/local/bin:#:#g;s#:$HOME/.local/bin:#:#g;s/^://;s/:\$//")"
+	export PATH="$(echo ":$PATH:" | sed "s#:$HOME/bin:#:#g;s#:$HOME/local/bin:#:#g;s#:$HOME/.local/bin:#:#g;s#^:##;s#:\$##")"
 
 	OBSIDIAN_EXE="$(which obsidian 2> /dev/null)"
 

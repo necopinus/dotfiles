@@ -21,7 +21,7 @@ elif [[ "$FLAVOR" == "macos" ]]; then
 	$HOMEBREW_PREFIX/bin/fish -l "$@"
 else
 	export OLD_PATH="$PATH"
-	export PATH="$(echo ":$PATH:" | sed "s#:$HOME/bin:#:#g;s#:$HOME/local/bin:#:#g;s#:$HOME/.local/bin:#:#g;s/^://;s/:\$//")"
+	export PATH="$(echo ":$PATH:" | sed "s#:$HOME/bin:#:#g;s#:$HOME/local/bin:#:#g;s#:$HOME/.local/bin:#:#g;s#^:##;s#:\$##")"
 
 	FISH_EXE="$(which fish 2> /dev/null)"
 

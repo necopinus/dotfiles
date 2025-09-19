@@ -23,7 +23,7 @@ elif [[ "$FLAVOR" == "termux" ]]; then
 	                --     /usr/bin/calibre "$@"
 else
 	export OLD_PATH="$PATH"
-	export PATH="$(echo ":$PATH:" | sed "s#:$HOME/bin:#:#g;s#:$HOME/local/bin:#:#g;s#:$HOME/.local/bin:#:#g;s/^://;s/:\$//")"
+	export PATH="$(echo ":$PATH:" | sed "s#:$HOME/bin:#:#g;s#:$HOME/local/bin:#:#g;s#:$HOME/.local/bin:#:#g;s#^:##;s#:\$##")"
 
 	CALIBRE_EXE="$(which calibre 2> /dev/null)"
 
