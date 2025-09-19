@@ -52,7 +52,7 @@ fi
 
 # Node.js packages
 #
-node --version > "$XDG_CACHE_HOME/versions/node.new"
+node --version > "${XDG_CACHE_HOME:-$HOME/.cache}/versions/node.new"
 
 if [[ "$(cat "${XDG_CACHE_HOME:-$HOME/.cache}/versions/node")" == "$(cat "${XDG_CACHE_HOME:-$HOME/.cache}/versions/node.new")" ]]; then
 	yarn global upgrade $(cat $HOME/.default-npm-packages | xargs)
@@ -75,7 +75,7 @@ fi
 export OLD_PATH="$PATH"
 export PATH="$(echo ":$PATH:" | sed "s#:$HOME/local/lib/python/bin:#:#g;s/^://;s/:\$//")"
 
-python3 --version > "$XDG_CACHE_HOME/versions/python.new"
+python3 --version > "${XDG_CACHE_HOME:-$HOME/.cache}/versions/python.new"
 
 if [[ "$(cat "${XDG_CACHE_HOME:-$HOME/.cache}/versions/python")" == "$(python3 --version)" ]]; then
 	$HOME/local/lib/python/bin/python -m pip install -U $(cat $HOME/.default-python-packages | xargs)

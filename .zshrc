@@ -5,8 +5,8 @@
 typeset -U path PATH
 if [[ -n "$PROFILE_PATH" ]]; then
 	export PATH="$PROFILE_PATH:$PATH"
+	unset PROFILE_PATH
 fi
-unset PROFILE_PATH
 
 if [[ -d "/Applications/kitty.app/Contents/Resources/man" ]]; then
 	export MANPATH=":/Applications/kitty.app/Contents/Resources/man"

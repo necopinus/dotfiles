@@ -25,10 +25,16 @@ fi
 
 # Deal with potential PATH pollution
 #
-if [[ -n "$PROFILE_PATH" ]] && [[ ! ":$PATH:" =~ :$PROFILE_PATH:* ]]; then
-	export PATH="$PROFILE_PATH:$PATH"
+if [[ -n "$PROFILE_PATH" ]]; then
+	NEW_PATH=""
+	for PATH_ELEMENT in $(echo "$PROFILE_PATH:$PATH" | tr ':' ' '); do
+		if [[ ":$NEW_PATH:" != *":$PATH_ELEMENT:"* ]]; then
+			NEW_PATH="$NEW_PATH:$PATH_ELEMENT"
+		fi
+	done
+	export PATH="${NEW_PATH:1}"
+	unset NEW_PATH PROFILE_PATH
 fi
-unset PROFILE_PATH
 
 if [[ -d "/Applications/kitty.app/Contents/Resources/man" ]]; then
 	export MANPATH=":/Applications/kitty.app/Contents/Resources/man"
