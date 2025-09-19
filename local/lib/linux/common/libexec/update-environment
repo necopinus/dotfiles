@@ -2,11 +2,24 @@
 
 set -e
 
-# Update current dbus (and systemd) environment
+# Deal with potential PATH pollution
+#
+if [[ -n "$PROFILE_PATH" ]]; then
+	NEW_PATH=""
+	for PATH_ELEMENT in $(echo "$PROFILE_PATH:$PATH" | tr ':' ' '); do
+		if [[ ":$NEW_PATH:" != *":$PATH_ELEMENT:"* ]]; then
+			NEW_PATH="$NEW_PATH:$PATH_ELEMENT"
+		fi
+	done
+	export PATH="${NEW_PATH:1}"
+	unset NEW_PATH PROFILE_PATH
+fi
+
+# Update current dbus environment
 #
 if [[ -n "$DISPLAY" ]] || [[ -n "$WAYLAND_DISPLAY" ]]; then
 	if [[ -n "$(which dbus-update-activation-environment)" ]]; then
-		dbus-update-activation-environment --systemd --all
+		dbus-update-activation-environment --all
 	fi
 fi
 
@@ -20,3 +33,9 @@ if [[ -f ${XDG_CONFIG_HOME:-$HOME/.config}/environment.d/00-defaults.conf ]]; th
 fi
 env | grep -E '^(.*PATH|SSH_AUTH_SOCK|XDG_.*_HOME|XDG_.*_DIR|.*_TOKEN|.*_API_KEY)=' \
     | grep -v '^__' > ${XDG_CONFIG_HOME:-$HOME/.config}/environment.d/00-defaults.conf
+
+if [[ -n "$(which systemctl)" ]]; then
+	for ENV_VAR in $(cat ${XDG_CONFIG_HOME:-$HOME/.config}/environment.d/00-defaults.conf | sed 's/=.*//'); do
+		systemctl --user import-environment $ENV_VAR
+	done
+fi
