@@ -1,12 +1,13 @@
 [Desktop Entry]
 Version=1.0
 Type=Application
-Name=Kitty Launcher
-GenericName=CLI file chooser
-Comment=Open files with Kitty
+Name=kitty URL Launcher
+GenericName=Terminal emulator
+Comment=Open URLs with kitty
+StartupNotify=true
 TryExec=kitty
 Exec=kitty +open %U
 Icon=kitty
 Categories=System;TerminalEmulator;
 NoDisplay=true
-MimeType=application/json;application/x-sh;application/x-shellscript;image/*;inode/directory;text/*;x-scheme-handler/kitty;
+MimeType=image/*;application/x-sh;application/x-shellscript;inode/directory;text/*;x-scheme-handler/kitty;x-scheme-handler/ssh;

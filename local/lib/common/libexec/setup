@@ -313,7 +313,6 @@ elif [[ "$FLAVOR" == "debian" ]]; then
 	         gawk \
 	         gopls \
 	         handbrake \
-	         kitty \
 	         man-db \
 	         podman \
 	         qalc \
@@ -390,6 +389,7 @@ elif [[ "$FLAVOR" == "debian" ]]; then
 	# Additional "manual" installs
 	#
 	$HOME/local/lib/linux/common/libexec/update-jetbrains-mono
+	$HOME/local/lib/linux/debian/common/libexec/update-kitty
 
 	#sudo apt install \
 	#         libatspi2.0-0 \
@@ -400,7 +400,7 @@ elif [[ "$FLAVOR" == "debian" ]]; then
 	#         libxss1 \
 	#         libxtst6 \
 	#         libgtk-3-0
-	#$HOME/local/lib/linux/debian/common/libexec/update-obsidian
+	#$HOME/local/lib/linux/common/libexec/update-obsidian
 fi
 
 # Install Node.js and Python packages

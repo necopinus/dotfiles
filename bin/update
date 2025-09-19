@@ -99,9 +99,12 @@ nvim --headless "+Lazy! sync" +qa
 #
 if [[ "$OS" == "linux" ]]; then
 	$HOME/local/lib/linux/common/libexec/update-jetbrains-mono
-	if [[ -n "$(which obsidian 2> /dev/null)" ]]; then
+	if [[ "$FLAVOR" != "debian" ]]; then
 		$HOME/local/lib/linux/common/libexec/update-obsidian
 	fi
+fi
+if [[ "$FLAVOR" == "debian" ]]; then
+	$HOME/local/lib/linux/debian/common/libexec/update-kitty
 fi
 
 # Need to set up GPG environment here to work around Termux issues

@@ -7,8 +7,8 @@
 
 set -e
 
-if [[ -x $HOME/local/lib/kitty/kitten ]]; then
-	exec $HOME/local/lib/kitty/kitten "$@"
+if [[ -x $HOME/local/lib/kitty.app/bin/kitten ]]; then
+	exec $HOME/local/lib/kitty.app/bin/kitten "$@"
 else
 	export OLD_PATH="$PATH"
 	export PATH="$(echo ":$PATH:" | sed "s#:$HOME/bin:#:#g;s#:$HOME/local/bin:#:#g;s#:$HOME/.local/bin:#:#g;s/^://;s/:\$//")"
