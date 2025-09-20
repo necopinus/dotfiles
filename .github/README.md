@@ -11,7 +11,17 @@ Current iteration heavily inspired by [Drew DeVault](https://drewdevault.com/201
 ```bash
 if [[ -n "$PREFIX" ]] && [[ -n "$(which pkg 2> /dev/null)" ]]; then
     pkg install git
+elif [[ -n "$(which apt 2> /dev/null)" ]]; then
+    sudo apt install git
+elif [[ -n "$(which xcode-select 2> /dev/null)" ]]; then
+	xcode-select --install || true
+
+	until $(xcode-select --print-path &> /dev/null); do
+		sleep 4;
+	done
 fi
+
+cd $HOME
 
 git clone --bare https://github.com/necopinus/dotfiles.git $HOME/.dotfiles
 git --git-dir=$HOME/.dotfiles --work-tree=$HOME checkout -f
