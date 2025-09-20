@@ -404,6 +404,27 @@ elif [[ "$FLAVOR" == "debian" ]]; then
 	#         libxtst6 \
 	#         libgtk-3-0
 	#$HOME/local/lib/linux/common/libexec/update-obsidian
+
+	# System-level tweaks
+	#
+	sudo ln -sf /usr/share/zoneinfo/America/Denver /etc/localtime
+
+	sudo systemctl stop lightdm.service
+	sudo systemctl disable lightdm.service
+
+	SSH_LOCAL_CONF="$(mktemp)"
+	cat > "$SSH_LOCAL_CONF" <<- EOF
+	Port 2222
+	PermitRootLogin no
+	PubkeyAuthentication yes
+	PasswordAuthentication no
+	AllowUsers droid necopinus
+	AuthenticationMethods publickey
+	EOF
+	sudo mv "$SSH_LOCAL_CONF" /etc/ssh/sshd_config.d/local.conf
+	sudo chown root:root /etc/ssh/sshd_config.d/local.conf
+	sudo chmod 644 /etc/ssh/sshd_config.d/local.conf
+	sudo systemctl restart ssh.service
 fi
 
 # Install Node.js and Python packages
