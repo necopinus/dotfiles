@@ -418,7 +418,7 @@ elif [[ "$FLAVOR" == "debian" ]]; then
 	PermitRootLogin no
 	PubkeyAuthentication yes
 	PasswordAuthentication no
-	AllowUsers droid necopinus
+	AllowUsers $USER
 	AuthenticationMethods publickey
 	EOF
 	sudo mv "$SSH_LOCAL_CONF" /etc/ssh/sshd_config.d/local.conf
