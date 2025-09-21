@@ -71,6 +71,11 @@ function clean_up_x_display {
 #
 if [[ "$FLAVOR" == "debian" ]]; then
 	dbus-launch --exit-with-session vncserver $DISPLAY -localhost -SecurityTypes None -fg -AlwaysShared -- xfce
+
+	# Try (probably futile) to guard against filesystem corruption in
+	# the Android Debian VM
+	#
+	sync
 elif [[ "$FLAVOR" == "termux" ]]; then
 	clean_up_x_session
 
