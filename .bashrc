@@ -111,10 +111,13 @@ alias procs="$(which procs) --theme dark"
 alias ps="$(which procs) --theme dark"
 alias pstree="$(which procs) --theme dark --tree"
 alias rg="$(which rg) --color=auto"
-alias shutdown="sudo $(which shutdown) -h now"
 
 if [[ -n "$(which sudo 2> /dev/null)" ]]; then
 	alias sudo="$(which sudo) -E"
+
+	if [[ -x /sbin/shutdown ]]; then
+		alias shutdown="$(which sudo) /sbin/shutdown -h now"
+	fi
 fi
 
 if [[ "$TERM" != "linux" ]]; then

@@ -56,71 +56,74 @@ export NVIM_PLAIN_DARK_THEME="true"
 #
 alias :e="$EDITOR"
 alias :q=exit
-alias cat="$(which bat) -pp"
-alias ccat="$(which cat)"
-alias ddf="$(which df)"
-alias ddiff="$(which diff)"
-alias ddu="$(which du)"
-alias df="$(which duf) -theme ansi"
-alias diff="$(which delta)"
-alias du="$(which dust)"
-alias fd="$(which fd) --color auto"
-alias ffind="$(which find)"
-alias find="$(which fd) --color auto"
-alias fzf="$(which fzf) --style=full --color=16"
-alias glow="$(which glow) -s dark"
-alias grep="$(which rg) --color=auto"
-alias ggrep="$(which grep) --color=auto"
-alias la="$(which eza) --classify=auto --color=auto --long --all"
-alias less="$(which bat)"
-alias ll="$(which eza) --classify=auto --color=auto --long"
-alias lless="$(which less)"
-alias lls="$(which ls)"
-alias ls="$(which eza) --classify=auto --color=auto"
-alias mmore="$(which more)"
-alias more="$(which bat)"
-alias pps="$(which ps)"
-alias ppstree="$(which pstree)"
-alias procs="$(which procs) --theme dark"
-alias ps="$(which procs) --theme dark"
-alias pstree="$(which procs) --theme dark --tree"
-alias rg="$(which rg) --color=auto"
-alias shutdown="sudo $(which shutdown) -h now"
+alias cat="$(whence -p bat) -pp"
+alias ccat="$(whence -p cat)"
+alias ddf="$(whence -p df)"
+alias ddiff="$(whence -p diff)"
+alias ddu="$(whence -p du)"
+alias df="$(whence -p duf) -theme ansi"
+alias diff="$(whence -p delta)"
+alias du="$(whence -p dust)"
+alias fd="$(whence -p fd) --color auto"
+alias ffind="$(whence -p find)"
+alias find="$(whence -p fd) --color auto"
+alias fzf="$(whence -p fzf) --style=full --color=16"
+alias glow="$(whence -p glow) -s dark"
+alias grep="$(whence -p rg) --color=auto"
+alias ggrep="$(whence -p grep) --color=auto"
+alias la="$(whence -p eza) --classify=auto --color=auto --long --all"
+alias less="$(whence -p bat)"
+alias ll="$(whence -p eza) --classify=auto --color=auto --long"
+alias lless="$(whence -p less)"
+alias lls="$(whence -p ls)"
+alias ls="$(whence -p eza) --classify=auto --color=auto"
+alias mmore="$(whence -p more)"
+alias more="$(whence -p bat)"
+alias pps="$(whence -p ps)"
+alias ppstree="$(whence -p pstree)"
+alias procs="$(whence -p procs) --theme dark"
+alias ps="$(whence -p procs) --theme dark"
+alias pstree="$(whence -p procs) --theme dark --tree"
+alias rg="$(whence -p rg) --color=auto"
 
-if [[ -n "$(which sudo 2> /dev/null)" ]]; then
-	alias sudo="$(which sudo) -E"
+if [[ -n "$(whence -p sudo 2> /dev/null)" ]]; then
+	alias sudo="$(whence -p sudo) -E"
+
+	if [[ -x /sbin/shutdown ]]; then
+		alias shutdown="$(whence -p sudo) /sbin/shutdown -h now"
+	fi
 fi
 
 if [[ "$TERM" != "linux" ]]; then
-	alias nano="$(which nvim)"
-	alias nvr="$(which nvr) -s"
-	alias vi="$(which nvim)"
-	alias vim="$(which nvim)"
-	alias vimdiff="$(which nvim) -d"
+	alias nano="$(whence -p nvim)"
+	alias nvr="$(whence -p nvr) -s"
+	alias vi="$(whence -p nvim)"
+	alias vim="$(whence -p nvim)"
+	alias vimdiff="$(whence -p nvim) -d"
 fi
 
 if [[ "$OS" == "linux" ]]; then
 	if [[ -n "$DISPLAY" ]]; then
-		alias pbcopy="$(which xsel) --input --clipboard"
-		alias pbpaste="$(which xsel) --output --clipboard"
+		alias pbcopy="$(whence -p xsel) --input --clipboard"
+		alias pbpaste="$(whence -p xsel) --output --clipboard"
 	elif [[ -n "$WAYLAND_DISPLAY" ]]; then
-		alias pbcopy="$(which wl-copy)"
-		alias pbpaste="$(which wl-paste)"
+		alias pbcopy="$(whence -p wl-copy)"
+		alias pbpaste="$(whence -p wl-paste)"
 	elif [[ "$FLAVOR" == "termux" ]]; then
-		alias pbcopy="$(which termux-clipboard-set)"
-		alias pbpaste="$(which termux-clipboard-get)"
+		alias pbcopy="$(whence -p termux-clipboard-set)"
+		alias pbpaste="$(whence -p termux-clipboard-get)"
 	fi
 fi
 
 if [[ "$FLAVOR" == "termux" ]]; then
-	alias cpio="$(which busybox) cpio"
-	alias hexedit="$(which busybox) hexedit"
-	alias ip="$(which busybox) ip"
-	alias nc="$(which busybox) nc"
-	alias netcat="$(which busybox) netcat"
-	alias traceroute="$(which busybox) traceroute"
-	alias whois="$(which busybox) whois"
-	alias xxd="$(which busybox) xxd"
+	alias cpio="$(whence -p busybox) cpio"
+	alias hexedit="$(whence -p busybox) hexedit"
+	alias ip="$(whence -p busybox) ip"
+	alias nc="$(whence -p busybox) nc"
+	alias netcat="$(whence -p busybox) netcat"
+	alias traceroute="$(whence -p busybox) traceroute"
+	alias whois="$(whence -p busybox) whois"
+	alias xxd="$(whence -p busybox) xxd"
 fi
 
 # Convenience function for launching graphical apps from the terminal
@@ -139,19 +142,19 @@ fi
 #
 function ssh {
 	gpg-connect-agent updatestartuptty /bye &> /dev/null
-	SSH_EXEC=$(which ssh)
+	SSH_EXEC=$(whence -p ssh)
 	$SSH_EXEC "$@"
 }
 
 function git {
 	gpg-connect-agent updatestartuptty /bye &> /dev/null
-	GIT_EXEC=$(which git)
+	GIT_EXEC=$(whence -p git)
 	$GIT_EXEC "$@"
 }
 
 function dotfiles {
 	gpg-connect-agent updatestartuptty /bye &> /dev/null
-	GIT_EXEC=$(which git)
+	GIT_EXEC=$(whence -p git)
 	$GIT_EXEC --git-dir=$HOME/.dotfiles --work-tree=$HOME "$@"
 }
 

@@ -99,10 +99,13 @@ alias procs "$(which procs) --theme light"
 alias ps "$(which procs) --theme light"
 alias pstree "$(which procs) --theme light --tree"
 alias rg "$(which rg) --color=auto"
-alias shutdown "sudo $(which shutdown) -h now"
 
 if test -n "$(which sudo 2> /dev/null)"
 	alias sudo "$(which sudo) -E"
+
+	if test -x /sbin/shutdown
+		alias shutdown "$(which sudo) /sbin/shutdown -h now"
+	end
 end
 
 if test "$TERM" != "linux"
