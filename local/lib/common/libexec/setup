@@ -190,7 +190,6 @@ if [[ "$FLAVOR" == "macos" ]]; then
 	     vlc \
 	     xz \
 	     yarn \
-	     yt-dlp \
 	     yubico-yubikey-manager \
 	     zoxide \
 	     zstd
@@ -275,7 +274,6 @@ elif [[ "$FLAVOR" == "termux" ]]; then
 	    xsel \
 	    xz-utils \
 	    yarn \
-	    yt-dlp \
 	    zip \
 	    zoxide \
 	    zstd
@@ -380,7 +378,6 @@ elif [[ "$FLAVOR" == "debian" ]]; then
 	     xsel \
 	     xz \
 	     yarn \
-	     yt-dlp \
 	     zoxide \
 	     zstd
 
