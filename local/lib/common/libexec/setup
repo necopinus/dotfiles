@@ -575,7 +575,11 @@ if [[ ! -d "$XDG_DESKTOP_DIR" ]]; then
 fi
 
 if [[ ! -d "$XDG_DOWNLOAD_DIR" ]]; then
-	mkdir -p "$XDG_DOWNLOAD_DIR"
+	if [[ "$USER" == "droid" ]] && [[ -d /mnt/shared ]]; then
+		ln -sf /mnt/shared "$XDG_DOWNLOAD_DIR"
+	else
+		mkdir -p "$XDG_DOWNLOAD_DIR"
+	fi
 	if [[ -d "$HOME/Downloads" ]] \
 	&& [[ "$XDG_DOWNLOAD_DIR" != "$HOME/Downloads" ]]; then
 		cp -anv "$HOME/Downloads"/* "$XDG_DOWNLOAD_DIR"/ || true
