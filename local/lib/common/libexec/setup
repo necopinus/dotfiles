@@ -369,6 +369,7 @@ elif [[ "$FLAVOR" == "debian" ]]; then
 	     sqlite \
 	     starship \
 	     stylua \
+	     syncthing \
 	     tinymist \
 	     tmux \
 	     tree-sitter-cli \
@@ -425,6 +426,9 @@ elif [[ "$FLAVOR" == "debian" ]]; then
 	sudo chown root:root /etc/ssh/sshd_config.d/local.conf
 	sudo chmod 644 /etc/ssh/sshd_config.d/local.conf
 	sudo systemctl restart ssh.service
+
+	echo ":0=$USER" | sudo tee -a /etc/tigervnc/vncserver.users
+	sudo systemctl enable "tigervncserver@:0.service"
 fi
 
 # Install Node.js and Python packages
