@@ -26,17 +26,24 @@ fi
 # Deal with potential PATH pollution
 #
 if [[ -n "$PROFILE_PATH" ]]; then
-	NEW_PATH=""
-	for PATH_ELEMENT in $(echo "$PROFILE_PATH:$PATH" | tr ':' ' '); do
-		if [[ ":$NEW_PATH:" != *":$PATH_ELEMENT:"* ]]; then
-			NEW_PATH="$NEW_PATH:$PATH_ELEMENT"
-		fi
-	done
-	export PATH="${NEW_PATH:1}"
-	unset NEW_PATH PROFILE_PATH
+	export PATH="$PROFILE_PATH:$PATH"
+	unset PROFILE_PATH
 fi
 
-if [[ -d "/Applications/kitty.app/Contents/Resources/man" ]]; then
+NEW_PATH=""
+for PATH_ELEMENT in $(echo "$PATH" | tr ':' ' '); do
+	if [[ ":$NEW_PATH:" != *":$PATH_ELEMENT:"* ]]; then
+		if [[ -d "$PATH_ELEMENT" ]]; then
+			NEW_PATH="$NEW_PATH:$PATH_ELEMENT"
+		fi
+	fi
+done
+export PATH="${NEW_PATH:1}"
+unset NEW_PATH
+
+if [[ -d "$HOME/local/lib/kitty.app/share/man" ]]; then
+	export MANPATH=":$HOME/local/lib/kitty.app/share/man"
+elif [[ -d "/Applications/kitty.app/Contents/Resources/man" ]]; then
 	export MANPATH=":/Applications/kitty.app/Contents/Resources/man"
 else
 	unset MANPATH

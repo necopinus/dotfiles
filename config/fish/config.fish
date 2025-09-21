@@ -10,7 +10,10 @@ set -gx THIS_IS_FISH 1
 if set -q PROFILE_PATH
 	fish_add_path -Pm $PROFILE_PATH
 end
-if test -d /Applications/kitty.app/Contents/Resources/man
+
+if test -d $HOME/local/lib/kitty.app/share/man
+	set -gx MANPATH :$HOME/local/lib/kitty.app/share/man
+else if test -d /Applications/kitty.app/Contents/Resources/man
 	set -gx MANPATH :/Applications/kitty.app/Contents/Resources/man
 else
 	set -e MANPATH

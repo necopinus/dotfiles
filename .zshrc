@@ -8,7 +8,9 @@ if [[ -n "$PROFILE_PATH" ]]; then
 	unset PROFILE_PATH
 fi
 
-if [[ -d "/Applications/kitty.app/Contents/Resources/man" ]]; then
+if [[ -d "$HOME/local/lib/kitty.app/share/man" ]]; then
+	export MANPATH=":$HOME/local/lib/kitty.app/share/man"
+elif [[ -d "/Applications/kitty.app/Contents/Resources/man" ]]; then
 	export MANPATH=":/Applications/kitty.app/Contents/Resources/man"
 else
 	unset MANPATH
