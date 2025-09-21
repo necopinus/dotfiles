@@ -24,7 +24,6 @@ source ${XDG_CONFIG_HOME:-$HOME/.config}/user-dirs.dirs
 			$(test -f "$XDG_CONFIG_HOME/shodan/api_key" && echo "$XDG_CONFIG_HOME/shodan/api_key" | sed "s#$HOME/##")
 			$(test -f "$XDG_CONFIG_HOME/api-keys.env.sh" && echo "$XDG_CONFIG_HOME/api-keys.env.sh" | sed "s#$HOME/##")
 			$(test -f "$XDG_CONFIG_HOME/qobuz-dl/config.ini" && echo "$XDG_CONFIG_HOME/qobuz-dl/config.ini" | sed "s#$HOME/##")
-			$(test -d "$XDG_DATA_HOME/nvim" && echo "$XDG_DATA_HOME/nvim" | sed "s#$HOME/##")
 			$(test -f ".claude.json" && echo ".claude.json")
 			$(test -d "data/calibre" && echo "data/calibre")
 			$(test -d "Library/Preferences/calibre" && echo "Library/Preferences/calibre")
