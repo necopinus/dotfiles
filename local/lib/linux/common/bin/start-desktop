@@ -37,7 +37,7 @@ fi
 # Convenience function to make sure that our X session is *really* dead;
 # only used in Termux
 #
-function clean_up_x_display {
+function clean_up_x_session {
 	if [[ "$FLAVOR" == "termux" ]]; then
 		TERMUX_ANDROID_USER=$(whoami)
 
