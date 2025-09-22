@@ -1,0 +1,19 @@
+#!/usr/bin/env bash
+
+# Personal > Appearance
+xfconf-query --create -c 'xsettings' -p '/Net/ThemeName' --type 'string' --set 'Adwaita-dark'
+xfconf-query --create -c 'xsettings' -p '/Net/IconThemeName' --type 'string' --set 'Adwaita'
+xfconf-query --create -c 'xsettings' -p '/Gtk/MonospaceFontName' --type 'string' --set 'JetBrainsMono Nerd Font 10'
+
+# Personal > File Manager Settings
+xfconf-query --create -c 'thunar' -p '/misc-text-beside-icons' --type 'bool' --set 'true'
+xfconf-query --create -c 'thunar' -p '/misc-full-path-in-tab-title' --type 'bool' --set 'true'
+
+# Personal > Workspaces
+xfconf-query --create -c 'xfwm4' -p '/general/workspace_count' --type 'int' --set '1'
+
+# Hardware > Mouse and Touchpad
+xfconf-query --create -c 'xsettings' -p '/Gtk/CursorThemeName' --type 'string' --set 'Adwaita'
+
+# System > Sessions and Startup
+xfconf-query --create -c 'xfce4-session' -p '/general/PromptOnLogout' --type 'bool' --set 'false'

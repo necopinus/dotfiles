@@ -14,8 +14,8 @@ Actions=new-window;new-private-window;
 
 [Desktop Action new-window]
 Name=New Window
-Exec=/usr/bin/brave-browser
+Exec=brave-browser
 
 [Desktop Action new-private-window]
 Name=New Incognito Window
-Exec=/usr/bin/brave-browser --incognito
+Exec=brave-browser --incognito

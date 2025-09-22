@@ -1,0 +1,13 @@
+[Desktop Entry]
+Encoding=UTF-8
+Version=0.9.4
+Type=Application
+Name=Dotfiles settings
+Comment=Align Xfce settings with shared dotfiles
+Exec=/home/droid/local/lib/linux/common/libexec/xfce-settings
+OnlyShowIn=XFCE;
+RunHook=0
+StartupNotify=false
+Terminal=false
+Hidden=false
+

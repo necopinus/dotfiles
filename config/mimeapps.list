@@ -13,8 +13,8 @@ inode/directory=kitty-open.desktop
 text/*=kitty-open.desktop
 text/html=brave-browser.desktop
 x-scheme-handler/chrome=brave-browser.desktop
-x-scheme-handler/http=brave-browser.desktop
-x-scheme-handler/https=brave-browser.desktop
+x-scheme-handler/http=xfce4-web-browser.desktop
+x-scheme-handler/https=xfce4-web-browser.desktop
 x-scheme-handler/kitty=kitty-open.desktop
 
 [Added Associations]
@@ -32,5 +32,6 @@ application/xml=brave-browser.desktop
 text/html=brave-browser.desktop;
 text/xml=brave-browser.desktop
 x-scheme-handler/chrome=brave-browser.desktop;
-x-scheme-handler/http=brave-browser.desktop;
-x-scheme-handler/https=brave-browser.desktop;
+x-scheme-handler/http=xfce4-web-browser.desktop;
+x-scheme-handler/https=xfce4-web-browser.desktop;
+
