@@ -26,10 +26,10 @@ source ${XDG_CONFIG_HOME:-$HOME/.config}/user-dirs.dirs
 			$(test -f "$XDG_CONFIG_HOME/qobuz-dl/config.ini" && echo "$XDG_CONFIG_HOME/qobuz-dl/config.ini" | sed "s#$HOME/##")
 			$(test -f ".claude.json" && echo ".claude.json")
 			$(test -d "data/calibre" && echo "data/calibre")
-			$(test -f "$XDG_CONFIG_HOME/BraveSoftware" && echo "$XDG_CONFIG_HOME/BraveSoftware" | sed "s#$HOME/##")
-			$(test -d "Library/Application Support/BraveSoftware" && echo "Library/Application Support/BraveSoftware")
 			$(test -d "Library/Preferences/calibre" && echo "Library/Preferences/calibre")
 			$(test -d "$XDG_CONFIG_HOME/calibre" && echo "$XDG_CONFIG_HOME/calibre" | sed "s#$HOME/##")
+			$(test -d "$XDG_CONFIG_HOME/BraveSoftware" && echo "$XDG_CONFIG_HOME/BraveSoftware" | sed "s#$HOME/##")
+			$(test -d "Library/Application Support/BraveSoftware" && echo "Library/Application Support/BraveSoftware")
 			$(test -f "$XDG_CONFIG_HOME/git/config" && echo "$XDG_CONFIG_HOME/git/config" | sed "s#$HOME/##")
 			$(test -f .gitconfig && echo ".gitconfig")
 			EOF
