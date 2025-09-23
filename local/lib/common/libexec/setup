@@ -239,10 +239,10 @@ elif [[ "$FLAVOR" == "termux" ]]; then
 	    openssh \
 	    optipng \
 	    pandoc \
+	    pavucontrol \
 	    poppler \
 	    procs \
 	    proot-distro \
-	    pulseaudio \
 	    python-greenlet \
 	    python-lxml \
 	    python-msgpack \
@@ -271,6 +271,7 @@ elif [[ "$FLAVOR" == "termux" ]]; then
 	    which \
 	    xclip \
 	    xfce4 \
+	    xfce4-pulseaudio-plugin \
 	    xsel \
 	    xz-utils \
 	    yarn \
@@ -392,16 +393,16 @@ elif [[ "$FLAVOR" == "debian" ]]; then
 	$HOME/local/lib/linux/common/libexec/update-jetbrains-mono
 	$HOME/local/lib/linux/debian/common/libexec/update-kitty
 
-	#sudo apt install \
-	#         libatspi2.0-0 \
-	#         libnotify4 \
-	#         libnss3 \
-	#         libsecret-1-0 \
-	#         libuuid1 \
-	#         libxss1 \
-	#         libxtst6 \
-	#         libgtk-3-0
-	#$HOME/local/lib/linux/common/libexec/update-obsidian
+	sudo apt install \
+	         libatspi2.0-0 \
+	         libnotify4 \
+	         libnss3 \
+	         libsecret-1-0 \
+	         libuuid1 \
+	         libxss1 \
+	         libxtst6 \
+	         libgtk-3-0
+	$HOME/local/lib/linux/common/libexec/update-obsidian
 
 	# System-level tweaks
 	#
@@ -424,7 +425,9 @@ elif [[ "$FLAVOR" == "debian" ]]; then
 	sudo chmod 644 /etc/ssh/sshd_config.d/local.conf
 	#sudo systemctl restart ssh.service
 
-	echo ":0=$USER" | sudo tee -a /etc/tigervnc/vncserver.users
+	if [[ $(grep -c "$USER" /etc/tigervnc/vncserver.users) -eq 0 ]]; then
+		echo ":0=$USER" | sudo tee -a /etc/tigervnc/vncserver.users
+	fi
 	#sudo systemctl enable "tigervncserver@:0.service"
 
 	# Disable some background services to try to avoid filesystem
@@ -451,9 +454,7 @@ fi
 
 # Install Node.js and Python packages
 #
-if [[ ! -d "$XDG_CACHE_HOME/versions" ]]; then
-	mkdir -p "$XDG_CACHE_HOME/versions"
-fi
+mkdir -p "$XDG_CACHE_HOME/versions"
 
 yarn global add $(cat $HOME/.default-npm-packages | xargs)
 node --version > "$XDG_CACHE_HOME/versions/node"
