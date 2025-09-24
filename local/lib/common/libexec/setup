@@ -119,9 +119,10 @@ echo "Installing additional tooling"
 if [[ "$FLAVOR" == "macos" ]]; then
 	brew install \
 	     adobe-creative-cloud \
-	     aichat \
 	     android-platform-tools \
 	     bat \
+	     block-goose \
+	     block-goose-cli \
 	     brave-browser \
 	     calibre \
 	     cd-discid \
@@ -201,7 +202,6 @@ if [[ "$FLAVOR" == "macos" ]]; then
 	     abcde
 elif [[ "$FLAVOR" == "termux" ]]; then
 	pkg install \
-	    aichat \
 	    android-tools \
 	    bat \
 	    binutils \
@@ -328,8 +328,8 @@ elif [[ "$FLAVOR" == "debian" ]]; then
 	         zip
 
 	brew install \
-	     aichat \
 	     bat \
+	     block-goose-cli \
 	     cd-discid \
 	     charmbracelet/tap/glow \
 	     curl \
@@ -492,9 +492,6 @@ if [[ -d $HOME/.config ]] && [[ ! -L $HOME/.config ]]; then
 fi
 if [[ ! -e $HOME/.config ]]; then
 	ln -sf  $XDG_CONFIG_HOME $HOME/.config
-fi
-if [[ "$OS" == "macos" ]] && [[ ! -e "$HOME/Library/Application Support/aichat" ]]; then
-	ln -sf  $XDG_CONFIG_HOME/aichat "$HOME/Library/Application Support/aichat"
 fi
 
 if [[ -d $HOME/.local/bin ]] && [[ ! -L $HOME/.local/bin ]]; then
