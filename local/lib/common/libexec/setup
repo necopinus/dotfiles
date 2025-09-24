@@ -309,6 +309,7 @@ elif [[ "$FLAVOR" == "debian" ]]; then
 	         brave-browser \
 	         calibre \
 	         eject \
+	         fonts-noto \
 	         fzf \
 	         gawk \
 	         gopls \
