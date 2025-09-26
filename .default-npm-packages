@@ -5,11 +5,9 @@ dockerfile-language-server-nodejs
 graphql-language-service-cli
 hardhat
 @microsoft/compose-language-service
-npm
 perlnavigator-server
 prettier
 @readwise/readwise-mcp
 typescript-language-server
 vscode-langservers-extracted
 yaml-language-server
-yarn

@@ -26,10 +26,10 @@ if [[ "$NEW_VER" != "$OLD_VER" ]]; then
 	tar -xzvf /tmp/obsidian.tar.gz -C /tmp
 	if [[ ! -d $HOME/local/lib ]]; then
 		mkdir -p $HOME/local/lib
-	elif [[ -d $HOME/local/lib/obsidian ]]; then
-		rm -rf $HOME/local/lib/obsidian
+	elif [[ -d $HOME/local/lib/obsidian.app ]]; then
+		rm -rf $HOME/local/lib/obsidian.app
 	fi
-	mv /tmp/obsidian-* $HOME/local/lib/obsidian
+	mv /tmp/obsidian-* $HOME/local/lib/obsidian.app
 	rm -f /tmp/obsidian.tar.gz
 
 	mkdir -p ${XDG_CACHE_HOME:-$HOME/.cache}/versions

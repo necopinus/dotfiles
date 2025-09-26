@@ -9,8 +9,8 @@ set -e
 
 if [[ "$FLAVOR" == "macos" ]]; then
 	exec open -a Obsidian.app
-elif [[ -x "$HOME/local/lib/obsidian/obsidian" ]]; then
-	exec $HOME/local/lib/obsidian/obsidian "$@"
+elif [[ -x "$HOME/local/lib/obsidian.app/obsidian" ]]; then
+	exec $HOME/local/lib/obsidian.app/obsidian "$@"
 else
 	export OLD_PATH="$PATH"
 	export PATH="$(echo ":$PATH:" | sed "s#:$HOME/bin:#:#g;s#:$HOME/local/bin:#:#g;s#:$HOME/.local/bin:#:#g;s#^:##;s#:\$##")"

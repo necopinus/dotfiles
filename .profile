@@ -86,6 +86,23 @@ if [[ -d "$HOMEBREW_PREFIX/opt/uutils-findutils/libexec/uubin" ]]; then
 	export PATH="$HOMEBREW_PREFIX/opt/uutils-findutils/libexec/uubin:$PATH"
 fi
 
+# Set up mise-en-place, if applicable
+#
+# The weird which AND -x test is to work around the fact that this
+# file may be sourced by either Zsh or Bash/sh, which handle 'which'
+# in slightly different ways
+#
+if [[ -x "$(which mise 2> /dev/null)" ]]; then
+	if [[ ! -s "$XDG_CACHE_HOME/env/mise.activate.$SHELL_NAME" ]]; then
+		mise activate $SHELL_NAME \
+			>  "$XDG_CACHE_HOME/env/mise.activate.$SHELL_NAME" \
+			2> /dev/null
+	fi
+
+	source "$XDG_CACHE_HOME/env/mise.activate.$SHELL_NAME"
+	eval "$(mise env)"
+fi
+
 # Add independent Node.js and Python package installations to the
 # PATH
 #

@@ -23,6 +23,9 @@ brew upgrade
 brew autoremove
 brew cleanup -s
 
+mise upgrade
+mise cache clear
+
 # Update "containerized" environments
 #
 #kali --update

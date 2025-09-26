@@ -14,7 +14,7 @@ set -e
 # NOTE: We *cannot* use `exec` here, as doing so leads to weird  "OPTION
 #       ttyname=not a tty" errors with gpg-agent!
 #
-elif [[ -n "$HOMEBREW_PREFIX" ]]; then
+if [[ -n "$HOMEBREW_PREFIX" ]]; then
 	$HOMEBREW_PREFIX/bin/fish -l "$@"
 else
 	export OLD_PATH="$PATH"

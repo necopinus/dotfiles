@@ -150,8 +150,8 @@ if [[ "$FLAVOR" == "macos" ]]; then
 	     lua-language-server \
 	     makemkv \
 	     markdown-oxide \
+	     mise \
 	     msgpack-tools \
-	     node \
 	     normalize \
 	     obsidian \
 	     openssh \
@@ -163,7 +163,6 @@ if [[ "$FLAVOR" == "macos" ]]; then
 	     procs \
 	     proton-drive \
 	     pstree \
-	     python \
 	     qobuz-downloader \
 	     rclone \
 	     ripgrep \
@@ -188,7 +187,6 @@ if [[ "$FLAVOR" == "macos" ]]; then
 	     uutils-findutils \
 	     vlc \
 	     xz \
-	     yarn \
 	     yubico-yubikey-manager \
 	     zoxide \
 	     zstd
@@ -265,15 +263,14 @@ elif [[ "$FLAVOR" == "debian" ]]; then
 	     less \
 	     lua-language-server \
 	     markdown-oxide \
+	     mise \
 	     msgpack-tools \
-	     node \
 	     normalize \
 	     openssh \
 	     optipng \
 	     pandoc \
 	     poppler \
 	     procs \
-	     python \
 	     rclone \
 	     ripgrep \
 	     rsgain \
@@ -297,7 +294,6 @@ elif [[ "$FLAVOR" == "debian" ]]; then
 	     xclip \
 	     xsel \
 	     xz \
-	     yarn \
 	     zoxide \
 	     zstd
 
@@ -375,19 +371,15 @@ elif [[ "$FLAVOR" == "debian" ]]; then
 	sudo systemctl disable ssh.socket
 fi
 
-# Install Node.js and Python packages
+# Install major frameworks using mise
 #
-mkdir -p "$XDG_CACHE_HOME/versions"
+mise use -g python@latest
+eval "$(mise env -s bash)"
 
-yarn global add $(cat $HOME/.default-npm-packages | xargs)
-node --version > "$XDG_CACHE_HOME/versions/node"
+mise use -g nodejs@lts
+mise use -g ruby@latest
 
-if [[ ! -f $HOME/local/lib/python/bin/python ]]; then
-	python3 -m venv --system-site-packages $HOME/local/lib/python
-fi
-$HOME/local/lib/python/bin/python -m pip install -U pip
-$HOME/local/lib/python/bin/python -m pip install $(cat $HOME/.default-python-packages | xargs)
-$HOME/local/lib/python/bin/python --version > "$XDG_CACHE_HOME/versions/python"
+eval "$(mise env -s bash)"
 
 # Set up directories and symlinks
 #
