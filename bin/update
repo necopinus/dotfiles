@@ -38,52 +38,6 @@ if [[ ! -d "${XDG_CACHE_HOME:-$HOME/.cache}/versions" ]]; then
 	mkdir -p "${XDG_CACHE_HOME:-$HOME/.cache}/versions"
 fi
 
-# Node.js packages
-#
-node --version > "${XDG_CACHE_HOME:-$HOME/.cache}/versions/node.new"
-
-if [[ "$(cat "${XDG_CACHE_HOME:-$HOME/.cache}/versions/node")" == "$(cat "${XDG_CACHE_HOME:-$HOME/.cache}/versions/node.new")" ]]; then
-	yarn global upgrade $(cat $HOME/.default-npm-packages | xargs)
-	rm "${XDG_CACHE_HOME:-$HOME/.cache}/versions/node.new"
-else
-	rm -rf "$(npm config get prefix)"
-
-	export OLD_PATH="$PATH"
-	export PATH="$(echo ":$PATH:" | sed "s#:$HOME/local/lib/nodejs/bin:#:#g;s/^://;s/:\$//")"
-	YARN_EXE="$(which yarn)"
-	export PATH="$OLD_PATH"
-	unset OLD_PATH
-
-	$YARN_EXE global add $(cat $HOME/.default-npm-packages | xargs)
-	mv "${XDG_CACHE_HOME:-$HOME/.cache}/versions/node.new" "${XDG_CACHE_HOME:-$HOME/.cache}/versions/node"
-fi
-
-# Python packages
-#
-export OLD_PATH="$PATH"
-export PATH="$(echo ":$PATH:" | sed "s#:$HOME/local/lib/python/bin:#:#g;s/^://;s/:\$//")"
-
-python3 --version > "${XDG_CACHE_HOME:-$HOME/.cache}/versions/python.new"
-
-if [[ "$(cat "${XDG_CACHE_HOME:-$HOME/.cache}/versions/python")" == "$(python3 --version)" ]]; then
-	$HOME/local/lib/python/bin/python -m pip install -U $(cat $HOME/.default-python-packages | xargs)
-	rm "${XDG_CACHE_HOME:-$HOME/.cache}/versions/python.new"
-else
-	rm -rf "$HOME/local/lib/python"
-	python3 -m venv --system-site-packages $HOME/local/lib/python
-	$HOME/local/lib/python/bin/python -m pip install -U pip
-	$HOME/local/lib/python/bin/python -m pip install $(cat $HOME/.default-python-packages | xargs)
-	mv "${XDG_CACHE_HOME:-$HOME/.cache}/versions/python.new" "${XDG_CACHE_HOME:-$HOME/.cache}/versions/python"
-fi
-
-export PATH="$OLD_PATH"
-unset OLD_PATH
-
-# Update Helix grammars
-#
-hx -g fetch
-hx -g build
-
 # Artisinal updates
 #
 if [[ "$OS" == "linux" ]]; then
@@ -93,6 +47,11 @@ fi
 if [[ "$FLAVOR" == "debian" ]]; then
 	$HOME/local/lib/linux/debian/common/libexec/update-kitty
 fi
+
+# Update Helix grammars
+#
+hx -g fetch
+hx -g build
 
 # Need to set up GPG environment here to work around issues on some
 # systems
