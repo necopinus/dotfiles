@@ -9,9 +9,7 @@ Current iteration heavily inspired by [Drew DeVault](https://drewdevault.com/201
 ## Quick start
 
 ```bash
-if [[ -n "$PREFIX" ]] && [[ -n "$(which pkg 2> /dev/null)" ]]; then
-    pkg install git
-elif [[ -n "$(which apt 2> /dev/null)" ]]; then
+if [[ -n "$(which apt 2> /dev/null)" ]]; then
     sudo apt install git
 elif [[ -n "$(which xcode-select 2> /dev/null)" ]]; then
 	xcode-select --install || true
