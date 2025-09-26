@@ -146,6 +146,7 @@ if [[ "$FLAVOR" == "macos" ]]; then
 	     jq-lsp \
 	     kitty \
 	     libqalculate \
+	     libyaml \
 	     less \
 	     lua-language-server \
 	     makemkv \
@@ -261,6 +262,7 @@ elif [[ "$FLAVOR" == "debian" ]]; then
 	     jq \
 	     jq-lsp \
 	     less \
+	     libyaml \
 	     lua-language-server \
 	     markdown-oxide \
 	     mise \
