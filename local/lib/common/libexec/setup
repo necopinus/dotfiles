@@ -71,44 +71,35 @@ elif [[ "$FLAVOR" == "debian" ]]; then
 	         git \
 	         gnupg \
 	         procps
-elif [[ "$FLAVOR" == "termux" ]]; then
-	termux-change-repo
-	pkg upgrade
-	pkg install \
-	    git \
-	    tur-repo \
-	    x11-repo
 fi
 
 # Install (or set up) Homebrew
 #
-if [[ "$FLAVOR" != "termux" ]]; then
-	if [[ -z "$(which brew 2> /dev/null)" ]]; then
-		echo "Setting up Homebrew"
+if [[ -z "$(which brew 2> /dev/null)" ]]; then
+	echo "Setting up Homebrew"
 
-		if [[ -x /opt/homebrew/bin/brew ]]; then
-			eval "$(/opt/homebrew/bin/brew shellenv bash)"
-		elif [[ -x /usr/local/bin/brew ]]; then
-			eval "$(/usr/local/bin/brew shellenv bash)"
-		elif [[ -x /home/linuxbrew/.linuxbrew/bin/brew ]]; then
-			eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv bash)"
-		else
-			curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh | env NONINTERACTIVE=1 bash -l
-			if [[ "$OS" == "macos" ]]; then
-				if [[ "$ARCH" == "aarch64" ]]; then
-					eval "$(/opt/homebrew/bin/brew shellenv bash)"
-				elif [[ "$ARCH" == "amd64" ]]; then
-					eval "$(/usr/local/bin/brew shellenv bash)"
-				fi
-			elif [[ "$OS" == "linux" ]]; then
-				eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv bash)"
+	if [[ -x /opt/homebrew/bin/brew ]]; then
+		eval "$(/opt/homebrew/bin/brew shellenv bash)"
+	elif [[ -x /usr/local/bin/brew ]]; then
+		eval "$(/usr/local/bin/brew shellenv bash)"
+	elif [[ -x /home/linuxbrew/.linuxbrew/bin/brew ]]; then
+		eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv bash)"
+	else
+		curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh | env NONINTERACTIVE=1 bash -l
+		if [[ "$OS" == "macos" ]]; then
+			if [[ "$ARCH" == "aarch64" ]]; then
+				eval "$(/opt/homebrew/bin/brew shellenv bash)"
+			elif [[ "$ARCH" == "amd64" ]]; then
+				eval "$(/usr/local/bin/brew shellenv bash)"
 			fi
+		elif [[ "$OS" == "linux" ]]; then
+			eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv bash)"
 		fi
 	fi
-
-	echo "Disabling Homebrew analytics"
-	brew analytics off
 fi
+
+echo "Disabling Homebrew analytics"
+brew analytics off
 
 export PATH="$HOME/bin:$PATH"
 
@@ -123,11 +114,13 @@ if [[ "$FLAVOR" == "macos" ]]; then
 	     bat \
 	     block-goose \
 	     block-goose-cli \
+	     bottom \
 	     brave-browser \
 	     calibre \
 	     cd-discid \
 	     charmbracelet/tap/glow \
 	     curl \
+	     delve \
 	     dos2unix \
 	     duf \
 	     dust \
@@ -138,12 +131,16 @@ if [[ "$FLAVOR" == "macos" ]]; then
 	     font-jetbrains-mono-nerd-font \
 	     fzf \
 	     gawk \
+	     ghc \
 	     git-delta \
 	     gnupg \
 	     gopls \
+	     haskell-language-server \
+	     helix \
 	     homebrew/cask/handbrake \
 	     homebrew/cask/syncthing \
 	     imagemagick \
+	     jdtls \
 	     jpeg-turbo \
 	     jq \
 	     jq-lsp \
@@ -152,8 +149,8 @@ if [[ "$FLAVOR" == "macos" ]]; then
 	     less \
 	     lua-language-server \
 	     makemkv \
+	     markdown-oxide \
 	     msgpack-tools \
-	     neovim \
 	     node \
 	     normalize \
 	     obsidian \
@@ -172,6 +169,7 @@ if [[ "$FLAVOR" == "macos" ]]; then
 	     ripgrep \
 	     rsgain \
 	     rsync \
+	     ruff \
 	     rust \
 	     rust-analyzer \
 	     scroll-reverser \
@@ -180,10 +178,10 @@ if [[ "$FLAVOR" == "macos" ]]; then
 	     solidity \
 	     sqlite \
 	     starship \
-	     stylua \
+	     swift-format \
+	     texlab \
 	     tinymist \
 	     tmux \
-	     tree-sitter-cli \
 	     tresorit \
 	     uutils-coreutils \
 	     uutils-diffutils \
@@ -200,94 +198,6 @@ if [[ "$FLAVOR" == "macos" ]]; then
 	#
 	brew install --build-from-source \
 	     abcde
-elif [[ "$FLAVOR" == "termux" ]]; then
-	pkg install \
-	    android-tools \
-	    bat \
-	    binutils \
-	    build-essential \
-	    busybox \
-	    curl \
-	    dbus \
-	    dos2unix \
-	    duf \
-	    dust \
-	    eza \
-	    fd \
-	    ffmpeg \
-	    fish \
-	    fontconfig-utils \
-	    fzf \
-	    gawk \
-	    git \
-	    git-delta \
-	    glow \
-	    gnome-themes-extra \
-	    gnupg \
-	    gopls \
-	    handbrake \
-	    imagemagick \
-	    jq \
-	    jq-lsp \
-	    kitty \
-	    less \
-	    libjpeg-turbo-progs \
-	    lua-language-server \
-	    man \
-	    ndk-sysroot-gcc-compact \
-	    neovim \
-	    nodejs \
-	    openssh \
-	    optipng \
-	    pandoc \
-	    pavucontrol \
-	    poppler \
-	    procs \
-	    proot-distro \
-	    python-greenlet \
-	    python-lxml \
-	    python-msgpack \
-	    python-pynvim \
-	    qalc \
-	    rclone \
-	    ripgrep \
-	    rsgain \
-	    rsync \
-	    rust \
-	    rust-analyzer \
-	    shellcheck \
-	    shfmt \
-	    solidity \
-	    sqlite \
-	    starship \
-	    stylua \
-	    termux-am \
-	    termux-api \
-	    termux-x11-nightly \
-	    tinymist \
-	    tmux \
-	    unzip \
-	    uuid-utils \
-	    uutils-coreutils \
-	    which \
-	    xclip \
-	    xfce4 \
-	    xfce4-pulseaudio-plugin \
-	    xsel \
-	    xz-utils \
-	    yarn \
-	    zip \
-	    zoxide \
-	    zstd
-
-	$HOME/local/lib/linux/common/libexec/update-jetbrains-mono
-
-	$HOME/local/lib/linux/termux/common/bin/debian --install
-	$HOME/local/lib/linux/common/libexec/update-obsidian
-
-	if [[ "$ARCH" == "aarch64" ]]; then
-		$HOME/local/lib/linux/termux/aarch64/bin/kali --install
-	fi
 elif [[ "$FLAVOR" == "debian" ]]; then
 	sudo mkdir -p /usr/share/keyrings
 	sudo curl -fsSLo \
@@ -308,6 +218,7 @@ elif [[ "$FLAVOR" == "debian" ]]; then
 	         apt-utils \
 	         brave-browser \
 	         calibre \
+	         delve \
 	         eject \
 	         fonts-noto \
 	         fzf \
@@ -331,6 +242,7 @@ elif [[ "$FLAVOR" == "debian" ]]; then
 	brew install \
 	     bat \
 	     block-goose-cli \
+	     bottom \
 	     cd-discid \
 	     charmbracelet/tap/glow \
 	     curl \
@@ -341,15 +253,19 @@ elif [[ "$FLAVOR" == "debian" ]]; then
 	     fd \
 	     ffmpeg \
 	     fish \
+	     ghc \
 	     git-delta \
+	     haskell-language-server \
+	     helix \
 	     imagemagick \
+	     jdtls \
 	     jpeg-turbo \
 	     jq \
 	     jq-lsp \
 	     less \
 	     lua-language-server \
+	     markdown-oxide \
 	     msgpack-tools \
-	     neovim \
 	     node \
 	     normalize \
 	     openssh \
@@ -362,6 +278,7 @@ elif [[ "$FLAVOR" == "debian" ]]; then
 	     ripgrep \
 	     rsgain \
 	     rsync \
+	     ruff \
 	     rust \
 	     rust-analyzer \
 	     shellcheck \
@@ -369,11 +286,11 @@ elif [[ "$FLAVOR" == "debian" ]]; then
 	     solidity \
 	     sqlite \
 	     starship \
-	     stylua \
+	     swift-format \
 	     syncthing \
+	     texlab \
 	     tinymist \
 	     tmux \
-	     tree-sitter-cli \
 	     uutils-coreutils \
 	     uutils-diffutils \
 	     uutils-findutils \
@@ -405,6 +322,10 @@ elif [[ "$FLAVOR" == "debian" ]]; then
 	         libxtst6 \
 	         libgtk-3-0
 	$HOME/local/lib/linux/common/libexec/update-obsidian
+
+	# Disposable Kali
+	#
+	#$HOME/local/lib/linux/common/bin/kali --install
 
 	# System-level tweaks
 	#
@@ -471,10 +392,6 @@ $HOME/local/lib/python/bin/python --version > "$XDG_CACHE_HOME/versions/python"
 # Set up directories and symlinks
 #
 echo "Symlinking dotfiles and directories"
-
-if [[ "$FLAVOR" == "termux" ]]; then
-	termux-setup-storage
-fi
 
 touch $XDG_CONFIG_HOME/rclone/rclone.conf
 
@@ -547,17 +464,6 @@ if [[ "$OS" == "macos" ]]; then
 	XDG_PUBLICSHARE_DIR="\$HOME/Public"
 	XDG_TEMPLATES_DIR="\$HOME/Documents/Templates"
 	XDG_VIDEOS_DIR="\$HOME/Movies"
-	EOF
-elif [[ "$FLAVOR" == "termux" ]]; then
-	cat >> config/user-dirs.dirs <<- EOF
-	XDG_DESKTOP_DIR="\$HOME/data/desktop"
-	XDG_DOCUMENTS_DIR="\$HOME/storage/shared/Documents"
-	XDG_DOWNLOAD_DIR="\$HOME/storage/downloads"
-	XDG_MUSIC_DIR="\$HOME/storage/music"
-	XDG_PICTURES_DIR="\$HOME/storage/pictures"
-	XDG_PUBLICSHARE_DIR="\$HOME/public"
-	XDG_TEMPLATES_DIR="\$HOME/storage/shared/Documents/Templates"
-	XDG_VIDEOS_DIR="\$HOME/storage/movies"
 	EOF
 elif [[ "$OS" == "linux" ]]; then
 	cat >> config/user-dirs.dirs <<- EOF
@@ -736,22 +642,14 @@ mkdir -p $HOME/data/calibre
 #          that's the child of the current directory. Hence switching to
 #          /, since... ~/cache is a thing in this setup.
 #
-if [[ "$FLAVOR" == "termux" ]]; then
-	(
-		cd $PREFIX/tmp
-		bat cache --build
-	)
-else
-	(
-		cd /tmp
-		bat cache --build
-	)
-fi
+(
+	cd /tmp
+	bat cache --build
+)
 
 # The Debian Bookworm gpg-agent seems to need absolute paths in its
-# configuration file, but gpg-agent on Termux requires the use of
-# `~` for $HOME (probably because of Android's weird permissions).
-# On macOS, either seem to work.
+# configuration file, but later versions of gpg-agent can use `~` for
+# $HOME.
 #
 # In any case, we must generate ~/.gnupg/gpg-agent.conf by hand.
 #
@@ -773,7 +671,8 @@ chmod 700 $HOME/.gnupg
 find $HOME/.gnupg -type d -exec chmod 700 "{}" \;
 find $HOME/.gnupg -type f -exec chmod 600 "{}" \;
 
-# Need to set up GPG environment here to work around Termux issues
+# Need to set up GPG environment here to work around issues on some
+# systems
 #
 export GPG_TTY=$(tty)
 export SSH_AUTH_SOCK="$(gpgconf --list-dirs agent-ssh-socket)"
@@ -781,13 +680,6 @@ gpgconf --kill gpg-agent
 gpg-connect-agent updatestartuptty /bye
 
 # Set up git
-#
-# TODO: Figure out how to create a custom URL scheme
-#       (delta.hyperlinks-file-link-format) and wrapper script for nvr
-#       so that line numbers become clickable links leading to NeoViM
-#       See:
-#           - https://dandavison.github.io/delta/hyperlinks.html
-#           - https://jyn.dev/how-i-use-my-terminal/
 #
 echo "Configuring git"
 
@@ -958,11 +850,12 @@ mkdir -p $HOME/src
 	fi
 )
 
-# Install NeoViM plugins
+# Install Helix grammars
 #
 # NOTE: This must be done *after* git is setup!
 #
-nvim --headless "+Lazy! sync" +qa
+hx -g fetch
+hx -g build
 
 # Try (probably futilely) to keep environment variables in sync with the
 # garbage fire that is systemd

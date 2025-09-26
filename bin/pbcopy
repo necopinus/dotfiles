@@ -1,0 +1,24 @@
+#!/usr/bin/env -S bash -l
+
+# NOTE: Bash is called above as a login shell using the -l flag to force
+# /etc/profile and ~/.profile to be read, since this script may get
+# called by GUI processes where the full shell environment (including
+# Homebrew's path) hasn't been initialized
+
+set -e
+
+if [[ "$OS" == "macos" ]]; then
+	OLD_PATH="$PATH"
+	export PATH="$(echo ":$PATH:" | sed "s#:$HOME/bin:#:#g;s#:$HOME/local/bin:#:#g;s#:$HOME/.local/bin:#:#g;s#^:##;#:\$##")"
+
+	PBCOPY_BIN="$(which pbcopy)"
+
+	export PATH="$OLD_PATH"
+	unset OLD_PATH
+
+	exec "$PBCOPY_BIN" "@"
+elif [[ "$OS" == "linux" ]] && [[ -n "$WAYLAND_DISPLAY" ]]; then
+	exec wl-copy "@"
+elif [[ "$OS" == "linux" ]] && [[ -n "$DISPLAY" ]]; then
+	exec xsel -i -b "@"
+fi

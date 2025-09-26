@@ -54,38 +54,36 @@ fi
 
 # Set up Homebrew paths, etc.
 #
-if [[ "$FLAVOR" != "termux" ]]; then
-	if [[ -z "$HOMEBREW_PREFIX" ]] \
-	&& [[ ! -s "$XDG_CACHE_HOME/env/brew.shellenv.$SHELL_NAME" ]]; then
-		if [[ -x /opt/homebrew/bin/brew ]]; then
-			/opt/homebrew/bin/brew shellenv $SHELL_NAME \
-				>  "$XDG_CACHE_HOME/env/brew.shellenv.$SHELL_NAME" \
-				2> /dev/null
-		elif [[ -x /usr/local/bin/brew ]]; then
-			/usr/local/bin/brew shellenv $SHELL_NAME \
-				>  "$XDG_CACHE_HOME/env/brew.shellenv.$SHELL_NAME" \
-				2> /dev/null
-		elif [[ -x /home/linuxbrew/.linuxbrew/bin/brew ]]; then
-			/home/linuxbrew/.linuxbrew/bin/brew shellenv $SHELL_NAME \
-				>  "$XDG_CACHE_HOME/env/brew.shellenv.$SHELL_NAME" \
-				2> /dev/null
-		fi
+if [[ -z "$HOMEBREW_PREFIX" ]] \
+&& [[ ! -s "$XDG_CACHE_HOME/env/brew.shellenv.$SHELL_NAME" ]]; then
+	if [[ -x /opt/homebrew/bin/brew ]]; then
+		/opt/homebrew/bin/brew shellenv $SHELL_NAME \
+			>  "$XDG_CACHE_HOME/env/brew.shellenv.$SHELL_NAME" \
+			2> /dev/null
+	elif [[ -x /usr/local/bin/brew ]]; then
+		/usr/local/bin/brew shellenv $SHELL_NAME \
+			>  "$XDG_CACHE_HOME/env/brew.shellenv.$SHELL_NAME" \
+			2> /dev/null
+	elif [[ -x /home/linuxbrew/.linuxbrew/bin/brew ]]; then
+		/home/linuxbrew/.linuxbrew/bin/brew shellenv $SHELL_NAME \
+			>  "$XDG_CACHE_HOME/env/brew.shellenv.$SHELL_NAME" \
+			2> /dev/null
 	fi
+fi
 
-	source "$XDG_CACHE_HOME/env/brew.shellenv.$SHELL_NAME"
+source "$XDG_CACHE_HOME/env/brew.shellenv.$SHELL_NAME"
 
-	if [[ -d "$HOMEBREW_PREFIX/opt/curl/bin" ]]; then
-		export PATH="$HOMEBREW_PREFIX/opt/curl/bin:$PATH"
-	fi
-	if [[ -d "$HOMEBREW_PREFIX/opt/uutils-coreutils/libexec/uubin" ]]; then
-		export PATH="$HOMEBREW_PREFIX/opt/uutils-coreutils/libexec/uubin:$PATH"
-	fi
-	if [[ -d "$HOMEBREW_PREFIX/opt/uutils-diffutils/libexec/uubin" ]]; then
-		export PATH="$HOMEBREW_PREFIX/opt/uutils-diffutils/libexec/uubin:$PATH"
-	fi
-	if [[ -d "$HOMEBREW_PREFIX/opt/uutils-findutils/libexec/uubin" ]]; then
-		export PATH="$HOMEBREW_PREFIX/opt/uutils-findutils/libexec/uubin:$PATH"
-	fi
+if [[ -d "$HOMEBREW_PREFIX/opt/curl/bin" ]]; then
+	export PATH="$HOMEBREW_PREFIX/opt/curl/bin:$PATH"
+fi
+if [[ -d "$HOMEBREW_PREFIX/opt/uutils-coreutils/libexec/uubin" ]]; then
+	export PATH="$HOMEBREW_PREFIX/opt/uutils-coreutils/libexec/uubin:$PATH"
+fi
+if [[ -d "$HOMEBREW_PREFIX/opt/uutils-diffutils/libexec/uubin" ]]; then
+	export PATH="$HOMEBREW_PREFIX/opt/uutils-diffutils/libexec/uubin:$PATH"
+fi
+if [[ -d "$HOMEBREW_PREFIX/opt/uutils-findutils/libexec/uubin" ]]; then
+	export PATH="$HOMEBREW_PREFIX/opt/uutils-findutils/libexec/uubin:$PATH"
 fi
 
 # Add independent Node.js and Python package installations to the
@@ -125,9 +123,9 @@ fi
 # in slightly different ways
 #
 if [[ "$TERM" != "linux" ]]; then
-	export EDITOR="$(which nv) --remote-wait"
+	export EDITOR="$(which hx)"
 else
-	export EDITOR="$(which vim)"
+	export EDITOR="$(which nano)"
 fi
 
 export VISUAL="$EDITOR"

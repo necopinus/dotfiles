@@ -4,43 +4,28 @@ set -e
 
 # System packages
 #
-if [[ "$FLAVOR" != "termux" ]]; then
-	if [[ -n "$(which apt 2> /dev/null)" ]]; then
-		# Attempt to recover from crashes during configuration
-		#
-		sudo dpkg --configure --pending
-		sudo apt install --fix-broken
+if [[ -n "$(which apt 2> /dev/null)" ]]; then
+	# Attempt to recover from crashes during configuration
+	#
+	sudo dpkg --configure --pending
+	sudo apt install --fix-broken
 
-		# Actual update
-		#
-		sudo apt update --fix-missing
-		sudo apt full-upgrade
-		sudo apt autoremove --purge --autoremove
-		sudo apt clean
-	fi
-	if [[ -n "$(which brew 2> /dev/null)" ]]; then
-		brew update
-		brew upgrade
-		brew autoremove
-		brew cleanup -s
-	fi
-else
-	if [[ -n "$(which pkg 2> /dev/null)" ]]; then
-		pkg update
-		pkg upgrade
-		pkg autoclean
-	fi
+	# Actual update
+	#
+	sudo apt update --fix-missing
+	sudo apt full-upgrade
+	sudo apt autoremove --purge --autoremove
+	sudo apt clean
 fi
+
+brew update
+brew upgrade
+brew autoremove
+brew cleanup -s
 
 # Update "containerized" environments
 #
-if [[ "$FLAVOR" == "termux" ]]; then
-	debian --update
-
-	if [[ "$ARCH" == "aarch64" ]]; then
-		kali --update
-	fi
-fi
+#kali --update
 
 # Directory cleanup / setup
 #
@@ -91,9 +76,10 @@ fi
 export PATH="$OLD_PATH"
 unset OLD_PATH
 
-# NeoVim extension updates
+# Update Helix grammars
 #
-nvim --headless "+Lazy! sync" +qa
+hx -g fetch
+hx -g build
 
 # Artisinal updates
 #
@@ -105,7 +91,8 @@ if [[ "$FLAVOR" == "debian" ]]; then
 	$HOME/local/lib/linux/debian/common/libexec/update-kitty
 fi
 
-# Need to set up GPG environment here to work around Termux issues
+# Need to set up GPG environment here to work around issues on some
+# systems
 #
 export GPG_TTY=$(tty)
 export SSH_AUTH_SOCK="$(gpgconf --list-dirs agent-ssh-socket)"

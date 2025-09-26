@@ -1,8 +1,6 @@
-neovim-remote
 pip
 qobuz-dl
 shodan
-systemd-language-server
 watch-xfce-xfconf
 yq
 yt-dlp[default]

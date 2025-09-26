@@ -1,21 +1,5 @@
 #!/usr/bin/env bash
 
-# For some reason Termux's Bash reads ~/.profile AFTER ~/.bashrc (?!?!)
-#
-source $HOME/.profile
-
-# Termux always starts Bash, so we need to exec fish here
-#
-if [[ "$FLAVOR" == "termux" ]] \
-&& [[ -z "$THIS_IS_FISH" ]] \
-&& [[ $- =~ i ]] \
-&& [[ ! -f "$HOME/_nofish" ]] \
-&& [[ ! -f "$HOME/_nofish.txt" ]] \
-&& [[ ! -f "$HOME/storage/shared/Documents/_nofish" ]] \
-&& [[ ! -f "$HOME/storage/shared/Documents/_nofish.txt" ]]; then
-	exec $HOME/bin/fish -li
-fi
-
 # On Debian we need to source the default ~/.bashrc to get all of the
 # capabilities we expect
 #
@@ -56,8 +40,6 @@ if [[ "$TERM" != "linux" ]]; then
 		export KITTY_INSTALLATION_DIR="$HOME/local/lib/kitty.app/lib/kitty"
 	elif [[ "$FLAVOR" == "macos" ]]; then
 		export KITTY_INSTALLATION_DIR="/Applications/kitty.app/Contents/Resources/kitty"
-	elif [[ "$FLAVOR" == "termux" ]]; then
-		export KITTY_INSTALLATION_DIR="$PREFIX/lib/kitty"
 	elif [[ "$OS" == "linux" ]]; then
 		export KITTY_INSTALLATION_DIR="/usr/lib/kitty"
 	fi
@@ -83,7 +65,6 @@ fi
 #
 export AICHAT_LIGHT_THEME="false"
 export BAT_THEME="ansi"
-export NVIM_PLAIN_DARK_THEME="true"
 
 # Convenience aliases
 #
@@ -104,6 +85,7 @@ alias fzf="$(which fzf) --style=full --color=16"
 alias glow="$(which glow) -s dark"
 alias grep="$(which rg) --color=auto"
 alias ggrep="$(which grep) --color=auto"
+alias htop="$(which btm)"
 alias la="$(which eza) --classify=auto --color=auto --long --all"
 alias less="$(which bat)"
 alias ll="$(which eza) --classify=auto --color=auto --long"
@@ -118,6 +100,8 @@ alias procs="$(which procs) --theme dark"
 alias ps="$(which procs) --theme dark"
 alias pstree="$(which procs) --theme dark --tree"
 alias rg="$(which rg) --color=auto"
+alias top="$(which btm)"
+alias ttop="$(which top)"
 
 if [[ -n "$(which sudo 2> /dev/null)" ]]; then
 	alias sudo="$(which sudo) -E"
@@ -128,11 +112,9 @@ if [[ -n "$(which sudo 2> /dev/null)" ]]; then
 fi
 
 if [[ "$TERM" != "linux" ]]; then
-	alias nano="$(which nvim)"
-	alias nvr="$(which nvr) -s"
-	alias vi="$(which nvim)"
-	alias vim="$(which nvim)"
-	alias vimdiff="$(which nvim) -d"
+	alias vi="$(which hx)"
+	alias vim="$(which hx)"
+	alias nvim="$(which hx)"
 fi
 
 if [[ "$OS" == "linux" ]]; then
@@ -142,21 +124,7 @@ if [[ "$OS" == "linux" ]]; then
 	elif [[ -n "$WAYLAND_DISPLAY" ]]; then
 		alias pbcopy="$(which wl-copy)"
 		alias pbpaste="$(which wl-paste)"
-	elif [[ "$FLAVOR" == "termux" ]]; then
-		alias pbcopy="$(which termux-clipboard-set)"
-		alias pbpaste="$(which termux-clipboard-get)"
 	fi
-fi
-
-if [[ "$FLAVOR" == "termux" ]]; then
-	alias cpio="$(which busybox) cpio"
-	alias hexedit="$(which busybox) hexedit"
-	alias ip="$(which busybox) ip"
-	alias nc="$(which busybox) nc"
-	alias netcat="$(which busybox) netcat"
-	alias traceroute="$(which busybox) traceroute"
-	alias whois="$(which busybox) whois"
-	alias xxd="$(which busybox) xxd"
 fi
 
 # Convenience function for launching graphical apps from the terminal
@@ -171,7 +139,8 @@ fi
 # TTY is up-to-date
 #
 # Most tutorials will tell you to insert a `Match host * exec ...` line
-# into ~/.ssh/config, but this won't properly set the TTY in Termux!
+# into ~/.ssh/config, but this won't properly set the TTY on some
+# systems!
 #
 function ssh {
 	gpg-connect-agent updatestartuptty /bye &> /dev/null

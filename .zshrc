@@ -23,8 +23,6 @@ if [[ "$TERM" != "linux" ]]; then
 		export KITTY_INSTALLATION_DIR="$HOME/local/lib/kitty.app/lib/kitty"
 	elif [[ "$FLAVOR" == "macos" ]]; then
 		export KITTY_INSTALLATION_DIR="/Applications/kitty.app/Contents/Resources/kitty"
-	elif [[ "$FLAVOR" == "termux" ]]; then
-		export KITTY_INSTALLATION_DIR="$PREFIX/lib/kitty"
 	elif [[ "$OS" == "linux" ]]; then
 		export KITTY_INSTALLATION_DIR="/usr/lib/kitty"
 	fi
@@ -52,7 +50,6 @@ fi
 #
 export AICHAT_LIGHT_THEME="false"
 export BAT_THEME="ansi"
-export NVIM_PLAIN_DARK_THEME="true"
 
 # Convenience aliases
 #
@@ -73,6 +70,7 @@ alias fzf="$(whence -p fzf) --style=full --color=16"
 alias glow="$(whence -p glow) -s dark"
 alias grep="$(whence -p rg) --color=auto"
 alias ggrep="$(whence -p grep) --color=auto"
+alias htop="$(whence -p btm)"
 alias la="$(whence -p eza) --classify=auto --color=auto --long --all"
 alias less="$(whence -p bat)"
 alias ll="$(whence -p eza) --classify=auto --color=auto --long"
@@ -87,6 +85,8 @@ alias procs="$(whence -p procs) --theme dark"
 alias ps="$(whence -p procs) --theme dark"
 alias pstree="$(whence -p procs) --theme dark --tree"
 alias rg="$(whence -p rg) --color=auto"
+alias top="$(whence -p btm)"
+alias ttop="$(whence -p top)"
 
 if [[ -n "$(whence -p sudo 2> /dev/null)" ]]; then
 	alias sudo="$(whence -p sudo) -E"
@@ -97,11 +97,9 @@ if [[ -n "$(whence -p sudo 2> /dev/null)" ]]; then
 fi
 
 if [[ "$TERM" != "linux" ]]; then
-	alias nano="$(whence -p nvim)"
-	alias nvr="$(whence -p nvr) -s"
-	alias vi="$(whence -p nvim)"
-	alias vim="$(whence -p nvim)"
-	alias vimdiff="$(whence -p nvim) -d"
+	alias vi="$(whence -p hx)"
+	alias vim="$(whence -p hx)"
+	alias nvim="$(whence -p hx)"
 fi
 
 if [[ "$OS" == "linux" ]]; then
@@ -111,21 +109,7 @@ if [[ "$OS" == "linux" ]]; then
 	elif [[ -n "$WAYLAND_DISPLAY" ]]; then
 		alias pbcopy="$(whence -p wl-copy)"
 		alias pbpaste="$(whence -p wl-paste)"
-	elif [[ "$FLAVOR" == "termux" ]]; then
-		alias pbcopy="$(whence -p termux-clipboard-set)"
-		alias pbpaste="$(whence -p termux-clipboard-get)"
 	fi
-fi
-
-if [[ "$FLAVOR" == "termux" ]]; then
-	alias cpio="$(whence -p busybox) cpio"
-	alias hexedit="$(whence -p busybox) hexedit"
-	alias ip="$(whence -p busybox) ip"
-	alias nc="$(whence -p busybox) nc"
-	alias netcat="$(whence -p busybox) netcat"
-	alias traceroute="$(whence -p busybox) traceroute"
-	alias whois="$(whence -p busybox) whois"
-	alias xxd="$(whence -p busybox) xxd"
 fi
 
 # Convenience function for launching graphical apps from the terminal
@@ -140,7 +124,8 @@ fi
 # TTY is up-to-date
 #
 # Most tutorials will tell you to insert a `Match host * exec ...` line
-# into ~/.ssh/config, but this won't properly set the TTY in Termux!
+# into ~/.ssh/config, but this won't properly set the TTY on some
+# systems!
 #
 function ssh {
 	gpg-connect-agent updatestartuptty /bye &> /dev/null
