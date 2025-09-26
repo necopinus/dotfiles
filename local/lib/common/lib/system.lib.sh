@@ -16,9 +16,7 @@ if [[ "$UNAME_S" == "darwin" ]]; then
 	FLAVOR="macos"
 elif [[ "$UNAME_S" == "linux" ]]; then
 	OS="linux"
-	if [[ "$PREFIX" == "/data/data/com.termux/files/usr" ]]; then
-		FLAVOR="termux"
-	elif [[ -f /etc/os-release ]]; then
+	if [[ -f /etc/os-release ]]; then
 		if [[ $(grep -ic '^ID=debian$' /etc/os-release) -gt 0 ]]; then
 			FLAVOR="debian"
 		else

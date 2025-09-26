@@ -9,17 +9,6 @@ set -e
 
 if [[ "$FLAVOR" == "macos" ]]; then
 	exec open -a "Brave Browser.app"
-elif [[ "$FLAVOR" == "termux" ]]; then
-	exec proot-distro login debian \
-	                --no-arch-warning \
-	                --isolated \
-	                --shared-tmp \
-	                --env  DISPLAY=${DISPLAY:-:0} \
-	                --env  PULSE_SERVER=${PULSE_SERVER:-tcp:127.0.0.1} \
-	                --bind $HOME/config/BraveSoftware:/home/necopinus/.config/BraveSoftware \
-	                --bind $HOME/storage/downloads:/home/necopinus/downloads \
-	                --user necopinus \
-	                --     /usr/bin/brave-browser --no-sandbox "$@"
 else
 	export OLD_PATH="$PATH"
 	export PATH="$(echo ":$PATH:" | sed "s#:$HOME/bin:#:#g;s#:$HOME/local/bin:#:#g;s#:$HOME/.local/bin:#:#g;s#^:##;s#:\$##")"

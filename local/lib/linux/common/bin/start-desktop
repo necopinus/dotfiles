@@ -34,74 +34,13 @@ else
 	unset MANPATH
 fi
 
-# Convenience function to make sure that our X session is *really* dead;
-# only used in Termux
-#
-function clean_up_x_session {
-	if [[ "$FLAVOR" == "termux" ]]; then
-		TERMUX_ANDROID_USER=$(whoami)
-
-		pkill --full com.termux.x11
-		pkill -9 dbus
-		pkill --full pulseaudio
-
-		rm --recursive --force $PREFIX/../home/.config/pulse
-		rm --recursive --force $PREFIX/var/run/dbus/pid
-		rm --recursive --force $PREFIX/tmp/dbus-*
-		rm --recursive --force $PREFIX/tmp/*-${TERMUX_ANDROID_USER}
-		rm --recursive --force $PREFIX/tmp/*-${TERMUX_ANDROID_USER}.*
-		rm --recursive --force $PREFIX/tmp/*_${TERMUX_ANDROID_USER}
-		rm --recursive --force $PREFIX/tmp/*-necopinus
-		rm --recursive --force $PREFIX/tmp/*-necopinus.*
-		rm --recursive --force $PREFIX/tmp/*_necopinus
-		rm --recursive --force $PREFIX/tmp/*-kali
-		rm --recursive --force $PREFIX/tmp/*-kali.*
-		rm --recursive --force $PREFIX/tmp/*_kali
-		rm --recursive --force $PREFIX/tmp/proot-*
-		rm --recursive --force $PREFIX/tmp/pulse-*
-		rm --recursive --force $PREFIX/tmp/.ICE-unix
-		rm --recursive --force $PREFIX/tmp/.X0-lock
-		rm --recursive --force $PREFIX/tmp/.X11-unix
-	else
-		true
-	fi
-}
-
 # Actual launch process
 #
-if [[ "$FLAVOR" == "debian" ]]; then
-	dbus-launch --exit-with-session vncserver $DISPLAY -localhost -SecurityTypes None -fg -AlwaysShared -- xfce
+dbus-launch --exit-with-session vncserver $DISPLAY -localhost -SecurityTypes None -fg -AlwaysShared -- xfce
 
-	# Try (probably futile) to guard against filesystem corruption in
-	# the Android Debian VM
-	#
-	sync
-elif [[ "$FLAVOR" == "termux" ]]; then
-	clean_up_x_session
-
-	dbus-daemon --system --fork --address=unix:path=$PREFIX/var/run/dbus/system_bus_socket
-
-	if [[ "$(getprop ro.product.manufacturer | tr '[:upper:]' '[:lower:]')" == "samsung" ]]; then
-		env LD_PRELOAD=/system/lib64/libskcodec.so \
-		pulseaudio --start \
-	               --load="module-native-protocol-tcp auth-ip-acl=127.0.0.1 auth-anonymous=1" \
-	               --exit-idle-time=-1
-	else
-		pulseaudio --start \
-		           --load="module-native-protocol-tcp auth-ip-acl=127.0.0.1 auth-anonymous=1" \
-		           --exit-idle-time=-1
-	fi
-	export PULSE_SERVER=tcp:127.0.0.1
-
-	termux-x11 $DISPLAY &
-
-	am start-activity -W com.termux.x11/com.termux.x11.MainActivity
-
-	dbus-launch --exit-with-session startxfce4
-
-	clean_up_x_session
-else
-	echo "This script does not support $OS/$FLAVOR systems"
-fi
+# Try (probably futile) to guard against filesystem corruption in the
+# Android Debian VM
+#
+sync
 
 unset DISPLAY

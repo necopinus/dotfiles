@@ -2,12 +2,6 @@
 
 set -e
 
-if [[ "$FLAVOR" == "termux" ]]; then
-	TMP_DIR=$PREFIX/tmp
-else
-	TMP_DIR=/tmp
-fi
-
 NEW_VER="$(
 	curl -fsSL https://api.github.com/repos/ryanoasis/nerd-fonts/releases/latest \
 	   | grep ' *"tag_name": *"v[0-9][0-9.]*"' \
@@ -21,18 +15,16 @@ else
 fi
 
 if [[ "$NEW_VER" != "$OLD_VER" ]]; then
-	mkdir -p $TMP_DIR/jetbrains-mono
+	mkdir -p /tmp/jetbrains-mono
 
-	curl -fsSL -o $TMP_DIR/jetbrains-mono/jetbrains-mono.tar.xz \
+	curl -fsSL -o /tmp/jetbrains-mono/jetbrains-mono.tar.xz \
 	     "https://github.com/ryanoasis/nerd-fonts/releases/download/v${NEW_VER}/JetBrainsMono.tar.xz"
 
-	tar -xJvf $TMP_DIR/jetbrains-mono/jetbrains-mono.tar.xz -C $TMP_DIR/jetbrains-mono
+	tar -xJvf /tmp/jetbrains-mono/jetbrains-mono.tar.xz -C /tmp/jetbrains-mono
 
 	mkdir -p ${XDG_DATA_HOME:-$HOME/.local/share}/fonts
-	mv $TMP_DIR/jetbrains-mono/*.ttf ${XDG_DATA_HOME:-$HOME/.local/share}/fonts
-	rm -rf $TMP_DIR/jetbrains-mono
-
-	cp ${XDG_DATA_HOME:-$HOME/.local/share}/fonts/JetBrainsMonoNerdFontMono-Regular.ttf $HOME/.termux/font.ttf
+	mv /tmp/jetbrains-mono/*.ttf ${XDG_DATA_HOME:-$HOME/.local/share}/fonts
+	rm -rf /tmp/jetbrains-mono
 
 	fc-cache -fv
 

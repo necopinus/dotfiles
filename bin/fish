@@ -9,15 +9,12 @@ set -e
 # We can't call `fish` directly, because this wrapper needs to exist
 # before the *actual* fish binary in the path; however, since we know 
 # that ~/.profile has been sourced (see above), HOMEBREW_PREFIX is
-# available, and we can exec fish from there (or just user PREFIX on
-# Termux)
+# available, and we can exec fish from there
 #
 # NOTE: We *cannot* use `exec` here, as doing so leads to weird  "OPTION
 #       ttyname=not a tty" errors with gpg-agent!
 #
-if [[ "$FLAVOR" == "termux" ]]; then
-	$PREFIX/bin/fish -l "$@"
-elif [[ "$FLAVOR" == "macos" ]]; then
+elif [[ -n "$HOMEBREW_PREFIX" ]]; then
 	$HOMEBREW_PREFIX/bin/fish -l "$@"
 else
 	export OLD_PATH="$PATH"

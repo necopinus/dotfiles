@@ -37,6 +37,9 @@ newline = "⏎"
 [editor.indent-guides]
 render = true
 
+[editor.soft-wrap]
+enable = true
+
 [editor.smart-tab]
 enable = true
 
