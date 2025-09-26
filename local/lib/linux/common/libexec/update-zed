@@ -1,0 +1,52 @@
+#!/usr/bin/env bash
+
+set -e
+
+NEW_VER="$(
+	curl -fsSL https://api.github.com/repos/zed-industries/zed/releases/latest \
+	   | grep ' *"tag_name": *"v[0-9][0-9.]*"' \
+	   | sed 's/ *"tag_name": *"v\([0-9][0-9.]*\)".*/\1/'
+)"
+
+if [[ -f ${XDG_CACHE_HOME:-$HOME/.cache}/versions/zed ]]; then
+	OLD_VER="$(cat ${XDG_CACHE_HOME:-$HOME/.cache}/versions/zed)"
+else
+	OLD_VER="0.0.0"
+fi
+
+if [[ "$NEW_VER" != "$OLD_VER" ]]; then
+	if [[ "$ARCH" == "amd64" ]]; then
+		curl -fsSL -o /tmp/zed.tar.gz \
+		     "https://github.com/zed-industries/zed/releases/download/v${NEW_VER}/zed-linux-x86_64.tar.gz"
+	elif [[ "$ARCH" == "aarch64" ]]; then
+		curl -fsSL -o /tmp/zed.tar.gz \
+		     "https://github.com/zed-industries/zed/releases/download/v${NEW_VER}/zed-linux-aarch64.tar.gz"
+	fi
+
+	tar -xzvf /tmp/zed.tar.gz -C /tmp
+	if [[ -d $HOME/local/lib/zed.app ]]; then
+		rm -rf $HOME/local/lib/zed.app
+	fi
+	mv /tmp/zed.app $HOME/local/lib/zed.app
+	rm -f /tmp/zed.tar.gz
+
+	(
+		cd $HOME/local/lib/zed.app/bin
+		curl -fsSLO https://github.com/zed-industries/zed/releases/download/v${NEW_VER}/zed-remote-server-linux-aarch64.gz
+		gunzip zed-remote-server-linux-aarch64.gz
+		curl -fsSLO https://github.com/zed-industries/zed/releases/download/v${NEW_VER}/zed-remote-server-linux-x86_64.gz
+		gunzip zed-remote-server-linux-x86_64.gz
+		curl -fsSLO https://github.com/zed-industries/zed/releases/download/v${NEW_VER}/zed-remote-server-macos-aarch64.gz
+		gunzip zed-remote-server-macos-aarch64.gz
+		curl -fsSLo https://github.com/zed-industries/zed/releases/download/v${NEW_VER}/zed-remote-server-macos-x86_64.gz
+		gunzip zed-remote-server-macos-x86_64.gz
+		chmod +x *
+	)
+
+	mkdir -p ${XDG_CACHE_HOME:-$HOME/.cache}/versions
+	echo "$NEW_VER" > ${XDG_CACHE_HOME:-$HOME/.cache}/versions/zed
+
+	echo "Zed updated to v$NEW_VER"
+else
+	echo "Zed is already at v$NEW_VER"
+fi

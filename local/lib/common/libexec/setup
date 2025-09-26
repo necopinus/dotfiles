@@ -310,9 +310,7 @@ elif [[ "$FLAVOR" == "debian" ]]; then
 	#
 	$HOME/local/lib/linux/common/libexec/update-jetbrains-mono
 	$HOME/local/lib/linux/debian/common/libexec/update-kitty
-
-	# TODO: Write a Linux installer/updater for Zed if I decide I like it
-	#       enough to also install in my phone's (Linux) desktop
+	$HOME/local/lib/linux/debian/common/libexec/update-zed
 
 	sudo apt install \
 	         libatspi2.0-0 \
