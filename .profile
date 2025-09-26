@@ -115,12 +115,19 @@ if [[ -d $HOME/local/lib/$OS/$FLAVOR/$ARCH/bin ]]; then
 	export PATH="$HOME/local/lib/$OS/$FLAVOR/$ARCH/bin:$PATH"
 fi
 
-# Set EDITOR; we do this late to ensure that our full path is
-# available
+# Set LS_COLORS, as a surprising number of applications look wonky is
+# this variable isn't available
 #
 # The weird which AND -x test is to work around the fact that this
 # file may be sourced by either Zsh or Bash/sh, which handle 'which'
 # in slightly different ways
+#
+if [[ -x "$(which dircolors 2> /dev/null)" ]]; then
+	eval "$(dircolors)"
+fi
+
+# Set EDITOR; we do this late to ensure that our full path is
+# available
 #
 if [[ "$TERM" != "linux" ]]; then
 	export EDITOR="$(which hx)"
