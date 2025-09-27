@@ -1,0 +1,9 @@
+inherits = "gruvbox_light"
+
+# Replace (most) italics with bold
+#
+"attribute" = { fg = "aqua1", modifiers = ["bold"] }
+#"comment" = { fg = "gray", modifiers = [] }
+"type.enum.variant" = { modifiers = ["bold"] }
+"variable.builtin" = { fg = "orange1", modifiers = ["bold"] }
+"variable.parameter" = { fg = "blue1", modifiers = [] }

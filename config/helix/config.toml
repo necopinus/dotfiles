@@ -1,4 +1,5 @@
 theme = "gruvbox_material_light_hard"
+#theme = "gruvbox_light_mod"
 
 [editor]
 cursorline = true
