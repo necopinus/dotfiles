@@ -38,7 +38,7 @@ if [[ "$NEW_VER" != "$OLD_VER" ]]; then
 		gunzip zed-remote-server-linux-x86_64.gz
 		curl -fsSLO https://github.com/zed-industries/zed/releases/download/v${NEW_VER}/zed-remote-server-macos-aarch64.gz
 		gunzip zed-remote-server-macos-aarch64.gz
-		curl -fsSLo https://github.com/zed-industries/zed/releases/download/v${NEW_VER}/zed-remote-server-macos-x86_64.gz
+		curl -fsSLO https://github.com/zed-industries/zed/releases/download/v${NEW_VER}/zed-remote-server-macos-x86_64.gz
 		gunzip zed-remote-server-macos-x86_64.gz
 		chmod +x *
 	)
