@@ -1,6 +1,7 @@
 awk-language-server
 bash-language-server
 bibtex-tidy
+corepack
 dockerfile-language-server-nodejs
 graphql-language-service-cli
 hardhat
