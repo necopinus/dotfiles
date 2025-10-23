@@ -54,6 +54,13 @@ fi
 hx -g fetch
 hx -g build
 
+# Regenerate bat theme cache
+#
+(
+	cd /tmp
+	bat cache --build
+)
+
 # Need to set up GPG environment here to work around issues on some
 # systems
 #
