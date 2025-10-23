@@ -10,24 +10,24 @@
 // For AI settings, go to Help > Show Welcome > Configure >
 // View AI Settings
 {
-  "buffer_font_family": "JetBrainsMono Nerd Font Mono",
-  "buffer_font_size": 14,
-  "ui_font_size": 16,
-  "features": {
-    "edit_prediction_provider": "none"
-  },
-  "theme": {
-    "mode": "light",
-    "light": "Gruvbox Light",
-    "dark": "Gruvbox Dark"
-  },
-  "icon_theme": {
-    "mode": "light",
-    "light": "Zed (Default)",
-    "dark": "Zed (Default)"
-  },
-  "telemetry": {
-    "diagnostics": false,
-    "metrics": false
-  }
+    "buffer_font_family": "JetBrainsMono Nerd Font Mono",
+    "buffer_font_size": 12.0,
+    "ui_font_size": 14.0,
+    "features": {
+        "edit_prediction_provider": "none"
+    },
+    "theme": {
+        "mode": "light",
+        "light": "Gruvbox Light",
+        "dark": "Gruvbox Dark"
+    },
+    "icon_theme": {
+        "mode": "light",
+        "light": "Zed (Default)",
+        "dark": "Zed (Default)"
+    },
+    "telemetry": {
+        "diagnostics": false,
+        "metrics": false
+    }
 }
