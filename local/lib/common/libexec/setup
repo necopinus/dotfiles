@@ -121,6 +121,7 @@ if [[ "$FLAVOR" == "macos" ]]; then
 	     charmbracelet/tap/glow \
 	     curl \
 	     delve \
+	     diff-so-fancy \
 	     dos2unix \
 	     duf \
 	     dust \
@@ -248,6 +249,7 @@ elif [[ "$FLAVOR" == "debian" ]]; then
 	     cd-discid \
 	     charmbracelet/tap/glow \
 	     curl \
+	     diff-so-fancy \
 	     dos2unix \
 	     duf \
 	     dust \
@@ -672,8 +674,8 @@ git config --global user.name "Nathan Acks"
 git config --global user.email nathan.acks@cardboard-iguana.com
 
 git config --global commit.gpgSign          true
-git config --global core.pager              delta
-git config --global interactive.diffFilter "delta --color-only"
+git config --global core.pager             "diff-for-git --pager"
+git config --global interactive.diffFilter "diff-for-git --interactive"
 git config --global merge.conflictStyle     zdiff3
 git config --global pull.rebase             false
 

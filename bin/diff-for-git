@@ -1,0 +1,23 @@
+#!/usr/bin/env bash
+
+# NOTE: Do NOT call this script using `/usr/bin/env -S bash -l`, as we
+# need to inherit the current shell's environment in order to correctly
+# choose whether to fork to `delta` or `diff-so-fancy`!
+
+set -e
+
+if [[ $# -eq 1 ]] && [[ "$1" =~ ^--pager$ ]]; then
+	if [[ "$SHELL_NAME" == "fish" ]]; then
+		delta
+	else
+		diff-so-fancy | less --tabs=4 -RF
+	fi
+elif [[ $# -eq 1 ]] && [[ "$1" =~ ^--interactive$ ]]; then
+	if [[ "$SHELL_NAME" == "fish" ]]; then
+		delta --color-only
+	else
+		diff-so-fancy --patch
+	fi
+else
+	bat
+fi
