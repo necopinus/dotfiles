@@ -58,19 +58,9 @@ if [[ $# -eq 0 ]]; then
 	                --no-arch-warning \
 	                --isolated "${ENV_ARGS[@]}" \
 	                --env SHELL=/usr/bin/bash \
-	                --env TMUX_TMPDIR=/home/kali/.local/run \
 	                --bind $HOME/storage/downloads:/home/kali/downloads \
 	                --user kali \
 	                -- /usr/bin/bash -li
-elif [[ $# -eq 1 ]] && [[ "$1" =~ ^--tmux$ ]]; then
-	exec proot-distro login kali \
-	                --no-arch-warning \
-	                --isolated "${ENV_ARGS[@]}" \
-	                --env SHELL=/usr/bin/bash \
-	                --env TMUX_TMPDIR=/home/kali/.local/run \
-	                --bind $HOME/storage/downloads:/home/kali/downloads \
-	                --user kali \
-	                -- /usr/bin/tmux
 elif [[ $# -eq 1 ]] && [[ "$1" =~ ^--root$ ]]; then
 	exec proot-distro login kali \
 	                --no-arch-warning \
@@ -132,12 +122,6 @@ elif [[ $# -eq 1 ]] && [[ "$1" =~ ^--install$ ]]; then
 		mkdir -p $KALI_DIR/home/kali/.config/nano
 		cp $HOME/local/lib/linux/termux/aarch64/proot/kali/home/kali/.config/nano/nanorc \
 		   $KALI_DIR/home/kali/.config/nano/nanorc
-
-		mkdir -p $KALI_DIR/home/kali/.config/tmux
-		cp $HOME/local/lib/linux/termux/aarch64/proot/kali/home/kali/.config/tmux/tmux.conf \
-		   $KALI_DIR/home/kali/.config/tmux/tmux.conf
-
-		mkdir -p $KALI_DIR/home/kali/.local/run
 
 		mkdir -p $KALI_DIR/home/kali/data/desktop
 		mkdir -p $KALI_DIR/home/kali/data/music
@@ -237,7 +221,6 @@ else
 	                --no-arch-warning \
 	                --work-dir "$(pwd)" "${ENV_ARGS[@]}" \
 	                --env SHELL=/usr/bin/bash \
-	                --env TMUX_TMPDIR=/home/kali/.local/run \
 	                --bind $HOME/storage/downloads:/home/kali/downloads \
 	                --user kali \
 	                -- "$@"

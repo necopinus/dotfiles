@@ -42,7 +42,6 @@ fi
 #
 if [[ "$OS" == "linux" ]]; then
 	$HOME/local/lib/linux/common/libexec/update-jetbrains-mono
-	$HOME/local/lib/linux/common/libexec/update-obsidian
 	$HOME/local/lib/linux/common/libexec/update-zed
 fi
 if [[ "$FLAVOR" == "debian" ]]; then

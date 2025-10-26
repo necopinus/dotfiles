@@ -23,28 +23,9 @@ fi
 
 # Actual flow control is not that exciting
 #
-TMUX_SESSIONS="$(tmux list-sessions -F "#{session_name} #{session_attached}" 2> /dev/null || true)"
-
-if [[ $(echo "$TMUX_SESSIONS" | wc -l) -gt 0 ]]; then
-	TMUX_DEFAULT_SESSION="$(hostname | sed 's/\./_/g')"
-
-	if [[ $(echo "$TMUX_SESSIONS" | grep "^${TMUX_DEFAULT_SESSION} " | cut -d " " -f 2) -gt 0 ]]; then
-		tmux new-window -t ${TMUX_DEFAULT_SESSION}: -c "$DIR"
-	elif [[ $(echo "$TMUX_SESSIONS" | grep -vc ' 0$') -gt 0 ]]; then
-		tmux new-window -t $(echo "$TMUX_SESSIONS" | grep -v ' 0$' | head -1 | cut -d " " -f 1): -c "$DIR"
-	elif [[ $(echo "$TMUX_SESSIONS" | grep -c "^${TMUX_DEFAULT_SESSION} ") -eq 1 ]]; then
-		tmux new-window -t ${TMUX_DEFAULT_SESSION}: -c "$DIR"
-	else
-		tmux new-window -t $(echo "$TMUX_SESSIONS" | head -1 | cut -d " " -f 1): -c "$DIR"
-	fi
-elif [[ -n "$DISPLAY" ]] || [[ -n "$WAYLAND_DISPLAY" ]] || [[ "$OS" == "macos" ]]; then
-	if [[ ! -f "$HOME/_notmux" ]] && [[ ! -f "$HOME/_notmux.txt" ]]; then
-		kitty tmux new-session -A -s $(hostname | sed 's/\./_/g') -c "$DIR" &
-		disown
-	else
-		kitty -d "$DIR" &
-		disown
-	fi
+if [[ -n "$DISPLAY" ]] || [[ -n "$WAYLAND_DISPLAY" ]] || [[ "$OS" == "macos" ]]; then
+	kitty -d "$DIR" &
+	disown
 else
 	echo "Run the following command:"
 	echo "    cd \"$DIR\""

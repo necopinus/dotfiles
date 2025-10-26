@@ -132,6 +132,7 @@ if [[ "$FLAVOR" == "macos" ]]; then
 	     fzf \
 	     gawk \
 	     ghc \
+	     ghostscript \
 	     git-delta \
 	     gnupg \
 	     gopls \
@@ -182,13 +183,13 @@ if [[ "$FLAVOR" == "macos" ]]; then
 	     swift-format \
 	     texlab \
 	     tinymist \
-	     tmux \
 	     tresorit \
 	     uutils-coreutils \
 	     uutils-diffutils \
 	     uutils-findutils \
 	     vlc \
 	     xz \
+	     yamlresume \
 	     yubico-yubikey-manager \
 	     zed \
 	     zoxide \
@@ -255,6 +256,7 @@ elif [[ "$FLAVOR" == "debian" ]]; then
 	     ffmpeg \
 	     fish \
 	     ghc \
+	     ghostscript \
 	     git-delta \
 	     haskell-language-server \
 	     helix \
@@ -288,16 +290,15 @@ elif [[ "$FLAVOR" == "debian" ]]; then
 	     sqlite \
 	     starship \
 	     swift-format \
-	     syncthing \
 	     texlab \
 	     tinymist \
-	     tmux \
 	     uutils-coreutils \
 	     uutils-diffutils \
 	     uutils-findutils \
 	     xclip \
 	     xsel \
 	     xz \
+	     yamlresume \
 	     zoxide \
 	     zstd
 
@@ -312,17 +313,6 @@ elif [[ "$FLAVOR" == "debian" ]]; then
 	$HOME/local/lib/linux/common/libexec/update-jetbrains-mono
 	$HOME/local/lib/linux/debian/common/libexec/update-kitty
 	$HOME/local/lib/linux/debian/common/libexec/update-zed
-
-	sudo apt install \
-	         libatspi2.0-0 \
-	         libnotify4 \
-	         libnss3 \
-	         libsecret-1-0 \
-	         libuuid1 \
-	         libxss1 \
-	         libxtst6 \
-	         libgtk-3-0
-	$HOME/local/lib/linux/common/libexec/update-obsidian
 
 	# Disposable Kali
 	#
@@ -434,10 +424,6 @@ if [[ -e $HOME/config/kitty/open-actions.conf ]] \
 && [[ ! -L $HOME/config/kitty/open-actions.conf ]]; then
 	rm -f $HOME/config/kitty/open-actions.conf
 	ln -sf launch-actions.conf $HOME/config/kitty/open-actions.conf
-fi
-
-if [[ -d $HOME/storage/shared/Documents/Obsidian ]]; then
-	ln -sf $HOME/storage/shared/Documents/Obsidian $HOME/notes
 fi
 
 # Set up XDG user directories

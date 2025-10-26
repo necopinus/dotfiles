@@ -9,6 +9,7 @@ set -gx THIS_IS_FISH 1
 #
 if set -q PROFILE_PATH
     fish_add_path -Pm $PROFILE_PATH
+    set -e PROFILE_PATH
 end
 
 if test -d $HOME/local/lib/kitty.app/share/man
@@ -19,25 +20,11 @@ else
     set -e MANPATH
 end
 
-# Initialize tmux, but only once
-#
-if status is-interactive;
-    and not set -q TMUX;
-    and test "$TERM" != linux;
-    and not test -f "$HOME/_notmux";
-    and not test -f "$HOME/_notmux.txt";
-    and not test -f "$HOME/storage/shared/Documents/_notmux";
-    and not test -f "$HOME/storage/shared/Documents/_notmux.txt";
-    and test $(tmux list-sessions 2> /dev/null | grep "$(hostname -s)$(echo $DISPLAY | sed 's/:/-/'): " | grep -c "(attached)") -eq 0
-    exec tmux new-session -A -s $(hostname -s)$(echo $DISPLAY | sed 's/:/-/')
-else
-    set -e PROFILE_PATH
-end
-
 # Kitty integration
 #
 # We do this here (and set 'shell_integration disabled' in kitty.conf)
-# in order to apply integration in tmux
+# so that things still work if we're using a terminal multiplexer like
+# tmux
 #
 if test "$TERM" != linux
     if test -d $HOME/local/lib/kitty.app/lib/kitty
