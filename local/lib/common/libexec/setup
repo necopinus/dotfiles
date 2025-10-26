@@ -226,6 +226,7 @@ elif [[ "$FLAVOR" == "debian" ]]; then
 	         fonts-noto \
 	         fzf \
 	         gawk \
+	         gnome-keyring \
 	         gopls \
 	         handbrake \
 	         man-db \
