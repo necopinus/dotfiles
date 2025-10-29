@@ -1,3 +1,8 @@
 [styles.widgets]
 selected_border_color = "yellow"
-selected_text = { color = "#f9f5d7", bg_color = "green" } # Gruvbox Material Light Hard
+
+# Gruvbox Light
+selected_text = { color = "#fbf1c7", bg_color = "green" }
+
+# Gruvbox Material Light
+#selected_text = { color = "#f9f5d7", bg_color = "green" }
