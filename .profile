@@ -44,7 +44,7 @@ export LESS="-R"
 
 # Set bat theme
 #
-export BAT_THEME="gruvbox-material-light-hard"
+export BAT_THEME="gruvbox-light"
 
 # Source various API keys into the environment
 #
