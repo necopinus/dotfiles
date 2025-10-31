@@ -675,22 +675,22 @@ git config --global interactive.diffFilter "diff-for-git --interactive"
 git config --global merge.conflictStyle     zdiff3
 git config --global pull.rebase             false
 
-git config --global delta.blame-palette                 "#fbf1c7 #f4e8be #f2e5bc"
+git config --global delta.blame-palette                 "#fbf1c7 #f2e5bc #ebdbb2"
 git config --global delta.hyperlinks                     true
 git config --global delta.light                          true
 git config --global delta.line-numbers                   true
 git config --global delta.line-numbers-minus-style       red
 git config --global delta.line-numbers-plus-style        green
 git config --global delta.line-numbers-zero-style        normal
-git config --global delta.minus-emph-style              "syntax #f3d0ad"
-git config --global delta.minus-empty-line-marker-style "normal #f7e0bb"
-git config --global delta.minus-non-emph-style          "syntax #f7e0bb"
-git config --global delta.minus-style                   "syntax #f7e0bb"
+git config --global delta.minus-emph-style              "syntax #f1d194"
+git config --global delta.minus-empty-line-marker-style "normal #f5e1ae"
+git config --global delta.minus-non-emph-style          "syntax #f5e1ae"
+git config --global delta.minus-style                   "syntax #f5e1ae"
 git config --global delta.navigate                       true
-git config --global delta.plus-emph-style               "syntax #ddd8a8"
-git config --global delta.plus-empty-line-marker-style  "normal #ede4b7"
-git config --global delta.plus-non-emph-style           "syntax #ede4b7"
-git config --global delta.plus-style                    "syntax #ede4b7"
+git config --global delta.plus-emph-style               "syntax #e8dea8"
+git config --global delta.plus-empty-line-marker-style  "normal #f2e7b8"
+git config --global delta.plus-non-emph-style           "syntax #f2e7b8"
+git config --global delta.plus-style                    "syntax #f2e7b8"
 git config --global delta.side-by-side                   true
 
 # Set up GPG and SSH, if applicable
