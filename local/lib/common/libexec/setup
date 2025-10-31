@@ -370,15 +370,11 @@ fi
 
 # Install major frameworks using mise
 #
-mise use -g python@latest
-
 mise trust $HOME
-eval "$(mise env -s bash)"
 
-mise use -g nodejs@lts
-mise use -g ruby@latest
-
-eval "$(mise env -s bash)"
+mise use -g python@latest && eval "$(mise env -s bash)"
+mise use -g nodejs@lts    && eval "$(mise env -s bash)"
+mise use -g   ruby@latest && eval "$(mise env -s bash)"
 
 # Set up directories and symlinks
 #
