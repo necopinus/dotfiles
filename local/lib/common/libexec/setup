@@ -189,6 +189,7 @@ if [[ "$FLAVOR" == "macos" ]]; then
 	     uutils-diffutils \
 	     uutils-findutils \
 	     vlc \
+	     wezterm \
 	     xz \
 	     yamlresume \
 	     yubico-yubikey-manager \
@@ -203,6 +204,7 @@ if [[ "$FLAVOR" == "macos" ]]; then
 	     abcde
 elif [[ "$FLAVOR" == "debian" ]]; then
 	sudo mkdir -p /usr/share/keyrings
+
 	sudo curl -fsSLo \
 	     /usr/share/keyrings/brave-browser-archive-keyring.gpg \
 	     https://brave-browser-apt-release.s3.brave.com/brave-browser-archive-keyring.gpg
@@ -213,6 +215,12 @@ elif [[ "$FLAVOR" == "debian" ]]; then
 		Components: main
 		Architectures: amd64 arm64
 		Signed-By: /usr/share/keyrings/brave-browser-archive-keyring.gpg
+		EOF
+
+	curl -fsSL https://apt.fury.io/wez/gpg.key | \
+		sudo gpg --yes --dearmor -o /usr/share/keyrings/wezterm-fury.gpg
+	sudo tee /etc/apt/sources.list.d/wezterm.list > /dev/null <<- EOF
+		deb [signed-by=/usr/share/keyrings/wezterm-fury.gpg] https://apt.fury.io/wez/ * *
 		EOF
 
 	sudo apt update
@@ -236,6 +244,7 @@ elif [[ "$FLAVOR" == "debian" ]]; then
 	         tigervnc-standalone-server \
 	         uuid-runtime \
 	         unzip \
+	         wezterm \
 	         wl-clipboard \
 	         xdg-utils \
 	         xdg-user-dirs \
