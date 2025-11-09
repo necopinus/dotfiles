@@ -112,16 +112,18 @@ if [[ "$FLAVOR" == "macos" ]]; then
 	     adobe-creative-cloud \
 	     android-platform-tools \
 	     bat \
-	     block-goose \
 	     block-goose-cli \
 	     bottom \
 	     brave-browser \
 	     calibre \
 	     cd-discid \
 	     charmbracelet/tap/glow \
+	     claude \
 	     curl \
 	     delve \
 	     diff-so-fancy \
+	     discord \
+	     doppler-app \
 	     dos2unix \
 	     duf \
 	     dust \
@@ -136,6 +138,7 @@ if [[ "$FLAVOR" == "macos" ]]; then
 	     ghostscript \
 	     git-delta \
 	     gnupg \
+	     google-drive \
 	     gopls \
 	     haskell-language-server \
 	     helix \
@@ -158,6 +161,7 @@ if [[ "$FLAVOR" == "macos" ]]; then
 	     normalize \
 	     obsidian \
 	     openssh \
+	     openvpn \
 	     optipng \
 	     pandoc \
 	     pinentry-mac \
@@ -165,10 +169,14 @@ if [[ "$FLAVOR" == "macos" ]]; then
 	     poppler \
 	     procs \
 	     proton-drive \
+	     proton-mail \
+	     proton-pass \
 	     protonvpn \
 	     pstree \
+	     qflipper \
 	     qobuz-downloader \
 	     rclone \
+	     reader \
 	     ripgrep \
 	     rsgain \
 	     rsync \
@@ -178,12 +186,16 @@ if [[ "$FLAVOR" == "macos" ]]; then
 	     scroll-reverser \
 	     shellcheck \
 	     shfmt \
+	     signal \
+	     slack \
 	     solidity \
 	     sqlite \
 	     starship \
+	     stellarium \
 	     swift-format \
 	     texlab \
 	     tinymist \
+	     todoist-app \
 	     tresorit \
 	     uutils-coreutils \
 	     uutils-diffutils \
@@ -238,6 +250,7 @@ elif [[ "$FLAVOR" == "debian" ]]; then
 	         gopls \
 	         handbrake \
 	         man-db \
+	         openvpn \
 	         podman \
 	         qalc \
 	         ssh \
