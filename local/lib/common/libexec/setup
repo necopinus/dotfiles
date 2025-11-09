@@ -137,6 +137,7 @@ if [[ "$FLAVOR" == "macos" ]]; then
 	     ghc \
 	     ghostscript \
 	     git-delta \
+	     github \
 	     gnupg \
 	     google-drive \
 	     gopls \
