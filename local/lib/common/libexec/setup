@@ -242,19 +242,12 @@ elif [[ "$FLAVOR" == "debian" ]]; then
 	         apt-utils \
 	         brave-browser \
 	         calibre \
-	         delve \
 	         eject \
 	         fonts-noto \
-	         fzf \
-	         gawk \
 	         gnome-keyring \
-	         gopls \
 	         handbrake \
 	         man-db \
-	         openvpn \
 	         podman \
-	         qalc \
-	         ssh \
 	         tigervnc-standalone-server \
 	         uuid-runtime \
 	         unzip \
@@ -273,6 +266,7 @@ elif [[ "$FLAVOR" == "debian" ]]; then
 	     cd-discid \
 	     charmbracelet/tap/glow \
 	     curl \
+	     delve \
 	     diff-so-fancy \
 	     dos2unix \
 	     duf \
@@ -281,9 +275,12 @@ elif [[ "$FLAVOR" == "debian" ]]; then
 	     fd \
 	     ffmpeg \
 	     fish \
+	     fzf \
+	     gawk \
 	     ghc \
 	     ghostscript \
 	     git-delta \
+	     gopls \
 	     haskell-language-server \
 	     helix \
 	     imagemagick \
@@ -292,6 +289,7 @@ elif [[ "$FLAVOR" == "debian" ]]; then
 	     jq \
 	     jq-lsp \
 	     less \
+	     libqalculate \
 	     libyaml \
 	     lua-language-server \
 	     markdown-oxide \
@@ -299,6 +297,7 @@ elif [[ "$FLAVOR" == "debian" ]]; then
 	     msgpack-tools \
 	     normalize \
 	     openssh \
+	     openvpn \
 	     optipng \
 	     pandoc \
 	     poppler \
@@ -350,24 +349,9 @@ elif [[ "$FLAVOR" == "debian" ]]; then
 	sudo systemctl stop lightdm.service
 	sudo systemctl disable lightdm.service
 
-	SSH_LOCAL_CONF="$(mktemp)"
-	cat > "$SSH_LOCAL_CONF" <<- EOF
-	Port 2222
-	PermitRootLogin no
-	PubkeyAuthentication yes
-	PasswordAuthentication no
-	AllowUsers $USER
-	AuthenticationMethods publickey
-	EOF
-	sudo mv "$SSH_LOCAL_CONF" /etc/ssh/sshd_config.d/local.conf
-	sudo chown root:root /etc/ssh/sshd_config.d/local.conf
-	sudo chmod 644 /etc/ssh/sshd_config.d/local.conf
-	#sudo systemctl restart ssh.service
-
 	if [[ $(grep -c "$USER" /etc/tigervnc/vncserver.users) -eq 0 ]]; then
 		echo ":0=$USER" | sudo tee -a /etc/tigervnc/vncserver.users
 	fi
-	#sudo systemctl enable "tigervncserver@:0.service"
 
 	# Disable some background services to try to avoid filesystem
 	# corruption in the Android Debian VM as of 2025-09-21; ideally
@@ -379,16 +363,12 @@ elif [[ "$FLAVOR" == "debian" ]]; then
 	sudo systemctl stop podman-restart.service
 	sudo systemctl stop podman.service
 	sudo systemctl stop podman.socket
-	sudo systemctl stop ssh.service
-	sudo systemctl stop ssh.socket
 
 	sudo systemctl disable podman-auto-update.service
 	sudo systemctl disable podman-auto-update.timer
 	sudo systemctl disable podman-restart.service
 	sudo systemctl disable podman.service
 	sudo systemctl disable podman.socket
-	sudo systemctl disable ssh.service
-	sudo systemctl disable ssh.socket
 fi
 
 # Install major frameworks using mise
