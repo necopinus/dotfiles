@@ -5,18 +5,19 @@ local config = {}
 
 -- OS detection
 --
-local is_linux   <const> = wezterm.target_triple:find("linux") ~= nil
-local is_macos   <const> = wezterm.target_triple:find("darwin") ~= nil
-local is_windows <const> = wezterm.target_triple:find("windows") ~= nil
+local is_linux   <const> = wezterm.target_triple:find('linux') ~= nil
+local is_macos   <const> = wezterm.target_triple:find('darwin') ~= nil
+local is_windows <const> = wezterm.target_triple:find('windows') ~= nil
 
 -- Set font
 --
 config.font = wezterm.font('JetBrainsMono Nerd Font Mono')
-if is_linux then
-	config.font_size = 10.0
-else
+if is_macos then
 	config.font_size = 12.0
+else
+	config.font_size = 10.0
 end
+config.line_height = 1.1
 
 -- Fix color rendering on macOS
 --
@@ -80,8 +81,55 @@ config.color_schemes = {
 
 		-- launcher_label_fg = { Color = '#fbf1c7' },
 		-- launcher_label_bg = { Color = '#3c3836' },
+
+		tab_bar = {
+			background = '#ebdbb2',
+
+			active_tab = {
+				bg_color = '#fbf1c7',
+				fg_color = '#282828'
+			},
+
+			inactive_tab = {
+				bg_color = '#d5c4a1',
+				fg_color = '#504945'
+			},
+			inactive_tab_hover = {
+				bg_color = '#bdae93',
+				fg_color = '#3c3836'
+			},
+
+			new_tab = {
+				bg_color = '#ebdbb2',
+				fg_color = '#504945'
+			},
+			new_tab_hover = {
+				bg_color = '#bdae93',
+				fg_color = '#3c3836',
+				intensity = 'Bold'
+			}
+		}
 	}
 }
+
+-- Default window setup
+--
+config.initial_rows = 32
+config.initial_cols = 128
+
+config.use_fancy_tab_bar = false
+config.window_decorations = 'INTEGRATED_BUTTONS | RESIZE'
+config.window_padding = {
+	top = '0.5cell',
+	right = '1.25cell',
+	bottom = '0.25cell',
+	left = '1.25cell'
+}
+
+-- Launch fish by default (stub used to work around systems where
+-- /etc/passwd can't be modified)
+--
+config.default_prog = { os.getenv("HOME") .. '/bin/fish', '-l' }
 
 -- Return config
 --
