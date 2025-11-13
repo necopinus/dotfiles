@@ -83,29 +83,30 @@ config.color_schemes = {
 		-- launcher_label_bg = { Color = '#3c3836' },
 
 		tab_bar = {
-			background = '#ebdbb2',
+			background = '#fbf1c7',
 
 			active_tab = {
-				bg_color = '#fbf1c7',
-				fg_color = '#282828'
+				bg_color = '#a89984',
+				fg_color = '#fbf1c7',
+				intensity = 'Bold'
 			},
 
 			inactive_tab = {
-				bg_color = '#d5c4a1',
-				fg_color = '#504945'
+				bg_color = '#fbf1c7',
+				fg_color = '#928374'
 			},
 			inactive_tab_hover = {
-				bg_color = '#bdae93',
-				fg_color = '#3c3836'
+				bg_color = '#ebdbb2',
+				fg_color = '#282828'
 			},
 
 			new_tab = {
-				bg_color = '#ebdbb2',
+				bg_color = '#fbf1c7',
 				fg_color = '#504945'
 			},
 			new_tab_hover = {
-				bg_color = '#bdae93',
-				fg_color = '#3c3836',
+				bg_color = '#458588',
+				fg_color = '#fbf1c7',
 				intensity = 'Bold'
 			}
 		}
@@ -117,13 +118,58 @@ config.color_schemes = {
 config.initial_rows = 32
 config.initial_cols = 128
 
-config.use_fancy_tab_bar = false
-config.window_decorations = 'INTEGRATED_BUTTONS | RESIZE'
 config.window_padding = {
-	top = '0.5cell',
-	right = '1.25cell',
+	top = '0.25cell',
+	right = '0.75cell',
 	bottom = '0.25cell',
-	left = '1.25cell'
+	left = '0.75cell'
+}
+
+config.use_fancy_tab_bar = false
+config.tab_max_width = 64
+config.window_decorations = 'INTEGRATED_BUTTONS | RESIZE'
+config.integrated_title_button_style = 'Windows'
+if is_macos then
+	config.integrated_title_button_alignment = 'Left'
+	config.integrated_title_buttons = { 'Close', 'Hide', 'Maximize' }
+else
+	config.integrated_title_button_alignment = 'Right'
+	config.integrated_title_buttons = { 'Hide', 'Maximize', 'Close' }
+end
+config.tab_bar_style = {
+	window_hide = wezterm.format {
+		{ Foreground = { Color = config.color_schemes[config.color_scheme].tab_bar.new_tab.fg_color } },
+		{ Background = { Color = config.color_schemes[config.color_scheme].tab_bar.new_tab.bg_color } },
+		{ Text = ' ' .. wezterm.nerdfonts.cod_chrome_minimize .. ' ' }
+	},
+	window_hide_hover = wezterm.format {
+		{ Foreground = { Color = config.color_schemes[config.color_scheme].ansi[1] } },
+		{ Background = { Color = config.color_schemes[config.color_scheme].ansi[4] } },
+		{ Attribute = { Intensity = "Bold" } },
+		{ Text = ' ' .. wezterm.nerdfonts.cod_chrome_minimize .. ' ' }
+	},
+	window_maximize = wezterm.format {
+		{ Foreground = { Color = config.color_schemes[config.color_scheme].tab_bar.new_tab.fg_color } },
+		{ Background = { Color = config.color_schemes[config.color_scheme].tab_bar.new_tab.bg_color } },
+		{ Text = ' ' .. wezterm.nerdfonts.cod_chrome_maximize .. ' ' }
+	},
+	window_maximize_hover = wezterm.format {
+		{ Foreground = { Color = config.color_schemes[config.color_scheme].ansi[1] } },
+		{ Background = { Color = config.color_schemes[config.color_scheme].ansi[3] } },
+		{ Attribute = { Intensity = "Bold" } },
+		{ Text = ' ' .. wezterm.nerdfonts.cod_chrome_maximize .. ' ' }
+	},
+	window_close = wezterm.format {
+		{ Foreground = { Color = config.color_schemes[config.color_scheme].tab_bar.new_tab.fg_color } },
+		{ Background = { Color = config.color_schemes[config.color_scheme].tab_bar.new_tab.bg_color } },
+		{ Text = ' ' .. wezterm.nerdfonts.cod_chrome_close .. ' ' }
+	},
+	window_close_hover = wezterm.format {
+		{ Foreground = { Color = config.color_schemes[config.color_scheme].ansi[1] } },
+		{ Background = { Color = config.color_schemes[config.color_scheme].ansi[2] } },
+		{ Attribute = { Intensity = "Bold" } },
+		{ Text = ' ' .. wezterm.nerdfonts.cod_chrome_close .. ' ' }
+	},
 }
 
 -- Launch fish by default (stub used to work around systems where

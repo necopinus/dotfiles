@@ -161,6 +161,14 @@ if test "$TERM" != linux;
     source "$XDG_CACHE_HOME/env/starship.init.$SHELL_NAME"
 end
 
+# Hook fish postexec event to add a newline between prompts
+#
+#     https://stackoverflow.com/a/70644608
+#
+function postexec_add_newline --on-event fish_postexec
+    echo ""
+end
+
 # Init zoxide; this must be done after anything that might modify fish's
 # behavior
 #

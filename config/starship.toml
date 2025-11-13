@@ -4,9 +4,7 @@
 
 # Actual prompt
 #
-format = """$fill\
-$line_break\
-[](color_orange)\
+format = """[](color_orange)\
 $os\
 $username\
 [](bg:color_yellow fg:color_orange)\
@@ -44,7 +42,7 @@ $time\
 $line_break\
 $character"""
 
-add_newline = true
+add_newline = false
 
 # Define colors
 #
@@ -75,10 +73,6 @@ color_orange = '#c35e0a'
 color_purple = '#945e80'
 color_red = '#c14a4a'
 color_yellow = '#b47109'
-
-[fill]
-symbol = "▔"
-style = "fg:color_fg1"
 
 #### Orange ############################################################
 
