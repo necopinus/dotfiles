@@ -120,10 +120,11 @@ config.initial_cols = 128
 
 config.use_fancy_tab_bar = false
 config.tab_max_width = 64
-config.window_decorations = 'INTEGRATED_BUTTONS | RESIZE'
 config.default_cursor_style = 'BlinkingBar'
 
 if is_macos then
+	config.window_decorations = 'INTEGRATED_BUTTONS | RESIZE'
+
 	config.window_padding = {
 		top = '4.5pt',
 		right = 0,
@@ -142,12 +143,13 @@ if is_macos then
 		border_left_color = config.color_schemes[config.color_scheme].background
 	}
 else
-	config.integrated_title_button_alignment = 'Right'
+	-- config.window_decorations = 'INTEGRATED_BUTTONS | RESIZE'
+
 	config.window_padding = {
-		top = 0,
-		right = '2.4pt',
-		bottom = '1.2pt',
-		left = '2.4pt'
+		top = '6pt',
+		right = '6pt',
+		bottom = '6pt',
+		left = '6pt'
 	}
 
 	config.tab_bar_style = {

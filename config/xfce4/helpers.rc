@@ -1,2 +1,3 @@
 WebBrowser=custom-WebBrowser
-TerminalEmulator=org.wezfurlong.wezterm
+TerminalEmulator=custom-TerminalEmulator
+
