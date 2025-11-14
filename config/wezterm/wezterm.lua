@@ -113,6 +113,11 @@ config.color_schemes = {
 	}
 }
 
+config.inactive_pane_hsb = {
+	saturation = 0.9,
+	brightness = 1.0
+}
+
 -- Default window setup
 --
 config.initial_rows = 32
@@ -127,15 +132,15 @@ if is_macos then
 
 	config.window_padding = {
 		top = '4.5pt',
-		right = 0,
-		bottom = 0,
-		left = 0
+		right = '8pt',
+		bottom = '3pt',
+		left = '8pt'
 	}
 	config.window_frame = {
 		border_top_height = '4.5pt',
-		border_right_width = '8pt',
-		border_bottom_height = '3pt',
-		border_left_width = '8pt',
+		border_right_width = 0,
+		border_bottom_height = 0,
+		border_left_width = 0,
 
 		border_top_color = config.color_schemes[config.color_scheme].tab_bar.background,
 		border_right_color = config.color_schemes[config.color_scheme].background,
