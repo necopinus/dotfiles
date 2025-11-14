@@ -1,3 +1,2 @@
 WebBrowser=custom-WebBrowser
-TerminalEmulator=kitty
-
+TerminalEmulator=org.wezfurlong.wezterm

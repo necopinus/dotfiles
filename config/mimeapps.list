@@ -1,21 +1,14 @@
 [Default Applications]
-application/json=kitty-open.desktop
 application/x-extension-htm=brave-browser.desktop
 application/x-extension-html=brave-browser.desktop
 application/x-extension-shtml=brave-browser.desktop
 application/x-extension-xht=brave-browser.desktop
 application/x-extension-xhtml=brave-browser.desktop
-application/x-sh=kitty-open.desktop
-application/x-shellscript=kitty-open.desktop
 application/xhtml+xml=brave-browser.desktop
-image/*=kitty-open.desktop
-inode/directory=kitty-open.desktop
-text/*=kitty-open.desktop
 text/html=brave-browser.desktop
 x-scheme-handler/chrome=brave-browser.desktop
 x-scheme-handler/http=xfce4-web-browser.desktop
 x-scheme-handler/https=xfce4-web-browser.desktop
-x-scheme-handler/kitty=kitty-open.desktop
 
 [Added Associations]
 application/pdf=brave-browser.desktop
@@ -34,4 +27,3 @@ text/xml=brave-browser.desktop
 x-scheme-handler/chrome=brave-browser.desktop;
 x-scheme-handler/http=xfce4-web-browser.desktop;
 x-scheme-handler/https=xfce4-web-browser.desktop;
-

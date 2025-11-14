@@ -43,9 +43,6 @@ fi
 if [[ "$OS" == "linux" ]]; then
 	$HOME/local/lib/linux/common/libexec/update-jetbrains-mono
 fi
-if [[ "$FLAVOR" == "debian" ]]; then
-	$HOME/local/lib/linux/debian/common/libexec/update-kitty
-fi
 
 # Update Helix grammars
 #

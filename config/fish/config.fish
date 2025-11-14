@@ -12,36 +12,7 @@ if set -q PROFILE_PATH
     set -e PROFILE_PATH
 end
 
-if test -d $HOME/local/lib/kitty.app/share/man
-    set -gx MANPATH :$HOME/local/lib/kitty.app/share/man
-else if test -d /Applications/kitty.app/Contents/Resources/man
-    set -gx MANPATH :/Applications/kitty.app/Contents/Resources/man
-else
-    set -e MANPATH
-end
-
-# Kitty integration
-#
-# We do this here (and set 'shell_integration disabled' in kitty.conf)
-# so that things still work if we're using a terminal multiplexer like
-# tmux
-#
-if test "$TERM" != linux
-    if test -d $HOME/local/lib/kitty.app/lib/kitty
-        set -g KITTY_INSTALLATION_DIR $HOME/local/lib/kitty.app/lib/kitty
-    else if test "$FLAVOR" = macos
-        set -g KITTY_INSTALLATION_DIR /Applications/kitty.app/Contents/Resources/kitty
-    else if test "$OS" = linux
-        set -g KITTY_INSTALLATION_DIR /usr/lib/kitty
-    end
-
-    if set -q KITTY_INSTALLATION_DIR
-        set -g KITTY_SHELL_INTEGRATION enabled
-
-        source "$KITTY_INSTALLATION_DIR/shell-integration/fish/vendor_conf.d/kitty-shell-integration.fish"
-        set -p fish_complete_path "$KITTY_INSTALLATION_DIR/shell-integration/fish/vendor_completions.d"
-    end
-end
+set -e MANPATH
 
 # GPG setup
 #

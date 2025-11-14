@@ -150,7 +150,6 @@ if [[ "$FLAVOR" == "macos" ]]; then
 	     jpeg-turbo \
 	     jq \
 	     jq-lsp \
-	     kitty \
 	     libqalculate \
 	     libyaml \
 	     less \
@@ -336,7 +335,6 @@ elif [[ "$FLAVOR" == "debian" ]]; then
 	# Additional "manual" installs
 	#
 	$HOME/local/lib/linux/common/libexec/update-jetbrains-mono
-	$HOME/local/lib/linux/debian/common/libexec/update-kitty
 
 	# Disposable Kali
 	#
@@ -419,12 +417,6 @@ if [[ ! -e $HOME/.local ]]; then
 fi
 if [[ ! -e $HOME/.var ]]; then
 	ln -sf  $HOME/local $HOME/.var
-fi
-
-if [[ -e $HOME/config/kitty/open-actions.conf ]] \
-&& [[ ! -L $HOME/config/kitty/open-actions.conf ]]; then
-	rm -f $HOME/config/kitty/open-actions.conf
-	ln -sf launch-actions.conf $HOME/config/kitty/open-actions.conf
 fi
 
 # Set up XDG user directories

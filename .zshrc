@@ -8,32 +8,7 @@ if [[ -n "$PROFILE_PATH" ]]; then
 	unset PROFILE_PATH
 fi
 
-if [[ -d "$HOME/local/lib/kitty.app/share/man" ]]; then
-	export MANPATH=":$HOME/local/lib/kitty.app/share/man"
-elif [[ -d "/Applications/kitty.app/Contents/Resources/man" ]]; then
-	export MANPATH=":/Applications/kitty.app/Contents/Resources/man"
-else
-	unset MANPATH
-fi
-
-# Kitty integration
-#
-if [[ "$TERM" != "linux" ]]; then
-	if [[ -d "$HOME/local/lib/kitty.app/lib/kitty" ]]; then
-		export KITTY_INSTALLATION_DIR="$HOME/local/lib/kitty.app/lib/kitty"
-	elif [[ "$FLAVOR" == "macos" ]]; then
-		export KITTY_INSTALLATION_DIR="/Applications/kitty.app/Contents/Resources/kitty"
-	elif [[ "$OS" == "linux" ]]; then
-		export KITTY_INSTALLATION_DIR="/usr/lib/kitty"
-	fi
-
-	if [[ -n "$KITTY_INSTALLATION_DIR" ]]; then
-		export KITTY_SHELL_INTEGRATION="enabled"
-
-		autoload -Uz -- "$KITTY_INSTALLATION_DIR"/shell-integration/zsh/kitty-integration
-		kitty-integration; unfunction kitty-integration
-	fi
-fi
+unset MANPATH
 
 # GPG setup
 #
