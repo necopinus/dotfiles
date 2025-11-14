@@ -17,7 +17,7 @@ if is_macos then
 else
 	config.font_size = 10.0
 end
-config.line_height = 1.1
+config.line_height = 1.2
 
 -- Fix color rendering on macOS
 --
@@ -118,59 +118,74 @@ config.color_schemes = {
 config.initial_rows = 32
 config.initial_cols = 128
 
-config.window_padding = {
-	top = '0.25cell',
-	right = '0.75cell',
-	bottom = '0.25cell',
-	left = '0.75cell'
-}
-
 config.use_fancy_tab_bar = false
 config.tab_max_width = 64
 config.window_decorations = 'INTEGRATED_BUTTONS | RESIZE'
-config.integrated_title_button_style = 'Windows'
+config.default_cursor_style = 'BlinkingBar'
+
 if is_macos then
-	config.integrated_title_button_alignment = 'Left'
-	config.integrated_title_buttons = { 'Close', 'Hide', 'Maximize' }
+	config.window_padding = {
+		top = '4.5pt',
+		right = 0,
+		bottom = 0,
+		left = 0
+	}
+	config.window_frame = {
+		border_top_height = '4.5pt',
+		border_right_width = '8pt',
+		border_bottom_height = '3pt',
+		border_left_width = '8pt',
+
+		border_top_color = config.color_schemes[config.color_scheme].tab_bar.background,
+		border_right_color = config.color_schemes[config.color_scheme].background,
+		border_bottom_color = config.color_schemes[config.color_scheme].background,
+		border_left_color = config.color_schemes[config.color_scheme].background
+	}
 else
 	config.integrated_title_button_alignment = 'Right'
-	config.integrated_title_buttons = { 'Hide', 'Maximize', 'Close' }
+	config.window_padding = {
+		top = 0,
+		right = '2.4pt',
+		bottom = '1.2pt',
+		left = '2.4pt'
+	}
+
+	config.tab_bar_style = {
+		window_hide = wezterm.format {
+			{ Foreground = { Color = config.color_schemes[config.color_scheme].tab_bar.new_tab.fg_color } },
+			{ Background = { Color = config.color_schemes[config.color_scheme].tab_bar.new_tab.bg_color } },
+			{ Text = ' ' .. wezterm.nerdfonts.cod_chrome_minimize .. ' ' }
+		},
+		window_hide_hover = wezterm.format {
+			{ Foreground = { Color = config.color_schemes[config.color_scheme].ansi[1] } },
+			{ Background = { Color = config.color_schemes[config.color_scheme].ansi[4] } },
+			{ Attribute = { Intensity = "Bold" } },
+			{ Text = ' ' .. wezterm.nerdfonts.cod_chrome_minimize .. ' ' }
+		},
+		window_maximize = wezterm.format {
+			{ Foreground = { Color = config.color_schemes[config.color_scheme].tab_bar.new_tab.fg_color } },
+			{ Background = { Color = config.color_schemes[config.color_scheme].tab_bar.new_tab.bg_color } },
+			{ Text = ' ' .. wezterm.nerdfonts.cod_chrome_maximize .. ' ' }
+		},
+		window_maximize_hover = wezterm.format {
+			{ Foreground = { Color = config.color_schemes[config.color_scheme].ansi[1] } },
+			{ Background = { Color = config.color_schemes[config.color_scheme].ansi[3] } },
+			{ Attribute = { Intensity = "Bold" } },
+			{ Text = ' ' .. wezterm.nerdfonts.cod_chrome_maximize .. ' ' }
+		},
+		window_close = wezterm.format {
+			{ Foreground = { Color = config.color_schemes[config.color_scheme].tab_bar.new_tab.fg_color } },
+			{ Background = { Color = config.color_schemes[config.color_scheme].tab_bar.new_tab.bg_color } },
+			{ Text = ' ' .. wezterm.nerdfonts.cod_chrome_close .. ' ' }
+		},
+		window_close_hover = wezterm.format {
+			{ Foreground = { Color = config.color_schemes[config.color_scheme].ansi[1] } },
+			{ Background = { Color = config.color_schemes[config.color_scheme].ansi[2] } },
+			{ Attribute = { Intensity = "Bold" } },
+			{ Text = ' ' .. wezterm.nerdfonts.cod_chrome_close .. ' ' }
+		},
+	}
 end
-config.tab_bar_style = {
-	window_hide = wezterm.format {
-		{ Foreground = { Color = config.color_schemes[config.color_scheme].tab_bar.new_tab.fg_color } },
-		{ Background = { Color = config.color_schemes[config.color_scheme].tab_bar.new_tab.bg_color } },
-		{ Text = ' ' .. wezterm.nerdfonts.cod_chrome_minimize .. ' ' }
-	},
-	window_hide_hover = wezterm.format {
-		{ Foreground = { Color = config.color_schemes[config.color_scheme].ansi[1] } },
-		{ Background = { Color = config.color_schemes[config.color_scheme].ansi[4] } },
-		{ Attribute = { Intensity = "Bold" } },
-		{ Text = ' ' .. wezterm.nerdfonts.cod_chrome_minimize .. ' ' }
-	},
-	window_maximize = wezterm.format {
-		{ Foreground = { Color = config.color_schemes[config.color_scheme].tab_bar.new_tab.fg_color } },
-		{ Background = { Color = config.color_schemes[config.color_scheme].tab_bar.new_tab.bg_color } },
-		{ Text = ' ' .. wezterm.nerdfonts.cod_chrome_maximize .. ' ' }
-	},
-	window_maximize_hover = wezterm.format {
-		{ Foreground = { Color = config.color_schemes[config.color_scheme].ansi[1] } },
-		{ Background = { Color = config.color_schemes[config.color_scheme].ansi[3] } },
-		{ Attribute = { Intensity = "Bold" } },
-		{ Text = ' ' .. wezterm.nerdfonts.cod_chrome_maximize .. ' ' }
-	},
-	window_close = wezterm.format {
-		{ Foreground = { Color = config.color_schemes[config.color_scheme].tab_bar.new_tab.fg_color } },
-		{ Background = { Color = config.color_schemes[config.color_scheme].tab_bar.new_tab.bg_color } },
-		{ Text = ' ' .. wezterm.nerdfonts.cod_chrome_close .. ' ' }
-	},
-	window_close_hover = wezterm.format {
-		{ Foreground = { Color = config.color_schemes[config.color_scheme].ansi[1] } },
-		{ Background = { Color = config.color_schemes[config.color_scheme].ansi[2] } },
-		{ Attribute = { Intensity = "Bold" } },
-		{ Text = ' ' .. wezterm.nerdfonts.cod_chrome_close .. ' ' }
-	},
-}
 
 -- Launch fish by default (stub used to work around systems where
 -- /etc/passwd can't be modified)
