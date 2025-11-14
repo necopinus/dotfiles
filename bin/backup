@@ -29,7 +29,6 @@ source ${XDG_CONFIG_HOME:-$HOME/.config}/user-dirs.dirs
 			$(test -d "$XDG_CONFIG_HOME/calibre" && echo "$XDG_CONFIG_HOME/calibre" | sed "s#$HOME/##")
 			$(test -d "$XDG_CONFIG_HOME/BraveSoftware" && echo "$XDG_CONFIG_HOME/BraveSoftware" | sed "s#$HOME/##")
 			$(test -d "Library/Application Support/BraveSoftware" && echo "Library/Application Support/BraveSoftware")
-			$(test -f "$XDG_CONFIG_HOME/git/config" && echo "$XDG_CONFIG_HOME/git/config" | sed "s#$HOME/##")
-			$(test -f .gitconfig && echo ".gitconfig")
+			$(test -f "$XDG_CONFIG_HOME/git/gpg.ini" && echo "$XDG_CONFIG_HOME/git/gpg.ini" | sed "s#$HOME/##")
 			EOF
 )

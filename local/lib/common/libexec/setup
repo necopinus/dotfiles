@@ -657,37 +657,6 @@ export SSH_AUTH_SOCK="$(gpgconf --list-dirs agent-ssh-socket)"
 gpgconf --kill gpg-agent
 gpg-connect-agent updatestartuptty /bye
 
-# Set up git
-#
-echo "Configuring git"
-
-git config --global user.name "Nathan Acks"
-git config --global user.email nathan.acks@cardboard-iguana.com
-
-git config --global commit.gpgSign          true
-git config --global core.pager             "diff-for-git --pager"
-git config --global interactive.diffFilter "diff-for-git --interactive"
-git config --global merge.conflictStyle     zdiff3
-git config --global pull.rebase             false
-
-git config --global delta.blame-palette                 "#fbf1c7 #f2e5bc #ebdbb2"
-git config --global delta.hyperlinks                     true
-git config --global delta.light                          true
-git config --global delta.line-numbers                   true
-git config --global delta.line-numbers-minus-style       red
-git config --global delta.line-numbers-plus-style        green
-git config --global delta.line-numbers-zero-style        normal
-git config --global delta.minus-emph-style              "syntax #f1d194"
-git config --global delta.minus-empty-line-marker-style "normal #f5e1ae"
-git config --global delta.minus-non-emph-style          "syntax #f5e1ae"
-git config --global delta.minus-style                   "syntax #f5e1ae"
-git config --global delta.navigate                       true
-git config --global delta.plus-emph-style               "syntax #e8dea8"
-git config --global delta.plus-empty-line-marker-style  "normal #f2e7b8"
-git config --global delta.plus-non-emph-style           "syntax #f2e7b8"
-git config --global delta.plus-style                    "syntax #f2e7b8"
-git config --global delta.side-by-side                   true
-
 # Set up GPG and SSH, if applicable
 #
 if [[ $(ls -1 $HOME/.ssh/id_* 2> /dev/null | wc -l) -eq 0 ]] \
@@ -743,7 +712,8 @@ if [[ $(ls -1 $HOME/.ssh/id_* 2> /dev/null | wc -l) -eq 0 ]] \
 
 	# Update git signing key
 	#
-	git config --global user.signingkey $NEW_SECRET_KEY_ID
+	echo "[user]" > $XDG_CONFIG_HOME/git/gpg.ini
+	echo "	signingkey = $NEW_SECRET_KEY_ID" >> $XDG_CONFIG_HOME/git/gpg.ini
 
 	# Print public GPG and SSH keys for new secret key
 	#
