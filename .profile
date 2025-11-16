@@ -103,6 +103,14 @@ if [[ -x "$(which mise 2> /dev/null)" ]]; then
 	eval "$(mise env)"
 fi
 
+# Set up Nix, if applicable
+#
+if [[ -z "$__ETC_PROFILE_NIX_SOURCED" ]] \
+&& [[ -f /nix/var/nix/profiles/default/etc/profile.d/nix-daemon.sh ]]; then
+	source /nix/var/nix/profiles/default/etc/profile.d/nix-daemon.sh
+fi
+
+
 # Add independent Node.js and Python package installations to the
 # PATH
 #
