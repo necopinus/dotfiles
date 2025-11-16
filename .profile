@@ -110,7 +110,6 @@ if [[ -z "$__ETC_PROFILE_NIX_SOURCED" ]] \
 	source /nix/var/nix/profiles/default/etc/profile.d/nix-daemon.sh
 fi
 
-
 # Add independent Node.js and Python package installations to the
 # PATH
 #
