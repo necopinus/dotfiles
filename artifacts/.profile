@@ -54,24 +54,15 @@ fi
 
 # Set up Homebrew paths, etc.
 #
-if [[ -z "$HOMEBREW_PREFIX" ]] \
-&& [[ ! -s "$XDG_CACHE_HOME/env/brew.shellenv.$SHELL_NAME" ]]; then
+if [[ -z "$HOMEBREW_PREFIX" ]]; then
 	if [[ -x /opt/homebrew/bin/brew ]]; then
-		/opt/homebrew/bin/brew shellenv $SHELL_NAME \
-			>  "$XDG_CACHE_HOME/env/brew.shellenv.$SHELL_NAME" \
-			2> /dev/null
+		eval "$(/opt/homebrew/bin/brew shellenv $SHELL_NAME)"
 	elif [[ -x /usr/local/bin/brew ]]; then
-		/usr/local/bin/brew shellenv $SHELL_NAME \
-			>  "$XDG_CACHE_HOME/env/brew.shellenv.$SHELL_NAME" \
-			2> /dev/null
+		eval "$(/usr/local/bin/brew shellenv $SHELL_NAME)"
 	elif [[ -x /home/linuxbrew/.linuxbrew/bin/brew ]]; then
-		/home/linuxbrew/.linuxbrew/bin/brew shellenv $SHELL_NAME \
-			>  "$XDG_CACHE_HOME/env/brew.shellenv.$SHELL_NAME" \
-			2> /dev/null
+		eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv $SHELL_NAME)"
 	fi
 fi
-
-source "$XDG_CACHE_HOME/env/brew.shellenv.$SHELL_NAME"
 
 if [[ -d "$HOMEBREW_PREFIX/opt/curl/bin" ]]; then
 	export PATH="$HOMEBREW_PREFIX/opt/curl/bin:$PATH"
@@ -86,6 +77,18 @@ if [[ -d "$HOMEBREW_PREFIX/opt/uutils-findutils/libexec/uubin" ]]; then
 	export PATH="$HOMEBREW_PREFIX/opt/uutils-findutils/libexec/uubin:$PATH"
 fi
 
+# Set up Nix, if applicable
+#
+# Note that we have to force nix-daemon.sh to be re-sourced here in
+# order to ensure that these directories show up early in our final
+# PATH; this is also why this operation has to happen *after* Homebrew
+# is set up, but *before* mise-en-place is initialized
+#
+if [[ -f /nix/var/nix/profiles/default/etc/profile.d/nix-daemon.sh ]]; then
+	unset __ETC_PROFILE_NIX_SOURCED
+	source /nix/var/nix/profiles/default/etc/profile.d/nix-daemon.sh
+fi
+
 # Set up mise-en-place, if applicable
 #
 # The weird which AND -x test is to work around the fact that this
@@ -93,28 +96,9 @@ fi
 # in slightly different ways
 #
 if [[ -x "$(which mise 2> /dev/null)" ]]; then
-	if [[ ! -s "$XDG_CACHE_HOME/env/mise.activate.$SHELL_NAME" ]]; then
-		mise activate $SHELL_NAME \
-			>  "$XDG_CACHE_HOME/env/mise.activate.$SHELL_NAME" \
-			2> /dev/null
-	fi
-
-	source "$XDG_CACHE_HOME/env/mise.activate.$SHELL_NAME"
+	eval "$(mise activate $SHELL_NAME)"
 	eval "$(mise env)"
 fi
-
-# Set up Nix, if applicable
-#
-if [[ -z "$__ETC_PROFILE_NIX_SOURCED" ]] \
-&& [[ -f /nix/var/nix/profiles/default/etc/profile.d/nix-daemon.sh ]]; then
-	source /nix/var/nix/profiles/default/etc/profile.d/nix-daemon.sh
-fi
-
-# Add independent Node.js and Python package installations to the
-# PATH
-#
-export PATH="$HOME/local/lib/nodejs/bin:$PATH"
-export PATH="$HOME/local/lib/python/bin:$PATH"
 
 # Add ~/bin and ~/local/bin to the PATH (the second of these is
 # duplicative, but necessary to pick up any locally-installed man
@@ -168,3 +152,7 @@ export VISUAL="$EDITOR"
 if [[ -z "$PROFILE_PATH" ]]; then
 	export PROFILE_PATH="$PATH"
 fi
+
+# Make sure that the SHELL_NAME variable isn't carried over
+#
+unset SHELL_NAME
