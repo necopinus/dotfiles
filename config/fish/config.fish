@@ -1,10 +1,5 @@
 #!/usr/bin/env fish
 
-# This shell is now fish
-#
-set -gx SHELL_NAME fish
-set -gx THIS_IS_FISH 1
-
 # Deal with potential PATH pollution
 #
 if set -q PROFILE_PATH
@@ -124,12 +119,7 @@ end
 #
 if test "$TERM" != linux;
     and test -n "$(which starship 2> /dev/null)"
-    if not test -s "$XDG_CACHE_HOME/env/starship.init.$SHELL_NAME"
-        mkdir -p "$XDG_CACHE_HOME/env"
-        starship init $SHELL_NAME >"$XDG_CACHE_HOME/env/starship.init.$SHELL_NAME"
-    end
-
-    source "$XDG_CACHE_HOME/env/starship.init.$SHELL_NAME"
+    starship init fish | source
 end
 
 # Hook fish postexec event to add a newline between prompts
@@ -144,12 +134,7 @@ end
 # behavior
 #
 if test -n "$(which zoxide 2> /dev/null)"
-    if not test -s "$XDG_CACHE_HOME/env/zoxide.init.$SHELL_NAME"
-        mkdir -p "$XDG_CACHE_HOME/env"
-        zoxide init --cmd cd $SHELL_NAME >"$XDG_CACHE_HOME/env/zoxide.init.$SHELL_NAME"
-    end
-
-    source "$XDG_CACHE_HOME/env/zoxide.init.$SHELL_NAME"
+    zoxide init fish --cmd cd | source
 end
 
 # Suppress welcome message
