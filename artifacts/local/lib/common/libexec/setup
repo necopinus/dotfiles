@@ -144,7 +144,6 @@ if [[ "$FLAVOR" == "macos" ]]; then
 	     haskell-language-server \
 	     helix \
 	     homebrew/cask/handbrake \
-	     homebrew/cask/syncthing \
 	     imagemagick \
 	     jdtls \
 	     jpeg-turbo \
