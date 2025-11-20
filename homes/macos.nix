@@ -1,9 +1,7 @@
 { config, pkgs, ... }:
 
 {
-  imports = [
-    ./common.nix
-  ];
+  imports = [ ./common.nix ];
 
   # macOS-specific packages
   # home.packages = with pkgs; [
