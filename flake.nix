@@ -38,7 +38,7 @@
               home.stateVersion = "25.05"; # Configuration state version
               home.username = "necopinus";
               home.homeDirectory = "/Users/necopinus";
-              modules = [
+              imports = [
                 ./homes/macos.nix
               ];
             };
