@@ -22,25 +22,21 @@
     darwinConfigurations.MacBookPro = nix-darwin.lib.darwinSystem {
       system = "aarch64-darwin";
       modules = [
-        ./hosts/macos.nix
-        {
+        ./hosts/macos.nix {
           system.stateVersion = 6; # Configuration state version
           users.users.necopinus = {
             name = "necopinus";
             home = "/Users/necopinus";
           };
         }
-        home-manager.darwinModules.home-manager
-        {
+        home-manager.darwinModules.home-manager {
           home-manager = {
             useUserPackages = true;
             users.necopinus = {
               home.stateVersion = "25.05"; # Configuration state version
               home.username = "necopinus";
               home.homeDirectory = "/Users/necopinus";
-              imports = [
-                ./homes/macos.nix
-              ];
+              imports = [ ./homes/macos.nix ];
             };
           };
         }
@@ -53,8 +49,7 @@
     homeConfigurations."droid@localhost" = home-manager.lib.homeManagerConfiguration {
       pkgs = nixpkgs.legacyPackages.aarch64-linux;
       modules = [
-        ./homes/android.nix
-        {
+        ./homes/android.nix {
           home.stateVersion = "25.05"; # Configuration state version
           home.username = "droid";
           home.homeDirectory = "/home/droid";
