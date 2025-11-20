@@ -1,5 +1,5 @@
 {
-  description = "Nix configuration for macOS and Adroid Debian VM";
+  description = "Nix-managed dotfiles for macOS and the Android Debian VM";
 
   inputs = {
     nixpkgs.url = "github:NixOS/nixpkgs/nixpkgs-unstable";
@@ -23,11 +23,26 @@
       system = "aarch64-darwin";
       modules = [
         ./hosts/macos.nix
+        {
+          system.stateVersion = 6; # Configuration state version
+          users.users.necopinus = {
+            name = "necopinus";
+            home = "/Users/necopinus";
+          };
+        }
         home-manager.darwinModules.home-manager
         {
-          home-manager.useGlobalPkgs = true;
-          home-manager.useUserPackages = true;
-          home-manager.users.necopinus = import ./homes/macos.nix;
+          home-manager = {
+            useUserPackages = true;
+            users.necopinus = {
+              home.stateVersion = "25.05"; # Configuration state version
+              home.username = "necopinus";
+              home.homeDirectory = "/Users/necopinus";
+              modules = [
+                ./homes/macos.nix
+              ];
+            };
+          };
         }
       ];
     };
@@ -39,6 +54,11 @@
       pkgs = nixpkgs.legacyPackages.aarch64-linux;
       modules = [
         ./homes/android.nix
+        {
+          home.stateVersion = "25.05"; # Configuration state version
+          home.username = "droid";
+          home.homeDirectory = "/home/droid";
+        }
       ];
     };
   };
