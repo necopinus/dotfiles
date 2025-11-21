@@ -15,7 +15,12 @@
     };
   };
 
-  outputs = { self, nixpkgs, nix-darwin, home-manager, ... }: {
+  outputs = { self, nixpkgs, nix-darwin, home-manager, ... }:
+  let
+    nixpkgsConfig = {
+      config.allowUnfree = true;
+    };
+  in {
     # macOS configuration using nix-darwin
     # Bootstrap: nix run nix-darwin -- switch --flake .#MacBookPro
     # Subsequent: darwin-rebuild switch --flake .#MacBookPro
