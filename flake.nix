@@ -31,7 +31,8 @@
         }
         home-manager.darwinModules.home-manager {
           home-manager = {
-            useUserPackages = true;
+            useGlobalPkgs = true;
+            useUserPackages = false;
             users.necopinus = {
               home.stateVersion = "25.05"; # Configuration state version
               home.username = "necopinus";
