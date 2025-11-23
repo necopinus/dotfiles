@@ -1,10 +1,11 @@
 { config, pkgs, ... }:
 
 {
-  # Disable nix-darwin's management of the nix binary (using determinate-nix)
+  # Disable nix-darwin's management of the nix binary, as I'm using
+  # determinate-nix
+  #
   nix.enable = false;
 
-  # Homebrew configuration (commented out initially)
   # homebrew = {
   #   enable = true;
   #   onActivation = {
@@ -20,7 +21,6 @@
   #   ];
   # };
 
-  # Platform-specific settings
   system.defaults = {
     # Example: dock settings
     # dock.autohide = true;

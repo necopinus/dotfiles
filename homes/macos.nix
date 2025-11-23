@@ -1,26 +1,19 @@
 { config, pkgs, ... }:
 
 {
-  imports = [ ./common.nix ];
-
-  # macOS-specific packages
   # home.packages = with pkgs; [
-  #   # macOS-specific tools
+  #   tool-name # Tool description
   # ];
 
-  # macOS-specific program configuration
   # programs.example = {
   #   enable = true;
-  #   # macOS-specific settings
   # };
 
-  # macOS-specific dotfiles
   # home.file = {
-  #   ".config/macos-app/config".source = ../artifacts/macos-specific-config;
+  #   ".config.foo".source = ../artifacts/config.foo;
   # };
 
-  # macOS-specific environment variables
   # home.sessionVariables = {
-  #   # EXAMPLE_VAR = "macos-value";
+  #   FOO_VARIABLE = "bar";
   # };
 }

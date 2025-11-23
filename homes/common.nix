@@ -1,13 +1,12 @@
 { config, pkgs, ... }:
 
 {
-  # Packages to install across all systems
   home.packages = with pkgs; [
     libqalculate  # Calculator library and CLI
-    # Add additional cross-platform packages here
   ];
 
   # Git configuration (example of shared settings)
+  #
   # programs.git = {
   #   enable = true;
   #   userName = "Your Name";
@@ -18,6 +17,7 @@
   # };
 
   # Shell configuration (example)
+  #
   # programs.bash = {
   #   enable = true;
   #   shellAliases = {
@@ -33,11 +33,13 @@
   # };
 
   # Dotfile management (example)
+  #
   # home.file = {
-  #   ".config/example/config.toml".source = ../artifacts/example-config.toml;
+  #   ".config/example/config.toml".source = ../artifacts/config/example/config.toml;
   # };
 
   # Environment variables
+  #
   # home.sessionVariables = {
   #   EDITOR = "vim";
   # };

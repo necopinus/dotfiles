@@ -1,26 +1,18 @@
 { config, pkgs, ... }:
 
 {
-  imports = [ ./common.nix ];
-
-  # Android Debian VM-specific packages
   # home.packages = with pkgs; [
-  #   # Android Debian VM-specific tools
+  #   tool-name # Tool description
   # ];
 
-  # Android Debian VM-specific program configuration
   # programs.example = {
   #   enable = true;
-  #   # Android Debian VM-specific settings
   # };
 
-  # Android Debian VM-specific dotfiles
   # home.file = {
-  #   ".config/debian-app/config".source = ../artifacts/debian-specific-config;
+  #   ".config.foo".source = ../artifacts/config.foo;
   # };
 
-  # Android Debian VM-specific environment variables
   # home.sessionVariables = {
-  #   # EXAMPLE_VAR = "debian-value";
-  # };
-}
+  #   FOO_VARIABLE = "bar";
+  # };}

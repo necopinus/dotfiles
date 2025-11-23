@@ -4,6 +4,13 @@ set -e
 
 OS="$(uname -s)"
 
+# Sanity check
+#
+if [[ ! -f "$HOME/config/nix/flake.nix" ]]; then
+    echo "This configuration must be cloned into $HOME/config/nix!"
+    exit
+fi
+
 # Install (or set up) Homebrew
 #
 if [[ "$OS" == "Darwin" ]] && [[ -z "$(which brew 2> /dev/null)" ]]; then
@@ -39,4 +46,18 @@ if [[ -z "$(which determinate-nixd 2> /dev/null)" ]]; then
 fi
 if [[ -z "$__ETC_PROFILE_NIX_SOURCED" ]]; then
 	source /nix/var/nix/profiles/default/etc/profile.d/nix-daemon.sh
+fi
+
+# Build configuration
+#
+if [[ "$OS" == "Darwin" ]]; then
+    (
+        cd $HOME/config/nix
+        nix run nix-darwin -- switch --flake .#macos
+    )
+else
+    (
+        cd $HOME/config/nix
+        nix run home-manager/master -- switch --flake .#android
+    )
 fi

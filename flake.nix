@@ -1,6 +1,8 @@
 {
   description = "Nix-managed dotfiles for macOS and the Android Debian VM";
 
+  # Input streams (packages and flakes, not variables!)
+  #
   inputs = {
     nixpkgs.url = "github:NixOS/nixpkgs/nixpkgs-unstable";
 
@@ -17,50 +19,93 @@
 
   outputs = { self, nixpkgs, nix-darwin, home-manager, ... }:
   let
+    # State versions for home-manager and nix-darwin as of 2025-11-23
+    #
+    # DO NOT UPDATE without first reading (and, if applicable, acting) on all
+    # intervening release notes!
+    #
+    homeManagerStateVersion = "25.05";
+    nixDarwinStateVersion = 6;
+
+    # User names
+    #
+    myUserName = "necopinus";
+    androidUserName = "droid";
+
+    # Allow the use of "unfree" packages
+    #
     nixpkgsConfig = {
       config.allowUnfree = true;
     };
   in {
-    # macOS configuration using nix-darwin
-    # Bootstrap: nix run nix-darwin -- switch --flake .#MacBookPro
-    # Subsequent: darwin-rebuild switch --flake .#MacBookPro
-    darwinConfigurations.MacBookPro = nix-darwin.lib.darwinSystem {
-      system = "aarch64-darwin";
-      modules = [
-        ./hosts/macos.nix {
-          system.stateVersion = 6; # Configuration state version
-          users.users.necopinus = {
-            name = "necopinus";
-            home = "/Users/necopinus";
-          };
-        }
-        home-manager.darwinModules.home-manager {
-          home-manager = {
-            useGlobalPkgs = true;
-            useUserPackages = false;
-            users.necopinus = {
-              home.stateVersion = "25.05"; # Configuration state version
-              home.username = "necopinus";
-              home.homeDirectory = "/Users/necopinus";
-              imports = [ ./homes/macos.nix ];
+    # macOS configuration (nix-darwin + home-manager)
+    #
+    #   darwin-rebuild switch --flake .#macos
+    #
+    darwinConfigurations = let
+      macosConfiguration = { config, pkgs, ... }: {
+        system.stateVersion = ${nixDarwinStateVersion};
+        users.users.${myUserName} = {
+          name = ${myUserName};
+          home = "/Users/${myUserName}";
+        };
+      };
+    in {
+      "macos" = nix-darwin.lib.darwinSystem {
+        system = "aarch64-darwin";
+
+        modules = [
+          macosConfiguration
+
+          ./hosts/macos.nix
+
+          home-manager.darwinModules.home-manager {
+            home-manager = {
+              useGlobalPkgs = true;
+              useUserPackages = false;
+
+              users.${myUserName} = {
+                home.stateVersion = ${homeManagerStateVersion};
+                home.username = ${myUserName};
+                home.homeDirectory = "/Users/${myUserName}";
+
+                modules = [
+                  ./homes/common.nix
+                  ./homes/macos.nix
+                ];
+              };
             };
-          };
-        }
-      ];
+          }
+        ];
+      };
     };
 
-    # Android Debian VM configuration using home-manager only
-    # Bootstrap: nix run home-manager/master -- switch --flake .#droid@localhost
-    # Subsequent: home-manager switch --flake .#droid@localhost
-    homeConfigurations."droid@localhost" = home-manager.lib.homeManagerConfiguration {
-      pkgs = nixpkgs.legacyPackages.aarch64-linux;
-      modules = [
-        ./homes/android.nix {
-          home.stateVersion = "25.05"; # Configuration state version
-          home.username = "droid";
-          home.homeDirectory = "/home/droid";
-        }
-      ];
+    # Non-NixOS Linux configuration (home-manager)
+    #
+    #   home-manager switch --flake .#android
+    #
+    homeConfigurations = let
+      androidConfiguration = { config, pkgs, ... }: {
+        home.stateVersion = ${homeManagerStateVersion};
+        home.username = ${androidUserName};
+        home.homeDirectory = "/home/${androidUserName}";
+      };
+    in {
+      "android" = home-manager.lib.homeManagerConfiguration {
+        # Looks weird, but just let's home-manager re-use the existing NixPkgs
+        # definition, which is more efficient. See:
+        #
+        #   https://discourse.nixos.org/t/two-ways-to-write-a-home-manager-flake-is-legacypackages-needed/28109
+        #
+        pkgs = nixpkgs.legacyPackages.aarch64-linux;
+
+        modules = [
+          androidConfiguration
+
+          ./homes/common.nix
+          ./homes/android.nix
+        ];
+      };
     };
   };
 }
