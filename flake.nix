@@ -81,10 +81,6 @@
     #   home-manager switch --flake .#android
     #
     homeConfigurations."android" = home-manager.lib.homeManagerConfiguration {
-      home.stateVersion = "${homeManagerStateVersion}";
-      home.username = "${androidUserName}";
-      home.homeDirectory = "/home/${androidUserName}";
-
       # Looks weird, but just let's home-manager re-use the existing NixPkgs
       # definition, which is more efficient. See:
       #
@@ -93,6 +89,12 @@
       pkgs = nixpkgs.legacyPackages.aarch64-linux;
 
       imports = [
+        {
+          home.stateVersion = "${homeManagerStateVersion}";
+          home.username = "${androidUserName}";
+          home.homeDirectory = "/home/${androidUserName}";
+        }
+
         ./homes/common.nix
         ./homes/android.nix
       ];
