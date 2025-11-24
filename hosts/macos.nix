@@ -6,6 +6,13 @@
   #
   nix.enable = false;
 
+  # Use Touch ID with sudo (in all situations)
+  #
+  security.pam.services.sudo_local = {
+    reattach = true;
+    touchIdAuth = true;
+  };
+
   # homebrew = {
   #   enable = true;
   #   onActivation = {

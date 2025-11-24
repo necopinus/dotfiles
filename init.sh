@@ -51,6 +51,10 @@ fi
 # Build configuration
 #
 if [[ "$OS" == "Darwin" ]]; then
+    if [[ -f /etc/pam.d/sudo_local ]]; then
+        sudo mv /etc/pam.d/sudo_local /etc/pam.d/sudo_local.before-nix-darwin
+    fi
+
     (
         cd $HOME/config/nix
         sudo nix run nix-darwin -- switch --flake .#macos
