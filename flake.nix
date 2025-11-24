@@ -51,7 +51,7 @@
           users.users."${myUserName}" = {
             name = "${myUserName}";
             home = "/Users/${myUserName}";
-          }
+          };
         }
 
         ./hosts/macos.nix
