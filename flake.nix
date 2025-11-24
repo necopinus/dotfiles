@@ -44,9 +44,9 @@
     #
     darwinConfigurations = let
       macosConfiguration = { config, pkgs, ... }: {
-        system.stateVersion = ${nixDarwinStateVersion};
-        users.users.${myUserName} = {
-          name = ${myUserName};
+        system.stateVersion = nixDarwinStateVersion;
+        users.users."${myUserName}" = {
+          name = "${myUserName}";
           home = "/Users/${myUserName}";
         };
       };
@@ -64,9 +64,9 @@
               useGlobalPkgs = true;
               useUserPackages = false;
 
-              users.${myUserName} = {
-                home.stateVersion = ${homeManagerStateVersion};
-                home.username = ${myUserName};
+              users."${myUserName}" = {
+                home.stateVersion = "${homeManagerStateVersion}";
+                home.username = "${myUserName}";
                 home.homeDirectory = "/Users/${myUserName}";
 
                 modules = [
@@ -86,8 +86,8 @@
     #
     homeConfigurations = let
       androidConfiguration = { config, pkgs, ... }: {
-        home.stateVersion = ${homeManagerStateVersion};
-        home.username = ${androidUserName};
+        home.stateVersion = "${homeManagerStateVersion}";
+        home.username = "${androidUserName}";
         home.homeDirectory = "/home/${androidUserName}";
       };
     in {
