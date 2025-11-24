@@ -42,70 +42,60 @@
     #
     #   sudo darwin-rebuild switch --flake .#macos
     #
-    darwinConfigurations = let
-      macosConfiguration = { config, pkgs, ... }: {
-        system.stateVersion = nixDarwinStateVersion;
-        users.users."${myUserName}" = {
-          name = "${myUserName}";
-          home = "/Users/${myUserName}";
-        };
-      };
-    in {
-      "macos" = nix-darwin.lib.darwinSystem {
-        system = "aarch64-darwin";
+    darwinConfigurations."macos" = nix-darwin.lib.darwinSystem {
+      system = "aarch64-darwin";
 
-        modules = [
-          macosConfiguration
-
-          ./hosts/macos.nix
-
-          home-manager.darwinModules.home-manager {
-            home-manager = {
-              useGlobalPkgs = true;
-              useUserPackages = false;
-
-              users."${myUserName}" = {
-                home.stateVersion = "${homeManagerStateVersion}";
-                home.username = "${myUserName}";
-                home.homeDirectory = "/Users/${myUserName}";
-
-                modules = [
-                  ./homes/common.nix
-                  ./homes/macos.nix
-                ];
-              };
-            };
+      modules = [
+        {
+          system.stateVersion = nixDarwinStateVersion;
+          users.users."${myUserName}" = {
+            name = "${myUserName}";
+            home = "/Users/${myUserName}";
           }
-        ];
-      };
+        }
+
+        ./hosts/macos.nix
+
+        home-manager.darwinModules.home-manager {
+          home-manager = {
+            useGlobalPkgs = true;
+            useUserPackages = false;
+
+            users."${myUserName}" = {
+              home.stateVersion = "${homeManagerStateVersion}";
+              home.username = "${myUserName}";
+              home.homeDirectory = "/Users/${myUserName}";
+
+              imports = [
+                ./homes/common.nix
+                ./homes/macos.nix
+              ];
+            };
+          };
+        }
+      ];
     };
 
     # Non-NixOS Linux configuration (home-manager)
     #
     #   home-manager switch --flake .#android
     #
-    homeConfigurations = let
-      androidConfiguration = { config, pkgs, ... }: {
-        home.stateVersion = "${homeManagerStateVersion}";
-        home.username = "${androidUserName}";
-        home.homeDirectory = "/home/${androidUserName}";
-      };
-    in {
-      "android" = home-manager.lib.homeManagerConfiguration {
-        # Looks weird, but just let's home-manager re-use the existing NixPkgs
-        # definition, which is more efficient. See:
-        #
-        #   https://discourse.nixos.org/t/two-ways-to-write-a-home-manager-flake-is-legacypackages-needed/28109
-        #
-        pkgs = nixpkgs.legacyPackages.aarch64-linux;
+    homeConfigurations."android" = home-manager.lib.homeManagerConfiguration {
+      home.stateVersion = "${homeManagerStateVersion}";
+      home.username = "${androidUserName}";
+      home.homeDirectory = "/home/${androidUserName}";
 
-        modules = [
-          androidConfiguration
+      # Looks weird, but just let's home-manager re-use the existing NixPkgs
+      # definition, which is more efficient. See:
+      #
+      #   https://discourse.nixos.org/t/two-ways-to-write-a-home-manager-flake-is-legacypackages-needed/28109
+      #
+      pkgs = nixpkgs.legacyPackages.aarch64-linux;
 
-          ./homes/common.nix
-          ./homes/android.nix
-        ];
-      };
+      imports = [
+        ./homes/common.nix
+        ./homes/android.nix
+      ];
     };
   };
 }
