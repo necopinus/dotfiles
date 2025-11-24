@@ -40,6 +40,7 @@
   in {
     # macOS configuration (nix-darwin + home-manager)
     #
+    #   nix flake update
     #   sudo darwin-rebuild switch --flake .#macos
     #
     darwinConfigurations."macos" = nix-darwin.lib.darwinSystem {
@@ -78,6 +79,7 @@
 
     # Non-NixOS Linux configuration (home-manager)
     #
+    #   nix flake update
     #   home-manager switch --flake .#android
     #
     homeConfigurations."android" = home-manager.lib.homeManagerConfiguration {
