@@ -10,6 +10,10 @@
     xsel
   ];
 
+  # Make sure that the home-manager binary is available in the PATH
+  #
+  programs.home-manager.enable = true;
+
   # programs.example = {
   #   enable = true;
   # };
