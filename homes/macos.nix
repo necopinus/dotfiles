@@ -1,8 +1,12 @@
 { config, pkgs, ... }:
 
 {
+  # imports = [
+  #   ../programs/foo.nix
+  # ];
+
   # home.packages = with pkgs; [
-  #   tool-name # Tool description
+  #   some-tool
   # ];
 
   # programs.example = {

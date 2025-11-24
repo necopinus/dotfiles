@@ -1,9 +1,14 @@
 { config, pkgs, ... }:
 
 {
-  # home.packages = with pkgs; [
-  #   tool-name # Tool description
+  # imports = [
+  #   ../programs/foo.nix
   # ];
+
+  home.packages = with pkgs; [
+    wl-clipboard
+    xsel
+  ];
 
   # programs.example = {
   #   enable = true;

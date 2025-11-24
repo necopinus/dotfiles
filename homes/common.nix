@@ -1,8 +1,13 @@
 { config, pkgs, ... }:
 
 {
+  # imports = [
+  #   ../programs/foo.nix
+  # ];
+
   home.packages = with pkgs; [
-    libqalculate  # Calculator library and CLI
+    libqalculate
+    openvpn
   ];
 
   # Git configuration (example of shared settings)

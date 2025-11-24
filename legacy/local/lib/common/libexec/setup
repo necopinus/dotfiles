@@ -164,7 +164,6 @@ if [[ "$FLAVOR" == "macos" ]]; then
 	     optipng \
 	     pandoc \
 	     pinentry-mac \
-	     pngpaste \
 	     poppler \
 	     procs \
 	     proton-drive \
@@ -429,7 +428,7 @@ cat > config/user-dirs.dirs << EOF
 # Format is XDG_xxx_DIR="$HOME/yyy", where yyy is a shell-escaped
 # homedir-relative path, or XDG_xxx_DIR="/yyy", where /yyy is an
 # absolute path. No other format is supported.
-# 
+#
 EOF
 if [[ "$OS" == "macos" ]]; then
 	cat >> config/user-dirs.dirs <<- EOF
@@ -540,7 +539,7 @@ if [[ "$OS" == "linux" ]]; then
 
 	cat > "$XDG_CONFIG_HOME/xfce4/xfconf/xfce-perchannel-xml/xfce4-panel.xml" <<- EOF
 	<?xml version="1.0" encoding="UTF-8"?>
-	
+
 	<channel name="xfce4-panel" version="1.0">
 	  <property name="configver" type="int" value="2"/>
 	  <property name="panels" type="array">
