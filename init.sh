@@ -53,7 +53,7 @@ fi
 if [[ "$OS" == "Darwin" ]]; then
     (
         cd $HOME/config/nix
-        nix run nix-darwin -- switch --flake .#macos
+        sudo nix run nix-darwin -- switch --flake .#macos
     )
 else
     (
