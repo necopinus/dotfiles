@@ -34,21 +34,6 @@ echo "Making sure that the most recent dotfiles are available"
 	git --git-dir=$HOME/.dotfiles --work-tree=$HOME checkout -f
 )
 
-# Enable Touch ID support with sudo on macOS
-#
-if [[ "$OS" == "macos" ]]; then
-	echo "Enabling Touch ID support for sudo"
-	if [[ ! -f /etc/pam.d/sudo_local ]] \
-	|| [[ $(grep -c '^auth .* pam_tid.so' /etc/pam.d/sudo_local) -eq 0 ]]; then
-		sudo tee /etc/pam.d/sudo_local <<- EOF
-		# sudo_local: local config file which survives system update and is included for sudo
-		# uncomment following line to enable Touch ID for sudo
-		auth       sufficient     pam_tid.so
-		EOF
-		sudo chmod -v 444 /etc/pam.d/sudo_local
-	fi
-fi
-
 # Make sure that essential tools are installed
 #
 echo "Ensuring that required command line tools are installed"
@@ -149,7 +134,6 @@ if [[ "$FLAVOR" == "macos" ]]; then
 	     jpeg-turbo \
 	     jq \
 	     jq-lsp \
-	     libqalculate \
 	     libyaml \
 	     less \
 	     lua-language-server \
@@ -160,7 +144,6 @@ if [[ "$FLAVOR" == "macos" ]]; then
 	     normalize \
 	     obsidian \
 	     openssh \
-	     openvpn \
 	     optipng \
 	     pandoc \
 	     pinentry-mac \
@@ -249,7 +232,6 @@ elif [[ "$FLAVOR" == "debian" ]]; then
 	         uuid-runtime \
 	         unzip \
 	         wezterm \
-	         wl-clipboard \
 	         xdg-utils \
 	         xdg-user-dirs \
 	         xfce4 \
@@ -286,7 +268,6 @@ elif [[ "$FLAVOR" == "debian" ]]; then
 	     jq \
 	     jq-lsp \
 	     less \
-	     libqalculate \
 	     libyaml \
 	     lua-language-server \
 	     markdown-oxide \
@@ -294,7 +275,6 @@ elif [[ "$FLAVOR" == "debian" ]]; then
 	     msgpack-tools \
 	     normalize \
 	     openssh \
-	     openvpn \
 	     optipng \
 	     pandoc \
 	     poppler \
@@ -318,7 +298,6 @@ elif [[ "$FLAVOR" == "debian" ]]; then
 	     uutils-diffutils \
 	     uutils-findutils \
 	     xclip \
-	     xsel \
 	     xz \
 	     yamlresume \
 	     zoxide \
