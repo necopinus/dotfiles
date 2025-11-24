@@ -88,7 +88,7 @@
       #
       pkgs = nixpkgs.legacyPackages.aarch64-linux;
 
-      imports = [
+      modules = [
         {
           home.stateVersion = "${homeManagerStateVersion}";
           home.username = "${androidUserName}";
