@@ -40,7 +40,7 @@
   in {
     # macOS configuration (nix-darwin + home-manager)
     #
-    #   darwin-rebuild switch --flake .#macos
+    #   sudo darwin-rebuild switch --flake .#macos
     #
     darwinConfigurations = let
       macosConfiguration = { config, pkgs, ... }: {
