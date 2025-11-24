@@ -20,4 +20,5 @@
 
   # home.sessionVariables = {
   #   FOO_VARIABLE = "bar";
-  # };}
+  # };
+}
