@@ -23,10 +23,12 @@
     # Commands:
     #   sudo apt purge --autoremove --purge wl-clipboard
     #
+    #   brew uninstall libqalculate openvpn xsel
+    #
     #   brew uninstall delve gopls haskell-language-server jdtls jq-lsp \
-    #                  lua-language-server libcalculate markdown-oxide \
-    #                  mise openvpn ruff rust-analyzer shellcheck shfmt \
-    #                  swift-format texlab tinymist xsel
+    #                  lua-language-server markdown-oxide mise ruff \
+    #                  rust-analyzer shellcheck shfmt swift-format texlab \
+    #                  tinymist
 
     #### LSPs ####
     bash-language-server
@@ -40,6 +42,7 @@
     ruff
     solc
     superhtml
+    systemd-lsp # External flake
     taplo
     tombi
     ty

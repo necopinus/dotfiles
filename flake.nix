@@ -1,7 +1,7 @@
 {
   description = "Nix-managed dotfiles for macOS and the Android Debian VM";
 
-  # Input streams (packages and flakes, not variables!)
+  # Input streams (flakes, not variables!)
   #
   inputs = {
     nixpkgs.url = "github:NixOS/nixpkgs/nixpkgs-unstable";
@@ -15,9 +15,16 @@
       url = "github:nix-community/home-manager";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+
+    # Packages as flakes
+    #
+    systemd-lsp = {
+      url = "github:JFryy/systemd-lsp";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
-  outputs = { self, nixpkgs, nix-darwin, home-manager, ... }:
+  outputs = { self, nixpkgs, nix-darwin, home-manager, systemd-lsp, ... }:
   let
     # State versions for home-manager and nix-darwin as of 2025-11-23
     #
@@ -37,6 +44,12 @@
     nixpkgsConfig = {
       config.allowUnfree = true;
     };
+
+    # Overlays to make installing packages from flakes easier
+    #
+    nixpkgs.overlays = [ ({
+      systemd-lsp = systemd-lsp.packages.${nixpkgs.stdenv.hostPlatform.system}.default;
+    }) ];
   in {
     # macOS configuration (nix-darwin + home-manager)
     #
