@@ -1,6 +1,7 @@
 { config, pkgs, ... }:
 let
-	extraNodePkgs = import ../pkgs/node/default.nix {};
+  extraNodePkgs = import ../pkgs/node/default.nix {};
+  extraPythonPkgs = import ../pkgs/python/python-packages.nix {};
 in {
   # imports = [
   #   ../programs/foo.nix
@@ -72,6 +73,7 @@ in {
     swift-format
     #### Formatters ####
 
+    extraPythonPkgs.qobuz-dl
     libqalculate
     openvpn
     yq
