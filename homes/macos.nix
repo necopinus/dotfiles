@@ -1,9 +1,6 @@
 { config, pkgs, ... }:
-let
-  extraNodePkgs = import ../pkgs/node2nix/default.nix {
-    inherit pkgs;
-  };
-in {
+
+{
   # imports = [
   #   ../programs/foo.nix
   # ];

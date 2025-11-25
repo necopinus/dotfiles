@@ -27,10 +27,6 @@ brew cleanup -s
 #
 #kali --update
 
-# Directory cleanup / setup
-#
-rm -rf ${XDG_CACHE_HOME:-$HOME/.cache}/env
-
 if [[ ! -d "${XDG_CACHE_HOME:-$HOME/.cache}/versions" ]]; then
 	mkdir -p "${XDG_CACHE_HOME:-$HOME/.cache}/versions"
 fi

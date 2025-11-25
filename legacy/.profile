@@ -89,17 +89,6 @@ if [[ -f /nix/var/nix/profiles/default/etc/profile.d/nix-daemon.sh ]]; then
 	source /nix/var/nix/profiles/default/etc/profile.d/nix-daemon.sh
 fi
 
-# Set up mise-en-place, if applicable
-#
-# The weird which AND -x test is to work around the fact that this
-# file may be sourced by either Zsh or Bash/sh, which handle 'which'
-# in slightly different ways
-#
-if [[ -x "$(which mise 2> /dev/null)" ]]; then
-	eval "$(mise activate $SHELL_NAME)"
-	eval "$(mise env)"
-fi
-
 # Add ~/bin and ~/local/bin to the PATH (the second of these is
 # duplicative, but necessary to pick up any locally-installed man
 # pages)

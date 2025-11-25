@@ -14,8 +14,6 @@ source ${XDG_CONFIG_HOME:-$HOME/.config}/user-dirs.dirs
 	         --exclude="*~" \
 	         --exclude=".#*" \
 	    -f "$XDG_DOWNLOAD_DIR/backup.tar.xz" -T - <<- EOF
-			$(git --git-dir=$HOME/.dotfiles --work-tree=$HOME ls-tree -r HEAD --name-only)
-			$(test -d .dotfiles && echo ".dotfiles")
 			$(test -d .gnupg && echo ".gnupg")
 			$(test -d .ssh && echo ".ssh")
 			$(test -d .cddb && echo ".cddb")
@@ -29,5 +27,6 @@ source ${XDG_CONFIG_HOME:-$HOME/.config}/user-dirs.dirs
 			$(test -d "$XDG_CONFIG_HOME/BraveSoftware" && echo "$XDG_CONFIG_HOME/BraveSoftware" | sed "s#$HOME/##")
 			$(test -d "Library/Application Support/BraveSoftware" && echo "Library/Application Support/BraveSoftware")
 			$(test -f "$XDG_CONFIG_HOME/git/gpg.ini" && echo "$XDG_CONFIG_HOME/git/gpg.ini" | sed "s#$HOME/##")
+			$(test -d "$XDG_CONFIG_HOME/nix" && echo "$XDG_CONFIG_HOME/nix" | sed "s#$HOME/##")
 			EOF
 )

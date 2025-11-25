@@ -1,12 +1,6 @@
 { config, pkgs, ... }:
-let
-  #extraNodePkgs = import ../pkgs/node2nix/default.nix {
-  #  inherit pkgs;
-  #};
-  extraNodePkgs = import ../legacy/local/lib/linux/common/podman/kali/pkgs/node2nix/default.nix {
-    inherit pkgs;
-  };
-in {
+
+{
   # imports = [
   #   ../programs/foo.nix
   # ];
@@ -16,6 +10,7 @@ in {
     #   .default-gems
     #   .default-npm-packages
     #   .default-python-packages
+    #   config/env
     #   config/mise
     #   config/qobuz-dl
     #   local/state/mise
@@ -32,37 +27,19 @@ in {
     #                  tinymist
 
     #### LSPs ####
-    awk-language-server
     bash-language-server
-    buf
-    docker-compose-language-service
-    dockerfile-language-server-nodejs
     fish-lsp
-    gopls
-    graphql-language-service-cli
-    haskell-language-server
-    jdt-language-server
-    jq-lsp
-    kotlin-language-server
     lua-language-server
     markdown-oxide
     marksman
     nil
     nixd
-    nodePackages.prettier
-    perlnavigator
-    protols
-    python313Packages.python-lsp-server
-    ruby-lsp
-    rubyPackages.solargraph
+    python3Packages.python-lsp-server
     ruff
-    rust-analyzer
     solc
-    sourcekit-lsp
     superhtml
     taplo
-    texlab
-    ts_query_ls
+    tombi
     ty
     typescript-language-server
     vscode-langservers-extracted
@@ -71,13 +48,11 @@ in {
     #### LSPs ####
 
     #### Formatters ####
-    bibtex-tidy
+    prettier
     shellcheck
     shfmt
-    swift-format
     #### Formatters ####
 
-    extraNodePkgs.hardhat
     libqalculate
     openvpn
     yq
