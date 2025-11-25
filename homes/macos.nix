@@ -1,7 +1,8 @@
 { config, pkgs, ... }:
 let
-  extraNodePkgs = import ../pkgs/node/default.nix {};
-  extraPythonPkgs = import ../pkgs/python/python-packages.nix {};
+  extraNodePkgs = import ../pkgs/node2nix/default.nix {
+    inherit pkgs;
+  };
 in {
   # imports = [
   #   ../programs/foo.nix

@@ -2,7 +2,7 @@
 
 > https://code-notes.jhuizy.com/add-custom-npm-to-home-manager/
 
-hardhat
+extraNodePkgs.hardhat
 
 # Python
 

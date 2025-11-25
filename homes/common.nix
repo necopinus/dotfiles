@@ -1,7 +1,11 @@
 { config, pkgs, ... }:
 let
-  extraNodePkgs = import ../pkgs/node/default.nix {};
-  extraPythonPkgs = import ../pkgs/python/python-packages.nix {};
+  #extraNodePkgs = import ../pkgs/node2nix/default.nix {
+  #  inherit pkgs;
+  #};
+  extraNodePkgs = import ../legacy/local/lib/linux/common/podman/kali/pkgs/node2nix/default.nix {
+    inherit pkgs;
+  };
 in {
   # imports = [
   #   ../programs/foo.nix
@@ -13,6 +17,7 @@ in {
     #   .default-npm-packages
     #   .default-python-packages
     #   config/mise
+    #   config/qobuz-dl
     #   local/state/mise
     #   local/share/mise
     #
@@ -27,7 +32,6 @@ in {
     #                  tinymist
 
     #### LSPs ####
-    ansible-language-server
     awk-language-server
     bash-language-server
     buf
@@ -73,7 +77,7 @@ in {
     swift-format
     #### Formatters ####
 
-    extraPythonPkgs.qobuz-dl
+    extraNodePkgs.hardhat
     libqalculate
     openvpn
     yq
