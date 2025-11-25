@@ -7,8 +7,8 @@ OS="$(uname -s)"
 # Sanity check
 #
 if [[ ! -f "$HOME/config/nix/flake.nix" ]]; then
-    echo "This configuration must be cloned into $HOME/config/nix!"
-    exit
+	echo "This configuration must be cloned into $HOME/config/nix!"
+	exit
 fi
 
 # Install (or set up) Homebrew
@@ -21,6 +21,11 @@ if [[ "$OS" == "Darwin" ]] && [[ -z "$(which brew 2> /dev/null)" ]]; then
 	elif [[ -x /usr/local/bin/brew ]]; then
 		eval "$(/usr/local/bin/brew shellenv bash)"
 	else
+		xcode-select --install || true
+		until $(xcode-select --print-path &> /dev/null); do
+			sleep 4;
+		done
+
 		curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh | env NONINTERACTIVE=1 bash
 
 		if [[ -x /opt/homebrew/bin/brew ]]; then
@@ -51,17 +56,17 @@ fi
 # Build configuration
 #
 if [[ "$OS" == "Darwin" ]]; then
-    if [[ -f /etc/pam.d/sudo_local ]]; then
-        sudo mv /etc/pam.d/sudo_local /etc/pam.d/sudo_local.before-nix-darwin
-    fi
+	if [[ -f /etc/pam.d/sudo_local ]]; then
+		sudo mv /etc/pam.d/sudo_local /etc/pam.d/sudo_local.before-nix-darwin
+	fi
 
-    (
-        cd $HOME/config/nix
-        sudo nix run nix-darwin -- switch --flake .#macos
-    )
+	(
+		cd $HOME/config/nix
+		sudo nix run nix-darwin -- switch --flake .#macos
+	)
 else
-    (
-        cd $HOME/config/nix
-        nix run home-manager/master -- switch --flake .#android
-    )
+	(
+		cd $HOME/config/nix
+		nix run home-manager/master -- switch --flake .#android
+	)
 fi

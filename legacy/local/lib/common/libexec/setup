@@ -1,93 +1,5 @@
 #!/usr/bin/env bash
 
-set -e
-
-# Determine system information
-#
-# Provides: OS, FLAVOR, ARCH, XDG_*_HOME, XDG_*_DIR, XDG_RUNTIME_DIR
-#
-if [[ -f $HOME/local/lib/common/lib/system.lib.sh ]]; then
-	source $HOME/local/lib/common/lib/system.lib.sh
-else
-	echo "System information library not found!"
-	exit 1
-fi
-
-# Exit if system isn't supported
-#
-if [[ "$OS" == "unsupported" ]] \
-|| [[ "$FLAVOR" == "unsupported" ]] \
-|| [[ "$ARCH" == "unsupported" ]]; then
-	echo "Setup is unsupported on this system."
-	echo ""
-	echo "OS: $OS"
-	echo "FLAVOR: $FLAVOR"
-	echo "ARCH: $ARCH"
-	exit 1
-fi
-
-# Make sure the most current dotfiles version is checked out
-#
-echo "Making sure that the most recent dotfiles are available"
-(
-	cd $HOME
-	git --git-dir=$HOME/.dotfiles --work-tree=$HOME checkout -f
-)
-
-# Make sure that essential tools are installed
-#
-echo "Ensuring that required command line tools are installed"
-
-if [[ "$FLAVOR" == "macos" ]]; then
-	xcode-select --install || true
-
-	echo "Checking for XCode developer tools installation"
-	until $(xcode-select --print-path &> /dev/null); do
-		sleep 4;
-	done
-elif [[ "$FLAVOR" == "debian" ]]; then
-	sudo apt update
-	sudo apt full-upgrade -y
-	sudo apt install -y \
-	         build-essential \
-	         curl \
-	         dialog \
-	         file \
-	         git \
-	         gnupg \
-	         procps
-fi
-
-# Install (or set up) Homebrew
-#
-if [[ -z "$(which brew 2> /dev/null)" ]]; then
-	echo "Setting up Homebrew"
-
-	if [[ -x /opt/homebrew/bin/brew ]]; then
-		eval "$(/opt/homebrew/bin/brew shellenv bash)"
-	elif [[ -x /usr/local/bin/brew ]]; then
-		eval "$(/usr/local/bin/brew shellenv bash)"
-	elif [[ -x /home/linuxbrew/.linuxbrew/bin/brew ]]; then
-		eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv bash)"
-	else
-		curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh | env NONINTERACTIVE=1 bash -l
-		if [[ "$OS" == "macos" ]]; then
-			if [[ "$ARCH" == "aarch64" ]]; then
-				eval "$(/opt/homebrew/bin/brew shellenv bash)"
-			elif [[ "$ARCH" == "amd64" ]]; then
-				eval "$(/usr/local/bin/brew shellenv bash)"
-			fi
-		elif [[ "$OS" == "linux" ]]; then
-			eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv bash)"
-		fi
-	fi
-fi
-
-echo "Disabling Homebrew analytics"
-brew analytics off
-
-export PATH="$HOME/bin:$PATH"
-
 # Install additional tooling
 #
 echo "Installing additional tooling"
@@ -105,7 +17,6 @@ if [[ "$FLAVOR" == "macos" ]]; then
 	     charmbracelet/tap/glow \
 	     claude \
 	     curl \
-	     delve \
 	     diff-so-fancy \
 	     discord \
 	     doppler-app \
@@ -125,21 +36,14 @@ if [[ "$FLAVOR" == "macos" ]]; then
 	     github \
 	     gnupg \
 	     google-drive \
-	     gopls \
-	     haskell-language-server \
 	     helix \
 	     homebrew/cask/handbrake \
 	     imagemagick \
-	     jdtls \
 	     jpeg-turbo \
 	     jq \
-	     jq-lsp \
 	     libyaml \
 	     less \
-	     lua-language-server \
 	     makemkv \
-	     markdown-oxide \
-	     mise \
 	     msgpack-tools \
 	     normalize \
 	     obsidian \
@@ -161,21 +65,13 @@ if [[ "$FLAVOR" == "macos" ]]; then
 	     ripgrep \
 	     rsgain \
 	     rsync \
-	     ruff \
 	     rust \
-	     rust-analyzer \
 	     scroll-reverser \
-	     shellcheck \
-	     shfmt \
 	     signal \
 	     slack \
-	     solidity \
 	     sqlite \
 	     starship \
 	     stellarium \
-	     swift-format \
-	     texlab \
-	     tinymist \
 	     todoist-app \
 	     tresorit \
 	     uutils-coreutils \
@@ -218,6 +114,14 @@ elif [[ "$FLAVOR" == "debian" ]]; then
 
 	sudo apt update
 	sudo apt install -y \
+	         build-essential \
+	         curl \
+	         dialog \
+	         file \
+	         git \
+	         gnupg \
+	         procps
+	sudo apt install -y \
 	         android-sdk-platform-tools \
 	         apt-utils \
 	         brave-browser \
@@ -245,7 +149,6 @@ elif [[ "$FLAVOR" == "debian" ]]; then
 	     cd-discid \
 	     charmbracelet/tap/glow \
 	     curl \
-	     delve \
 	     diff-so-fancy \
 	     dos2unix \
 	     duf \
@@ -259,19 +162,12 @@ elif [[ "$FLAVOR" == "debian" ]]; then
 	     ghc \
 	     ghostscript \
 	     git-delta \
-	     gopls \
-	     haskell-language-server \
 	     helix \
 	     imagemagick \
-	     jdtls \
 	     jpeg-turbo \
 	     jq \
-	     jq-lsp \
 	     less \
 	     libyaml \
-	     lua-language-server \
-	     markdown-oxide \
-	     mise \
 	     msgpack-tools \
 	     normalize \
 	     openssh \
@@ -283,17 +179,9 @@ elif [[ "$FLAVOR" == "debian" ]]; then
 	     ripgrep \
 	     rsgain \
 	     rsync \
-	     ruff \
 	     rust \
-	     rust-analyzer \
-	     shellcheck \
-	     shfmt \
-	     solidity \
 	     sqlite \
 	     starship \
-	     swift-format \
-	     texlab \
-	     tinymist \
 	     uutils-coreutils \
 	     uutils-diffutils \
 	     uutils-findutils \
@@ -345,14 +233,6 @@ elif [[ "$FLAVOR" == "debian" ]]; then
 	sudo systemctl disable podman.service
 	sudo systemctl disable podman.socket
 fi
-
-# Install major frameworks using mise
-#
-mise trust $HOME
-
-mise use -g python@latest && eval "$(mise env -s bash)"
-mise use -g nodejs@lts    && eval "$(mise env -s bash)"
-mise use -g   ruby@latest && eval "$(mise env -s bash)"
 
 # Set up directories and symlinks
 #
