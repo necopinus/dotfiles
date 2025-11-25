@@ -10,7 +10,7 @@
     #   .default-gems
     #   .default-npm-packages
     #   .default-python-packages
-    #   config/env
+    #   cache/env
     #   config/mise
     #   config/qobuz-dl
     #   local/state/mise
@@ -21,10 +21,12 @@
     #   bin/update
     #
     # Commands:
+    #   sudo apt purge --autoremove --purge wl-clipboard
+    #
     #   brew uninstall delve gopls haskell-language-server jdtls jq-lsp \
-    #                  lua-language-server markdown-oxide mise ruff \
-    #                  rust-analyzer shellcheck shfmt swift-format texlab \
-    #                  tinymist
+    #                  lua-language-server libcalculate markdown-oxide \
+    #                  mise openvpn ruff rust-analyzer shellcheck shfmt \
+    #                  swift-format texlab tinymist xsel
 
     #### LSPs ####
     bash-language-server
@@ -43,7 +45,6 @@
     ty
     typescript-language-server
     vscode-langservers-extracted
-    wasm-language-tools
     yaml-language-server
     #### LSPs ####
 
@@ -54,7 +55,6 @@
     #### Formatters ####
 
     libqalculate
-    openvpn
     yq
     yt-dlp
   ];

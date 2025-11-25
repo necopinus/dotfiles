@@ -10,3 +10,7 @@ hardhat
 # Python
 
 python313Packages.shodan
+
+# Nix
+
+openvpn
