@@ -1,6 +1,10 @@
 { config, pkgs, ... }:
-
-{
+let
+  localPkgs = {
+    backup-home = pkgs.callPackage ../pkgs/backup-home.nix { };
+    update-system = pkgs.callPackage ../pkgs/update-system.nix { };
+  };
+in {
   # imports = [
   #   ../programs/foo.nix
   # ];
@@ -10,6 +14,10 @@
     #   .default-gems
     #   .default-npm-packages
     #   .default-python-packages
+    #   bin/backup
+    #   bin/pbcopy
+    #   bin/pbpaste
+    #   bin/update
     #   cache/env
     #   config/mise
     #   config/qobuz-dl
@@ -58,6 +66,8 @@
     #### Formatters ####
 
     libqalculate
+    localPkgs.backup-home
+    localPkgs.update-system
     yq
     yt-dlp
   ];

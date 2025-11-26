@@ -1,13 +1,17 @@
 { config, pkgs, ... }:
-
-{
+let
+  localPkgs = {
+    pbcopy = pkgs.callPackage ../pkgs/pbcopy.nix { };
+    pbpaste = pkgs.callPackage ../pkgs/pbpaste.nix { };
+  };
+in {
   # imports = [
   #   ../programs/foo.nix
   # ];
 
   home.packages = with pkgs; [
-    wl-clipboard
-    xsel
+    localPkgs.pbcopy
+    localPkgs.pbpaste
   ];
 
   # Make sure that the home-manager binary is available in the PATH
