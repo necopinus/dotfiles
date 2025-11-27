@@ -34,6 +34,8 @@
     sql-formatter
   ];
 in {
+  home.file."config/marksman/config.toml".source = ../artifacts/config/marksman/config.toml;
+
   programs.zed-editor = {
     enable = true;
     package =
@@ -42,7 +44,6 @@ in {
       else pkgs.zed-editor;
 
     extraPackages = zedExtraPackages;
-    home.file."config/marksman/config.toml".source = ../artifacts/config/marksman/config.toml;
 
     extensions = [
       "awk"

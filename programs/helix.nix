@@ -4,6 +4,8 @@
     pbpaste = pkgs.callPackage ../pkgs/pbpaste.nix {};
   };
 in {
+  home.file."config/marksman/config.toml".source = ../artifacts/config/marksman/config.toml;
+
   programs.helix = {
     enable = true;
     defaultEditor = true;
@@ -49,8 +51,6 @@ in {
         localPkgs.pbcopy
         localPkgs.pbpaste
       ];
-
-    home.file."config/marksman/config.toml".source = ../artifacts/config/marksman/config.toml;
 
     settings = {
       theme = "gruvbox_light_mod";

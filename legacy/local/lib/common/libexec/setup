@@ -8,7 +8,6 @@ if [[ "$FLAVOR" == "macos" ]]; then
     brew install \
         adobe-creative-cloud \
         calibre \
-        charmbracelet/tap/glow \
         claude \
         curl \
         diff-so-fancy \
@@ -98,7 +97,6 @@ elif [[ "$FLAVOR" == "debian" ]]; then
         zip
 
     brew install \
-        charmbracelet/tap/glow \
         curl \
         diff-so-fancy \
         dos2unix \

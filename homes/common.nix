@@ -7,6 +7,7 @@ in {
   imports = [
     ../programs/bat.nix
     ../programs/bottom.nix
+    ../programs/glow.nix
     ../programs/helix.nix
     ../programs/zed.nix
   ];
@@ -24,6 +25,7 @@ in {
     #   ~/cache/env
     #   ~/config/bat
     #   ~/config/bottom
+    #   ~/config/glow
     #   ~/config/helix
     #   ~/config/mise
     #   ~/config/moxide
@@ -50,13 +52,13 @@ in {
     #
     #   brew uninstall abcde android-platform-tools bat block-goose-cli \
     #                  bottom brave-browser cd-discid delve duf dust eza \
-    #                  fd fzf font-jetbrains-mono-nerd-font gawk gopls \
-    #                  haskell-language-server helix jdtls jq-lsp less \
-    #                  lua-language-server libyaml markdown-oxide mise \
-    #                  normalize pandoc ripgrep rsgain ruff rust-analyzer \
-    #                  shellcheck shfmt swift-format texlab tinymist \
-    #                  uutils-coreutils uutils-diffutils uutils-findutils \
-    #                  xclip zed zstd
+    #                  fd fzf font-jetbrains-mono-nerd-font gawk glow \
+    #                  gopls haskell-language-server helix jdtls jq-lsp \
+    #                  less lua-language-server libyaml markdown-oxide \
+    #                  mise normalize pandoc ripgrep rsgain ruff \
+    #                  rust-analyzer shellcheck shfmt swift-format texlab \
+    #                  tinymist uutils-coreutils uutils-diffutils \
+    #                  uutils-findutils xclip zed zstd
 
     android-tools
     brave
