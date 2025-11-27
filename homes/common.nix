@@ -6,6 +6,7 @@
 in {
   imports = [
     ../programs/bat.nix
+    ../programs/bottom.nix
     ../programs/helix.nix
     ../programs/zed.nix
   ];
@@ -22,6 +23,7 @@ in {
     #   ~/bin/update
     #   ~/cache/env
     #   ~/config/bat
+    #   ~/config/bottom
     #   ~/config/helix
     #   ~/config/mise
     #   ~/config/moxide
@@ -34,8 +36,10 @@ in {
     #   /usr/share/keyrings/brave-browser-archive-keyring.gpg
     #
     # Modify:
+    #   ~/.bashrc (remove find/grep/du/df aliases)
     #   ~/.profile
-    #   ~/config/fish/config.fish (remove find/grep aliases)
+    #   ~/config/fish/config.fish (remove find/grep/du/df aliases)
+    #   ~/.zshrc (remove find/grep/du/df aliases)
     #
     # Commands:
     #   sudo apt purge --autoremove --purge \
@@ -45,8 +49,8 @@ in {
     #   brew uninstall libqalculate openvpn xsel
     #
     #   brew uninstall abcde android-platform-tools bat block-goose-cli \
-    #                  brave-browser cd-discid delve eza fd fzf \
-    #                  font-jetbrains-mono-nerd-font gawk gopls \
+    #                  bottom brave-browser cd-discid delve duf dust eza \
+    #                  fd fzf font-jetbrains-mono-nerd-font gawk gopls \
     #                  haskell-language-server helix jdtls jq-lsp less \
     #                  lua-language-server libyaml markdown-oxide mise \
     #                  normalize pandoc ripgrep rsgain ruff rust-analyzer \

@@ -4,8 +4,8 @@
 #
 typeset -U path PATH
 if [[ -n "$PROFILE_PATH" ]]; then
-	export PATH="$PROFILE_PATH:$PATH"
-	unset PROFILE_PATH
+    export PATH="$PROFILE_PATH:$PATH"
+    unset PROFILE_PATH
 fi
 
 unset MANPATH
@@ -14,8 +14,8 @@ unset MANPATH
 #
 export GPG_TTY="$(tty)"
 if [[ "${gnupg_SSH_AUTH_SOCK_by:-0}" -ne $$ ]] || [[ -z "$SSH_AUTH_SOCK" ]]; then
-	export SSH_AUTH_SOCK="$(gpgconf --list-dirs agent-ssh-socket)"
-	unset SSH_AGENT_PID
+    export SSH_AUTH_SOCK="$(gpgconf --list-dirs agent-ssh-socket)"
+    unset SSH_AGENT_PID
 fi
 
 # It's most likely that we'll wind up in this shell when using a
@@ -32,19 +32,9 @@ alias :e="$EDITOR"
 alias :q=exit
 alias cat="$(whence -p bat) -pp"
 alias ccat="$(whence -p cat)"
-alias ddf="$(whence -p df)"
 alias ddiff="$(whence -p diff)"
-alias ddu="$(whence -p du)"
-alias df="$(whence -p duf) -theme ansi"
 alias diff="$(whence -p delta)"
-alias du="$(whence -p dust)"
-alias fd="$(whence -p fd) --color auto"
-alias ffind="$(whence -p find)"
-alias find="$(whence -p fd) --color auto"
-alias fzf="$(whence -p fzf) --style=full --color=16"
 alias glow="$(whence -p glow) -s dark"
-alias grep="$(whence -p rg) --color=auto"
-alias ggrep="$(whence -p grep) --color=auto"
 alias htop="$(whence -p btm)"
 alias la="$(whence -p eza) --classify=auto --color=auto --long --all"
 alias less="$(whence -p bat)"
@@ -63,36 +53,36 @@ alias rg="$(whence -p rg) --color=auto"
 alias top="$(whence -p btm)"
 alias ttop="$(whence -p top)"
 
-if [[ -n "$(whence -p sudo 2> /dev/null)" ]]; then
-	alias sudo="$(whence -p sudo) -E"
+if [[ -n "$(whence -p sudo 2>/dev/null)" ]]; then
+    alias sudo="$(whence -p sudo) -E"
 
-	if [[ -x /sbin/shutdown ]]; then
-		alias shutdown="$(whence -p sudo) /sbin/shutdown -h now"
-	fi
+    if [[ -x /sbin/shutdown ]]; then
+        alias shutdown="$(whence -p sudo) /sbin/shutdown -h now"
+    fi
 fi
 
 if [[ "$TERM" != "linux" ]]; then
-	alias vi="$(whence -p hx)"
-	alias vim="$(whence -p hx)"
-	alias nvim="$(whence -p hx)"
+    alias vi="$(whence -p hx)"
+    alias vim="$(whence -p hx)"
+    alias nvim="$(whence -p hx)"
 fi
 
 if [[ "$OS" == "linux" ]]; then
-	if [[ -n "$DISPLAY" ]]; then
-		alias pbcopy="$(whence -p xsel) --input --clipboard"
-		alias pbpaste="$(whence -p xsel) --output --clipboard"
-	elif [[ -n "$WAYLAND_DISPLAY" ]]; then
-		alias pbcopy="$(whence -p wl-copy)"
-		alias pbpaste="$(whence -p wl-paste)"
-	fi
+    if [[ -n "$DISPLAY" ]]; then
+        alias pbcopy="$(whence -p xsel) --input --clipboard"
+        alias pbpaste="$(whence -p xsel) --output --clipboard"
+    elif [[ -n "$WAYLAND_DISPLAY" ]]; then
+        alias pbcopy="$(whence -p wl-copy)"
+        alias pbpaste="$(whence -p wl-paste)"
+    fi
 fi
 
 # Convenience function for launching graphical apps from the terminal
 #
 if [[ "$OS" == "linux" ]]; then
-	function xcv {
-		nohup "$@" 2> /dev/null
-	}
+    function xcv {
+        nohup "$@" 2>/dev/null
+    }
 fi
 
 # Wrap the SSH and Git CLIs in functions to ensure that the gpg-agent
@@ -103,21 +93,21 @@ fi
 # systems!
 #
 function ssh {
-	gpg-connect-agent updatestartuptty /bye &> /dev/null
-	SSH_EXEC=$(whence -p ssh)
-	$SSH_EXEC "$@"
+    gpg-connect-agent updatestartuptty /bye &>/dev/null
+    SSH_EXEC=$(whence -p ssh)
+    $SSH_EXEC "$@"
 }
 
 function git {
-	gpg-connect-agent updatestartuptty /bye &> /dev/null
-	GIT_EXEC=$(whence -p git)
-	$GIT_EXEC "$@"
+    gpg-connect-agent updatestartuptty /bye &>/dev/null
+    GIT_EXEC=$(whence -p git)
+    $GIT_EXEC "$@"
 }
 
 function dotfiles {
-	gpg-connect-agent updatestartuptty /bye &> /dev/null
-	GIT_EXEC=$(whence -p git)
-	$GIT_EXEC --git-dir=$HOME/.dotfiles --work-tree=$HOME "$@"
+    gpg-connect-agent updatestartuptty /bye &>/dev/null
+    GIT_EXEC=$(whence -p git)
+    $GIT_EXEC --git-dir=$HOME/.dotfiles --work-tree=$HOME "$@"
 }
 
 # Additional Zsh behaviors
@@ -140,7 +130,7 @@ setopt nonomatch
 # Make sure Homebrew completions are loaded
 #
 if [[ -n "$HOMEBREW_PREFIX" ]]; then
-	FPATH=$HOMEBREW_PREFIX/share/zsh/site-functions:$FPATH
-	autoload -Uz compinit
-	compinit
+    FPATH=$HOMEBREW_PREFIX/share/zsh/site-functions:$FPATH
+    autoload -Uz compinit
+    compinit
 fi

@@ -7,7 +7,6 @@ echo "Installing additional tooling"
 if [[ "$FLAVOR" == "macos" ]]; then
     brew install \
         adobe-creative-cloud \
-        bottom \
         calibre \
         charmbracelet/tap/glow \
         claude \
@@ -99,7 +98,6 @@ elif [[ "$FLAVOR" == "debian" ]]; then
         zip
 
     brew install \
-        bottom \
         charmbracelet/tap/glow \
         curl \
         diff-so-fancy \
