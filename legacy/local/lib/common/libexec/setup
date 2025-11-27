@@ -126,10 +126,6 @@ elif [[ "$FLAVOR" == "debian" ]]; then
         yamlresume \
         zoxide
 
-    # Disposable Kali
-    #
-    #$HOME/local/lib/linux/common/bin/kali --install
-
     # System-level tweaks
     #
     sudo ln -sf /usr/share/zoneinfo/America/Denver /etc/localtime
@@ -517,6 +513,10 @@ mkdir -p $HOME/src
 (
     cd $HOME/src || exit 1
 
+    if [[ ! -d hackenv ]]; then
+        git clone --recurse-submodules \
+            git@github.com:cardboard-iguana/hackenv.git
+    fi
     if [[ ! -d smart-contracts-hacking ]]; then
         git clone --recurse-submodules \
             git@github.com:cardboard-iguana/smart-contracts-hacking.git
