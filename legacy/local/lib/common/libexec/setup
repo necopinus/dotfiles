@@ -18,12 +18,8 @@ if [[ "$FLAVOR" == "macos" ]]; then
         dos2unix \
         duf \
         dust \
-        eza \
-        fd \
         ffmpeg \
         fish \
-        fzf \
-        gawk \
         ghc \
         ghostscript \
         git-delta \
@@ -34,7 +30,6 @@ if [[ "$FLAVOR" == "macos" ]]; then
         imagemagick \
         jpeg-turbo \
         jq \
-        less \
         makemkv \
         msgpack-tools \
         obsidian \
@@ -52,7 +47,6 @@ if [[ "$FLAVOR" == "macos" ]]; then
         qobuz-downloader \
         rclone \
         reader \
-        ripgrep \
         rsync \
         rust \
         scroll-reverser \
@@ -63,9 +57,6 @@ if [[ "$FLAVOR" == "macos" ]]; then
         stellarium \
         todoist-app \
         tresorit \
-        uutils-coreutils \
-        uutils-diffutils \
-        uutils-findutils \
         vlc \
         wezterm \
         xz \
@@ -115,33 +106,24 @@ elif [[ "$FLAVOR" == "debian" ]]; then
         dos2unix \
         duf \
         dust \
-        eza \
-        fd \
         ffmpeg \
         fish \
-        fzf \
-        gawk \
         ghc \
         ghostscript \
         git-delta \
         imagemagick \
         jpeg-turbo \
         jq \
-        less \
         msgpack-tools \
         openssh \
         optipng \
         poppler \
         procs \
         rclone \
-        ripgrep \
         rsync \
         rust \
         sqlite \
         starship \
-        uutils-coreutils \
-        uutils-diffutils \
-        uutils-findutils \
         xz \
         yamlresume \
         zoxide

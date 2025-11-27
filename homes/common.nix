@@ -35,6 +35,7 @@ in {
     #
     # Modify:
     #   ~/.profile
+    #   ~/config/fish/config.fish (remove find/grep aliases)
     #
     # Commands:
     #   sudo apt purge --autoremove --purge \
@@ -44,11 +45,11 @@ in {
     #   brew uninstall libqalculate openvpn xsel
     #
     #   brew uninstall abcde android-platform-tools bat block-goose-cli \
-    #                  brave-browser cd-discid delve eza \
-    #                  font-jetbrains-mono-nerd-font gopls \
-    #                  haskell-language-server helix jdtls jq-lsp \
+    #                  brave-browser cd-discid delve eza fd fzf \
+    #                  font-jetbrains-mono-nerd-font gawk gopls \
+    #                  haskell-language-server helix jdtls jq-lsp less \
     #                  lua-language-server libyaml markdown-oxide mise \
-    #                  normalize pandoc rsgain ruff rust-analyzer \
+    #                  normalize pandoc ripgrep rsgain ruff rust-analyzer \
     #                  shellcheck shfmt swift-format texlab tinymist \
     #                  uutils-coreutils uutils-diffutils uutils-findutils \
     #                  xclip zed zstd
@@ -56,9 +57,12 @@ in {
     android-tools
     brave
     eza
+    gawk
     goose-cli
+    less
     libqalculate
     pandoc
+    ripgrep
     rsgain
     texliveFull
     uutils-coreutils-noprefix
