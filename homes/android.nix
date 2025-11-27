@@ -9,6 +9,10 @@ in {
   # ];
 
   home.packages = with pkgs; [
+    abcde
+    eject
+    normalize
+
     #### Fonts ####
     nerd-fonts.jetbrains-mono
     noto-fonts

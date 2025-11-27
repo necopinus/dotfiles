@@ -3,9 +3,9 @@
   #   ../programs/foo.nix
   # ];
 
-  # home.packages = with pkgs; [
-  #   some-tool
-  # ];
+  home.packages = with pkgs; [
+    xld
+  ];
 
   # programs.example = {
   #   enable = true;

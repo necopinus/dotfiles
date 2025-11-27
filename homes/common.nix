@@ -12,6 +12,7 @@ in {
 
   home.packages = with pkgs; [
     # Remove:
+    #   ~/.abcde.conf
     #   ~/.default-gems
     #   ~/.default-npm-packages
     #   ~/.default-python-packages
@@ -23,6 +24,7 @@ in {
     #   ~/config/bat
     #   ~/config/helix
     #   ~/config/mise
+    #   ~/config/moxide
     #   ~/config/qobuz-dl
     #   ~/config/zed
     #   ~/local/state/mise
@@ -36,24 +38,32 @@ in {
     #
     # Commands:
     #   sudo apt purge --autoremove --purge \
-    #            android-sdk-platform-tools brave-browser fonts-noto \
+    #            android-sdk-platform-tools brave-browser eject fonts-noto \
     #            wl-clipboard
     #
     #   brew uninstall libqalculate openvpn xsel
     #
-    #   brew uninstall android-platform-tools bat block-goose-cli \
-    #                  brave-browser delve font-jetbrains-mono-nerd-font \
-    #                  gopls haskell-language-server helix jdtls jq-lsp \
-    #                  lua-language-server markdown-oxide mise pandoc \
-    #                  ruff rust-analyzer shellcheck shfmt swift-format \
-    #                  texlab tinymist zed
+    #   brew uninstall abcde android-platform-tools bat block-goose-cli \
+    #                  brave-browser cd-discid delve eza \
+    #                  font-jetbrains-mono-nerd-font gopls \
+    #                  haskell-language-server helix jdtls jq-lsp \
+    #                  lua-language-server libyaml markdown-oxide mise \
+    #                  normalize pandoc rsgain ruff rust-analyzer \
+    #                  shellcheck shfmt swift-format texlab tinymist \
+    #                  uutils-coreutils uutils-diffutils uutils-findutils \
+    #                  xclip zed zstd
 
     android-tools
     brave
+    eza
     goose-cli
     libqalculate
     pandoc
+    rsgain
     texliveFull
+    uutils-coreutils-noprefix
+    uutils-diffutils
+    uutils-findutils
     yq
     yt-dlp
 
@@ -93,6 +103,7 @@ in {
   #
   home.file = {
     "config/marksman/config.toml".source = ../artifacts/config/marksman/config.toml;
+    ".abcde.conf".source = ../artifacts/abcde.conf;
   };
 
   # Environment variables
