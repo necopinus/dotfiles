@@ -9,16 +9,10 @@ if [[ "$FLAVOR" == "macos" ]]; then
         adobe-creative-cloud \
         calibre \
         claude \
-        curl \
         diff-so-fancy \
-        discord \
         doppler-app \
-        dos2unix \
-        duf \
-        dust \
         ffmpeg \
         fish \
-        ghc \
         ghostscript \
         git-delta \
         github \
@@ -43,10 +37,7 @@ if [[ "$FLAVOR" == "macos" ]]; then
         pstree \
         qflipper \
         qobuz-downloader \
-        rclone \
         reader \
-        rsync \
-        rust \
         scroll-reverser \
         signal \
         slack \
@@ -57,7 +48,6 @@ if [[ "$FLAVOR" == "macos" ]]; then
         tresorit \
         vlc \
         wezterm \
-        xz \
         yamlresume \
         yubico-yubikey-manager \
         zoxide
@@ -70,41 +60,16 @@ elif [[ "$FLAVOR" == "debian" ]]; then
 		deb [signed-by=/usr/share/keyrings/wezterm-fury.gpg] https://apt.fury.io/wez/ * *
 		EOF
 
-    sudo apt update
     sudo apt install -y \
-        build-essential \
-        curl \
-        dialog \
-        file \
-        git \
-        gnupg \
-        procps
-    sudo apt install -y \
-        apt-utils \
         calibre \
-        gnome-keyring \
         handbrake \
-        man-db \
-        podman \
-        tigervnc-standalone-server \
-        uuid-runtime \
-        unzip \
         wezterm \
-        xdg-utils \
-        xdg-user-dirs \
-        xfce4 \
-        yubikey-manager-qt \
-        zip
+        yubikey-manager-qt
 
     brew install \
-        curl \
         diff-so-fancy \
-        dos2unix \
-        duf \
-        dust \
         ffmpeg \
         fish \
-        ghc \
         ghostscript \
         git-delta \
         imagemagick \
@@ -115,12 +80,8 @@ elif [[ "$FLAVOR" == "debian" ]]; then
         optipng \
         poppler \
         procs \
-        rclone \
-        rsync \
-        rust \
         sqlite \
         starship \
-        xz \
         yamlresume \
         zoxide
 

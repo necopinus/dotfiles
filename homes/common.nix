@@ -9,6 +9,7 @@ in {
     ../programs/bottom.nix
     ../programs/glow.nix
     ../programs/helix.nix
+    ../programs/rclone.nix
     ../programs/zed.nix
   ];
 
@@ -30,6 +31,7 @@ in {
     #   ~/config/mise
     #   ~/config/moxide
     #   ~/config/qobuz-dl
+    #   ~/config/rclone
     #   ~/config/zed
     #   ~/local/state/mise
     #   ~/local/share/fonts
@@ -45,23 +47,32 @@ in {
     #
     # Commands:
     #   sudo apt purge --autoremove --purge \
-    #            android-sdk-platform-tools brave-browser eject fonts-noto \
-    #            wl-clipboard
+    #            android-sdk-platform-tools apt-utils brave-browser \
+    #            build-essential eject file fonts-noto git gnome-keyring \
+    #            gnupg podman procps uuid-runtime wl-clipboard xdg-utils \
+    #            xdg-user-dirs
+    #
+    #   brew analytics on
     #
     #   brew uninstall libqalculate openvpn xsel
     #
     #   brew uninstall abcde android-platform-tools bat block-goose-cli \
-    #                  bottom brave-browser cd-discid delve duf dust eza \
-    #                  fd fzf font-jetbrains-mono-nerd-font gawk glow \
-    #                  gopls haskell-language-server helix jdtls jq-lsp \
-    #                  less lua-language-server libyaml markdown-oxide \
-    #                  mise normalize pandoc ripgrep rsgain ruff \
-    #                  rust-analyzer shellcheck shfmt swift-format texlab \
-    #                  tinymist uutils-coreutils uutils-diffutils \
-    #                  uutils-findutils xclip zed zstd
+    #                  bottom brave-browser cd-discid curl delve discord \
+    #                  dos2unix duf dust eza fd fzf \
+    #                  font-jetbrains-mono-nerd-font gawk ghc glow gopls \
+    #                  haskell-language-server helix jdtls jq-lsp less \
+    #                  lua-language-server libyaml markdown-oxide mise \
+    #                  normalize pandoc rclone ripgrep rsgain rsync ruff \
+    #                  rust rust-analyzer shellcheck shfmt swift-format \
+    #                  texlab tinymist uutils-coreutils uutils-diffutils \
+    #                  uutils-findutils xclip zed
+    #
+    #   brew uninstall xz zstd
 
     android-tools
     brave
+    curl
+    dos2unix
     eza
     gawk
     goose-cli
@@ -70,12 +81,16 @@ in {
     pandoc
     ripgrep
     rsgain
+    rsync
     texliveFull
+    unzip
     uutils-coreutils-noprefix
     uutils-diffutils
     uutils-findutils
+    xz
     yq
     yt-dlp
+    zip
 
     #### Local packages (see above) ####
     localPkgs.backup-home

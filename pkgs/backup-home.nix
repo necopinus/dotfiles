@@ -1,6 +1,4 @@
-{
-  writeShellApplication
-}:
+{writeShellApplication}:
 writeShellApplication {
   name = "backup-home";
 

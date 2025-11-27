@@ -4,7 +4,9 @@
   # Input streams (flakes, not variables!)
   #
   inputs = {
-    nixpkgs.url = "github:NixOS/nixpkgs/nixpkgs-unstable";
+    nixpkgs = {
+      url = "github:NixOS/nixpkgs/nixpkgs-unstable";
+    };
 
     nix-darwin = {
       url = "github:LnL7/nix-darwin";
@@ -45,12 +47,6 @@
     myUserName = "necopinus";
     androidUserName = "droid";
 
-    # Allow the use of "unfree" packages
-    #
-    nixpkgsConfig = {
-      config.allowUnfree = true;
-    };
-
     # Overlays to make installing packages from flakes easier
     #
     nixpkgs.overlays = [
@@ -65,6 +61,14 @@
       system = "aarch64-darwin";
 
       modules = [
+        # Allow "unfree" packages; needs to be set here rather than in
+        # the global let statement above... for reasons?
+        #
+        # I honestly don't get why NixPkgs overlays go up there, but
+        # config directives go here...
+        #
+        {nixpkgs.config.allowUnfree = true;}
+
         {
           system.stateVersion = nixDarwinStateVersion;
           users.users."${myUserName}" = {
@@ -103,6 +107,11 @@
       # definition, which is more efficient. See:
       #
       #   https://discourse.nixos.org/t/two-ways-to-write-a-home-manager-flake-is-legacypackages-needed/28109
+      #
+      # BUT! This might need to be replaced in order to support "unfree"
+      # packages...
+      #
+      #   https://discourse.nixos.org/t/allow-unfree-in-flakes/29904/2
       #
       pkgs = nixpkgs.legacyPackages.aarch64-linux;
 

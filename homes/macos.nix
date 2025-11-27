@@ -1,9 +1,15 @@
-{pkgs, ...}: {
+{pkgs, ...}: let
+  localPkgs = {
+    vault-sync = pkgs.callPackage ../pkgs/vault-sync.nix {};
+  };
+in {
   # imports = [
   #   ../programs/foo.nix
   # ];
 
   home.packages = with pkgs; [
+    discord
+    localPkgs.vault-sync
     xld
   ];
 

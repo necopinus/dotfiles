@@ -1,7 +1,7 @@
 {
   writeShellApplication,
   wl-clipboard,
-  xsel
+  xsel,
 }:
 writeShellApplication {
   name = "pbpaste";
