@@ -463,18 +463,6 @@ else
 fi
 mkdir -p $HOME/data/calibre
 
-# Generate bat's cache so that custom themes show up
-#
-# WARNING: There seems to be a bug in bat where the `cache` command
-#          isn't detected if there's a file or directory called `cache`
-#          that's the child of the current directory. Hence switching to
-#          /, since... ~/cache is a thing in this setup.
-#
-(
-	cd /tmp
-	bat cache --build
-)
-
 # The Debian Bookworm gpg-agent seems to need absolute paths in its
 # configuration file, but later versions of gpg-agent can use `~` for
 # $HOME.
