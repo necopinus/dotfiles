@@ -4,40 +4,69 @@
   #
   zedExtraPackages = with pkgs; [
     #### LSPs ####
-    #bash-language-server
-    #fish-lsp
-    #lua-language-server
-    #markdown-oxide
-    #marksman
-    nil
+    basedpyright
+    bash-language-server
+    clang-tools
+    docker-compose-language-service
+    dockerfile-language-server
+    gopls
+    haskellPackages.haskell-language-server
+    jdt-language-server
+    kotlin-language-server
+    lua-language-server
     nixd
-    #python3Packages.python-lsp-server
-    #ruff
-    #solc
-    #superhtml
-    #systemd-lsp # Set in flake.nix overlay
-    #taplo
-    #tombi
-    #ty
-    #typescript-language-server
-    #vscode-langservers-extracted
-    #yaml-language-server
+    powershell-editor-services
+    rubyPackages.solargraph
+    ruff
+    rust-analyzer
+    sourcekit-lsp
+    texlab
+    tombi
+    vscode-langservers-extracted
+    vtsls
+    yaml-language-server
 
     #### Formatters ####
     alejandra
-    #prettier
-    #shellcheck
-    #shfmt
+    prettier
+    shellcheck
+    shfmt
+    sql-formatter
   ];
 in {
   programs.zed-editor = {
     enable = true;
+    package =
+      if pkgs.stdenv.isLinux
+      then pkgs.zed-editor-fhs
+      else pkgs.zed-editor;
 
     extraPackages = zedExtraPackages;
 
     extensions = [
+      "awk"
+      "basher"
+      "docker-compose"
+      "dockerfile"
+      "fish"
+      "haskell"
       "html"
+      "java"
+      "jq"
+      "jsonl"
+      "kotlin"
+      "latex"
+      "lua"
+      "make"
       "nix"
+      "powershell"
+      "rst"
+      "ruby"
+      "solidity"
+      "sql"
+      "swift"
+      "toml"
+      "xml"
       #
       #######################################
       # Need to finish adding extensions... #
@@ -55,20 +84,6 @@ in {
         edit_prediction_provider = "none";
       };
 
-      languages = {
-        Nix = {
-          formatter = {
-            external = {
-              command = "alejandra";
-              arguments = [
-                "--quiet"
-                "--"
-              ];
-            };
-          };
-        };
-      };
-
       theme = {
         mode = "light";
         light = "Gruvbox Light";
@@ -78,6 +93,66 @@ in {
         mode = "light";
         light = "Zed (Default)";
         dark = "Zed (Default)";
+      };
+
+      file_types = {
+        Dockerfile = ["Dockerfile.*"];
+        XML = ["rdf" "gpx" "kml"];
+      };
+
+      lsp = {
+        powershell-es = {
+          binary = {
+            path = "${pkgs.powershell-editor-services}/bin/powershell-editor-services";
+          };
+        };
+        texlab = {
+          settings = {
+            texlab = {
+              build = {
+                onSave = false;
+              };
+            };
+          };
+        };
+      };
+
+      languages = {
+        Fish = {
+          formatter = {
+            external = {
+              command = "fish_indent";
+            };
+          };
+        };
+        Nix = {
+          language_servers = ["nixd" "!nil"];
+          formatter = {
+            external = {
+              command = "alejandra";
+              arguments = ["--quiet" "--"];
+            };
+          };
+        };
+        "Shell Script" = {
+          format_on_save = "on";
+          formatter = {
+            external = {
+              command = "shfmt";
+              arguments = ["--filename" "{buffer_path}" "--indent" "4"];
+            };
+          };
+        };
+        SQL = {
+          formatter = {
+            external = {
+              command = "sql-formatter";
+            };
+          };
+        };
+        LaTeX = {
+          formatter = "language_server";
+        };
       };
     };
   };

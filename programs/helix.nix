@@ -1,44 +1,54 @@
-{ pkgs, ... }:
-let
+{pkgs, ...}: let
   localPkgs = {
-    pbcopy = pkgs.callPackage ../pkgs/pbcopy.nix { };
-    pbpaste = pkgs.callPackage ../pkgs/pbpaste.nix { };
+    pbcopy = pkgs.callPackage ../pkgs/pbcopy.nix {};
+    pbpaste = pkgs.callPackage ../pkgs/pbpaste.nix {};
   };
 in {
   programs.helix = {
     enable = true;
     defaultEditor = true;
 
-    extraPackages = with pkgs; [
-      #### LSPs ####
-      bash-language-server
-      fish-lsp
-      lua-language-server
-      markdown-oxide
-      marksman
-      nil
-      nixd
-      python3Packages.python-lsp-server
-      ruff
-      solc
-      superhtml
-      systemd-lsp # Set in flake.nix overlay
-      taplo
-      tombi
-      ty
-      typescript-language-server
-      vscode-langservers-extracted
-      yaml-language-server
+    extraPackages = with pkgs;
+      [
+        #### LSPs ####
+        awk-language-server
+        bash-language-server
+        clang-tools
+        dockerfile-language-server
+        fish-lsp
+        gopls
+        haskellPackages.haskell-language-server
+        jdt-language-server
+        jq-lsp
+        kotlin-language-server
+        lua-language-server
+        marksman
+        nixd
+        rubyPackages.solargraph
+        ruff
+        rust-analyzer
+        solc
+        sourcekit-lsp
+        systemd-lsp # Set in flake.nix overlay
+        texlab
+        tombi
+        ty
+        typescript-language-server
+        vscode-langservers-extracted
+        yaml-language-server
 
-      #### Formatters ####
-      prettier
-      shellcheck
-      shfmt
-    ] ++ pkgs.lib.optionals pkgs.stdenv.isLinux [
-      #### Utilities ####
-      localPkgs.pbcopy
-      localPkgs.pbpaste
-    ];
+        #### Formatters ####
+        bibtex-tidy
+        prettier
+        shellcheck
+        shfmt
+        swift-format
+      ]
+      ++ pkgs.lib.optionals pkgs.stdenv.isLinux [
+        #### Utilities ####
+        localPkgs.pbcopy
+        localPkgs.pbpaste
+      ];
 
     settings = {
       theme = "gruvbox_light_mod";
@@ -98,25 +108,49 @@ in {
 
         # Slightly lower contrast
         #
-        "ui.cursorline" = { bg = "bg2"; };
-        "ui.bufferline" = { fg = "fg1"; bg = "bg2"; };
-        "ui.bufferline.active" = { fg = "bg0"; bg = "fg4"; };
-        "ui.bufferline.background" = { bg = "bg1"; };
+        "ui.cursorline" = {bg = "bg2";};
+        "ui.bufferline" = {
+          fg = "fg1";
+          bg = "bg2";
+        };
+        "ui.bufferline.active" = {
+          fg = "bg0";
+          bg = "fg4";
+        };
+        "ui.bufferline.background" = {bg = "bg1";};
 
-        "ui.linenr.selected" = { fg = "fg4"; };
+        "ui.linenr.selected" = {fg = "fg4";};
 
-        "ui.selection" = { bg = "bg3"; };
-        "ui.selection.primary" = { bg = "bg2"; };
-        "ui.statusline" = { fg = "fg1"; bg = "bg1"; };
-        "ui.statusline.inactive" = { fg = "fg4"; bg = "bg1"; };
-        "ui.menu" = { fg = "fg1"; bg = "bg1"; };
+        "ui.selection" = {bg = "bg3";};
+        "ui.selection.primary" = {bg = "bg2";};
+        "ui.statusline" = {
+          fg = "fg1";
+          bg = "bg1";
+        };
+        "ui.statusline.inactive" = {
+          fg = "fg4";
+          bg = "bg1";
+        };
+        "ui.menu" = {
+          fg = "fg1";
+          bg = "bg1";
+        };
 
         # Replace (most) italics with bold
         #
-        "attribute" = { fg = "aqua1"; modifiers = [ "bold" ]; };
-        "type.enum.variant" = { modifiers = [ "bold" ]; };
-        "variable.builtin" = { fg = "orange1"; modifiers = [ "bold" ]; };
-        "variable.parameter" = { fg = "blue1"; modifiers = []; };
+        "attribute" = {
+          fg = "aqua1";
+          modifiers = ["bold"];
+        };
+        "type.enum.variant" = {modifiers = ["bold"];};
+        "variable.builtin" = {
+          fg = "orange1";
+          modifiers = ["bold"];
+        };
+        "variable.parameter" = {
+          fg = "blue1";
+          modifiers = [];
+        };
 
         palette = {
           bg0_s = "#f2e5bc";
@@ -154,16 +188,37 @@ in {
         "special" = "orange";
 
         "markup.heading.marker" = "grey2";
-        "markup.heading.1" = { fg = "red"; modifiers = [ "bold" ]; };
-        "markup.heading.2" = { fg = "orange"; modifiers = [ "bold" ]; };
-        "markup.heading.3" = { fg = "yellow"; modifiers = [ "bold" ]; };
-        "markup.heading.4" = { fg = "green"; modifiers = [ "bold" ]; };
-        "markup.heading.5" = { fg = "blue"; modifiers = [ "bold" ]; };
-        "markup.heading.6" = { fg = "fg0"; modifiers = [ "bold" ]; };
+        "markup.heading.1" = {
+          fg = "red";
+          modifiers = ["bold"];
+        };
+        "markup.heading.2" = {
+          fg = "orange";
+          modifiers = ["bold"];
+        };
+        "markup.heading.3" = {
+          fg = "yellow";
+          modifiers = ["bold"];
+        };
+        "markup.heading.4" = {
+          fg = "green";
+          modifiers = ["bold"];
+        };
+        "markup.heading.5" = {
+          fg = "blue";
+          modifiers = ["bold"];
+        };
+        "markup.heading.6" = {
+          fg = "fg0";
+          modifiers = ["bold"];
+        };
         "markup.list" = "red";
-        "markup.bold" = { modifiers = [ "bold" ]; };
-        "markup.italic" = { modifiers = [ "italic" ]; };
-        "markup.link.url" = { fg = "blue"; modifiers = [ "underlined" ]; };
+        "markup.bold" = {modifiers = ["bold"];};
+        "markup.italic" = {modifiers = ["italic"];};
+        "markup.link.url" = {
+          fg = "blue";
+          modifiers = ["underlined"];
+        };
         "markup.link.text" = "purple";
         "markup.quote" = "grey2";
         "markup.raw" = "green";
@@ -172,44 +227,117 @@ in {
         "diff.delta" = "orange";
         "diff.minus" = "red";
 
-        "ui.background" = { bg = "bg0"; };
+        "ui.background" = {bg = "bg0";};
         "ui.background.separator" = "grey0";
-        "ui.cursor" = { fg = "bg0"; bg = "fg0"; };
-        "ui.cursor.match" = { fg = "orange"; bg = "bg_visual_yellow"; };
-        "ui.cursor.insert" = { fg = "bg0"; bg = "grey2"; };
-        "ui.cursor.select" = { fg = "bg0"; bg = "blue"; };
-        "ui.cursorline.primary" = { bg = "bg1"; };
-        "ui.cursorline.secondary" = { bg = "bg1"; };
-        "ui.selection" = { bg = "bg3"; };
+        "ui.cursor" = {
+          fg = "bg0";
+          bg = "fg0";
+        };
+        "ui.cursor.match" = {
+          fg = "orange";
+          bg = "bg_visual_yellow";
+        };
+        "ui.cursor.insert" = {
+          fg = "bg0";
+          bg = "grey2";
+        };
+        "ui.cursor.select" = {
+          fg = "bg0";
+          bg = "blue";
+        };
+        "ui.cursorline.primary" = {bg = "bg1";};
+        "ui.cursorline.secondary" = {bg = "bg1";};
+        "ui.selection" = {bg = "bg3";};
         "ui.linenr" = "grey0";
         "ui.linenr.selected" = "fg0";
-        "ui.statusline" = { fg = "fg0"; bg = "bg3"; };
-        "ui.statusline.inactive" = { fg = "grey0"; bg = "bg1"; };
-        "ui.statusline.normal" = { fg = "bg0"; bg = "fg0"; modifiers = [ "bold" ]; };
-        "ui.statusline.insert" = { fg = "bg0"; bg = "yellow"; modifiers = [ "bold" ]; };
-        "ui.statusline.select" = { fg = "bg0"; bg = "blue"; modifiers = [ "bold" ]; };
-        "ui.bufferline" = { fg = "grey0"; bg = "bg1"; };
-        "ui.bufferline.active" = { fg = "fg0"; bg = "bg3"; modifiers = [ "bold" ]; };
-        "ui.popup" = { fg = "grey2"; bg = "bg2"; };
-        "ui.window" = { fg = "grey0"; bg = "bg0"; };
-        "ui.help" = { fg = "fg0"; bg = "bg2"; };
+        "ui.statusline" = {
+          fg = "fg0";
+          bg = "bg3";
+        };
+        "ui.statusline.inactive" = {
+          fg = "grey0";
+          bg = "bg1";
+        };
+        "ui.statusline.normal" = {
+          fg = "bg0";
+          bg = "fg0";
+          modifiers = ["bold"];
+        };
+        "ui.statusline.insert" = {
+          fg = "bg0";
+          bg = "yellow";
+          modifiers = ["bold"];
+        };
+        "ui.statusline.select" = {
+          fg = "bg0";
+          bg = "blue";
+          modifiers = ["bold"];
+        };
+        "ui.bufferline" = {
+          fg = "grey0";
+          bg = "bg1";
+        };
+        "ui.bufferline.active" = {
+          fg = "fg0";
+          bg = "bg3";
+          modifiers = ["bold"];
+        };
+        "ui.popup" = {
+          fg = "grey2";
+          bg = "bg2";
+        };
+        "ui.window" = {
+          fg = "grey0";
+          bg = "bg0";
+        };
+        "ui.help" = {
+          fg = "fg0";
+          bg = "bg2";
+        };
         "ui.text" = "fg0";
         "ui.text.focus" = "fg0";
-        "ui.menu" = { fg = "fg0"; bg = "bg3"; };
-        "ui.menu.selected" = { fg = "bg0"; bg = "blue"; modifiers = [ "bold" ]; };
-        "ui.virtual.whitespace" = { fg = "bg4"; };
-        "ui.virtual.indent-guide" = { fg = "bg4"; };
-        "ui.virtual.ruler" = { bg = "bg3"; };
+        "ui.menu" = {
+          fg = "fg0";
+          bg = "bg3";
+        };
+        "ui.menu.selected" = {
+          fg = "bg0";
+          bg = "blue";
+          modifiers = ["bold"];
+        };
+        "ui.virtual.whitespace" = {fg = "bg4";};
+        "ui.virtual.indent-guide" = {fg = "bg4";};
+        "ui.virtual.ruler" = {bg = "bg3";};
 
         "hint" = "blue";
         "info" = "aqua";
         "warning" = "yellow";
         "error" = "red";
-        "diagnostic" = { underline = { style = "curl"; }; };
-        "diagnostic.hint" = { underline = { color = "blue"; style = "dotted"; }; };
-        "diagnostic.info" = { underline = { color = "aqua"; style = "dotted"; }; };
-        "diagnostic.warning" = { underline = { color = "yellow"; style = "curl"; }; };
-        "diagnostic.error" = { underline = { color = "red"; style = "curl"; }; };
+        "diagnostic" = {underline = {style = "curl";};};
+        "diagnostic.hint" = {
+          underline = {
+            color = "blue";
+            style = "dotted";
+          };
+        };
+        "diagnostic.info" = {
+          underline = {
+            color = "aqua";
+            style = "dotted";
+          };
+        };
+        "diagnostic.warning" = {
+          underline = {
+            color = "yellow";
+            style = "curl";
+          };
+        };
+        "diagnostic.error" = {
+          underline = {
+            color = "red";
+            style = "curl";
+          };
+        };
 
         palette = {
           bg0 = "#f9f5d7";

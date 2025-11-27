@@ -5,94 +5,93 @@
 echo "Installing additional tooling"
 
 if [[ "$FLAVOR" == "macos" ]]; then
-	brew install \
-	     adobe-creative-cloud \
-	     block-goose-cli \
-	     bottom \
-	     brave-browser \
-	     calibre \
-	     cd-discid \
-	     charmbracelet/tap/glow \
-	     claude \
-	     curl \
-	     diff-so-fancy \
-	     discord \
-	     doppler-app \
-	     dos2unix \
-	     duf \
-	     dust \
-	     eza \
-	     fd \
-	     ffmpeg \
-	     fish \
-	     fzf \
-	     gawk \
-	     ghc \
-	     ghostscript \
-	     git-delta \
-	     github \
-	     gnupg \
-	     google-drive \
-	     homebrew/cask/handbrake \
-	     imagemagick \
-	     jpeg-turbo \
-	     jq \
-	     libyaml \
-	     less \
-	     makemkv \
-	     msgpack-tools \
-	     normalize \
-	     obsidian \
-	     openssh \
-	     optipng \
-	     pandoc \
-	     pinentry-mac \
-	     poppler \
-	     procs \
-	     proton-drive \
-	     proton-mail \
-	     proton-pass \
-	     protonvpn \
-	     pstree \
-	     qflipper \
-	     qobuz-downloader \
-	     rclone \
-	     reader \
-	     ripgrep \
-	     rsgain \
-	     rsync \
-	     rust \
-	     scroll-reverser \
-	     signal \
-	     slack \
-	     sqlite \
-	     starship \
-	     stellarium \
-	     todoist-app \
-	     tresorit \
-	     uutils-coreutils \
-	     uutils-diffutils \
-	     uutils-findutils \
-	     vlc \
-	     wezterm \
-	     xz \
-	     yamlresume \
-	     yubico-yubikey-manager \
-	     zoxide \
-	     zstd
+    brew install \
+        adobe-creative-cloud \
+        block-goose-cli \
+        bottom \
+        brave-browser \
+        calibre \
+        cd-discid \
+        charmbracelet/tap/glow \
+        claude \
+        curl \
+        diff-so-fancy \
+        discord \
+        doppler-app \
+        dos2unix \
+        duf \
+        dust \
+        eza \
+        fd \
+        ffmpeg \
+        fish \
+        fzf \
+        gawk \
+        ghc \
+        ghostscript \
+        git-delta \
+        github \
+        gnupg \
+        google-drive \
+        homebrew/cask/handbrake \
+        imagemagick \
+        jpeg-turbo \
+        jq \
+        libyaml \
+        less \
+        makemkv \
+        msgpack-tools \
+        normalize \
+        obsidian \
+        openssh \
+        optipng \
+        pinentry-mac \
+        poppler \
+        procs \
+        proton-drive \
+        proton-mail \
+        proton-pass \
+        protonvpn \
+        pstree \
+        qflipper \
+        qobuz-downloader \
+        rclone \
+        reader \
+        ripgrep \
+        rsgain \
+        rsync \
+        rust \
+        scroll-reverser \
+        signal \
+        slack \
+        sqlite \
+        starship \
+        stellarium \
+        todoist-app \
+        tresorit \
+        uutils-coreutils \
+        uutils-diffutils \
+        uutils-findutils \
+        vlc \
+        wezterm \
+        xz \
+        yamlresume \
+        yubico-yubikey-manager \
+        zoxide \
+        zstd
 
-	# The following packages need to be built from source to avoid
-	# library API mis-matches
-	#
-	brew install --build-from-source \
-	     abcde
+    # The following packages need to be built from source to avoid
+    # library API mis-matches
+    #
+    brew install --build-from-source \
+        abcde
 elif [[ "$FLAVOR" == "debian" ]]; then
-	sudo mkdir -p /usr/share/keyrings
+    sudo mkdir -p /usr/share/keyrings
 
-	sudo curl -fsSLo \
-	     /usr/share/keyrings/brave-browser-archive-keyring.gpg \
-	     https://brave-browser-apt-release.s3.brave.com/brave-browser-archive-keyring.gpg
-	sudo tee /etc/apt/sources.list.d/brave-browser.sources > /dev/null <<- EOF
+    sudo curl -fsSLo \
+        /usr/share/keyrings/brave-browser-archive-keyring.gpg \
+        https://brave-browser-apt-release.s3.brave.com/brave-browser-archive-keyring.gpg
+    sudo tee /etc/apt/sources.list.d/brave-browser.sources >/dev/null <<-EOF
 		Types: deb
 		URIs: https://brave-browser-apt-release.s3.brave.com
 		Suites: stable
@@ -101,124 +100,123 @@ elif [[ "$FLAVOR" == "debian" ]]; then
 		Signed-By: /usr/share/keyrings/brave-browser-archive-keyring.gpg
 		EOF
 
-	curl -fsSL https://apt.fury.io/wez/gpg.key | \
-		sudo gpg --yes --dearmor -o /usr/share/keyrings/wezterm-fury.gpg
-	sudo tee /etc/apt/sources.list.d/wezterm.list > /dev/null <<- EOF
+    curl -fsSL https://apt.fury.io/wez/gpg.key |
+        sudo gpg --yes --dearmor -o /usr/share/keyrings/wezterm-fury.gpg
+    sudo tee /etc/apt/sources.list.d/wezterm.list >/dev/null <<-EOF
 		deb [signed-by=/usr/share/keyrings/wezterm-fury.gpg] https://apt.fury.io/wez/ * *
 		EOF
 
-	sudo apt update
-	sudo apt install -y \
-	         build-essential \
-	         curl \
-	         dialog \
-	         file \
-	         git \
-	         gnupg \
-	         procps
-	sudo apt install -y \
-	         apt-utils \
-	         brave-browser \
-	         calibre \
-	         eject \
-	         gnome-keyring \
-	         handbrake \
-	         man-db \
-	         podman \
-	         tigervnc-standalone-server \
-	         uuid-runtime \
-	         unzip \
-	         wezterm \
-	         xdg-utils \
-	         xdg-user-dirs \
-	         xfce4 \
-	         yubikey-manager-qt \
-	         zip
+    sudo apt update
+    sudo apt install -y \
+        build-essential \
+        curl \
+        dialog \
+        file \
+        git \
+        gnupg \
+        procps
+    sudo apt install -y \
+        apt-utils \
+        brave-browser \
+        calibre \
+        eject \
+        gnome-keyring \
+        handbrake \
+        man-db \
+        podman \
+        tigervnc-standalone-server \
+        uuid-runtime \
+        unzip \
+        wezterm \
+        xdg-utils \
+        xdg-user-dirs \
+        xfce4 \
+        yubikey-manager-qt \
+        zip
 
-	brew install \
-	     block-goose-cli \
-	     bottom \
-	     cd-discid \
-	     charmbracelet/tap/glow \
-	     curl \
-	     diff-so-fancy \
-	     dos2unix \
-	     duf \
-	     dust \
-	     eza \
-	     fd \
-	     ffmpeg \
-	     fish \
-	     fzf \
-	     gawk \
-	     ghc \
-	     ghostscript \
-	     git-delta \
-	     imagemagick \
-	     jpeg-turbo \
-	     jq \
-	     less \
-	     libyaml \
-	     msgpack-tools \
-	     normalize \
-	     openssh \
-	     optipng \
-	     pandoc \
-	     poppler \
-	     procs \
-	     rclone \
-	     ripgrep \
-	     rsgain \
-	     rsync \
-	     rust \
-	     sqlite \
-	     starship \
-	     uutils-coreutils \
-	     uutils-diffutils \
-	     uutils-findutils \
-	     xclip \
-	     xz \
-	     yamlresume \
-	     zoxide \
-	     zstd
+    brew install \
+        block-goose-cli \
+        bottom \
+        cd-discid \
+        charmbracelet/tap/glow \
+        curl \
+        diff-so-fancy \
+        dos2unix \
+        duf \
+        dust \
+        eza \
+        fd \
+        ffmpeg \
+        fish \
+        fzf \
+        gawk \
+        ghc \
+        ghostscript \
+        git-delta \
+        imagemagick \
+        jpeg-turbo \
+        jq \
+        less \
+        libyaml \
+        msgpack-tools \
+        normalize \
+        openssh \
+        optipng \
+        poppler \
+        procs \
+        rclone \
+        ripgrep \
+        rsgain \
+        rsync \
+        rust \
+        sqlite \
+        starship \
+        uutils-coreutils \
+        uutils-diffutils \
+        uutils-findutils \
+        xclip \
+        xz \
+        yamlresume \
+        zoxide \
+        zstd
 
-	# The following packages need to be built from source to avoid
-	# library API mis-matches
-	#
-	brew install --build-from-source \
-	     abcde
+    # The following packages need to be built from source to avoid
+    # library API mis-matches
+    #
+    brew install --build-from-source \
+        abcde
 
-	# Disposable Kali
-	#
-	#$HOME/local/lib/linux/common/bin/kali --install
+    # Disposable Kali
+    #
+    #$HOME/local/lib/linux/common/bin/kali --install
 
-	# System-level tweaks
-	#
-	sudo ln -sf /usr/share/zoneinfo/America/Denver /etc/localtime
+    # System-level tweaks
+    #
+    sudo ln -sf /usr/share/zoneinfo/America/Denver /etc/localtime
 
-	sudo systemctl stop lightdm.service
-	sudo systemctl disable lightdm.service
+    sudo systemctl stop lightdm.service
+    sudo systemctl disable lightdm.service
 
-	if [[ $(grep -c "$USER" /etc/tigervnc/vncserver.users) -eq 0 ]]; then
-		echo ":0=$USER" | sudo tee -a /etc/tigervnc/vncserver.users
-	fi
+    if [[ $(grep -c "$USER" /etc/tigervnc/vncserver.users) -eq 0 ]]; then
+        echo ":0=$USER" | sudo tee -a /etc/tigervnc/vncserver.users
+    fi
 
-	# Disable some background services to try to avoid filesystem
-	# corruption in the Android Debian VM as of 2025-09-21; ideally
-	# these will be re-enabled when (if?) that environment becomes
-	# more stable
-	#
-	sudo systemctl stop podman-auto-update.service
-	sudo systemctl stop podman-auto-update.timer
-	sudo systemctl stop podman-restart.service
-	sudo systemctl stop podman.service
-	sudo systemctl stop podman.socket
+    # Disable some background services to try to avoid filesystem
+    # corruption in the Android Debian VM as of 2025-09-21; ideally
+    # these will be re-enabled when (if?) that environment becomes
+    # more stable
+    #
+    sudo systemctl stop podman-auto-update.service
+    sudo systemctl stop podman-auto-update.timer
+    sudo systemctl stop podman-restart.service
+    sudo systemctl stop podman.service
+    sudo systemctl stop podman.socket
 
-	sudo systemctl disable podman-auto-update.service
-	sudo systemctl disable podman-auto-update.timer
-	sudo systemctl disable podman-restart.service
-	sudo systemctl disable podman.service
-	sudo systemctl disable podman.socket
+    sudo systemctl disable podman-auto-update.service
+    sudo systemctl disable podman-auto-update.timer
+    sudo systemctl disable podman-restart.service
+    sudo systemctl disable podman.service
+    sudo systemctl disable podman.socket
 fi
 
 # Set up directories and symlinks
@@ -228,46 +226,46 @@ echo "Symlinking dotfiles and directories"
 touch $XDG_CONFIG_HOME/rclone/rclone.conf
 
 if [[ -d $HOME/.cache ]] && [[ ! -L $HOME/.cache ]]; then
-	mv -v $HOME/.cache $XDG_CACHE_HOME
+    mv -v $HOME/.cache $XDG_CACHE_HOME
 elif [[ ! -e $HOME/.cache ]]; then
-	mkdir -p $XDG_CACHE_HOME
+    mkdir -p $XDG_CACHE_HOME
 fi
 if [[ ! -e $HOME/.cache ]]; then
-	ln -sf $XDG_CACHE_HOME $HOME/.cache
+    ln -sf $XDG_CACHE_HOME $HOME/.cache
 fi
 
 if [[ -d $HOME/.config ]] && [[ ! -L $HOME/.config ]]; then
-	cp -anv $HOME/.config/* $XDG_CONFIG_HOME/ || true
-	rm -rf  $HOME/.config
+    cp -anv $HOME/.config/* $XDG_CONFIG_HOME/ || true
+    rm -rf $HOME/.config
 fi
 if [[ ! -e $HOME/.config ]]; then
-	ln -sf  $XDG_CONFIG_HOME $HOME/.config
+    ln -sf $XDG_CONFIG_HOME $HOME/.config
 fi
 
 if [[ -d $HOME/.local/bin ]] && [[ ! -L $HOME/.local/bin ]]; then
-	cp -anv $HOME/.local/bin/* $HOME/bin/ || true
-	rm -rf  $HOME/.local/bin
+    cp -anv $HOME/.local/bin/* $HOME/bin/ || true
+    rm -rf $HOME/.local/bin
 fi
 if [[ ! -e $HOME/local/bin ]]; then
-	ln -sf  $HOME/bin $HOME/local/bin
+    ln -sf $HOME/bin $HOME/local/bin
 fi
 
 if [[ -d $HOME/.local ]] && [[ ! -L $HOME/.local ]]; then
-	cp -anv $HOME/.local/* $HOME/local/ || true
-	rm -rf  $HOME/.local
+    cp -anv $HOME/.local/* $HOME/local/ || true
+    rm -rf $HOME/.local
 fi
 if [[ ! -e $HOME/.local ]]; then
-	ln -sf  $HOME/local $HOME/.local
+    ln -sf $HOME/local $HOME/.local
 fi
 if [[ ! -e $HOME/.var ]]; then
-	ln -sf  $HOME/local $HOME/.var
+    ln -sf $HOME/local $HOME/.var
 fi
 
 # Set up XDG user directories
 #
 echo "Setting up XDG directories"
 
-cat > config/user-dirs.dirs << EOF
+cat >config/user-dirs.dirs <<EOF
 # This file is written by xdg-user-dirs-update
 # If you want to change or add directories, just edit the line you're
 # interested in. All local changes will be retained on the next run.
@@ -277,7 +275,7 @@ cat > config/user-dirs.dirs << EOF
 #
 EOF
 if [[ "$OS" == "macos" ]]; then
-	cat >> config/user-dirs.dirs <<- EOF
+    cat >>config/user-dirs.dirs <<-EOF
 	XDG_DESKTOP_DIR="\$HOME/Desktop"
 	XDG_DOCUMENTS_DIR="\$HOME/Documents"
 	XDG_DOWNLOAD_DIR="\$HOME/Downloads"
@@ -288,7 +286,7 @@ if [[ "$OS" == "macos" ]]; then
 	XDG_VIDEOS_DIR="\$HOME/Movies"
 	EOF
 elif [[ "$OS" == "linux" ]]; then
-	cat >> config/user-dirs.dirs <<- EOF
+    cat >>config/user-dirs.dirs <<-EOF
 	XDG_DESKTOP_DIR="\$HOME/data/desktop"
 	XDG_DOCUMENTS_DIR="\$HOME/data"
 	XDG_DOWNLOAD_DIR="\$HOME/downloads"
@@ -303,87 +301,87 @@ fi
 source config/user-dirs.dirs
 
 if [[ ! -d "$XDG_DOCUMENTS_DIR" ]]; then
-	mkdir -p "$XDG_DOCUMENTS_DIR"
-	if [[ -d "$HOME/Documents" ]] \
-	&& [[ "$XDG_DOCUMENTS_DIR" != "$HOME/Documents" ]]; then
-		cp -anv "$HOME/Documents"/* "$XDG_DOCUMENTS_DIR"/ || true
-		rm -rf  "$HOME/Documents"
-	fi
+    mkdir -p "$XDG_DOCUMENTS_DIR"
+    if [[ -d "$HOME/Documents" ]] &&
+        [[ "$XDG_DOCUMENTS_DIR" != "$HOME/Documents" ]]; then
+        cp -anv "$HOME/Documents"/* "$XDG_DOCUMENTS_DIR"/ || true
+        rm -rf "$HOME/Documents"
+    fi
 fi
 
 if [[ ! -d "$XDG_DESKTOP_DIR" ]]; then
-	mkdir -p "$XDG_DESKTOP_DIR"
-	if [[ -d "$HOME/Desktop" ]] \
-	&& [[ "$XDG_DESKTOP_DIR" != "$HOME/Desktop" ]]; then
-		cp -anv "$HOME/Desktop"/* "$XDG_DESKTOP_DIR"/ || true
-		rm -rf  "$HOME/Desktop"
-	fi
+    mkdir -p "$XDG_DESKTOP_DIR"
+    if [[ -d "$HOME/Desktop" ]] &&
+        [[ "$XDG_DESKTOP_DIR" != "$HOME/Desktop" ]]; then
+        cp -anv "$HOME/Desktop"/* "$XDG_DESKTOP_DIR"/ || true
+        rm -rf "$HOME/Desktop"
+    fi
 fi
 
 if [[ ! -d "$XDG_DOWNLOAD_DIR" ]]; then
-	if [[ "$USER" == "droid" ]] && [[ -d /mnt/shared ]]; then
-		ln -sf /mnt/shared "$XDG_DOWNLOAD_DIR"
-	else
-		mkdir -p "$XDG_DOWNLOAD_DIR"
-	fi
-	if [[ -d "$HOME/Downloads" ]] \
-	&& [[ "$XDG_DOWNLOAD_DIR" != "$HOME/Downloads" ]]; then
-		cp -anv "$HOME/Downloads"/* "$XDG_DOWNLOAD_DIR"/ || true
-		rm -rf  "$HOME/Downloads"
-	fi
+    if [[ "$USER" == "droid" ]] && [[ -d /mnt/shared ]]; then
+        ln -sf /mnt/shared "$XDG_DOWNLOAD_DIR"
+    else
+        mkdir -p "$XDG_DOWNLOAD_DIR"
+    fi
+    if [[ -d "$HOME/Downloads" ]] &&
+        [[ "$XDG_DOWNLOAD_DIR" != "$HOME/Downloads" ]]; then
+        cp -anv "$HOME/Downloads"/* "$XDG_DOWNLOAD_DIR"/ || true
+        rm -rf "$HOME/Downloads"
+    fi
 fi
 
 if [[ ! -d "$XDG_MUSIC_DIR" ]]; then
-	mkdir -p "$XDG_MUSIC_DIR"
-	if [[ -d "$HOME/Music" ]] \
-	&& [[ "$XDG_MUSIC_DIR" != "$HOME/Music" ]]; then
-		cp -anv "$HOME/Music"/* "$XDG_MUSIC_DIR"/ || true
-		rm -rf  "$HOME/Music"
-	fi
+    mkdir -p "$XDG_MUSIC_DIR"
+    if [[ -d "$HOME/Music" ]] &&
+        [[ "$XDG_MUSIC_DIR" != "$HOME/Music" ]]; then
+        cp -anv "$HOME/Music"/* "$XDG_MUSIC_DIR"/ || true
+        rm -rf "$HOME/Music"
+    fi
 fi
 
 if [[ ! -d "$XDG_PICTURES_DIR" ]]; then
-	mkdir -p "$XDG_PICTURES_DIR"
-	if [[ -d "$HOME/Pictures" ]] \
-	&& [[ "$XDG_PICTURES_DIR" != "$HOME/Pictures" ]]; then
-		cp -anv "$HOME/Pictures"/* "$XDG_PICTURES_DIR"/ || true
-		rm -rf  "$HOME/Pictures"
-	fi
+    mkdir -p "$XDG_PICTURES_DIR"
+    if [[ -d "$HOME/Pictures" ]] &&
+        [[ "$XDG_PICTURES_DIR" != "$HOME/Pictures" ]]; then
+        cp -anv "$HOME/Pictures"/* "$XDG_PICTURES_DIR"/ || true
+        rm -rf "$HOME/Pictures"
+    fi
 fi
 
 if [[ ! -d "$XDG_PUBLICSHARE_DIR" ]]; then
-	mkdir -p "$XDG_PUBLICSHARE_DIR"
-	if [[ -d "$HOME/Public" ]] \
-	&& [[ "$XDG_PUBLICSHARE_DIR" != "$HOME/Public" ]]; then
-		cp -anv "$HOME/Public"/* "$XDG_PUBLICSHARE_DIR"/ || true
-		rm -rf  "$HOME/Public"
-	fi
+    mkdir -p "$XDG_PUBLICSHARE_DIR"
+    if [[ -d "$HOME/Public" ]] &&
+        [[ "$XDG_PUBLICSHARE_DIR" != "$HOME/Public" ]]; then
+        cp -anv "$HOME/Public"/* "$XDG_PUBLICSHARE_DIR"/ || true
+        rm -rf "$HOME/Public"
+    fi
 fi
 
 if [[ ! -d "$XDG_TEMPLATES_DIR" ]]; then
-	mkdir -p "$XDG_TEMPLATES_DIR"
-	if [[ -d "$HOME/Templates" ]] \
-	&& [[ "$XDG_TEMPLATES_DIR" != "$HOME/Templates" ]]; then
-		cp -anv "$HOME/Templates"/* "$XDG_TEMPLATES_DIR"/ || true
-		rm -rf  "$HOME/Templates"
-	fi
+    mkdir -p "$XDG_TEMPLATES_DIR"
+    if [[ -d "$HOME/Templates" ]] &&
+        [[ "$XDG_TEMPLATES_DIR" != "$HOME/Templates" ]]; then
+        cp -anv "$HOME/Templates"/* "$XDG_TEMPLATES_DIR"/ || true
+        rm -rf "$HOME/Templates"
+    fi
 fi
 
 if [[ ! -d "$XDG_VIDEOS_DIR" ]]; then
-	mkdir -p "$XDG_VIDEOS_DIR"
-	if [[ -d "$HOME/Videos" ]] \
-	&& [[ "$XDG_VIDEOS_DIR" != "$HOME/Videos" ]]; then
-		cp -anv "$HOME/Videos"/* "$XDG_VIDEOS_DIR"/ || true
-		rm -rf  "$HOME/Videos"
-	fi
+    mkdir -p "$XDG_VIDEOS_DIR"
+    if [[ -d "$HOME/Videos" ]] &&
+        [[ "$XDG_VIDEOS_DIR" != "$HOME/Videos" ]]; then
+        cp -anv "$HOME/Videos"/* "$XDG_VIDEOS_DIR"/ || true
+        rm -rf "$HOME/Videos"
+    fi
 fi
 
 # Xfce panel setup
 #
 if [[ "$OS" == "linux" ]]; then
-	mkdir -p "$XDG_CONFIG_HOME/xfce4/xfconf/xfce-perchannel-xml"
+    mkdir -p "$XDG_CONFIG_HOME/xfce4/xfconf/xfce-perchannel-xml"
 
-	cat > "$XDG_CONFIG_HOME/xfce4/xfconf/xfce-perchannel-xml/xfce4-panel.xml" <<- EOF
+    cat >"$XDG_CONFIG_HOME/xfce4/xfconf/xfce-perchannel-xml/xfce4-panel.xml" <<-EOF
 	<?xml version="1.0" encoding="UTF-8"?>
 
 	<channel name="xfce4-panel" version="1.0">
@@ -451,9 +449,9 @@ fi
 # Calibre pre-setup
 #
 if [[ "$OS" == "macos" ]]; then
-	mkdir -p $HOME/Library/Preferences/calibre
+    mkdir -p $HOME/Library/Preferences/calibre
 else
-	mkdir -p $XDG_CONFIG_HOME/calibre
+    mkdir -p $XDG_CONFIG_HOME/calibre
 fi
 mkdir -p $HOME/data/calibre
 
@@ -465,11 +463,11 @@ mkdir -p $HOME/data/calibre
 #
 mkdir -p $HOME/.gnupg
 if [[ "$FLAVOR" == "debian" ]]; then
-	echo "pinentry-program $HOME/bin/pinentry" > $HOME/.gnupg/gpg-agent.conf
+    echo "pinentry-program $HOME/bin/pinentry" >$HOME/.gnupg/gpg-agent.conf
 else
-	echo "pinentry-program ~/bin/pinentry" > $HOME/.gnupg/gpg-agent.conf
+    echo "pinentry-program ~/bin/pinentry" >$HOME/.gnupg/gpg-agent.conf
 fi
-echo "enable-ssh-support" >> $HOME/.gnupg/gpg-agent.conf
+echo "enable-ssh-support" >>$HOME/.gnupg/gpg-agent.conf
 
 # Fix permissions
 #
@@ -484,21 +482,23 @@ find $HOME/.gnupg -type f -exec chmod 600 "{}" \;
 # Need to set up GPG environment here to work around issues on some
 # systems
 #
-export GPG_TTY=$(tty)
-export SSH_AUTH_SOCK="$(gpgconf --list-dirs agent-ssh-socket)"
+GPG_TTY=$(tty)
+SSH_AUTH_SOCK="$(gpgconf --list-dirs agent-ssh-socket)"
+export GPG_TTY SSH_AUTH_SOCK
+
 gpgconf --kill gpg-agent
 gpg-connect-agent updatestartuptty /bye
 
 # Set up GPG and SSH, if applicable
 #
-if [[ $(ls -1 $HOME/.ssh/id_* 2> /dev/null | wc -l) -eq 0 ]] \
-&& [[ $(gpg --list-secret-keys --with-colons \
-              | grep -cE '^sec:(f|u):') -eq 0 ]]; then
-	echo "Setting up initial SSH and GPG keys"
+if [[ $(ls -1 $HOME/.ssh/id_* 2>/dev/null | wc -l) -eq 0 ]] &&
+    [[ $(gpg --list-secret-keys --with-colons |
+        grep -cE '^sec:(f|u):') -eq 0 ]]; then
+    echo "Setting up initial SSH and GPG keys"
 
-	# Create a new GPG/SSH keys
-	#
-	gpg --batch --expert --full-generate-key <<- EOF
+    # Create a new GPG/SSH keys
+    #
+    gpg --batch --expert --full-generate-key <<-EOF
 	Key-Type: EDDSA
 		Key-Curve: ed25519
 		Key-Usage: sign auth
@@ -510,64 +510,64 @@ if [[ $(ls -1 $HOME/.ssh/id_* 2> /dev/null | wc -l) -eq 0 ]] \
 	Name-Email: nathan.acks@cardboard-iguana.com
 	EOF
 
-	# Get the key ID of the new key
-	#
-	NEW_SECRET_KEY_ID="$(
-		gpg --list-secret-keys --with-colons \
-		| grep -E '^sec:(f|u):' \
-		| cut -d: -f 5
-	)"
+    # Get the key ID of the new key
+    #
+    NEW_SECRET_KEY_ID="$(
+        gpg --list-secret-keys --with-colons |
+            grep -E '^sec:(f|u):' |
+            cut -d: -f 5
+    )"
 
-	# Get the keygrip of the new key
-	#
-	# FIXME: I *think* that the output of --with-colons is ordered, and
-	#        thus the keygrip for the primary key is just the first
-	#        keygrip when this key is displayed. But I can't find any
-	#        good documentation about this, so I may be wrong and this
-	#        may break.
-	#
-	NEW_SECRET_KEY_GRIP="$(
-		gpg --list-secret-keys --with-colons $NEW_SECRET_KEY_ID \
-		| grep -E '^grp:' \
-		| cut -d: -f 10 \
-		| head -1
-	)"
+    # Get the keygrip of the new key
+    #
+    # FIXME: I *think* that the output of --with-colons is ordered, and
+    #        thus the keygrip for the primary key is just the first
+    #        keygrip when this key is displayed. But I can't find any
+    #        good documentation about this, so I may be wrong and this
+    #        may break.
+    #
+    NEW_SECRET_KEY_GRIP="$(
+        gpg --list-secret-keys --with-colons $NEW_SECRET_KEY_ID |
+            grep -E '^grp:' |
+            cut -d: -f 10 |
+            head -1
+    )"
 
-	# SSH setup
-	#
-	gpgconf --kill gpg-agent
-	rm -f "$HOME"/.gnupg/sshcontrol
-	gpg-connect-agent updatestartuptty /bye &> /dev/null
-	ssh-add -l &> /dev/null || true
-	gpg-connect-agent "keyattr $NEW_SECRET_KEY_GRIP Use-for-ssh: true" /bye > /dev/null
-	echo "$NEW_SECRET_KEY_GRIP" >> "$HOME"/.gnupg/sshcontrol
+    # SSH setup
+    #
+    gpgconf --kill gpg-agent
+    rm -f "$HOME"/.gnupg/sshcontrol
+    gpg-connect-agent updatestartuptty /bye &>/dev/null
+    ssh-add -l &>/dev/null || true
+    gpg-connect-agent "keyattr $NEW_SECRET_KEY_GRIP Use-for-ssh: true" /bye >/dev/null
+    echo "$NEW_SECRET_KEY_GRIP" >>"$HOME"/.gnupg/sshcontrol
 
-	# Update git signing key
-	#
-	echo "[user]" > $XDG_CONFIG_HOME/git/gpg.ini
-	echo "	signingkey = $NEW_SECRET_KEY_ID" >> $XDG_CONFIG_HOME/git/gpg.ini
+    # Update git signing key
+    #
+    echo "[user]" >$XDG_CONFIG_HOME/git/gpg.ini
+    echo "	signingkey = $NEW_SECRET_KEY_ID" >>$XDG_CONFIG_HOME/git/gpg.ini
 
-	# Print public GPG and SSH keys for new secret key
-	#
-	echo ""
-	echo "-----------------------------------------"
-	echo "New secret key 0x$NEW_SECRET_KEY_ID created"
-	echo "-----------------------------------------"
-	echo ""
-	gpg --list-keys --with-keygrip --keyid-format=long $NEW_SECRET_KEY_ID
-	echo "GPG public key block:"
-	echo ""
-	gpg --armor --export $NEW_SECRET_KEY_ID
-	echo ""
-	echo "SSH public key:"
-	echo ""
-	gpg --export-ssh-key $NEW_SECRET_KEY_ID
-	echo ""
-	echo "You must add the public GPG and SSH key displayed above to GitHub before"
-	echo "continuing."
-	echo ""
-	read -rs -n 1 -p "Press any key to continue once this step is complete."
-	echo ""
+    # Print public GPG and SSH keys for new secret key
+    #
+    echo ""
+    echo "-----------------------------------------"
+    echo "New secret key 0x$NEW_SECRET_KEY_ID created"
+    echo "-----------------------------------------"
+    echo ""
+    gpg --list-keys --with-keygrip --keyid-format=long $NEW_SECRET_KEY_ID
+    echo "GPG public key block:"
+    echo ""
+    gpg --armor --export $NEW_SECRET_KEY_ID
+    echo ""
+    echo "SSH public key:"
+    echo ""
+    gpg --export-ssh-key $NEW_SECRET_KEY_ID
+    echo ""
+    echo "You must add the public GPG and SSH key displayed above to GitHub before"
+    echo "continuing."
+    echo ""
+    read -rs -n 1 -p "Press any key to continue once this step is complete."
+    echo ""
 fi
 
 # Check out a few useful code repositories
@@ -575,59 +575,59 @@ fi
 echo "Making some useful code repositories available"
 mkdir -p $HOME/src
 (
-	cd $HOME/src
+    cd $HOME/src || exit 1
 
-	if [[ ! -d smart-contracts-hacking ]]; then
-		git clone --recurse-submodules \
-		    git@github.com:cardboard-iguana/smart-contracts-hacking.git
-	fi
-	if [[ ! -d resume ]]; then
-		git clone --recurse-submodules \
-		    git@github.com:necopinus/resume.git
-	fi
-	if [[ ! -d website-theme ]]; then
-		git clone --recurse-submodules \
-		    git@github.com:necopinus/website-theme.git
-	fi
+    if [[ ! -d smart-contracts-hacking ]]; then
+        git clone --recurse-submodules \
+            git@github.com:cardboard-iguana/smart-contracts-hacking.git
+    fi
+    if [[ ! -d resume ]]; then
+        git clone --recurse-submodules \
+            git@github.com:necopinus/resume.git
+    fi
+    if [[ ! -d website-theme ]]; then
+        git clone --recurse-submodules \
+            git@github.com:necopinus/website-theme.git
+    fi
 
-	if [[ ! -d backups ]]; then
-		git clone --recurse-submodules \
-		    git@github.com:The-Yak-Collective/backups.git
-	fi
-	if [[ ! -d GPTDiscord ]]; then
-		git clone --recurse-submodules \
-		    git@github.com:The-Yak-Collective/GPTDiscord.git
-	fi
-	if [[ ! -d yakcollective ]]; then
-		git clone --recurse-submodules \
-		    git@github.com:The-Yak-Collective/yakcollective.git
-	fi
+    if [[ ! -d backups ]]; then
+        git clone --recurse-submodules \
+            git@github.com:The-Yak-Collective/backups.git
+    fi
+    if [[ ! -d GPTDiscord ]]; then
+        git clone --recurse-submodules \
+            git@github.com:The-Yak-Collective/GPTDiscord.git
+    fi
+    if [[ ! -d yakcollective ]]; then
+        git clone --recurse-submodules \
+            git@github.com:The-Yak-Collective/yakcollective.git
+    fi
 
-	if [[ ! -d cardboard-iguana.com ]]; then
-		git clone --recurse-submodules \
-		    git@github.com:cardboard-iguana/cardboard-iguana.com.git
-	fi
-	if [[ ! -d chateaumaxmin.info ]]; then
-		git clone --recurse-submodules \
-		    git@github.com:necopinus/chateaumaxmin.info.git
-	fi
-	if [[ ! -d delphi-strategy.com ]]; then
-		git clone --recurse-submodules \
-		    git@github.com:necopinus/delphi-strategy.com.git
-	fi
-	if [[ ! -d digital-orrery.com ]]; then
-		git clone --recurse-submodules \
-		    git@github.com:necopinus/digital-orrery.com.git
-	fi
-	if [[ ! -d necopinus.xyz ]]; then
-		git clone --recurse-submodules \
-		    git@github.com:necopinus/necopinus.xyz.git
-	fi
+    if [[ ! -d cardboard-iguana.com ]]; then
+        git clone --recurse-submodules \
+            git@github.com:cardboard-iguana/cardboard-iguana.com.git
+    fi
+    if [[ ! -d chateaumaxmin.info ]]; then
+        git clone --recurse-submodules \
+            git@github.com:necopinus/chateaumaxmin.info.git
+    fi
+    if [[ ! -d delphi-strategy.com ]]; then
+        git clone --recurse-submodules \
+            git@github.com:necopinus/delphi-strategy.com.git
+    fi
+    if [[ ! -d digital-orrery.com ]]; then
+        git clone --recurse-submodules \
+            git@github.com:necopinus/digital-orrery.com.git
+    fi
+    if [[ ! -d necopinus.xyz ]]; then
+        git clone --recurse-submodules \
+            git@github.com:necopinus/necopinus.xyz.git
+    fi
 
-	if [[ ! -d twitter-archive-parser ]]; then
-		git clone --recurse-submodules \
-		    https://github.com/timhutton/twitter-archive-parser.git
-	fi
+    if [[ ! -d twitter-archive-parser ]]; then
+        git clone --recurse-submodules \
+            https://github.com/timhutton/twitter-archive-parser.git
+    fi
 )
 
 # Install Helix grammars
@@ -641,7 +641,7 @@ hx -g build
 # garbage fire that is systemd
 #
 if [[ "$OS" == "linux" ]]; then
-	$HOME/local/lib/linux/common/libexec/update-environment
+    $HOME/local/lib/linux/common/libexec/update-environment
 fi
 
 # Try (probably futile) to guard against filesystem corruption in the

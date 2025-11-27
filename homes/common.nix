@@ -42,12 +42,14 @@ in {
     #   brew uninstall android-platform-tools bat delve \
     #                  font-jetbrains-mono-nerd-font gopls \
     #                  haskell-language-server helix jdtls jq-lsp \
-    #                  lua-language-server markdown-oxide mise ruff \
-    #                  rust-analyzer shellcheck shfmt swift-format texlab \
-    #                  tinymist zed
+    #                  lua-language-server markdown-oxide mise pandoc \
+    #                  ruff rust-analyzer shellcheck shfmt swift-format \
+    #                  texlab tinymist zed
 
     android-tools
     libqalculate
+    pandoc
+    texliveFull
     yq
     yt-dlp
 
@@ -55,10 +57,6 @@ in {
     localPkgs.backup-home
     localPkgs.update-system
   ];
-
-  # Miscellaneous programs
-  #
-  programs.bat.enable = true;
 
   # Git configuration (example of shared settings)
   #
@@ -87,11 +85,11 @@ in {
   #   };
   # };
 
-  # Dotfile management (example)
+  # Additional dotfiles
   #
-  # home.file = {
-  #   ".config/example/config.toml".source = ../artifacts/config/example/config.toml;
-  # };
+  home.file = {
+    "config/marksman/config.toml".source = ../artifacts/config/marksman/config.toml;
+  };
 
   # Environment variables
   #
