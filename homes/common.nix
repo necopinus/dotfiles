@@ -12,41 +12,44 @@ in {
 
   home.packages = with pkgs; [
     # Remove:
-    #   .default-gems
-    #   .default-npm-packages
-    #   .default-python-packages
-    #   bin/backup
-    #   bin/pbcopy
-    #   bin/pbpaste
-    #   bin/update
-    #   cache/env
-    #   config/bat
-    #   config/helix
-    #   config/mise
-    #   config/qobuz-dl
-    #   config/zed
-    #   local/state/mise
-    #   local/share/fonts
-    #   local/share/mise
+    #   ~/.default-gems
+    #   ~/.default-npm-packages
+    #   ~/.default-python-packages
+    #   ~/bin/backup
+    #   ~/bin/pbcopy
+    #   ~/bin/pbpaste
+    #   ~/bin/update
+    #   ~/cache/env
+    #   ~/config/bat
+    #   ~/config/helix
+    #   ~/config/mise
+    #   ~/config/qobuz-dl
+    #   ~/config/zed
+    #   ~/local/state/mise
+    #   ~/local/share/fonts
+    #   ~/local/share/mise
+    #   /etc/apt/sources.list.d/brave-browser.sources
+    #   /usr/share/keyrings/brave-browser-archive-keyring.gpg
     #
     # Modify:
-    #   .profile
-    #   bin/update
+    #   ~/.profile
     #
     # Commands:
     #   sudo apt purge --autoremove --purge \
-    #            android-sdk-platform-tools fonts-noto wl-clipboard
+    #            android-sdk-platform-tools brave-browser fonts-noto \
+    #            wl-clipboard
     #
     #   brew uninstall libqalculate openvpn xsel
     #
-    #   brew uninstall android-platform-tools bat block-goose-cli delve \
-    #                  font-jetbrains-mono-nerd-font gopls \
-    #                  haskell-language-server helix jdtls jq-lsp \
+    #   brew uninstall android-platform-tools bat block-goose-cli \
+    #                  brave-browser delve font-jetbrains-mono-nerd-font \
+    #                  gopls haskell-language-server helix jdtls jq-lsp \
     #                  lua-language-server markdown-oxide mise pandoc \
     #                  ruff rust-analyzer shellcheck shfmt swift-format \
     #                  texlab tinymist zed
 
     android-tools
+    brave
     goose-cli
     libqalculate
     pandoc
