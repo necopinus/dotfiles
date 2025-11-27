@@ -39,7 +39,7 @@ in {
     #
     #   brew uninstall libqalculate openvpn xsel
     #
-    #   brew uninstall android-platform-tools bat delve \
+    #   brew uninstall android-platform-tools bat block-goose-cli delve \
     #                  font-jetbrains-mono-nerd-font gopls \
     #                  haskell-language-server helix jdtls jq-lsp \
     #                  lua-language-server markdown-oxide mise pandoc \
@@ -47,6 +47,7 @@ in {
     #                  texlab tinymist zed
 
     android-tools
+    goose-cli
     libqalculate
     pandoc
     texliveFull
