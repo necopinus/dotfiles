@@ -25,7 +25,6 @@ if [[ "$FLAVOR" == "macos" ]]; then
 	     fd \
 	     ffmpeg \
 	     fish \
-	     font-jetbrains-mono-nerd-font \
 	     fzf \
 	     gawk \
 	     ghc \
@@ -122,7 +121,6 @@ elif [[ "$FLAVOR" == "debian" ]]; then
 	         brave-browser \
 	         calibre \
 	         eject \
-	         fonts-noto \
 	         gnome-keyring \
 	         handbrake \
 	         man-db \
@@ -189,10 +187,6 @@ elif [[ "$FLAVOR" == "debian" ]]; then
 	#
 	brew install --build-from-source \
 	     abcde
-
-	# Additional "manual" installs
-	#
-	$HOME/local/lib/linux/common/libexec/update-jetbrains-mono
 
 	# Disposable Kali
 	#

@@ -1,8 +1,7 @@
-{ pkgs, ... }:
-let
+{pkgs, ...}: let
   localPkgs = {
-    pbcopy = pkgs.callPackage ../pkgs/pbcopy.nix { };
-    pbpaste = pkgs.callPackage ../pkgs/pbpaste.nix { };
+    pbcopy = pkgs.callPackage ../pkgs/pbcopy.nix {};
+    pbpaste = pkgs.callPackage ../pkgs/pbpaste.nix {};
   };
 in {
   # imports = [
@@ -10,6 +9,13 @@ in {
   # ];
 
   home.packages = with pkgs; [
+    #### Fonts ####
+    nerd-fonts.jetbrains-mono
+    noto-fonts
+    noto-fonts-cjk-sans
+    noto-fonts-monochrome-emoji
+
+    #### Local packages (see above) ####
     localPkgs.pbcopy
     localPkgs.pbpaste
   ];
@@ -17,6 +23,10 @@ in {
   # Make sure that the home-manager binary is available in the PATH
   #
   programs.home-manager.enable = true;
+
+  # Needed to force font cache to be rebuilt
+  #
+  fonts.fontconfig.enable = true;
 
   # programs.example = {
   #   enable = true;

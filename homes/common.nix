@@ -26,6 +26,7 @@ in {
     #   config/qobuz-dl
     #   config/zed
     #   local/state/mise
+    #   local/share/fonts
     #   local/share/mise
     #
     # Modify:
@@ -34,11 +35,12 @@ in {
     #
     # Commands:
     #   sudo apt purge --autoremove --purge \
-    #            android-sdk-platform-tools wl-clipboard
+    #            android-sdk-platform-tools fonts-noto wl-clipboard
     #
     #   brew uninstall libqalculate openvpn xsel
     #
-    #   brew uninstall android-platform-tools bat delve gopls \
+    #   brew uninstall android-platform-tools bat delve \
+    #                  font-jetbrains-mono-nerd-font gopls \
     #                  haskell-language-server helix jdtls jq-lsp \
     #                  lua-language-server markdown-oxide mise ruff \
     #                  rust-analyzer shellcheck shfmt swift-format texlab \
@@ -46,10 +48,12 @@ in {
 
     android-tools
     libqalculate
-    localPkgs.backup-home
-    localPkgs.update-system
     yq
     yt-dlp
+
+    #### Local packages (see above) ####
+    localPkgs.backup-home
+    localPkgs.update-system
   ];
 
   # Miscellaneous programs

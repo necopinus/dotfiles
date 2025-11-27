@@ -1,6 +1,4 @@
-{ pkgs, ... }:
-
-{
+{pkgs, ...}: {
   # Disable nix-darwin's management of the nix binary, as I'm using
   # determinate-nix
   #
@@ -27,6 +25,15 @@
   #     # "example-app"
   #   ];
   # };
+
+  # Fonts
+  #
+  fonts.packages = with pkgs; [
+    nerd-fonts.jetbrains-mono
+    noto-fonts
+    noto-fonts-cjk-sans
+    noto-fonts-monochrome-emoji
+  ];
 
   system.defaults = {
     # Example: dock settings
