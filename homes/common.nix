@@ -1,11 +1,11 @@
-{ pkgs, ... }:
-let
+{pkgs, ...}: let
   localPkgs = {
-    backup-home = pkgs.callPackage ../pkgs/backup-home.nix { };
-    update-system = pkgs.callPackage ../pkgs/update-system.nix { };
+    backup-home = pkgs.callPackage ../pkgs/backup-home.nix {};
+    update-system = pkgs.callPackage ../pkgs/update-system.nix {};
   };
 in {
   imports = [
+    ../programs/bat.nix
     ../programs/helix.nix
     ../programs/zed.nix
   ];
@@ -20,6 +20,7 @@ in {
     #   bin/pbpaste
     #   bin/update
     #   cache/env
+    #   config/bat
     #   config/helix
     #   config/mise
     #   config/qobuz-dl
@@ -32,21 +33,28 @@ in {
     #   bin/update
     #
     # Commands:
-    #   sudo apt purge --autoremove --purge wl-clipboard
+    #   sudo apt purge --autoremove --purge \
+    #            android-sdk-platform-tools wl-clipboard
     #
     #   brew uninstall libqalculate openvpn xsel
     #
-    #   brew uninstall delve gopls haskell-language-server helix jdtls \
-    #                  jq-lsp lua-language-server markdown-oxide mise ruff \
+    #   brew uninstall android-platform-tools bat delve gopls \
+    #                  haskell-language-server helix jdtls jq-lsp \
+    #                  lua-language-server markdown-oxide mise ruff \
     #                  rust-analyzer shellcheck shfmt swift-format texlab \
     #                  tinymist zed
 
+    android-tools
     libqalculate
     localPkgs.backup-home
     localPkgs.update-system
     yq
     yt-dlp
   ];
+
+  # Miscellaneous programs
+  #
+  programs.bat.enable = true;
 
   # Git configuration (example of shared settings)
   #

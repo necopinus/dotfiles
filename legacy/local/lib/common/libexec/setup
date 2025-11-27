@@ -7,8 +7,6 @@ echo "Installing additional tooling"
 if [[ "$FLAVOR" == "macos" ]]; then
 	brew install \
 	     adobe-creative-cloud \
-	     android-platform-tools \
-	     bat \
 	     block-goose-cli \
 	     bottom \
 	     brave-browser \
@@ -120,7 +118,6 @@ elif [[ "$FLAVOR" == "debian" ]]; then
 	         gnupg \
 	         procps
 	sudo apt install -y \
-	         android-sdk-platform-tools \
 	         apt-utils \
 	         brave-browser \
 	         calibre \
@@ -141,7 +138,6 @@ elif [[ "$FLAVOR" == "debian" ]]; then
 	         zip
 
 	brew install \
-	     bat \
 	     block-goose-cli \
 	     bottom \
 	     cd-discid \
