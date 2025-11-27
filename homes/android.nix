@@ -4,15 +4,11 @@
     pbpaste = pkgs.callPackage ../pkgs/pbpaste.nix {};
   };
 in {
-  # imports = [
-  #   ../programs/foo.nix
-  # ];
+  imports = [
+    ../programs/abcde.nix
+  ];
 
   home.packages = with pkgs; [
-    abcde
-    eject
-    normalize
-
     #### Fonts ####
     nerd-fonts.jetbrains-mono
     noto-fonts

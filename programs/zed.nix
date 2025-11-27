@@ -42,6 +42,7 @@ in {
       else pkgs.zed-editor;
 
     extraPackages = zedExtraPackages;
+    home.file."config/marksman/config.toml".source = ../artifacts/config/marksman/config.toml;
 
     extensions = [
       "awk"
@@ -58,6 +59,7 @@ in {
       "latex"
       "lua"
       "make"
+      "marksman"
       "nix"
       "powershell"
       "rst"
@@ -67,11 +69,6 @@ in {
       "swift"
       "toml"
       "xml"
-      #
-      #######################################
-      # Need to finish adding extensions... #
-      #######################################
-      #
     ];
 
     userSettings = {

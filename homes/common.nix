@@ -109,10 +109,9 @@ in {
 
   # Additional dotfiles
   #
-  home.file = {
-    "config/marksman/config.toml".source = ../artifacts/config/marksman/config.toml;
-    ".abcde.conf".source = ../artifacts/abcde.conf;
-  };
+  #home.file = {
+  #  "config/marksman/config.toml".source = ../artifacts/config/marksman/config.toml;
+  #};
 
   # Environment variables
   #

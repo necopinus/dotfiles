@@ -50,6 +50,8 @@ in {
         localPkgs.pbpaste
       ];
 
+    home.file."config/marksman/config.toml".source = ../artifacts/config/marksman/config.toml;
+
     settings = {
       theme = "gruvbox_light_mod";
 
