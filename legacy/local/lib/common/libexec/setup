@@ -81,7 +81,6 @@ if [[ "$FLAVOR" == "macos" ]]; then
 	     xz \
 	     yamlresume \
 	     yubico-yubikey-manager \
-	     zed \
 	     zoxide \
 	     zstd
 

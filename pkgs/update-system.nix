@@ -1,6 +1,4 @@
-{
-  writeShellApplication
-}:
+{writeShellApplication}:
 writeShellApplication {
   name = "update-system";
 
@@ -28,6 +26,7 @@ writeShellApplication {
     (
       cd "$HOME/config/nix"
       nix flake update
+      nix flake archive
       if [[ "$(uname -s)" == "Darwin" ]]; then
         sudo darwin-rebuild switch --flake .#macos
       else

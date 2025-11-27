@@ -7,6 +7,7 @@ let
 in {
   imports = [
     ../programs/helix.nix
+    ../programs/zed.nix
   ];
 
   home.packages = with pkgs; [
@@ -22,6 +23,7 @@ in {
     #   config/helix
     #   config/mise
     #   config/qobuz-dl
+    #   config/zed
     #   local/state/mise
     #   local/share/mise
     #
@@ -37,7 +39,7 @@ in {
     #   brew uninstall delve gopls haskell-language-server helix jdtls \
     #                  jq-lsp lua-language-server markdown-oxide mise ruff \
     #                  rust-analyzer shellcheck shfmt swift-format texlab \
-    #                  tinymist
+    #                  tinymist zed
 
     libqalculate
     localPkgs.backup-home

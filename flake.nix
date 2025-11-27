@@ -24,14 +24,20 @@
     };
   };
 
-  outputs = { self, nixpkgs, nix-darwin, home-manager, systemd-lsp, ... }:
-  let
+  outputs = {
+    self,
+    nixpkgs,
+    nix-darwin,
+    home-manager,
+    systemd-lsp,
+    ...
+  }: let
     # State versions for home-manager and nix-darwin as of 2025-11-23
     #
     # DO NOT UPDATE without first reading (and, if applicable, acting) on all
     # intervening release notes!
     #
-    homeManagerStateVersion = "25.05";
+    homeManagerStateVersion = "25.11";
     nixDarwinStateVersion = 6;
 
     # User names
@@ -47,9 +53,11 @@
 
     # Overlays to make installing packages from flakes easier
     #
-    nixpkgs.overlays = [ ({
-      systemd-lsp = systemd-lsp.packages.${nixpkgs.stdenv.hostPlatform.system}.default;
-    }) ];
+    nixpkgs.overlays = [
+      {
+        systemd-lsp = systemd-lsp.packages.${nixpkgs.stdenv.hostPlatform.system}.default;
+      }
+    ];
   in {
     # macOS configuration (nix-darwin + home-manager)
     #
@@ -67,7 +75,8 @@
 
         ./hosts/macos.nix
 
-        home-manager.darwinModules.home-manager {
+        home-manager.darwinModules.home-manager
+        {
           home-manager = {
             useGlobalPkgs = true;
             useUserPackages = false;
