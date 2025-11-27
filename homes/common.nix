@@ -1,4 +1,4 @@
-{ config, pkgs, ... }:
+{ pkgs, ... }:
 let
   localPkgs = {
     backup-home = pkgs.callPackage ../pkgs/backup-home.nix { };

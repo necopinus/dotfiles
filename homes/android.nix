@@ -1,4 +1,4 @@
-{ config, pkgs, ... }:
+{ pkgs, ... }:
 let
   localPkgs = {
     pbcopy = pkgs.callPackage ../pkgs/pbcopy.nix { };

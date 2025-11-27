@@ -1,4 +1,4 @@
-{ config, pkgs, ... }:
+{ pkgs, ... }:
 
 {
   # Disable nix-darwin's management of the nix binary, as I'm using
