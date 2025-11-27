@@ -36,7 +36,6 @@ if [[ "$FLAVOR" == "macos" ]]; then
 	     github \
 	     gnupg \
 	     google-drive \
-	     helix \
 	     homebrew/cask/handbrake \
 	     imagemagick \
 	     jpeg-turbo \
@@ -162,7 +161,6 @@ elif [[ "$FLAVOR" == "debian" ]]; then
 	     ghc \
 	     ghostscript \
 	     git-delta \
-	     helix \
 	     imagemagick \
 	     jpeg-turbo \
 	     jq \

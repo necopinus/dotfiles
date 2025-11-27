@@ -5,9 +5,9 @@ let
     update-system = pkgs.callPackage ../pkgs/update-system.nix { };
   };
 in {
-  # imports = [
-  #   ../programs/foo.nix
-  # ];
+  imports = [
+    ../programs/helix.nix
+  ];
 
   home.packages = with pkgs; [
     # Remove:
@@ -19,6 +19,7 @@ in {
     #   bin/pbpaste
     #   bin/update
     #   cache/env
+    #   config/helix
     #   config/mise
     #   config/qobuz-dl
     #   local/state/mise
@@ -33,37 +34,10 @@ in {
     #
     #   brew uninstall libqalculate openvpn xsel
     #
-    #   brew uninstall delve gopls haskell-language-server jdtls jq-lsp \
-    #                  lua-language-server markdown-oxide mise ruff \
+    #   brew uninstall delve gopls haskell-language-server helix jdtls \
+    #                  jq-lsp lua-language-server markdown-oxide mise ruff \
     #                  rust-analyzer shellcheck shfmt swift-format texlab \
     #                  tinymist
-
-    #### LSPs ####
-    bash-language-server
-    fish-lsp
-    lua-language-server
-    markdown-oxide
-    marksman
-    nil
-    nixd
-    python3Packages.python-lsp-server
-    ruff
-    solc
-    superhtml
-    systemd-lsp # External flake
-    taplo
-    tombi
-    ty
-    typescript-language-server
-    vscode-langservers-extracted
-    yaml-language-server
-    #### LSPs ####
-
-    #### Formatters ####
-    prettier
-    shellcheck
-    shfmt
-    #### Formatters ####
 
     libqalculate
     localPkgs.backup-home
