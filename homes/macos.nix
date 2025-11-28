@@ -7,6 +7,10 @@ in {
   #   ../programs/foo.nix
   # ];
 
+  # programs.example = {
+  #   enable = true;
+  # };
+
   home.packages = with pkgs; [
     protonmail-desktop
     slack
@@ -15,10 +19,6 @@ in {
     #### Local packages (see above) ####
     localPkgs.vault-sync
   ];
-
-  # programs.example = {
-  #   enable = true;
-  # };
 
   # home.file = {
   #   ".config.foo".source = ../artifacts/config.foo;

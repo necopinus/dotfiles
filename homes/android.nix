@@ -8,6 +8,14 @@ in {
   #  ../programs/foo.nix
   #];
 
+  # Make sure that the home-manager binary is available in the PATH
+  #
+  programs.home-manager.enable = true;
+
+  # Needed to force font cache to be rebuilt
+  #
+  fonts.fontconfig.enable = true;
+
   home.packages = with pkgs; [
     calibre
     obsidian
@@ -23,15 +31,12 @@ in {
     localPkgs.pbpaste
   ];
 
-  # Make sure that the home-manager binary is available in the PATH
-  #
-  programs.home-manager.enable = true;
-
-  # Needed to force font cache to be rebuilt
-  #
-  fonts.fontconfig.enable = true;
-
   home.file = {
+    # Disable default application startups
+    #
+    "config/autostart/light-locker.desktop".source = ../artifacts/local/share/applications/hidden.desktop;
+    "config/autostart/xiccd.desktop".source = ../artifacts/local/share/applications/hidden.desktop;
+
     # Hide some desktop applications
     #
     "local/share/applications/fish.desktop".source = ../artifacts/local/share/applications/hidden.desktop;

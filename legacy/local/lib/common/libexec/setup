@@ -9,8 +9,7 @@ if [[ "$FLAVOR" == "macos" ]]; then
         fish \
         gnupg \
         pinentry-mac \
-        wezterm \
-        zoxide
+        wezterm
 elif [[ "$FLAVOR" == "debian" ]]; then
     sudo mkdir -p /usr/share/keyrings
 
@@ -24,8 +23,7 @@ elif [[ "$FLAVOR" == "debian" ]]; then
         wezterm
 
     brew install \
-        fish \
-        zoxide
+        fish
 
     # System-level tweaks
     #

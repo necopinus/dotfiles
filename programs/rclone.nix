@@ -3,6 +3,6 @@
 
   home.file = {
     "config/rclone/exclude".source = ../artifacts/config/rclone/exclude;
-    "config/rclone/rclone.conf".source = ../artifacts/config/rclone/rclone.conf;
+    "config/rclone/rclone.conf".source = ../artifacts/config/empty.file;
   };
 }

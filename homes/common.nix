@@ -17,6 +17,8 @@ in {
     ../programs/zed.nix
   ];
 
+  programs.zoxide.enable = true;
+
   home.packages = with pkgs; [
     # Remove:
     #   ~/.abcde.conf
@@ -28,6 +30,7 @@ in {
     #   ~/.ssh/config
     #   ~/bin
     #   ~/cache/env
+    #   ~/config/autostart
     #   ~/config/bat
     #   ~/config/bottom
     #   ~/config/git
@@ -46,7 +49,9 @@ in {
     #   ~/local/share/icons
     #   ~/local/share/mise
     #   /etc/apt/sources.list.d/brave-browser.sources
+    #   /etc/apt/sources.list.d/wezterm.list
     #   /usr/share/keyrings/brave-browser-archive-keyring.gpg
+    #   /usr/share/keyrings/wezterm-fury.gpg
     #
     # Modify:
     #   ~/.bashrc (remove find/grep/du/df aliases)
@@ -88,7 +93,7 @@ in {
     #                  rust-analyzer shellcheck shfmt slack solidity \
     #                  sqlite starship swift-format texlab tinymist \
     #                  uutils-coreutils uutils-diffutils uutils-findutils \
-    #                  xclip xz yamlresume zed zstd
+    #                  xclip xz yamlresume zed zoxide zstd
 
     android-tools
     brave
