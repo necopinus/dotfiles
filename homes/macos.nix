@@ -20,9 +20,9 @@ in {
     localPkgs.vault-sync
   ];
 
-  # home.file = {
-  #   ".config.foo".source = ../artifacts/config.foo;
-  # };
+  home.file = {
+    "config/user-dirs.dirs".source = ../artifacts/config/user-dirs.dirs;
+  };
 
   # home.sessionVariables = {
   #   FOO_VARIABLE = "bar";

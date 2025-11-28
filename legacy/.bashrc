@@ -35,10 +35,7 @@ if [[ "${gnupg_SSH_AUTH_SOCK_by:-0}" -ne $$ ]] || [[ -z "$SSH_AUTH_SOCK" ]]; the
     unset SSH_AGENT_PID
 fi
 
-# It's most likely that we'll wind up in this shell when using a
-# terminal that *only* supports dark mode (such as the Linux console or
-# Android Terminal). Override a couple of configuration variables in
-# in this case to make sure that things don't look eye-gougingly bad.
+# Theme options
 #
 export BAT_THEME="ansi"
 export DELTA_FEATURES="+generic-dark-theme"

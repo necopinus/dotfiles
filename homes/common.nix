@@ -1,4 +1,8 @@
-{pkgs, ...}: let
+{
+  config,
+  pkgs,
+  ...
+}: let
   localPkgs = {
     backup-home = pkgs.callPackage ../pkgs/backup-home.nix {};
     update-system = pkgs.callPackage ../pkgs/update-system.nix {};
@@ -34,21 +38,28 @@ in {
     #   ~/config/autostart
     #   ~/config/bat
     #   ~/config/bottom
+    #   ~/config/environment.d
     #   ~/config/git
     #   ~/config/glow
     #   ~/config/helix
+    #   ~/config/mimeapps.list
     #   ~/config/mise
     #   ~/config/moxide
     #   ~/config/qobuz-dl
     #   ~/config/rclone
     #   ~/config/starship
+    #   ~/config/user-dirs.dirs
+    #   ~/config/xdg-terminals.list
+    #   ~/config/xfce4
     #   ~/config/zed
+    #   ~/local/bin
     #   ~/local/lib
     #   ~/local/state/mise
     #   ~/local/share/applications
     #   ~/local/share/fonts
     #   ~/local/share/icons
     #   ~/local/share/mise
+    #   ~/local/share/xfce4
     #   /etc/apt/sources.list.d/brave-browser.sources
     #   /etc/apt/sources.list.d/wezterm.list
     #   /usr/share/keyrings/brave-browser-archive-keyring.gpg
@@ -98,12 +109,12 @@ in {
     #                  zstd
 
     #
-    # 1. XDG setup
+    # 1. XDG setup (also: Xfce)
     # 2. Bash
     # 3. Zsh
     # 4. WezTerm
     # 5. Fish
-    # 6. Finish configurng macOS
+    # 6. Finish configuring macOS
     # 7. Debug Android VM
     #
 
@@ -141,6 +152,15 @@ in {
     localPkgs.update-system
   ];
 
+  xdg = {
+    enable = true;
+
+    cacheHome = "${config.home.homeDirectory}/cache";
+    configHome = "${config.home.homeDirectory}/config";
+    dataHome = "${config.home.homeDirectory}/local/share";
+    stateHome = "${config.home.homeDirectory}/local/state";
+  };
+
   # Additional dotfiles
   #
   #home.file = {
@@ -149,7 +169,9 @@ in {
 
   # Environment variables
   #
-  # home.sessionVariables = {
-  #   EDITOR = "vim";
-  # };
+  home.sessionVariables = {
+    EDITOR = "hx";
+    LESS = "-R";
+    VISUAL = "hx";
+  };
 }

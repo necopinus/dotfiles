@@ -21,6 +21,11 @@ end
 gpg-connect-agent /bye &>/dev/null &
 disown
 
+# Theme options
+#
+export BAT_THEME="gruvbox-light"
+export DELTA_FEATURES="+gruvbox-light"
+
 # Convenience aliases
 #
 alias :e "$EDITOR"
@@ -126,10 +131,3 @@ end
 # Suppress welcome message
 #
 set -g fish_greeting
-
-# Try (probably futilely) to keep environment variables in sync with the
-# garbage fire that is systemd
-#
-if test "$OS" = linux
-    $HOME/local/lib/linux/common/libexec/update-environment
-end

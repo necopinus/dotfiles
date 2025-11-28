@@ -14,15 +14,13 @@ fi
 # Install (or set up) Homebrew
 #
 if [[ "$OS" == "Darwin" ]] && [[ -z "$(which brew 2>/dev/null)" ]]; then
-    echo "Setting up Homebrew"
-
     if [[ -x /opt/homebrew/bin/brew ]]; then
         eval "$(/opt/homebrew/bin/brew shellenv bash)"
     elif [[ -x /usr/local/bin/brew ]]; then
         eval "$(/usr/local/bin/brew shellenv bash)"
     else
         xcode-select --install || true
-        until $(xcode-select --print-path &>/dev/null); do
+        until xcode-select --print-path &>/dev/null; do
             sleep 4
         done
 
@@ -50,8 +48,6 @@ fi
 # Install Nix
 #
 if [[ -z "$(which determinate-nixd 2>/dev/null)" ]]; then
-    echo "Setting up Determinate Nix"
-
     curl -fsSL https://install.determinate.systems/nix | sh -s -- install --determinate --no-confirm
 fi
 if [[ -z "$__ETC_PROFILE_NIX_SOURCED" ]]; then
@@ -66,12 +62,12 @@ if [[ "$OS" == "Darwin" ]]; then
     fi
 
     (
-        cd $HOME/config/nix
+        cd "$HOME/config/nix"
         sudo nix run nix-darwin -- switch --flake .#macos
     )
 else
     (
-        cd $HOME/config/nix
+        cd "$HOME/config/nix"
         nix run home-manager/master -- switch --flake .#android
     )
 fi
@@ -82,15 +78,127 @@ if [[ "$OS" == "Linux" ]]; then
     sudo apt install -y tigervnc-standalone-server xfce4 yubikey-manager-qt
 fi
 
+# Update runtime environment
+#
+source /nix/var/nix/profiles/default/etc/profile.d/nix-daemon.sh
+source "$XDG_CONFIG_HOME/user-dirs.dirs"
+
+# Set up directories and symlinks
+#
+mkdir -p "$XDG_CACHE_HOME"
+if [[ -d "$HOME"/.cache ]] && [[ ! -L "$HOME"/.cache ]]; then
+    cp -anv "$HOME"/.cache/* "$XDG_CACHE_HOME"/ || true
+    rm -rf "$HOME"/.cache
+fi
+if [[ ! -e "$HOME"/.cache ]]; then
+    ln -sf "$XDG_CACHE_HOME" "$HOME"/.cache
+fi
+
+mkdir -p "$XDG_CONFIG_HOME"
+if [[ -d "$HOME"/.config ]] && [[ ! -L "$HOME"/.config ]]; then
+    cp -anv "$HOME"/.config/* "$XDG_CONFIG_HOME"/ || true
+    rm -rf "$HOME"/.config
+fi
+if [[ ! -e "$HOME"/.config ]]; then
+    ln -sf "$XDG_CONFIG_HOME" "$HOME"/.config
+fi
+
+mkdir -p "$HOME"/local
+if [[ -d "$HOME"/.local ]] && [[ ! -L "$HOME"/.local ]]; then
+    cp -anv "$HOME"/.local/* "$HOME"/local/ || true
+    rm -rf "$HOME"/.local
+fi
+if [[ ! -e "$HOME"/.local ]]; then
+    ln -sf "$HOME"/local "$HOME"/.local
+fi
+if [[ ! -e "$HOME"/.var ]]; then
+    ln -sf "$HOME"/local "$HOME"/.var
+fi
+
+# Set up XDG user directories
+#
+mkdir -p "$XDG_DOCUMENTS_DIR"
+if [[ -d "$HOME/Documents" ]] &&
+    [[ "$XDG_DOCUMENTS_DIR" != "$HOME/Documents" ]]; then
+    cp -anv "$HOME/Documents"/* "$XDG_DOCUMENTS_DIR"/ || true
+    rm -rf "$HOME/Documents"
+fi
+
+mkdir -p "$XDG_DESKTOP_DIR"
+if [[ -d "$HOME/Desktop" ]] &&
+    [[ "$XDG_DESKTOP_DIR" != "$HOME/Desktop" ]]; then
+    cp -anv "$HOME/Desktop"/* "$XDG_DESKTOP_DIR"/ || true
+    rm -rf "$HOME/Desktop"
+fi
+
+if [[ "$USER" == "droid" ]] && [[ -d /mnt/shared ]]; then
+    ln -sf /mnt/shared "$XDG_DOWNLOAD_DIR"
+else
+    mkdir -p "$XDG_DOWNLOAD_DIR"
+fi
+if [[ -d "$HOME/Downloads" ]] &&
+    [[ "$XDG_DOWNLOAD_DIR" != "$HOME/Downloads" ]]; then
+    cp -anv "$HOME/Downloads"/* "$XDG_DOWNLOAD_DIR"/ || true
+    rm -rf "$HOME/Downloads"
+elif [[ -d "$HOME/Download" ]] &&
+    [[ "$XDG_DOWNLOAD_DIR" != "$HOME/Download" ]]; then
+    cp -anv "$HOME/Download"/* "$XDG_DOWNLOAD_DIR"/ || true
+    rm -rf "$HOME/Download"
+fi
+
+mkdir -p "$XDG_MUSIC_DIR"
+if [[ -d "$HOME/Music" ]] &&
+    [[ "$XDG_MUSIC_DIR" != "$HOME/Music" ]]; then
+    cp -anv "$HOME/Music"/* "$XDG_MUSIC_DIR"/ || true
+    rm -rf "$HOME/Music"
+fi
+
+mkdir -p "$XDG_PICTURES_DIR"
+if [[ -d "$HOME/Pictures" ]] &&
+    [[ "$XDG_PICTURES_DIR" != "$HOME/Pictures" ]]; then
+    cp -anv "$HOME/Pictures"/* "$XDG_PICTURES_DIR"/ || true
+    rm -rf "$HOME/Pictures"
+fi
+
+mkdir -p "$XDG_PUBLICSHARE_DIR"
+if [[ -d "$HOME/Public" ]] &&
+    [[ "$XDG_PUBLICSHARE_DIR" != "$HOME/Public" ]]; then
+    cp -anv "$HOME/Public"/* "$XDG_PUBLICSHARE_DIR"/ || true
+    rm -rf "$HOME/Public"
+fi
+
+mkdir -p "$XDG_TEMPLATES_DIR"
+if [[ -d "$HOME/Templates" ]] &&
+    [[ "$XDG_TEMPLATES_DIR" != "$HOME/Templates" ]]; then
+    cp -anv "$HOME/Templates"/* "$XDG_TEMPLATES_DIR"/ || true
+    rm -rf "$HOME/Templates"
+fi
+
+mkdir -p "$XDG_VIDEOS_DIR"
+if [[ -d "$HOME/Videos" ]] &&
+    [[ "$XDG_VIDEOS_DIR" != "$HOME/Videos" ]]; then
+    cp -anv "$HOME/Videos"/* "$XDG_VIDEOS_DIR"/ || true
+    rm -rf "$HOME/Videos"
+fi
+
+# Calibre pre-setup
+#
+if [[ "$OS" == "Darwin" ]]; then
+    mkdir -p "$HOME/Library/Preferences/calibre"
+else
+    mkdir -p "$XDG_CONFIG_HOME/calibre"
+fi
+mkdir -p "$HOME/data/calibre"
+
 # Fix permissions; probably not necessary anymore
 #
-chmod 700 $HOME/.ssh
-find $HOME/.ssh -type d -exec chmod 700 "{}" \;
-find $HOME/.ssh -type f -exec chmod 600 "{}" \;
+chmod 700 "$HOME/.ssh"
+find "$HOME/.ssh" -type d -exec chmod 700 "{}" \;
+find "$HOME/.ssh" -type f -exec chmod 600 "{}" \;
 
-chmod 700 $HOME/.gnupg
-find $HOME/.gnupg -type d -exec chmod 700 "{}" \;
-find $HOME/.gnupg -type f -exec chmod 600 "{}" \;
+chmod 700 "$HOME/.gnupg"
+find "$HOME/.gnupg" -type d -exec chmod 700 "{}" \;
+find "$HOME/.gnupg" -type f -exec chmod 600 "{}" \;
 
 # Make sure that the GPG environment is set up
 #
@@ -103,11 +211,9 @@ gpg-connect-agent updatestartuptty /bye
 
 # Set up GPG and SSH, if applicable
 #
-if [[ $(ls -1 $HOME/.ssh/id_* 2>/dev/null | wc -l) -eq 0 ]] &&
+if [[ $(find "$HOME/.ssh" -type f -iname "id_*" 2>/dev/null | wc -l) -eq 0 ]] &&
     [[ $(gpg --list-secret-keys --with-colons |
         grep -cE '^sec:(f|u):') -eq 0 ]]; then
-    echo "Setting up initial SSH and GPG keys"
-
     # Create a new GPG/SSH keys
     #
     gpg --batch --expert --full-generate-key <<-EOF
@@ -139,7 +245,7 @@ if [[ $(ls -1 $HOME/.ssh/id_* 2>/dev/null | wc -l) -eq 0 ]] &&
     #        may break.
     #
     NEW_SECRET_KEY_GRIP="$(
-        gpg --list-secret-keys --with-colons $NEW_SECRET_KEY_ID |
+        gpg --list-secret-keys --with-colons "$NEW_SECRET_KEY_ID" |
             grep -E '^grp:' |
             cut -d: -f 10 |
             head -1
@@ -152,13 +258,13 @@ if [[ $(ls -1 $HOME/.ssh/id_* 2>/dev/null | wc -l) -eq 0 ]] &&
     gpg-connect-agent updatestartuptty /bye &>/dev/null
     ssh-add -l &>/dev/null || true
     gpg-connect-agent "keyattr $NEW_SECRET_KEY_GRIP Use-for-ssh: true" /bye >/dev/null
-    echo "$NEW_SECRET_KEY_GRIP" >>"$HOME"/.gnupg/sshcontrol
+    echo "$NEW_SECRET_KEY_GRIP" >>"$HOME/.gnupg/sshcontrol"
 
     # Update git signing key
     #
-    mkdir -p $XDG_CONFIG_HOME/git
-    echo "[user]" >$XDG_CONFIG_HOME/git/gpg.ini
-    echo "    signingkey = $NEW_SECRET_KEY_ID" >>$XDG_CONFIG_HOME/git/gpg.ini
+    mkdir -p "$XDG_CONFIG_HOME/git"
+    echo "[user]" >"$XDG_CONFIG_HOME/git/gpg.ini"
+    echo "    signingkey = $NEW_SECRET_KEY_ID" >>"$XDG_CONFIG_HOME/git/gpg.ini"
 
     # Print public GPG and SSH keys for new secret key
     #
@@ -167,14 +273,14 @@ if [[ $(ls -1 $HOME/.ssh/id_* 2>/dev/null | wc -l) -eq 0 ]] &&
     echo "New secret key 0x$NEW_SECRET_KEY_ID created"
     echo "-----------------------------------------"
     echo ""
-    gpg --list-keys --with-keygrip --keyid-format=long $NEW_SECRET_KEY_ID
+    gpg --list-keys --with-keygrip --keyid-format=long "$NEW_SECRET_KEY_ID"
     echo "GPG public key block:"
     echo ""
-    gpg --armor --export $NEW_SECRET_KEY_ID
+    gpg --armor --export "$NEW_SECRET_KEY_ID"
     echo ""
     echo "SSH public key:"
     echo ""
-    gpg --export-ssh-key $NEW_SECRET_KEY_ID
+    gpg --export-ssh-key "$NEW_SECRET_KEY_ID"
     echo ""
     echo "You must add the public GPG and SSH key displayed above to GitHub before"
     echo "continuing."
@@ -182,6 +288,76 @@ if [[ $(ls -1 $HOME/.ssh/id_* 2>/dev/null | wc -l) -eq 0 ]] &&
     read -rs -n 1 -p "Press any key to continue once this step is complete."
     echo ""
 fi
+
+# Install Helix grammars
+#
+# NOTE: This must be done *after* git is fully setup!
+#
+hx -g fetch
+hx -g build
+
+# Check out a few useful code repositories
+#
+mkdir -p "$HOME"/src
+(
+    cd "$HOME"/src || exit 1
+
+    if [[ ! -d hackenv ]]; then
+        git clone --recurse-submodules \
+            git@github.com:cardboard-iguana/hackenv.git
+    fi
+    if [[ ! -d smart-contracts-hacking ]]; then
+        git clone --recurse-submodules \
+            git@github.com:cardboard-iguana/smart-contracts-hacking.git
+    fi
+    if [[ ! -d resume ]]; then
+        git clone --recurse-submodules \
+            git@github.com:necopinus/resume.git
+    fi
+    if [[ ! -d website-theme ]]; then
+        git clone --recurse-submodules \
+            git@github.com:necopinus/website-theme.git
+    fi
+
+    if [[ ! -d backups ]]; then
+        git clone --recurse-submodules \
+            git@github.com:The-Yak-Collective/backups.git
+    fi
+    if [[ ! -d GPTDiscord ]]; then
+        git clone --recurse-submodules \
+            git@github.com:The-Yak-Collective/GPTDiscord.git
+    fi
+    if [[ ! -d yakcollective ]]; then
+        git clone --recurse-submodules \
+            git@github.com:The-Yak-Collective/yakcollective.git
+    fi
+
+    if [[ ! -d cardboard-iguana.com ]]; then
+        git clone --recurse-submodules \
+            git@github.com:cardboard-iguana/cardboard-iguana.com.git
+    fi
+    if [[ ! -d chateaumaxmin.info ]]; then
+        git clone --recurse-submodules \
+            git@github.com:necopinus/chateaumaxmin.info.git
+    fi
+    if [[ ! -d delphi-strategy.com ]]; then
+        git clone --recurse-submodules \
+            git@github.com:necopinus/delphi-strategy.com.git
+    fi
+    if [[ ! -d digital-orrery.com ]]; then
+        git clone --recurse-submodules \
+            git@github.com:necopinus/digital-orrery.com.git
+    fi
+    if [[ ! -d necopinus.xyz ]]; then
+        git clone --recurse-submodules \
+            git@github.com:necopinus/necopinus.xyz.git
+    fi
+
+    if [[ ! -d twitter-archive-parser ]]; then
+        git clone --recurse-submodules \
+            https://github.com/timhutton/twitter-archive-parser.git
+    fi
+)
 
 # Try (probably futile) to guard against filesystem corruption in the
 # Android Debian VM
