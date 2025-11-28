@@ -10,35 +10,9 @@ if [[ "$FLAVOR" == "macos" ]]; then
         fish \
         git-delta \
         gnupg \
-        google-drive \
-        jq \
-        makemkv \
-        msgpack-tools \
-        obsidian \
-        openssh \
         pinentry-mac \
-        poppler \
-        procs \
-        proton-drive \
-        proton-mail \
-        proton-pass \
-        protonvpn \
-        pstree \
-        qflipper \
-        qobuz-downloader \
-        reader \
-        scroll-reverser \
-        signal \
-        slack \
-        sqlite \
         starship \
-        stellarium \
-        todoist-app \
-        tresorit \
-        vlc \
         wezterm \
-        yamlresume \
-        yubico-yubikey-manager \
         zoxide
 elif [[ "$FLAVOR" == "debian" ]]; then
     sudo mkdir -p /usr/share/keyrings
@@ -50,21 +24,13 @@ elif [[ "$FLAVOR" == "debian" ]]; then
 		EOF
 
     sudo apt install -y \
-        wezterm \
-        yubikey-manager-qt
+        wezterm
 
     brew install \
         diff-so-fancy \
         fish \
         git-delta \
-        jq \
-        msgpack-tools \
-        openssh \
-        poppler \
-        procs \
-        sqlite \
         starship \
-        yamlresume \
         zoxide
 
     # System-level tweaks
@@ -77,23 +43,6 @@ elif [[ "$FLAVOR" == "debian" ]]; then
     if [[ $(grep -c "$USER" /etc/tigervnc/vncserver.users) -eq 0 ]]; then
         echo ":0=$USER" | sudo tee -a /etc/tigervnc/vncserver.users
     fi
-
-    # Disable some background services to try to avoid filesystem
-    # corruption in the Android Debian VM as of 2025-09-21; ideally
-    # these will be re-enabled when (if?) that environment becomes
-    # more stable
-    #
-    sudo systemctl stop podman-auto-update.service
-    sudo systemctl stop podman-auto-update.timer
-    sudo systemctl stop podman-restart.service
-    sudo systemctl stop podman.service
-    sudo systemctl stop podman.socket
-
-    sudo systemctl disable podman-auto-update.service
-    sudo systemctl disable podman-auto-update.timer
-    sudo systemctl disable podman-restart.service
-    sudo systemctl disable podman.service
-    sudo systemctl disable podman.socket
 fi
 
 # Set up directories and symlinks

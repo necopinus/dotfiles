@@ -79,5 +79,5 @@ fi
 # Install desktop on Debian VM
 #
 if [[ "$OS" == "Linux" ]]; then
-    sudo apt install -y tigervnc-standalone-server xfce4
+    sudo apt install -y tigervnc-standalone-server xfce4 yubikey-manager-qt
 fi

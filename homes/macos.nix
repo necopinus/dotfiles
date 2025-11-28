@@ -8,8 +8,12 @@ in {
   # ];
 
   home.packages = with pkgs; [
-    localPkgs.vault-sync
+    protonmail-desktop
+    slack
     xld
+
+    #### Local packages (see above) ####
+    localPkgs.vault-sync
   ];
 
   # programs.example = {

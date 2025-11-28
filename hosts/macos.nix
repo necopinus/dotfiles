@@ -28,7 +28,23 @@
   #     "discord" # Version in nixpkgs won't install updates
   #     "doppler-app"
   #     "github"
-  #     "handbrake" # Version in nixpkgs marked as broken
+  #     "google-drive"
+  #     "handbrake-app" # Version in nixpkgs marked as broken
+  #     "makemkv"
+  #     "obsidian"
+  #     "proton-drive"
+  #     "proton-pass"
+  #     "protonvpn"
+  #     "qflipper"
+  #     "qobuz-downloader"
+  #     "reader"
+  #     "scroll-reverser" # Version in nixpkgs won't open
+  #     "signal"
+  #     "stellarium" # Version in nixpkgs marked as broken
+  #     "todoist-app"
+  #     "tresorit"
+  #     "vlc"
+  #     "yubico-yubikey-manager"
   #   ];
   # };
 

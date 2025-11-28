@@ -4,13 +4,13 @@
     pbpaste = pkgs.callPackage ../pkgs/pbpaste.nix {};
   };
 in {
-  imports = [
-    ../programs/abcde.nix
-  ];
+  #imports = [
+  #  ../programs/foo.nix
+  #];
 
   home.packages = with pkgs; [
     calibre
-    handbrake
+    obsidian
 
     #### Fonts ####
     nerd-fonts.jetbrains-mono

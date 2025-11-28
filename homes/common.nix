@@ -19,10 +19,8 @@ in {
     #   ~/.default-gems
     #   ~/.default-npm-packages
     #   ~/.default-python-packages
-    #   ~/bin/backup
-    #   ~/bin/pbcopy
-    #   ~/bin/pbpaste
-    #   ~/bin/update
+    #   ~/.procs.toml
+    #   ~/bin
     #   ~/cache/env
     #   ~/config/bat
     #   ~/config/bottom
@@ -33,8 +31,11 @@ in {
     #   ~/config/qobuz-dl
     #   ~/config/rclone
     #   ~/config/zed
+    #   ~/local/lib
     #   ~/local/state/mise
+    #   ~/local/share/applications
     #   ~/local/share/fonts
+    #   ~/local/share/icons
     #   ~/local/share/mise
     #   /etc/apt/sources.list.d/brave-browser.sources
     #   /usr/share/keyrings/brave-browser-archive-keyring.gpg
@@ -54,38 +55,42 @@ in {
     #
     #   brew analytics on
     #
-    #   brew uninstall libqalculate openvpn xsel
+    #   brew uninstall libqalculate openvpn xsel yq yt-dlp
     #
     #   brew uninstall abcde android-platform-tools bat block-goose-cli \
     #                  bottom brave-browser cd-discid curl delve discord \
     #                  dos2unix duf dust eza fd ffmpeg fzf \
     #                  font-jetbrains-mono-nerd-font gawk ghc ghostscript \
-    #                  glow gopls haskell-language-server helix imagemagick \
-    #                  jdtls jq-lsp less lua-language-server libyaml \
-    #                  markdown-oxide mise normalize optipng pandoc rclone \
-    #                  ripgrep rsgain rsync ruff rust rust-analyzer \
-    #                  shellcheck shfmt swift-format texlab tinymist \
+    #                  glow gopls haskell-language-server helix \
+    #                  imagemagick jdtls jpeg-turbo jq jq-lsp less \
+    #                  lua-language-server libyaml markdown-oxide mise \
+    #                  normalize openssh optipng pandoc pngpaste poppler \
+    #                  procs proton-mail pstree rclone ripgrep rsgain \
+    #                  rsync ruff rust rust-analyzer shellcheck shfmt \
+    #                  slack solidity sqlite swift-format texlab tinymist \
     #                  uutils-coreutils uutils-diffutils uutils-findutils \
-    #                  xclip zed
-    #
-    #   brew uninstall jpeg-turbo xz zstd
+    #                  xclip xz yamlresume zed zstd
 
     android-tools
     brave
     curl
-    dos2unix
     eza
     gawk
     goose-cli
     imagemagick
+    jq
     less
     libjpeg
     libqalculate
+    msgpack-tools
+    openssh
     optipng
     pandoc
+    poppler-utils
     ripgrep
     rsgain
     rsync
+    sqlite
     texliveFull
     unzip
     uutils-coreutils-noprefix
