@@ -98,11 +98,13 @@ in {
     #                  zstd
 
     #
-    # 1. GNUPG
+    # 1. XDG setup
     # 2. Bash
     # 3. Zsh
     # 4. WezTerm
     # 5. Fish
+    # 6. Finish configurng macOS
+    # 7. Debug Android VM
     #
 
     android-tools
