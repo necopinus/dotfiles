@@ -9,6 +9,9 @@ in {
   ];
 
   home.packages = with pkgs; [
+    calibre
+    handbrake
+
     #### Fonts ####
     nerd-fonts.jetbrains-mono
     noto-fonts
@@ -32,9 +35,16 @@ in {
   #   enable = true;
   # };
 
-  # home.file = {
-  #   ".config.foo".source = ../artifacts/config.foo;
-  # };
+  home.file = {
+    # Hide some desktop applications
+    #
+    "local/share/applications/fish.desktop".source = ../artifacts/local/share/applications/hidden.desktop;
+    "local/share/applications/org.gnome.Vte.App.Gtk3.desktop".source = ../artifacts/local/share/applications/hidden.desktop;
+    "local/share/applications/org.gnome.Vte.App.Gtk4.desktop".source = ../artifacts/local/share/applications/hidden.desktop;
+    "local/share/applications/vim.desktop".source = ../artifacts/local/share/applications/hidden.desktop;
+    "local/share/applications/xfce4-terminal.desktop".source = ../artifacts/local/share/applications/hidden.desktop;
+    "local/share/applications/zutty.desktop".source = ../artifacts/local/share/applications/hidden.desktop;
+  };
 
   # home.sessionVariables = {
   #   FOO_VARIABLE = "bar";

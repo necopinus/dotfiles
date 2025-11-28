@@ -48,9 +48,9 @@ in {
     # Commands:
     #   sudo apt purge --autoremove --purge \
     #            android-sdk-platform-tools apt-utils brave-browser \
-    #            build-essential eject file fonts-noto git gnome-keyring \
-    #            gnupg podman procps uuid-runtime wl-clipboard xdg-utils \
-    #            xdg-user-dirs
+    #            build-essential calibre eject file fonts-noto git \
+    #            gnome-keyring gnupg handbrake podman procps uuid-runtime \
+    #            wl-clipboard xdg-utils xdg-user-dirs
     #
     #   brew analytics on
     #
@@ -58,16 +58,17 @@ in {
     #
     #   brew uninstall abcde android-platform-tools bat block-goose-cli \
     #                  bottom brave-browser cd-discid curl delve discord \
-    #                  dos2unix duf dust eza fd fzf \
-    #                  font-jetbrains-mono-nerd-font gawk ghc glow gopls \
-    #                  haskell-language-server helix jdtls jq-lsp less \
-    #                  lua-language-server libyaml markdown-oxide mise \
-    #                  normalize pandoc rclone ripgrep rsgain rsync ruff \
-    #                  rust rust-analyzer shellcheck shfmt swift-format \
-    #                  texlab tinymist uutils-coreutils uutils-diffutils \
-    #                  uutils-findutils xclip zed
+    #                  dos2unix duf dust eza fd ffmpeg fzf \
+    #                  font-jetbrains-mono-nerd-font gawk ghc ghostscript \
+    #                  glow gopls haskell-language-server helix imagemagick \
+    #                  jdtls jq-lsp less lua-language-server libyaml \
+    #                  markdown-oxide mise normalize optipng pandoc rclone \
+    #                  ripgrep rsgain rsync ruff rust rust-analyzer \
+    #                  shellcheck shfmt swift-format texlab tinymist \
+    #                  uutils-coreutils uutils-diffutils uutils-findutils \
+    #                  xclip zed
     #
-    #   brew uninstall xz zstd
+    #   brew uninstall jpeg-turbo xz zstd
 
     android-tools
     brave
@@ -76,8 +77,11 @@ in {
     eza
     gawk
     goose-cli
+    imagemagick
     less
+    libjpeg
     libqalculate
+    optipng
     pandoc
     ripgrep
     rsgain

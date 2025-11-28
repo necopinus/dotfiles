@@ -22,7 +22,13 @@
   #     # "example-formula"
   #   ];
   #   casks = [
-  #     # "example-app"
+  #     "adobe-creative-cloud"
+  #     "calibre" # Version in nixpkgs marked as broken
+  #     "claude"
+  #     "discord" # Version in nixpkgs won't install updates
+  #     "doppler-app"
+  #     "github"
+  #     "handbrake" # Version in nixpkgs marked as broken
   #   ];
   # };
 

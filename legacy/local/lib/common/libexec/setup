@@ -6,27 +6,16 @@ echo "Installing additional tooling"
 
 if [[ "$FLAVOR" == "macos" ]]; then
     brew install \
-        adobe-creative-cloud \
-        calibre \
-        claude \
         diff-so-fancy \
-        doppler-app \
-        ffmpeg \
         fish \
-        ghostscript \
         git-delta \
-        github \
         gnupg \
         google-drive \
-        homebrew/cask/handbrake \
-        imagemagick \
-        jpeg-turbo \
         jq \
         makemkv \
         msgpack-tools \
         obsidian \
         openssh \
-        optipng \
         pinentry-mac \
         poppler \
         procs \
@@ -61,23 +50,16 @@ elif [[ "$FLAVOR" == "debian" ]]; then
 		EOF
 
     sudo apt install -y \
-        calibre \
-        handbrake \
         wezterm \
         yubikey-manager-qt
 
     brew install \
         diff-so-fancy \
-        ffmpeg \
         fish \
-        ghostscript \
         git-delta \
-        imagemagick \
-        jpeg-turbo \
         jq \
         msgpack-tools \
         openssh \
-        optipng \
         poppler \
         procs \
         sqlite \

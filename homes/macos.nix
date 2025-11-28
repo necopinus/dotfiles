@@ -8,7 +8,6 @@ in {
   # ];
 
   home.packages = with pkgs; [
-    discord
     localPkgs.vault-sync
     xld
   ];
