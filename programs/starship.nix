@@ -2,6 +2,12 @@
   programs.starship = {
     enable = true;
 
+    # Disable bash and zsh integration, as these shells (generally) get
+    # used in terminals for which I can't set the color scheme
+    #
+    enableBashIntegration = false;
+    enableZshIntegration = false;
+
     settings = {
       # Define schema (helps with auto-completion in some editors)
       #
