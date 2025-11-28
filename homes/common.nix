@@ -13,6 +13,7 @@ in {
     ../programs/helix.nix
     ../programs/rclone.nix
     ../programs/ssh.nix
+    ../programs/starship.nix
     ../programs/zed.nix
   ];
 
@@ -36,6 +37,7 @@ in {
     #   ~/config/moxide
     #   ~/config/qobuz-dl
     #   ~/config/rclone
+    #   ~/config/starship
     #   ~/config/zed
     #   ~/local/lib
     #   ~/local/state/mise
@@ -84,7 +86,7 @@ in {
     #                  optipng pandoc pngpaste poppler procs proton-mail \
     #                  pstree rclone ripgrep rsgain rsync ruff rust \
     #                  rust-analyzer shellcheck shfmt slack solidity \
-    #                  sqlite swift-format texlab tinymist \
+    #                  sqlite starship swift-format texlab tinymist \
     #                  uutils-coreutils uutils-diffutils uutils-findutils \
     #                  xclip xz yamlresume zed zstd
 

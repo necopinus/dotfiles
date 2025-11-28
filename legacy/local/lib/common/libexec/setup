@@ -9,7 +9,6 @@ if [[ "$FLAVOR" == "macos" ]]; then
         fish \
         gnupg \
         pinentry-mac \
-        starship \
         wezterm \
         zoxide
 elif [[ "$FLAVOR" == "debian" ]]; then
@@ -26,7 +25,6 @@ elif [[ "$FLAVOR" == "debian" ]]; then
 
     brew install \
         fish \
-        starship \
         zoxide
 
     # System-level tweaks
