@@ -291,16 +291,6 @@ else
 fi
 echo "enable-ssh-support" >>$HOME/.gnupg/gpg-agent.conf
 
-# Fix permissions
-#
-chmod 700 $HOME/.ssh
-find $HOME/.ssh -type d -exec chmod 700 "{}" \;
-find $HOME/.ssh -type f -exec chmod 600 "{}" \;
-
-chmod 700 $HOME/.gnupg
-find $HOME/.gnupg -type d -exec chmod 700 "{}" \;
-find $HOME/.gnupg -type f -exec chmod 600 "{}" \;
-
 # Need to set up GPG environment here to work around issues on some
 # systems
 #

@@ -81,3 +81,13 @@ fi
 if [[ "$OS" == "Linux" ]]; then
     sudo apt install -y tigervnc-standalone-server xfce4 yubikey-manager-qt
 fi
+
+# Fix permissions; probably not necessary anymore
+#
+chmod 700 $HOME/.ssh
+find $HOME/.ssh -type d -exec chmod 700 "{}" \;
+find $HOME/.ssh -type f -exec chmod 600 "{}" \;
+
+chmod 700 $HOME/.gnupg
+find $HOME/.gnupg -type d -exec chmod 700 "{}" \;
+find $HOME/.gnupg -type f -exec chmod 600 "{}" \;

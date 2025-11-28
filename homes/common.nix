@@ -12,6 +12,7 @@ in {
     ../programs/glow.nix
     ../programs/helix.nix
     ../programs/rclone.nix
+    ../programs/ssh.nix
     ../programs/zed.nix
   ];
 
@@ -22,6 +23,8 @@ in {
     #   ~/.default-npm-packages
     #   ~/.default-python-packages
     #   ~/.procs.toml
+    #   ~/.ssh/authorized_keys
+    #   ~/.ssh/config
     #   ~/bin
     #   ~/cache/env
     #   ~/config/bat
@@ -52,9 +55,19 @@ in {
     # Commands:
     #   sudo apt purge --autoremove --purge \
     #            android-sdk-platform-tools apt-utils brave-browser \
-    #            build-essential calibre eject file fonts-noto git \
+    #            build-essential calibre eject file fonts-noto \
     #            gnome-keyring gnupg handbrake podman procps uuid-runtime \
     #            wl-clipboard xdg-utils xdg-user-dirs
+    #
+    #   >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+    #   But I still need gpg! If it actually gets removed, then I'll need
+    #   to re-add it using nix. Which, honestly, would be easier than
+    #   dealing with Debian's packaging anyway...
+    #
+    #   Maybe something like this, but both for gpg-agent and ssh-agent?
+    #
+    #   https://unix.stackexchange.com/a/665536
+    #   >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
     #
     #   brew analytics on
     #
@@ -87,7 +100,6 @@ in {
     libjpeg
     libqalculate
     msgpack-tools
-    openssh
     optipng
     pandoc
     poppler-utils
@@ -109,33 +121,6 @@ in {
     localPkgs.backup-home
     localPkgs.update-system
   ];
-
-  # Git configuration (example of shared settings)
-  #
-  # programs.git = {
-  #   enable = true;
-  #   userName = "Your Name";
-  #   userEmail = "your.email@example.com";
-  #   extraConfig = {
-  #     init.defaultBranch = "main";
-  #   };
-  # };
-
-  # Shell configuration (example)
-  #
-  # programs.bash = {
-  #   enable = true;
-  #   shellAliases = {
-  #     ll = "ls -la";
-  #   };
-  # };
-
-  # programs.zsh = {
-  #   enable = true;
-  #   shellAliases = {
-  #     ll = "ls -la";
-  #   };
-  # };
 
   # Additional dotfiles
   #

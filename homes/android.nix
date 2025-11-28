@@ -31,10 +31,6 @@ in {
   #
   fonts.fontconfig.enable = true;
 
-  # programs.example = {
-  #   enable = true;
-  # };
-
   home.file = {
     # Hide some desktop applications
     #
