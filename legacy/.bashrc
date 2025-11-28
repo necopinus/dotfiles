@@ -40,8 +40,8 @@ fi
 # Android Terminal). Override a couple of configuration variables in
 # in this case to make sure that things don't look eye-gougingly bad.
 #
-export AICHAT_LIGHT_THEME="false"
 export BAT_THEME="ansi"
+export DELTA_FEATURES="+generic-dark-theme"
 
 # Convenience aliases
 #
@@ -68,7 +68,7 @@ alias ttop="$(which top)"
 if [[ -n "$(which sudo 2>/dev/null)" ]]; then
     alias sudo="$(which sudo) -E"
 
-    if [[ -x /sbin/shutdown ]]; then
+    if [[ "$OS" == "linux" ]] && [[ -x /sbin/shutdown ]]; then
         alias shutdown="$(which sudo) /sbin/shutdown -h now"
     fi
 fi

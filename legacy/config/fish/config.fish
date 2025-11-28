@@ -46,7 +46,8 @@ alias ttop "$(which top)"
 if test -n "$(which sudo 2> /dev/null)"
     alias sudo "$(which sudo) -E"
 
-    if test -x /sbin/shutdown
+    if test "$OS" = linux;
+        and test -x /sbin/shutdown
         alias shutdown "$(which sudo) /sbin/shutdown -h now"
     end
 end

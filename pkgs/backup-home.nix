@@ -13,6 +13,9 @@ writeShellApplication {
     # shellcheck disable=SC1091
     source "$XDG_CONFIG_HOME/user-dirs.dirs"
 
+    # FIXME: This command probably needs significant modification to
+    #        exclude symlinks into the nix store
+    #
     tar -cJv --exclude=.DS_Store \
              --exclude=.localized \
              --exclude="S.*" \

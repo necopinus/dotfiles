@@ -7,6 +7,8 @@ in {
   imports = [
     ../programs/bat.nix
     ../programs/bottom.nix
+    ../programs/delta.nix # Requires bat.nix
+    ../programs/git.nix
     ../programs/glow.nix
     ../programs/helix.nix
     ../programs/rclone.nix
@@ -24,6 +26,7 @@ in {
     #   ~/cache/env
     #   ~/config/bat
     #   ~/config/bottom
+    #   ~/config/git
     #   ~/config/glow
     #   ~/config/helix
     #   ~/config/mise
@@ -58,22 +61,23 @@ in {
     #   brew uninstall libqalculate openvpn xsel yq yt-dlp
     #
     #   brew uninstall abcde android-platform-tools bat block-goose-cli \
-    #                  bottom brave-browser cd-discid curl delve discord \
-    #                  dos2unix duf dust eza fd ffmpeg fzf \
-    #                  font-jetbrains-mono-nerd-font gawk ghc ghostscript \
-    #                  glow gopls haskell-language-server helix \
-    #                  imagemagick jdtls jpeg-turbo jq jq-lsp less \
-    #                  lua-language-server libyaml markdown-oxide mise \
-    #                  normalize openssh optipng pandoc pngpaste poppler \
-    #                  procs proton-mail pstree rclone ripgrep rsgain \
-    #                  rsync ruff rust rust-analyzer shellcheck shfmt \
-    #                  slack solidity sqlite swift-format texlab tinymist \
+    #                  bottom brave-browser cd-discid curl delve \
+    #                  diff-so-fancy discord dos2unix duf dust eza fd \
+    #                  ffmpeg fzf font-jetbrains-mono-nerd-font gawk ghc \
+    #                  ghostscript git git-delta glow gopls \
+    #                  haskell-language-server helix imagemagick jdtls \
+    #                  jpeg-turbo jq jq-lsp less lua-language-server \
+    #                  libyaml markdown-oxide mise normalize openssh \
+    #                  optipng pandoc pngpaste poppler procs proton-mail \
+    #                  pstree rclone ripgrep rsgain rsync ruff rust \
+    #                  rust-analyzer shellcheck shfmt slack solidity \
+    #                  sqlite swift-format texlab tinymist \
     #                  uutils-coreutils uutils-diffutils uutils-findutils \
     #                  xclip xz yamlresume zed zstd
 
     android-tools
     brave
-    curl
+    curlFull
     eza
     gawk
     goose-cli

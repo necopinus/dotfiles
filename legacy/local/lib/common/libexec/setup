@@ -6,9 +6,7 @@ echo "Installing additional tooling"
 
 if [[ "$FLAVOR" == "macos" ]]; then
     brew install \
-        diff-so-fancy \
         fish \
-        git-delta \
         gnupg \
         pinentry-mac \
         starship \
@@ -27,9 +25,7 @@ elif [[ "$FLAVOR" == "debian" ]]; then
         wezterm
 
     brew install \
-        diff-so-fancy \
         fish \
-        git-delta \
         starship \
         zoxide
 
@@ -326,11 +322,11 @@ if [[ $(ls -1 $HOME/.ssh/id_* 2>/dev/null | wc -l) -eq 0 ]] &&
     #
     gpg --batch --expert --full-generate-key <<-EOF
 	Key-Type: EDDSA
-		Key-Curve: ed25519
-		Key-Usage: sign auth
+	    Key-Curve: ed25519
+	    Key-Usage: sign auth
 	Subkey-Type: ECDH
-		Subkey-Curve: cv25519
-		Subkey-Usage: encrypt
+	    Subkey-Curve: cv25519
+	    Subkey-Usage: encrypt
 	Expire-Date: 4m
 	Name-Real: Nathan Acks
 	Name-Email: nathan.acks@cardboard-iguana.com
@@ -370,8 +366,9 @@ if [[ $(ls -1 $HOME/.ssh/id_* 2>/dev/null | wc -l) -eq 0 ]] &&
 
     # Update git signing key
     #
+    mkdir -p $XDG_CONFIG_HOME/git
     echo "[user]" >$XDG_CONFIG_HOME/git/gpg.ini
-    echo "	signingkey = $NEW_SECRET_KEY_ID" >>$XDG_CONFIG_HOME/git/gpg.ini
+    echo "    signingkey = $NEW_SECRET_KEY_ID" >>$XDG_CONFIG_HOME/git/gpg.ini
 
     # Print public GPG and SSH keys for new secret key
     #
