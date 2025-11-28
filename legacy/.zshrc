@@ -87,23 +87,23 @@ fi
 # into ~/.ssh/config, but this won't properly set the TTY on some
 # systems!
 #
-function ssh {
-    gpg-connect-agent updatestartuptty /bye &>/dev/null
-    SSH_EXEC=$(whence -p ssh)
-    $SSH_EXEC "$@"
-}
-
-function git {
-    gpg-connect-agent updatestartuptty /bye &>/dev/null
-    GIT_EXEC=$(whence -p git)
-    $GIT_EXEC "$@"
-}
-
-function dotfiles {
-    gpg-connect-agent updatestartuptty /bye &>/dev/null
-    GIT_EXEC=$(whence -p git)
-    $GIT_EXEC --git-dir=$HOME/.dotfiles --work-tree=$HOME "$@"
-}
+#function ssh {
+#    gpg-connect-agent updatestartuptty /bye &>/dev/null
+#    SSH_EXEC=$(whence -p ssh)
+#    $SSH_EXEC "$@"
+#}
+#
+#function git {
+#    gpg-connect-agent updatestartuptty /bye &>/dev/null
+#    GIT_EXEC=$(whence -p git)
+#    $GIT_EXEC "$@"
+#}
+#
+#function dotfiles {
+#    gpg-connect-agent updatestartuptty /bye &>/dev/null
+#    GIT_EXEC=$(whence -p git)
+#    $GIT_EXEC --git-dir=$HOME/.dotfiles --work-tree=$HOME "$@"
+#}
 
 # Additional Zsh behaviors
 #

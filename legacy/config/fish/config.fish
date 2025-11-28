@@ -83,23 +83,23 @@ end
 # into ~/.ssh/config, but this won't properly set the TTY on some
 # systems!
 #
-function ssh
-    gpg-connect-agent updatestartuptty /bye &>/dev/null
-    set SSH_EXEC $(which ssh)
-    $SSH_EXEC $argv
-end
-
-function git
-    gpg-connect-agent updatestartuptty /bye &>/dev/null
-    set GIT_EXEC $(which git)
-    $GIT_EXEC $argv
-end
-
-function dotfiles
-    gpg-connect-agent updatestartuptty /bye &>/dev/null
-    set GIT_EXEC $(which git)
-    $GIT_EXEC --git-dir=$HOME/.dotfiles --work-tree=$HOME $argv
-end
+#function ssh
+#    gpg-connect-agent updatestartuptty /bye &>/dev/null
+#    set SSH_EXEC $(which ssh)
+#    $SSH_EXEC $argv
+#end
+#
+#function git
+#    gpg-connect-agent updatestartuptty /bye &>/dev/null
+#    set GIT_EXEC $(which git)
+#    $GIT_EXEC $argv
+#end
+#
+#function dotfiles
+#    gpg-connect-agent updatestartuptty /bye &>/dev/null
+#    set GIT_EXEC $(which git)
+#    $GIT_EXEC --git-dir=$HOME/.dotfiles --work-tree=$HOME $argv
+#end
 
 # Set prompt
 #

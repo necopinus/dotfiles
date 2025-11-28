@@ -25,6 +25,7 @@ in {
     #   ~/.default-gems
     #   ~/.default-npm-packages
     #   ~/.default-python-packages
+    #   ~/.gnupg/gpg-agent.conf
     #   ~/.procs.toml
     #   ~/.ssh/authorized_keys
     #   ~/.ssh/config
@@ -84,16 +85,25 @@ in {
     #                  bottom brave-browser cd-discid curl delve \
     #                  diff-so-fancy discord dos2unix duf dust eza fd \
     #                  ffmpeg fzf font-jetbrains-mono-nerd-font gawk ghc \
-    #                  ghostscript git git-delta glow gopls \
+    #                  ghostscript git git-delta glow gnupg gopls \
     #                  haskell-language-server helix imagemagick jdtls \
     #                  jpeg-turbo jq jq-lsp less lua-language-server \
     #                  libyaml markdown-oxide mise normalize openssh \
-    #                  optipng pandoc pngpaste poppler procs proton-mail \
-    #                  pstree rclone ripgrep rsgain rsync ruff rust \
-    #                  rust-analyzer shellcheck shfmt slack solidity \
-    #                  sqlite starship swift-format texlab tinymist \
-    #                  uutils-coreutils uutils-diffutils uutils-findutils \
-    #                  xclip xz yamlresume zed zoxide zstd
+    #                  optipng pandoc pinentry-mac pngpaste poppler procs \
+    #                  proton-mail pstree rclone ripgrep rsgain rsync \
+    #                  ruff rust rust-analyzer shellcheck shfmt slack \
+    #                  solidity sqlite starship swift-format texlab \
+    #                  tinymist uutils-coreutils uutils-diffutils \
+    #                  uutils-findutils xclip xz yamlresume zed zoxide \
+    #                  zstd
+
+    #
+    # 1. GNUPG
+    # 2. Bash
+    # 3. Zsh
+    # 4. WezTerm
+    # 5. Fish
+    #
 
     android-tools
     brave

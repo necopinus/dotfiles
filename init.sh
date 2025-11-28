@@ -91,3 +91,110 @@ find $HOME/.ssh -type f -exec chmod 600 "{}" \;
 chmod 700 $HOME/.gnupg
 find $HOME/.gnupg -type d -exec chmod 700 "{}" \;
 find $HOME/.gnupg -type f -exec chmod 600 "{}" \;
+
+# Make sure that the GPG environment is set up
+#
+GPG_TTY=$(tty)
+SSH_AUTH_SOCK="$(gpgconf --list-dirs agent-ssh-socket)"
+export GPG_TTY SSH_AUTH_SOCK
+
+gpgconf --kill gpg-agent
+gpg-connect-agent updatestartuptty /bye
+
+# Set up GPG and SSH, if applicable
+#
+if [[ $(ls -1 $HOME/.ssh/id_* 2>/dev/null | wc -l) -eq 0 ]] &&
+    [[ $(gpg --list-secret-keys --with-colons |
+        grep -cE '^sec:(f|u):') -eq 0 ]]; then
+    echo "Setting up initial SSH and GPG keys"
+
+    # Create a new GPG/SSH keys
+    #
+    gpg --batch --expert --full-generate-key <<-EOF
+	Key-Type: EDDSA
+	    Key-Curve: ed25519
+	    Key-Usage: sign auth
+	Subkey-Type: ECDH
+	    Subkey-Curve: cv25519
+	    Subkey-Usage: encrypt
+	Expire-Date: 4m
+	Name-Real: Nathan Acks
+	Name-Email: nathan.acks@cardboard-iguana.com
+	EOF
+
+    # Get the key ID of the new key
+    #
+    NEW_SECRET_KEY_ID="$(
+        gpg --list-secret-keys --with-colons |
+            grep -E '^sec:(f|u):' |
+            cut -d: -f 5
+    )"
+
+    # Get the keygrip of the new key
+    #
+    # FIXME: I *think* that the output of --with-colons is ordered, and
+    #        thus the keygrip for the primary key is just the first
+    #        keygrip when this key is displayed. But I can't find any
+    #        good documentation about this, so I may be wrong and this
+    #        may break.
+    #
+    NEW_SECRET_KEY_GRIP="$(
+        gpg --list-secret-keys --with-colons $NEW_SECRET_KEY_ID |
+            grep -E '^grp:' |
+            cut -d: -f 10 |
+            head -1
+    )"
+
+    # SSH setup
+    #
+    gpgconf --kill gpg-agent
+    rm -f "$HOME"/.gnupg/sshcontrol
+    gpg-connect-agent updatestartuptty /bye &>/dev/null
+    ssh-add -l &>/dev/null || true
+    gpg-connect-agent "keyattr $NEW_SECRET_KEY_GRIP Use-for-ssh: true" /bye >/dev/null
+    echo "$NEW_SECRET_KEY_GRIP" >>"$HOME"/.gnupg/sshcontrol
+
+    # Update git signing key
+    #
+    mkdir -p $XDG_CONFIG_HOME/git
+    echo "[user]" >$XDG_CONFIG_HOME/git/gpg.ini
+    echo "    signingkey = $NEW_SECRET_KEY_ID" >>$XDG_CONFIG_HOME/git/gpg.ini
+
+    # Print public GPG and SSH keys for new secret key
+    #
+    echo ""
+    echo "-----------------------------------------"
+    echo "New secret key 0x$NEW_SECRET_KEY_ID created"
+    echo "-----------------------------------------"
+    echo ""
+    gpg --list-keys --with-keygrip --keyid-format=long $NEW_SECRET_KEY_ID
+    echo "GPG public key block:"
+    echo ""
+    gpg --armor --export $NEW_SECRET_KEY_ID
+    echo ""
+    echo "SSH public key:"
+    echo ""
+    gpg --export-ssh-key $NEW_SECRET_KEY_ID
+    echo ""
+    echo "You must add the public GPG and SSH key displayed above to GitHub before"
+    echo "continuing."
+    echo ""
+    read -rs -n 1 -p "Press any key to continue once this step is complete."
+    echo ""
+fi
+
+# Try (probably futile) to guard against filesystem corruption in the
+# Android Debian VM
+#
+sync
+
+# A reboot is STRONGLY recommended
+#
+echo ""
+echo "Configuration complete!"
+echo ""
+if [[ "$OS" == "Darwin" ]]; then
+    echo "To finish setup you must reboot your system NOW."
+else
+    echo "To finish setup you must log out of all sessions NOW."
+fi

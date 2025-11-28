@@ -3,9 +3,9 @@
     vault-sync = pkgs.callPackage ../pkgs/vault-sync.nix {};
   };
 in {
-  # imports = [
-  #   ../programs/foo.nix
-  # ];
+  imports = [
+    ../programs/gpg.nix
+  ];
 
   # programs.example = {
   #   enable = true;

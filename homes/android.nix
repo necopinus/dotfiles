@@ -32,6 +32,8 @@ in {
   ];
 
   home.file = {
+    ".gnupg/gpg-agent.conf".source = ../artifacts/gnupg/gpg-agent.conf;
+
     # Disable default application startups
     #
     "config/autostart/light-locker.desktop".source = ../artifacts/local/share/applications/hidden.desktop;
