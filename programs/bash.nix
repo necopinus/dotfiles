@@ -53,6 +53,12 @@
         eval "$(dircolors)"
       fi
 
+      # Colorize man pages with bat
+      #
+      #   https://github.com/sharkdp/bat/issues/3053#issuecomment-2259573578
+      #
+      export MANPAGER="sh -c 'sed -u -e \"s/\\x1B\[[0-9;]*m//g; s/.\\x08//g\" | bat -p -l man'"
+
       # Convenience aliases, unfortunately much too complex to set up
       # directly using home-manager's programs.bash.shellAliases
       #

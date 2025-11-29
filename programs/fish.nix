@@ -6,18 +6,15 @@
   programs.fish = {
     enable = true;
 
-    plugins = with pkgs.fishPlugins; [
-      {
-        name = "colored-man-pages";
-        src = colored-man-pages.src;
-      }
-    ];
-
     # Run early for all shells
     #
     shellInit = ''
       # Set up Nix, if applicable
       #
+      if test -d /run/current-system/sw/bin
+        fish_add_path /run/current-system/sw/bin
+      end
+
       if test -f /nix/var/nix/profiles/default/etc/profile.d/nix-daemon.sh
         set -e __ETC_PROFILE_NIX_SOURCED
         cat /nix/var/nix/profiles/default/etc/profile.d/nix-daemon.sh | ${pkgs.babelfish}/bin/babelfish | source
@@ -41,6 +38,12 @@
       if test -n "$(which dircolors 2> /dev/null)"
         dircolors | ${pkgs.babelfish}/bin/babelfish | source
       end
+
+      # Colorize man pages with bat
+      #
+      #   https://github.com/sharkdp/bat/issues/3053#issuecomment-2259573578
+      #
+      set -gx MANPAGER "sh -c 'sed -u -e \"s/\\x1B\[[0-9;]*m//g; s/.\\x08//g\" | bat -p -l man'"
 
       # Theme options
       #
