@@ -72,15 +72,12 @@
       alias ls="$(which eza) --classify=auto --color=auto"
       alias mmore="$(which more)"
       alias more="$(which bat)"
+      alias nvim="$(which "$EDITOR")"
       alias rg="$(which rg) --color=auto"
       alias top="$(which btm)"
       alias ttop="$(which top)"
-
-      if [[ "$TERM" != "linux" ]]; then
-        alias vi="$(which "$EDITOR")"
-        alias vim="$(which "$EDITOR")"
-        alias nvim="$(which "$EDITOR")"
-      fi
+      alias vi="$(which "$EDITOR")"
+      alias vim="$(which "$EDITOR")"
 
       if [[ -n "$(which sudo 2>/dev/null)" ]]; then
         alias sudo="$(which sudo) -E"

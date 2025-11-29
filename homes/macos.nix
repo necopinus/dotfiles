@@ -5,7 +5,7 @@
 in {
   imports = [
     ../programs/gpg.nix
-    #../programs/zsh.nix
+    ../programs/zsh.nix
   ];
 
   # programs.example = {
