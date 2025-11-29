@@ -4,6 +4,14 @@
   #
   nix.enable = false;
 
+  # Ensure that shell completions work correctly
+  #
+  environment.pathsToLink = [
+    "/share/bash-completion"
+    "/share/fish"
+    "/share/zsh"
+  ];
+
   # Use Touch ID with sudo (in all situations)
   #
   security.pam.services.sudo_local = {

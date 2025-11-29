@@ -9,7 +9,7 @@
   };
 in {
   imports = [
-    #../programs/bash.nix
+    ../programs/bash.nix
     ../programs/bat.nix
     ../programs/bottom.nix
     ../programs/delta.nix # Requires bat.nix
@@ -29,19 +29,25 @@ in {
   home.packages = with pkgs; [
     # Remove:
     #   ~/.abcde.conf
+    #   ~/.bash_profile
+    #   ~/.bashrc
     #   ~/.default-gems
     #   ~/.default-npm-packages
     #   ~/.default-python-packages
     #   ~/.gnupg/gpg-agent.conf
     #   ~/.procs.toml
+    #   ~/.profile
     #   ~/.ssh/authorized_keys
     #   ~/.ssh/config
+    #   ~/.zshenv
+    #   ~/.zshrc
     #   ~/bin
     #   ~/cache/env
     #   ~/config/autostart
     #   ~/config/bat
     #   ~/config/bottom
     #   ~/config/environment.d
+    #   ~/config/fish
     #   ~/config/git
     #   ~/config/glow
     #   ~/config/helix
@@ -112,11 +118,11 @@ in {
     #                  zoxide zstd
 
     #
-    # 1. Bash
-    # 2. Zsh
+    # 1. Zsh
+    # 2. Fish
     # 3. WezTerm
-    # 4. Fish
-    # 5. Finish configuring macOS
+    # 4. Finish configuring macOS
+    # 5. Set up direnv
     # 6. Debug Android VM
     #
 

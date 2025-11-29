@@ -1,15 +1,5 @@
 #!/usr/bin/env zsh
 
-# Deal with potential PATH pollution
-#
-typeset -U path PATH
-if [[ -n "$PROFILE_PATH" ]]; then
-    export PATH="$PROFILE_PATH:$PATH"
-    unset PROFILE_PATH
-fi
-
-unset MANPATH
-
 # GPG setup
 #
 export GPG_TTY="$(tty)"
@@ -77,31 +67,6 @@ if [[ "$OS" == "linux" ]]; then
     }
 fi
 
-# Wrap the SSH and Git CLIs in functions to ensure that the gpg-agent
-# TTY is up-to-date
-#
-# Most tutorials will tell you to insert a `Match host * exec ...` line
-# into ~/.ssh/config, but this won't properly set the TTY on some
-# systems!
-#
-#function ssh {
-#    gpg-connect-agent updatestartuptty /bye &>/dev/null
-#    SSH_EXEC=$(whence -p ssh)
-#    $SSH_EXEC "$@"
-#}
-#
-#function git {
-#    gpg-connect-agent updatestartuptty /bye &>/dev/null
-#    GIT_EXEC=$(whence -p git)
-#    $GIT_EXEC "$@"
-#}
-#
-#function dotfiles {
-#    gpg-connect-agent updatestartuptty /bye &>/dev/null
-#    GIT_EXEC=$(whence -p git)
-#    $GIT_EXEC --git-dir=$HOME/.dotfiles --work-tree=$HOME "$@"
-#}
-
 # Additional Zsh behaviors
 #
 setopt COMBINING_CHARS
@@ -118,11 +83,3 @@ setopt SHARE_HISTORY
 setopt NO_clobber
 setopt interactivecomments
 setopt nonomatch
-
-# Make sure Homebrew completions are loaded
-#
-if [[ -n "$HOMEBREW_PREFIX" ]]; then
-    FPATH=$HOMEBREW_PREFIX/share/zsh/site-functions:$FPATH
-    autoload -Uz compinit
-    compinit
-fi

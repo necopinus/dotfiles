@@ -1,14 +1,5 @@
 #!/usr/bin/env fish
 
-# Deal with potential PATH pollution
-#
-if set -q PROFILE_PATH
-    fish_add_path -Pm $PROFILE_PATH
-    set -e PROFILE_PATH
-end
-
-set -e MANPATH
-
 # GPG setup
 #
 set -gx GPG_TTY "$(tty)"
@@ -81,51 +72,12 @@ if test "$OS" = linux
     end
 end
 
-# Wrap the SSH and Git CLIs in functions to ensure that the gpg-agent
-# TTY is up-to-date
-#
-# Most tutorials will tell you to insert a `Match host * exec ...` line
-# into ~/.ssh/config, but this won't properly set the TTY on some
-# systems!
-#
-#function ssh
-#    gpg-connect-agent updatestartuptty /bye &>/dev/null
-#    set SSH_EXEC $(which ssh)
-#    $SSH_EXEC $argv
-#end
-#
-#function git
-#    gpg-connect-agent updatestartuptty /bye &>/dev/null
-#    set GIT_EXEC $(which git)
-#    $GIT_EXEC $argv
-#end
-#
-#function dotfiles
-#    gpg-connect-agent updatestartuptty /bye &>/dev/null
-#    set GIT_EXEC $(which git)
-#    $GIT_EXEC --git-dir=$HOME/.dotfiles --work-tree=$HOME $argv
-#end
-
-# Set prompt
-#
-if test "$TERM" != linux;
-    and test -n "$(which starship 2> /dev/null)"
-    starship init fish | source
-end
-
 # Hook fish postexec event to add a newline between prompts
 #
 #     https://stackoverflow.com/a/70644608
 #
 function postexec_add_newline --on-event fish_postexec
     echo ""
-end
-
-# Init zoxide; this must be done after anything that might modify fish's
-# behavior
-#
-if test -n "$(which zoxide 2> /dev/null)"
-    zoxide init fish --cmd cd | source
 end
 
 # Suppress welcome message
