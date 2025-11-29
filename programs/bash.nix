@@ -21,6 +21,13 @@
           . /etc/skel/.profile
         fi
       fi
+
+      # Append Homebrew bin directory to PATH, since some GUI casks
+      # install CLI binaries there
+      #
+      if [ -d /opt/homebrew/bin ]; then
+        export PATH="$PATH:/opt/homebrew/bin"
+      fi
     '';
 
     # ~/.bash_profile sources ~/.profile and then ~/.bashrc

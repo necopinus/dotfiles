@@ -19,6 +19,13 @@
         set -e __ETC_PROFILE_NIX_SOURCED
         cat /nix/var/nix/profiles/default/etc/profile.d/nix-daemon.sh | ${pkgs.babelfish}/bin/babelfish | source
       end
+
+      # Append Homebrew bin directory to PATH, since some GUI casks
+      # install CLI binaries there
+      #
+      if test -d /opt/homebrew/bin
+        fish_add_path --append /opt/homebrew/bin
+      end
     '';
 
     # If defined, run `loginShellInit` for login shells

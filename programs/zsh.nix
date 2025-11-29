@@ -19,6 +19,13 @@
       if [[ -f /etc/skel/.zshenv ]]; then
         source /etc/skel/.zshenv
       fi
+
+      # Append Homebrew bin directory to PATH, since some GUI casks
+      # install CLI binaries there
+      #
+      if [[ -d /opt/homebrew/bin ]]; then
+        export PATH="$PATH:/opt/homebrew/bin"
+      fi
     '';
 
     # ~/.zprofile
