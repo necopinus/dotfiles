@@ -118,10 +118,9 @@ in {
     #                  zoxide zstd
 
     #
-    # 1. WezTerm
+    # 1. Set up direnv
     # 2. Finish configuring macOS
-    # 3. Set up direnv
-    # 4. Debug Android VM
+    # 3. Debug Android VM
     #
 
     android-tools
