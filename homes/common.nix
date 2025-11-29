@@ -20,7 +20,7 @@ in {
     ../programs/rclone.nix
     ../programs/ssh.nix
     ../programs/starship.nix
-    #../programs/wezterm.nix # Requires fish.nix
+    ../programs/wezterm.nix # Requires fish.nix
     ../programs/zed.nix
   ];
 
