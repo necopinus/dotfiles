@@ -76,6 +76,15 @@ fi
 #
 if [[ "$OS" == "Linux" ]]; then
     sudo apt install -y tigervnc-standalone-server xfce4 yubikey-manager-qt
+
+    sudo ln -sf /usr/share/zoneinfo/America/Denver /etc/localtime
+
+    sudo systemctl stop lightdm.service
+    sudo systemctl disable lightdm.service
+
+    if [[ $(grep -c "$USER" /etc/tigervnc/vncserver.users) -eq 0 ]]; then
+        echo ":0=$USER" | sudo tee -a /etc/tigervnc/vncserver.users
+    fi
 fi
 
 # Update runtime environment

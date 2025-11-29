@@ -6,6 +6,7 @@
   localPkgs = {
     pbcopy = pkgs.callPackage ../pkgs/pbcopy.nix {};
     pbpaste = pkgs.callPackage ../pkgs/pbpaste.nix {};
+    start-desktop = pkgs.callPackage ../pkgs/start-desktop.nix {};
   };
 in {
   #imports = [
@@ -33,6 +34,7 @@ in {
     #### Local packages (see above) ####
     localPkgs.pbcopy
     localPkgs.pbpaste
+    localPkgs.start-desktop
   ];
 
   xdg = {

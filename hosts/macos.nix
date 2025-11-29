@@ -23,13 +23,13 @@
   #   ];
   #   casks = [
   #     "adobe-creative-cloud"
-  #     "calibre" # Version in nixpkgs marked as broken
+  #     "calibre"         # Version in nixpkgs marked as broken
   #     "claude"
-  #     "discord" # Version in nixpkgs won't install updates
+  #     "discord"         # Version in nixpkgs fails to install updates
   #     "doppler-app"
   #     "github"
   #     "google-drive"
-  #     "handbrake-app" # Version in nixpkgs marked as broken
+  #     "handbrake-app"   # Version in nixpkgs marked as broken
   #     "makemkv"
   #     "obsidian"
   #     "proton-drive"
@@ -38,9 +38,9 @@
   #     "qflipper"
   #     "qobuz-downloader"
   #     "reader"
-  #     "scroll-reverser" # Version in nixpkgs won't open
+  #     "scroll-reverser" # Version in nixpkgs flagged as "damaged" by macOS, won't open
   #     "signal"
-  #     "stellarium" # Version in nixpkgs marked as broken
+  #     "stellarium"      # Version in nixpkgs marked as broken
   #     "todoist-app"
   #     "tresorit"
   #     "vlc"

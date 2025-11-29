@@ -49,13 +49,6 @@ unset UNAME_M
 #
 unset UNAME
 
-# Set: XDG_*_HOME
-#
-export XDG_CACHE_HOME="$HOME/cache"
-export XDG_CONFIG_HOME="$HOME/config"
-export XDG_DATA_HOME="$HOME/local/share"
-export XDG_STATE_HOME="$HOME/local/state"
-
 # Set XDG user directories
 #
 if [[ -f "$XDG_CONFIG_HOME/user-dirs.dirs" ]]; then

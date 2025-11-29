@@ -9,15 +9,18 @@
   };
 in {
   imports = [
+    #../programs/bash.nix
     ../programs/bat.nix
     ../programs/bottom.nix
     ../programs/delta.nix # Requires bat.nix
+    #../programs/fish.nix
     ../programs/git.nix
     ../programs/glow.nix
     ../programs/helix.nix
     ../programs/rclone.nix
     ../programs/ssh.nix
     ../programs/starship.nix
+    #../programs/wezterm.nix
     ../programs/zed.nix
   ];
 
@@ -76,7 +79,7 @@ in {
     #            android-sdk-platform-tools apt-utils brave-browser \
     #            build-essential calibre eject file fonts-noto \
     #            gnome-keyring gnupg handbrake podman procps uuid-runtime \
-    #            wl-clipboard xdg-utils xdg-user-dirs
+    #            wezterm wl-clipboard xdg-utils xdg-user-dirs
     #
     #   >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
     #   But I still need gpg! If it actually gets removed, then I'll need
@@ -95,8 +98,8 @@ in {
     #   brew uninstall abcde android-platform-tools bat block-goose-cli \
     #                  bottom brave-browser cd-discid curl delve \
     #                  diff-so-fancy discord dos2unix duf dust eza fd \
-    #                  ffmpeg fzf font-jetbrains-mono-nerd-font gawk ghc \
-    #                  ghostscript git git-delta glow gnupg gopls \
+    #                  ffmpeg fish font-jetbrains-mono-nerd-font fzf gawk \
+    #                  ghc ghostscript git git-delta glow gnupg gopls \
     #                  haskell-language-server helix imagemagick jdtls \
     #                  jpeg-turbo jq jq-lsp less lua-language-server \
     #                  libyaml markdown-oxide mise normalize openssh \
@@ -105,17 +108,16 @@ in {
     #                  ruff rust rust-analyzer shellcheck shfmt slack \
     #                  solidity sqlite starship swift-format texlab \
     #                  tinymist uutils-coreutils uutils-diffutils \
-    #                  uutils-findutils xclip xz yamlresume zed zoxide \
-    #                  zstd
+    #                  uutils-findutils wezterm xclip xz yamlresume zed \
+    #                  zoxide zstd
 
     #
-    # 1. XDG setup (also: Xfce)
-    # 2. Bash
-    # 3. Zsh
-    # 4. WezTerm
-    # 5. Fish
-    # 6. Finish configuring macOS
-    # 7. Debug Android VM
+    # 1. Bash
+    # 2. Zsh
+    # 3. WezTerm
+    # 4. Fish
+    # 5. Finish configuring macOS
+    # 6. Debug Android VM
     #
 
     android-tools
@@ -170,8 +172,17 @@ in {
   # Environment variables
   #
   home.sessionVariables = {
-    EDITOR = "hx";
+    # Hyperlink support in LESS
+    #
+    # You'd *think* you'd want to include --use-color here too, but
+    # doing so seems to disrupt *existing* colorization in applications
+    # like `man`
+    #
     LESS = "-R";
+
+    # Set editor variables
+    #
+    EDITOR = "hx";
     VISUAL = "hx";
   };
 }

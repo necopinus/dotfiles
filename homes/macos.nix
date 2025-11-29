@@ -5,6 +5,7 @@
 in {
   imports = [
     ../programs/gpg.nix
+    #../programs/zsh.nix
   ];
 
   # programs.example = {
@@ -12,8 +13,13 @@ in {
   # };
 
   home.packages = with pkgs; [
+    #calibre         # Marked as broken
+    #discord         # Always fails to install updates
+    #handbrake-app   # Marked as broken
     protonmail-desktop
+    #scroll-reverser # Flagged as "damaged" by macOS, won't open
     slack
+    #stellarium      # Marked as broken
     xld
 
     #### Local packages (see above) ####
