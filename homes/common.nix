@@ -13,14 +13,14 @@ in {
     ../programs/bat.nix
     ../programs/bottom.nix
     ../programs/delta.nix # Requires bat.nix
-    #../programs/fish.nix
+    ../programs/fish.nix
     ../programs/git.nix
     ../programs/glow.nix
     ../programs/helix.nix
     ../programs/rclone.nix
     ../programs/ssh.nix
     ../programs/starship.nix
-    #../programs/wezterm.nix
+    #../programs/wezterm.nix # Requires fish.nix
     ../programs/zed.nix
   ];
 
@@ -167,12 +167,6 @@ in {
     dataHome = "${config.home.homeDirectory}/local/share";
     stateHome = "${config.home.homeDirectory}/local/state";
   };
-
-  # Additional dotfiles
-  #
-  #home.file = {
-  #  "config/marksman/config.toml".source = ../artifacts/config/marksman/config.toml;
-  #};
 
   # Environment variables
   #

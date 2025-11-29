@@ -197,7 +197,8 @@ end
 -- Launch fish by default (stub used to work around systems where
 -- /etc/passwd can't be modified)
 --
-config.default_prog = { os.getenv("HOME") .. '/bin/fish', '-l' }
+--config.default_prog = { os.getenv("HOME") .. '/bin/fish', '-l' }
+config.default_prog = { os.getenv("HOME") .. '/.nix-profile/bin/fish', '-l' }
 
 -- Return config
 --

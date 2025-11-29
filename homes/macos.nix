@@ -8,10 +8,6 @@ in {
     ../programs/zsh.nix
   ];
 
-  # programs.example = {
-  #   enable = true;
-  # };
-
   home.packages = with pkgs; [
     #calibre         # Marked as broken
     #discord         # Always fails to install updates
@@ -29,8 +25,4 @@ in {
   home.file = {
     "config/user-dirs.dirs".source = ../artifacts/config/user-dirs.dirs;
   };
-
-  # home.sessionVariables = {
-  #   FOO_VARIABLE = "bar";
-  # };
 }

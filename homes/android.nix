@@ -9,10 +9,6 @@
     start-desktop = pkgs.callPackage ../pkgs/start-desktop.nix {};
   };
 in {
-  #imports = [
-  #  ../programs/foo.nix
-  #];
-
   # Make sure that the home-manager binary is available in the PATH
   #
   programs.home-manager.enable = true;
@@ -208,10 +204,6 @@ in {
       };
     };
   };
-
-  # home.sessionVariables = {
-  #   FOO_VARIABLE = "bar";
-  # };
 
   # Make sure that systemd units pick up as many session variables as
   # possible
