@@ -13,10 +13,13 @@ in {
     ../programs/bat.nix
     ../programs/bottom.nix
     ../programs/delta.nix # Requires bat.nix
+    ../programs/dircolors.nix
+    ../programs/direnv.nix
     ../programs/fish.nix
     ../programs/git.nix
     ../programs/glow.nix
     ../programs/helix.nix
+    ../programs/less.nix
     ../programs/rclone.nix
     ../programs/ssh.nix
     ../programs/starship.nix
@@ -24,6 +27,10 @@ in {
     ../programs/zed.nix
   ];
 
+  programs.jq.enable = true;
+  programs.pandoc.enable = true;
+  programs.ripgrep.enable = true;
+  programs.yt-dlp.enable = true;
   programs.zoxide.enable = true;
 
   home.packages = with pkgs; [
@@ -118,9 +125,8 @@ in {
     #                  zoxide zstd
 
     #
-    # 1. Set up direnv
-    # 2. Finish configuring macOS
-    # 3. Debug Android VM
+    # 1. Finish configuring macOS
+    # 2. Debug Android VM
     #
 
     android-tools
@@ -130,15 +136,11 @@ in {
     gawk
     goose-cli
     imagemagick
-    jq
-    less
     libjpeg
     libqalculate
     msgpack-tools
     optipng
-    pandoc
     poppler-utils
-    ripgrep
     rsgain
     rsync
     sqlite
@@ -149,7 +151,6 @@ in {
     uutils-findutils
     xz
     yq
-    yt-dlp
     zip
 
     #### Local packages (see above) ####
@@ -169,16 +170,6 @@ in {
   # Environment variables
   #
   home.sessionVariables = {
-    # Hyperlink support in LESS
-    #
-    # You'd *think* you'd want to include --use-color here too, but
-    # doing so seems to disrupt *existing* colorization in applications
-    # like `man`
-    #
-    LESS = "-R";
-
-    # Set editor variables
-    #
     EDITOR = "hx";
     VISUAL = "hx";
   };

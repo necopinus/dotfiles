@@ -39,13 +39,6 @@
         cat "$XDG_CONFIG_HOME"/api-keys.env.sh | ${pkgs.babelfish}/bin/babelfish | source
       end
 
-      # Set LS_COLORS, as a surprising number of applications look wonky is
-      # this variable isn't available
-      #
-      if test -n "$(which dircolors 2> /dev/null)"
-        dircolors | ${pkgs.babelfish}/bin/babelfish | source
-      end
-
       # Colorize man pages with bat
       #
       #   https://github.com/sharkdp/bat/issues/3053#issuecomment-2259573578
@@ -69,12 +62,12 @@
       alias diff "$(which delta)"
       alias glow "$(which glow) -s $XDG_CONFIG_HOME/glow/styles/gruvbox-light.json"
       alias htop "$(which top)"
-      alias la "$(which eza) --classify=auto --color=auto --icons=auto --hyperlink --long --all"
+      alias la "$(which eza) --classify=auto --color=auto --icons=auto --git --hyperlink --long --all"
       alias less "$(which bat)"
-      alias ll "$(which eza) --classify=auto --color=auto --icons=auto --hyperlink --long"
+      alias ll "$(which eza) --classify=auto --color=auto --icons=auto --git --hyperlink --long"
       alias lless "$(which less)"
       alias lls "$(which ls)"
-      alias ls "$(which eza) --classify=auto --color=auto --icons=auto --hyperlink"
+      alias ls "$(which eza) --classify=auto --color=auto --icons=auto --git --hyperlink"
       alias mmore "$(which more)"
       alias more "$(which bat)"
       alias nvim "$(which $EDITOR)"

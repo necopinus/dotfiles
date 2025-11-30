@@ -53,13 +53,6 @@
         source "$XDG_CONFIG_HOME/api-keys.env.sh"
       fi
 
-      # Set LS_COLORS, as a surprising number of applications look wonky is
-      # this variable isn't available
-      #
-      if [[ -n "$(which dircolors 2>/dev/null)" ]]; then
-        eval "$(dircolors)"
-      fi
-
       # Colorize man pages with bat
       #
       #   https://github.com/sharkdp/bat/issues/3053#issuecomment-2259573578
@@ -77,12 +70,12 @@
       alias diff="$(which delta)"
       alias glow="$(which glow) -s dark"
       alias htop="$(which btm)"
-      alias la="$(which eza) --classify=auto --color=auto --long --all"
+      alias la="$(which eza) --classify=auto --color=auto --git --long --all"
       alias less="$(which bat)"
-      alias ll="$(which eza) --classify=auto --color=auto --long"
+      alias ll="$(which eza) --classify=auto --color=auto --git --long"
       alias lless="$(which less)"
       alias lls="$(which ls)"
-      alias ls="$(which eza) --classify=auto --color=auto"
+      alias ls="$(which eza) --classify=auto --color=auto --git"
       alias mmore="$(which more)"
       alias more="$(which bat)"
       alias nvim="$(which "$EDITOR")"

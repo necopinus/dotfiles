@@ -15,11 +15,32 @@ in {
 
   # Needed to force font cache to be rebuilt
   #
-  fonts.fontconfig.enable = true;
+  fonts.fontconfig = {
+    enable = true;
+
+    # TODO: Double-check these names and add intermediate CJK fonts
+    #
+    defaultFonts = {
+      emoji = ["Noto Emoji"];
+      monospace = [
+        "JetBrainsMono Nerd Font Mono"
+        "Noto Emoji"
+      ];
+      sansSerif = [
+        "Noto Sans"
+        "Noto Emoji"
+      ];
+      serif = [
+        "Noto Serif"
+        "Noto Emoji"
+      ];
+    };
+  };
+
+  programs.obsidian.enable = true;
 
   home.packages = with pkgs; [
     calibre
-    obsidian
 
     #### Fonts ####
     nerd-fonts.jetbrains-mono
@@ -202,6 +223,30 @@ in {
         "plugins/plugin-13" = "separator";
         "plugins/plugin-13/style" = 0;
       };
+    };
+  };
+
+  gtk = {
+    enable = true;
+    colorScheme = "dark";
+    theme.name = "Adwaita";
+    cursorTheme.name = "Adwaita";
+    iconTheme = {
+      package = pkgs.adwaita-icon-theme-legacy;
+      name = "Adwaita";
+    };
+    font = {
+      package = pkgs.noto-fonts;
+      name = "Noto Sans";
+      size = 10;
+    };
+  };
+
+  qt = {
+    enable = true;
+    style = {
+      package = pkgs.adwaita-qt;
+      name = "adwaita-dark";
     };
   };
 
