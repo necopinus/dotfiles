@@ -28,9 +28,6 @@ in {
 
   # macOS configuration
   #
-  # `currentHostDefaults` is less invasive than `defaults`, which is
-  # less invasive than anything set through nix-darwin
-  #
   #targets.darwin.currentHostDefaults = {};
 
   #targets.darwin.defaults = {};

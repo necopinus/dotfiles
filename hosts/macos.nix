@@ -62,6 +62,15 @@
     noto-fonts-monochrome-emoji
   ];
 
+  # macOS configuration
+  #
+  networking.applicationFirewall = {
+    enable = true;
+    enableStealthMode = true;
+    allowSigned = true;
+    allowSignedApp = true;
+  };
+
   system.defaults = {
     # Example: dock settings
     # dock.autohide = true;
