@@ -113,31 +113,39 @@ in {
         "x-scheme-handler/https" = ["brave-browser.desktop"];
       };
     };
+
+    configFile = {
+      # Disable default application startups
+      #
+      "autostart/light-locker.desktop".source = ../artifacts/local/share/applications/hidden.desktop;
+      "autostart/xiccd.desktop".source = ../artifacts/local/share/applications/hidden.desktop;
+
+      # Xfce files
+      #
+      "xfce4/helpers.rc" = ../artifacts/config/xfce4/helpers.rc;
+    };
+
+    dataFile = {
+      # Hide some desktop applications
+      #
+      "applications/fish.desktop".source = ../artifacts/local/share/applications/hidden.desktop;
+      "applications/org.gnome.Vte.App.Gtk3.desktop".source = ../artifacts/local/share/applications/hidden.desktop;
+      "applications/org.gnome.Vte.App.Gtk4.desktop".source = ../artifacts/local/share/applications/hidden.desktop;
+      "applications/vim.desktop".source = ../artifacts/local/share/applications/hidden.desktop;
+      "applications/xfce4-terminal.desktop".source = ../artifacts/local/share/applications/hidden.desktop;
+      "applications/zutty.desktop".source = ../artifacts/local/share/applications/hidden.desktop;
+
+      # Xfce files
+      #
+      "xfce4/helpers/custom-TerminalEmulator.desktop" = ../artifacts/local/share/xfce4/helpers/custom-TerminalEmulator.desktop;
+      "xfce4/helpers/custom-WebBrowser.desktop" = ../artifacts/local/share/xfce4/helpers/custom-WebBrowser.desktop;
+    };
   };
 
-  home.file = {
-    ".gnupg/gpg-agent.conf".source = ../artifacts/gnupg/gpg-agent.conf;
-
-    # Disable default application startups
-    #
-    "config/autostart/light-locker.desktop".source = ../artifacts/local/share/applications/hidden.desktop;
-    "config/autostart/xiccd.desktop".source = ../artifacts/local/share/applications/hidden.desktop;
-
-    # Hide some desktop applications
-    #
-    "local/share/applications/fish.desktop".source = ../artifacts/local/share/applications/hidden.desktop;
-    "local/share/applications/org.gnome.Vte.App.Gtk3.desktop".source = ../artifacts/local/share/applications/hidden.desktop;
-    "local/share/applications/org.gnome.Vte.App.Gtk4.desktop".source = ../artifacts/local/share/applications/hidden.desktop;
-    "local/share/applications/vim.desktop".source = ../artifacts/local/share/applications/hidden.desktop;
-    "local/share/applications/xfce4-terminal.desktop".source = ../artifacts/local/share/applications/hidden.desktop;
-    "local/share/applications/zutty.desktop".source = ../artifacts/local/share/applications/hidden.desktop;
-
-    # Xfce files
-    #
-    "config/xfce4/helpers.rc" = ../artifacts/config/xfce4/helpers.rc;
-    "local/share/xfce4/helpers/custom-TerminalEmulator.desktop" = ../artifacts/local/share/xfce4/helpers/custom-TerminalEmulator.desktop;
-    "local/share/xfce4/helpers/custom-WebBrowser.desktop" = ../artifacts/local/share/xfce4/helpers/custom-WebBrowser.desktop;
-  };
+  # Disabling Debian's systemd-based gpg-agent is a pain, so instead we
+  # just include our own configuration
+  #
+  home.file.".gnupg/gpg-agent.conf".source = ../artifacts/gnupg/gpg-agent.conf;
 
   # Requires Debian "xfce4" metapackage to be installed
   #

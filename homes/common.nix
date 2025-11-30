@@ -132,7 +132,7 @@ in {
     android-tools
     brave
     curlFull
-    eza
+    eza # Don't use programs.eza.enable because aliases differ between fish and bash/zsh
     gawk
     goose-cli
     imagemagick
@@ -144,7 +144,7 @@ in {
     rsgain
     rsync
     sqlite
-    texliveFull
+    texliveFull # Can't figure out how to get programs.texlive to work...
     unzip
     uutils-coreutils-noprefix
     uutils-diffutils

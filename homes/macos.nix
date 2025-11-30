@@ -22,9 +22,10 @@ in {
     localPkgs.vault-sync
   ];
 
-  home.file = {
-    "config/user-dirs.dirs".source = ../artifacts/config/user-dirs.dirs;
-  };
+  # Home-manager won't allow xdg.userDirs on macOS, so we include our
+  # own
+  #
+  xdg.configFile."user-dirs.dirs".source = ../artifacts/config/user-dirs.dirs;
 
   # macOS configuration
   #

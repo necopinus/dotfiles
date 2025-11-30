@@ -4,7 +4,7 @@
     pbpaste = pkgs.callPackage ../pkgs/pbpaste.nix {};
   };
 in {
-  home.file."config/marksman/config.toml".source = ../artifacts/config/marksman/config.toml;
+  xdg.configFile."marksman/config.toml".source = ../artifacts/config/marksman/config.toml;
 
   programs.helix = {
     enable = true;

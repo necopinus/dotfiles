@@ -1,4 +1,8 @@
-{pkgs, ...}: {
+{
+  config,
+  pkgs,
+  ...
+}: {
   programs.wezterm = {
     enable = true;
 
@@ -33,7 +37,7 @@
       -- Color scheme
       --
       config.color_scheme = "GruvboxLightMedium"
-      config.colors = wezterm.color.load_scheme(os.getenv("HOME") .."/config/wezterm/colors/" .. config.color_scheme .. ".toml")
+      config.colors = wezterm.color.load_scheme("${config.xdg.configHome}/wezterm/colors/" .. config.color_scheme .. ".toml")
       config.inactive_pane_hsb = {
         saturation = 0.9,
         brightness = 1.0
