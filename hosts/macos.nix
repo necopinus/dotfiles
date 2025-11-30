@@ -72,6 +72,11 @@
   };
 
   system.defaults = {
+    NSGlobalDomain = {
+      AppleICUForce24HourTime = true;
+      AppleInterfaceStyle = "Dark";
+    };
+
     # Example: dock settings
     # dock.autohide = true;
     # dock.mru-spaces = false;
@@ -79,5 +84,8 @@
     # Example: finder settings
     # finder.AppleShowAllExtensions = true;
     # finder.FXPreferredViewStyle = "Nlsv"; # list view
+
+    # CustomUserPreferences = {};
+    # CustomSystemPreferences = {};
   };
 }
