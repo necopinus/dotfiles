@@ -91,7 +91,7 @@
 
       "com.apple.springing.delay" = 0.5;
       "com.apple.springing.enabled" = true;
-      "com.apple.swipescrollsirection" = true;
+      "com.apple.swipescrolldirection" = true;
       "com.apple.trackpad.forceClick" = true;
     };
 
