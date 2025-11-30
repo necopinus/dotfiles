@@ -91,10 +91,13 @@
 
       "com.apple.springing.delay" = 0.5;
       "com.apple.springing.enabled" = true;
+      "com.apple.swipescrollsirection" = true;
       "com.apple.trackpad.forceClick" = true;
     };
 
     WindowManager.EnableTiledWindowMargins = false;
+
+    controlcenter.BatteryShowPercentage = true;
 
     dock = {
       autohide = true;
@@ -126,13 +129,47 @@
       ];
     };
 
-    # Example: dock settings
-    # dock.autohide = true;
-    # dock.mru-spaces = false;
+    finder = {
+      FXPreferredViewStyle = "Nlsv";
+      FXRemoveOldTrashItems = true;
+      NewWindowTarget = "Home";
+      ShowExternalHardDrivesOnDesktop = false;
+      ShowPathbar = true;
+      ShowRemovableMediaOnDesktop = false;
+      _FXSortFoldersFirst = true;
+      _FXSortFoldersFirstOnDesktop = true;
+    };
 
-    # Example: finder settings
-    # finder.AppleShowAllExtensions = true;
-    # finder.FXPreferredViewStyle = "Nlsv"; # list view
+    loginwindow.GuestEnabled = false;
+
+    magicmouse.MouseButtonMode = "TwoButton";
+
+    menuExtraClock = {
+      Show24Hour = true;
+      ShowDate = 0;
+      ShowDayOfWeek = true;
+      ShowSeconds = true;
+    };
+
+    screencapture.location = "~/Downloads";
+
+    screensaver = {
+      askForPassword = true;
+      askForPasswordDelay = 5;
+    };
+
+    trackpad = {
+      Clicking = true;
+      TrackpadFourFingerHorizSwipeGesture = 2;
+      TrackpadFourFingerPinchGesture = 2;
+      TrackpadPinch = true;
+      TrackpadRightClick = true;
+      TrackpadRotate = true;
+      TrackpadThreeFingerTapGesture = false;
+      TrackpadThreeFingerVertSwipeGesture = 2;
+      TrackpadTwoFingerDoubleTapGesture = true;
+      TrackpadTwoFingerFromRightEdgeSwipeGesture = 3;
+    };
 
     # CustomUserPreferences = {};
     # CustomSystemPreferences = {};
