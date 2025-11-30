@@ -165,7 +165,7 @@
       TrackpadPinch = true;
       TrackpadRightClick = true;
       TrackpadRotate = true;
-      TrackpadThreeFingerTapGesture = false;
+      TrackpadThreeFingerTapGesture = 0;
       TrackpadThreeFingerVertSwipeGesture = 2;
       TrackpadTwoFingerDoubleTapGesture = true;
       TrackpadTwoFingerFromRightEdgeSwipeGesture = 3;
