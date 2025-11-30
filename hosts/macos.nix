@@ -1,4 +1,8 @@
-{pkgs, ...}: {
+{
+  config,
+  pkgs,
+  ...
+}: {
   # Disable nix-darwin's management of the nix binary, as I'm using
   # determinate-nix
   #
@@ -73,8 +77,53 @@
 
   system.defaults = {
     NSGlobalDomain = {
-      AppleICUForce24HourTime = true;
       AppleInterfaceStyle = "Dark";
+      AppleShowAllExtensions = true;
+      _HIHideMenuBar = false;
+
+      AppleMetricUnits = 1;
+      AppleMeasurementUnits = "Centimeters";
+      AppleTemperatureUnit = "Celsius";
+      AppleICUForce24HourTime = true;
+
+      NSAutomaticPeriodSubstitutionEnabled = false;
+      NSDocumentSaveNewDocumentsToCloud = false;
+
+      "com.apple.springing.delay" = 0.5;
+      "com.apple.springing.enabled" = true;
+      "com.apple.trackpad.forceClick" = true;
+    };
+
+    WindowManager.EnableTiledWindowMargins = false;
+
+    dock = {
+      autohide = true;
+      tilesize = 128;
+      largesize = 128;
+      mineffect = "scale";
+      mru-spaces = false;
+      orientation = "right";
+      showAppExposeGestureEnabled = true;
+
+      wvous-bl-corner = 1;
+      wvous-br-corner = 1;
+      wvous-tl-corner = 1;
+      wvous-tr-corner = 1;
+
+      persistent-apps = [
+        {app = "/System/Applications/Apps.app";}
+        {app = "/Users/${config.system.primaryUser}/Applications/Home Manager Apps/Brave Browser.app";}
+        {app = "/Applications/Claude.app";}
+        {app = "/Users/${config.system.primaryUser}/Applications/Home Manager Apps/WezTerm.app";}
+      ];
+      persistent-others = [
+        {
+          folder = {
+            path = "/Users/${config.system.primaryUser}/Downloads";
+            showas = "grid";
+          };
+        }
+      ];
     };
 
     # Example: dock settings
