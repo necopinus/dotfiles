@@ -71,6 +71,7 @@
 
         {
           system.stateVersion = nixDarwinStateVersion;
+          system.primaryUser = "${myUserName}";
           users.users."${myUserName}" = {
             name = "${myUserName}";
             home = "/Users/${myUserName}";

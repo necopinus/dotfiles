@@ -25,4 +25,13 @@ in {
   home.file = {
     "config/user-dirs.dirs".source = ../artifacts/config/user-dirs.dirs;
   };
+
+  # macOS configuration
+  #
+  # `currentHostDefaults` is less invasive than `defaults`, which is
+  # less invasive than anything set through nix-darwin
+  #
+  #targets.darwin.currentHostDefaults = {};
+
+  #targets.darwin.defaults = {};
 }

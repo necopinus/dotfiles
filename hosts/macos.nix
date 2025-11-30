@@ -19,42 +19,39 @@
     touchIdAuth = true;
   };
 
-  # homebrew = {
-  #   enable = true;
-  #   onActivation = {
-  #     autoUpdate = true;
-  #     upgrade = true;
-  #     cleanup = "zap"; # uninstall formulae/casks not listed below
-  #   };
-  #   brews = [
-  #     # "example-formula"
-  #   ];
-  #   casks = [
-  #     "adobe-creative-cloud"
-  #     "calibre"         # Version in nixpkgs marked as broken
-  #     "claude"
-  #     "discord"         # Version in nixpkgs fails to install updates
-  #     "doppler-app"
-  #     "github"
-  #     "google-drive"
-  #     "handbrake-app"   # Version in nixpkgs marked as broken
-  #     "makemkv"
-  #     "obsidian"
-  #     "proton-drive"
-  #     "proton-pass"
-  #     "protonvpn"
-  #     "qflipper"
-  #     "qobuz-downloader"
-  #     "reader"
-  #     "scroll-reverser" # Version in nixpkgs flagged as "damaged" by macOS, won't open
-  #     "signal"
-  #     "stellarium"      # Version in nixpkgs marked as broken
-  #     "todoist-app"
-  #     "tresorit"
-  #     "vlc"
-  #     "yubico-yubikey-manager"
-  #   ];
-  # };
+  homebrew = {
+    enable = true;
+    onActivation = {
+      autoUpdate = true;
+      upgrade = true;
+      cleanup = "zap";
+    };
+    casks = [
+      "adobe-creative-cloud"
+      "calibre" # Version in nixpkgs marked as broken
+      "claude"
+      "discord" # Version in nixpkgs fails to install updates
+      "doppler-app"
+      "github"
+      "google-drive"
+      "handbrake-app" # Version in nixpkgs marked as broken
+      "makemkv"
+      "obsidian"
+      "proton-drive"
+      "proton-pass"
+      "protonvpn"
+      "qflipper"
+      "qobuz-downloader"
+      "reader"
+      "scroll-reverser" # Version in nixpkgs flagged as "damaged" by macOS, won't open
+      "signal"
+      "stellarium" # Version in nixpkgs marked as broken
+      "todoist-app"
+      "tresorit"
+      "vlc"
+      "yubico-yubikey-manager"
+    ];
+  };
 
   # Fonts
   #
