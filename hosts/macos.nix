@@ -97,6 +97,8 @@
 
     WindowManager.EnableTiledWindowMargins = false;
 
+    controlcenter.BatteryShowPercentage = true;
+
     dock = {
       autohide = true;
       tilesize = 128;
@@ -172,6 +174,57 @@
     universalaccess = {
       reduceMotion = true;
       reduceTransparency = true;
+    };
+
+    CustomUserPreferences = {
+      NSGlobalDomain = {
+        AppleLanguages = ["en-US"];
+        AppleLocale = "en_US";
+      };
+
+      "com.apple.assistant.support"."Dictation Enabled" = true;
+
+      "com.apple.desktopservices" = {
+        DSDontWriteNetworkStores = true;
+        DSDontWriteUSBStores = true;
+      };
+
+      "com.google.drivefs.settings"."PromptToBackupDevices" = false;
+
+      # Not sure how to apply these settings without also losing my
+      # license data...
+      #
+      # "dk.tacit.desktop"."/dk/tacit/desktop/" = {
+      #   "foldersync/" = {
+      #     always_show_tray_icon = false;
+      #     start_minimized_to_tray = false;
+      #     close_to_tray = false;
+      #
+      #     sync_transfer_threads = 1;
+      #
+      #     backup_folder = "/Users/${config.system.primaryUser}/data/backups/FolderSync/Desktop/";
+      #   };
+      # };
+
+      "fr.handbrake.HandBrake" = {
+        HBLastDestinationDirectoryURL = "/Users/${config.system.primaryUser}/Downloads";
+        HBShowOpenPanelAtLaunch = false;
+      };
+
+      # System Settings
+      # MakeMKV
+      # Photos
+      # Proton Drive
+      # Proton Mail
+      # Proton Pass
+      # Readwise Reader
+      # Scroll Reverser
+      # Signal
+      # Stellarium
+      # TextEdit
+      # Tresorit
+      # VLC
+      # XLD
     };
   };
 

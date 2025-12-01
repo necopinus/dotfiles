@@ -18,6 +18,8 @@ in {
     #stellarium      # Marked as broken
     xld
 
+    plistwatch
+
     #### Local packages (see above) ####
     localPkgs.vault-sync
   ];
@@ -26,19 +28,4 @@ in {
   # own
   #
   xdg.configFile."user-dirs.dirs".source = ../artifacts/config/user-dirs.dirs;
-
-  # macOS configuration
-  #
-  targets.darwin = {
-    currentHostDefaults = {
-      "com.apple.controlcenter".BatteryShowPercentage = true;
-    };
-
-    defaults = {
-      "com.apple.desktopservices" = {
-        DSDontWriteNetworkStores = true;
-        DSDontWriteUSBStores = true;
-      };
-    };
-  };
 }

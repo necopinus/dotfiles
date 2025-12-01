@@ -21,5 +21,8 @@
         rebase = false;
       };
     };
+
+    # Needed by GitHub Desktop (see ../hosts/macos.nix)
+    lfs.enable = true;
   };
 }
