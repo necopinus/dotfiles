@@ -97,8 +97,6 @@
 
     WindowManager.EnableTiledWindowMargins = false;
 
-    controlcenter.BatteryShowPercentage = true;
-
     dock = {
       autohide = true;
       tilesize = 128;
@@ -175,7 +173,10 @@
       reduceMotion = true;
       reduceTransparency = true;
     };
+  };
 
-    keyboard.remapCapsLockToEscape = true;
+  system.keyboard = {
+    enableKeyMapping = true;
+    remapCapsLockToEscape = true;
   };
 }
