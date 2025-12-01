@@ -171,7 +171,11 @@
       TrackpadTwoFingerFromRightEdgeSwipeGesture = 3;
     };
 
-    # CustomUserPreferences = {};
-    # CustomSystemPreferences = {};
+    universalaccess = {
+      reduceMotion = true;
+      reduceTransparency = true;
+    };
+
+    keyboard.remapCapsLockToEscape = true;
   };
 }

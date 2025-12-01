@@ -29,7 +29,16 @@ in {
 
   # macOS configuration
   #
-  #targets.darwin.currentHostDefaults = {};
+  targets.darwin = {
+    currentHostDefaults = {
+      "com.apple.controlcenter".BatteryShowPercentage = true;
+    };
 
-  #targets.darwin.defaults = {};
+    defaults = {
+      "com.apple.desktopservices" = {
+        DSDontWriteNetworkStores = true;
+        DSDontWriteUSBStores = true;
+      };
+    };
+  };
 }
