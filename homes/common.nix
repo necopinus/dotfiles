@@ -81,12 +81,6 @@ in {
     #   /usr/share/keyrings/brave-browser-archive-keyring.gpg
     #   /usr/share/keyrings/wezterm-fury.gpg
     #
-    # Modify:
-    #   ~/.bashrc (remove find/grep/du/df aliases)
-    #   ~/.profile
-    #   ~/config/fish/config.fish (remove find/grep/du/df aliases)
-    #   ~/.zshrc (remove find/grep/du/df aliases)
-    #
     # Commands:
     #   sudo apt purge --autoremove --purge \
     #            android-sdk-platform-tools apt-utils brave-browser \
