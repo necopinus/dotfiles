@@ -28,7 +28,7 @@ writeShellApplication {
       nix flake update
       nix flake archive
       git add -A -v
-      git commit -m "Automated system update: $(date)"
+      git commit -m "Automated system update: $(date)" || true
       git push
       if [[ "$(uname -s)" == "Darwin" ]]; then
         sudo darwin-rebuild switch --flake .#macos
