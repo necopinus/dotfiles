@@ -119,8 +119,7 @@ in {
     #                  zoxide zstd
 
     #
-    # 1. Finish configuring macOS
-    # 2. Debug Android VM
+    # 1. Debug Android VM
     #
 
     android-tools

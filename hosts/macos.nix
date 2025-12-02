@@ -68,11 +68,15 @@
 
   # macOS configuration
   #
-  networking.applicationFirewall = {
-    enable = true;
-    enableStealthMode = true;
-    allowSigned = true;
-    allowSignedApp = true;
+  networking = {
+    computerName = "MacBook Pro";
+    hostName = "macbook-pro";
+    applicationFirewall = {
+      enable = true;
+      enableStealthMode = true;
+      allowSigned = true;
+      allowSignedApp = true;
+    };
   };
 
   system.defaults = {
@@ -177,19 +181,69 @@
     };
 
     CustomUserPreferences = {
+      # a.k.a. "Apple Global Domain"
+      #
       NSGlobalDomain = {
+        AppleAccentColor = 3;
+        AppleHighlightColor = "0.752941 0.964706 0.678431 Green";
+        SLSMenuBarUseBlurredAppearance = true;
+
         AppleLanguages = ["en-US"];
         AppleLocale = "en_US";
+        AppleFirstWeekday = {gregorian = 2;};
+        AppleICUDateFormatStrings = {"1" = "y-MM-dd";};
+        AppleICUNumberSymbols = {
+          "0" = ".";
+          "1" = " "; # "\U202f" is a non-breaking space
+          "10" = ".";
+          "17" = " "; # "\U202f" is a non-breaking space
+        };
+
+        "com.apple.sound.uiaudio.enabled" = false;
       };
 
-      "com.apple.assistant.support"."Dictation Enabled" = true;
+      "com.apple.AdLib".allowApplePersonalizedAdvertising = false;
+
+      "com.apple.assistant.support" = {
+        "Assistant Enabled" = true;
+        "Dictation Enabled" = true;
+      };
 
       "com.apple.desktopservices" = {
         DSDontWriteNetworkStores = true;
         DSDontWriteUSBStores = true;
       };
 
+      "com.apple.Photos" = {
+        IPXDefaultAutoplayVideos = false;
+        showHolidayCalendarEvents = true;
+      };
+
+      "com.apple.Siri" = {
+        StatusMenuVisible = false;
+      };
+
+      "com.apple.systemuiserver" = {
+        menuExtras = [];
+      };
+
+      "com.apple.TextEdit" = {
+        RichText = false;
+        CheckGrammarWithSpelling = true;
+        SmartLinks = true;
+        DataDetectors = true;
+        CheckSpellingAsYouTypeEnabledInRichTextOnly = true;
+        AlwaysLightBackground = true;
+      };
+
+      "com.apple.universalaccess".showWindowTitlebarIcons = true;
+
       "com.google.drivefs.settings"."PromptToBackupDevices" = false;
+
+      "com.pilotmoon.scroll-reverser" = {
+        InvertScrollingOn = true;
+        ReverseTrackpad = false;
+      };
 
       # Not sure how to apply these settings without also losing my
       # license data...
@@ -211,20 +265,12 @@
         HBShowOpenPanelAtLaunch = false;
       };
 
-      # System Settings
-      # MakeMKV
-      # Photos
-      # Proton Drive
-      # Proton Mail
-      # Proton Pass
-      # Readwise Reader
-      # Scroll Reverser
-      # Signal
-      # Stellarium
-      # TextEdit
-      # Tresorit
-      # VLC
-      # XLD
+      "jp.tmkk.XLD" = {
+        DarkModeSupport = true;
+        SUEnableAutomaticChecks = false;
+      };
+
+      "org.videolan.vlc".SUEnableAutomaticChecks = true;
     };
   };
 
