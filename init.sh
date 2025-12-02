@@ -232,7 +232,7 @@ if [[ $(find "$HOME/.ssh" -type f -iname "id_*" 2>/dev/null | wc -l) -eq 0 ]] &&
 	Subkey-Type: ECDH
 	    Subkey-Curve: cv25519
 	    Subkey-Usage: encrypt
-	Expire-Date: 4m
+	Expire-Date: 0
 	Name-Real: Nathan Acks
 	Name-Email: nathan.acks@cardboard-iguana.com
 	EOF
