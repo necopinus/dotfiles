@@ -199,7 +199,7 @@
           "17" = " "; # "\U202f" is a non-breaking space
         };
 
-        "com.apple.sound.uiaudio.enabled" = false;
+        "com.apple.sound.uiaudio.enabled" = 0;
       };
 
       "com.apple.AdLib".allowApplePersonalizedAdvertising = false;
