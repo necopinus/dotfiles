@@ -13,31 +13,29 @@ writeShellApplication {
     # shellcheck disable=SC1091
     source "$XDG_CONFIG_HOME/user-dirs.dirs"
 
-    # FIXME: This command probably needs significant modification to
-    #        exclude symlinks into the nix store
-    #
-    tar -cJv --exclude=.DS_Store \
-             --exclude=.localized \
-             --exclude="S.*" \
+    tar -cJv --exclude=".DS_Store" \
+             --exclude=".localized" \
              --exclude="*.pyc" \
              --exclude="*.swp" \
              --exclude="*~" \
              --exclude=".#*" \
+             --exclude="._*" \
         -f "$XDG_DOWNLOAD_DIR/backup.tar.xz" -T - << EOF
-    $(test -d .gnupg && echo ".gnupg")
-    $(test -d .ssh && echo ".ssh")
-    $(test -d .cddb && echo ".cddb")
-    $(test -d .dvdcss && echo ".dvdcss")
-    $(test -d "$XDG_CONFIG_HOME/aacs" && echo "$XDG_CONFIG_HOME/aacs" | sed "s#$HOME/##")
-    $(test -f "$XDG_CONFIG_HOME/shodan/api_key" && echo "$XDG_CONFIG_HOME/shodan/api_key" | sed "s#$HOME/##")
-    $(test -f "$XDG_CONFIG_HOME/api-keys.env.sh" && echo "$XDG_CONFIG_HOME/api-keys.env.sh" | sed "s#$HOME/##")
-    $(test -d "data/calibre" && echo "data/calibre")
-    $(test -d "Library/Preferences/calibre" && echo "Library/Preferences/calibre")
-    $(test -d "$XDG_CONFIG_HOME/calibre" && echo "$XDG_CONFIG_HOME/calibre" | sed "s#$HOME/##")
-    $(test -d "$XDG_CONFIG_HOME/BraveSoftware" && echo "$XDG_CONFIG_HOME/BraveSoftware" | sed "s#$HOME/##")
-    $(test -d "Library/Application Support/BraveSoftware" && echo "Library/Application Support/BraveSoftware")
-    $(test -f "$XDG_CONFIG_HOME/git/gpg.ini" && echo "$XDG_CONFIG_HOME/git/gpg.ini" | sed "s#$HOME/##")
-    $(test -d "$XDG_CONFIG_HOME/nix" && echo "$XDG_CONFIG_HOME/nix" | sed "s#$HOME/##")
+    $(test -d "$HOME/.gnupg" && find "$HOME/.gnupg" -type f -o \( -type d -empty \) | sed "s#^$HOME/##g")
+    $(test -d "$HOME/.ssh" && find "$HOME/.ssh" -type f -o \( -type d -empty \) | sed "s#^$HOME/##g")
+    $(test -d "$HOME/.cddb" && find "$HOME/.cddb" -type f -o \( -type d -empty \) | sed "s#^$HOME/##g")
+    $(test -d "$HOME/.dvdcss" && find "$HOME/.dvdcss" -type f -o \( -type d -empty \) | sed "s#^$HOME/##g")
+    $(test -d "$XDG_CONFIG_HOME/aacs" && find "$XDG_CONFIG_HOME/aacs" -type f -o \( -type d -empty \) | sed "s#^$HOME/##g")
+    $(test -d "$HOME/data/calibre" && find "data/calibre" -type f -o \( -type d -empty \) | sed "s#^$HOME/##g")
+    $(test -d "$HOME/Library/Preferences/calibre" && find "Library/Preferences/calibre" -type f -o \( -type d -empty \) | sed "s#^$HOME/##g")
+    $(test -d "$XDG_CONFIG_HOME/calibre" && find "$XDG_CONFIG_HOME/calibre" -type f -o \( -type d -empty \) | sed "s#^$HOME/##g")
+    $(test -d "$XDG_CONFIG_HOME/BraveSoftware" && find "$XDG_CONFIG_HOME/BraveSoftware" -type f -o \( -type d -empty \) | sed "s#^$HOME/##g")
+    $(test -d "$HOME/Library/Application Support/BraveSoftware" && find "Library/Application Support/BraveSoftware" -type f -o \( -type d -empty \) | sed "s#^$HOME/##g")
+    $(test -d "$XDG_CONFIG_HOME/nix" && find "$XDG_CONFIG_HOME/nix" -type f -o \( -type d -empty \) | sed "s#^$HOME/##g")
+
+    $(test -f "$XDG_CONFIG_HOME/shodan/api_key" && echo "$XDG_CONFIG_HOME/shodan/api_key" | sed "s#^$HOME/##g")
+    $(test -f "$XDG_CONFIG_HOME/api-keys.env.sh" && echo "$XDG_CONFIG_HOME/api-keys.env.sh" | sed "s#^$HOME/##g")
+    $(test -f "$XDG_CONFIG_HOME/git/gpg.ini" && echo "$XDG_CONFIG_HOME/git/gpg.ini" | sed "s#^$HOME/##g")
     EOF
   '';
 }
