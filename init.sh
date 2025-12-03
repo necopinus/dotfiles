@@ -132,6 +132,15 @@ if [[ -d "$HOME/Documents" ]] &&
     cp -anv "$HOME/Documents"/* "$XDG_DOCUMENTS_DIR"/ || true
     rm -rf "$HOME/Documents"
 fi
+if [[ -d "$HOME/data/documents" ]] &&
+    [[ "$XDG_DOCUMENTS_DIR" != "$HOME/data/documents" ]]; then
+    cp -anv "$HOME/data/documents"/* "$XDG_DOCUMENTS_DIR"/ || true
+    rm -rf "$HOME/data/documents"
+fi
+if [[ "$XDG_DOCUMENTS_DIR" == /mnt/shared/Documents ]]; then
+    mkdir -p "$HOME/data"
+    ln -sf /mnt/shared/Documents "$HOME/data/documents"
+fi
 
 mkdir -p "$XDG_DESKTOP_DIR"
 if [[ -d "$HOME/Desktop" ]] &&
@@ -140,19 +149,30 @@ if [[ -d "$HOME/Desktop" ]] &&
     rm -rf "$HOME/Desktop"
 fi
 
-if [[ "$USER" == "droid" ]] && [[ -d /mnt/shared ]]; then
-    ln -sf /mnt/shared "$XDG_DOWNLOAD_DIR"
-else
-    mkdir -p "$XDG_DOWNLOAD_DIR"
-fi
+mkdir -p "$XDG_DOWNLOAD_DIR"
 if [[ -d "$HOME/Downloads" ]] &&
     [[ "$XDG_DOWNLOAD_DIR" != "$HOME/Downloads" ]]; then
     cp -anv "$HOME/Downloads"/* "$XDG_DOWNLOAD_DIR"/ || true
     rm -rf "$HOME/Downloads"
-elif [[ -d "$HOME/Download" ]] &&
+fi
+if [[ -d "$HOME/Download" ]] &&
     [[ "$XDG_DOWNLOAD_DIR" != "$HOME/Download" ]]; then
     cp -anv "$HOME/Download"/* "$XDG_DOWNLOAD_DIR"/ || true
     rm -rf "$HOME/Download"
+fi
+if [[ -d "$HOME/downloads" ]] &&
+    [[ "$XDG_DOWNLOAD_DIR" != "$HOME/downloads" ]]; then
+    cp -anv "$HOME/downloads"/* "$XDG_DOWNLOAD_DIR"/ || true
+    rm -rf "$HOME/downloads"
+fi
+if [[ -d "$HOME/data/downloads" ]] &&
+    [[ "$XDG_DOWNLOAD_DIR" != "$HOME/data/downloads" ]]; then
+    cp -anv "$HOME/data/downloads"/* "$XDG_DOWNLOAD_DIR"/ || true
+    rm -rf "$HOME/data/downloads"
+fi
+if [[ "$XDG_DOWNLOAD_DIR" == /mnt/shared/Download ]]; then
+    mkdir -p "$HOME/data"
+    ln -sf /mnt/shared/Download "$HOME/downloads"
 fi
 
 mkdir -p "$XDG_MUSIC_DIR"
@@ -161,12 +181,30 @@ if [[ -d "$HOME/Music" ]] &&
     cp -anv "$HOME/Music"/* "$XDG_MUSIC_DIR"/ || true
     rm -rf "$HOME/Music"
 fi
+if [[ -d "$HOME/data/music" ]] &&
+    [[ "$XDG_MUSIC_DIR" != "$HOME/data/music" ]]; then
+    cp -anv "$HOME/data/music"/* "$XDG_MUSIC_DIR"/ || true
+    rm -rf "$HOME/data/music"
+fi
+if [[ "$XDG_MUSIC_DIR" == /mnt/shared/Music ]]; then
+    mkdir -p "$HOME/data"
+    ln -sf /mnt/shared/Music "$HOME/data/music"
+fi
 
 mkdir -p "$XDG_PICTURES_DIR"
 if [[ -d "$HOME/Pictures" ]] &&
     [[ "$XDG_PICTURES_DIR" != "$HOME/Pictures" ]]; then
     cp -anv "$HOME/Pictures"/* "$XDG_PICTURES_DIR"/ || true
     rm -rf "$HOME/Pictures"
+fi
+if [[ -d "$HOME/data/pictures" ]] &&
+    [[ "$XDG_PICTURES_DIR" != "$HOME/data/pictures" ]]; then
+    cp -anv "$HOME/data/pictures"/* "$XDG_PICTURES_DIR"/ || true
+    rm -rf "$HOME/data/pictures"
+fi
+if [[ "$XDG_PICTURES_DIR" == /mnt/shared/Pictures ]]; then
+    mkdir -p "$HOME/data"
+    ln -sf /mnt/shared/Pictures "$HOME/data/pictures"
 fi
 
 mkdir -p "$XDG_PUBLICSHARE_DIR"
@@ -188,6 +226,15 @@ if [[ -d "$HOME/Videos" ]] &&
     [[ "$XDG_VIDEOS_DIR" != "$HOME/Videos" ]]; then
     cp -anv "$HOME/Videos"/* "$XDG_VIDEOS_DIR"/ || true
     rm -rf "$HOME/Videos"
+fi
+if [[ -d "$HOME/data/videos" ]] &&
+    [[ "$XDG_VIDEOS_DIR" != "$HOME/data/videos" ]]; then
+    cp -anv "$HOME/data/videos"/* "$XDG_VIDEOS_DIR"/ || true
+    rm -rf "$HOME/data/videos"
+fi
+if [[ "$XDG_VIDEOS_DIR" == /mnt/shared/Movies ]]; then
+    mkdir -p "$HOME/data"
+    ln -sf /mnt/shared/Movies "$HOME/data/videos"
 fi
 
 # Calibre pre-setup

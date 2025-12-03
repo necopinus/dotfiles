@@ -18,8 +18,6 @@ in {
   fonts.fontconfig = {
     enable = true;
 
-    # TODO: Double-check these names and add intermediate CJK fonts
-    #
     defaultFonts = {
       emoji = ["Noto Emoji"];
       monospace = [
@@ -28,10 +26,12 @@ in {
       ];
       sansSerif = [
         "Noto Sans"
+        "Noto Sans CJK JP"
         "Noto Emoji"
       ];
       serif = [
         "Noto Serif"
+        "Noto Serif CJK JP"
         "Noto Emoji"
       ];
     };
@@ -46,6 +46,7 @@ in {
     nerd-fonts.jetbrains-mono
     noto-fonts
     noto-fonts-cjk-sans
+    noto-fonts-cjk-serif
     noto-fonts-monochrome-emoji
 
     #### Local packages (see above) ####
@@ -62,13 +63,13 @@ in {
       createDirectories = true;
 
       desktop = "${config.home.homeDirectory}/data/desktop";
-      documents = "${config.home.homeDirectory}/data";
-      download = "${config.home.homeDirectory}/downloads";
-      music = "${config.home.homeDirectory}/data/music";
-      pictures = "${config.home.homeDirectory}/data/pictures";
+      documents = "/mnt/shared/Documents";
+      download = "/mnt/shared/Download";
+      music = "/mnt/shared/Music";
+      pictures = "/mnt/shared/Pictures";
       publicShare = "${config.home.homeDirectory}/public";
       templates = "${config.home.homeDirectory}/data/templates";
-      videos = "${config.home.homeDirectory}/data/videos";
+      videos = "/mnt/shared/Movies";
     };
 
     terminal-exec = {
