@@ -4,7 +4,6 @@
   };
 in {
   imports = [
-    ../programs/gpg.nix
     ../programs/zsh.nix
   ];
 

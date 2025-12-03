@@ -18,6 +18,7 @@ in {
     ../programs/fish.nix
     ../programs/git.nix
     ../programs/glow.nix
+    ../programs/gnupg.nix
     ../programs/helix.nix
     ../programs/less.nix
     ../programs/rclone.nix
@@ -82,11 +83,6 @@ in {
     #   /usr/share/keyrings/wezterm-fury.gpg
     #
     # Commands:
-    #   sudo apt purge --autoremove --purge \
-    #            android-sdk-platform-tools apt-utils brave-browser \
-    #            build-essential calibre eject file fonts-noto \
-    #            gnome-keyring gnupg handbrake podman procps uuid-runtime \
-    #            wezterm wl-clipboard xdg-utils xdg-user-dirs
     #
     #   >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
     #   But I still need gpg! If it actually gets removed, then I'll need
@@ -97,8 +93,6 @@ in {
     #
     #   https://unix.stackexchange.com/a/665536
     #   >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
-    #
-    #   brew analytics on
     #
     #   brew uninstall libqalculate openvpn xsel yq yt-dlp
     #

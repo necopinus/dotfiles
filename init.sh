@@ -77,6 +77,11 @@ fi
 if [[ "$OS" == "Linux" ]]; then
     sudo apt install -y tigervnc-standalone-server xfce4 yubikey-manager-qt
 
+    # Make sure GPG is removed so as not to interfere with version from
+    # Nixpkgs
+    #
+    sudo apt purge --autoremove --purge gnupg
+
     sudo ln -sf /usr/share/zoneinfo/America/Denver /etc/localtime
 
     sudo systemctl stop lightdm.service
