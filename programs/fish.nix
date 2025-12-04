@@ -135,11 +135,6 @@
             set -g fish_color_selection normal --background f2e5bc
           end
         '';
-      }
-      // lib.attrsets.optionalAttrs pkgs.stdenv.isLinux {
-        # Convenience function for launching graphical apps from the terminal
-        #
-        xcv = "nohup $argv 2>/dev/null";
 
         # Wrap git and gpg to make sure that the current terminal is
         # correctly set for gpg-agent
@@ -154,6 +149,11 @@
           set GPG_EXEC $(which gpg)
           $GPG_EXEC $argv
         '';
+      }
+      // lib.attrsets.optionalAttrs pkgs.stdenv.isLinux {
+        # Convenience function for launching graphical apps from the terminal
+        #
+        xcv = "nohup $argv 2>/dev/null";
       };
   };
 }
