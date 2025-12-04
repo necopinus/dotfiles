@@ -113,6 +113,12 @@ fi
 source /nix/var/nix/profiles/default/etc/profile.d/nix-daemon.sh
 source "$XDG_CONFIG_HOME/user-dirs.dirs"
 
+# Run GPU setup for nixpkgs/home-manager
+#
+if [[ "$OS" == "Linux" ]]; then
+    non-nixos-gpu-setup
+fi
+
 # Set up directories and symlinks
 #
 mkdir -p "$XDG_CACHE_HOME"
