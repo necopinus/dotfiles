@@ -80,7 +80,11 @@ fi
 # Install desktop on Debian VM
 #
 if [[ "$OS" == "Linux" ]]; then
-    sudo apt install -y tigervnc-standalone-server xfce4 yubikey-manager-qt
+    sudo apt install -y \
+             build-essential \
+             tigervnc-standalone-server \
+             xfce4 \
+             yubikey-manager-qt
 
     # Comment out global SSH option that Nix's ssh binary doesn't like
     #
