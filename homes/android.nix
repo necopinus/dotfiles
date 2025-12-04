@@ -163,10 +163,7 @@ in {
         "backdrop/screen0/monitor0/rgba1" = [0.23921568627450981 0.2196078431372549 0.27450980392156865 1.0000000000000000];
 
         "backdrop/screen0/monitor1/last-image" = "/usr/share/backgrounds/xfce/xfce-leaves.svg";
-        "backdrop/screen0/monitor1/color-style" = {
-          type = "int";
-          value = 0;
-        };
+        "backdrop/screen0/monitor1/color-style" = 0;
         "backdrop/screen0/monitor1/rgba1" = [0.23921568627450981 0.2196078431372549 0.27450980392156865 1.0000000000000000];
 
         "backdrop/screen0/monitorrdp0/workspace0/last-image" = "/usr/share/backgrounds/xfce/xfce-leaves.svg";
