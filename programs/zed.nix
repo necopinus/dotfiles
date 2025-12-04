@@ -19,7 +19,6 @@
     rubyPackages.solargraph
     ruff
     rust-analyzer
-    sourcekit-lsp
     texlab
     tombi
     vscode-langservers-extracted

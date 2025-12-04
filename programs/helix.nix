@@ -30,7 +30,6 @@ in {
         ruff
         rust-analyzer
         solc
-        sourcekit-lsp
         systemd-lsp # Set in flake.nix overlay
         texlab
         tombi
@@ -44,7 +43,6 @@ in {
         prettier
         shellcheck
         shfmt
-        swift-format
       ]
       ++ pkgs.lib.optionals pkgs.stdenv.isLinux [
         #### Utilities ####
