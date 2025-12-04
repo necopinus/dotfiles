@@ -86,6 +86,20 @@
       alias vi="$(which "$EDITOR")"
       alias vim="$(which "$EDITOR")"
 
+      # Wrap git and gpg to make sure that the current terminal is
+      # correctly set for gpg-agent
+      #
+      function git {
+        gpg-connect-agent UPDATESTARTUPTTY /bye > /dev/null
+        GIT_EXEC="$(which git)"
+        $GIT_EXEC "$@"
+      }
+      function gpg {
+        gpg-connect-agent UPDATESTARTUPTTY /bye > /dev/null
+        GPG_EXEC="$(which gpg)"
+        $GPG_EXEC "$@"
+      }
+
       # Convenience function for launching graphical apps from the terminal
       #
       if [[ "$(uname -s)" == "Linux" ]]; then

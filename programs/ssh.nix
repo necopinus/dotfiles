@@ -5,6 +5,7 @@
 
     includes = ["hosts/*"];
     enableDefaultConfig = false;
+    extraConfig = "Match host * exec \"${pkgs.gnupg}/bin/gpg-connect-agent UPDATESTARTUPTTY /bye\"";
     matchBlocks."*" = {
       host = "* !127.0.0.1 !localhost";
       addKeysToAgent = "yes";

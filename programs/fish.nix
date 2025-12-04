@@ -140,6 +140,20 @@
         # Convenience function for launching graphical apps from the terminal
         #
         xcv = "nohup $argv 2>/dev/null";
+
+        # Wrap git and gpg to make sure that the current terminal is
+        # correctly set for gpg-agent
+        #
+        git = ''
+          gpg-connect-agent UPDATESTARTUPTTY /bye > /dev/null
+          set GIT_EXEC $(which git)
+          $GIT_EXEC $argv
+        '';
+        gpg = ''
+          gpg-connect-agent UPDATESTARTUPTTY /bye > /dev/null
+          set GPG_EXEC $(which gpg)
+          $GPG_EXEC $argv
+        '';
       };
   };
 }
