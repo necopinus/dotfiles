@@ -1,5 +1,6 @@
 {
   config,
+  lib,
   pkgs,
   ...
 }: let
@@ -15,6 +16,13 @@ in {
   # Make sure that the home-manager binary is available in the PATH
   #
   programs.home-manager.enable = true;
+
+  # https://github.com/nix-community/home-manager/issues/2033
+  #
+  news = {
+    display = "silent";
+    entries = lib.mkForce [];
+  };
 
   # Needed to force font cache to be rebuilt
   #
