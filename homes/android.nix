@@ -258,8 +258,14 @@ in {
     };
   };
 
-  # Make sure that systemd units pick up as many session variables as
-  # possible
+  # Additional Android-specific environment variables
+  #
+  home.sessionVariables = {
+    ZED_ALLOW_EMULATED_GPU = 1;
+  };
+
+  # Make sure that systemd units pick up as many environment variables
+  # as possible
   #
   systemd.user.sessionVariables = config.home.sessionVariables;
 }
