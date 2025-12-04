@@ -9,12 +9,14 @@ writeShellApplication {
 
     if [[ -f /nix/var/nix/profiles/default/etc/profile.d/nix-daemon.sh ]]; then
       unset __ETC_PROFILE_NIX_SOURCED
+      # shellcheck disable=SC1091
       source /nix/var/nix/profiles/default/etc/profile.d/nix-daemon.sh
     fi
 
     if [[ -f $HOME/.nix-profile/etc/profile.d/hm-session-vars.sh ]]; then
       unset __HM_SESS_VARS_SOURCED
-      source $HOME/.nix-profile/etc/profile.d/hm-session-vars.sh
+      # shellcheck disable=SC1091
+      source "$HOME"/.nix-profile/etc/profile.d/hm-session-vars.sh
     fi
 
     # Actual launch process

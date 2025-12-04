@@ -56,7 +56,7 @@ in {
   ];
 
   xdg = {
-    enabled = true;
+    enable = true;
 
     userDirs = {
       enable = true;
@@ -92,8 +92,8 @@ in {
         "application/xhtml+xml" = ["brave-browser.desktop"];
         "text/html" = ["brave-browser.desktop"];
         "x-scheme-handler/chrome" = ["brave-browser.desktop"];
-        "x-scheme-handler/http" = ["xfce4-web-browser.desktop"];
-        "x-scheme-handler/https" = ["xfce4-web-browser.desktop"];
+        "x-scheme-handler/http" = ["brave-browser.desktop"];
+        "x-scheme-handler/https" = ["brave-browser.desktop"];
       };
       associations.added = {
         "application/pdf" = ["brave-browser.desktop"];
@@ -123,7 +123,7 @@ in {
 
       # Xfce files
       #
-      "xfce4/helpers.rc" = ../artifacts/config/xfce4/helpers.rc;
+      "xfce4/helpers.rc".source = ../artifacts/config/xfce4/helpers.rc;
     };
 
     dataFile = {
@@ -138,15 +138,10 @@ in {
 
       # Xfce files
       #
-      "xfce4/helpers/custom-TerminalEmulator.desktop" = ../artifacts/local/share/xfce4/helpers/custom-TerminalEmulator.desktop;
-      "xfce4/helpers/custom-WebBrowser.desktop" = ../artifacts/local/share/xfce4/helpers/custom-WebBrowser.desktop;
+      "xfce4/helpers/custom-TerminalEmulator.desktop".source = ../artifacts/local/share/xfce4/helpers/custom-TerminalEmulator.desktop;
+      "xfce4/helpers/custom-WebBrowser.desktop".source = ../artifacts/local/share/xfce4/helpers/custom-WebBrowser.desktop;
     };
   };
-
-  # Disabling Debian's systemd-based gpg-agent is a pain, so instead we
-  # just include our own configuration
-  #
-  home.file.".gnupg/gpg-agent.conf".source = ../artifacts/gnupg/gpg-agent.conf;
 
   # Requires Debian "xfce4" metapackage to be installed
   #

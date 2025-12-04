@@ -46,15 +46,18 @@
     #
     myUserName = "necopinus";
     androidUserName = "droid";
-
+  in {
     # Overlays to make installing packages from flakes easier
     #
+    # Nixpkgs gets borked for standalone home-manager (but oddly NOT for
+    # nix-darwin) if this directive is in the `let` block above
+    #
     nixpkgs.overlays = [
-      {
+      (self: super: {
         systemd-lsp = systemd-lsp.packages.${nixpkgs.stdenv.hostPlatform.system}.default;
-      }
+      })
     ];
-  in {
+
     # macOS configuration (nix-darwin + home-manager)
     #
     darwinConfigurations."macos" = nix-darwin.lib.darwinSystem {
@@ -64,8 +67,8 @@
         # Allow "unfree" packages; needs to be set here rather than in
         # the global let statement above... for reasons?
         #
-        # I honestly don't get why NixPkgs overlays go up there, but
-        # config directives go here...
+        # I honestly don't get why NixPkgs overlays and config
+        # directives go in different places...
         #
         {nixpkgs.config.allowUnfree = true;}
 
@@ -117,6 +120,14 @@
       pkgs = nixpkgs.legacyPackages.aarch64-linux;
 
       modules = [
+        # Allow "unfree" packages; needs to be set here rather than in
+        # the global let statement above... for reasons?
+        #
+        # I honestly don't get why NixPkgs overlays and config
+        # directives go in different places...
+        #
+        {nixpkgs.config.allowUnfree = true;}
+
         {
           home.stateVersion = "${homeManagerStateVersion}";
           home.username = "${androidUserName}";
