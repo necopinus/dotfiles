@@ -6,9 +6,12 @@
   localPkgs = {
     pbcopy = pkgs.callPackage ../pkgs/pbcopy.nix {};
     pbpaste = pkgs.callPackage ../pkgs/pbpaste.nix {};
-    start-desktop = pkgs.callPackage ../pkgs/start-desktop.nix {};
   };
 in {
+  # The Android VM runs Debian, not NixOS
+  #
+  targets.genericLinux.enable = true;
+
   # Make sure that the home-manager binary is available in the PATH
   #
   programs.home-manager.enable = true;
@@ -41,6 +44,7 @@ in {
 
   home.packages = with pkgs; [
     calibre
+    util-linux
 
     #### Fonts ####
     nerd-fonts.jetbrains-mono
@@ -52,7 +56,6 @@ in {
     #### Local packages (see above) ####
     localPkgs.pbcopy
     localPkgs.pbpaste
-    localPkgs.start-desktop
   ];
 
   xdg = {
@@ -162,6 +165,10 @@ in {
         "backdrop/screeon0/monitor1/last-image" = "/usr/share/backgrounds/xfce/xfce-leaves.svg";
         "backdrop/screeon0/monitor1/color-style" = 0;
         "backdrop/screeon0/monitor1/rgba1" = [0.23921568627450981 0.2196078431372549 0.27450980392156865 1];
+
+        "backdrop/screeon0/monitorrdp0/workspace0/last-image" = "/usr/share/backgrounds/xfce/xfce-leaves.svg";
+        "backdrop/screeon0/monitorrdp0/workspace0/color-style" = 0;
+        "backdrop/screeon0/monitorrdp0/workspace0/rgba1" = [0.23921568627450981 0.2196078431372549 0.27450980392156865 1];
 
         "backdrop/screeon0/monitorVNC-0/workspace0/last-image" = "/usr/share/backgrounds/xfce/xfce-leaves.svg";
         "backdrop/screeon0/monitorVNC-0/workspace0/color-style" = 0;

@@ -71,6 +71,18 @@ else
     #
     sudo apt purge --autoremove --purge gnupg
 
+    # Move files that we know we're going to overwrite out of the way
+    #
+    # if [[ -e "$HOME"/.bash_logout ]]; then
+    #     mv "$HOME"/.bash_logout "$HOME"/_bash_logout.org
+    # fi
+    if [[ -e "$HOME"/.bashrc ]]; then
+        mv "$HOME"/.bashrc "$HOME"/_bashrc.org
+    fi
+    if [[ -e "$HOME"/.profile ]]; then
+        mv "$HOME"/.profile "$HOME"/_profile.org
+    fi
+
     (
         cd "$HOME/config/nix"
         nix run home-manager/master -- switch --flake .#android
@@ -81,10 +93,10 @@ fi
 #
 if [[ "$OS" == "Linux" ]]; then
     sudo apt install -y \
-             build-essential \
-             tigervnc-standalone-server \
-             xfce4 \
-             yubikey-manager-qt
+        build-essential \
+        xfce4 \
+        xrdp \
+        yubikey-manager-qt
 
     # Comment out global SSH option that Nix's ssh binary doesn't like
     #
@@ -94,10 +106,6 @@ if [[ "$OS" == "Linux" ]]; then
 
     sudo systemctl stop lightdm.service
     sudo systemctl disable lightdm.service
-
-    if [[ $(grep -c "$USER" /etc/tigervnc/vncserver.users) -eq 0 ]]; then
-        echo ":0=$USER" | sudo tee -a /etc/tigervnc/vncserver.users
-    fi
 fi
 
 # Update runtime environment

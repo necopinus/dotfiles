@@ -78,10 +78,6 @@
       alias vi "$(which $EDITOR)"
       alias vim "$(which $EDITOR)"
 
-      if test "$(uname -s)" = Linux
-        alias shutdown "$(which sudo) /sbin/shutdown -h now"
-      end
-
       # Hook fish postexec event to add a newline between prompts
       #
       #     https://stackoverflow.com/a/70644608

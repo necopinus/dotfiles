@@ -86,15 +86,22 @@
       alias vi="$(which "$EDITOR")"
       alias vim="$(which "$EDITOR")"
 
-      if [[ "$(uname -s)" == "Linux" ]]; then
-        alias shutdown="$(which sudo) /sbin/shutdown -h now"
-      fi
-
       # Convenience function for launching graphical apps from the terminal
       #
       if [[ "$(uname -s)" == "Linux" ]]; then
         function xcv {
           nohup "$@" 2>/dev/null
+        }
+      fi
+
+      # The Android Debian VM is surprisingly fragile, so we try to shut
+      # it down as cleanly as possible
+      #
+      if [[ "$(uname -s)" == "Linux" ]]; then
+        function shutdown {
+          sudo systemctl stop xrdp.service
+          sudo systemctl stop xrdp-sesman.service
+          sudo /sbin/shutdown -h now
         }
       fi
     '';
