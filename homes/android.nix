@@ -120,6 +120,7 @@ in {
       #
       "autostart/light-locker.desktop".source = ../artifacts/local/share/applications/hidden.desktop;
       "autostart/xiccd.desktop".source = ../artifacts/local/share/applications/hidden.desktop;
+      "autostart/xscreensaver.desktop".source = ../artifacts/local/share/applications/hidden.desktop;
 
       # Xfce files
       #
@@ -129,11 +130,7 @@ in {
     dataFile = {
       # Hide some desktop applications
       #
-      "applications/fish.desktop".source = ../artifacts/local/share/applications/hidden.desktop;
-      "applications/org.gnome.Vte.App.Gtk3.desktop".source = ../artifacts/local/share/applications/hidden.desktop;
-      "applications/org.gnome.Vte.App.Gtk4.desktop".source = ../artifacts/local/share/applications/hidden.desktop;
       "applications/vim.desktop".source = ../artifacts/local/share/applications/hidden.desktop;
-      "applications/xfce4-terminal.desktop".source = ../artifacts/local/share/applications/hidden.desktop;
       "applications/zutty.desktop".source = ../artifacts/local/share/applications/hidden.desktop;
 
       # Xfce files
