@@ -158,33 +158,20 @@ in {
       xfce4-desktop = {
         "desktop-icons/style" = 0;
 
-        "backdrop/screeon0/monitor0/last-image" = "/usr/share/backgrounds/xfce/xfce-leaves.svg";
-        "backdrop/screeon0/monitor0/color-style" = 0;
-        "backdrop/screeon0/monitor0/rgba1" = [0.23921568627450981 0.2196078431372549 0.27450980392156865 1];
+        "backdrop/screen0/monitor0/last-image" = "/usr/share/backgrounds/xfce/xfce-leaves.svg";
+        "backdrop/screen0/monitor0/color-style" = 0;
+        "backdrop/screen0/monitor0/rgba1" = [0.23921568627450981 0.2196078431372549 0.27450980392156865 1.0000000000000000];
 
-        "backdrop/screeon0/monitor1/last-image" = "/usr/share/backgrounds/xfce/xfce-leaves.svg";
-        "backdrop/screeon0/monitor1/color-style" = 0;
-        "backdrop/screeon0/monitor1/rgba1" = [0.23921568627450981 0.2196078431372549 0.27450980392156865 1];
+        "backdrop/screen0/monitor1/last-image" = "/usr/share/backgrounds/xfce/xfce-leaves.svg";
+        "backdrop/screen0/monitor1/color-style" = {
+          type = "int";
+          value = 0;
+        };
+        "backdrop/screen0/monitor1/rgba1" = [0.23921568627450981 0.2196078431372549 0.27450980392156865 1.0000000000000000];
 
-        "backdrop/screeon0/monitorrdp0/workspace0/last-image" = "/usr/share/backgrounds/xfce/xfce-leaves.svg";
-        "backdrop/screeon0/monitorrdp0/workspace0/color-style" = 0;
-        "backdrop/screeon0/monitorrdp0/workspace0/rgba1" = [0.23921568627450981 0.2196078431372549 0.27450980392156865 1];
-
-        "backdrop/screeon0/monitorVNC-0/workspace0/last-image" = "/usr/share/backgrounds/xfce/xfce-leaves.svg";
-        "backdrop/screeon0/monitorVNC-0/workspace0/color-style" = 0;
-        "backdrop/screeon0/monitorVNC-0/workspace0/rgba1" = [0.23921568627450981 0.2196078431372549 0.27450980392156865 1];
-
-        "backdrop/screeon0/monitorVNC-0/workspace1/last-image" = "/usr/share/backgrounds/xfce/xfce-leaves.svg";
-        "backdrop/screeon0/monitorVNC-0/workspace1/color-style" = 0;
-        "backdrop/screeon0/monitorVNC-0/workspace1/rgba1" = [0.23921568627450981 0.2196078431372549 0.27450980392156865 1];
-
-        "backdrop/screeon0/monitorVNC-0/workspace2/last-image" = "/usr/share/backgrounds/xfce/xfce-leaves.svg";
-        "backdrop/screeon0/monitorVNC-0/workspace2/color-style" = 0;
-        "backdrop/screeon0/monitorVNC-0/workspace2/rgba1" = [0.23921568627450981 0.2196078431372549 0.27450980392156865 1];
-
-        "backdrop/screeon0/monitorVNC-0/workspace3/last-image" = "/usr/share/backgrounds/xfce/xfce-leaves.svg";
-        "backdrop/screeon0/monitorVNC-0/workspace3/color-style" = 0;
-        "backdrop/screeon0/monitorVNC-0/workspace3/rgba1" = [0.23921568627450981 0.2196078431372549 0.27450980392156865 1];
+        "backdrop/screen0/monitorrdp0/workspace0/last-image" = "/usr/share/backgrounds/xfce/xfce-leaves.svg";
+        "backdrop/screen0/monitorrdp0/workspace0/color-style" = 0;
+        "backdrop/screen0/monitorrdp0/workspace0/rgba1" = [0.23921568627450981 0.2196078431372549 0.27450980392156865 1.0000000000000000];
       };
       thunar = {
         "misc-text-beside-icons" = true;
@@ -200,17 +187,29 @@ in {
         "configver" = 2;
         "panels/dark-mode" = true;
         "panels/panel-1/position" = "p=6;x=949;y=24";
-        "panels/panel-1/length" = 100;
+        "panels/panel-1/length" = 100.0000000000000000;
         "panels/panel-1/position-locked" = true;
-        "panels/panel-1/icon-size" = 16;
-        "panels/panel-1/size" = 26;
+        "panels/panel-1/icon-size" = {
+          type = "uint";
+          value = 16;
+        };
+        "panels/panel-1/size" = {
+          type = "uint";
+          value = 26;
+        };
         "panels/panel-1/plugin-ids" = [1 2 5 6 8 10 11 12 13];
         "plugins/plugin-1" = "applicationsmenu";
         "plugins/plugin-2" = "tasklist";
-        "plugins/plugin-2/grouping" = 1;
+        "plugins/plugin-2/grouping" = {
+          type = "uint";
+          value = 1;
+        };
         "plugins/plugin-2/flat-buttons" = true;
         "plugins/plugin-5" = "separator";
-        "plugins/plugin-5/style" = 0;
+        "plugins/plugin-5/style" = {
+          type = "uint";
+          value = 0;
+        };
         "plugins/plugin-5/expand" = true;
         "plugins/plugin-6" = "systray";
         "plugins/plugin-6/square-icons" = true;
@@ -222,14 +221,23 @@ in {
         "plugins/plugin-8/show-notifications" = true;
         "plugins/plugin-10" = "notification-plugin";
         "plugins/plugin-11" = "separator";
-        "plugins/plugin-11/style" = 0;
+        "plugins/plugin-11/style" = {
+          type = "uint";
+          value = 0;
+        };
         "plugins/plugin-12" = "clock";
-        "plugins/plugin-12/digital-layout" = 2;
+        "plugins/plugin-12/digital-layout" = {
+          type = "uint";
+          value = 2;
+        };
         "plugins/plugin-12/digital-date-font" = "JetBrainsMono Nerd Font 10";
         "plugins/plugin-12/digital-date-format" = "%Y-%m-%d @ %H:%M";
         "plugins/plugin-12/tooltip-format" = "%A %B %d, %Y";
         "plugins/plugin-13" = "separator";
-        "plugins/plugin-13/style" = 0;
+        "plugins/plugin-13/style" = {
+          type = "uint";
+          value = 0;
+        };
       };
     };
   };
