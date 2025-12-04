@@ -5,37 +5,64 @@ writeShellApplication {
   text = ''
     set -e
 
-    cd "$HOME"
-
     if [[ -z "$XDG_CONFIG_HOME" ]]; then
       export XDG_CONFIG_HOME="$HOME/.config"
     fi
     # shellcheck disable=SC1091
     source "$XDG_CONFIG_HOME/user-dirs.dirs"
 
-    tar -cJv --exclude=".DS_Store" \
-             --exclude=".localized" \
-             --exclude="*.pyc" \
-             --exclude="*.swp" \
-             --exclude="*~" \
-             --exclude=".#*" \
-             --exclude="._*" \
-        -f "$XDG_DOWNLOAD_DIR/backup.tar.xz" -T - << EOF
-    $(test -d "$HOME/.gnupg" && find "$HOME/.gnupg" -type f -o \( -type d -empty \) | sed "s#^$HOME/##g")
-    $(test -d "$HOME/.ssh" && find "$HOME/.ssh" -type f -o \( -type d -empty \) | sed "s#^$HOME/##g")
-    $(test -d "$HOME/.cddb" && find "$HOME/.cddb" -type f -o \( -type d -empty \) | sed "s#^$HOME/##g")
-    $(test -d "$HOME/.dvdcss" && find "$HOME/.dvdcss" -type f -o \( -type d -empty \) | sed "s#^$HOME/##g")
-    $(test -d "$XDG_CONFIG_HOME/aacs" && find "$XDG_CONFIG_HOME/aacs" -type f -o \( -type d -empty \) | sed "s#^$HOME/##g")
-    $(test -d "$HOME/data/calibre" && find "data/calibre" -type f -o \( -type d -empty \) | sed "s#^$HOME/##g")
-    $(test -d "$HOME/Library/Preferences/calibre" && find "Library/Preferences/calibre" -type f -o \( -type d -empty \) | sed "s#^$HOME/##g")
-    $(test -d "$XDG_CONFIG_HOME/calibre" && find "$XDG_CONFIG_HOME/calibre" -type f -o \( -type d -empty \) | sed "s#^$HOME/##g")
-    $(test -d "$XDG_CONFIG_HOME/BraveSoftware" && find "$XDG_CONFIG_HOME/BraveSoftware" -type f -o \( -type d -empty \) | sed "s#^$HOME/##g")
-    $(test -d "$HOME/Library/Application Support/BraveSoftware" && find "Library/Application Support/BraveSoftware" -type f -o \( -type d -empty \) | sed "s#^$HOME/##g")
-    $(test -d "$XDG_CONFIG_HOME/nix" && find "$XDG_CONFIG_HOME/nix" -type f -o \( -type d -empty \) | sed "s#^$HOME/##g")
+    BACKUP_LIST="$(mktemp)"
+    BACKUP_LIST_TMP="$(mktemp)"
 
-    $(test -f "$XDG_CONFIG_HOME/shodan/api_key" && echo "$XDG_CONFIG_HOME/shodan/api_key" | sed "s#^$HOME/##g")
-    $(test -f "$XDG_CONFIG_HOME/api-keys.env.sh" && echo "$XDG_CONFIG_HOME/api-keys.env.sh" | sed "s#^$HOME/##g")
-    $(test -f "$XDG_CONFIG_HOME/git/gpg.ini" && echo "$XDG_CONFIG_HOME/git/gpg.ini" | sed "s#^$HOME/##g")
-    EOF
+    function mkBackupList {
+        if [[ -d "$1" ]]; then
+          find "$1" -type f -o \( -type d -empty \) -not \( \
+               -name ".DS_Store" \
+            -o -name ".localized" \
+            -o -name "*.pyc" \
+            -o -name "*.swp" \
+            -o -name "*~" \
+            -o -name ".#*" \
+            -o -name "._*" \
+          \) | sed "s#^$HOME/##g" >> "$BACKUP_LIST"
+        elif [[ -f "$1" ]]; then
+          # shellcheck disable=SC2001
+          echo "$1" | sed "s#^$HOME/##g" >> "$BACKUP_LIST"
+        fi
+    }
+
+    mkBackupList "$XDG_CONFIG_HOME/nix"
+
+    mkBackupList "$HOME/.gnupg"
+    mkBackupList "$HOME/.ssh"
+    mkBackupList "$XDG_CONFIG_HOME/git/gpg.ini"
+    mkBackupList "$XDG_CONFIG_HOME/shodan/api_key"
+    mkBackupList "$XDG_CONFIG_HOME/api-keys.env.sh"
+
+    mkBackupList "$HOME/.cddb"
+    mkBackupList "$HOME/.dvdcss"
+    mkBackupList "$XDG_CONFIG_HOME/aacs"
+
+    if [[ "$(uname -s)" == "Linux" ]]; then
+      mkBackupList "$HOME/data"
+    else
+      mkBackupList "$HOME/data/calibre"
+    fi
+
+    mkBackupList "$HOME/Library/Preferences/calibre"
+    mkBackupList "$XDG_CONFIG_HOME/calibre"
+
+    mkBackupList "$XDG_CONFIG_HOME/BraveSoftware"
+    mkBackupList "$HOME/Library/Application Support/BraveSoftware"
+
+    cat "$BACKUP_LIST" | sort -u > "$BACKUP_LIST_TMP"
+    mv "$BACKUP_LIST_TMP" "$BACKUP_LIST"
+
+    (
+      cd "$HOME"
+      tar -cJv -f "$XDG_DOWNLOAD_DIR/backup.tar.xz" -T "$BACKUP_LIST"
+    )
+
+    rm -f "$BACKUP_LIST"
   '';
 }
