@@ -80,17 +80,14 @@
       alias more="$(which bat)"
       alias nvim="$(which "$EDITOR")"
       alias rg="$(which rg) --color=auto"
+      alias sudo="$(which sudo) -E"
       alias top="$(which btm)"
       alias ttop="$(which top)"
       alias vi="$(which "$EDITOR")"
       alias vim="$(which "$EDITOR")"
 
-      if [[ -n "$(which sudo 2>/dev/null)" ]]; then
-        alias sudo="$(which sudo) -E"
-
-        if [[ "$(uname -s)" == "Linux" ]] && [[ -x /sbin/shutdown ]]; then
-          alias shutdown="$(which sudo) /sbin/shutdown -h now"
-        fi
+      if [[ "$(uname -s)" == "Linux" ]]; then
+        alias shutdown="$(which sudo) /sbin/shutdown -h now"
       fi
 
       # Convenience function for launching graphical apps from the terminal

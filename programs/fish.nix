@@ -72,18 +72,14 @@
       alias more "$(which bat)"
       alias nvim "$(which $EDITOR)"
       alias rg "$(which rg) --color=auto"
+      alias sudo "$(which sudo) -E"
       alias top "$(which btm)"
       alias ttop "$(which top)"
       alias vi "$(which $EDITOR)"
       alias vim "$(which $EDITOR)"
 
-      if test -n "$(which sudo 2> /dev/null)"
-        alias sudo "$(which sudo) -E"
-
-        if test "$(uname -s)" = Linux;
-          and test -x /sbin/shutdown
-          alias shutdown "$(which sudo) /sbin/shutdown -h now"
-        end
+      if test "$(uname -s)" = Linux
+        alias shutdown "$(which sudo) /sbin/shutdown -h now"
       end
 
       # Hook fish postexec event to add a newline between prompts

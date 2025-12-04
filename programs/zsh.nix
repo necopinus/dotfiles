@@ -109,18 +109,11 @@
         alias more="$(whence -p bat)"
         alias nvim="$(whence -p "$EDITOR")"
         alias rg="$(whence -p rg) --color=auto"
+        alias sudo="$(whence -p sudo) -E"
         alias top="$(whence -p btm)"
         alias ttop="$(whence -p top)"
         alias vi="$(whence -p "$EDITOR")"
         alias vim="$(whence -p "$EDITOR")"
-
-        if [[ -n "$(whence -p sudo 2>/dev/null)" ]]; then
-            alias sudo="$(whence -p sudo) -E"
-
-            if [[ "$(uname -s)" == "Linux" ]] && [[ -x /sbin/shutdown ]]; then
-                alias shutdown="$(whence -p sudo) /sbin/shutdown -h now"
-            fi
-        fi
 
         # Convenience function for launching graphical apps from the terminal
         #
