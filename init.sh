@@ -66,6 +66,11 @@ if [[ "$OS" == "Darwin" ]]; then
         sudo nix run nix-darwin -- switch --flake .#macos
     )
 else
+    # Make sure GPG is removed so as not to interfere with version from
+    # Nixpkgs
+    #
+    sudo apt purge --autoremove --purge gnupg
+
     (
         cd "$HOME/config/nix"
         nix run home-manager/master -- switch --flake .#android
@@ -77,10 +82,9 @@ fi
 if [[ "$OS" == "Linux" ]]; then
     sudo apt install -y tigervnc-standalone-server xfce4 yubikey-manager-qt
 
-    # Make sure GPG is removed so as not to interfere with version from
-    # Nixpkgs
+    # Comment out global SSH option that Nix's ssh binary doesn't like
     #
-    sudo apt purge --autoremove --purge gnupg
+    sudo sed -i 's/^    GSSAPIAuthentication yes/#   GSSAPIAuthentication yes/' /etc/ssh/ssh_config
 
     sudo ln -sf /usr/share/zoneinfo/America/Denver /etc/localtime
 
