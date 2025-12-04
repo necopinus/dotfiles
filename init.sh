@@ -116,7 +116,7 @@ source "$XDG_CONFIG_HOME/user-dirs.dirs"
 # Run GPU setup for nixpkgs/home-manager
 #
 if [[ "$OS" == "Linux" ]]; then
-    sudo -E non-nixos-gpu-setup
+    sudo "$(which non-nixos-gpu-setup)"
 fi
 
 # Set up directories and symlinks
