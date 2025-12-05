@@ -78,7 +78,7 @@
       alias more "$(which bat)"
       alias nvim "$(which $EDITOR)"
       alias rg "$(which rg) --color=auto"
-      alias sudo "$(which sudo) -E"
+      alias sudo "/usr/bin/sudo -E"
       alias top "$(which btm)"
       alias ttop "$(which top)"
       alias vi "$(which $EDITOR)"

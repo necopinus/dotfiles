@@ -86,7 +86,7 @@
       alias more="$(which bat)"
       alias nvim="$(which "$EDITOR")"
       alias rg="$(which rg) --color=auto"
-      alias sudo="$(which sudo) -E"
+      alias sudo="/usr/bin/sudo -E"
       alias top="$(which btm)"
       alias ttop="$(which top)"
       alias vi="$(which "$EDITOR")"
@@ -121,12 +121,14 @@
         function shutdown {
           set -x
 
-          sudo systemctl stop xrdp.service
-          sudo systemctl stop xrdp-sesman.service
+          /usr/bin/sudo /usr/bin/systemctl stop xrdp.service
+          /usr/bin/sudo /usr/bin/systemctl stop xrdp-sesman.service
 
-          sync
+          /usr/bin/sync
 
-          sudo /sbin/shutdown -h now
+          /usr/bin/sudo /sbin/shutdown -h now
+
+          set +x
         }
       fi
     '';

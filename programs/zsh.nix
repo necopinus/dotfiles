@@ -115,7 +115,7 @@
         alias more="$(whence -p bat)"
         alias nvim="$(whence -p "$EDITOR")"
         alias rg="$(whence -p rg) --color=auto"
-        alias sudo="$(whence -p sudo) -E"
+        alias sudo="/usr/bin/sudo -E"
         alias top="$(whence -p btm)"
         alias ttop="$(whence -p top)"
         alias vi="$(whence -p "$EDITOR")"
