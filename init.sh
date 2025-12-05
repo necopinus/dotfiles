@@ -87,8 +87,8 @@ if [[ "$OS" == "Linux" ]]; then
         seatd \
         yubikey-manager-qt
 
-    # Make sure GPG is removed so as not to interfere with version from
-    # Nixpkgs
+    # Make sure GPG is removed so as not to interfere with the version
+    # from Nixpkgs
     #
     sudo apt purge --autoremove --purge gnupg
 
