@@ -34,6 +34,7 @@ writeShellApplication {
         sudo darwin-rebuild switch --flake .#macos
       else
         home-manager switch --flake .#android
+        sudo "$(which non-nixos-gpu-setup)"
       fi
     )
 
