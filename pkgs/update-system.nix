@@ -5,17 +5,10 @@ writeShellApplication {
   text = ''
     set -e
 
-    # System packages
+    # Debian system packages
     #
     if [[ -n "$(which apt 2> /dev/null)" ]]; then
-      # Attempt to recover from crashes during configuration
-      #
-      sudo dpkg --configure --pending
-      sudo apt install --fix-broken
-
-      # Actual update
-      #
-      sudo apt update --fix-missing
+      sudo apt update
       sudo apt full-upgrade
       sudo apt autoremove --purge --autoremove
       sudo apt clean
