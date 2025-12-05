@@ -9,6 +9,7 @@
 
     autostart = [
       "${pkgs.wayvnc}/bin/wayvnc &"
+      "${pkgs.wl-clip-persist}/bin/wl-clip-persist --clipboard regular &"
     ];
 
     environment = [
@@ -16,6 +17,22 @@
       "XCURSOR_SIZE=24"
       "XDG_CURRENT_DESKTOP=labwc:wlroots"
       "XKB_DEFAULT_LAYOUT=us"
+
+      # Cargo-culted from Google's ~/weston.env on 2025-12-05
+      #
+      "MESA_LOADER_DRIVER_OVERRIDE=zink"
+      "MESA_VK_WSI_DEBUG=sw,linear"
+      "VK_ICD_FILENAMES=/usr/share/vulkan/icd.d/gfxstream_vk_icd.json"
+      "XWAYLAND_NO_GLAMOR=1"
+
+      # Run headless
+      #
+      "WLR_BACKENDS=headless"
+      "WLR_LIBINPUT_NO_DEVICES=1"
+
+      # FIXME: These are bad and need to go away
+      #
+      "WLR_RENDERER=pixman"
       "ZED_ALLOW_EMULATED_GPU=1"
     ];
 
@@ -47,13 +64,4 @@
 
     #rc = {};
   };
-
-  services.wayvnc = {
-    enable = true;
-    settings = {
-      address = "0.0.0.0";
-      port = 5900;
-    };
-  };
-  services.wl-clip-persist.enable = true;
 }
