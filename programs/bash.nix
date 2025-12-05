@@ -92,6 +92,13 @@
       alias vi="$(which "$EDITOR")"
       alias vim="$(which "$EDITOR")"
 
+      # The Android Debian VM is surprisingly fragile, so we want to
+      # do a shutdown rather than just exiting the last session
+      #
+      if [[ "$(uname -s)" == "Linux" ]]; then
+        alias shutdown="/usr/bin/sudo /sbin/shutdown -h now"
+      fi
+
       # Wrap git and gpg to make sure that the current terminal is
       # correctly set for gpg-agent
       #
@@ -111,21 +118,6 @@
       if [[ "$(uname -s)" == "Linux" ]]; then
         function xcv {
           nohup "$@" 2>/dev/null
-        }
-      fi
-
-      # The Android Debian VM is surprisingly fragile, so we try to shut
-      # it down as cleanly as possible
-      #
-      if [[ "$(uname -s)" == "Linux" ]]; then
-        function shutdown {
-          set -x
-
-          /usr/bin/sync
-
-          /usr/bin/sudo /sbin/shutdown -h now
-
-          set +x
         }
       fi
     '';
