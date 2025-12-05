@@ -66,21 +66,13 @@ if [[ "$OS" == "Darwin" ]]; then
         sudo nix run nix-darwin -- switch --flake .#macos
     )
 else
-    # Make sure GPG is removed so as not to interfere with version from
-    # Nixpkgs
+    # Remove files that we know we're going to overwrite out of the way
     #
-    sudo apt purge --autoremove --purge gnupg
-
-    # Move files that we know we're going to overwrite out of the way
-    #
-    # if [[ -e "$HOME"/.bash_logout ]]; then
-    #     mv "$HOME"/.bash_logout "$HOME"/_bash_logout.org
-    # fi
     if [[ -e "$HOME"/.bashrc ]]; then
-        mv "$HOME"/.bashrc "$HOME"/_bashrc.org
+        rm "$HOME"/.bashrc
     fi
     if [[ -e "$HOME"/.profile ]]; then
-        mv "$HOME"/.profile "$HOME"/_profile.org
+        rm "$HOME"/.profile
     fi
 
     (
@@ -97,11 +89,26 @@ if [[ "$OS" == "Linux" ]]; then
         seatd \
         yubikey-manager-qt
 
+    # Make sure GPG is removed so as not to interfere with version from
+    # Nixpkgs
+    #
+    sudo apt purge --autoremove --purge gnupg
+
     # Comment out global SSH option that Nix's ssh binary doesn't like
     #
     sudo sed -i 's/^    GSSAPIAuthentication yes/#   GSSAPIAuthentication yes/' /etc/ssh/ssh_config
 
+    # Sync timezone with Android
+    #
     sudo ln -sf /usr/share/zoneinfo/America/Denver /etc/localtime
+
+    # Stop Weston
+    #
+    systemctl --user stop weston.service
+    systemctl --user disable weston.service
+
+    systemctl --user stop weston.socket
+    systemctl --user disable weston.socket
 fi
 
 # Update runtime environment
