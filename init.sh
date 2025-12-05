@@ -37,12 +37,10 @@ if [[ "$OS" == "Darwin" ]] && [[ -z "$(which brew 2>/dev/null)" ]]; then
     fi
 fi
 
-# Make sure that a few required (or just nice-to-have) Debian packages
-# are installed
+# Make sure that curl is installed
 #
 if [[ "$OS" == "Linux" ]]; then
-    sudo apt update
-    sudo apt install -y curl dialog man-db
+    sudo apt install -y curl
 fi
 
 # Install Nix
