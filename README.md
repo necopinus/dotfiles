@@ -24,6 +24,3 @@ git clone git@github.com:necopinus/dotfiles.git $HOME/config/nix
 
 $HOME/config/nix/init.sh
 ```
-
-> [!important]
-> The `init.sh` script has not _really_ been tested yet; it's a mish-mash of commands used for the setup of my previous set of dotfiles and those used when I migrated over to using Nix. It probably has errors in it. I'll fix it up one of these days, but am in no hurry to reinstall my current systems just so I can test it out.
