@@ -121,9 +121,6 @@
         function shutdown {
           set -x
 
-          /usr/bin/sudo /usr/bin/systemctl stop xrdp.service
-          /usr/bin/sudo /usr/bin/systemctl stop xrdp-sesman.service
-
           /usr/bin/sync
 
           /usr/bin/sudo /sbin/shutdown -h now

@@ -94,6 +94,7 @@ fi
 if [[ "$OS" == "Linux" ]]; then
     sudo apt install -y \
         build-essential \
+        seatd \
         yubikey-manager-qt
 
     # Comment out global SSH option that Nix's ssh binary doesn't like

@@ -118,10 +118,6 @@ in {
       };
     };
 
-    configFile = {
-      # Stuff
-    };
-
     dataFile = {
       # Hide some desktop applications
       #
@@ -151,14 +147,8 @@ in {
 
   qt = {
     enable = true;
-    qt.platformTheme.name = "adwaita"; # or maybe `lxqt`?
+    platformTheme.name = "adwaita"; # or maybe `lxqt`?
     style.name = "adwaita-dark";
-  };
-
-  # Additional Android-specific environment variables
-  #
-  home.sessionVariables = {
-    ZED_ALLOW_EMULATED_GPU = 1;
   };
 
   # The Android VM runs Debian, not NixOS
