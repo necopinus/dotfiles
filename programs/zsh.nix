@@ -36,6 +36,12 @@
       if [[ -f /etc/skel/.zprofile ]]; then
         source /etc/skel/.zprofile
       fi
+
+      # Load $XDG_CONFIG_HOME/user-dirs.dirs when applicable
+      #
+      if [[ "$(uname -s)" == "Darwin" ]] && [[ -f "$XDG_CONFIG_HOME/user-dirs.dirs" ]]; then
+        eval "$(cat "$XDG_CONFIG_HOME/user-dirs.dirs" | sed "s/^XDG_/export XDG_/")"
+      fi
     '';
 
     # ~/.zshrc

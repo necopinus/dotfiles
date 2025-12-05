@@ -22,6 +22,12 @@
         fi
       fi
 
+      # Load $XDG_CONFIG_HOME/user-dirs.dirs when applicable
+      #
+      if [[ "$(uname -s)" == "Darwin" ]] && [[ -f "$XDG_CONFIG_HOME/user-dirs.dirs" ]]; then
+        eval "$(cat "$XDG_CONFIG_HOME/user-dirs.dirs" | sed "s/^XDG_/export XDG_/")"
+      fi
+
       # Append Homebrew bin directory to PATH, since some GUI casks
       # install CLI binaries there
       #
@@ -113,6 +119,8 @@
       #
       if [[ "$(uname -s)" == "Linux" ]]; then
         function shutdown {
+          set -x
+
           sudo systemctl stop xrdp.service
           sudo systemctl stop xrdp-sesman.service
 

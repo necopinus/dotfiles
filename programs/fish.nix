@@ -20,6 +20,12 @@
         cat /nix/var/nix/profiles/default/etc/profile.d/nix-daemon.sh | ${pkgs.babelfish}/bin/babelfish | source
       end
 
+      # Load $XDG_CONFIG_HOME/user-dirs.dirs when applicable
+      #
+      if test $(uname -s) = "Darwin"; and test -f "$XDG_CONFIG_HOME/user-dirs.dirs"
+        cat $XDG_CONFIG_HOME/user-dirs.dirs | sed "s/^XDG_/export XDG_/" | ${pkgs.babelfish}/bin/babelfish | source
+      end
+
       # Append Homebrew bin directory to PATH, since some GUI casks
       # install CLI binaries there
       #
