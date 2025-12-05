@@ -94,8 +94,6 @@ fi
 if [[ "$OS" == "Linux" ]]; then
     sudo apt install -y \
         build-essential \
-        xfce4 \
-        xrdp \
         yubikey-manager-qt
 
     # Comment out global SSH option that Nix's ssh binary doesn't like
@@ -103,9 +101,6 @@ if [[ "$OS" == "Linux" ]]; then
     sudo sed -i 's/^    GSSAPIAuthentication yes/#   GSSAPIAuthentication yes/' /etc/ssh/ssh_config
 
     sudo ln -sf /usr/share/zoneinfo/America/Denver /etc/localtime
-
-    sudo systemctl stop lightdm.service
-    sudo systemctl disable lightdm.service
 fi
 
 # Update runtime environment

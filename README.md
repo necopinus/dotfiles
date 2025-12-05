@@ -23,12 +23,6 @@ mkdir -p $HOME/config
 git clone git@github.com:necopinus/dotfiles.git $HOME/config/nix
 
 $HOME/config/nix/init.sh
-
-# Set the droid user's password in order to connect via RDP
-#
-if [[ "$USER" == "droid" ]]; then
-	sudo passwd droid
-fi
 ```
 
 > [!important]
