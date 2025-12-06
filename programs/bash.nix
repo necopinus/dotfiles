@@ -92,6 +92,13 @@
       alias vi="$(which "$EDITOR")"
       alias vim="$(which "$EDITOR")"
 
+      # Alias LXQt session startup
+      #
+      if [[ "$(uname -s)" == "Linux" ]]; then
+        alias start-desktop="$(which startlxqtwayland)"
+        alias startlxqt="$(which startlxqtwayland)"
+      fi
+
       # The Android Debian VM is surprisingly fragile, so we want to
       # do a shutdown rather than just exiting the last session
       #
