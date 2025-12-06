@@ -125,7 +125,7 @@ fi
 #
 mkdir -p "$XDG_CACHE_HOME"
 if [[ -d "$HOME"/.cache ]] && [[ ! -L "$HOME"/.cache ]]; then
-    cp -anv "$HOME"/.cache/* "$XDG_CACHE_HOME"/ || true
+    cp -an "$HOME"/.cache/* "$XDG_CACHE_HOME"/ || true
     rm -rf "$HOME"/.cache
 fi
 if [[ ! -e "$HOME"/.cache ]]; then
@@ -134,7 +134,7 @@ fi
 
 mkdir -p "$XDG_CONFIG_HOME"
 if [[ -d "$HOME"/.config ]] && [[ ! -L "$HOME"/.config ]]; then
-    cp -anv "$HOME"/.config/* "$XDG_CONFIG_HOME"/ || true
+    cp -an "$HOME"/.config/* "$XDG_CONFIG_HOME"/ || true
     rm -rf "$HOME"/.config
 fi
 if [[ ! -e "$HOME"/.config ]]; then
@@ -143,7 +143,7 @@ fi
 
 mkdir -p "$HOME"/local
 if [[ -d "$HOME"/.local ]] && [[ ! -L "$HOME"/.local ]]; then
-    cp -anv "$HOME"/.local/* "$HOME"/local/ || true
+    cp -an "$HOME"/.local/* "$HOME"/local/ || true
     rm -rf "$HOME"/.local
 fi
 if [[ ! -e "$HOME"/.local ]]; then
@@ -158,12 +158,12 @@ fi
 mkdir -p "$XDG_DOCUMENTS_DIR"
 if [[ -d "$HOME/Documents" ]] &&
     [[ "$XDG_DOCUMENTS_DIR" != "$HOME/Documents" ]]; then
-    cp -anv "$HOME/Documents"/* "$XDG_DOCUMENTS_DIR"/ || true
+    cp -an "$HOME/Documents"/* "$XDG_DOCUMENTS_DIR"/ || true
     rm -rf "$HOME/Documents"
 fi
 if [[ -d "$HOME/data/documents" ]] &&
     [[ "$XDG_DOCUMENTS_DIR" != "$HOME/data/documents" ]]; then
-    cp -anv "$HOME/data/documents"/* "$XDG_DOCUMENTS_DIR"/ || true
+    cp -an "$HOME/data/documents"/* "$XDG_DOCUMENTS_DIR"/ || true
     rm -rf "$HOME/data/documents"
 fi
 if [[ "$XDG_DOCUMENTS_DIR" == /mnt/shared/Documents ]]; then
@@ -174,29 +174,29 @@ fi
 mkdir -p "$XDG_DESKTOP_DIR"
 if [[ -d "$HOME/Desktop" ]] &&
     [[ "$XDG_DESKTOP_DIR" != "$HOME/Desktop" ]]; then
-    cp -anv "$HOME/Desktop"/* "$XDG_DESKTOP_DIR"/ || true
+    cp -an "$HOME/Desktop"/* "$XDG_DESKTOP_DIR"/ || true
     rm -rf "$HOME/Desktop"
 fi
 
 mkdir -p "$XDG_DOWNLOAD_DIR"
 if [[ -d "$HOME/Downloads" ]] &&
     [[ "$XDG_DOWNLOAD_DIR" != "$HOME/Downloads" ]]; then
-    cp -anv "$HOME/Downloads"/* "$XDG_DOWNLOAD_DIR"/ || true
+    cp -an "$HOME/Downloads"/* "$XDG_DOWNLOAD_DIR"/ || true
     rm -rf "$HOME/Downloads"
 fi
 if [[ -d "$HOME/Download" ]] &&
     [[ "$XDG_DOWNLOAD_DIR" != "$HOME/Download" ]]; then
-    cp -anv "$HOME/Download"/* "$XDG_DOWNLOAD_DIR"/ || true
+    cp -an "$HOME/Download"/* "$XDG_DOWNLOAD_DIR"/ || true
     rm -rf "$HOME/Download"
 fi
 if [[ -d "$HOME/downloads" ]] &&
     [[ "$XDG_DOWNLOAD_DIR" != "$HOME/downloads" ]]; then
-    cp -anv "$HOME/downloads"/* "$XDG_DOWNLOAD_DIR"/ || true
+    cp -an "$HOME/downloads"/* "$XDG_DOWNLOAD_DIR"/ || true
     rm -rf "$HOME/downloads"
 fi
 if [[ -d "$HOME/data/downloads" ]] &&
     [[ "$XDG_DOWNLOAD_DIR" != "$HOME/data/downloads" ]]; then
-    cp -anv "$HOME/data/downloads"/* "$XDG_DOWNLOAD_DIR"/ || true
+    cp -an "$HOME/data/downloads"/* "$XDG_DOWNLOAD_DIR"/ || true
     rm -rf "$HOME/data/downloads"
 fi
 if [[ "$XDG_DOWNLOAD_DIR" == /mnt/shared/Download ]]; then
@@ -207,12 +207,12 @@ fi
 mkdir -p "$XDG_MUSIC_DIR"
 if [[ -d "$HOME/Music" ]] &&
     [[ "$XDG_MUSIC_DIR" != "$HOME/Music" ]]; then
-    cp -anv "$HOME/Music"/* "$XDG_MUSIC_DIR"/ || true
+    cp -an "$HOME/Music"/* "$XDG_MUSIC_DIR"/ || true
     rm -rf "$HOME/Music"
 fi
 if [[ -d "$HOME/data/music" ]] &&
     [[ "$XDG_MUSIC_DIR" != "$HOME/data/music" ]]; then
-    cp -anv "$HOME/data/music"/* "$XDG_MUSIC_DIR"/ || true
+    cp -an "$HOME/data/music"/* "$XDG_MUSIC_DIR"/ || true
     rm -rf "$HOME/data/music"
 fi
 if [[ "$XDG_MUSIC_DIR" == /mnt/shared/Music ]]; then
@@ -223,12 +223,12 @@ fi
 mkdir -p "$XDG_PICTURES_DIR"
 if [[ -d "$HOME/Pictures" ]] &&
     [[ "$XDG_PICTURES_DIR" != "$HOME/Pictures" ]]; then
-    cp -anv "$HOME/Pictures"/* "$XDG_PICTURES_DIR"/ || true
+    cp -an "$HOME/Pictures"/* "$XDG_PICTURES_DIR"/ || true
     rm -rf "$HOME/Pictures"
 fi
 if [[ -d "$HOME/data/pictures" ]] &&
     [[ "$XDG_PICTURES_DIR" != "$HOME/data/pictures" ]]; then
-    cp -anv "$HOME/data/pictures"/* "$XDG_PICTURES_DIR"/ || true
+    cp -an "$HOME/data/pictures"/* "$XDG_PICTURES_DIR"/ || true
     rm -rf "$HOME/data/pictures"
 fi
 if [[ "$XDG_PICTURES_DIR" == /mnt/shared/Pictures ]]; then
@@ -239,26 +239,26 @@ fi
 mkdir -p "$XDG_PUBLICSHARE_DIR"
 if [[ -d "$HOME/Public" ]] &&
     [[ "$XDG_PUBLICSHARE_DIR" != "$HOME/Public" ]]; then
-    cp -anv "$HOME/Public"/* "$XDG_PUBLICSHARE_DIR"/ || true
+    cp -an "$HOME/Public"/* "$XDG_PUBLICSHARE_DIR"/ || true
     rm -rf "$HOME/Public"
 fi
 
 mkdir -p "$XDG_TEMPLATES_DIR"
 if [[ -d "$HOME/Templates" ]] &&
     [[ "$XDG_TEMPLATES_DIR" != "$HOME/Templates" ]]; then
-    cp -anv "$HOME/Templates"/* "$XDG_TEMPLATES_DIR"/ || true
+    cp -an "$HOME/Templates"/* "$XDG_TEMPLATES_DIR"/ || true
     rm -rf "$HOME/Templates"
 fi
 
 mkdir -p "$XDG_VIDEOS_DIR"
 if [[ -d "$HOME/Videos" ]] &&
     [[ "$XDG_VIDEOS_DIR" != "$HOME/Videos" ]]; then
-    cp -anv "$HOME/Videos"/* "$XDG_VIDEOS_DIR"/ || true
+    cp -an "$HOME/Videos"/* "$XDG_VIDEOS_DIR"/ || true
     rm -rf "$HOME/Videos"
 fi
 if [[ -d "$HOME/data/videos" ]] &&
     [[ "$XDG_VIDEOS_DIR" != "$HOME/data/videos" ]]; then
-    cp -anv "$HOME/data/videos"/* "$XDG_VIDEOS_DIR"/ || true
+    cp -an "$HOME/data/videos"/* "$XDG_VIDEOS_DIR"/ || true
     rm -rf "$HOME/data/videos"
 fi
 if [[ "$XDG_VIDEOS_DIR" == /mnt/shared/Movies ]]; then
