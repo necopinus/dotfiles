@@ -10,6 +10,7 @@
     lxqt.lxqt-notificationd
     lxqt.lxqt-panel
     lxqt.lxqt-runner
+    lxqt.lxqt-session
     lxqt.lxqt-themes
     lxqt.lxqt-wayland-session
     lxqt-panel-profiles
