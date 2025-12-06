@@ -37,10 +37,10 @@ if [[ "$OS" == "Darwin" ]] && [[ -z "$(which brew 2>/dev/null)" ]]; then
     fi
 fi
 
-# Make sure that curl is installed
+# Make sure that required packages are installed
 #
 if [[ "$OS" == "Linux" ]]; then
-    sudo apt install -y curl
+    sudo apt install -y curl dconf-service
 fi
 
 # Install Nix
@@ -75,7 +75,7 @@ else
 
     (
         cd "$HOME/config/nix"
-        nix run home-manager/master -- switch --flake .#android
+        dbus-run-session nix run home-manager/master -- switch --flake .#android
     )
 fi
 
