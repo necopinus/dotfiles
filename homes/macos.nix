@@ -8,6 +8,9 @@ in {
   ];
 
   home.packages = with pkgs; [
+    plistwatch
+
+    #### Desktop apps ####
     #calibre         # Marked as broken
     #discord         # Always fails to install updates
     #handbrake-app   # Marked as broken
@@ -16,8 +19,6 @@ in {
     slack
     #stellarium      # Marked as broken
     xld
-
-    plistwatch
 
     #### Local packages (see above) ####
     localPkgs.vault-sync
