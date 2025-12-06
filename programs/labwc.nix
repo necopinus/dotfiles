@@ -1,26 +1,21 @@
 {pkgs, ...}: {
   home.packages = with pkgs; [
-    labwc-gtktheme
-    labwc-tweaks
     lxqt.lximage-qt
     lxqt.lxqt-about
     lxqt.lxqt-archiver
     lxqt.lxqt-config
     lxqt.lxqt-menu-data
     lxqt.lxqt-notificationd
-    lxqt.lxqt-panel
+    #lxqt.lxqt-panel
     lxqt.lxqt-runner
     lxqt.lxqt-session
     lxqt.lxqt-themes
     lxqt.lxqt-wayland-session
-    lxqt-panel-profiles
     lxqt.pcmanfm-qt
     lxqt.qlipper
     lxqt.qps
     lxqt.screengrab
     lxqt.xdg-desktop-portal-lxqt
-    #menu-cache
-    swaybg
   ];
 
   qt.platformTheme.name = "lxqt";
@@ -38,16 +33,16 @@
     "themes/Shiki-Nouveau-Winedust".source = ../third-party/shiki-nouveau-fall-colors/Shiki-Nouveau-Winedust;
     "themes/Shiki-Nouveau-Wisedust".source = ../third-party/shiki-nouveau-fall-colors/Shiki-Nouveau-Wisedust;
 
-    "themes/LXQt-Brave".source = ../third-party/lxqt-themes-lxcolors/themes/LXQt-Brave;
-    "themes/LXQt-Carbonite".source = ../third-party/lxqt-themes-lxcolors/themes/LXQt-Carbonite;
-    "themes/LXQt-Dust".source = ../third-party/lxqt-themes-lxcolors/themes/LXQt-Dust;
-    "themes/LXQt-Human".source = ../third-party/lxqt-themes-lxcolors/themes/LXQt-Human;
-    "themes/LXQt-Illustrious".source = ../third-party/lxqt-themes-lxcolors/themes/LXQt-Illustrious;
-    "themes/LXQt-Noble".source = ../third-party/lxqt-themes-lxcolors/themes/LXQt-Noble;
-    "themes/LXQt-Tribute".source = ../third-party/lxqt-themes-lxcolors/themes/LXQt-Tribute;
-    "themes/LXQt-Wine".source = ../third-party/lxqt-themes-lxcolors/themes/LXQt-Wine;
-    "themes/LXQt-Wise".source = ../third-party/lxqt-themes-lxcolors/themes/LXQt-Wise;
-    "palettes" = {
+    "lxqt/themes/LXQt-Brave".source = ../third-party/lxqt-themes-lxcolors/themes/LXQt-Brave;
+    "lxqt/themes/LXQt-Carbonite".source = ../third-party/lxqt-themes-lxcolors/themes/LXQt-Carbonite;
+    "lxqt/themes/LXQt-Dust".source = ../third-party/lxqt-themes-lxcolors/themes/LXQt-Dust;
+    "lxqt/themes/LXQt-Human".source = ../third-party/lxqt-themes-lxcolors/themes/LXQt-Human;
+    "lxqt/themes/LXQt-Illustrious".source = ../third-party/lxqt-themes-lxcolors/themes/LXQt-Illustrious;
+    "lxqt/themes/LXQt-Noble".source = ../third-party/lxqt-themes-lxcolors/themes/LXQt-Noble;
+    "lxqt/themes/LXQt-Tribute".source = ../third-party/lxqt-themes-lxcolors/themes/LXQt-Tribute;
+    "lxqt/themes/LXQt-Wine".source = ../third-party/lxqt-themes-lxcolors/themes/LXQt-Wine;
+    "lxqt/themes/LXQt-Wise".source = ../third-party/lxqt-themes-lxcolors/themes/LXQt-Wise;
+    "lxqt/palettes" = {
       source = ../third-party/lxqt-themes-lxcolors/palettes;
       recursive = true;
     };
@@ -64,10 +59,11 @@
 
       # Desktop environment
       #
-      # (swaybg)
-      #"${pkgs.lxqt.pcmanfm-qt}/bin/pcmanfm-qt --desktop &"
-      #"${pkgs.lxqt.lxqt-panel}/bin/lxqt-panel &"
-      #"${pkgs.wl-clip-persist}/bin/wl-clip-persist --clipboard regular &"
+      "${pkgs.swaybg}/bin/swaybg -i ${pkgs.pop-wallpapers}/share/backgrounds/pop/sean-afnan-244576.jpg"
+      "${pkgs.lxqt.pcmanfm-qt}/bin/pcmanfm-qt --desktop &"
+      "${pkgs.lxqt.lxqt-panel}/bin/lxqt-panel &"
+      "${pkgs.lxqt.lxqt-notificationd}/bin/lxqt-notificationd &"
+      "${pkgs.wl-clip-persist}/bin/wl-clip-persist --clipboard regular &"
 
       # VNC connection
       #
@@ -119,6 +115,13 @@
       }
     ];
 
-    #rc = {};
+    rc = {
+      theme = {
+        name = "Shiki-Nouveau-Wisedust";
+        font = {"@weight" = "bold";};
+        cornerRadius = 0;
+        dropShadows = true;
+      };
+    };
   };
 }
