@@ -1,8 +1,23 @@
 {pkgs, ...}: {
   home.packages = with pkgs; [
-    lxqt.lxqt-panel
+    lxqt.lximage-qt
+    lxqt.lxqt-about
+    lxqt.lxqt-archiver
+    lxqt.lxqt-config
+    lxqt.lxqt-menu-data
+    lxqt.lxqt-notificationd
+    lxqt.lxqt-runner
+    lxqt.lxqt-themes
+    lxqt.lxqt-wayland-session
+    lxqt-panel-profiles
     lxqt.pcmanfm-qt
+    lxqt.qlipper
+    lxqt.qtxdg-tools
+    lxqt.xdg-desktop-portal-lxqt
+    #menu-cache
   ];
+
+  qt.platformTheme.name = "lxqt";
 
   wayland.windowManager.labwc = {
     enable = true;
@@ -15,6 +30,8 @@
 
       # Desktop environment
       #
+      #"${pkgs.lxqt.pcmanfm-qt}/bin/pcmanfm-qt --desktop &"
+      "${pkgs.lxqt.lxqt-panel}/bin/lxqt-panel &"
       "${pkgs.wl-clip-persist}/bin/wl-clip-persist --clipboard regular &"
 
       # VNC connection

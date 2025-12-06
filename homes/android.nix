@@ -147,7 +147,6 @@ in {
 
   qt = {
     enable = true;
-    platformTheme.name = "adwaita"; # or maybe `lxqt`?
     style.name = "adwaita-dark";
   };
 
