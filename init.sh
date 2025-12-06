@@ -448,11 +448,6 @@ mkdir -p "$HOME"/src
     fi
 )
 
-# Try (probably futile) to guard against filesystem corruption in the
-# Android Debian VM
-#
-sync
-
 # A reboot is STRONGLY recommended
 #
 echo ""
