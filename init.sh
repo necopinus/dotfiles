@@ -147,8 +147,12 @@ if [[ -d "$HOME"/.local ]] && [[ ! -L "$HOME"/.local ]]; then
     rm -rf "$HOME"/.local
 fi
 if [[ ! -e "$HOME"/.local ]]; then
-    ln -sf "$HOME"/local "$HOME"/.local
+    # We need to use the system `ln` here, as Nix's `ln` will be
+    # (temporarily) broken
+    #
+    /usr/bin/ln -sf "$HOME"/local "$HOME"/.local
 fi
+/usr/bin/ln -sfT "$XDG_STATE_HOME"/nix/profiles/profile "$HOME"/.nix-profile
 if [[ ! -e "$HOME"/.var ]]; then
     ln -sf "$HOME"/local "$HOME"/.var
 fi
