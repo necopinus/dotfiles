@@ -121,13 +121,11 @@
         }
       fi
 
-      # Hack to get Bash to share history across sessions (and make sure
-      # that *most* history is saved, even when exiting with `shutdown`)
+      # Hack to get Bash to more agressively save its history
       #
-      #   https://askubuntu.com/a/1540574
+      #   https://askubuntu.com/questions/67283/is-it-possible-to-make-writing-to-bash-history-immediate
       #
-      PS0="$PS0"'$(history -a)'
-      PROMPT_COMMAND+=( "history -n" )
+      PROMPT_COMMAND+=( "history -a" )
     '';
 
     enableVteIntegration = pkgs.stdenv.isLinux;
