@@ -20,6 +20,11 @@ in {
     calibre
     util-linux
 
+    #### Wallpapers ####
+    cosmic-wallpapers
+    pantheon.elementary-wallpapers
+    pop-wallpapers
+
     #### Fonts ####
     nerd-fonts.jetbrains-mono
     noto-fonts
