@@ -39,7 +39,17 @@ in {
     enable = true;
     package =
       if pkgs.stdenv.isLinux
-      then pkgs.zed-editor-fhs
+      then
+        pkgs.symlinkJoin {
+          name = "zed-editor-android-vm";
+          paths = [pkgs.pkgs.zed-editor-fhs];
+          buildInputs = [pkgs.makeWrapper];
+          postBuild = ''
+            wrapProgram $out/bin/zeditor \
+              --unset VK_ICD_FILENAMES \
+              --set ZED_ALLOW_EMULATED_GPU 1
+          '';
+        }
       else pkgs.zed-editor;
 
     extraPackages = zedExtraPackages;

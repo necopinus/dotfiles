@@ -8,8 +8,18 @@
     enable = true;
 
     autostart = [
-      "${pkgs.wayvnc}/bin/wayvnc &"
+      # Probably unnecessary, but why leave Weston running if I'm not
+      # using it?
+      #
+      "systemctl --user stop weston.service weston.socket"
+
+      # Desktop environment
+      #
       "${pkgs.wl-clip-persist}/bin/wl-clip-persist --clipboard regular &"
+
+      # VNC connection
+      #
+      "${pkgs.wayvnc}/bin/wayvnc &"
     ];
 
     environment = [
