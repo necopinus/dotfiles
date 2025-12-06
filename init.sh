@@ -66,10 +66,10 @@ if [[ "$OS" == "Darwin" ]]; then
 else
     # Remove files that we know we're going to overwrite out of the way
     #
-    if [[ -e "$HOME"/.bashrc ]]; then
+    if [[ -f "$HOME"/.bashrc ]]; then
         rm "$HOME"/.bashrc
     fi
-    if [[ -e "$HOME"/.profile ]]; then
+    if [[ -f "$HOME"/.profile ]]; then
         rm "$HOME"/.profile
     fi
 
