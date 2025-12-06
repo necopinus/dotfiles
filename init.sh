@@ -129,7 +129,7 @@ if [[ -d "$HOME"/.cache ]] && [[ ! -L "$HOME"/.cache ]]; then
     rm -rf "$HOME"/.cache
 fi
 if [[ ! -e "$HOME"/.cache ]]; then
-    ln -sf "$XDG_CACHE_HOME" "$HOME"/.cache
+    ln -sfT "$XDG_CACHE_HOME" "$HOME"/.cache
 fi
 
 mkdir -p "$XDG_CONFIG_HOME"
@@ -138,7 +138,7 @@ if [[ -d "$HOME"/.config ]] && [[ ! -L "$HOME"/.config ]]; then
     rm -rf "$HOME"/.config
 fi
 if [[ ! -e "$HOME"/.config ]]; then
-    ln -sf "$XDG_CONFIG_HOME" "$HOME"/.config
+    ln -sfT "$XDG_CONFIG_HOME" "$HOME"/.config
 fi
 
 mkdir -p "$HOME"/local
@@ -150,11 +150,11 @@ if [[ ! -e "$HOME"/.local ]]; then
     # We need to use the system `ln` here, as Nix's `ln` will be
     # (temporarily) broken
     #
-    /usr/bin/ln -sf "$HOME"/local "$HOME"/.local
+    /usr/bin/ln -sfT "$HOME"/local "$HOME"/.local
 fi
 /usr/bin/ln -sfT "$XDG_STATE_HOME"/nix/profiles/profile "$HOME"/.nix-profile
 if [[ ! -e "$HOME"/.var ]]; then
-    ln -sf "$HOME"/local "$HOME"/.var
+    ln -sfT "$HOME"/local "$HOME"/.var
 fi
 
 # Set up XDG user directories
@@ -172,7 +172,7 @@ if [[ -d "$HOME/data/documents" ]] &&
 fi
 if [[ "$XDG_DOCUMENTS_DIR" == /mnt/shared/Documents ]]; then
     mkdir -p "$HOME/data"
-    ln -sf /mnt/shared/Documents "$HOME/data/documents"
+    ln -sfT /mnt/shared/Documents "$HOME/data/documents"
 fi
 
 mkdir -p "$XDG_DESKTOP_DIR"
@@ -205,7 +205,7 @@ if [[ -d "$HOME/data/downloads" ]] &&
 fi
 if [[ "$XDG_DOWNLOAD_DIR" == /mnt/shared/Download ]]; then
     mkdir -p "$HOME/data"
-    ln -sf /mnt/shared/Download "$HOME/downloads"
+    ln -sfT /mnt/shared/Download "$HOME/downloads"
 fi
 
 mkdir -p "$XDG_MUSIC_DIR"
@@ -221,7 +221,7 @@ if [[ -d "$HOME/data/music" ]] &&
 fi
 if [[ "$XDG_MUSIC_DIR" == /mnt/shared/Music ]]; then
     mkdir -p "$HOME/data"
-    ln -sf /mnt/shared/Music "$HOME/data/music"
+    ln -sfT /mnt/shared/Music "$HOME/data/music"
 fi
 
 mkdir -p "$XDG_PICTURES_DIR"
@@ -237,7 +237,7 @@ if [[ -d "$HOME/data/pictures" ]] &&
 fi
 if [[ "$XDG_PICTURES_DIR" == /mnt/shared/Pictures ]]; then
     mkdir -p "$HOME/data"
-    ln -sf /mnt/shared/Pictures "$HOME/data/pictures"
+    ln -sfT /mnt/shared/Pictures "$HOME/data/pictures"
 fi
 
 mkdir -p "$XDG_PUBLICSHARE_DIR"
@@ -267,7 +267,7 @@ if [[ -d "$HOME/data/videos" ]] &&
 fi
 if [[ "$XDG_VIDEOS_DIR" == /mnt/shared/Movies ]]; then
     mkdir -p "$HOME/data"
-    ln -sf /mnt/shared/Movies "$HOME/data/videos"
+    ln -sfT /mnt/shared/Movies "$HOME/data/videos"
 fi
 
 # Calibre pre-setup
