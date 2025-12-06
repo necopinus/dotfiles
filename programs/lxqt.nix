@@ -6,7 +6,6 @@
     lxqt.lxqt-config
     lxqt.lxqt-menu-data
     lxqt.lxqt-notificationd
-    #lxqt.lxqt-panel
     lxqt.lxqt-runner
     lxqt.lxqt-session
     lxqt.lxqt-themes
@@ -111,10 +110,10 @@
 
     rc = {
       theme = {
-        name = "Shiki-Nouveau-Wisedust";
+        name = "Shiki-Dust";
         font = {"@weight" = "bold";};
         cornerRadius = 0;
-        dropShadows = true;
+        dropShadows = "yes";
       };
     };
   };
