@@ -102,12 +102,6 @@
           }
           {separator = {};}
           {
-            menuId = "pipe-menu";
-            label = "Applications";
-            execute = "${pkgs.labwc-menu-generator}/bin/labwc-menu-generator --pipemenu --terminal-prefix ${pkgs.wezterm}/bin/wezterm";
-          }
-          {separator = {};}
-          {
             label = "Exit";
             action = {name = "Exit";};
           }

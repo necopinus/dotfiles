@@ -10,7 +10,7 @@
   };
 in {
   imports = [
-    ../programs/labwc.nix
+    ../programs/lxqt.nix
   ];
 
   programs.home-manager.enable = true; # Make sure that home-manager binary is in the PATH
