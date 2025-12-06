@@ -51,9 +51,10 @@
       config.use_fancy_tab_bar = false
       config.tab_max_width = 64
       config.default_cursor_style = "BlinkingBar"
-      config.window_decorations = "INTEGRATED_BUTTONS | RESIZE"
 
       if is_macos then
+        config.window_decorations = "INTEGRATED_BUTTONS | RESIZE"
+
         config.window_padding = {
           top = "4.5pt",
           right = "8pt",
@@ -72,6 +73,8 @@
           border_left_color = config.colors.background
         }
       else
+        -- config.window_decorations = "INTEGRATED_BUTTONS | RESIZE"
+
         config.window_padding = {
           top = "6pt",
           right = "6pt",
