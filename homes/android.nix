@@ -25,6 +25,10 @@ in {
     pantheon.elementary-wallpapers
     pop-wallpapers
 
+    #### Icon theme ####
+    adwaita-icon-theme
+    adwaita-icon-theme-legacy
+
     #### Fonts ####
     nerd-fonts.jetbrains-mono
     noto-fonts
@@ -140,7 +144,7 @@ in {
     theme.name = "Adwaita";
     cursorTheme.name = "Adwaita";
     iconTheme = {
-      package = pkgs.adwaita-icon-theme-legacy;
+      package = pkgs.adwaita-icon-theme;
       name = "Adwaita";
     };
     font = {

@@ -1,5 +1,6 @@
 {pkgs, ...}: {
   home.packages = with pkgs; [
+    labwc-gtktheme
     lxqt.lximage-qt
     lxqt.lxqt-about
     lxqt.lxqt-archiver
