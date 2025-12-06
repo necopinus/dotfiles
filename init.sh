@@ -40,7 +40,7 @@ fi
 # Make sure that required packages are installed
 #
 if [[ "$OS" == "Linux" ]]; then
-    sudo apt install -y curl dconf-service
+    sudo apt install -y curl dconf-service dialog man-db
 fi
 
 # Install Nix
