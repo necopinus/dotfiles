@@ -8,13 +8,15 @@
     lxqt.lxqt-config
     lxqt.lxqt-menu-data
     lxqt.lxqt-notificationd
+    #lxqt.lxqt-panel
     lxqt.lxqt-runner
     lxqt.lxqt-themes
     lxqt.lxqt-wayland-session
     lxqt-panel-profiles
     lxqt.pcmanfm-qt
     lxqt.qlipper
-    lxqt.qtxdg-tools
+    lxqt.qps
+    lxqt.screengrab
     lxqt.xdg-desktop-portal-lxqt
     #menu-cache
   ];
