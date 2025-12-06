@@ -1,38 +1,8 @@
-{pkgs, ...}: let
-  # Hack so that Zed picks up extraPackages on macOS; refer to the more
-  # detailed note at the end of this file
-  #
-  zedExtraPackages = with pkgs; [
-    #### LSPs ####
-    basedpyright
-    bash-language-server
-    clang-tools
-    docker-compose-language-service
-    dockerfile-language-server
-    gopls
-    haskellPackages.haskell-language-server
-    jdt-language-server
-    kotlin-language-server
-    lua-language-server
-    nixd
-    powershell-editor-services
-    rubyPackages.solargraph
-    ruff
-    rust-analyzer
-    texlab
-    tombi
-    vscode-langservers-extracted
-    vtsls
-    yaml-language-server
-
-    #### Formatters ####
-    alejandra
-    prettier
-    shellcheck
-    shfmt
-    sql-formatter
-  ];
-in {
+{
+  config,
+  pkgs,
+  ...
+}: {
   xdg.configFile."marksman/config.toml".source = ../artifacts/config/marksman/config.toml;
 
   programs.zed-editor = {
@@ -52,7 +22,36 @@ in {
         }
       else pkgs.zed-editor;
 
-    extraPackages = zedExtraPackages;
+    extraPackages = with pkgs; [
+      #### LSPs ####
+      basedpyright
+      bash-language-server
+      clang-tools
+      docker-compose-language-service
+      dockerfile-language-server
+      gopls
+      haskellPackages.haskell-language-server
+      jdt-language-server
+      kotlin-language-server
+      lua-language-server
+      nixd
+      powershell-editor-services
+      rubyPackages.solargraph
+      ruff
+      rust-analyzer
+      texlab
+      tombi
+      vscode-langservers-extracted
+      vtsls
+      yaml-language-server
+
+      #### Formatters ####
+      alejandra
+      prettier
+      shellcheck
+      shfmt
+      sql-formatter
+    ];
 
     extensions = [
       "awk"
@@ -174,5 +173,5 @@ in {
   home.packages =
     if pkgs.stdenv.isLinux
     then with pkgs; [gnome-keyring]
-    else zedExtraPackages;
+    else config.programs.zed-editor.extraPackages;
 }
