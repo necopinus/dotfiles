@@ -459,7 +459,7 @@ echo ""
 echo "Configuration complete!"
 echo ""
 if [[ "$OS" == "Darwin" ]]; then
-    echo "To finish setup you must reboot your system NOW."
+    echo "To finish setup you MUST reboot your system NOW."
 else
-    echo "To finish setup you must log out of all sessions NOW."
+    echo "To finish setup you MUST log out of all sessions NOW."
 fi
