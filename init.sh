@@ -90,7 +90,7 @@ if [[ "$OS" == "Linux" ]]; then
     # Make sure GPG is removed so as not to interfere with the version
     # from Nixpkgs
     #
-    sudo apt purge --autoremove --purge gnupg
+    sudo apt purge -y --autoremove --purge gnupg
 
     # Comment out global SSH option that Nix's ssh binary doesn't like
     #
