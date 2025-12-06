@@ -2,6 +2,8 @@
 
 set -e
 
+# Set OS type
+#
 OS="$(uname -s)"
 
 # Sanity check

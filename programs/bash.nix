@@ -10,6 +10,10 @@
     };
 
     profileExtra = ''
+      # Set OS type
+      #
+      OS="$(uname -s)"
+
       # Load system defaults if they exist
       #
       if [ -n "$BASH" ]; then
@@ -24,7 +28,7 @@
 
       # Load $XDG_CONFIG_HOME/user-dirs.dirs when applicable
       #
-      if [[ "$(uname -s)" == "Darwin" ]] && [[ -f "$XDG_CONFIG_HOME/user-dirs.dirs" ]]; then
+      if [[ "$OS" == "Darwin" ]] && [[ -f "$XDG_CONFIG_HOME/user-dirs.dirs" ]]; then
         eval "$(cat "$XDG_CONFIG_HOME/user-dirs.dirs" | sed "s/^XDG_/export XDG_/")"
       fi
 
@@ -53,6 +57,10 @@
     enableCompletion = true;
 
     initExtra = ''
+      # Set OS type
+      #
+      OS="$(uname -s)"
+
       # Source various API keys into the environment
       #
       if [[ -f "$XDG_CONFIG_HOME/api-keys.env.sh" ]]; then
@@ -94,7 +102,7 @@
 
       # Alias LXQt session startup
       #
-      if [[ "$(uname -s)" == "Linux" ]]; then
+      if [[ "$OS" == "Linux" ]]; then
         alias start-desktop="$(which startlxqtwayland)"
         alias startlxqt="$(which startlxqtwayland)"
       fi
@@ -102,7 +110,7 @@
       # The Android Debian VM is surprisingly fragile, so we want to
       # do a shutdown rather than just exiting the last session
       #
-      if [[ "$(uname -s)" == "Linux" ]]; then
+      if [[ "$OS" == "Linux" ]]; then
         alias shutdown="/usr/bin/sudo /sbin/shutdown -h now"
       fi
 
@@ -122,7 +130,7 @@
 
       # Convenience function for launching graphical apps from the terminal
       #
-      if [[ "$(uname -s)" == "Linux" ]]; then
+      if [[ "$OS" == "Linux" ]]; then
         function xcv {
           nohup "$@" 2>/dev/null
         }

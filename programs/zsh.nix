@@ -31,6 +31,10 @@
     # ~/.zprofile
     #
     profileExtra = ''
+      # Set OS type
+      #
+      OS="$(uname -s)"
+
       # Load system defaults if they exist
       #
       if [[ -f /etc/skel/.zprofile ]]; then
@@ -39,7 +43,7 @@
 
       # Load $XDG_CONFIG_HOME/user-dirs.dirs when applicable
       #
-      if [[ "$(uname -s)" == "Darwin" ]] && [[ -f "$XDG_CONFIG_HOME/user-dirs.dirs" ]]; then
+      if [[ "$OS" == "Darwin" ]] && [[ -f "$XDG_CONFIG_HOME/user-dirs.dirs" ]]; then
         eval "$(cat "$XDG_CONFIG_HOME/user-dirs.dirs" | sed "s/^XDG_/export XDG_/")"
       fi
     '';
@@ -83,6 +87,10 @@
       # Loads in the normal position (near the end)
       #
       initExtra = lib.mkOrder 1000 ''
+        # Set OS type
+        #
+        OS="$(uname -s)"
+
         # Source various API keys into the environment
         #
         if [[ -f "$XDG_CONFIG_HOME/api-keys.env.sh" ]]; then
@@ -137,7 +145,7 @@
 
         # Convenience function for launching graphical apps from the terminal
         #
-        if [[ "$(uname -s)" == "Linux" ]]; then
+        if [[ "$OS" == "Linux" ]]; then
             function xcv {
                 nohup "$@" 2>/dev/null
             }

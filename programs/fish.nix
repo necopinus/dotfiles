@@ -9,6 +9,10 @@
     # Run early for all shells
     #
     shellInit = ''
+      # Set OS type
+      #
+      set OS $(uname -s)
+
       # Set up Nix, if applicable
       #
       if test -d /run/current-system/sw/bin
@@ -22,7 +26,7 @@
 
       # Load $XDG_CONFIG_HOME/user-dirs.dirs when applicable
       #
-      if test $(uname -s) = "Darwin"; and test -f "$XDG_CONFIG_HOME/user-dirs.dirs"
+      if test "$OS" = "Darwin"; and test -f "$XDG_CONFIG_HOME/user-dirs.dirs"
         cat $XDG_CONFIG_HOME/user-dirs.dirs | sed "s/^XDG_/export XDG_/" | ${pkgs.babelfish}/bin/babelfish | source
       end
 

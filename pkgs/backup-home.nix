@@ -5,6 +5,10 @@ writeShellApplication {
   text = ''
     set -e
 
+    # Set OS type
+    #
+    OS="$(uname -s)"
+
     if [[ -z "$XDG_CONFIG_HOME" ]]; then
       export XDG_CONFIG_HOME="$HOME/.config"
     fi
@@ -43,7 +47,7 @@ writeShellApplication {
     mkBackupList "$HOME/.dvdcss"
     mkBackupList "$XDG_CONFIG_HOME/aacs"
 
-    if [[ "$(uname -s)" == "Linux" ]]; then
+    if [[ "$OS" == "Linux" ]]; then
       mkBackupList "$HOME/data"
     else
       mkBackupList "$HOME/data/calibre"

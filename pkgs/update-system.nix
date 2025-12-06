@@ -5,9 +5,13 @@ writeShellApplication {
   text = ''
     set -e
 
+    # Set OS type
+    #
+    OS="$(uname -s)"
+
     # Debian system packages
     #
-    if [[ -n "$(which apt 2> /dev/null)" ]]; then
+    if [[ "$OS" == "Linux" ]]; then
       sudo apt update
       sudo apt full-upgrade
       sudo apt autoremove --purge --autoremove
@@ -24,7 +28,7 @@ writeShellApplication {
       git add -A -v
       git commit -m "Automated system update: $(date)" || true
       git push
-      if [[ "$(uname -s)" == "Darwin" ]]; then
+      if [[ "$OS" == "Darwin" ]]; then
         sudo darwin-rebuild switch --flake .#macos
       else
         home-manager switch --flake .#android
@@ -69,7 +73,7 @@ writeShellApplication {
     #
     # We do this last as this command may force a reboot
     #
-    if [[ "$(uname -s)" == "Darwin" ]]; then
+    if [[ "$OS" == "Darwin" ]]; then
       softwareupdate --install --all --include-config --include-config-data
     fi
   '';
