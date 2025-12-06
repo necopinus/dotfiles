@@ -99,6 +99,10 @@ if [[ "$OS" == "Linux" ]]; then
     # Sync timezone with Android
     #
     sudo ln -sf /usr/share/zoneinfo/America/Denver /etc/localtime
+
+    # Add droid user to render group
+    #
+    sudo usermod -a -G render "$USER"
 fi
 
 # Update runtime environment

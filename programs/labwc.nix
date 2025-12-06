@@ -29,11 +29,6 @@
       #
       "WLR_BACKENDS=headless"
       "WLR_LIBINPUT_NO_DEVICES=1"
-
-      # FIXME: These are bad and need to go away
-      #
-      "WLR_RENDERER=pixman"
-      "ZED_ALLOW_EMULATED_GPU=1"
     ];
 
     menu = [
