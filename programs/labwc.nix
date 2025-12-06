@@ -8,7 +8,7 @@
     lxqt.lxqt-config
     lxqt.lxqt-menu-data
     lxqt.lxqt-notificationd
-    #lxqt.lxqt-panel
+    lxqt.lxqt-panel
     lxqt.lxqt-runner
     lxqt.lxqt-themes
     lxqt.lxqt-wayland-session
@@ -19,6 +19,7 @@
     lxqt.screengrab
     lxqt.xdg-desktop-portal-lxqt
     #menu-cache
+    swaybg
   ];
 
   qt.platformTheme.name = "lxqt";
@@ -62,9 +63,10 @@
 
       # Desktop environment
       #
+      # (swaybg)
       #"${pkgs.lxqt.pcmanfm-qt}/bin/pcmanfm-qt --desktop &"
-      "${pkgs.lxqt.lxqt-panel}/bin/lxqt-panel &"
-      "${pkgs.wl-clip-persist}/bin/wl-clip-persist --clipboard regular &"
+      #"${pkgs.lxqt.lxqt-panel}/bin/lxqt-panel &"
+      #"${pkgs.wl-clip-persist}/bin/wl-clip-persist --clipboard regular &"
 
       # VNC connection
       #
@@ -72,10 +74,10 @@
     ];
 
     environment = [
-      "XCURSOR_THEME=Adwaita"
-      "XCURSOR_SIZE=24"
-      "XDG_CURRENT_DESKTOP=labwc:wlroots"
-      "XKB_DEFAULT_LAYOUT=us"
+      #"XCURSOR_THEME=Adwaita"
+      #"XCURSOR_SIZE=24"
+      #"XDG_CURRENT_DESKTOP=labwc:wlroots"
+      #"XKB_DEFAULT_LAYOUT=us"
 
       # Cargo-culted from Google's ~/weston.env on 2025-12-05
       #
