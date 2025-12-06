@@ -99,14 +99,6 @@ if [[ "$OS" == "Linux" ]]; then
     # Sync timezone with Android
     #
     sudo ln -sf /usr/share/zoneinfo/America/Denver /etc/localtime
-
-    # Stop Weston
-    #
-    systemctl --user stop weston.service
-    systemctl --user disable weston.service
-
-    systemctl --user stop weston.socket
-    systemctl --user disable weston.socket
 fi
 
 # Update runtime environment
