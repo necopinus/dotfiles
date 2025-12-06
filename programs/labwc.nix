@@ -36,15 +36,15 @@
     "themes/Shiki-Nouveau-Winedust".source = ../third-party/shiki-nouveau-fall-colors/Shiki-Nouveau-Winedust;
     "themes/Shiki-Nouveau-Wisedust".source = ../third-party/shiki-nouveau-fall-colors/Shiki-Nouveau-Wisedust;
 
-    "themes/LXQt-Brave".source = ../third-party/lxqt-themes-lxcolors/LXQt-Brave;
-    "themes/LXQt-Carbonite".source = ../third-party/lxqt-themes-lxcolors/LXQt-Carbonite;
-    "themes/LXQt-Dust".source = ../third-party/lxqt-themes-lxcolors/LXQt-Dust;
-    "themes/LXQt-Human".source = ../third-party/lxqt-themes-lxcolors/LXQt-Human;
-    "themes/LXQt-Illustrious".source = ../third-party/lxqt-themes-lxcolors/LXQt-Illustrious;
-    "themes/LXQt-Noble".source = ../third-party/lxqt-themes-lxcolors/LXQt-Noble;
-    "themes/LXQt-Tribute".source = ../third-party/lxqt-themes-lxcolors/LXQt-Tribute;
-    "themes/LXQt-Wine".source = ../third-party/lxqt-themes-lxcolors/LXQt-Wine;
-    "themes/LXQt-Wise".source = ../third-party/lxqt-themes-lxcolors/LXQt-Wise;
+    "themes/LXQt-Brave".source = ../third-party/lxqt-themes-lxcolors/themes/LXQt-Brave;
+    "themes/LXQt-Carbonite".source = ../third-party/lxqt-themes-lxcolors/themes/LXQt-Carbonite;
+    "themes/LXQt-Dust".source = ../third-party/lxqt-themes-lxcolors/themes/LXQt-Dust;
+    "themes/LXQt-Human".source = ../third-party/lxqt-themes-lxcolors/themes/LXQt-Human;
+    "themes/LXQt-Illustrious".source = ../third-party/lxqt-themes-lxcolors/themes/LXQt-Illustrious;
+    "themes/LXQt-Noble".source = ../third-party/lxqt-themes-lxcolors/themes/LXQt-Noble;
+    "themes/LXQt-Tribute".source = ../third-party/lxqt-themes-lxcolors/themes/LXQt-Tribute;
+    "themes/LXQt-Wine".source = ../third-party/lxqt-themes-lxcolors/themes/LXQt-Wine;
+    "themes/LXQt-Wise".source = ../third-party/lxqt-themes-lxcolors/themes/LXQt-Wise;
     "palettes" = {
       source = ../third-party/lxqt-themes-lxcolors/palettes;
       recursive = true;
