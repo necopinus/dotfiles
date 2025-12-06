@@ -16,6 +16,7 @@ writeShellApplication {
 
     # Update Nix packages
     #
+    sudo determinate-nixd upgrade
     (
       cd "$HOME/config/nix"
       nix flake update
