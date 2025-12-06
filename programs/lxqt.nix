@@ -59,7 +59,7 @@
 
       # Desktop environment
       #
-      "${pkgs.swaybg}/bin/swaybg -i ${pkgs.pop-wallpapers}/share/backgrounds/pop/sean-afnan-244576.jpg"
+      "${pkgs.swaybg}/bin/swaybg --color 464139 --image ${pkgs.pop-wallpapers}/share/backgrounds/pop/sean-afnan-244576.jpg --mode fill --output '*' &"
       "${pkgs.lxqt.pcmanfm-qt}/bin/pcmanfm-qt --desktop &"
       "${pkgs.lxqt.lxqt-panel}/bin/lxqt-panel &"
       "${pkgs.lxqt.lxqt-notificationd}/bin/lxqt-notificationd &"
@@ -67,7 +67,7 @@
 
       # VNC connection
       #
-      "${pkgs.wayvnc}/bin/wayvnc &"
+      "${pkgs.wayvnc}/bin/wayvnc 0.0.0.0 &"
     ];
 
     environment = [
