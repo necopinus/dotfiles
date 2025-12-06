@@ -71,10 +71,10 @@
     ];
 
     environment = [
-      #"XCURSOR_THEME=Adwaita"
-      #"XCURSOR_SIZE=24"
+      "XCURSOR_THEME=Adwaita"
+      "XCURSOR_SIZE=24"
       #"XDG_CURRENT_DESKTOP=labwc:wlroots"
-      #"XKB_DEFAULT_LAYOUT=us"
+      "XKB_DEFAULT_LAYOUT=us"
 
       # Cargo-culted from Google's ~/weston.env on 2025-12-05
       #
