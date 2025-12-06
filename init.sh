@@ -112,6 +112,7 @@ fi
 # Update runtime environment
 #
 source /nix/var/nix/profiles/default/etc/profile.d/nix-daemon.sh
+source "$HOME/.nix-profile/etc/profile.d/hm-session-vars.sh"
 source "$XDG_CONFIG_HOME/user-dirs.dirs"
 
 # Run GPU setup for nixpkgs/home-manager
