@@ -19,6 +19,34 @@
 
   qt.platformTheme.name = "lxqt";
 
+  xdg.dataFile = {
+    "themes/Shiki-Brave".source = ../third-party/openbox-shiki-colors-themes/Shiki-Brave;
+    "themes/Shiki-Dust".source = ../third-party/openbox-shiki-colors-themes/Shiki-Dust;
+    "themes/Shiki-Human".source = ../third-party/openbox-shiki-colors-themes/Shiki-Human;
+    "themes/Shiki-Illustrious".source = ../third-party/openbox-shiki-colors-themes/Shiki-Illustrious;
+    "themes/Shiki-Noble".source = ../third-party/openbox-shiki-colors-themes/Shiki-Noble;
+    "themes/Shiki-Wine".source = ../third-party/openbox-shiki-colors-themes/Shiki-Wine;
+    "themes/Shiki-Wise".source = ../third-party/openbox-shiki-colors-themes/Shiki-Wise;
+
+    "themes/Shiki-Nouveau-Humandust".source = ../third-party/shiki-nouveau-fall-colors/Shiki-Nouveau-Humandust;
+    "themes/Shiki-Nouveau-Winedust".source = ../third-party/shiki-nouveau-fall-colors/Shiki-Nouveau-Winedust;
+    "themes/Shiki-Nouveau-Wisedust".source = ../third-party/shiki-nouveau-fall-colors/Shiki-Nouveau-Wisedust;
+
+    "themes/LXQt-Brave".source = ../third-party/lxqt-themes-lxcolors/LXQt-Brave;
+    "themes/LXQt-Carbonite".source = ../third-party/lxqt-themes-lxcolors/LXQt-Carbonite;
+    "themes/LXQt-Dust".source = ../third-party/lxqt-themes-lxcolors/LXQt-Dust;
+    "themes/LXQt-Human".source = ../third-party/lxqt-themes-lxcolors/LXQt-Human;
+    "themes/LXQt-Illustrious".source = ../third-party/lxqt-themes-lxcolors/LXQt-Illustrious;
+    "themes/LXQt-Noble".source = ../third-party/lxqt-themes-lxcolors/LXQt-Noble;
+    "themes/LXQt-Tribute".source = ../third-party/lxqt-themes-lxcolors/LXQt-Tribute;
+    "themes/LXQt-Wine".source = ../third-party/lxqt-themes-lxcolors/LXQt-Wine;
+    "themes/LXQt-Wise".source = ../third-party/lxqt-themes-lxcolors/LXQt-Wise;
+    "palettes" = {
+      source = ../third-party/lxqt-themes-lxcolors/palettes;
+      recursive = true;
+    };
+  };
+
   wayland.windowManager.labwc = {
     enable = true;
 
