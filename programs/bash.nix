@@ -120,6 +120,14 @@
           nohup "$@" 2>/dev/null
         }
       fi
+
+      # Hack to get Bash to share history across sessions (and make sure
+      # that *most* history is saved, even when exiting with `shutdown`)
+      #
+      #   https://askubuntu.com/a/1540574
+      #
+      PS0="$PS0"'$(history -a)'
+      PROMPT_COMMAND+=( "history -n" )
     '';
 
     enableVteIntegration = pkgs.stdenv.isLinux;
