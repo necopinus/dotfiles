@@ -139,8 +139,8 @@ in {
     theme.name = "Adwaita";
     cursorTheme.name = "Adwaita";
     iconTheme = {
-      package = pkgs.adwaita-icon-theme-legacy;
-      name = "AdwaitaLegacy";
+      package = pkgs.morewaita-icon-theme;
+      name = "MoreWaita";
     };
     font = {
       package = pkgs.noto-fonts;
@@ -151,8 +151,8 @@ in {
 
   qt = {
     enable = true;
-    platformTheme.name = "gtk3";
-    #style.name = "adwaita-dark";
+    #platformTheme.name = "gtk3";
+    style.name = "kvantum";
   };
 
   # The Android VM runs Debian, not NixOS

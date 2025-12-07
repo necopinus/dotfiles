@@ -440,6 +440,10 @@ mkdir -p "$HOME"/src
             git@github.com:necopinus/necopinus.xyz.git
     fi
 
+    if [[ ! -d KvLibadwaita ]]; then
+        git clone --recurse-submodules \
+            https://github.com/GabePoel/KvLibadwaita.git
+    fi
     if [[ ! -d twitter-archive-parser ]]; then
         git clone --recurse-submodules \
             https://github.com/timhutton/twitter-archive-parser.git
