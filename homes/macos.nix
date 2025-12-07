@@ -28,6 +28,10 @@ in {
     localPkgs.vault-sync
   ];
 
+  # Supress annoying Homebrew messages
+  #
+  home.sessionVariables.HOMEBREW_NO_ENV_HINTS = 1;
+
   # Home-manager won't allow some XDG settings on macOS, so we roll them
   # by hand here
   #
