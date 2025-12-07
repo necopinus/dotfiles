@@ -1,4 +1,8 @@
-{pkgs, ...}: let
+{
+  config,
+  pkgs,
+  ...
+}: let
   localPkgs = {
     vault-sync = pkgs.callPackage ../pkgs/vault-sync.nix {};
   };
@@ -24,8 +28,12 @@ in {
     localPkgs.vault-sync
   ];
 
-  # Home-manager won't allow xdg.userDirs on macOS, so we include our
-  # own
+  # Home-manager won't allow some XDG settings on macOS, so we roll them
+  # by hand here
   #
   xdg.configFile."user-dirs.dirs".source = ../artifacts/config/user-dirs.dirs;
+  home.sessionVariables = {
+    XDG_CONFIG_DIRS = "${config.home.homeDirectory}/.nix-profile/etc/xdg:/nix/var/nix/profiles/default/etc/xdg:/etc/xdg";
+    XDG_DATA_DIRS = "${config.home.homeDirectory}/.nix-profile/share:/nix/var/nix/profiles/default/share:/usr/local/share:/usr/share";
+  };
 }

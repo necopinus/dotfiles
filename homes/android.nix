@@ -62,6 +62,20 @@ in {
   xdg = {
     enable = true;
 
+    systemDirs = {
+      config = [
+        "${config.home.homeDirectory}/.nix-profile/etc/xdg"
+        "/nix/var/nix/profiles/default/etc/xdg"
+        "/etc/xdg"
+      ];
+      data = [
+        "${config.home.homeDirectory}/.nix-profile/share"
+        "/nix/var/nix/profiles/default/share"
+        "/usr/local/share"
+        "/usr/share"
+      ];
+    };
+
     userDirs = {
       enable = true;
       createDirectories = true;
