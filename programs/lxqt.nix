@@ -22,32 +22,6 @@
   xdg.dataFile = {
     "themes/Adwaita".source = ../third-party/labwc-adwaita/themes/Adwaita;
     "themes/Adwaita-dark".source = ../third-party/labwc-adwaita/themes/Adwaita-dark;
-
-    "themes/Shiki-Brave".source = ../third-party/openbox-shiki-colors-themes/Shiki-Brave;
-    "themes/Shiki-Dust".source = ../third-party/openbox-shiki-colors-themes/Shiki-Dust;
-    "themes/Shiki-Human".source = ../third-party/openbox-shiki-colors-themes/Shiki-Human;
-    "themes/Shiki-Illustrious".source = ../third-party/openbox-shiki-colors-themes/Shiki-Illustrious;
-    "themes/Shiki-Noble".source = ../third-party/openbox-shiki-colors-themes/Shiki-Noble;
-    "themes/Shiki-Wine".source = ../third-party/openbox-shiki-colors-themes/Shiki-Wine;
-    "themes/Shiki-Wise".source = ../third-party/openbox-shiki-colors-themes/Shiki-Wise;
-
-    "themes/Shiki-Nouveau-Humandust".source = ../third-party/shiki-nouveau-fall-colors/Shiki-Nouveau-Humandust;
-    "themes/Shiki-Nouveau-Winedust".source = ../third-party/shiki-nouveau-fall-colors/Shiki-Nouveau-Winedust;
-    "themes/Shiki-Nouveau-Wisedust".source = ../third-party/shiki-nouveau-fall-colors/Shiki-Nouveau-Wisedust;
-
-    "lxqt/themes/LXQt-Brave".source = ../third-party/lxqt-themes-lxcolors/themes/LXQt-Brave;
-    "lxqt/themes/LXQt-Carbonite".source = ../third-party/lxqt-themes-lxcolors/themes/LXQt-Carbonite;
-    "lxqt/themes/LXQt-Dust".source = ../third-party/lxqt-themes-lxcolors/themes/LXQt-Dust;
-    "lxqt/themes/LXQt-Human".source = ../third-party/lxqt-themes-lxcolors/themes/LXQt-Human;
-    "lxqt/themes/LXQt-Illustrious".source = ../third-party/lxqt-themes-lxcolors/themes/LXQt-Illustrious;
-    "lxqt/themes/LXQt-Noble".source = ../third-party/lxqt-themes-lxcolors/themes/LXQt-Noble;
-    "lxqt/themes/LXQt-Tribute".source = ../third-party/lxqt-themes-lxcolors/themes/LXQt-Tribute;
-    "lxqt/themes/LXQt-Wine".source = ../third-party/lxqt-themes-lxcolors/themes/LXQt-Wine;
-    "lxqt/themes/LXQt-Wise".source = ../third-party/lxqt-themes-lxcolors/themes/LXQt-Wise;
-    "lxqt/palettes" = {
-      source = ../third-party/lxqt-themes-lxcolors/palettes;
-      recursive = true;
-    };
   };
 
   wayland.windowManager.labwc = {

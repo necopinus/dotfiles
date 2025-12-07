@@ -21,7 +21,7 @@ in {
     util-linux
 
     #### Look-and-feel ####
-    adwaita-icon-theme-legacy
+    adwaita-icon-theme-legacy # MoreWaita dependency; adwaita-icon-theme installed automatically
     pop-wallpapers
 
     #### Fonts ####
@@ -122,6 +122,11 @@ in {
       };
     };
 
+    configFile = {
+      "Kvantum/Colors".source = ../third-party/kvantum-adwaita/Colors;
+      "Kvantum/KvLibadwaita".source = ../third-party/kvantum-adwaita/KvLibadwaita;
+    };
+
     dataFile = {
       # Hide some desktop applications
       #
@@ -151,7 +156,6 @@ in {
 
   qt = {
     enable = true;
-    #platformTheme.name = "gtk3";
     style.name = "kvantum";
   };
 
