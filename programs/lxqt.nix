@@ -5,6 +5,7 @@
     lxqt.lxqt-config
     lxqt.lxqt-menu-data
     lxqt.lxqt-notificationd
+    lxqt.lxqt-panel
     lxqt.lxqt-runner
     lxqt.lxqt-session
     lxqt.lxqt-themes
@@ -32,10 +33,10 @@
 
       # Desktop environment
       #
-      "${pkgs.lxqt.pcmanfm-qt}/bin/pcmanfm-qt --desktop &"
-      "${pkgs.lxqt.lxqt-panel}/bin/lxqt-panel &"
-      "${pkgs.lxqt.lxqt-notificationd}/bin/lxqt-notificationd &"
-      "${pkgs.lxqt.lxqt-runner}/bin/lxqt-runner &"
+      #"${pkgs.lxqt.pcmanfm-qt}/bin/pcmanfm-qt --desktop &"
+      #"${pkgs.lxqt.lxqt-panel}/bin/lxqt-panel &"
+      #"${pkgs.lxqt.lxqt-notificationd}/bin/lxqt-notificationd &"
+      #"${pkgs.lxqt.lxqt-runner}/bin/lxqt-runner &"
       "${pkgs.wl-clip-persist}/bin/wl-clip-persist --clipboard regular &"
 
       # VNC connection
