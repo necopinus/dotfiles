@@ -85,8 +85,6 @@
     rc = {
       theme = {
         name = "Adwaita-dark";
-        #font = {"@weight" = "bold";};
-        #cornerRadius = 0;
         dropShadows = "yes";
       };
     };
