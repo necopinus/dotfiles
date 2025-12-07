@@ -20,8 +20,8 @@
   qt.platformTheme.name = "lxqt";
 
   xdg.dataFile = {
-    "themes/Adwaita".source = ../third-party/labwc-adwaita/themes/Adwaita;
-    "themes/Adwaita-dark".source = ../third-party/labwc-adwaita/themes/Adwaita-dark;
+    "themes/Adwaita".source = ../third-party/labwc-adwaita/Adwaita;
+    "themes/Adwaita-dark".source = ../third-party/labwc-adwaita/Adwaita-dark;
   };
 
   wayland.windowManager.labwc = {
