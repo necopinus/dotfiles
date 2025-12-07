@@ -10,7 +10,6 @@
     lxqt.lxqt-themes
     lxqt.lxqt-wayland-session
     lxqt.pcmanfm-qt
-    lxqt.qlipper
     lxqt.screengrab
     lxqt.xdg-desktop-portal-lxqt
   ];
