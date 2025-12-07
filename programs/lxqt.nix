@@ -35,6 +35,7 @@
       "${pkgs.lxqt.pcmanfm-qt}/bin/pcmanfm-qt --desktop &"
       "${pkgs.lxqt.lxqt-panel}/bin/lxqt-panel &"
       "${pkgs.lxqt.lxqt-notificationd}/bin/lxqt-notificationd &"
+      "${pkgs.lxqt.lxqt-runner}/bin/lxqt-runner &"
       "${pkgs.wl-clip-persist}/bin/wl-clip-persist --clipboard regular &"
 
       # VNC connection
