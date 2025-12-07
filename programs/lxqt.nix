@@ -16,6 +16,7 @@
     lxqt.qps
     lxqt.screengrab
     lxqt.xdg-desktop-portal-lxqt
+    xdg-desktop-portal-gtk
   ];
 
   qt.platformTheme.name = "lxqt";
