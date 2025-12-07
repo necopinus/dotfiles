@@ -134,6 +134,15 @@ in {
     };
 
     configFile = {
+      # Disable some autostart entries; we don't use xdg.autostart
+      # because that only allows us to ADD entries, and masking in this
+      # fashion is more economical
+      #
+      "autostart.lxqt-xscreensaver-autostart.desktop".source = ../artifacts/local/share/applications/hidden.desktop;
+
+      # QT KvLibadwaita is the closest thing to (current) Adwaita for Qt
+      # apps that I've managed to get working
+      #
       "Kvantum/Colors".source = ../third-party/kvantum-adwaita/Colors;
       "Kvantum/KvLibadwaita".source = ../third-party/kvantum-adwaita/KvLibadwaita;
     };
@@ -141,9 +150,18 @@ in {
     dataFile = {
       # Hide some desktop applications
       #
-      "applications/pavucontrol.desktop".source = ../artifacts/local/share/applications/hidden.desktop;
+      "applications/bottom.desktop".source = ../artifacts/local/share/applications/hidden.desktop;
+      "applications/calibre-ebook-edit.desktop".source = ../artifacts/local/share/applications/hidden.desktop;
+      "applications/calibre-lrfviewer.desktop".source = ../artifacts/local/share/applications/hidden.desktop;
+      "applications/Helix.desktop".source = ../artifacts/local/share/applications/hidden.desktop;
+      "applications/lxqt-config-brightness.desktop".source = ../artifacts/local/share/applications/hidden.desktop;
+      "applications/lxqt-config-monitor.desktop".source = ../artifacts/local/share/applications/hidden.desktop;
+      "applications/lxqt-hibernate.desktop".source = ../artifacts/local/share/applications/hidden.desktop;
+      "applications/lxqt-lockscreen.desktop".source = ../artifacts/local/share/applications/hidden.desktop;
+      "applications/lxqt-reboot.desktop".source = ../artifacts/local/share/applications/hidden.desktop;
+      "applications/lxqt-shutdown.desktop".source = ../artifacts/local/share/applications/hidden.desktop;
+      "applications/lxqt-suspend.desktop".source = ../artifacts/local/share/applications/hidden.desktop;
       "applications/vim.desktop".source = ../artifacts/local/share/applications/hidden.desktop;
-      "applications/zutty.desktop".source = ../artifacts/local/share/applications/hidden.desktop;
 
       # Unified backgrounds folder
       #
