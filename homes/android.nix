@@ -23,6 +23,7 @@ in {
     #### Look-and-feel ####
     adwaita-icon-theme
     adwaita-icon-theme-legacy
+    morewaita-icon-theme
     pop-wallpapers
 
     #### Fonts ####
@@ -140,8 +141,8 @@ in {
     theme.name = "Adwaita";
     cursorTheme.name = "Adwaita";
     iconTheme = {
-      package = pkgs.adwaita-icon-theme;
-      name = "Adwaita";
+      package = pkgs.morewaita-icon-theme;
+      name = "MoreWaita";
     };
     font = {
       package = pkgs.noto-fonts;

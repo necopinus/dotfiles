@@ -1,6 +1,5 @@
 {pkgs, ...}: {
   home.packages = with pkgs; [
-    labwc-gtktheme
     lxqt.lximage-qt
     lxqt.lxqt-about
     lxqt.lxqt-archiver
@@ -16,12 +15,14 @@
     lxqt.qps
     lxqt.screengrab
     lxqt.xdg-desktop-portal-lxqt
-    xdg-desktop-portal-gtk
   ];
 
   qt.platformTheme.name = "lxqt";
 
   xdg.dataFile = {
+    "themes/Adwaita".source = ../third-party/labwc-adwaita/themes/Adwaita;
+    "themes/Adwaita-dark".source = ../third-party/labwc-adwaita/themes/Adwaita-dark;
+
     "themes/Shiki-Brave".source = ../third-party/openbox-shiki-colors-themes/Shiki-Brave;
     "themes/Shiki-Dust".source = ../third-party/openbox-shiki-colors-themes/Shiki-Dust;
     "themes/Shiki-Human".source = ../third-party/openbox-shiki-colors-themes/Shiki-Human;
@@ -112,7 +113,7 @@
 
     rc = {
       theme = {
-        name = "GTK";
+        name = "Adwaita-dark";
         #font = {"@weight" = "bold";};
         #cornerRadius = 0;
         dropShadows = "yes";

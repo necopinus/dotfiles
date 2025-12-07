@@ -1,0 +1,19 @@
+## Menu
+
+menu.separator.color: #545458
+
+menu.title.bg.color: #36363a
+menu.title.text.color: #F2F2F2
+
+menu.border.color: #434348
+menu.bg.color:#36363a
+
+menu.items.bg.color: #36363a
+menu.items.text.color: #f2f2f2
+menu.items.border.color: #434343
+
+menu.items.active.border.color: #303030 
+menu.items.active.text.color: #f2f2f2
+menu.items.active.bg.color: #4a4a4e
+
+
