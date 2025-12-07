@@ -111,6 +111,7 @@
         alias diff="$(whence -p delta)"
         alias glow="$(whence -p glow) -s dark"
         alias htop="$(whence -p btm) --basic"
+        alias imgcat="$(which chafa)"
         alias la="$(whence -p eza) --classify=auto --color=auto --group-directories-first --git --long --group --all"
         alias less="$(whence -p bat)"
         alias ll="$(whence -p eza) --classify=auto --color=auto --group-directories-first --git --long --group"

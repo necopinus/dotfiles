@@ -70,6 +70,7 @@
       alias diff "$(which delta)"
       alias glow "$(which glow) -s $XDG_CONFIG_HOME/glow/styles/gruvbox-light.json"
       alias htop "$(which btm) --basic"
+      alias imgcat "$(which chafa)"
       alias la "$(which eza) --classify=auto --color=auto --icons=auto --group-directories-first --git --hyperlink --long --group --all"
       alias less "$(which bat)"
       alias ll "$(which eza) --classify=auto --color=auto --icons=auto --group-directories-first --git --hyperlink --long --group"

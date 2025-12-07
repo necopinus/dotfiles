@@ -37,6 +37,7 @@ in {
   home.packages = with pkgs; [
     android-tools
     brave
+    chafa
     curlFull
     eza # Don't use programs.eza.enable because aliases differ between fish and bash/zsh
     gawk
