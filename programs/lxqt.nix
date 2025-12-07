@@ -59,7 +59,7 @@
 
       # Desktop environment
       #
-      "${pkgs.swaybg}/bin/swaybg --color 464139 --image ${pkgs.pop-wallpapers}/share/backgrounds/pop/sean-afnan-244576.jpg --mode fill --output '*' &"
+      "${pkgs.swaybg}/bin/swaybg --color 000000 --image ${pkgs.pop-wallpapers}/share/backgrounds/pop/sean-afnan-244576.jpg --mode fill --output '*' &"
       "${pkgs.lxqt.pcmanfm-qt}/bin/pcmanfm-qt --desktop &"
       "${pkgs.lxqt.lxqt-panel}/bin/lxqt-panel &"
       "${pkgs.lxqt.lxqt-notificationd}/bin/lxqt-notificationd &"
@@ -111,9 +111,9 @@
 
     rc = {
       theme = {
-        name = "Shiki-Dust";
-        font = {"@weight" = "bold";};
-        cornerRadius = 0;
+        name = "GTK";
+        #font = {"@weight" = "bold";};
+        #cornerRadius = 0;
         dropShadows = "yes";
       };
     };

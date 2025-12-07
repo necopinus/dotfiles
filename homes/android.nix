@@ -20,14 +20,10 @@ in {
     calibre
     util-linux
 
-    #### Wallpapers ####
-    cosmic-wallpapers
-    pantheon.elementary-wallpapers
-    pop-wallpapers
-
-    #### Icon theme ####
+    #### Look-and-feel ####
     adwaita-icon-theme
     adwaita-icon-theme-legacy
+    pop-wallpapers
 
     #### Fonts ####
     nerd-fonts.jetbrains-mono
