@@ -21,9 +21,7 @@ in {
     util-linux
 
     #### Look-and-feel ####
-    adwaita-icon-theme
     adwaita-icon-theme-legacy
-    morewaita-icon-theme
     pop-wallpapers
 
     #### Fonts ####
@@ -141,8 +139,8 @@ in {
     theme.name = "Adwaita";
     cursorTheme.name = "Adwaita";
     iconTheme = {
-      package = pkgs.morewaita-icon-theme;
-      name = "MoreWaita";
+      package = pkgs.adwaita-icon-theme-legacy;
+      name = "AdwaitaLegacy";
     };
     font = {
       package = pkgs.noto-fonts;
@@ -153,7 +151,8 @@ in {
 
   qt = {
     enable = true;
-    style.name = "adwaita-dark";
+    platformTheme.name = "gtk3";
+    #style.name = "adwaita-dark";
   };
 
   # The Android VM runs Debian, not NixOS

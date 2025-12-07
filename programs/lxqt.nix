@@ -17,7 +17,7 @@
     lxqt.xdg-desktop-portal-lxqt
   ];
 
-  qt.platformTheme.name = "lxqt";
+  #qt.platformTheme.name = "lxqt";
 
   xdg.dataFile = {
     "themes/Adwaita".source = ../third-party/labwc-adwaita/themes/Adwaita;
