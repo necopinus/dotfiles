@@ -1,6 +1,5 @@
 {pkgs, ...}: {
   home.packages = with pkgs; [
-    lxqt.lximage-qt
     lxqt.lxqt-about
     lxqt.lxqt-archiver
     lxqt.lxqt-config
@@ -12,7 +11,6 @@
     lxqt.lxqt-wayland-session
     lxqt.pcmanfm-qt
     lxqt.qlipper
-    lxqt.qps
     lxqt.screengrab
     lxqt.xdg-desktop-portal-lxqt
   ];
