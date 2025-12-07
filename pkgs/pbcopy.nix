@@ -13,11 +13,11 @@ writeShellApplication {
 
   text = ''
     if [[ -n "$WAYLAND_DISPLAY" ]]; then
-      exec wl-copy "@"
+      exec wl-copy "$@"
     elif [[ -n "$DISPLAY" ]]; then
-      exec xsel -i -b "@"
+      exec xsel -i -b "$@"
     else
-      echo -n "@" > /run/user/$UID/.pasteboard
+      echo -n "$@" > /run/user/$UID/.pasteboard
     fi
   '';
 }
