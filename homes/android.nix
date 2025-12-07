@@ -22,6 +22,7 @@ in {
 
     #### Look-and-feel ####
     adwaita-icon-theme-legacy # MoreWaita dependency; adwaita-icon-theme installed automatically
+    pantheon.elementary-wallpapers
     pop-wallpapers
 
     #### Fonts ####
