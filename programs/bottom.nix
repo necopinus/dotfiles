@@ -5,7 +5,7 @@
     settings = {
       styles = {
         widgets = {
-          # Tweak suitable for all terminals
+          # Default (tweaks)
           #
           selected_border_color = "green";
           selected_text = {
