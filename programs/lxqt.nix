@@ -31,7 +31,7 @@
           "org.freedesktop.impl.portal.ScreenCast" = "wlr";
         };
       };
-      configPackages = with pkgs; [
+      extraPortals = with pkgs; [
         lxqt.xdg-desktop-portal-lxqt
         xdg-desktop-portal-wlr
       ];

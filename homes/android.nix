@@ -107,9 +107,11 @@ in {
           "org.freedesktop.impl.portal.Secret" = "gnome-keyring";
         };
       };
+      extraPortals = with pkgs; [
+        xdg-desktop-portal-gtk
+      ];
       configPackages = with pkgs; [
         gnome-keyring
-        xdg-desktop-portal-gtk
       ];
     };
 
