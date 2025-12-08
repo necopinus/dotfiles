@@ -97,6 +97,22 @@ in {
       videos = "/mnt/shared/Movies";
     };
 
+    portal = {
+      enable = true;
+      xdgOpenUsePortal = true;
+
+      config = {
+        common = {
+          default = "gtk";
+          "org.freedesktop.impl.portal.Secret" = "gnome-keyring";
+        };
+      };
+      configPackages = with pkgs; [
+        gnome-keyring
+        xdg-desktop-portal-gtk
+      ];
+    };
+
     terminal-exec = {
       enable = true;
       settings = {
@@ -141,6 +157,10 @@ in {
     };
 
     configFile = {
+      # GNOME Keyring's autostart file is broken on non-NixOS systems
+      #
+      "autostart/gnome-keyring-secrets.desktop".source = ../artifacts/config/autostart/gnome-keyring-secrets.desktop;
+
       # QT KvLibadwaita is the closest thing to (current) Adwaita for Qt
       # apps that I've managed to get working
       #

@@ -4,7 +4,6 @@
   ...
 }: {
   home.packages = with pkgs; [
-    gnome-keyring
     lxqt.lxqt-about
     lxqt.lxqt-archiver
     lxqt.lxqt-config
@@ -17,7 +16,6 @@
     lxqt.lxqt-wayland-session
     lxqt.pcmanfm-qt
     lxqt.screengrab
-    lxqt.xdg-desktop-portal-lxqt
     wayvnc
     wl-clip-persist
   ];
@@ -25,6 +23,20 @@
   qt.platformTheme.name = "lxqt";
 
   xdg = {
+    portal = {
+      config = {
+        lxqt = {
+          "org.freedesktop.impl.portal.FileChooser" = "lxqt";
+          "org.freedesktop.impl.portal.Screenshot" = "wlr";
+          "org.freedesktop.impl.portal.ScreenCast" = "wlr";
+        };
+      };
+      configPackages = with pkgs; [
+        lxqt.xdg-desktop-portal-lxqt
+        xdg-desktop-portal-wlr
+      ];
+    };
+
     configFile = {
       # Disable autostart entries; we don't use xdg.autostart because that
       # only allows us to ADD entries from existing packages, and masking
@@ -36,7 +48,6 @@
       # Create autostart entries (for applications that don't supply their
       # own .desktop files)
       #
-      "autostart/gnome-keyring-secrets.desktop".source = ../artifacts/config/autostart/gnome-keyring-secrets.desktop;
       "autostart/wayvnc.desktop".source = ../artifacts/config/autostart/wayvnc.desktop;
       "autostart/wl-clip-persist.desktop".source = ../artifacts/config/autostart/wl-clip-persist.desktop;
     };
