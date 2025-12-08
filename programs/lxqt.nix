@@ -86,7 +86,7 @@
       "themes/Adwaita-dark".source = ../third-party/labwc-adwaita/Adwaita-dark;
     };
   };
-  home.files = {
+  home.file = {
     ".icons/default/index.theme" = ../artifacts/icons/default/index.theme;
     ".Xdefaults" = ../artifacts/Xresources;
     ".Xresources" = ../artifacts/Xresources;
