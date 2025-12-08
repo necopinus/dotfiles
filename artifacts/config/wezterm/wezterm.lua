@@ -112,8 +112,10 @@ else
     }
 end
 
--- Launch fish by default (stub used to work around systems where
--- /etc/passwd can't be modified)
+-- Launch fish by default (we do this rather than changing the default
+-- shell because fish isn't POSIX-compliant and on some systems it's a
+-- pain to change the default shell anyways; use a full path here
+-- because the macOS GUI doesn't natively know about ~/.nix-profile/bin)
 --
 config.default_prog = { os.getenv("HOME") .. "/.nix-profile/bin/fish", "-l" }
 
