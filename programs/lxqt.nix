@@ -66,9 +66,19 @@
       "systemd/user/xdg-permission-store.service".source = "${pkgs.xdg-desktop-portal}/share/systemd/user/xdg-permission-store.service";
     };
     dataFile = {
+      # LXQt config files that are (relatively) safe to link directly
+      "libfm-qt/terminals.list".source = ../artifacts/local/share/libfm-qt/terminals.list;
+
+      # Themes
+      # 
       "themes/Adwaita".source = ../third-party/labwc-adwaita/Adwaita;
       "themes/Adwaita-dark".source = ../third-party/labwc-adwaita/Adwaita-dark;
     };
+  };
+  home.files = {
+    ".icons/default/index.theme" = ../artifacts/icons/default/index.theme;
+    ".Xdefaults" = ../artifacts/Xresources;
+    ".Xresources" = ../artifacts/Xresources;
   };
 
   wayland.windowManager.labwc = {
