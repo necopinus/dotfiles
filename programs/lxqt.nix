@@ -26,11 +26,13 @@
   xdg = {
     portal = {
       config = {
-        default = {
-          "org.freedesktop.impl.portal.FileChooser" = "lxqt:gtk"; # From system lxqt-portals.conf
-          "org.freedesktop.impl.portal.Inhibit" = "none"; # From system labwc-portals.conf
-          "org.freedesktop.impl.portal.ScreenCast" = "wlr";
-          "org.freedesktop.impl.portal.Screenshot" = "wlr";
+        common = {
+          default = {
+            "org.freedesktop.impl.portal.FileChooser" = "lxqt:gtk"; # From system lxqt-portals.conf
+            "org.freedesktop.impl.portal.Inhibit" = "none"; # From system labwc-portals.conf
+            "org.freedesktop.impl.portal.ScreenCast" = "wlr";
+            "org.freedesktop.impl.portal.Screenshot" = "wlr";
+          };
         };
       };
       extraPortals = with pkgs; [
@@ -79,9 +81,7 @@
 
       # Needed for lab-sensible-terminal
       #
-      ''
-        TERMINAL="wezterm start --cwd ${config.home.homeDirectory}"
-      ''
+      "TERMINAL=wezterm start --cwd ${config.home.homeDirectory}"
 
       # Cargo-culted from Google's ~/weston.env on 2025-12-05
       #
@@ -111,9 +111,7 @@
           {
             menuId = "pipe-menu";
             label = "Launch";
-            execute = ''
-              labwc-menu-generator --pipemenu --icons --no-duplicates --terminal-prefix "wezterm start --cwd . -e"
-            '';
+            execute = "labwc-menu-generator --pipemenu --icons --no-duplicates --terminal-prefix 'wezterm start --cwd . -e'";
           }
           {
             menuId = "client-list-combined-menu";
@@ -164,19 +162,19 @@
         default = true;
         keybind = [
           {
-            "@key" = "W-k";
+            "@key" = "A-k";
             action = {
               "@name" = "Execute";
               "@command" = "lxqt-runner";
             };
           }
-          #{
-          #  "@key" = "W-Return";
-          #  action = {
-          #    "@name" = "Execute";
-          #    "@command" = "wezterm start --cwd ${config.home.homeDirectory}";
-          #  };
-          #}
+          {
+            "@key" = "A-Return";
+            action = {
+              "@name" = "Execute";
+              "@command" = "wezterm start --cwd ${config.home.homeDirectory}";
+            };
+          }
         ];
       };
     };
