@@ -30,7 +30,6 @@
       upgrade = true;
       cleanup = "zap";
     };
-    greedyCasks = true;
     casks = [
       "adobe-creative-cloud"
       "calibre" # Version in nixpkgs marked as broken
@@ -41,7 +40,10 @@
       "google-drive"
       "handbrake-app" # Version in nixpkgs marked as broken
       "makemkv"
-      "obsidian"
+      {
+        name = "obsidian";
+        greedy = true; # App core doesn't actually get auto-updated
+      }
       "proton-drive"
       "proton-pass"
       "protonvpn"
