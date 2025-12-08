@@ -77,6 +77,12 @@
       #"XDG_CURRENT_DESKTOP=labwc:wlroots"
       "XKB_DEFAULT_LAYOUT=us"
 
+      # Needed for lab-sensible-terminal
+      #
+      ''
+        TERMINAL="wezterm start --cwd ${config.home.homeDirectory}"
+      ''
+
       # Cargo-culted from Google's ~/weston.env on 2025-12-05
       #
       "MESA_LOADER_DRIVER_OVERRIDE=zink"
@@ -98,7 +104,7 @@
             label = "Terminal";
             action = {
               name = "Execute";
-              command = "wezterm start --cwd ${config.home.homeDirectory}";
+              command = "lab-sensible-terminal";
             };
           }
           {separator = {label = "Applications";};}
@@ -153,6 +159,25 @@
       theme = {
         name = "Adwaita-dark";
         dropShadows = "yes";
+      };
+      keyboard = {
+        default = true;
+        keybind = [
+          {
+            "@key" = "W-k";
+            action = {
+              "@name" = "Execute";
+              "@command" = "lxqt-runner";
+            };
+          }
+          #{
+          #  "@key" = "W-Return";
+          #  action = {
+          #    "@name" = "Execute";
+          #    "@command" = "wezterm start --cwd ${config.home.homeDirectory}";
+          #  };
+          #}
+        ];
       };
     };
   };

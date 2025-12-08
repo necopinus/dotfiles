@@ -30,6 +30,10 @@
       upgrade = true;
       cleanup = "zap";
     };
+    extraConfig = ''
+      ENV["HOMEBREW_NO_ENV_HINTS"] = "1"
+    '';
+
     casks = [
       "adobe-creative-cloud"
       "calibre" # Version in nixpkgs marked as broken
