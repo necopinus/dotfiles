@@ -72,8 +72,8 @@
       # that LXQt will continually "update" the repository, but at least
       # allows for things to be kept in version control.
       #
-      "lxqt".source = config.lib.file.mkOutOfStoreSymLink "${config.xdg.configHome}/nix/artifacts/config/lxqt";
-      "pcmanfm-qt".source = config.lib.file.mkOutOfStoreSymLink "${config.xdg.configHome}/nix/artifacts/config/pcmanfm-qt";
+      "lxqt".source = config.lib.file.mkOutOfStoreSymlink "${config.xdg.configHome}/nix/artifacts/config/lxqt";
+      "pcmanfm-qt".source = config.lib.file.mkOutOfStoreSymlink "${config.xdg.configHome}/nix/artifacts/config/pcmanfm-qt";
     };
     dataFile = {
       # LXQt config files that are (relatively) safe to link directly
