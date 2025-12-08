@@ -1,0 +1,5 @@
+[Desktop Entry]
+Type=Application
+Name=Wayland Clipboard Persistence Service
+TryExec=wl-clip-persist
+Exec=wl-clip-persist --clipboard regular

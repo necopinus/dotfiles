@@ -141,12 +141,6 @@ in {
     };
 
     configFile = {
-      # Disable some autostart entries; we don't use xdg.autostart
-      # because that only allows us to ADD entries, and masking in this
-      # fashion is more economical
-      #
-      "autostart.lxqt-xscreensaver-autostart.desktop".source = ../artifacts/local/share/applications/hidden.desktop;
-
       # QT KvLibadwaita is the closest thing to (current) Adwaita for Qt
       # apps that I've managed to get working
       #

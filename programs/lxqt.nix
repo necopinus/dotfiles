@@ -23,27 +23,37 @@
 
   qt.platformTheme.name = "lxqt";
 
-  xdg.dataFile = {
-    "themes/Adwaita".source = ../third-party/labwc-adwaita/Adwaita;
-    "themes/Adwaita-dark".source = ../third-party/labwc-adwaita/Adwaita-dark;
+  xdg = {
+    configFile = {
+      # Disable autostart entries; we don't use xdg.autostart because that
+      # only allows us to ADD entries from existing packages, and masking
+      # using the "hidden application" template file is more economical
+      # anyway
+      #
+      "autostart/lxqt-xscreensaver-autostart.desktop".source = ../artifacts/local/share/applications/hidden.desktop;
+
+      # Create autostart entries (for applications that don't supply their
+      # own .desktop files)
+      #
+      "autostart/wl-clip-persist.desktop".source = ../artifacts/config/autostart/wl-clip-persist.desktop;
+      "autostart/wayvnc.desktop".source = ../artifacts/config/autostart/wayvnc.desktop;
+    };
+    dataFile = {
+      "themes/Adwaita".source = ../third-party/labwc-adwaita/Adwaita;
+      "themes/Adwaita-dark".source = ../third-party/labwc-adwaita/Adwaita-dark;
+    };
   };
 
   wayland.windowManager.labwc = {
     enable = true;
 
     autostart = [
-      # Probably unnecessary, but why leave Weston running if I'm not
-      # using it?
+      # The Android Debian VM agressively starts Weston, and there's no
+      # way to disable this that I've found that doesn't involve making
+      # (potentially fragile) edits to system files, so we just stop it
+      # here as part of the labwc init process
       #
       "systemctl --user stop weston.service weston.socket"
-
-      # Persist clipboard content after originating app closes
-      #
-      "wl-clip-persist --clipboard regular &"
-
-      # VNC connection
-      #
-      "wayvnc 0.0.0.0 &"
     ];
 
     environment = [
