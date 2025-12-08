@@ -1,5 +1,6 @@
 {
   config,
+  lib,
   pkgs,
   ...
 }: {
@@ -64,6 +65,16 @@
       "systemd/user/xdg-desktop-portal-wlr.service".source = "${pkgs.xdg-desktop-portal-wlr}/share/systemd/user/xdg-desktop-portal-wlr.service";
       "systemd/user/xdg-document-portal.service".source = "${pkgs.xdg-desktop-portal}/share/systemd/user/xdg-document-portal.service";
       "systemd/user/xdg-permission-store.service".source = "${pkgs.xdg-desktop-portal}/share/systemd/user/xdg-permission-store.service";
+
+      # LXQt continually updates its own configuration files (KDE is
+      # similar - maybe it's a Qt thing?), which makes it impossible to
+      # keep them in the Nix store. Instead, we just symlink them
+      # directly from ./artifacts. This is a bit messy, since it means
+      # that LXQt will continually "update" the repository, but at least
+      # allows for things to be kept in version control.
+      #
+      "lxqt".source = lib.file.mkOutOfStoreSymLink "${config.xdg.configHome}/nix/artifacts/config/lxqt";
+      "pcmanfm-qt".source = lib.file.mkOutOfStoreSymLink "${config.xdg.configHome}/nix/artifacts/config/pcmanfm-qt";
     };
     dataFile = {
       # LXQt config files that are (relatively) safe to link directly
