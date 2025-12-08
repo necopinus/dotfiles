@@ -4,7 +4,6 @@
   ...
 }: {
   home.packages = with pkgs; [
-    gcr
     gnome-keyring
     lxqt.lxqt-about
     lxqt.lxqt-archiver
