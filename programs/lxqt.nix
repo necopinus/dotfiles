@@ -60,10 +60,10 @@
       "systemd/user/xdg-desktop-portal.service".source = "${pkgs.xdg-desktop-portal}/share/systemd/user/xdg-desktop-portal.service";
       "systemd/user/xdg-desktop-portal-gtk.service".source = "${pkgs.xdg-desktop-portal-gtk}/share/systemd/user/xdg-desktop-portal-gtk.service";
       "systemd/user/xdg-desktop-portal-lxqt.service".source = "${pkgs.lxqt.xdg-desktop-portal-lxqt}/share/systemd/user/xdg-desktop-portal-lxqt.service";
-      "systemd/user/xdg-desktop-portal-rewrite-launchers.service".source = "${pkgs.xdg-xdg-desktop-portal}/share/systemd/user/xdg-desktop-portal-rewrite-launchers.service";
-      "systemd/user/xdg-desktop-portal-wlr.service".source = "${pkgs.xdg-xdg-desktop-portal-wlr}/share/systemd/user/xdg-desktop-portal-wlr.service";
-      "systemd/user/xdg-document-portal.service".source = "${pkgs.xdg-xdg-desktop-portal}/share/systemd/user/xdg-document-portal.service";
-      "systemd/user/xdg-permission-store.service".source = "${pkgs.xdg-xdg-desktop-portal}/share/systemd/user/xdg-permission-store.service";
+      "systemd/user/xdg-desktop-portal-rewrite-launchers.service".source = "${pkgs.xdg-desktop-portal}/share/systemd/user/xdg-desktop-portal-rewrite-launchers.service";
+      "systemd/user/xdg-desktop-portal-wlr.service".source = "${pkgs.xdg-desktop-portal-wlr}/share/systemd/user/xdg-desktop-portal-wlr.service";
+      "systemd/user/xdg-document-portal.service".source = "${pkgs.xdg-desktop-portal}/share/systemd/user/xdg-document-portal.service";
+      "systemd/user/xdg-permission-store.service".source = "${pkgs.xdg-desktop-portal}/share/systemd/user/xdg-permission-store.service";
     };
     dataFile = {
       "themes/Adwaita".source = ../third-party/labwc-adwaita/Adwaita;
