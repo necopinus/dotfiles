@@ -4,6 +4,8 @@
   ...
 }: {
   home.packages = with pkgs; [
+    gcr
+    gnome-keyring
     lxqt.lxqt-about
     lxqt.lxqt-archiver
     lxqt.lxqt-config
@@ -35,8 +37,9 @@
       # Create autostart entries (for applications that don't supply their
       # own .desktop files)
       #
-      "autostart/wl-clip-persist.desktop".source = ../artifacts/config/autostart/wl-clip-persist.desktop;
+      "autostart/gnome-keyring-secrets.desktop".source = ../artifacts/config/autostart/gnome-keyring-secrets.desktop;
       "autostart/wayvnc.desktop".source = ../artifacts/config/autostart/wayvnc.desktop;
+      "autostart/wl-clip-persist.desktop".source = ../artifacts/config/autostart/wl-clip-persist.desktop;
     };
     dataFile = {
       "themes/Adwaita".source = ../third-party/labwc-adwaita/Adwaita;

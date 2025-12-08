@@ -167,11 +167,5 @@
   # programs.zed-editor.extraPackages on macOS, so we use this hack to
   # expose them explicitly in ~/.nix-profile/bin
   #
-  # On Linux, we need gnome-keyring to be available so that we can
-  # store secrets
-  #
-  home.packages =
-    if pkgs.stdenv.isLinux
-    then with pkgs; [gnome-keyring]
-    else config.programs.zed-editor.extraPackages;
+  home.packages = pkgs.lib.optionals pkgs.stdenv.isDarwin config.programs.zed-editor.extraPackages;
 }
