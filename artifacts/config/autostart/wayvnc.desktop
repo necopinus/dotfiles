@@ -1,5 +1,4 @@
 [Desktop Entry]
 Type=Application
 Name=Wayland VNC Server
-TryExec=wayvnc
 Exec=wayvnc 0.0.0.0
