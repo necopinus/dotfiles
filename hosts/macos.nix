@@ -30,6 +30,7 @@
       upgrade = true;
       cleanup = "zap";
     };
+    greedyCasks = true;
     casks = [
       "adobe-creative-cloud"
       "calibre" # Version in nixpkgs marked as broken
