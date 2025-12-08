@@ -167,6 +167,7 @@ in {
       # apps that I've managed to get working
       #
       "Kvantum/Colors".source = ../third-party/kvantum-adwaita/Colors;
+      "Kvantum/kvantum.kvconfig".source = ../artifacts/config/Kvantum/kvantum.kvconfig;
       "Kvantum/KvLibadwaita".source = ../third-party/kvantum-adwaita/KvLibadwaita;
     };
 
