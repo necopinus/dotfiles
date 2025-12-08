@@ -25,7 +25,7 @@
   xdg = {
     portal = {
       config = {
-        lxqt = {
+        default = {
           "org.freedesktop.impl.portal.FileChooser" = "lxqt";
           "org.freedesktop.impl.portal.Screenshot" = "wlr";
           "org.freedesktop.impl.portal.ScreenCast" = "wlr";
