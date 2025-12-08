@@ -4,6 +4,7 @@
   ...
 }: {
   home.packages = with pkgs; [
+    labwc-menu-generator
     lxqt.lxqt-about
     lxqt.lxqt-archiver
     lxqt.lxqt-config
@@ -99,6 +100,18 @@
               name = "Execute";
               command = "wezterm start --cwd ${config.home.homeDirectory}";
             };
+          }
+          {separator = {};}
+          {
+            menuId = "pipe-menu";
+            label = "Applications ...";
+            execute = ''
+              labwc-menu-generator --pipemenu --icons --no-duplicates --terminal-prefix "wezterm start --cwd . -e"
+            '';
+          }
+          {
+            menuId = "client-list-combined-menu";
+            label = "Running ...";
           }
           {separator = {};}
           {
