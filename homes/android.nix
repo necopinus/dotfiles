@@ -17,9 +17,16 @@ in {
   programs.obsidian.enable = true;
 
   home.packages = with pkgs; [
-    adwaita-icon-theme-legacy # MoreWaita dependency; adwaita-icon-theme installed automatically
     calibre
     util-linux
+
+    #### Look and feel ####
+    adwaita-icon-theme-legacy # MoreWaita dependency; do NOT include adwaita-icon-theme here to prevent duplication errors!
+    morewaita-icon-theme
+
+    lomiri.lomiri-wallpapers
+    pantheon.elementary-wallpapers
+    pop-wallpapers
 
     #### Fonts ####
     nerd-fonts.jetbrains-mono
@@ -200,12 +207,8 @@ in {
     colorScheme = "dark";
     theme.name = "Adwaita";
     cursorTheme.name = "Adwaita";
-    iconTheme = {
-      package = pkgs.morewaita-icon-theme;
-      name = "MoreWaita";
-    };
+    iconTheme.name = "MoreWaita";
     font = {
-      package = pkgs.noto-fonts;
       name = "Noto Sans";
       size = 10;
     };

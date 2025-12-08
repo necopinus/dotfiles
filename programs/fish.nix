@@ -3,6 +3,10 @@
   lib,
   ...
 }: {
+  home.packages = with pkgs; [
+    babelfish
+  ];
+
   programs.fish = {
     enable = true;
 
@@ -19,6 +23,10 @@
         fish_add_path /run/current-system/sw/bin
       end
 
+      # We need to reference babelfish by its full path here because
+      # ~/.nix-profile/bin isn't added to our PATH until after
+      # nix-daemon.sh has been sourced
+      #
       if test -f /nix/var/nix/profiles/default/etc/profile.d/nix-daemon.sh
         set -e __ETC_PROFILE_NIX_SOURCED
         cat /nix/var/nix/profiles/default/etc/profile.d/nix-daemon.sh | ${pkgs.babelfish}/bin/babelfish | source
@@ -27,7 +35,7 @@
       # Load $XDG_CONFIG_HOME/user-dirs.dirs when applicable
       #
       if test "$OS" = "Darwin"; and test -f "$XDG_CONFIG_HOME/user-dirs.dirs"
-        cat $XDG_CONFIG_HOME/user-dirs.dirs | sed "s/^XDG_/export XDG_/" | ${pkgs.babelfish}/bin/babelfish | source
+        cat $XDG_CONFIG_HOME/user-dirs.dirs | sed "s/^XDG_/export XDG_/" | babelfish | source
       end
 
       # Append Homebrew bin directory to PATH, since some GUI casks
@@ -46,7 +54,7 @@
       # Source various API keys into the environment
       #
       if test -f "$XDG_CONFIG_HOME"/api-keys.env.sh
-        cat "$XDG_CONFIG_HOME"/api-keys.env.sh | ${pkgs.babelfish}/bin/babelfish | source
+        cat "$XDG_CONFIG_HOME"/api-keys.env.sh | babelfish | source
       end
 
       # Colorize man pages with bat

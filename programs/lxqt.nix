@@ -1,4 +1,8 @@
-{pkgs, ...}: {
+{
+  config,
+  pkgs,
+  ...
+}: {
   home.packages = with pkgs; [
     lxqt.lxqt-about
     lxqt.lxqt-archiver
@@ -13,6 +17,8 @@
     lxqt.pcmanfm-qt
     lxqt.screengrab
     lxqt.xdg-desktop-portal-lxqt
+    wayvnc
+    wl-clip-persist
   ];
 
   qt.platformTheme.name = "lxqt";
@@ -33,11 +39,11 @@
 
       # Persist clipboard content after originating app closes
       #
-      "${pkgs.wl-clip-persist}/bin/wl-clip-persist --clipboard regular &"
+      "wl-clip-persist --clipboard regular &"
 
       # VNC connection
       #
-      "${pkgs.wayvnc}/bin/wayvnc 0.0.0.0 &"
+      "wayvnc 0.0.0.0 &"
     ];
 
     environment = [
@@ -67,7 +73,7 @@
             label = "Terminal";
             action = {
               name = "Execute";
-              command = "${pkgs.wezterm}/bin/wezterm";
+              command = "wezterm start --cwd ${config.home.homeDirectory}";
             };
           }
           {separator = {};}

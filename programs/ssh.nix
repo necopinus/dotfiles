@@ -8,7 +8,7 @@
     matchBlocks = {
       "set-gpg-tty" = {
         match = ''
-          host * exec "${pkgs.gnupg}/bin/gpg-connect-agent UPDATESTARTUPTTY /bye"
+          host * exec "gpg-connect-agent UPDATESTARTUPTTY /bye"
         '';
       };
       "*" = {
