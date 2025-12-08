@@ -123,6 +123,10 @@
       {
         menuId = "client-menu";
         items = [
+          {
+            label = "Minimize";
+            action = {name = "Iconify";};
+          }
           {separator = {label = "Toggles";};}
           {
             label = "Shade";
@@ -135,11 +139,6 @@
           {
             label = "Always on Top";
             action = {name = "ToggleAlwaysOnTop";};
-          }
-          {separator = {};}
-          {
-            label = "Minimize";
-            action = {name = "Iconify";};
           }
           {separator = {};}
           {
