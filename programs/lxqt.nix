@@ -101,22 +101,50 @@
               command = "wezterm start --cwd ${config.home.homeDirectory}";
             };
           }
-          {separator = {};}
+          {separator = {label = "Applications";};}
           {
             menuId = "pipe-menu";
-            label = "Applications ...";
+            label = "Launch";
             execute = ''
               labwc-menu-generator --pipemenu --icons --no-duplicates --terminal-prefix "wezterm start --cwd . -e"
             '';
           }
           {
             menuId = "client-list-combined-menu";
-            label = "Running ...";
+            label = "Running";
           }
           {separator = {};}
           {
             label = "Exit";
             action = {name = "Exit";};
+          }
+        ];
+      }
+      {
+        menuId = "client-menu";
+        items = [
+          {separator = {label = "Toggles";};}
+          {
+            label = "Shade";
+            action = {name = "ToggleShade";};
+          }
+          {
+            label = "Maximize";
+            action = {name = "ToggleMaximize";};
+          }
+          {
+            label = "Always on Top";
+            action = {name = "ToggleAlwaysOnTop";};
+          }
+          {separator = {};}
+          {
+            label = "Minimize";
+            action = {name = "Iconify";};
+          }
+          {separator = {};}
+          {
+            label = "Close";
+            action = {name = "Close";};
           }
         ];
       }
