@@ -87,9 +87,9 @@
     };
   };
   home.file = {
-    ".icons/default/index.theme" = ../artifacts/icons/default/index.theme;
-    ".Xdefaults" = ../artifacts/Xresources;
-    ".Xresources" = ../artifacts/Xresources;
+    ".icons/default/index.theme".source = ../artifacts/icons/default/index.theme;
+    ".Xdefaults".source = ../artifacts/Xresources;
+    ".Xresources".source = ../artifacts/Xresources;
   };
 
   wayland.windowManager.labwc = {
