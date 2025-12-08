@@ -27,12 +27,10 @@
     portal = {
       config = {
         common = {
-          default = {
-            "org.freedesktop.impl.portal.FileChooser" = "lxqt:gtk"; # From system lxqt-portals.conf
-            "org.freedesktop.impl.portal.Inhibit" = "none"; # From system labwc-portals.conf
-            "org.freedesktop.impl.portal.ScreenCast" = "wlr";
-            "org.freedesktop.impl.portal.Screenshot" = "wlr";
-          };
+          "org.freedesktop.impl.portal.FileChooser" = "lxqt:gtk"; # From system lxqt-portals.conf
+          "org.freedesktop.impl.portal.Inhibit" = "none"; # From system labwc-portals.conf
+          "org.freedesktop.impl.portal.ScreenCast" = "wlr";
+          "org.freedesktop.impl.portal.Screenshot" = "wlr";
         };
       };
       extraPortals = with pkgs; [
