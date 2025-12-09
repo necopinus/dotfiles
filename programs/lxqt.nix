@@ -83,7 +83,7 @@
       "libfm-qt/terminals.list".source = ../artifacts/local/share/libfm-qt/terminals.list;
 
       # Themes
-      # 
+      #
       "themes/Adwaita".source = ../third-party/labwc-adwaita/Adwaita;
       "themes/Adwaita-dark".source = ../third-party/labwc-adwaita/Adwaita-dark;
     };
@@ -110,7 +110,7 @@
       #
       # Startup is also excrutiatingly slow - on the order of a couple
       # minutes. I have no idea why things take so long
-      # 
+      #
       "systemctl --user stop xdg-*-portal*.service xdg-permission-store.service"
       "dbus-update-activation-environment --systemd DBUS_SESSION_BUS_ADDRESS DISPLAY WAYLAND_DISPLAY XDG_CURRENT_DESKTOP"
       "systemctl --user start xdg-desktop-portal.service"
@@ -126,12 +126,13 @@
       #
       "TERMINAL=wezterm start --cwd ${config.home.homeDirectory}"
 
-      # Cargo-culted from Google's ~/weston.env on 2025-12-05
+      # Cargo-culted from Google's /usr/local/bin/enable_gfxstream on 2025-12-09
       #
       "MESA_LOADER_DRIVER_OVERRIDE=zink"
-      "MESA_VK_WSI_DEBUG=sw,linear"
       "VK_ICD_FILENAMES=/usr/share/vulkan/icd.d/gfxstream_vk_icd.json"
+      "MESA_VK_WSI_DEBUG=sw,linear"
       "XWAYLAND_NO_GLAMOR=1"
+      "LIBGL_KOPPER_DRI2=1"
 
       # Run headless
       #
