@@ -46,6 +46,7 @@ writeShellApplication {
     mkBackupList "$HOME/.cddb"
     mkBackupList "$HOME/.dvdcss"
     mkBackupList "$XDG_CONFIG_HOME/aacs"
+    mkBackupList "$XDG_CONFIG_HOME/adept"
 
     if [[ "$OS" == "Linux" ]]; then
       mkBackupList "$HOME/data"
