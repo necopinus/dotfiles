@@ -18,6 +18,7 @@ in {
 
   home.packages = with pkgs; [
     calibre
+    fuse # Needed by xdg-desktop-portal (a.k.a., xdg.portal.enable = true)
     util-linux
 
     #### Look and feel ####

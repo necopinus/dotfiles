@@ -5,6 +5,7 @@
 }: {
   home.packages = with pkgs; [
     labwc-menu-generator
+    libnotify # Needed for lxqt-qdbus
     lxqt.lxqt-about
     lxqt.lxqt-archiver
     lxqt.lxqt-config
@@ -17,6 +18,7 @@
     lxqt.lxqt-wayland-session
     lxqt.pcmanfm-qt
     lxqt.screengrab
+    pipewire # Needed for xdg-desktop-portal-wlr
     wayvnc
     wl-clip-persist
   ];
@@ -102,6 +104,16 @@
       # here as part of the labwc init process
       #
       "systemctl --user stop weston.service weston.socket"
+
+      # XDG desktop portal startup will fail unless the systemd
+      # environment is updated first. Attempt to recover from this.
+      #
+      # Startup is also excrutiatingly slow - on the order of a couple
+      # minutes. I have no idea why things take so long
+      # 
+      "systemctl --user stop xdg-*-portal*.service xdg-permission-store.service"
+      "dbus-update-activation-environment --systemd DBUS_SESSION_BUS_ADDRESS DISPLAY WAYLAND_DISPLAY XDG_CURRENT_DESKTOP"
+      "systemctl --user start xdg-desktop-portal.service"
     ];
 
     environment = [
