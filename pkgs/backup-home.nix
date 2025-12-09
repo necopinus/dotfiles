@@ -53,6 +53,8 @@ writeShellApplication {
       mkBackupList "$HOME/data/calibre"
     fi
 
+    mkBackupList "$XDG_CONFIG_HOME/engagements"
+
     mkBackupList "$HOME/Library/Preferences/calibre"
     mkBackupList "$XDG_CONFIG_HOME/calibre"
 
