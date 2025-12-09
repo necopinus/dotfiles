@@ -55,17 +55,17 @@
       "autostart/wayvnc.desktop".source = ../artifacts/config/autostart/wayvnc.desktop;
       "autostart/wl-clip-persist.desktop".source = ../artifacts/config/autostart/wl-clip-persist.desktop;
 
-      # Expose XDG Desktop Portal services to systemd
+      # Expose service files to systemd
       #
       #   https://github.com/nix-community/home-manager/issues/4922#issuecomment-1914642319
       #
-      "systemd/user/xdg-desktop-portal.service".source = "${pkgs.xdg-desktop-portal}/share/systemd/user/xdg-desktop-portal.service";
-      "systemd/user/xdg-desktop-portal-gtk.service".source = "${pkgs.xdg-desktop-portal-gtk}/share/systemd/user/xdg-desktop-portal-gtk.service";
+      "systemd/user/filter-chain.service".source = "${pkgs.pipewire}/share/systemd/user/filter-chain.service";
+      "systemd/user/pipewire-pulse.service".source = "${pkgs.pipewire}/share/systemd/user/pipewire-pulse.service";
+      "systemd/user/pipewire-pulse.socket".source = "${pkgs.pipewire}/share/systemd/user/pipewire-pulse.socket";
+      "systemd/user/pipewire.service".source = "${pkgs.pipewire}/share/systemd/user/pipewire.service";
+      "systemd/user/pipewire.socket".source = "${pkgs.pipewire}/share/systemd/user/pipewire.socket";
       "systemd/user/xdg-desktop-portal-lxqt.service".source = "${pkgs.lxqt.xdg-desktop-portal-lxqt}/share/systemd/user/xdg-desktop-portal-lxqt.service";
-      "systemd/user/xdg-desktop-portal-rewrite-launchers.service".source = "${pkgs.xdg-desktop-portal}/share/systemd/user/xdg-desktop-portal-rewrite-launchers.service";
       "systemd/user/xdg-desktop-portal-wlr.service".source = "${pkgs.xdg-desktop-portal-wlr}/share/systemd/user/xdg-desktop-portal-wlr.service";
-      "systemd/user/xdg-document-portal.service".source = "${pkgs.xdg-desktop-portal}/share/systemd/user/xdg-document-portal.service";
-      "systemd/user/xdg-permission-store.service".source = "${pkgs.xdg-desktop-portal}/share/systemd/user/xdg-permission-store.service";
 
       # LXQt continually updates its own configuration files (KDE is
       # similar - maybe it's a Qt thing?), which makes it impossible to

@@ -160,16 +160,26 @@ in {
     };
 
     configFile = {
-      # GNOME Keyring's autostart file is broken on non-NixOS systems
-      #
-      "autostart/gnome-keyring-secrets.desktop".source = ../artifacts/config/autostart/gnome-keyring-secrets.desktop;
-
       # QT KvLibadwaita is the closest thing to (current) Adwaita for Qt
       # apps that I've managed to get working
       #
       "Kvantum/Colors".source = ../third-party/kvantum-adwaita/Colors;
       "Kvantum/kvantum.kvconfig".source = ../artifacts/config/Kvantum/kvantum.kvconfig;
       "Kvantum/KvLibadwaita".source = ../third-party/kvantum-adwaita/KvLibadwaita;
+
+      # GNOME Keyring's autostart file is broken on non-NixOS systems
+      #
+      "autostart/gnome-keyring-secrets.desktop".source = ../artifacts/config/autostart/gnome-keyring-secrets.desktop;
+
+      # Expose service files to systemd
+      #
+      #   https://github.com/nix-community/home-manager/issues/4922#issuecomment-1914642319
+      #
+      "systemd/user/xdg-desktop-portal.service".source = "${pkgs.xdg-desktop-portal}/share/systemd/user/xdg-desktop-portal.service";
+      "systemd/user/xdg-desktop-portal-gtk.service".source = "${pkgs.xdg-desktop-portal-gtk}/share/systemd/user/xdg-desktop-portal-gtk.service";
+      "systemd/user/xdg-desktop-portal-rewrite-launchers.service".source = "${pkgs.xdg-desktop-portal}/share/systemd/user/xdg-desktop-portal-rewrite-launchers.service";
+      "systemd/user/xdg-document-portal.service".source = "${pkgs.xdg-desktop-portal}/share/systemd/user/xdg-document-portal.service";
+      "systemd/user/xdg-permission-store.service".source = "${pkgs.xdg-desktop-portal}/share/systemd/user/xdg-permission-store.service";
     };
 
     dataFile = {
