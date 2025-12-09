@@ -258,8 +258,27 @@ in {
     entries = lib.mkForce [];
   };
 
-  # Make sure that systemd units pick up as many environment variables
-  # as possible
+  # Make sure that systemd units pick up key environment variables
   #
-  systemd.user.sessionVariables = config.home.sessionVariables;
+  #systemd.user.sessionVariables = {
+  #  DBUS_SESSION_BUS_ADDRESS = "unix:path=/run/user/1000/bus";
+  #  PATH = "${config.home.homeDirectory}/.nix-profile/bin:/nix/var/nix/profiles/default/bin:/usr/local/bin:/usr/bin:/bin:/usr/local/games:/usr/games";
+  #  XDG_CACHE_HOME = "${config.xdg.cacheHome}";
+  #  XDG_DATA_HOME = "${config.xdg.dataHome}";
+  #  XDG_CONFIG_HOME = "${config.xdg.configHome}";
+  #  XDG_DATA_DIRS = "${config.home.homeDirectory}/.nix-profile/share:/nix/var/nix/profiles/default/share:/usr/local/share:/usr/share";
+  #  XDG_STATE_HOME = "${config.xdg.stateHome}";
+  #  XDG_CONFIG_DIRS = "${config.home.homeDirectory}/.nix-profile/etc/xdg:/nix/var/nix/profiles/default/etc/xdg:/etc/xdg";
+  #};
+
+  systemd.user.settings.Manager.DefaultEnvironment = {
+    DBUS_SESSION_BUS_ADDRESS = "unix:path=/run/user/%U/bus";
+    PATH = "%h/.nix-profile/bin:/nix/var/nix/profiles/default/bin:/usr/local/bin:/usr/bin:/bin:/usr/local/games:/usr/games";
+    XDG_CACHE_HOME = "%h/cache";
+    XDG_DATA_HOME = "%h/local/share";
+    XDG_CONFIG_HOME = "%h/config";
+    XDG_DATA_DIRS = "%h/.nix-profile/share:/nix/var/nix/profiles/default/share:/usr/local/share:/usr/share";
+    XDG_STATE_HOME = "%h/local/state";
+    XDG_CONFIG_DIRS = "%h/.nix-profile/etc/xdg:/nix/var/nix/profiles/default/etc/xdg:/etc/xdg";
+  };
 }

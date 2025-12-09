@@ -59,13 +59,13 @@
       #
       #   https://github.com/nix-community/home-manager/issues/4922#issuecomment-1914642319
       #
-      "systemd/user/filter-chain.service".source = "${pkgs.pipewire}/share/systemd/user/filter-chain.service";
-      "systemd/user/pipewire-pulse.service".source = "${pkgs.pipewire}/share/systemd/user/pipewire-pulse.service";
-      "systemd/user/pipewire-pulse.socket".source = "${pkgs.pipewire}/share/systemd/user/pipewire-pulse.socket";
-      "systemd/user/pipewire.service".source = "${pkgs.pipewire}/share/systemd/user/pipewire.service";
-      "systemd/user/pipewire.socket".source = "${pkgs.pipewire}/share/systemd/user/pipewire.socket";
-      "systemd/user/xdg-desktop-portal-lxqt.service".source = "${pkgs.lxqt.xdg-desktop-portal-lxqt}/share/systemd/user/xdg-desktop-portal-lxqt.service";
-      "systemd/user/xdg-desktop-portal-wlr.service".source = "${pkgs.xdg-desktop-portal-wlr}/share/systemd/user/xdg-desktop-portal-wlr.service";
+      #"systemd/user/filter-chain.service".source = "${pkgs.pipewire}/share/systemd/user/filter-chain.service";
+      #"systemd/user/pipewire-pulse.service".source = "${pkgs.pipewire}/share/systemd/user/pipewire-pulse.service";
+      #"systemd/user/pipewire-pulse.socket".source = "${pkgs.pipewire}/share/systemd/user/pipewire-pulse.socket";
+      #"systemd/user/pipewire.service".source = "${pkgs.pipewire}/share/systemd/user/pipewire.service";
+      #"systemd/user/pipewire.socket".source = "${pkgs.pipewire}/share/systemd/user/pipewire.socket";
+      #"systemd/user/xdg-desktop-portal-lxqt.service".source = "${pkgs.lxqt.xdg-desktop-portal-lxqt}/share/systemd/user/xdg-desktop-portal-lxqt.service";
+      #"systemd/user/xdg-desktop-portal-wlr.service".source = "${pkgs.xdg-desktop-portal-wlr}/share/systemd/user/xdg-desktop-portal-wlr.service";
 
       # LXQt continually updates its own configuration files (KDE is
       # similar - maybe it's a Qt thing?), which makes it impossible to
