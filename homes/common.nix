@@ -77,7 +77,6 @@ in {
   # Environment variables
   #
   home.sessionVariables = {
-    EDITOR = "hx";
     VISUAL = "hx";
   };
 }
