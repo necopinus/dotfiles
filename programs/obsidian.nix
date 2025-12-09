@@ -1,4 +1,7 @@
-{...}: {
+{
+  pkgs,
+  ...
+}: {
   # Manually install Obsidian rather than using programs.obsidian.enable
   # = true in order to work around vaults not being remembered. See:
   #
