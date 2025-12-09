@@ -20,6 +20,7 @@ in {
     calibre
     libgourou
     util-linux
+    xdg-utils # Needed by Obsidian
 
     #### Look and feel ####
     adwaita-icon-theme-legacy # MoreWaita dependency; do NOT include adwaita-icon-theme here to prevent duplication errors!
