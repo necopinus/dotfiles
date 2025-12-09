@@ -74,6 +74,7 @@
       #
       "lxqt".source = config.lib.file.mkOutOfStoreSymlink "${config.xdg.configHome}/nix/artifacts/config/lxqt";
       "pcmanfm-qt".source = config.lib.file.mkOutOfStoreSymlink "${config.xdg.configHome}/nix/artifacts/config/pcmanfm-qt";
+      "screengrab".source = config.lib.file.mkOutOfStoreSymlink "${config.xdg.configHome}/nix/artifacts/config/screengrab";
     };
     dataFile = {
       # LXQt config files that are (relatively) safe to link directly
