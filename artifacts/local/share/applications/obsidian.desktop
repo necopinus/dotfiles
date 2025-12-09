@@ -1,0 +1,9 @@
+[Desktop Entry]
+Categories=Office
+Comment=Knowledge base
+Exec=obsidian --disable-gpu %u
+Icon=obsidian
+MimeType=x-scheme-handler/obsidian
+Name=Obsidian
+Type=Application
+TryExec=obsidian

@@ -10,11 +10,11 @@
   };
 in {
   imports = [
+    ../programs/obsidian.nix
     ../programs/lxqt.nix
   ];
 
   programs.home-manager.enable = true; # Make sure that home-manager binary is in the PATH
-  programs.obsidian.enable = true;
 
   home.packages = with pkgs; [
     calibre
@@ -168,7 +168,7 @@ in {
       # there will be no hangs and no failures.
       #
       # I have no idea why this is.
-      # 
+      #
       "systemd/user/graphical-session.target.wants/xdg-desktop-portal-gtk.service".source = "${pkgs.xdg-desktop-portal-gtk}/share/systemd/user/xdg-desktop-portal-gtk.service";
 
       # GNOME Keyring's autostart file is broken on non-NixOS systems
