@@ -42,12 +42,22 @@
     };
 
     configFile = {
-      # Disable autostart entries; we don't use xdg.autostart because that
-      # only allows us to ADD entries from existing packages, and masking
-      # using the "hidden application" template file is more economical
-      # anyway
+      # Expose service files to systemd
       #
-      "autostart/lxqt-xscreensaver-autostart.desktop".source = ../artifacts/local/share/applications/hidden.desktop;
+      #   https://github.com/nix-community/home-manager/issues/4922#issuecomment-1914642319
+      #
+      "systemd/user/filter-chain.service".source = "${pkgs.pipewire}/share/systemd/user/filter-chain.service";
+      "systemd/user/pipewire-pulse.service".source = "${pkgs.pipewire}/share/systemd/user/pipewire-pulse.service";
+      "systemd/user/pipewire-pulse.socket".source = "${pkgs.pipewire}/share/systemd/user/pipewire-pulse.socket";
+      "systemd/user/pipewire.service".source = "${pkgs.pipewire}/share/systemd/user/pipewire.service";
+      "systemd/user/pipewire.socket".source = "${pkgs.pipewire}/share/systemd/user/pipewire.socket";
+      "systemd/user/xdg-desktop-portal-lxqt.service".source = "${pkgs.lxqt.xdg-desktop-portal-lxqt}/share/systemd/user/xdg-desktop-portal-lxqt.service";
+      "systemd/user/xdg-desktop-portal-wlr.service".source = "${pkgs.xdg-desktop-portal-wlr}/share/systemd/user/xdg-desktop-portal-wlr.service";
+
+      # Systemd target unit startup
+      #
+      "systemd/user/sockets.target.wants/pipewire-pulse.socket".source = "${pkgs.pipewire}/share/systemd/user/pipewire-pulse.socket";
+      "systemd/user/sockets.target.wants/pipewire.socket".source = "${pkgs.pipewire}/share/systemd/user/pipewire.socket";
 
       # Create autostart entries (for applications that don't supply their
       # own .desktop files)
@@ -55,17 +65,12 @@
       "autostart/wayvnc.desktop".source = ../artifacts/config/autostart/wayvnc.desktop;
       "autostart/wl-clip-persist.desktop".source = ../artifacts/config/autostart/wl-clip-persist.desktop;
 
-      # Expose service files to systemd
+      # Disable autostart entries; we don't use xdg.autostart because that
+      # only allows us to ADD entries from existing packages, and masking
+      # using the "hidden application" template file is more economical
+      # anyway
       #
-      #   https://github.com/nix-community/home-manager/issues/4922#issuecomment-1914642319
-      #
-      #"systemd/user/filter-chain.service".source = "${pkgs.pipewire}/share/systemd/user/filter-chain.service";
-      #"systemd/user/pipewire-pulse.service".source = "${pkgs.pipewire}/share/systemd/user/pipewire-pulse.service";
-      #"systemd/user/pipewire-pulse.socket".source = "${pkgs.pipewire}/share/systemd/user/pipewire-pulse.socket";
-      #"systemd/user/pipewire.service".source = "${pkgs.pipewire}/share/systemd/user/pipewire.service";
-      #"systemd/user/pipewire.socket".source = "${pkgs.pipewire}/share/systemd/user/pipewire.socket";
-      #"systemd/user/xdg-desktop-portal-lxqt.service".source = "${pkgs.lxqt.xdg-desktop-portal-lxqt}/share/systemd/user/xdg-desktop-portal-lxqt.service";
-      #"systemd/user/xdg-desktop-portal-wlr.service".source = "${pkgs.xdg-desktop-portal-wlr}/share/systemd/user/xdg-desktop-portal-wlr.service";
+      "autostart/lxqt-xscreensaver-autostart.desktop".source = ../artifacts/local/share/applications/hidden.desktop;
 
       # LXQt continually updates its own configuration files (KDE is
       # similar - maybe it's a Qt thing?), which makes it impossible to
@@ -80,6 +85,7 @@
     };
     dataFile = {
       # LXQt config files that are (relatively) safe to link directly
+      # 
       "libfm-qt/terminals.list".source = ../artifacts/local/share/libfm-qt/terminals.list;
 
       # Themes
@@ -96,18 +102,6 @@
 
   wayland.windowManager.labwc = {
     enable = true;
-
-    autostart = [
-      # XDG desktop portal startup will fail unless the systemd
-      # environment is updated first. Attempt to recover from this.
-      #
-      # Startup is also excrutiatingly slow - on the order of a couple
-      # minutes. I have no idea why things take so long
-      #
-      "systemctl --user stop xdg-*-portal*.service xdg-permission-store.service"
-      "dbus-update-activation-environment --systemd DBUS_SESSION_BUS_ADDRESS DISPLAY WAYLAND_DISPLAY XDG_CURRENT_DESKTOP"
-      "systemctl --user start xdg-desktop-portal.service"
-    ];
 
     environment = [
       "XCURSOR_THEME=Adwaita"

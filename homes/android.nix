@@ -18,7 +18,6 @@ in {
 
   home.packages = with pkgs; [
     calibre
-    fuse # Needed by xdg-desktop-portal (a.k.a., xdg.portal.enable = true)
     util-linux
 
     #### Look and feel ####
@@ -69,20 +68,6 @@ in {
   #
   xdg = {
     enable = true;
-
-    systemDirs = {
-      config = [
-        "${config.home.homeDirectory}/.nix-profile/etc/xdg"
-        "/nix/var/nix/profiles/default/etc/xdg"
-        "/etc/xdg"
-      ];
-      data = [
-        "${config.home.homeDirectory}/.nix-profile/share"
-        "/nix/var/nix/profiles/default/share"
-        "/usr/local/share"
-        "/usr/share"
-      ];
-    };
 
     userDirs = {
       enable = true;
@@ -160,17 +145,6 @@ in {
     };
 
     configFile = {
-      # QT KvLibadwaita is the closest thing to (current) Adwaita for Qt
-      # apps that I've managed to get working
-      #
-      "Kvantum/Colors".source = ../third-party/kvantum-adwaita/Colors;
-      "Kvantum/kvantum.kvconfig".source = ../artifacts/config/Kvantum/kvantum.kvconfig;
-      "Kvantum/KvLibadwaita".source = ../third-party/kvantum-adwaita/KvLibadwaita;
-
-      # GNOME Keyring's autostart file is broken on non-NixOS systems
-      #
-      "autostart/gnome-keyring-secrets.desktop".source = ../artifacts/config/autostart/gnome-keyring-secrets.desktop;
-
       # Expose service files to systemd
       #
       #   https://github.com/nix-community/home-manager/issues/4922#issuecomment-1914642319
@@ -180,6 +154,31 @@ in {
       "systemd/user/xdg-desktop-portal-rewrite-launchers.service".source = "${pkgs.xdg-desktop-portal}/share/systemd/user/xdg-desktop-portal-rewrite-launchers.service";
       "systemd/user/xdg-document-portal.service".source = "${pkgs.xdg-desktop-portal}/share/systemd/user/xdg-document-portal.service";
       "systemd/user/xdg-permission-store.service".source = "${pkgs.xdg-desktop-portal}/share/systemd/user/xdg-permission-store.service";
+
+      # Systemd target unit startup
+      #
+      # You would THINK that you'd want to start xdg-desktop-portal
+      # here, but if you do that then xdg-desktop-portal-gtk will just
+      # weirdly hang, and xdg-desktop-portal itself will eventually
+      # fail. At which point xdg-desktop-portal-gtk will start normally.
+      # But if you explicitly start xdg-desktop-portal-gtk, then
+      # xdg-desktop-portal will still get started automatically, but
+      # there will be no hangs and no failures.
+      #
+      # I have no idea why this is.
+      # 
+      "systemd/user/graphical-session.target.wants/xdg-desktop-portal-gtk.service".source = "${pkgs.xdg-desktop-portal-gtk}/share/systemd/user/xdg-desktop-portal-gtk.service";
+
+      # GNOME Keyring's autostart file is broken on non-NixOS systems
+      #
+      "autostart/gnome-keyring-secrets.desktop".source = ../artifacts/config/autostart/gnome-keyring-secrets.desktop;
+
+      # QT KvLibadwaita is the closest thing to (current) Adwaita for Qt
+      # apps that I've managed to get working
+      #
+      "Kvantum/Colors".source = ../third-party/kvantum-adwaita/Colors;
+      "Kvantum/kvantum.kvconfig".source = ../artifacts/config/Kvantum/kvantum.kvconfig;
+      "Kvantum/KvLibadwaita".source = ../third-party/kvantum-adwaita/KvLibadwaita;
     };
 
     dataFile = {
@@ -258,27 +257,25 @@ in {
     entries = lib.mkForce [];
   };
 
-  # Make sure that systemd units pick up key environment variables
+  # Make sure that systemd units (and regular console sessions) pick up
+  # key environment variables
   #
-  #systemd.user.sessionVariables = {
-  #  DBUS_SESSION_BUS_ADDRESS = "unix:path=/run/user/1000/bus";
-  #  PATH = "${config.home.homeDirectory}/.nix-profile/bin:/nix/var/nix/profiles/default/bin:/usr/local/bin:/usr/bin:/bin:/usr/local/games:/usr/games";
-  #  XDG_CACHE_HOME = "${config.xdg.cacheHome}";
-  #  XDG_DATA_HOME = "${config.xdg.dataHome}";
-  #  XDG_CONFIG_HOME = "${config.xdg.configHome}";
-  #  XDG_DATA_DIRS = "${config.home.homeDirectory}/.nix-profile/share:/nix/var/nix/profiles/default/share:/usr/local/share:/usr/share";
-  #  XDG_STATE_HOME = "${config.xdg.stateHome}";
-  #  XDG_CONFIG_DIRS = "${config.home.homeDirectory}/.nix-profile/etc/xdg:/nix/var/nix/profiles/default/etc/xdg:/etc/xdg";
-  #};
+  # XDG_CONFIG_DIRS and XDG_DATA_DIRS are set here rather than in
+  # xdg.systemDirs in order to avoid as much path messiness as possible
+  #
+  systemd.user.sessionVariables = {
+    DBUS_SESSION_BUS_ADDRESS = "unix:path=/run/user/1000/bus";
+    PATH = "${config.home.homeDirectory}/.nix-profile/bin:/nix/var/nix/profiles/default/bin:/usr/local/bin:/usr/bin:/bin:/usr/local/games:/usr/games";
+    XDG_CACHE_HOME = "${config.xdg.cacheHome}";
+    XDG_CONFIG_DIRS = "${config.home.homeDirectory}/.nix-profile/etc/xdg:/nix/var/nix/profiles/default/etc/xdg:/etc/xdg";
+    XDG_CONFIG_HOME = "${config.xdg.configHome}";
+    XDG_DATA_DIRS = lib.mkForce "${config.home.homeDirectory}/.nix-profile/share:/nix/var/nix/profiles/default/share:/usr/local/share:/usr/share";
+    XDG_DATA_HOME = "${config.xdg.dataHome}";
+    XDG_STATE_HOME = "${config.xdg.stateHome}";
+  };
 
-  systemd.user.settings.Manager.DefaultEnvironment = {
-    DBUS_SESSION_BUS_ADDRESS = "unix:path=/run/user/%U/bus";
-    PATH = "%h/.nix-profile/bin:/nix/var/nix/profiles/default/bin:/usr/local/bin:/usr/bin:/bin:/usr/local/games:/usr/games";
-    XDG_CACHE_HOME = "%h/cache";
-    XDG_DATA_HOME = "%h/local/share";
-    XDG_CONFIG_HOME = "%h/config";
-    XDG_DATA_DIRS = "%h/.nix-profile/share:/nix/var/nix/profiles/default/share:/usr/local/share:/usr/share";
-    XDG_STATE_HOME = "%h/local/state";
-    XDG_CONFIG_DIRS = "%h/.nix-profile/etc/xdg:/nix/var/nix/profiles/default/etc/xdg:/etc/xdg";
+  home.sessionVariables = {
+    XDG_CONFIG_DIRS = "${config.home.homeDirectory}/.nix-profile/etc/xdg:/nix/var/nix/profiles/default/etc/xdg:/etc/xdg";
+    XDG_DATA_DIRS = lib.mkForce "${config.home.homeDirectory}/.nix-profile/share:/nix/var/nix/profiles/default/share:/usr/local/share:/usr/share";
   };
 }

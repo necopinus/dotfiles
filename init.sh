@@ -86,6 +86,8 @@ fi
 if [[ "$OS" == "Linux" ]]; then
     sudo apt install -y \
         build-essential \
+        fuse3 \
+        rtkit \
         seatd \
         yubikey-manager-qt
 
