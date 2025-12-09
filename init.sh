@@ -102,9 +102,12 @@ if [[ "$OS" == "Linux" ]]; then
     #
     sudo ln -sf /usr/share/zoneinfo/America/Denver /etc/localtime
 
-    # Add droid user to render group
+    # We need to tweak a few things in order to manage our own graphical
+    # shell
     #
     sudo usermod -a -G render "$USER"
+    sudo mv /etc/profile.d/activate_display.sh /etc/profile.d/activate_display.sh.disabled
+    rm -f "$HOME"/weston.env
 fi
 
 # Update runtime environment

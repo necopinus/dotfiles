@@ -98,13 +98,6 @@
     enable = true;
 
     autostart = [
-      # The Android Debian VM agressively starts Weston, and there's no
-      # way to disable this that I've found that doesn't involve making
-      # (potentially fragile) edits to system files, so we just stop it
-      # here as part of the labwc init process
-      #
-      "systemctl --user stop weston.service weston.socket"
-
       # XDG desktop portal startup will fail unless the systemd
       # environment is updated first. Attempt to recover from this.
       #
