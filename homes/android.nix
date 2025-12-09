@@ -18,7 +18,6 @@ in {
 
   home.packages = with pkgs; [
     calibre
-    hygg
     libgourou
     util-linux
 
