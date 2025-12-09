@@ -28,7 +28,6 @@
       # nix-daemon.sh has been sourced
       #
       if test -f /nix/var/nix/profiles/default/etc/profile.d/nix-daemon.sh
-        set -e __ETC_PROFILE_NIX_SOURCED
         cat /nix/var/nix/profiles/default/etc/profile.d/nix-daemon.sh | ${pkgs.babelfish}/bin/babelfish | source
       end
 
