@@ -59,6 +59,9 @@ writeShellApplication {
     mkBackupList "$HOME/Library/Preferences/calibre"
     mkBackupList "$XDG_CONFIG_HOME/calibre"
 
+    mkBackupList "$HOME/Library/Application Support/obsidian"
+    mkBackupList "$XDG_CONFIG_HOME/obsidian"
+
     mkBackupList "$XDG_CONFIG_HOME/BraveSoftware"
     mkBackupList "$HOME/Library/Application Support/BraveSoftware"
 
