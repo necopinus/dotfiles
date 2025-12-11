@@ -277,10 +277,8 @@ fi
 #
 if [[ "$OS" == "Darwin" ]]; then
     mkdir -p "$HOME/Library/Preferences/calibre"
-else
-    mkdir -p "$XDG_CONFIG_HOME/calibre"
+    mkdir -p "$HOME/data/calibre"
 fi
-mkdir -p "$HOME/data/calibre"
 
 # Fix permissions; probably not necessary anymore
 #

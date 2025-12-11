@@ -17,7 +17,6 @@ in {
   programs.home-manager.enable = true; # Make sure that home-manager binary is in the PATH
 
   home.packages = with pkgs; [
-    calibre
     libgourou
     util-linux
 
@@ -186,8 +185,6 @@ in {
       # Hide some desktop applications
       #
       "applications/bottom.desktop".source = ../artifacts/local/share/applications/hidden.desktop;
-      "applications/calibre-ebook-edit.desktop".source = ../artifacts/local/share/applications/hidden.desktop;
-      "applications/calibre-lrfviewer.desktop".source = ../artifacts/local/share/applications/hidden.desktop;
       "applications/Helix.desktop".source = ../artifacts/local/share/applications/hidden.desktop;
       "applications/lxqt-config-brightness.desktop".source = ../artifacts/local/share/applications/hidden.desktop;
       "applications/lxqt-config-monitor.desktop".source = ../artifacts/local/share/applications/hidden.desktop;
