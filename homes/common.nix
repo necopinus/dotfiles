@@ -26,13 +26,13 @@ in {
     ../programs/starship.nix
     ../programs/wezterm.nix # Requires fish.nix
     ../programs/zed.nix
+    ../programs/zoxide.nix
   ];
 
   programs.jq.enable = true;
   programs.pandoc.enable = true;
   programs.ripgrep.enable = true;
   programs.yt-dlp.enable = true;
-  programs.zoxide.enable = true;
 
   home.packages = with pkgs; [
     android-tools
