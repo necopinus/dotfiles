@@ -60,7 +60,6 @@
       "stellarium" # Version in nixpkgs marked as broken
       "todoist-app"
       "tresorit"
-      "ungoogled-chromium" # Version in nixpkgs is not available on macOS (only used by hackenv)
       "vlc"
       "yubico-yubikey-manager"
     ];
