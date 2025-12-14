@@ -35,6 +35,7 @@ writeShellApplication {
         sudo "$(which non-nixos-gpu-setup)"
       fi
     )
+    sudo find /nix/var/nix/gcroots -xtype l -exec rm "{}" \;
 
     # Update Helix grammars
     #

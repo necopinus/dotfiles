@@ -85,7 +85,7 @@
     };
     dataFile = {
       # LXQt config files that are (relatively) safe to link directly
-      # 
+      #
       "libfm-qt/terminals.list".source = ../artifacts/local/share/libfm-qt/terminals.list;
 
       # Themes
@@ -142,7 +142,7 @@
           {
             menuId = "pipe-menu";
             label = "Launch";
-            execute = "labwc-menu-generator --pipemenu --icons --no-duplicates --terminal-prefix 'wezterm start --cwd . -e'";
+            execute = "labwc-menu-generator --pipemenu --icons --no-duplicates --terminal-prefix 'lab-sensible-terminal -e'";
           }
           {
             menuId = "client-list-combined-menu";
@@ -203,7 +203,7 @@
             "@key" = "A-Return";
             action = {
               "@name" = "Execute";
-              "@command" = "wezterm start --cwd ${config.home.homeDirectory}";
+              "@command" = "lab-sensible-terminal";
             };
           }
         ];

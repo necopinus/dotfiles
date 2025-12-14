@@ -36,6 +36,7 @@
 
     casks = [
       "adobe-creative-cloud"
+      "burp-suite" # Version in nixpkgs breaks nix evaluation (Linux-specific build) on macOS (only used by hackenv)
       "calibre" # Version in nixpkgs marked as broken
       "claude"
       "discord" # Version in nixpkgs fails to install updates
@@ -59,6 +60,7 @@
       "stellarium" # Version in nixpkgs marked as broken
       "todoist-app"
       "tresorit"
+      "ungoogled-chromium" # Version in nixpkgs not supported macOS (only used by hackenv)
       "vlc"
       "yubico-yubikey-manager"
     ];
