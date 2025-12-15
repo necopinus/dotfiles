@@ -62,6 +62,7 @@
       "tresorit"
       "ungoogled-chromium" # Version in nixpkgs not supported macOS (only used by hackenv)
       "vlc"
+      "wireshark-chmodbpf" # Wireshark helper driver (only used by hackenv)
       "yubico-yubikey-manager"
     ];
   };
