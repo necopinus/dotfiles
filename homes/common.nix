@@ -44,6 +44,7 @@ in {
     curlFull
     eza # Don't use programs.eza.enable because aliases differ between fish and bash/zsh
     gawk
+    gnutar
     imagemagick
     libjpeg
     libqalculate
