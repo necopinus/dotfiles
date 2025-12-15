@@ -30,7 +30,7 @@ in {
         ruff
         rust-analyzer
         solc
-        systemd-lsp # Set in flake.nix overlay
+        systemd-lsp
         texlab
         tombi
         ty

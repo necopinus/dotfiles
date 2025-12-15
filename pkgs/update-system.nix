@@ -23,7 +23,12 @@ writeShellApplication {
     sudo determinate-nixd upgrade
     (
       cd "$HOME/config/nix"
-      nix flake update
+      sudo nix flake update
+      if [[ "$OS" == "Darwin" ]]; then
+        sudo chown ${USER}:staff flake.lock
+      else
+        sudo chown ${USER}:users flake.lock
+      fi
       nix flake archive
       git add -A -v
       git commit -m "Automated system update: $(date)" || true

@@ -1,6 +1,15 @@
 {
   description = "Nix-managed dotfiles for macOS and the Android Debian VM";
 
+  # Add in Numtide binary cache for updated AI tools
+  #
+  #   https://github.com/numtide/llm-agents.nix/blob/main/README.md#binary-cache
+  #
+  nixConfig = {
+    extra-substituters = ["https://cache.numtide.com"];
+    extra-trusted-public-keys = ["niks3.numtide.com-1:DTx8wZduET09hRmMtKdQDxNNthLQETkc/yaX7M4qK0g="];
+  };
+
   # Input streams (flakes, not variables!)
   #
   inputs = {
@@ -9,7 +18,7 @@
     };
 
     nix-darwin = {
-      url = "github:LnL7/nix-darwin";
+      url = "github:nix-darwin/nix-darwin";
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
@@ -18,10 +27,8 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
-    # Packages as flakes
-    #
-    systemd-lsp = {
-      url = "github:JFryy/systemd-lsp";
+    llm-agents = {
+      url = "github:numtide/llm-agents.nix"; # Mostly for Goose 1.16.0+ which supports skills
       inputs.nixpkgs.follows = "nixpkgs";
     };
   };
@@ -31,7 +38,7 @@
     nixpkgs,
     nix-darwin,
     home-manager,
-    systemd-lsp,
+    llm-agents,
     ...
   }: let
     # State versions for home-manager and nix-darwin as of 2025-11-23
@@ -47,17 +54,6 @@
     myUserName = "necopinus";
     androidUserName = "droid";
   in {
-    # Overlays to make installing packages from flakes easier
-    #
-    # Nixpkgs gets borked for standalone home-manager (but oddly NOT for
-    # nix-darwin) if this directive is in the `let` block above
-    #
-    nixpkgs.overlays = [
-      (self: super: {
-        systemd-lsp = systemd-lsp.packages.${nixpkgs.stdenv.hostPlatform.system}.default;
-      })
-    ];
-
     # macOS configuration (nix-darwin + home-manager)
     #
     darwinConfigurations."macos" = nix-darwin.lib.darwinSystem {
@@ -88,6 +84,7 @@
           home-manager = {
             useGlobalPkgs = true;
             useUserPackages = false;
+            extraSpecialArgs = {inherit llm-agents;};
 
             users."${myUserName}" = {
               home.stateVersion = "${homeManagerStateVersion}";
@@ -112,12 +109,8 @@
       #
       #   https://discourse.nixos.org/t/two-ways-to-write-a-home-manager-flake-is-legacypackages-needed/28109
       #
-      # BUT! This might need to be replaced in order to support "unfree"
-      # packages...
-      #
-      #   https://discourse.nixos.org/t/allow-unfree-in-flakes/29904/2
-      #
       pkgs = nixpkgs.legacyPackages.aarch64-linux;
+      extraSpecialArgs = {inherit llm-agents;};
 
       modules = [
         # Allow "unfree" packages; needs to be set here rather than in

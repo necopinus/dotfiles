@@ -1,8 +1,11 @@
 {
   config,
   pkgs,
+  llm-agents,
   ...
 }: let
+  llmAgents = llm-agents.packages.${pkgs.stdenv.hostPlatform.system}; # Set in flake.nix overlay
+
   localPkgs = {
     backup-home = pkgs.callPackage ../pkgs/backup-home.nix {};
     update-system = pkgs.callPackage ../pkgs/update-system.nix {};
@@ -41,10 +44,10 @@ in {
     curlFull
     eza # Don't use programs.eza.enable because aliases differ between fish and bash/zsh
     gawk
-    goose-cli
     imagemagick
     libjpeg
     libqalculate
+    llmAgents.goose-cli # Set in flake.nix overlay
     msgpack-tools
     optipng
     poppler-utils
