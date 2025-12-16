@@ -54,6 +54,12 @@ if [[ -z "$__ETC_PROFILE_NIX_SOURCED" ]]; then
     source /nix/var/nix/profiles/default/etc/profile.d/nix-daemon.sh
 fi
 
+if [[ "$OS" == "Darwin" ]]; then
+    echo "trusted-users = root @admin" | sudo tee -a /etc/nix/nix.custom.conf
+else
+    echo "trusted-users = root @sudo" | sudo tee -a /etc/nix/nix.custom.conf
+fi
+
 # Build configuration
 #
 if [[ "$OS" == "Darwin" ]]; then
