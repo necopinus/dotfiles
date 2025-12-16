@@ -36,4 +36,8 @@ in {
     XDG_CONFIG_DIRS = "${config.home.homeDirectory}/.nix-profile/etc/xdg:/nix/var/nix/profiles/default/etc/xdg:/etc/xdg";
     XDG_DATA_DIRS = "${config.home.homeDirectory}/.nix-profile/share:/nix/var/nix/profiles/default/share:/usr/local/share:/usr/share";
   };
+
+  # Futile attempt to suppress Homebrew hint messages
+  #
+  home.sessionVariables.HOMEBREW_NO_ENV_HINTS = 1;
 }
