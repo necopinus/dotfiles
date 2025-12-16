@@ -38,6 +38,23 @@
       if [ -d /opt/homebrew/bin ]; then
         export PATH="$PATH:/opt/homebrew/bin"
       fi
+
+      # Set SHELL to the correct value
+      #
+      # We do this after the PATH has been fully configured to ensure
+      # that we're catching the correct value
+      #
+      if shopt -q login_shell; then
+        if [ -x "$(realpath /bin)"/bash ]; then
+          export SHELL="$(realpath /bin)"/bash
+        elif [ -x "$(realpath /usr/bin)"/bash ]; then
+          export SHELL="$(realpath /usr/bin)"/bash
+        else
+          export SHELL="$(which bash)"
+        fi
+      else
+        export SHELL="$(which bash)"
+      fi
     '';
 
     # ~/.bash_profile sources ~/.profile and then ~/.bashrc
@@ -60,6 +77,23 @@
       # Set OS type
       #
       OS="$(uname -s)"
+
+      # Set SHELL to the correct value
+      #
+      # We do this after the PATH has been fully configured to ensure
+      # that we're catching the correct value
+      #
+      if shopt -q login_shell; then
+        if [ -x "$(realpath /bin)"/bash ]; then
+          export SHELL="$(realpath /bin)"/bash
+        elif [ -x "$(realpath /usr/bin)"/bash ]; then
+          export SHELL="$(realpath /usr/bin)"/bash
+        else
+          export SHELL="$(which bash)"
+        fi
+      else
+        export SHELL="$(which bash)"
+      fi
 
       # Source various API keys into the environment
       #

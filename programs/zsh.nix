@@ -26,6 +26,20 @@
       if [[ -d /opt/homebrew/bin ]]; then
         export PATH="$PATH:/opt/homebrew/bin"
       fi
+
+      # Set SHELL to the correct value
+      #
+      if [[ -o login ]]; then
+        if [[ -x "$(realpath /bin)"/zsh ]]; then
+          export SHELL="$(realpath /bin)"/zsh
+        elif [[ -x "$(realpath /usr/bin)"/zsh ]]; then
+          export SHELL="$(realpath /usr/bin)"/zsh
+        else
+          export SHELL="$(which zsh)"
+        fi
+      else
+        export SHELL="$(which zsh)"
+      fi
     '';
 
     # ~/.zprofile

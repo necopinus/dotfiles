@@ -43,6 +43,13 @@
       if test -d /opt/homebrew/bin
         fish_add_path --append /opt/homebrew/bin
       end
+
+      # Set SHELL to the correct value
+      #
+      # We do this after the PATH has been fully configured to ensure
+      # that we're catching the correct value
+      #
+      set SHELL $(which fish)
     '';
 
     # If defined, run `loginShellInit` for login shells
