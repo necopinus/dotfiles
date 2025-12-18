@@ -78,6 +78,10 @@ in {
     stateHome = "${config.home.homeDirectory}/local/state";
   };
 
+  # https://github.com/nix-community/home-manager/issues/7935#issuecomment-3671184459
+  #
+  manual.manpages.enable = false;
+
   # Environment variables
   #
   home.sessionVariables = {
