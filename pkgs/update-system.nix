@@ -18,6 +18,16 @@ writeShellApplication {
       sudo apt clean
     fi
 
+    # Clear out macOS settings that need to be set (or not set) explicitly
+    #
+    if [[ "$OS" == "Darwin" ]]; then
+      defaults delete com.apple.TextEdit AlwaysLightBackground 2>/dev/null || true
+      defaults delete kCFPreferencesAnyApplication AppleAccentColor 2>/dev/null || true
+      defaults delete kCFPreferencesAnyApplication AppleHighlightColor 2>/dev/null || true
+      defaults delete kCFPreferencesAnyApplication AppleIconAppearanceTintColor 2>/dev/null || true
+      defaults delete kCFPreferencesAnyApplication AppleInterfaceStyle 2>/dev/null || true
+    fi
+
     # Update Nix packages
     #
     sudo determinate-nixd upgrade

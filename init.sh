@@ -60,6 +60,16 @@ else
     echo "trusted-users = root @sudo" | sudo tee -a /etc/nix/nix.custom.conf
 fi
 
+# Clear out macOS settings that need to be set (or not set) explicitly
+#
+if [[ "$OS" == "Darwin" ]]; then
+    defaults delete com.apple.TextEdit AlwaysLightBackground 2>/dev/null || true
+    defaults delete kCFPreferencesAnyApplication AppleAccentColor 2>/dev/null || true
+    defaults delete kCFPreferencesAnyApplication AppleHighlightColor 2>/dev/null || true
+    defaults delete kCFPreferencesAnyApplication AppleIconAppearanceTintColor 2>/dev/null || true
+    defaults delete kCFPreferencesAnyApplication AppleInterfaceStyle 2>/dev/null || true
+fi
+
 # Build configuration
 #
 if [[ "$OS" == "Darwin" ]]; then
@@ -126,14 +136,6 @@ fi
 source "$HOME/.nix-profile/etc/profile.d/hm-session-vars.sh"
 if [[ -f "$XDG_CONFIG_HOME/user-dirs.dirs" ]]; then
     source "$XDG_CONFIG_HOME/user-dirs.dirs"
-fi
-
-# Make sure system color scheme is "automatic"
-#
-if [[ "$OS" == "Darwin" ]]; then
-    defaults delete kCFPreferencesAnyApplication AppleAccentColor 2>/dev/null || true
-    defaults delete kCFPreferencesAnyApplication AppleHighlightColor 2>/dev/null || true
-    defaults delete kCFPreferencesAnyApplication AppleIconAppearanceTintColor 2>/dev/null || true
 fi
 
 # Run GPU setup for nixpkgs/home-manager
