@@ -32,10 +32,8 @@ in {
   # by hand here
   #
   xdg.configFile."user-dirs.dirs".source = ../artifacts/config/user-dirs.dirs;
-  home.sessionVariables = {
-    XDG_CONFIG_DIRS = "${config.home.homeDirectory}/.nix-profile/etc/xdg:/nix/var/nix/profiles/default/etc/xdg:/etc/xdg";
-    XDG_DATA_DIRS = "${config.home.homeDirectory}/.nix-profile/share:/nix/var/nix/profiles/default/share:/usr/local/share:/usr/share";
-  };
+  home.sessionVariables.XDG_CONFIG_DIRS = "${config.home.homeDirectory}/.nix-profile/etc/xdg:/nix/var/nix/profiles/default/etc/xdg:/etc/xdg";
+  home.sessionVariables.XDG_DATA_DIRS = "${config.home.homeDirectory}/.nix-profile/share:/nix/var/nix/profiles/default/share:/usr/local/share:/usr/share";
 
   # Futile attempt to suppress Homebrew hint messages
   #

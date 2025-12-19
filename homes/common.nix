@@ -41,11 +41,16 @@ in {
     android-tools
     brave
     chafa
+    colorized-logs
     curlFull
+    dos2unix
+    expect
     eza # Don't use programs.eza.enable because aliases differ between fish and bash/zsh
     gawk
     gnutar
     imagemagick
+    ipcalc
+    less
     libjpeg
     libqalculate
     llmAgents.goose-cli # Set in flake.nix overlay
@@ -57,6 +62,7 @@ in {
     sqlite
     texliveFull # Can't figure out how to get programs.texlive to work...
     unzip
+    util-linux
     uutils-coreutils-noprefix
     uutils-diffutils
     uutils-findutils
@@ -84,7 +90,5 @@ in {
 
   # Environment variables
   #
-  home.sessionVariables = {
-    VISUAL = "hx";
-  };
+  home.sessionVariables.VISUAL = "hx";
 }

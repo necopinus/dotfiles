@@ -63,7 +63,9 @@ fi
 # Build configuration
 #
 if [[ "$OS" == "Darwin" ]]; then
-    if [[ -f /etc/pam.d/sudo_local ]]; then
+    # Move files that we know we're going to overwrite out of the way
+    #
+    if [[ -e /etc/pam.d/sudo_local ]] && [[ ! -L /etc/pam.d/sudo_local ]]; then
         sudo mv /etc/pam.d/sudo_local /etc/pam.d/sudo_local.before-nix-darwin
     fi
 
@@ -72,13 +74,13 @@ if [[ "$OS" == "Darwin" ]]; then
         sudo nix run nix-darwin -- switch --flake .#macos
     )
 else
-    # Remove files that we know we're going to overwrite out of the way
+    # Move files that we know we're going to overwrite out of the way
     #
     if [[ -e "$HOME"/.bashrc ]] && [[ ! -L "$HOME"/.bashrc ]]; then
-        rm "$HOME"/.bashrc
+        mv "$HOME"/.bashrc "$HOME"/.bashrc.before-home-manager
     fi
     if [[ -e "$HOME"/.profile ]] && [[ ! -L "$HOME"/.profile ]]; then
-        rm "$HOME"/.profile
+        mv "$HOME"/.profile "$HOME"/.profile.before-home-manager
     fi
 
     (
@@ -93,6 +95,7 @@ if [[ "$OS" == "Linux" ]]; then
     sudo apt install -y \
         build-essential \
         fuse3 \
+        procps \
         rtkit \
         seatd \
         yubikey-manager-qt
