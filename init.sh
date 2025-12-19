@@ -50,7 +50,7 @@ fi
 if [[ -z "$(which determinate-nixd 2>/dev/null)" ]]; then
     curl -fsSL https://install.determinate.systems/nix | sh -s -- install --determinate --no-confirm
 fi
-if [[ -z "$__ETC_PROFILE_NIX_SOURCED" ]]; then
+if [[ -f /nix/var/nix/profiles/default/etc/profile.d/nix-daemon.sh ]]; then
     source /nix/var/nix/profiles/default/etc/profile.d/nix-daemon.sh
 fi
 
@@ -120,9 +120,10 @@ fi
 
 # Update runtime environment
 #
-source /nix/var/nix/profiles/default/etc/profile.d/nix-daemon.sh
 source "$HOME/.nix-profile/etc/profile.d/hm-session-vars.sh"
-source "$XDG_CONFIG_HOME/user-dirs.dirs"
+if [[ -f "$XDG_CONFIG_HOME/user-dirs.dirs" ]]; then
+    source "$XDG_CONFIG_HOME/user-dirs.dirs"
+fi
 
 # Run GPU setup for nixpkgs/home-manager
 #

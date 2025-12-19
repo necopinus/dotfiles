@@ -20,6 +20,12 @@
         source /etc/skel/.zshenv
       fi
 
+      # Make sure that Nix is set up
+      #
+      if [[ -f /nix/var/nix/profiles/default/etc/profile.d/nix-daemon.sh ]]; then
+        source /nix/var/nix/profiles/default/etc/profile.d/nix-daemon.sh
+      fi
+
       # Append Homebrew bin directory to PATH, since some GUI casks
       # install CLI binaries there
       #

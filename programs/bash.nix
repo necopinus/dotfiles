@@ -26,9 +26,15 @@
         fi
       fi
 
+      # Make sure that Nix is set up
+      #
+      if [ -f /nix/var/nix/profiles/default/etc/profile.d/nix-daemon.sh ]; then
+        source /nix/var/nix/profiles/default/etc/profile.d/nix-daemon.sh
+      fi
+
       # Load $XDG_CONFIG_HOME/user-dirs.dirs when applicable
       #
-      if [[ "$OS" == "Darwin" ]] && [[ -f "$XDG_CONFIG_HOME/user-dirs.dirs" ]]; then
+      if [ "$OS" == "Darwin" ] && [ -f "$XDG_CONFIG_HOME/user-dirs.dirs" ]; then
         eval "$(cat "$XDG_CONFIG_HOME/user-dirs.dirs" | sed "s/^XDG_/export XDG_/")"
       fi
 
@@ -66,6 +72,12 @@
       #
       if [[ -f /etc/skel/.bashrc ]]; then
         source /etc/skel/.bashrc
+      fi
+
+      # Make sure that Nix is set up
+      #
+      if [[ -f /nix/var/nix/profiles/default/etc/profile.d/nix-daemon.sh ]]; then
+        source /nix/var/nix/profiles/default/etc/profile.d/nix-daemon.sh
       fi
     '';
 
