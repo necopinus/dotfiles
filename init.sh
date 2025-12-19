@@ -128,6 +128,14 @@ if [[ -f "$XDG_CONFIG_HOME/user-dirs.dirs" ]]; then
     source "$XDG_CONFIG_HOME/user-dirs.dirs"
 fi
 
+# Make sure system color scheme is "automatic"
+#
+if [[ "$OS" == "Darwin" ]]; then
+    defaults delete kCFPreferencesAnyApplication AppleAccentColor 2>/dev/null || true
+    defaults delete kCFPreferencesAnyApplication AppleHighlightColor 2>/dev/null || true
+    defaults delete kCFPreferencesAnyApplication AppleIconAppearanceTintColor 2>/dev/null || true
+fi
+
 # Run GPU setup for nixpkgs/home-manager
 #
 if [[ "$OS" == "Linux" ]]; then

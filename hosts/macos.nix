@@ -200,8 +200,6 @@
       # a.k.a. "Apple Global Domain"
       #
       NSGlobalDomain = {
-        AppleAccentColor = 3;
-        AppleHighlightColor = "0.752941 0.964706 0.678431 Green";
         SLSMenuBarUseBlurredAppearance = true;
 
         AppleLanguages = ["en-US"];
