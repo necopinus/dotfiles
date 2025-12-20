@@ -119,6 +119,17 @@ end
 --
 config.default_prog = { os.getenv("HOME") .. "/.nix-profile/bin/fish", "-l" }
 
+-- Add SSH domain information to tab title
+--
+wezterm.on("format-tab-title", function(tab)
+    local pane = tab.active_pane
+    local title = pane.title
+    if pane.domain_name and (pane.domain_name ~= "local") then
+        title = pane.domain_name .. " > " .. title
+    end
+    return " " .. tab.tab_index .. ": " .. title .. " "
+end)
+
 -- Return config
 --
 return config
