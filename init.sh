@@ -133,6 +133,8 @@ fi
 
 # Update runtime environment
 #
+unset __ETC_PROFILE_NIX_SOURCED
+source /nix/var/nix/profiles/default/etc/profile.d/nix-daemon.sh
 source "$HOME/.nix-profile/etc/profile.d/hm-session-vars.sh"
 if [[ -f "$XDG_CONFIG_HOME/user-dirs.dirs" ]]; then
     source "$XDG_CONFIG_HOME/user-dirs.dirs"
