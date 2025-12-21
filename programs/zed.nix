@@ -86,9 +86,6 @@
       buffer_font_family = "JetBrainsMono Nerd Font Mono";
       buffer_font_size = 12;
       ui_font_size = 14;
-      features = {
-        edit_prediction_provider = "none";
-      };
 
       theme = {
         mode = "light";
