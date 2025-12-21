@@ -85,6 +85,7 @@
       alias glow "$(which glow) -s $XDG_CONFIG_HOME/glow/styles/gruvbox-light.json"
       alias htop "$(which btm) --basic"
       alias imgcat "$(which chafa)"
+      alias jq "$(which jaq)"
       alias la "$(which eza) --classify=auto --color=auto --icons=auto --group-directories-first --git --hyperlink --group --long --all"
       alias less "$(which bat)"
       alias ll "$(which eza) --classify=auto --color=auto --icons=auto --group-directories-first --git --hyperlink --group --long"
@@ -96,6 +97,7 @@
       alias top "$(which btm) --basic"
       alias vi "$(which $EDITOR)"
       alias vim "$(which $EDITOR)"
+      alias yq "$(which jaq)"
 
       # Hook fish postexec event to add a newline between prompts
       #

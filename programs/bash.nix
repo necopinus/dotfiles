@@ -129,6 +129,7 @@
       alias glow="$(which glow) -s dark"
       alias htop="$(which btm) --basic"
       alias imgcat="$(which chafa)"
+      alias jq="$(which jaq)"
       alias la="$(which eza) --classify=auto --color=auto --group-directories-first --git --group --long --all"
       alias less="$(which bat)"
       alias ll="$(which eza) --classify=auto --color=auto --group-directories-first --git --group --long"
@@ -140,6 +141,7 @@
       alias top="$(which btm) --basic"
       alias vi="$(which "$EDITOR")"
       alias vim="$(which "$EDITOR")"
+      alias yq="$(which jaq)"
 
       # Alias LXQt session startup
       #

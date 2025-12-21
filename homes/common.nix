@@ -23,6 +23,7 @@ in {
     ../programs/glow.nix
     ../programs/gnupg.nix
     ../programs/helix.nix
+    ../programs/jq.nix
     ../programs/less.nix
     ../programs/rclone.nix
     ../programs/ssh.nix
@@ -32,7 +33,6 @@ in {
     ../programs/zoxide.nix
   ];
 
-  programs.jq.enable = true;
   programs.pandoc.enable = true;
   programs.ripgrep.enable = true;
   programs.yt-dlp.enable = true;
@@ -67,7 +67,6 @@ in {
     uutils-diffutils
     uutils-findutils
     xz
-    yq
     zip
 
     #### Local packages (see above) ####

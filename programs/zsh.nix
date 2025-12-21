@@ -131,7 +131,8 @@
         alias diff="$(whence -p delta)"
         alias glow="$(whence -p glow) -s dark"
         alias htop="$(whence -p btm) --basic"
-        alias imgcat="$(which chafa)"
+        alias imgcat="$(whence -p chafa)"
+        alias jq="$(whence -p jaq)"
         alias la="$(whence -p eza) --classify=auto --color=auto --group-directories-first --git --group --long --all"
         alias less="$(whence -p bat)"
         alias ll="$(whence -p eza) --classify=auto --color=auto --group-directories-first --git --group --long"
@@ -143,6 +144,7 @@
         alias top="$(whence -p btm) --basic"
         alias vi="$(whence -p "$EDITOR")"
         alias vim="$(whence -p "$EDITOR")"
+        alias yq="$(whence -p jaq)"
 
         # Wrap git and gpg to make sure that the current terminal is
         # correctly set for gpg-agent
