@@ -111,11 +111,14 @@ fi
 #
 if [[ "$OS" == "Linux" ]]; then
     sudo apt install -y \
+        bubblewrap \
         build-essential \
         fuse3 \
+        libseccomp-dev \
         procps \
         rtkit \
         seatd \
+        strace \
         yubikey-manager-qt
 
     # Make sure GPG is removed so as not to interfere with the version
