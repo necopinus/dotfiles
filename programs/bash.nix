@@ -113,11 +113,10 @@
         source "$XDG_CONFIG_HOME/api-keys.env.sh"
       fi
 
-      # Colorize man pages with bat
+      # Colorize man pages with batman, and then some
       #
-      #   https://github.com/sharkdp/bat/issues/3053#issuecomment-2259573578
-      #
-      export MANPAGER="sh -c 'sed -u -e \"s/\\x1B\[[0-9;]*m//g; s/.\\x08//g\" | bat -p -l man'"
+      eval "$(batman --export-env)"
+      eval "$(batpipe)"
 
       # Convenience aliases, unfortunately much too complex to set up
       # directly using home-manager's programs.bash.shellAliases
@@ -136,11 +135,13 @@
       alias ls="$(which eza) --classify=auto --color=auto --group-directories-first --git --group"
       alias more="$(which bat)"
       alias nvim="$(which "$EDITOR")"
-      alias rg="$(which rg) --color=auto"
+      alias prettycat="$(whence -p prettybat)"
+      alias rg="$(which batgrep)"
       alias sudo="/usr/bin/sudo -E"
       alias top="$(which btm) --basic"
       alias vi="$(which "$EDITOR")"
       alias vim="$(which "$EDITOR")"
+      alias watch="$(which batwatch)"
       alias yq="$(which jaq)"
 
       # Alias LXQt session startup
@@ -156,6 +157,17 @@
       if [[ "$OS" == "Linux" ]]; then
         alias shutdown="/usr/bin/sudo /sbin/shutdown -h now"
       fi
+
+      # Wrap man/batman to supress readlink errors
+      #
+      function man {
+        MAN_EXEC="$(which man)"
+        $MAN_EXEC "$@" 2> /dev/null
+      }
+      function batman {
+        BATMAN_EXEC="$(which batman)"
+        $BATMAN_EXEC "$@" 2> /dev/null
+      }
 
       # Wrap git and gpg to make sure that the current terminal is
       # correctly set for gpg-agent

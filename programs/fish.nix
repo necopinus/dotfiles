@@ -63,11 +63,10 @@
         cat "$XDG_CONFIG_HOME"/api-keys.env.sh | babelfish | source
       end
 
-      # Colorize man pages with bat
+      # Colorize man pages with batman, and then some
       #
-      #   https://github.com/sharkdp/bat/issues/3053#issuecomment-2259573578
-      #
-      set -gx MANPAGER "sh -c 'sed -u -e \"s/\\x1B\[[0-9;]*m//g; s/.\\x08//g\" | bat -p -l man'"
+      batman --export-env | source
+      eval (batpipe)
 
       # Theme options
       #
@@ -92,11 +91,13 @@
       alias ls "$(which eza) --classify=auto --color=auto --icons=auto --group-directories-first --git --hyperlink --group"
       alias more "$(which bat)"
       alias nvim "$(which $EDITOR)"
-      alias rg "$(which rg) --color=auto"
+      alias prettycat "$(which prettybat)"
+      alias rg "$(which batgrep)"
       alias sudo "/usr/bin/sudo -E"
       alias top "$(which btm) --basic"
       alias vi "$(which $EDITOR)"
       alias vim "$(which $EDITOR)"
+      alias watch "$(which batwatch)"
       alias yq "$(which jaq)"
 
       # Hook fish postexec event to add a newline between prompts
@@ -155,6 +156,17 @@
             set -g fish_color_search_match --background f9eabf
             set -g fish_color_selection normal --background f2e5bc
           end
+        '';
+
+        # Wrap man/batman to supress readlink errors
+        #
+        man = ''
+          set MAN_EXEC $(which man)
+          $MAN_EXEC $argv 2> /dev/null
+        '';
+        batman = ''
+          set BATMAN_EXEC $(which batman)
+          $BATMAN_EXEC $argv 2> /dev/null
         '';
 
         # Wrap git and gpg to make sure that the current terminal is

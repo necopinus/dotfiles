@@ -117,11 +117,10 @@
           source "$XDG_CONFIG_HOME/api-keys.env.sh"
         fi
 
-        # Colorize man pages with bat
+        # Colorize man pages with batman, and then some
         #
-        #   https://github.com/sharkdp/bat/issues/3053#issuecomment-2259573578
-        #
-        export MANPAGER="sh -c 'sed -u -e \"s/\\x1B\[[0-9;]*m//g; s/.\\x08//g\" | bat -p -l man'"
+        eval "$(batman --export-env)"
+        eval "$(batpipe)"
 
         # Convenience aliases
         #
@@ -139,12 +138,25 @@
         alias ls="$(whence -p eza) --classify=auto --color=auto --group-directories-first --git --group"
         alias more="$(whence -p bat)"
         alias nvim="$(whence -p "$EDITOR")"
-        alias rg="$(whence -p rg) --color=auto"
+        alias prettycat="$(whence -p prettybat)"
+        alias rg="$(whence -p batgrep)"
         alias sudo="/usr/bin/sudo -E"
         alias top="$(whence -p btm) --basic"
         alias vi="$(whence -p "$EDITOR")"
         alias vim="$(whence -p "$EDITOR")"
+        alias watch="$(which batwatch)"
         alias yq="$(whence -p jaq)"
+
+        # Wrap man/batman to supress readlink errors
+        #
+        function man {
+          MAN_EXEC="$(whence -p man)"
+          $MAN_EXEC "$@" 2> /dev/null
+        }
+        function batman {
+          BATMAN_EXEC="$(whence -p batman)"
+          $BATMAN_EXEC "$@" 2> /dev/null
+        }
 
         # Wrap git and gpg to make sure that the current terminal is
         # correctly set for gpg-agent
