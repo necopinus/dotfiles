@@ -28,10 +28,9 @@ writeShellApplication {
             -o -name "*~" \
             -o -name ".#*" \
             -o -name "._*" \
-          \) | sed "s#^$HOME/##g" >> "$BACKUP_LIST"
+          \) -exec realpath "{}" \; >> "$BACKUP_LIST"
         elif [[ -f "$1" ]]; then
-          # shellcheck disable=SC2001
-          echo "$1" | sed "s#^$HOME/##g" >> "$BACKUP_LIST"
+          realpath "$1" >> "$BACKUP_LIST"
         fi
     }
 
@@ -65,7 +64,7 @@ writeShellApplication {
     mkBackupList "$XDG_CONFIG_HOME/BraveSoftware"
     mkBackupList "$HOME/Library/Application Support/BraveSoftware"
 
-    cat "$BACKUP_LIST" | sort -u > "$BACKUP_LIST_TMP"
+    grep "^$HOME/" "$BACKUP_LIST" | sed "s#^$HOME/##g" | sort -u > "$BACKUP_LIST_TMP"
     mv "$BACKUP_LIST_TMP" "$BACKUP_LIST"
 
     (
