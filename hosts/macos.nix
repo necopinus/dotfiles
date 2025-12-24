@@ -138,6 +138,7 @@
         {app = "/Users/${config.system.primaryUser}/Applications/Home Manager Apps/Brave Browser.app";}
         {app = "/Applications/Claude.app";}
         {app = "/Users/${config.system.primaryUser}/Applications/Home Manager Apps/WezTerm.app";}
+        {app = "/Users/${config.system.primaryUser}/Applications/Home Manager Apps/Zed.app";}
       ];
       persistent-others = [
         {
