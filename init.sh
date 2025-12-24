@@ -27,16 +27,15 @@ if [[ "$OS" == "Darwin" ]] && [[ -z "$(which brew 2>/dev/null)" ]]; then
         done
 
         curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh | env NONINTERACTIVE=1 bash
-
-        if [[ -x /opt/homebrew/bin/brew ]]; then
-            eval "$(/opt/homebrew/bin/brew shellenv bash)"
-        elif [[ -x /usr/local/bin/brew ]]; then
-            eval "$(/usr/local/bin/brew shellenv bash)"
-        else
-            echo "Cannot find Homebrew installation!"
-            exit 1
-        fi
     fi
+fi
+if [[ -x /opt/homebrew/bin/brew ]]; then
+    eval "$(/opt/homebrew/bin/brew shellenv bash)"
+elif [[ -x /usr/local/bin/brew ]]; then
+    eval "$(/usr/local/bin/brew shellenv bash)"
+else
+    echo "Cannot find Homebrew installation!"
+    exit 1
 fi
 
 # Make sure that required packages are installed
