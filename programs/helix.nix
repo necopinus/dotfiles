@@ -4,7 +4,7 @@
     pbpaste = pkgs.callPackage ../pkgs/pbpaste.nix {};
   };
 in {
-  xdg.configFile."marksman/config.toml".source = ../artifacts/config/marksman/config.toml;
+  xdg.configFile."moxide/settings.toml".source = ../artifacts/config/moxide/settings.toml;
 
   programs.helix = {
     enable = true;
@@ -24,7 +24,7 @@ in {
         jq-lsp
         kotlin-language-server
         lua-language-server
-        marksman
+        markdown-oxide
         nixd
         rubyPackages.solargraph
         ruff

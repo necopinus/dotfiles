@@ -1,0 +1,60 @@
+# SOURCE: https://oxide.md/Configuration
+# DATE: 2025-12-24
+
+# Leave blank to try to import from Obsidian > Core plugins > Daily
+# notes > Date format
+dailynote = "" # "%Y-%m-%d" = YYYY-MM-DD in Obsidian
+
+# Fuzzy match file headings in completions
+heading_completions = true
+
+# Only set to true if notes use the first heading as a title
+title_headings = false
+
+# Show diagnostics for unresolved links; note that even if this is
+# turned off, special semantic tokens will be sent for the unresolved
+# links, allowing you to visually identify unresolved links
+unresolved_diagnostics = true
+semantic_tokens = true
+
+# Resolve tags in code blocks
+tags_in_codeblocks = false
+# Resolve references in code blocks
+references_in_codeblocks = false
+
+# Leave blank to try to import from Obsidian > Options > Files and links
+# > Default location for new notes
+new_file_folder_path = ""
+
+# Leave blank to try to import from Obsidian > Core plugins > Daily
+# notes > New file location
+daily_notes_folder = ""
+
+# Whether markdown links should include an extension or not; for example
+# [File](file.md) or [File](file)
+include_md_extension_md_link = true
+
+# Whether wikilinks should include an extension or not; for example
+# [[File]] or [[File.md]]
+include_md_extension_wikilink = false
+
+# Enable hover; only works in Zed and VS Code, equivalent to Obsidian's
+# "Page preview" core plugin
+hover = false
+
+# Handle case in fuzzy matches: Ignore | Smart | Respect
+case_matching = "Smart"
+
+# Enable inlay hints
+inlay_hints = true
+# Enable transclusion in the form of inlay hints for embedded block
+# links like ![[link]]; inlay hints must be enabled
+block_transclusion = true
+# Full or Partial, for Partial, block_transclusion_length = { partial =
+# 10 }; block_transclusion must be enabled for this to take effect
+block_transclusion_length = "Full"
+
+# Enables autocompleting by heading but inserting link to filename
+# (instead of filename + heading); useful for zettelkasten users, or if
+# title_headings = false
+link_filenames_only = true

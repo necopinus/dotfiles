@@ -3,7 +3,7 @@
   pkgs,
   ...
 }: {
-  xdg.configFile."marksman/config.toml".source = ../artifacts/config/marksman/config.toml;
+  xdg.configFile."moxide/settings.toml".source = ../artifacts/config/moxide/settings.toml;
 
   programs.zed-editor = {
     enable = true;
@@ -34,6 +34,7 @@
       jdt-language-server
       kotlin-language-server
       lua-language-server
+      markdown-oxide
       nixd
       powershell-editor-services
       rubyPackages.solargraph
@@ -68,7 +69,7 @@
       "latex"
       "lua"
       "make"
-      "marksman"
+      "markdown-oxide"
       "nix"
       "powershell"
       "rst"
