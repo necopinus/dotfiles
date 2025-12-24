@@ -40,7 +40,7 @@ include_md_extension_wikilink = false
 
 # Enable hover; only works in Zed and VS Code, equivalent to Obsidian's
 # "Page preview" core plugin
-hover = false
+hover = true
 
 # Handle case in fuzzy matches: Ignore | Smart | Respect
 case_matching = "Smart"
