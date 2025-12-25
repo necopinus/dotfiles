@@ -1,7 +1,7 @@
 # border
 border.width: 0
 menu.border.width: 1
-# some adwaita numbers do no translate well... 
+# some adwaita numbers do no translate well...
 #$menu_radius: 9px;
 #$menu_margin: 6px; //margin around menuitems & sidebar items
 #$menu_padding: 12px; //inner menuitem padding
@@ -31,7 +31,7 @@ menu.corner-radius: 13
 menu.padding.width: 6
 menu.padding.height: 6
 
-# menu items 
+# menu items
 
 menu.items.corner-radius: 6
 # shell menu.items.corner-radius: 11 -> gnome shell menus are much rounder
