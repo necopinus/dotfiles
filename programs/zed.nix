@@ -1,6 +1,7 @@
 {
   config,
   pkgs,
+  lib,
   ...
 }: {
   xdg.configFile."moxide/settings.toml".source = ../artifacts/config/moxide/settings.toml;
@@ -165,5 +166,5 @@
   # programs.zed-editor.extraPackages on macOS, so we use this hack to
   # expose them explicitly in ~/.nix-profile/bin
   #
-  home.packages = pkgs.lib.optionals pkgs.stdenv.isDarwin config.programs.zed-editor.extraPackages;
+  home.packages = lib.optionals pkgs.stdenv.isDarwin config.programs.zed-editor.extraPackages;
 }

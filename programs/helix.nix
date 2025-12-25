@@ -1,4 +1,8 @@
-{pkgs, ...}: let
+{
+  pkgs,
+  lib,
+  ...
+}: let
   localPkgs = {
     pbcopy = pkgs.callPackage ../pkgs/pbcopy.nix {};
     pbpaste = pkgs.callPackage ../pkgs/pbpaste.nix {};
@@ -44,7 +48,7 @@ in {
         shellcheck
         shfmt
       ]
-      ++ pkgs.lib.optionals pkgs.stdenv.isLinux [
+      ++ lib.optionals pkgs.stdenv.isLinux [
         #### Utilities ####
         localPkgs.pbcopy
         localPkgs.pbpaste
