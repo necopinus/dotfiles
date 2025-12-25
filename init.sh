@@ -52,15 +52,11 @@ fi
 if [[ $(grep -c "^trusted-users = " /etc/nix/nix.custom.conf) -eq 0 ]]; then
     if [[ "$OS" == "Darwin" ]]; then
         echo "trusted-users = root @admin" | sudo tee -a /etc/nix/nix.custom.conf
+        sudo launchctl kickstart -k system/systems.determinate.nix-daemon
     else
         echo "trusted-users = root @sudo" | sudo tee -a /etc/nix/nix.custom.conf
+        sudo systemctl restart nix-daemon.service
     fi
-fi
-
-if [[ "$OS" == "Darwin" ]]; then
-    sudo launchctl kickstart -k system/systems.determinate.nix-daemon
-else
-    sudo systemctl restart nix-daemon.service
 fi
 
 # Clear out macOS settings that need to be set (or not set) explicitly
@@ -73,29 +69,26 @@ if [[ "$OS" == "Darwin" ]]; then
     defaults delete kCFPreferencesAnyApplication AppleInterfaceStyle 2>/dev/null || true
 fi
 
+# Move files that we might overwrite out of the way
+#
+if [[ -e /etc/pam.d/sudo_local ]] && [[ ! -L /etc/pam.d/sudo_local ]]; then
+    sudo mv /etc/pam.d/sudo_local /etc/pam.d/sudo_local.before-nix-darwin
+fi
+if [[ -e "$HOME"/.bashrc ]] && [[ ! -L "$HOME"/.bashrc ]]; then
+    mv "$HOME"/.bashrc "$HOME"/.bashrc.before-home-manager
+fi
+if [[ -e "$HOME"/.profile ]] && [[ ! -L "$HOME"/.profile ]]; then
+    mv "$HOME"/.profile "$HOME"/.profile.before-home-manager
+fi
+
 # Build configuration
 #
 if [[ "$OS" == "Darwin" ]]; then
-    # Move files that we know we're going to overwrite out of the way
-    #
-    if [[ -e /etc/pam.d/sudo_local ]] && [[ ! -L /etc/pam.d/sudo_local ]]; then
-        sudo mv /etc/pam.d/sudo_local /etc/pam.d/sudo_local.before-nix-darwin
-    fi
-
     (
         cd "$HOME/config/nix"
         sudo -H nix run nix-darwin -- switch --flake .#macos
     )
 else
-    # Move files that we know we're going to overwrite out of the way
-    #
-    if [[ -e "$HOME"/.bashrc ]] && [[ ! -L "$HOME"/.bashrc ]]; then
-        mv "$HOME"/.bashrc "$HOME"/.bashrc.before-home-manager
-    fi
-    if [[ -e "$HOME"/.profile ]] && [[ ! -L "$HOME"/.profile ]]; then
-        mv "$HOME"/.profile "$HOME"/.profile.before-home-manager
-    fi
-
     (
         cd "$HOME/config/nix"
         dbus-run-session nix run home-manager/master -- switch --flake .#android
