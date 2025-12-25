@@ -100,6 +100,12 @@
       alias watch "$(which batwatch)"
       alias yq "$(which jaq)"
 
+      # Fix zeditor on macOS
+      #
+      if test "$OS" = "Darwin"
+        alias zeditor "$(which zeditor) --zed \"$HOME/Applications/Home Manager Apps/Zed.app\""
+      end
+
       # Hook fish postexec event to add a newline between prompts
       #
       #     https://stackoverflow.com/a/70644608

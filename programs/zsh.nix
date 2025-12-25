@@ -147,6 +147,12 @@
         alias watch="$(which batwatch)"
         alias yq="$(whence -p jaq)"
 
+        # Fix zeditor on macOS
+        #
+        if [[ "$OS" == "Darwin" ]]; then
+          alias zeditor="$(whence -p zeditor) --zed \"$HOME/Applications/Home Manager Apps/Zed.app\""
+        fi
+
         # Wrap man/batman to supress readlink errors
         #
         function man {
