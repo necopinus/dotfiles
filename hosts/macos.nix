@@ -253,7 +253,7 @@
 
       "com.apple.universalaccess".showWindowTitlebarIcons = true;
 
-      "com.google.drivefs.settings"."PromptToBackupDevices" = false;
+      "com.google.drivefs.settings".PromptToBackupDevices = false;
 
       "com.pilotmoon.scroll-reverser" = {
         InvertScrollingOn = true;
