@@ -84,7 +84,7 @@ if [[ "$OS" == "Darwin" ]]; then
 
     (
         cd "$HOME/config/nix"
-        sudo nix run nix-darwin -- switch --flake .#macos
+        sudo -H nix run nix-darwin -- switch --flake .#macos
     )
 else
     # Move files that we know we're going to overwrite out of the way
