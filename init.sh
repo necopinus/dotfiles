@@ -71,14 +71,28 @@ fi
 
 # Move files that we might overwrite out of the way
 #
-if [[ -e /etc/pam.d/sudo_local ]] && [[ ! -L /etc/pam.d/sudo_local ]]; then
-    sudo mv /etc/pam.d/sudo_local /etc/pam.d/sudo_local.before-nix-darwin
+if [[ "$OS" == "Darwin" ]]; then
+    if [[ -e /etc/bashrc ]] && [[ ! -L /etc/bashrc ]]; then
+        sudo mv /etc/bashrc /etc/bashrc.before-nix
+    fi
+    if [[ -e /etc/pam.d/sudo_local ]] && [[ ! -L /etc/pam.d/sudo_local ]]; then
+        sudo mv /etc/pam.d/sudo_local /etc/pam.d/sudo_local.before-nix
+    fi
+    if [[ -e /etc/zprofile ]] && [[ ! -L /etc/zprofile ]]; then
+        sudo mv /etc/zprofile /etc/zprofile.before-nix
+    fi
+    if [[ -e /etc/zshenv ]] && [[ ! -L /etc/zshenv ]]; then
+        sudo mv /etc/zshenv /etc/zshenv.before-nix
+    fi
+    if [[ -e /etc/zshrc ]] && [[ ! -L /etc/zshrc ]]; then
+        sudo mv /etc/zshrc /etc/zshrc.before-nix
+    fi
 fi
 if [[ -e "$HOME"/.bashrc ]] && [[ ! -L "$HOME"/.bashrc ]]; then
-    mv "$HOME"/.bashrc "$HOME"/.bashrc.before-home-manager
+    mv "$HOME"/.bashrc "$HOME"/.bashrc.before-nix
 fi
 if [[ -e "$HOME"/.profile ]] && [[ ! -L "$HOME"/.profile ]]; then
-    mv "$HOME"/.profile "$HOME"/.profile.before-home-manager
+    mv "$HOME"/.profile "$HOME"/.profile.before-nix
 fi
 
 # Build configuration
