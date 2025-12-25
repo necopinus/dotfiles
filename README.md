@@ -6,6 +6,9 @@ You don't want to use these files directly, as they hard-code certain aspects of
 
 ## Quick start
 
+> [!important]
+> On macOS, you _must_ grant your terminal application the "Full Disk Access" privilege in order for the commands below to work. After `init.sh` finishes its run, you _must_ also grant this privilege to WezTerm!
+
 ```bash
 if [[ -n "$(which apt 2> /dev/null)" ]]; then
     sudo apt install git

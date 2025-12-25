@@ -498,7 +498,10 @@ echo ""
 echo "Configuration complete!"
 echo ""
 if [[ "$OS" == "Darwin" ]]; then
-    echo "To finish setup you MUST reboot your system NOW."
+    echo "To finish setup you MUST take the following actions NOW:"
+    echo ""
+    echo "  1. grant the \"Full Disk Access\" privilege to WezTerm, and"
+    echo "  2. Reboot your system."
 else
     echo "To finish setup you MUST log out of all sessions NOW."
 fi
