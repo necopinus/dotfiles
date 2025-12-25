@@ -42,7 +42,7 @@ fi
 
 # Install Nix
 #
-if [[ -z "$(which determinate-nixd 2>/dev/null)" ]]; then
+if [[ ! -f /nix/var/nix/profiles/default/etc/profile.d/nix-daemon.sh ]]; then
     curl -fsSL https://install.determinate.systems/nix | sh -s -- install --determinate --no-confirm
 fi
 if [[ -f /nix/var/nix/profiles/default/etc/profile.d/nix-daemon.sh ]]; then
