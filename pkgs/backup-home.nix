@@ -3,8 +3,6 @@ writeShellApplication {
   name = "backup-home";
 
   text = ''
-    set -e
-
     # Set OS type
     #
     OS="$(uname -s)"

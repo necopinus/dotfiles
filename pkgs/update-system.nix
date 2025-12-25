@@ -3,8 +3,6 @@ writeShellApplication {
   name = "update-system";
 
   text = ''
-    set -e
-
     # Set OS type
     #
     OS="$(uname -s)"
