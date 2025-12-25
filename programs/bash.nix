@@ -135,7 +135,7 @@
       alias ls="$(which eza) --classify=auto --color=auto --group-directories-first --git --group"
       alias more="$(which bat)"
       alias nvim="$(which "$EDITOR")"
-      alias prettycat="$(whence -p prettybat)"
+      alias prettycat="$(which prettybat)"
       alias rg="$(which batgrep)"
       alias sudo="/usr/bin/sudo -E"
       alias top="$(which btm) --basic"
