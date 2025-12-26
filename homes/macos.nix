@@ -16,11 +16,8 @@ in {
 
     #### Desktop apps ####
     #calibre         # Marked as broken
-    #discord         # Always fails to install updates
     #handbrake-app   # Marked as broken
-    protonmail-desktop
     #scroll-reverser # Flagged as "damaged" by macOS, won't open
-    slack
     #stellarium      # Marked as broken
     xld
 

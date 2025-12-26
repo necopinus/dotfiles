@@ -41,12 +41,8 @@
 
     casks = [
       "adobe-creative-cloud"
-      "burp-suite" # Version in nixpkgs breaks nix evaluation (Linux-specific build) on macOS (only used by hackenv)
       "calibre" # Version in nixpkgs marked as broken
-      "claude"
-      "discord" # Version in nixpkgs fails to install updates
       "doppler-app"
-      "github"
       "google-drive"
       "handbrake-app" # Version in nixpkgs marked as broken
       "makemkv"
@@ -55,17 +51,13 @@
         greedy = true; # App core doesn't actually get auto-updated
       }
       "proton-drive"
-      "proton-pass"
       "protonvpn"
       "qflipper"
       "qobuz-downloader"
-      "reader"
       "scroll-reverser" # Version in nixpkgs flagged as "damaged" by macOS, won't open
       "signal"
       "stellarium" # Version in nixpkgs marked as broken
-      "todoist-app"
       "tresorit"
-      "ungoogled-chromium" # Version in nixpkgs not supported macOS (only used by hackenv)
       "vlc"
       "wireshark-chmodbpf" # Wireshark helper driver (only used by hackenv)
       "yubico-yubikey-manager"
