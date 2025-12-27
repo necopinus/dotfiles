@@ -134,6 +134,12 @@
       persistent-others = [
         {
           folder = {
+            path = "/Users/${config.system.primaryUser}/Applications/Chromium Apps.localized";
+            showas = "grid";
+          };
+        }
+        {
+          folder = {
             path = "/Users/${config.system.primaryUser}/Downloads";
             showas = "grid";
           };
