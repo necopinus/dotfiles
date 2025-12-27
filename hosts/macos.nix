@@ -134,7 +134,7 @@
       persistent-others = [
         {
           folder = {
-            path = "/Users/${config.system.primaryUser}/Applications/Chromium Apps.localized";
+            path = "/Users/${config.system.primaryUser}/Applications/Brave Browser Apps.localized";
             showas = "grid";
           };
         }
