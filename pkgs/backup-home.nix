@@ -50,6 +50,7 @@ writeShellApplication {
       mkBackupList "$HOME/data"
     else
       mkBackupList "$HOME/data/calibre"
+      mkBackupList "$HOME/Documents"
     fi
 
     mkBackupList "$XDG_CONFIG_HOME/engagements"
