@@ -1,10 +1,16 @@
 {
+  config,
   pkgs,
   lib,
   ...
 }: {
   programs.zsh = {
     enable = true;
+
+    # Move Zsh configuration files; can be removed when
+    # home.stateVersion is advanced to 26.05
+    #
+    dotDir = "${config.xdg.configHome}/zsh";
 
     # ~/.zshenv
     #
