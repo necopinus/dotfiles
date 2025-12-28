@@ -42,9 +42,10 @@
     casks = [
       "adobe-creative-cloud"
       "calibre" # Version in nixpkgs marked as broken
-      "doppler-app"
+      "doppler-app" # FIXME: I'd rather use Quod Libet...
       "google-drive"
       "handbrake-app" # Version in nixpkgs marked as broken
+      "kid3" # FIXME: I'd rather use Ex Falso / Operon...
       "makemkv"
       {
         name = "obsidian";

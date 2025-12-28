@@ -18,6 +18,7 @@ in {
 
   home.packages = with pkgs; [
     libgourou
+    quodlibet-full
     util-linux
 
     #### Look and feel ####
