@@ -83,6 +83,9 @@
     ];
 
     userSettings = {
+      show_whitespace = "selection";
+      soft_wrap = "editor_width";
+      auto_indent = true;
       auto_indent_on_paste = true;
       format_on_save = "on";
       buffer_font_family = "JetBrainsMono Nerd Font Mono";
