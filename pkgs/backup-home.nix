@@ -27,9 +27,9 @@ writeShellApplication {
                  -o -name "*~" \
                  -o -name ".#*" \
                  -o -name "._*" \) \
-          \) -exec realpath "{}" \; >> "$BACKUP_LIST"
+          \) -exec realpath "{}" \; | tee -a "$BACKUP_LIST"
         elif [[ -f "$1" ]]; then
-          realpath "$1" >> "$BACKUP_LIST"
+          realpath "$1" | tee -a "$BACKUP_LIST"
         fi
     }
 
@@ -69,6 +69,9 @@ writeShellApplication {
 
     (
       cd "$HOME"
+      echo ""
+      echo "=== Creating backup archive ==="
+      echo ""
       tar -cJv -f "$XDG_DOWNLOAD_DIR/backup.tar.xz" -T "$BACKUP_LIST"
     )
 
