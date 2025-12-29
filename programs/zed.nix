@@ -13,7 +13,7 @@
       then
         pkgs.symlinkJoin {
           name = "zed-editor-android-vm";
-          paths = [pkgs.pkgs.zed-editor-fhs];
+          paths = [pkgs.zed-editor-fhs];
           buildInputs = [pkgs.makeWrapper];
           postBuild = ''
             wrapProgram $out/bin/zeditor \
