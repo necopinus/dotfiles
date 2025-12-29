@@ -42,12 +42,12 @@
         "$swift"
         "[](fg:color_blue bg:color_bg3)"
         "$cmake"
-        "$cmd_duration"
         "$conda"
         "$docker_context"
         "$gradle"
         "$nix_shell"
         "$pixi"
+        "$cmd_duration"
         "[](fg:color_bg3 bg:color_bg1)"
         "$time"
         "[](fg:color_bg1)"
@@ -272,12 +272,6 @@
         format = "[[ $symbol( $environment) ](fg:color_fg0 bg:color_bg3)]($style)";
       };
 
-      cmd_duration = {
-        disabled = false;
-        style = "bg:color_bg3";
-        format = "[[  $duration ](fg:color_fg0 bg:color_bg3 bold)]($style)";
-      };
-
       docker_context = {
         disabled = true;
         symbol = "";
@@ -304,6 +298,12 @@
         symbol = "󰰙";
         style = "bg:color_bg3";
         format = "[[ $symbol( $version)( $environment) ](fg:color_fg0 bg:color_bg3)]($style)";
+      };
+
+      cmd_duration = {
+        disabled = false;
+        style = "bg:color_bg3";
+        format = "[[  $duration ](fg:color_fg0 bg:color_bg3 bold)]($style)";
       };
 
       #### Dark Gray #######################################################
