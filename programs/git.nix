@@ -1,14 +1,12 @@
-{pkgs, ...}: {
+{
+  config,
+  pkgs,
+  ...
+}: {
   programs.git = {
     enable = true;
     package = pkgs.gitFull;
 
-    includes = [
-      {
-        path = "gpg.ini"; # Created per-system by init.sh
-      }
-    ];
-    signing.signByDefault = true;
     settings = {
       user = {
         name = "Nathan Acks";
@@ -21,8 +19,10 @@
         rebase = false;
       };
     };
-
-    # Needed by GitHub Desktop (see ../hosts/macos.nix)
-    lfs.enable = true;
+    signing = {
+      format = "ssh";
+      key = "${config.home.homeDirectory}/.ssh/id_ed25519";
+      signByDefault = true;
+    };
   };
 }

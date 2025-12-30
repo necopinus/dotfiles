@@ -57,6 +57,23 @@
     # Run for interactive shells
     #
     interactiveShellInit = ''
+      # Start ssh-agent, if necessary
+      #
+      #   https://stackoverflow.com/questions/18880024/start-ssh-agent-on-login/18915067#18915067
+      #
+      if test -z "$SSH_AUTH_SOCK"
+        if test -f $HOME/.ssh/agent.env
+          cat $HOME/.ssh/agent.env | babelfish | source
+        end
+        if test -z "$SSH_AGENT_PID"; or test $(ps -ef | grep -v grep | grep -c "$SSH_AGENT_PID") -eq 0
+          if test ! -d $HOME/.ssh
+            mkdir -p $HOME/.ssh
+          end
+          ssh-agent | sed '/^echo/d' > $HOME/.ssh/agent.env
+          cat $HOME/.ssh/agent.env | babelfish | source
+        end
+      end
+
       # Source various API keys into the environment
       #
       if test -f "$XDG_CONFIG_HOME"/api-keys.env.sh
@@ -173,20 +190,6 @@
         batman = ''
           set BATMAN_EXEC $(which batman)
           $BATMAN_EXEC $argv 2> /dev/null
-        '';
-
-        # Wrap git and gpg to make sure that the current terminal is
-        # correctly set for gpg-agent
-        #
-        git = ''
-          gpg-connect-agent UPDATESTARTUPTTY /bye > /dev/null
-          set GIT_EXEC $(which git)
-          $GIT_EXEC $argv
-        '';
-        gpg = ''
-          gpg-connect-agent UPDATESTARTUPTTY /bye > /dev/null
-          set GPG_EXEC $(which gpg)
-          $GPG_EXEC $argv
         '';
       }
       // lib.attrsets.optionalAttrs pkgs.stdenv.isLinux {

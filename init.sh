@@ -123,11 +123,6 @@ if [[ "$OS" == "Linux" ]]; then
         strace \
         yubikey-manager-qt
 
-    # Make sure GPG is removed so as not to interfere with the version
-    # from Nixpkgs
-    #
-    sudo apt purge -y --autoremove --purge gnupg
-
     # Comment out global SSH option that Nix's ssh binary doesn't like
     #
     sudo sed -i 's/^    GSSAPIAuthentication yes/#   GSSAPIAuthentication yes/' /etc/ssh/ssh_config
@@ -317,100 +312,23 @@ if [[ "$OS" == "Darwin" ]]; then
     mkdir -p "$HOME/data/calibre"
 fi
 
-# Fix permissions; probably not necessary anymore
+# Make sure that SSH is set up
 #
 chmod 700 "$HOME/.ssh"
 find "$HOME/.ssh" -type d -exec chmod 700 "{}" \;
 find "$HOME/.ssh" -type f -exec chmod 600 "{}" \;
 
-chmod 700 "$HOME/.gnupg"
-find "$HOME/.gnupg" -type d -exec chmod 700 "{}" \;
-find "$HOME/.gnupg" -type f -exec chmod 600 "{}" \;
-
-# Make sure that the GPG environment is set up
-#
-GPG_TTY=$(tty)
-SSH_AUTH_SOCK="$(gpgconf --list-dirs agent-ssh-socket)"
-export GPG_TTY SSH_AUTH_SOCK
-
-gpgconf --kill gpg-agent
-gpg-connect-agent updatestartuptty /bye
-
-# Set up GPG and SSH, if applicable
-#
-if [[ $(find "$HOME/.ssh" -type f -iname "id_*" 2>/dev/null | wc -l) -eq 0 ]] &&
-    [[ $(gpg --list-secret-keys --with-colons |
-        grep -cE '^sec:(f|u):') -eq 0 ]]; then
-    # Create a new GPG/SSH keys
-    #
-    gpg --batch --expert --full-generate-key <<-EOF
-	Key-Type: EDDSA
-	    Key-Curve: ed25519
-	    Key-Usage: sign auth
-	Subkey-Type: ECDH
-	    Subkey-Curve: cv25519
-	    Subkey-Usage: encrypt
-	Expire-Date: 0
-	Name-Real: Nathan Acks
-	Name-Email: nathan.acks@cardboard-iguana.com
-	EOF
-
-    # Get the key ID of the new key
-    #
-    NEW_SECRET_KEY_ID="$(
-        gpg --list-secret-keys --with-colons |
-            grep -E '^sec:(f|u):' |
-            cut -d: -f 5
-    )"
-
-    # Get the keygrip of the new key
-    #
-    # FIXME: I *think* that the output of --with-colons is ordered, and
-    #        thus the keygrip for the primary key is just the first
-    #        keygrip when this key is displayed. But I can't find any
-    #        good documentation about this, so I may be wrong and this
-    #        may break.
-    #
-    NEW_SECRET_KEY_GRIP="$(
-        gpg --list-secret-keys --with-colons "$NEW_SECRET_KEY_ID" |
-            grep -E '^grp:' |
-            cut -d: -f 10 |
-            head -1
-    )"
-
-    # SSH setup
-    #
-    gpgconf --kill gpg-agent
-    rm -f "$HOME"/.gnupg/sshcontrol
-    gpg-connect-agent updatestartuptty /bye &>/dev/null
-    ssh-add -l &>/dev/null || true
-    gpg-connect-agent "keyattr $NEW_SECRET_KEY_GRIP Use-for-ssh: true" /bye >/dev/null
-    echo "$NEW_SECRET_KEY_GRIP" >>"$HOME/.gnupg/sshcontrol"
-
-    # Update git signing key
-    #
-    mkdir -p "$XDG_CONFIG_HOME/git"
-    echo "[user]" >"$XDG_CONFIG_HOME/git/gpg.ini"
-    echo "    signingkey = $NEW_SECRET_KEY_ID" >>"$XDG_CONFIG_HOME/git/gpg.ini"
-
-    # Print public GPG and SSH keys for new secret key
-    #
+if [[ $(find "$HOME/.ssh" -mindepth 1 -maxdepth 1 -type f -iname "id_ed25519" 2>/dev/null | wc -l) -eq 0 ]]; then
+    ssh-keygen -C "Nathan Acks <nathan.acks@cardboard-iguana.com> ($(date)) [$USER@$(hostname)]" -f "$HOME"/.ssh/id_ed25519 -t ed25519
     echo ""
-    echo "-----------------------------------------"
-    echo "New secret key 0x$NEW_SECRET_KEY_ID created"
-    echo "-----------------------------------------"
+    echo "-------------------"
+    echo "New SSH key created"
+    echo "-------------------"
     echo ""
-    gpg --list-keys --with-keygrip --keyid-format=long "$NEW_SECRET_KEY_ID"
-    echo "GPG public key block:"
+    cat "$HOME"/.ssh/id_ed25519.pub
     echo ""
-    gpg --armor --export "$NEW_SECRET_KEY_ID"
-    echo ""
-    echo "SSH public key:"
-    echo ""
-    gpg --export-ssh-key "$NEW_SECRET_KEY_ID"
-    echo ""
-    echo "You must add the public GPG and SSH key displayed above to GitHub before"
-    echo "continuing."
+    echo "You must add the public SSH key displayed above to GitHub (as BOTH an"
+    echo "authentication AND signing key) before continuing."
     echo ""
     read -rs -n 1 -p "Press any key to continue once this step is complete."
     echo ""

@@ -21,7 +21,6 @@ in {
     ../programs/fish.nix
     ../programs/git.nix
     ../programs/glow.nix
-    ../programs/gnupg.nix
     ../programs/helix.nix
     ../programs/jq.nix
     ../programs/less.nix

@@ -107,6 +107,23 @@
         export SHELL="$(which bash)"
       fi
 
+      # Start ssh-agent, if necessary
+      #
+      #   https://stackoverflow.com/questions/18880024/start-ssh-agent-on-login/18915067#18915067
+      #
+      if [[ -z "$SSH_AUTH_SOCK" ]]; then
+        if [[ -f "$HOME"/.ssh/agent.env ]]; then
+          source "$HOME"/.ssh/agent.env
+        fi
+        if [[ -z "$SSH_AGENT_PID" ]] || [[ $(ps -ef | grep -v grep | grep -c "$SSH_AGENT_PID") -eq 0 ]]; then
+          if [[ ! -d "$HOME"/.ssh ]]; then
+            mkdir -p "$HOME"/.ssh
+          fi
+          ssh-agent | sed '/^echo/d' > "$HOME"/.ssh/agent.env
+          source "$HOME"/.ssh/agent.env
+        fi
+      fi
+
       # Source various API keys into the environment
       #
       if [[ -f "$XDG_CONFIG_HOME/api-keys.env.sh" ]]; then
@@ -167,20 +184,6 @@
       function batman {
         BATMAN_EXEC="$(which batman)"
         $BATMAN_EXEC "$@" 2> /dev/null
-      }
-
-      # Wrap git and gpg to make sure that the current terminal is
-      # correctly set for gpg-agent
-      #
-      function git {
-        gpg-connect-agent UPDATESTARTUPTTY /bye > /dev/null
-        GIT_EXEC="$(which git)"
-        $GIT_EXEC "$@"
-      }
-      function gpg {
-        gpg-connect-agent UPDATESTARTUPTTY /bye > /dev/null
-        GPG_EXEC="$(which gpg)"
-        $GPG_EXEC "$@"
       }
 
       # Convenience function for launching graphical apps from the terminal

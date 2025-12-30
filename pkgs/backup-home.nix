@@ -35,9 +35,7 @@ writeShellApplication {
 
     mkBackupList "$XDG_CONFIG_HOME/nix"
 
-    mkBackupList "$HOME/.gnupg"
     mkBackupList "$HOME/.ssh"
-    mkBackupList "$XDG_CONFIG_HOME/git/gpg.ini"
     mkBackupList "$XDG_CONFIG_HOME/shodan/api_key"
     mkBackupList "$XDG_CONFIG_HOME/api-keys.env.sh"
 

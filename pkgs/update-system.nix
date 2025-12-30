@@ -50,15 +50,6 @@ writeShellApplication {
     hx -g fetch
     hx -g build
 
-    # Need to set up GPG environment here to work around issues on some
-    # systems
-    #
-    GPG_TTY="$(tty)"
-    SSH_AUTH_SOCK="$(gpgconf --list-dirs agent-ssh-socket)"
-
-    export GPG_TTY SSH_AUTH_SOCK
-    gpg-connect-agent updatestartuptty /bye
-
     # Git repositories
     #
     if [[ -d "$HOME/src" ]]; then
