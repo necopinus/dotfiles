@@ -1,4 +1,9 @@
-{...}: {
+{pkgs, ...}: {
+  xdg.dataFile."applications/bottom.desktop" = {
+    enable = pkgs.stdenv.isLinux;
+    source = ../artifacts/local/share/applications/hidden.desktop;
+  };
+
   programs.bottom = {
     enable = true;
 

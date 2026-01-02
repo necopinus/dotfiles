@@ -8,7 +8,14 @@
     pbpaste = pkgs.callPackage ../pkgs/pbpaste.nix {};
   };
 in {
-  xdg.configFile."moxide/settings.toml".source = ../artifacts/config/moxide/settings.toml;
+  xdg = {
+    configFile."moxide/settings.toml".source = ../artifacts/config/moxide/settings.toml;
+
+    dataFile."applications/Helix.desktop" = {
+      enable = pkgs.stdenv.isLinux;
+      source = ../artifacts/local/share/applications/hidden.desktop;
+    };
+  };
 
   programs.helix = {
     enable = true;

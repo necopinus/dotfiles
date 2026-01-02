@@ -28,8 +28,11 @@
 
       # Make sure that Nix is set up
       #
-      if [[ -f /nix/var/nix/profiles/default/etc/profile.d/nix-daemon.sh ]]; then
+      if [[ -f /nix/var/nix/profiles/default/etc/profile.d/nix-daemon.sh ]] && [[ -z "$__ETC_PROFILE_NIX_SOURCED" ]]; then
         source /nix/var/nix/profiles/default/etc/profile.d/nix-daemon.sh
+      fi
+      if [[ -f "$HOME/.nix-profile/etc/profile.d/hm-session-vars.sh" ]] && [[ -z "$__HM_SESS_VARS_SOURCED" ]]; then
+        source "$HOME/.nix-profile/etc/profile.d/hm-session-vars.sh"
       fi
 
       # Append Homebrew bin directory to PATH, since some GUI casks

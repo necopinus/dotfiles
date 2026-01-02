@@ -31,6 +31,9 @@
       if [ -f /nix/var/nix/profiles/default/etc/profile.d/nix-daemon.sh ]; then
         source /nix/var/nix/profiles/default/etc/profile.d/nix-daemon.sh
       fi
+      if [ -f "$HOME/.nix-profile/etc/profile.d/hm-session-vars.sh" ] && [ -z "$__HM_SESS_VARS_SOURCED" ]; then
+        source "$HOME/.nix-profile/etc/profile.d/hm-session-vars.sh"
+      fi
 
       # Load $XDG_CONFIG_HOME/user-dirs.dirs when applicable
       #

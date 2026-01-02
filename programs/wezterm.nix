@@ -1,5 +1,14 @@
 {...}: {
-  xdg.configFile."wezterm/wezterm.lua".source = ../artifacts/config/wezterm/wezterm.lua;
+  xdg = {
+    configFile."wezterm/wezterm.lua".source = ../artifacts/config/wezterm/wezterm.lua;
+    terminal-exec = {
+      settings = {
+        default = [
+          "org.wezfurlong.wezterm.desktop"
+        ];
+      };
+    };
+  };
 
   programs.wezterm = {
     enable = true;

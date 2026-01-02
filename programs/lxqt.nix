@@ -84,6 +84,16 @@
       "screengrab".source = config.lib.file.mkOutOfStoreSymlink "${config.xdg.configHome}/nix/artifacts/config/screengrab";
     };
     dataFile = {
+      # Hide some desktop applications
+      #
+      "applications/lxqt-config-brightness.desktop".source = ../artifacts/local/share/applications/hidden.desktop;
+      "applications/lxqt-config-monitor.desktop".source = ../artifacts/local/share/applications/hidden.desktop;
+      "applications/lxqt-hibernate.desktop".source = ../artifacts/local/share/applications/hidden.desktop;
+      "applications/lxqt-lockscreen.desktop".source = ../artifacts/local/share/applications/hidden.desktop;
+      "applications/lxqt-reboot.desktop".source = ../artifacts/local/share/applications/hidden.desktop;
+      "applications/lxqt-shutdown.desktop".source = ../artifacts/local/share/applications/hidden.desktop;
+      "applications/lxqt-suspend.desktop".source = ../artifacts/local/share/applications/hidden.desktop;
+
       # LXQt config files that are (relatively) safe to link directly
       #
       "libfm-qt/terminals.list".source = ../artifacts/local/share/libfm-qt/terminals.list;

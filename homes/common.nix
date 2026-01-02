@@ -15,6 +15,7 @@ in {
     ../programs/bash.nix
     ../programs/bat.nix
     ../programs/bottom.nix
+    ../programs/brave.nix
     ../programs/delta.nix # Requires bat.nix
     ../programs/dircolors.nix
     ../programs/direnv.nix
@@ -39,7 +40,6 @@ in {
 
   home.packages = with pkgs; [
     android-tools
-    brave
     chafa
     colorized-logs
     curlFull

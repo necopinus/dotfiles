@@ -69,6 +69,8 @@ in {
   #
   xdg = {
     enable = true;
+    mimeApps.enable = true;
+    terminal-exec.enable = true;
 
     userDirs = {
       enable = true;
@@ -100,49 +102,6 @@ in {
       configPackages = with pkgs; [
         gnome-keyring
       ];
-    };
-
-    terminal-exec = {
-      enable = true;
-      settings = {
-        default = [
-          "org.wezfurlong.wezterm.desktop"
-        ];
-      };
-    };
-
-    mimeApps = {
-      enable = true;
-      defaultApplications = {
-        "application/x-extension-htm" = ["brave-browser.desktop"];
-        "application/x-extension-html" = ["brave-browser.desktop"];
-        "application/x-extension-shtml" = ["brave-browser.desktop"];
-        "application/x-extension-xht" = ["brave-browser.desktop"];
-        "application/x-extension-xhtml" = ["brave-browser.desktop"];
-        "application/xhtml+xml" = ["brave-browser.desktop"];
-        "text/html" = ["brave-browser.desktop"];
-        "x-scheme-handler/chrome" = ["brave-browser.desktop"];
-        "x-scheme-handler/http" = ["brave-browser.desktop"];
-        "x-scheme-handler/https" = ["brave-browser.desktop"];
-      };
-      associations.added = {
-        "application/pdf" = ["brave-browser.desktop"];
-        "application/rdf+xml" = ["brave-browser.desktop"];
-        "application/rss+xml" = ["brave-browser.desktop"];
-        "application/x-extension-htm" = ["brave-browser.desktop"];
-        "application/x-extension-html" = ["brave-browser.desktop"];
-        "application/x-extension-shtml" = ["brave-browser.desktop"];
-        "application/x-extension-xht" = ["brave-browser.desktop"];
-        "application/x-extension-xhtml" = ["brave-browser.desktop"];
-        "application/xhtml+xml" = ["brave-browser.desktop"];
-        "application/xhtml_xml" = ["brave-browser.desktop"];
-        "application/xml" = ["brave-browser.desktop"];
-        "text/html" = ["brave-browser.desktop"];
-        "text/xml" = ["brave-browser.desktop"];
-        "x-scheme-handler/chrome" = ["brave-browser.desktop"];
-        "x-scheme-handler/http" = ["brave-browser.desktop"];
-        "x-scheme-handler/https" = ["brave-browser.desktop"];
-      };
     };
 
     configFile = {
@@ -185,15 +144,6 @@ in {
     dataFile = {
       # Hide some desktop applications
       #
-      "applications/bottom.desktop".source = ../artifacts/local/share/applications/hidden.desktop;
-      "applications/Helix.desktop".source = ../artifacts/local/share/applications/hidden.desktop;
-      "applications/lxqt-config-brightness.desktop".source = ../artifacts/local/share/applications/hidden.desktop;
-      "applications/lxqt-config-monitor.desktop".source = ../artifacts/local/share/applications/hidden.desktop;
-      "applications/lxqt-hibernate.desktop".source = ../artifacts/local/share/applications/hidden.desktop;
-      "applications/lxqt-lockscreen.desktop".source = ../artifacts/local/share/applications/hidden.desktop;
-      "applications/lxqt-reboot.desktop".source = ../artifacts/local/share/applications/hidden.desktop;
-      "applications/lxqt-shutdown.desktop".source = ../artifacts/local/share/applications/hidden.desktop;
-      "applications/lxqt-suspend.desktop".source = ../artifacts/local/share/applications/hidden.desktop;
       "applications/vim.desktop".source = ../artifacts/local/share/applications/hidden.desktop;
 
       # Unified backgrounds folder

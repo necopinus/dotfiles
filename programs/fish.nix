@@ -17,18 +17,20 @@
       #
       set OS $(uname -s)
 
-      # Set up Nix, if applicable
+      # Make sure that Nix is set up
       #
-      if test -d /run/current-system/sw/bin
-        fish_add_path /run/current-system/sw/bin
-      end
-
       # We need to reference babelfish by its full path here because
       # ~/.nix-profile/bin isn't added to our PATH until after
       # nix-daemon.sh has been sourced
       #
-      if test -f /nix/var/nix/profiles/default/etc/profile.d/nix-daemon.sh
+      if test -d /run/current-system/sw/bin
+        fish_add_path /run/current-system/sw/bin
+      end
+      if test -f /nix/var/nix/profiles/default/etc/profile.d/nix-daemon.sh; and test -z "$__ETC_PROFILE_NIX_SOURCED"
         cat /nix/var/nix/profiles/default/etc/profile.d/nix-daemon.sh | ${pkgs.babelfish}/bin/babelfish | source
+      end
+      if test -f $HOME/.nix-profile/etc/profile.d/hm-session-vars.sh; and test -z "$__HM_SESS_VARS_SOURCED"
+        cat $HOME/.nix-profile/etc/profile.d/hm-session-vars.sh | babelfish | source
       end
 
       # Load $XDG_CONFIG_HOME/user-dirs.dirs when applicable
