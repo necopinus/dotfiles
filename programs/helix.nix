@@ -40,7 +40,7 @@ in {
         rubyPackages.solargraph
         ruff
         rust-analyzer
-        solc
+        #solc # FIXME - broken as of 2026-01-04; re-enable when solc > 0.8.28 is available
         systemd-lsp
         texlab
         tombi

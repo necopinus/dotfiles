@@ -41,6 +41,7 @@
       rubyPackages.solargraph
       ruff
       rust-analyzer
+      #solc # FIXME - broken as of 2026-01-04; re-enable when solc > 0.8.28 is available
       texlab
       tombi
       vscode-langservers-extracted
