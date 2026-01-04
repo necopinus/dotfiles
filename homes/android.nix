@@ -17,8 +17,8 @@ in {
   programs.home-manager.enable = true; # Make sure that home-manager binary is in the PATH
 
   home.packages = with pkgs; [
+    kid3 # I'd rather use quodlibet-full, but right now that fails - https://github.com/NixOS/nixpkgs/issues/425352
     libgourou
-    quodlibet-full
     util-linux
 
     #### Look and feel ####
