@@ -44,6 +44,7 @@ writeShellApplication {
       fi
     )
     sudo find /nix/var/nix/gcroots -xtype l -exec rm "{}" \;
+    nix atore gc --verbose
 
     # Update Helix grammars
     #
