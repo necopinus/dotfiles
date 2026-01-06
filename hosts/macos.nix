@@ -40,7 +40,6 @@
     '';
 
     casks = [
-      "adobe-creative-cloud"
       "calibre" # Version in nixpkgs marked as broken
       "doppler-app" # FIXME: I'd rather use Quod Libet...
       "google-drive"
@@ -58,7 +57,6 @@
       "scroll-reverser" # Version in nixpkgs flagged as "damaged" by macOS, won't open
       "signal"
       "stellarium" # Version in nixpkgs marked as broken
-      "tresorit"
       "vlc"
       "wireshark-chmodbpf" # Wireshark helper driver (only used by hackenv)
       "yubico-yubikey-manager"
