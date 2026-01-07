@@ -1,4 +1,8 @@
-{llm-agents, ...}: let
+{
+  pkgs,
+  llm-agents,
+  ...
+}: let
   llmAgents = llm-agents.packages.${pkgs.stdenv.hostPlatform.system}; # Set in flake.nix overlay
 in {
   home.packages = with pkgs; [
