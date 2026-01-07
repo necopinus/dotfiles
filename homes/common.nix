@@ -1,11 +1,8 @@
 {
   config,
   pkgs,
-  llm-agents,
   ...
 }: let
-  llmAgents = llm-agents.packages.${pkgs.stdenv.hostPlatform.system}; # Set in flake.nix overlay
-
   localPkgs = {
     backup-home = pkgs.callPackage ../pkgs/backup-home.nix {};
     update-system = pkgs.callPackage ../pkgs/update-system.nix {};
@@ -22,6 +19,7 @@ in {
     ../programs/fish.nix
     ../programs/git.nix
     ../programs/glow.nix
+    ../programs/goose.nix
     ../programs/helix.nix
     ../programs/jq.nix
     ../programs/less.nix
@@ -53,7 +51,6 @@ in {
     less
     libjpeg
     libqalculate
-    llmAgents.goose-cli # Set in flake.nix overlay
     msgpack-tools
     optipng
     poppler-utils
