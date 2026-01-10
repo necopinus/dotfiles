@@ -41,6 +41,7 @@
 
     casks = [
       "calibre" # Version in nixpkgs marked as broken
+      "chatgpt" # Version in nixpkgs is outdated
       "doppler-app" # FIXME: I'd rather use Quod Libet...
       "google-drive"
       "handbrake-app" # Version in nixpkgs marked as broken

@@ -16,6 +16,7 @@ in {
 
     #### Desktop apps ####
     #calibre         # Marked as broken
+    #chatgpt         # Outdated
     #handbrake-app   # Marked as broken
     #scroll-reverser # Flagged as "damaged" by macOS, won't open
     #stellarium      # Marked as broken
