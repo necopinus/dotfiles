@@ -35,7 +35,7 @@
     shellcheck
     shfmt
     sql-formatter
-  ]
+  ];
 in {
   xdg.configFile."moxide/settings.toml".source = ../artifacts/config/moxide/settings.toml;
 
