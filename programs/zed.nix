@@ -3,7 +3,40 @@
   pkgs,
   lib,
   ...
-}: {
+}: let
+  helperPkgs = with pkgs; [
+    #### LSPs ####
+    basedpyright
+    bash-language-server
+    clang-tools
+    docker-compose-language-service
+    dockerfile-language-server
+    gopls
+    haskellPackages.haskell-language-server
+    jdt-language-server
+    kotlin-language-server
+    lua-language-server
+    markdown-oxide
+    nixd
+    powershell-editor-services
+    rubyPackages.solargraph
+    ruff
+    rust-analyzer
+    solc
+    texlab
+    tombi
+    vscode-langservers-extracted
+    vtsls
+    yaml-language-server
+
+    #### Formatters ####
+    alejandra
+    prettier
+    shellcheck
+    shfmt
+    sql-formatter
+  ]
+in {
   xdg.configFile."moxide/settings.toml".source = ../artifacts/config/moxide/settings.toml;
 
   programs.zed-editor = {
@@ -23,38 +56,7 @@
         }
       else null;
 
-    extraPackages = with pkgs; [
-      #### LSPs ####
-      basedpyright
-      bash-language-server
-      clang-tools
-      docker-compose-language-service
-      dockerfile-language-server
-      gopls
-      haskellPackages.haskell-language-server
-      jdt-language-server
-      kotlin-language-server
-      lua-language-server
-      markdown-oxide
-      nixd
-      powershell-editor-services
-      rubyPackages.solargraph
-      ruff
-      rust-analyzer
-      solc
-      texlab
-      tombi
-      vscode-langservers-extracted
-      vtsls
-      yaml-language-server
-
-      #### Formatters ####
-      alejandra
-      prettier
-      shellcheck
-      shfmt
-      sql-formatter
-    ];
+    extraPackages = lib.optionals pkgs.stdenv.isLinux helperPkgs;
 
     extensions = [
       "awk"
@@ -167,9 +169,8 @@
     };
   };
 
-  # Zed doesn't seem to see the programs installed using
-  # programs.zed-editor.extraPackages on macOS, so we use this hack to
-  # expose them explicitly in ~/.nix-profile/bin
+  # Make sure that the packages we'd normally install as extraPackages
+  # are available to Zed on macOS
   #
-  home.packages = lib.optionals pkgs.stdenv.isDarwin config.programs.zed-editor.extraPackages;
+  home.packages = lib.optionals pkgs.stdenv.isDarwin helperPkgs;
 }

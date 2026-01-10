@@ -7,6 +7,46 @@
     pbcopy = pkgs.callPackage ../pkgs/pbcopy.nix {};
     pbpaste = pkgs.callPackage ../pkgs/pbpaste.nix {};
   };
+
+  helperPkgs = with pkgs;
+    [
+      #### LSPs ####
+      awk-language-server
+      bash-language-server
+      clang-tools
+      dockerfile-language-server
+      fish-lsp
+      gopls
+      haskellPackages.haskell-language-server
+      jdt-language-server
+      jq-lsp
+      kotlin-language-server
+      lua-language-server
+      markdown-oxide
+      nixd
+      rubyPackages.solargraph
+      ruff
+      rust-analyzer
+      solc
+      systemd-lsp
+      texlab
+      tombi
+      ty
+      typescript-language-server
+      vscode-langservers-extracted
+      yaml-language-server
+
+      #### Formatters ####
+      bibtex-tidy
+      prettier
+      shellcheck
+      shfmt
+    ]
+    ++ lib.optionals pkgs.stdenv.isLinux [
+      #### Utilities ####
+      localPkgs.pbcopy
+      localPkgs.pbpaste
+    ];
 in {
   xdg = {
     configFile."moxide/settings.toml".source = ../artifacts/config/moxide/settings.toml;
@@ -21,45 +61,7 @@ in {
     enable = true;
     defaultEditor = true;
 
-    extraPackages = with pkgs;
-      [
-        #### LSPs ####
-        awk-language-server
-        bash-language-server
-        clang-tools
-        dockerfile-language-server
-        fish-lsp
-        gopls
-        haskellPackages.haskell-language-server
-        jdt-language-server
-        jq-lsp
-        kotlin-language-server
-        lua-language-server
-        markdown-oxide
-        nixd
-        rubyPackages.solargraph
-        ruff
-        rust-analyzer
-        solc
-        systemd-lsp
-        texlab
-        tombi
-        ty
-        typescript-language-server
-        vscode-langservers-extracted
-        yaml-language-server
-
-        #### Formatters ####
-        bibtex-tidy
-        prettier
-        shellcheck
-        shfmt
-      ]
-      ++ lib.optionals pkgs.stdenv.isLinux [
-        #### Utilities ####
-        localPkgs.pbcopy
-        localPkgs.pbpaste
-      ];
+    extraPackages = helperPkgs;
 
     settings = {
       theme = "gruvbox_light_mod";
