@@ -124,7 +124,7 @@
       if test "$OS" = "Darwin"
         if test -n "$(which zed)"
           if test -d /Applications/Zed.app
-            alias zed "$(which -p zed) --zed /Applications/Zed.app"
+            alias zed "$(which zed) --zed /Applications/Zed.app"
             alias zeditor "$(which zed) --zed /Applications/Zed.app"
           else if test -d "$HOME/Applications/Home Manager Apps/Zed.app"
             alias zed "$(which zed) --zed \"$HOME/Applications/Home Manager Apps/Zed.app\""
