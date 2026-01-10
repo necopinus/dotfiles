@@ -10,6 +10,7 @@
   };
 in {
   imports = [
+    ../programs/brave.nix
     ../programs/obsidian.nix
     ../programs/lxqt.nix
   ];

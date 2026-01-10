@@ -12,7 +12,6 @@ in {
     ../programs/bash.nix
     ../programs/bat.nix
     ../programs/bottom.nix
-    ../programs/brave.nix
     ../programs/delta.nix # Requires bat.nix
     ../programs/dircolors.nix
     ../programs/direnv.nix

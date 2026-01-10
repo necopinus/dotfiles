@@ -21,7 +21,7 @@
               --set ZED_ALLOW_EMULATED_GPU 1
           '';
         }
-      else pkgs.zed-editor;
+      else null;
 
     extraPackages = with pkgs; [
       #### LSPs ####
@@ -89,6 +89,7 @@
       auto_indent = true;
       auto_indent_on_paste = true;
       format_on_save = "on";
+      excerpt_context_lines = 5;
       buffer_font_family = "JetBrainsMono Nerd Font Mono";
       buffer_font_size = 12;
       ui_font_size = 14;

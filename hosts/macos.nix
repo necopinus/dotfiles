@@ -40,10 +40,12 @@
     '';
 
     casks = [
-      "calibre" # Version in nixpkgs marked as broken
+      "brave-browser"
+      "calibre"
+      "chatgpt"
       "doppler-app" # FIXME: I'd rather use Quod Libet...
       "google-drive"
-      "handbrake-app" # Version in nixpkgs marked as broken
+      "handbrake-app"
       "kid3" # FIXME: I'd rather use Ex Falso / Operon...
       "makemkv"
       {
@@ -54,12 +56,13 @@
       "protonvpn"
       "qflipper"
       "qobuz-downloader"
-      "scroll-reverser" # Version in nixpkgs flagged as "damaged" by macOS, won't open
+      "scroll-reverser"
       "signal"
-      "stellarium" # Version in nixpkgs marked as broken
+      "stellarium"
       "vlc"
       "wireshark-chmodbpf" # Wireshark helper driver (only used by hackenv)
       "yubico-yubikey-manager"
+      "zed"
     ];
   };
 
@@ -126,9 +129,9 @@
 
       persistent-apps = [
         {app = "/System/Applications/Apps.app";}
-        {app = "/Users/${config.system.primaryUser}/Applications/Home Manager Apps/Brave Browser.app";}
+        {app = "/Users/${config.system.primaryUser}/Applications/Brave Browser.app";}
         {app = "/Users/${config.system.primaryUser}/Applications/Home Manager Apps/WezTerm.app";}
-        {app = "/Users/${config.system.primaryUser}/Applications/Home Manager Apps/Zed.app";}
+        {app = "/Users/${config.system.primaryUser}/Applications/Zed.app";}
       ];
       persistent-others = [
         {

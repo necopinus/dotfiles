@@ -15,11 +15,6 @@ in {
     plistwatch
 
     #### Desktop apps ####
-    #calibre         # Marked as broken
-    chatgpt
-    #handbrake-app   # Marked as broken
-    #scroll-reverser # Flagged as "damaged" by macOS, won't open
-    #stellarium      # Marked as broken
     xld
 
     #### Local packages (see above) ####
