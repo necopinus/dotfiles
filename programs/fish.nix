@@ -122,9 +122,6 @@
       # Fix zeditor on macOS
       #
       if test "$OS" = "Darwin"
-        alias zeditor "$(which zeditor) --zed \"$HOME/Applications/Home Manager Apps/Zed.app\""
-      end
-      if test "$OS" = "Darwin"
         if test -n "$(which zed)"
           if test -d "$HOME/Applications/Zed.app"
             alias zed "$(which -p zed) --zed \"$HOME/Applications/Zed.app\""
