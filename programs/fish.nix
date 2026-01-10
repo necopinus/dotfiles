@@ -123,17 +123,17 @@
       #
       if test "$OS" = "Darwin"
         if test -n "$(which zed)"
-          if test -d "$HOME/Applications/Zed.app"
-            alias zed "$(which -p zed) --zed \"$HOME/Applications/Zed.app\""
-            alias zeditor "$(which zed) --zed \"$HOME/Applications/Zed.app\""
+          if test -d /Applications/Zed.app
+            alias zed "$(which -p zed) --zed /Applications/Zed.app"
+            alias zeditor "$(which zed) --zed /Applications/Zed.app"
           else if test -d "$HOME/Applications/Home Manager Apps/Zed.app"
             alias zed "$(which zed) --zed \"$HOME/Applications/Home Manager Apps/Zed.app\""
             alias zeditor "$(which zed) --zed \"$HOME/Applications/Home Manager Apps/Zed.app\""
           end
         else if test -n "$(which zeditor)"
-          if test -d "$HOME/Applications/Zed.app"
-            alias zed "$(which zeditor) --zed \"$HOME/Applications/Zed.app\""
-            alias zeditor "$(which zeditor) --zed \"$HOME/Applications/Zed.app\""
+          if test -d /Applications/Zed.app
+            alias zed "$(which zeditor) --zed /Applications/Zed.app"
+            alias zeditor "$(which zeditor) --zed /Applications/Zed.app"
           else if test -d "$HOME/Applications/Home Manager Apps/Zed.app"
             alias zed "$(which zeditor) --zed \"$HOME/Applications/Home Manager Apps/Zed.app\""
             alias zeditor "$(which zeditor) --zed \"$HOME/Applications/Home Manager Apps/Zed.app\""

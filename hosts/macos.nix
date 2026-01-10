@@ -129,9 +129,9 @@
 
       persistent-apps = [
         {app = "/System/Applications/Apps.app";}
-        {app = "/Users/${config.system.primaryUser}/Applications/Brave Browser.app";}
+        {app = "/Applications/Brave Browser.app";}
         {app = "/Users/${config.system.primaryUser}/Applications/Home Manager Apps/WezTerm.app";}
-        {app = "/Users/${config.system.primaryUser}/Applications/Zed.app";}
+        {app = "/Applications/Zed.app";}
       ];
       persistent-others = [
         {

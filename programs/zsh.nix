@@ -177,17 +177,17 @@
         #
         if [[ "$OS" == "Darwin" ]]; then
           if [[ -n "$(whence -p zed)" ]]; then
-            if [[ -d "$HOME/Applications/Zed.app" ]]; then
-              alias zed="$(whence -p zed) --zed \"$HOME/Applications/Zed.app\""
-              alias zeditor="$(whence -p zed) --zed \"$HOME/Applications/Zed.app\""
+            if [[ -d /Applications/Zed.app ]]; then
+              alias zed="$(whence -p zed) --zed /Applications/Zed.app"
+              alias zeditor="$(whence -p zed) --zed /Applications/Zed.app"
             elif [[ -d "$HOME/Applications/Home Manager Apps/Zed.app" ]]; then
               alias zed="$(whence -p zed) --zed \"$HOME/Applications/Home Manager Apps/Zed.app\""
               alias zeditor="$(whence -p zed) --zed \"$HOME/Applications/Home Manager Apps/Zed.app\""
             fi
           elif [[ -n "$(whence -p zeditor)" ]]; then
-            if [[ -d "$HOME/Applications/Zed.app" ]]; then
-              alias zed="$(whence -p zeditor) --zed \"$HOME/Applications/Zed.app\""
-              alias zeditor="$(whence -p zeditor) --zed \"$HOME/Applications/Zed.app\""
+            if [[ -d /Applications/Zed.app ]]; then
+              alias zed="$(whence -p zeditor) --zed /Applications/Zed.app"
+              alias zeditor="$(whence -p zeditor) --zed /Applications/Zed.app"
             elif [[ -d "$HOME/Applications/Home Manager Apps/Zed.app" ]]; then
               alias zed="$(whence -p zeditor) --zed \"$HOME/Applications/Home Manager Apps/Zed.app\""
               alias zeditor="$(whence -p zeditor) --zed \"$HOME/Applications/Home Manager Apps/Zed.app\""
