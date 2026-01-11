@@ -1,5 +1,4 @@
 {
-  config,
   pkgs,
   lib,
   ...
@@ -86,7 +85,7 @@ in {
     ];
 
     userSettings = {
-      show_whitespace = "selection";
+      show_whitespaces = "selection";
       soft_wrap = "editor_width";
       auto_indent = true;
       auto_indent_on_paste = true;
