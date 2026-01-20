@@ -170,14 +170,35 @@
         format = "[[ $symbol( $version) ](fg:color_fg0 bg:color_blue)]($style)";
       };
 
+      cmake = {
+        disabled = true;
+        symbol = "";
+        style = "bg:color_blue";
+        format = "[[ $symbol( $version) ](fg:color_fg0 bg:color_blue)]($style)";
+      };
+
       cpp = {
         symbol = "";
         style = "bg:color_blue";
         format = "[[ $symbol( $version) ](fg:color_fg0 bg:color_blue)]($style)";
       };
 
+      docker_context = {
+        disabled = true;
+        symbol = "";
+        style = "bg:color_blue";
+        format = "[[ $symbol( $context) ](fg:color_fg0 bg:color_blue)]($style)";
+      };
+
       golang = {
         symbol = "";
+        style = "bg:color_blue";
+        format = "[[ $symbol( $version) ](fg:color_fg0 bg:color_blue)]($style)";
+      };
+
+      gradle = {
+        disabled = true;
+        symbol = "";
         style = "bg:color_blue";
         format = "[[ $symbol( $version) ](fg:color_fg0 bg:color_blue)]($style)";
       };
@@ -204,6 +225,13 @@
         symbol = "";
         style = "bg:color_blue";
         format = "[[ $symbol( $version) ](fg:color_fg0 bg:color_blue)]($style)";
+      };
+
+      nix_shell = {
+        disabled = false;
+        symbol = "";
+        style = "bg:color_blue";
+        format = "[[ $symbol( $state)( $name) ](fg:color_fg0 bg:color_blue)]($style)";
       };
 
       nodejs = {
@@ -257,48 +285,6 @@
       };
 
       #### Light Gray ######################################################
-
-      cmake = {
-        disabled = true;
-        symbol = "";
-        style = "bg:color_bg3";
-        format = "[[ $symbol( $version) ](fg:color_fg0 bg:color_bg3)]($style)";
-      };
-
-      conda = {
-        disabled = true;
-        symbol = "󰯲";
-        style = "bg:color_bg3";
-        format = "[[ $symbol( $environment) ](fg:color_fg0 bg:color_bg3)]($style)";
-      };
-
-      docker_context = {
-        disabled = true;
-        symbol = "";
-        style = "bg:color_bg3";
-        format = "[[ $symbol( $context) ](fg:color_fg0 bg:color_bg3)]($style)";
-      };
-
-      gradle = {
-        disabled = true;
-        symbol = "";
-        style = "bg:color_bg3";
-        format = "[[ $symbol( $version) ](fg:color_fg0 bg:color_bg3)]($style)";
-      };
-
-      nix_shell = {
-        disabled = false;
-        symbol = "";
-        style = "bg:color_bg3";
-        format = "[[ $symbol( $state)( $name) ](fg:color_fg0 bg:color_bg3)]($style)";
-      };
-
-      pixi = {
-        disabled = true;
-        symbol = "󰰙";
-        style = "bg:color_bg3";
-        format = "[[ $symbol( $version)( $environment) ](fg:color_fg0 bg:color_bg3)]($style)";
-      };
 
       cmd_duration = {
         disabled = false;
