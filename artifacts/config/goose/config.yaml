@@ -1,7 +1,9 @@
 ANTHROPIC_HOST: https://api.anthropic.com
+GOOSE_CLI_THEME: ansi
 GOOSE_PROVIDER: anthropic
 GOOSE_MODEL: claude-opus-4-5-20251101
 GOOSE_MODE: smart_approve
+SECURITY_PROMPT_ENABLED: true
 
 extensions:
   developer:

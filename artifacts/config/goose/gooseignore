@@ -1,0 +1,12 @@
+~/.cache/
+~/.config
+~/.ssh/
+~/.local/
+~/.gnupg/
+
+~/cache/
+~/config/
+~/Library/
+~/local/
+
+**/api-keys.env.sh
