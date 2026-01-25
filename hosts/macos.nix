@@ -132,6 +132,7 @@
         {app = "/System/Applications/Apps.app";}
         {app = "/Applications/Brave Browser.app";}
         {app = "/Applications/Claude.app";}
+        {app = "/Applications/Discord.app";}
         {app = "/Users/${config.system.primaryUser}/Applications/Home Manager Apps/WezTerm.app";}
         {app = "/Applications/Zed.app";}
       ];
