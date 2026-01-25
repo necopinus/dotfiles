@@ -42,7 +42,7 @@
     casks = [
       "brave-browser"
       "calibre"
-      "chatgpt"
+      "claude"
       "doppler-app" # FIXME: I'd rather use Quod Libet...
       "google-drive"
       "handbrake-app"
@@ -130,7 +130,7 @@
       persistent-apps = [
         {app = "/System/Applications/Apps.app";}
         {app = "/Applications/Brave Browser.app";}
-        {app = "/Applications/ChatGPT.app";}
+        {app = "/Applications/Claude.app";}
         {app = "/Users/${config.system.primaryUser}/Applications/Home Manager Apps/WezTerm.app";}
         {app = "/Applications/Zed.app";}
       ];

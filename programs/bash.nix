@@ -127,12 +127,6 @@
         fi
       fi
 
-      # Source various API keys into the environment
-      #
-      if [[ -f "$XDG_CONFIG_HOME/api-keys.env.sh" ]]; then
-        source "$XDG_CONFIG_HOME/api-keys.env.sh"
-      fi
-
       # Colorize man pages with batman, and then some
       #
       eval "$(batman --export-env)"

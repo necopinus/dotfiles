@@ -18,7 +18,6 @@ in {
     ../programs/fish.nix
     ../programs/git.nix
     ../programs/glow.nix
-    ../programs/goose.nix
     ../programs/helix.nix
     ../programs/jq.nix
     ../programs/less.nix
@@ -38,6 +37,7 @@ in {
   home.packages = with pkgs; [
     android-tools
     chafa
+    claude-code
     colorized-logs
     curlFull
     dos2unix

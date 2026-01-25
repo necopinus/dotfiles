@@ -37,7 +37,10 @@ writeShellApplication {
 
     mkBackupList "$HOME/.ssh"
     mkBackupList "$XDG_CONFIG_HOME/shodan/api_key"
-    mkBackupList "$XDG_CONFIG_HOME/api-keys.env.sh"
+
+    mkBackupList "$HOME/.claude"
+    mkBackupList "$HOME/.claude.json"
+    mkBackupList "$HOME/Library/Application Support/Claude"
 
     mkBackupList "$HOME/.cddb"
     mkBackupList "$HOME/.dvdcss"

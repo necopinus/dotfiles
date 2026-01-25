@@ -76,12 +76,6 @@
         end
       end
 
-      # Source various API keys into the environment
-      #
-      if test -f "$XDG_CONFIG_HOME"/api-keys.env.sh
-        cat "$XDG_CONFIG_HOME"/api-keys.env.sh | babelfish | source
-      end
-
       # Colorize man pages with batman, and then some
       #
       batman --export-env | source
