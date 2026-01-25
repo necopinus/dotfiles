@@ -43,6 +43,7 @@
       "brave-browser"
       "calibre"
       "claude"
+      "discord"
       "doppler-app" # FIXME: I'd rather use Quod Libet...
       "google-drive"
       "handbrake-app"
