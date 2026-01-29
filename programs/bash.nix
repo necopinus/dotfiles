@@ -127,10 +127,9 @@
         fi
       fi
 
-      # Colorize man pages with batman, and then some
+      # Colorize man pages with batman
       #
       eval "$(batman --export-env)"
-      eval "$(batpipe)"
 
       # Convenience aliases, unfortunately much too complex to set up
       # directly using home-manager's programs.bash.shellAliases
