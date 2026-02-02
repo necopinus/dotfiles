@@ -53,6 +53,7 @@ in {
     msgpack-tools
     optipng
     poppler-utils
+    proton-pass-cli
     rsgain
     rsync
     sqlite
