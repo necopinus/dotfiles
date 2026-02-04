@@ -12,6 +12,7 @@ in {
     ../programs/bash.nix
     ../programs/bat.nix
     ../programs/bottom.nix
+    ../programs/claude.nix
     ../programs/delta.nix # Requires bat.nix
     ../programs/dircolors.nix
     ../programs/direnv.nix
@@ -31,13 +32,11 @@ in {
 
   programs.pandoc.enable = true;
   programs.ripgrep.enable = true;
-  programs.uv.enable = true;
   programs.yt-dlp.enable = true;
 
   home.packages = with pkgs; [
     android-tools
     chafa
-    claude-code
     colorized-logs
     curlFull
     dos2unix
