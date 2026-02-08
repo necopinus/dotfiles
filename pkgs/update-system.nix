@@ -54,6 +54,13 @@ writeShellApplication {
         break
       fi
     done
+    find "$HOME/local/state/nix/profiles" -type l -name "home-manager-*-link" -ctime +32 | sort -t- -k2n | while read -r OLD_PROFILE; do
+      if [[ $(find "$HOME/local/state/nix/profiles" -type l -name "home-manager-*-link" | wc -l) -gt 8 ]]; then
+        rm "$OLD_PROFILE"
+      else
+        break
+      fi
+    done
     nix store gc --verbose
 
     # Update Helix grammars
