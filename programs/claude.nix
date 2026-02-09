@@ -1,8 +1,12 @@
 {pkgs, ...}: {
+  programs.ripgrep.enable = true;
   programs.uv.enable = true;
 
   home.packages = with pkgs; [
     claude-code
+
+    #### Sandbox ####
+    socat
 
     #### Bash ####
     shellcheck
@@ -18,4 +22,6 @@
     python3
     ruff
   ];
+  
+  home.file.".claude/settings.json".source = ../artifacts/claude/settings.json;
 }

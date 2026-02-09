@@ -31,7 +31,6 @@ in {
   ];
 
   programs.pandoc.enable = true;
-  programs.ripgrep.enable = true;
   programs.yt-dlp.enable = true;
 
   home.packages = with pkgs; [

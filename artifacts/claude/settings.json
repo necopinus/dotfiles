@@ -1,0 +1,19 @@
+{
+  "$schema": "https://json.schemastore.org/claude-code-settings.json",
+  "permissions": {
+    "deny": [
+      "Read(~/.gnupg)",
+      "Read(~/.ssh)"
+    ]
+  },
+  "sandbox": {
+    "enabled": true,
+    "autoAllowBashIfSandboxed": true,
+    "network": {
+      "allowedDomains": [],
+      "allowUnixSockets": [],
+      "allowLocalBinding": true
+    },
+    "excludedCommands": []
+  }
+}
