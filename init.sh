@@ -120,7 +120,6 @@ if [[ "$OS" == "Linux" ]]; then
         procps \
         rtkit \
         seatd \
-        strace \
         yubikey-manager-qt
 
     # Comment out global SSH option that Nix's ssh binary doesn't like

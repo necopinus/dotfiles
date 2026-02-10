@@ -1,11 +1,11 @@
 {pkgs, ...}: {
-  programs.ripgrep.enable = true;
   programs.uv.enable = true;
 
   home.packages = with pkgs; [
     claude-code
 
-    #### Sandbox ####
+    #### Anthropic Sandbox Runtime ####
+    ripgrep
     socat
 
     #### Bash ####
@@ -21,6 +21,9 @@
     #### Python ####
     python3
     ruff
+  ]
+  ++ pkgs.lib.optionals pkgs.stdenv.isLinux [
+    strace # Used by the Anthropic Sandbox Runtime (part of CLaude Code)
   ];
   
   home.file.".claude/settings.json".source = ../artifacts/claude/settings.json;
