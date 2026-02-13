@@ -41,6 +41,7 @@ in {
     dos2unix
     expect
     eza # Don't use programs.eza.enable because aliases differ between fish and bash/zsh
+    ffmpeg-full
     gawk
     gnutar
     imagemagick
