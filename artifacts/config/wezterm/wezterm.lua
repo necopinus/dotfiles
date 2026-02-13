@@ -36,7 +36,7 @@ config.inactive_pane_hsb = {
     brightness = 1.0
 }
 
--- Fix CLaude Code keyboard issues
+-- Fix Claude Code keyboard issues
 --
 config.enable_kitty_keyboard = true
 
