@@ -36,6 +36,10 @@ config.inactive_pane_hsb = {
     brightness = 1.0
 }
 
+-- Fix CLaude Code keyboard issues
+--
+config.enable_kitty_keyboard = true
+
 -- Default window setup
 --
 config.initial_rows = 32
