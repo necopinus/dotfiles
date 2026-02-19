@@ -31,5 +31,7 @@
       "allowLocalBinding": true
     },
     "excludedCommands": []
-  }
+  },
+  "alwaysThinkingEnabled": true,
+  "outputStyle": "Explanatory"
 }
