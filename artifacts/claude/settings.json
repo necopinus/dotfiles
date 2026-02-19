@@ -2,6 +2,7 @@
   "$schema": "https://json.schemastore.org/claude-code-settings.json",
   "permissions": {
     "deny": [
+      "Bash(sudo *)",
       "Read(~/data)",
       "Read(~/Library)",
       "Read(//mnt)",
@@ -16,8 +17,8 @@
     "ask": [
       "Bash(rm *)"
     ],
-    "deny": [
-      "Bash(sudo *)"
+    "allow": [
+      "Bash(ls *)"
     ]
   },
   "sandbox": {
