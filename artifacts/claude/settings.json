@@ -6,12 +6,24 @@
       "Read(~/Library)",
       "Read(//mnt)",
       "Read(~/notes)",
-      "Read(//Volumes)"
+      "Read(//Volumes)",
+      "Write(~/data)",
+      "Write(~/Library)",
+      "Write(//mnt)",
+      "Write(~/notes)",
+      "Write(//Volumes)"
+    ],
+    "ask": [
+      "Bash(rm *)"
+    ],
+    "deny": [
+      "Bash(sudo *)"
     ]
   },
   "sandbox": {
     "enabled": true,
     "autoAllowBashIfSandboxed": true,
+    "allowUnsandboxedCommands": false,
     "network": {
       "allowedDomains": [],
       "allowUnixSockets": [],
