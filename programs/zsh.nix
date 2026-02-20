@@ -199,6 +199,82 @@
           $BATMAN_EXEC "$@" 2> /dev/null
         }
 
+        # Wrap Claude Code in the Nono sandbox, but only if not called
+        # recursively (to avoid sandboxing the sandbox)
+        #
+        # Note that we have to resolve (potentially) critical paths in
+        # the environment, as nono will not follow home-manager's
+        # symlinks without making all of $HOME readable
+        #
+        function claude {
+          CLAUDE_CODE_EXEC="$(realpath "$(whence -p claude)")"
+
+          SEP=""
+          NEW_PATH=""
+          while IFS=: read -d: -r DIR; do
+            if [[ -d "$DIR" ]]; then
+              NEW_PATH="$NEW_PATH$SEP$(realpath "$DIR")"
+              if [[ -z "$SEP" ]]; then
+                SEP=":"
+              fi
+            fi
+          done <<<"''${PATH:+"''${PATH}:"}"
+
+          SEP=""
+          NEW_MANPATH=""
+          while IFS=: read -d: -r DIR; do
+            if [[ -d "$DIR" ]]; then
+              NEW_MANPATH="$NEW_MANPATH$SEP$(realpath "$DIR")"
+              if [[ -z "$SEP" ]]; then
+                SEP=":"
+              fi
+            fi
+          done <<<"''${MANPATH:+"''${MANPATH}:"}"
+
+          SEP=""
+          NEW_XDG_CONFIG_DIRS=""
+          while IFS=: read -d: -r DIR; do
+            if [[ -d "$DIR" ]]; then
+              NEW_XDG_CONFIG_DIRS="$NEW_XDG_CONFIG_DIRS$SEP$(realpath "$DIR")"
+              if [[ -z "$SEP" ]]; then
+                SEP=":"
+              fi
+            fi
+          done <<<"''${XDG_CONFIG_DIRS:+"''${XDG_CONFIG_DIRS}:"}"
+
+          SEP=""
+          NEW_XDG_DATA_DIRS=""
+          while IFS=: read -d: -r DIR; do
+            if [[ -d "$DIR" ]]; then
+              NEW_XDG_DATA_DIRS="$NEW_XDG_DATA_DIRS$SEP$(realpath "$DIR")"
+              if [[ -z "$SEP" ]]; then
+                SEP=":"
+              fi
+            fi
+          done <<<"''${XDG_DATA_DIRS:+"''${XDG_DATA_DIRS}:"}"
+
+          if [[ -z "$CLAUDECODE" ]]; then
+            env -S \
+              $([[ -z "$NEW_PATH" ]] && echo -n "-u PATH") \
+              $([[ -z "$NEW_MANPATH" ]] && echo -n "-u MANPATH") \
+              $([[ -z "$NEW_XDG_CONFIG_DIRS" ]] && echo -n "-u XDG_CONFIG_DIRS") \
+              $([[ -z "$NEW_XDG_DATA_DIRS" ]] && echo -n "-u XDG_DATA_DIRS") \
+              $([[ -n "$NEW_PATH" ]] && echo -n "PATH=\"$NEW_PATH\"") \
+              $([[ -n "$NEW_MANPATH" ]] && echo -n "MANPATH=\"$NEW_MANPATH\"") \
+              $([[ -n "$NEW_XDG_CONFIG_DIRS" ]] && echo -n "XDG_CONFIG_DIRS=\"$NEW_XDG_CONFIG_DIRS\"") \
+              $([[ -n "$NEW_XDG_DATA_DIRS" ]] && echo -n "XDG_DATA_DIRS=\"$NEW_XDG_DATA_DIRS\"") \
+              CLAUDE_CODE_SHELL="$(realpath $(whence -p bash))" \
+              "$(realpath "$(whence -p nono)")" run \
+                --profile claude-code \
+                --allow . \
+                --allow "$HOME"/cache/uv \
+                --read /nix \
+                -- "$CLAUDE_CODE_EXEC" --dangerously-skip-permissions "$@"
+          else
+            "$CLAUDE_CODE_EXEC" "$@"
+          fi
+        }
+
         # Convenience function for launching graphical apps from the terminal
         #
         if [[ "$OS" == "Linux" ]]; then

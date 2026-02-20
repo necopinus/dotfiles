@@ -1,25 +1,65 @@
 {
   "$schema": "https://json.schemastore.org/claude-code-settings.json",
+  "outputStyle": "Explanatory",
+  "alwaysThinkingEnabled": true,
+  "skipDangerousModePermissionPrompt": true,
   "permissions": {
     "deny": [
+      "Bash(su *)",
       "Bash(sudo *)",
+      "Edit(~/.cert)",
+      "Edit(~/config/git)",
+      "Edit(~/.config/git)",
+      "Edit(~/data)",
+      "Edit(~/Desktop)",
+      "Edit(~/Documents)",
+      "Edit(~/Downloads)",
+      "Edit(//etc/NetworkManager)",
+      "Edit(//etc/ssh)",
+      "Edit(~/.gitconfig)",
+      "Edit(~/.gnupg)",
+      "Edit(~/.kde/share/apps/networkmanagement)",
+      "Edit(~/Library)",
+      "Edit(~/.local/share/certs)",
+      "Edit(~/.local/share/keyrings)",
+      "Edit(~/.local/share/kwalletd)",
+      "Edit(~/.local/share/networkmanagement)",
+      "Edit(~/Movies)",
+      "Edit(//mnt)",
+      "Edit(~/Music)",
+      "Edit(~/notes)",
+      "Edit(~/Pictures)",
+      "Edit(~/Public)",
+      "Edit(~/.ssh)",
+      "Edit(~/Templates)",
+      "Edit(~/Videos)",
+      "Edit(//Volumes)",
+      "Read(~/.cert)",
       "Read(~/data)",
+      "Read(~/Desktop)",
+      "Read(~/Documents)",
+      "Read(~/Downloads)",
+      "Read(//etc/NetworkManager)",
+      "Read(//etc/ssh)",
+      "Read(~/.gnupg)",
+      "Read(~/.kde/share/apps/networkmanagement)",
       "Read(~/Library)",
+      "Read(~/.local/share/certs)",
+      "Read(~/.local/share/keyrings)",
+      "Read(~/.local/share/kwalletd)",
+      "Read(~/.local/share/networkmanagement)",
+      "Read(~/Movies)",
       "Read(//mnt)",
+      "Read(~/Music)",
       "Read(~/notes)",
-      "Read(//Volumes)",
-      "Write(~/data)",
-      "Write(~/Library)",
-      "Write(//mnt)",
-      "Write(~/notes)",
-      "Write(//Volumes)"
+      "Read(~/Pictures)",
+      "Read(~/Public)",
+      "Read(~/Templates)",
+      "Read(~/Videos)",
+      "Read(//Volumes)"
     ],
-    "ask": [
-      "Bash(rm *)"
-    ],
-    "allow": [
-      "Bash(ls *)"
-    ]
+    "ask": ["Bash(rm *)"],
+    "allow": ["Bash(ls *)"]
   },
   "sandbox": {
     "enabled": true,
@@ -32,6 +72,17 @@
     },
     "excludedCommands": []
   },
-  "alwaysThinkingEnabled": true,
-  "outputStyle": "Explanatory"
+  "hooks": {
+    "PostToolUseFailure": [
+      {
+        "hooks": [
+          {
+            "command": "~/.claude/hooks/nono-hook.sh",
+            "type": "command"
+          }
+        ],
+        "matcher": "Read|Write|Edit|Bash"
+      }
+    ]
+  }
 }

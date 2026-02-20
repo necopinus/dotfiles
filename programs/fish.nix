@@ -203,6 +203,111 @@
           set BATMAN_EXEC $(which batman)
           $BATMAN_EXEC $argv 2> /dev/null
         '';
+
+        # Wrap Claude Code in the Nono sandbox, but only if not called
+        # recursively (to avoid sandboxing the sandbox)
+        #
+        # Note that we have to resolve (potentially) critical paths in
+        # the environment, as nono will not follow home-manager's
+        # symlinks without making all of $HOME readable
+        #
+        claude = ''
+          set CLAUDE_CODE_EXEC $(realpath $(which claude))
+          set NONO_EXEC $(realpath $(which nono))
+
+          set SEP ""
+          set NEW_PATH ""
+          for DIR in $PATH
+            if test -d $DIR
+              set NEW_PATH "$NEW_PATH$SEP$(realpath $DIR)"
+              if test -z "$SEP"
+                set SEP ":"
+              end
+            end
+          end
+          if test -z "$NEW_PATH"
+            set NEW_PATH_UNSET "-u PATH"
+            set NEW_PATH_SET ""
+          else
+            set NEW_PATH_UNSET ""
+            set NEW_PATH_SET "PATH=\"$PATH\""
+          end
+
+          set SEP ""
+          set NEW_MANPATH ""
+          for DIR in $(string split : $MANPATH)
+            if test -d $DIR
+              set NEW_MANPATH "$NEW_MANPATH$SEP$(realpath $DIR)"
+              if test -z "$SEP"
+                set SEP ":"
+              end
+            end
+          end
+          if test -z "$NEW_MANPATH"
+            set NEW_MANPATH_UNSET "-u MANPATH"
+            set NEW_MANPATH_SET ""
+          else
+            set NEW_MANPATH_UNSET ""
+            set NEW_MANPATH_SET "MANPATH=\"$MANPATH\""
+          end
+
+          set SEP ""
+          set NEW_XDG_CONFIG_DIRS ""
+          for DIR in $(string split : $XDG_CONFIG_DIRS)
+            if test -d $DIR
+              set NEW_XDG_CONFIG_DIRS "$NEW_XDG_CONFIG_DIRS$SEP$(realpath $DIR)"
+              if test -z "$SEP"
+                set SEP ":"
+              end
+            end
+          end
+          if test -z "$NEW_XDG_CONFIG_DIRS"
+            set NEW_XDG_CONFIG_DIRS_UNSET "-u XDG_CONFIG_DIRS"
+            set NEW_XDG_CONFIG_DIRS_SET ""
+          else
+            set NEW_XDG_CONFIG_DIRS_UNSET ""
+            set NEW_XDG_CONFIG_DIRS_SET "XDG_CONFIG_DIRS=\"$XDG_CONFIG_DIRS\""
+          end
+
+          set SEP ""
+          set NEW_XDG_DATA_DIRS ""
+          for DIR in $(string split : $XDG_DATA_DIRS)
+            if test -d $DIR
+              set NEW_XDG_DATA_DIRS "$NEW_XDG_DATA_DIRS$SEP$(realpath $DIR)"
+              if test -z "$SEP"
+                set SEP ":"
+              end
+            end
+          end
+          if test -z "$NEW_XDG_DATA_DIRS"
+            set NEW_XDG_DATA_DIRS_UNSET "-u XDG_DATA_DIRS"
+            set NEW_XDG_DATA_DIRS_SET ""
+          else
+            set NEW_XDG_DATA_DIRS_UNSET ""
+            set NEW_XDG_DATA_DIRS_SET "XDG_DATA_DIRS=\"$XDG_DATA_DIRS\""
+          end
+
+          if test -z "$CLAUDECODE"
+            eval env -S \
+              $NEW_PATH_UNSET \
+              $NEW_MANPATH_UNSET \
+              $NEW_XDG_CONFIG_DIRS_UNSET \
+              $NEW_XDG_DATA_DIRS_UNSET \
+              $NEW_PATH_SET \
+              $NEW_MANPATH_SET \
+              $NEW_XDG_CONFIG_DIRS_SET \
+              $NEW_XDG_DATA_DIRS_SET \
+              CLAUDE_CODE_SHELL=$(realpath $(which bash)) \
+              $NONO_EXEC run \
+                --profile claude-code \
+                --allow . \
+                --allow $HOME/cache/uv \
+                --read /nix \
+                -- $CLAUDE_CODE_EXEC --dangerously-skip-permissions $argv
+          else
+            $CLAUDE_CODE_EXEC $argv
+          end
+        '';
       }
       // lib.attrsets.optionalAttrs pkgs.stdenv.isLinux {
         # Convenience function for launching graphical apps from the terminal
