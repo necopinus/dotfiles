@@ -269,8 +269,27 @@
               "$(realpath "$(whence -p nono)")" run \
                 --profile claude-code \
                 --allow . \
+                --allow "$HOME"/cache/fish \
+                --allow "$HOME"/cache/go-build \
+                --allow "$HOME"/cache/pip \
+                --allow "$HOME"/cache/pnpm \
                 --allow "$HOME"/cache/uv \
+                --allow "$HOME"/config/fish \
+                --allow "$HOME"/config/go \
+                --allow "$HOME"/local/share/delta \
+                --allow "$HOME"/local/share/fish \
+                --allow "$HOME"/local/share/pnpm \
+                --allow "$HOME"/local/state/pnpm \
+                --allow /tmp \
+                --allow-file /dev/null \
+                --read "$HOME"/cache/bat \
+                --read "$HOME"/config \
+                --read "$HOME"/.ssh \
+                --read /etc/skel \
                 --read /nix \
+                --read /usr/share \
+                --read-file "$HOME"/.bash_aliases \
+                --read-file /etc/bashrc \
                 -- "$CLAUDE_CODE_EXEC" --dangerously-skip-permissions "$@"
           fi
         }
