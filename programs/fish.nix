@@ -303,22 +303,22 @@
               $NONO_EXEC run \
                 --profile claude-code \
                 --allow . \
-                --allow $HOME/cache/fish \
-                --allow $HOME/cache/go-build \
-                --allow $HOME/cache/pip \
-                --allow $HOME/cache/pnpm \
-                --allow $HOME/cache/uv \
-                --allow $HOME/config/fish \
-                --allow $HOME/config/go \
-                --allow $HOME/local/share/delta \
-                --allow $HOME/local/share/fish \
-                --allow $HOME/local/share/pnpm \
-                --allow $HOME/local/state/pnpm \
+                --allow $XDG_CACHE_HOME/fish \
+                --allow $XDG_CACHE_HOME/go-build \
+                --allow $XDG_CACHE_HOME/pip \
+                --allow $XDG_CACHE_HOME/pnpm \
+                --allow $XDG_CACHE_HOME/uv \
+                --allow $XDG_CONFIG_HOME/fish \
+                --allow $XDG_CONFIG_HOME/go \
+                --allow $XDG_DATA_HOME/delta \
+                --allow $XDG_DATA_HOME/fish \
+                --allow $XDG_DATA_HOME/pnpm \
+                --allow $XDG_STATE_HOME/pnpm \
                 --allow /tmp \
                 --allow-file /dev/null \
-                --read $HOME/cache/bat \
-                --read $HOME/config \
                 --read $HOME/.ssh \
+                --read $XDG_CACHE_HOME/bat \
+                --read $XDG_CONFIG_HOME \
                 --read /etc/skel \
                 --read /nix \
                 --read /usr/share \
