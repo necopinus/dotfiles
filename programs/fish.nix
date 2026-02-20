@@ -287,7 +287,9 @@
             set NEW_XDG_DATA_DIRS_SET "XDG_DATA_DIRS=\"$XDG_DATA_DIRS\""
           end
 
-          if test -z "$CLAUDECODE"
+          if string match "*/scripts/claude" $CLAUDE_CODE_EXEC &> /dev/null; or test -n "$CLAUDECODE"
+            $CLAUDE_CODE_EXEC $argv
+          else
             eval env -S \
               $NEW_PATH_UNSET \
               $NEW_MANPATH_UNSET \
@@ -304,8 +306,6 @@
                 --allow $HOME/cache/uv \
                 --read /nix \
                 -- $CLAUDE_CODE_EXEC --dangerously-skip-permissions $argv
-          else
-            $CLAUDE_CODE_EXEC $argv
           end
         '';
       }

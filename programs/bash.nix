@@ -236,7 +236,9 @@
           fi
         done <<<"''${XDG_DATA_DIRS:+"''${XDG_DATA_DIRS}:"}"
 
-        if [[ -z "$CLAUDECODE" ]]; then
+        if [[ "$CLAUDE_CODE_EXEC" == */scripts/claude ]] || [[ -n "$CLAUDECODE" ]]; then
+          "$CLAUDE_CODE_EXEC" "$@"
+        else
           env -S \
             $([[ -z "$NEW_PATH" ]] && echo -n "-u PATH") \
             $([[ -z "$NEW_MANPATH" ]] && echo -n "-u MANPATH") \
@@ -253,8 +255,6 @@
               --allow "$HOME"/cache/uv \
               --read /nix \
               -- "$CLAUDE_CODE_EXEC" --dangerously-skip-permissions "$@"
-        else
-          "$CLAUDE_CODE_EXEC" "$@"
         fi
       }
 
