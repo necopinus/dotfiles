@@ -133,6 +133,7 @@
         {app = "/Applications/Brave Browser.app";}
         {app = "/Applications/Claude.app";}
         {app = "/Applications/Discord.app";}
+        {app = "/System/Applications/Utilities/Terminal.app";}
         {app = "/Users/${config.system.primaryUser}/Applications/Home Manager Apps/WezTerm.app";}
         {app = "/Applications/Zed.app";}
       ];
@@ -146,7 +147,7 @@
         {
           folder = {
             path = "/Users/${config.system.primaryUser}/Downloads";
-            showas = "grid";
+            arrangement = "date-added";
           };
         }
       ];
@@ -242,6 +243,11 @@
 
       "com.apple.systemuiserver" = {
         menuExtras = [];
+      };
+
+      "com.apple.Terminal" = {
+        "Default Window Settings" = "Clear Dark";
+        "Startup Window Settings" = "Clear Dark";
       };
 
       "com.apple.TextEdit" = {
