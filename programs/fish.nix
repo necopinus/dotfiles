@@ -46,6 +46,36 @@
         fish_add_path --append /opt/homebrew/bin
       end
 
+      # Check for SANDBOXED_* paths and replace computed paths with
+      # these values if found (this works around the chicken-and-egg
+      # problem where paths passed in during sandboxing may be wiped
+      # out during init and cannot be reconstructed from within the
+      # sandbox due to restrictions)
+      #
+      # IMPORTANT: Keep this block in sync with the SANDBOXED_* paths
+      # set by the `nono` wrapper function!
+      #
+      if test -n "$SANDBOXED_PATH"
+        set -x PATH $(string split : $SANDBOXED_PATH)
+        set -e SANDBOXED_PATH
+      end
+      if test -n "$SANDBOXED_MANPATH"
+        set -x MANPATH $SANDBOXED_MANPATH
+        set -e SANDBOXED_MANPATH
+      end
+      if test -n "$SANDBOXED_TERMINFO_DIRS"
+        set -x TERMINFO_DIRS $SANDBOXED_TERMINFO_DIRS
+        set -e SANDBOXED_TERMINFO_DIRS
+      end
+      if test -n "$SANDBOXED_XDG_CONFIG_DIRS"
+        set -x XDG_CONFIG_DIRS $SANDBOXED_XDG_CONFIG_DIRS
+        set -e SANDBOXED_XDG_CONFIG_DIRS
+      end
+      if test -n "$SANDBOXED_XDG_DATA_DIRS"
+        set -x XDG_DATA_DIRS $SANDBOXED_XDG_DATA_DIRS
+        set -e SANDBOXED_XDG_DATA_DIRS
+      end
+
       # Set SHELL to the correct value
       #
       # We do this after the PATH has been fully configured to ensure
@@ -76,10 +106,11 @@
         end
       end
 
-      # Colorize man pages with batman, and then some
+      # Colorize man pages with batman
       #
-      batman --export-env | source
-      eval (batpipe)
+      # https://github.com/sharkdp/bat/issues/1433#issuecomment-3298530339
+      #
+      set -gx MANPAGER "sh -c 'sed -u -e \"s/\\x1B\[[0-9;]*m//g;s/.\\x08//g\" | bat -p -lman'"
 
       # Theme options
       #
@@ -104,13 +135,10 @@
       alias ls "$(which eza) --classify=auto --color=auto --icons=auto --group-directories-first --git --hyperlink --group"
       alias more "$(which bat)"
       alias nvim "$(which $EDITOR)"
-      alias prettycat "$(which prettybat)"
-      alias rg "$(which batgrep)"
       alias sudo "/usr/bin/sudo -E"
       alias top "$(which btm) --basic"
       alias vi "$(which $EDITOR)"
       alias vim "$(which $EDITOR)"
-      alias watch "$(which batwatch)"
       alias yq "$(which jaq)"
 
       # Fix zeditor on macOS
@@ -193,17 +221,6 @@
           end
         '';
 
-        # Wrap man/batman to supress readlink errors
-        #
-        man = ''
-          set MAN_EXEC $(which man)
-          $MAN_EXEC $argv 2> /dev/null
-        '';
-        batman = ''
-          set BATMAN_EXEC $(which batman)
-          $BATMAN_EXEC $argv 2> /dev/null
-        '';
-
         # Wrap Claude Code in the Nono sandbox, but only if not called
         # recursively (to avoid sandboxing the sandbox)
         #
@@ -215,10 +232,10 @@
           set NONO_EXEC $(realpath $(which nono))
 
           set SEP ""
-          set NEW_PATH ""
+          set SANDBOXED_PATH ""
           for DIR in $(string split : $(string join : $PATH))
             if test -d $DIR
-              set NEW_PATH "$NEW_PATH$SEP$(realpath $DIR)"
+              set -x SANDBOXED_PATH "$SANDBOXED_PATH$SEP$(realpath $DIR)"
               if test -z "$SEP"
                 set SEP ":"
               end
@@ -226,10 +243,10 @@
           end
 
           set SEP ""
-          set NEW_MANPATH ""
+          set SANDBOXED_MANPATH ""
           for DIR in $(string split : $MANPATH)
             if test -d $DIR
-              set NEW_MANPATH "$NEW_MANPATH$SEP$(realpath $DIR)"
+              set -x SANDBOXED_MANPATH "$SANDBOXED_MANPATH$SEP$(realpath $DIR)"
               if test -z "$SEP"
                 set SEP ":"
               end
@@ -237,10 +254,21 @@
           end
 
           set SEP ""
-          set NEW_XDG_CONFIG_DIRS ""
+          set SANDBOXED_TERMINFO_DIRS ""
+          for DIR in $(string split : $TERMINFO_DIRS)
+            if test -d $DIR
+              set -x SANDBOXED_TERMINFO_DIRS "$SANDBOXED_TERMINFO_DIRS$SEP$(realpath $DIR)"
+              if test -z "$SEP"
+                set SEP ":"
+              end
+            end
+          end
+
+          set SEP ""
+          set SANDBOXED_XDG_CONFIG_DIRS ""
           for DIR in $(string split : $XDG_CONFIG_DIRS)
             if test -d $DIR
-              set NEW_XDG_CONFIG_DIRS "$NEW_XDG_CONFIG_DIRS$SEP$(realpath $DIR)"
+              set -x SANDBOXED_XDG_CONFIG_DIRS "$SANDBOXED_XDG_CONFIG_DIRS$SEP$(realpath $DIR)"
               if test -z "$SEP"
                 set SEP ":"
               end
@@ -248,10 +276,10 @@
           end
 
           set SEP ""
-          set NEW_XDG_DATA_DIRS ""
+          set SANDBOXED_XDG_DATA_DIRS ""
           for DIR in $(string split : $XDG_DATA_DIRS)
             if test -d $DIR
-              set NEW_XDG_DATA_DIRS "$NEW_XDG_DATA_DIRS$SEP$(realpath $DIR)"
+              set -x SANDBOXED_XDG_DATA_DIRS "$SANDBOXED_XDG_DATA_DIRS$SEP$(realpath $DIR)"
               if test -z "$SEP"
                 set SEP ":"
               end
@@ -259,24 +287,31 @@
           end
 
           eval env -S \
-            (test -z "$NEW_PATH" && echo -n "-u PATH") \
-            (test -z "$NEW_MANPATH" && echo -n "-u MANPATH") \
-            (test -z "$NEW_XDG_CONFIG_DIRS" && echo -n "-u NEW_XDG_CONFIG_DIRS") \
-            (test -z "$NEW_XDG_DATA_DIRS" && echo -n "-u NEW_XDG_DATA_DIRS") \
-            (test -n "$NEW_PATH" && echo -n "PATH=\"$NEW_PATH\"") \
-            (test -n "$NEW_MANPATH" && echo -n "MANPATH=\"$NEW_MANPATH\"") \
-            (test -n "$NEW_XDG_CONFIG_DIRS" && echo -n "XDG_CONFIG_DIRS=\"$NEW_XDG_CONFIG_DIRS\"") \
-            (test -n "$NEW_XDG_DATA_DIRS" && echo -n "XDG_DATA_DIRS=\"$NEW_XDG_DATA_DIRS\"") \
-            CLAUDE_CODE_SHELL=$(realpath $(which bash)) \
+            (test -z "$SANDBOXED_PATH" && echo -n "-u PATH") \
+            (test -z "$SANDBOXED_MANPATH" && echo -n "-u MANPATH") \
+            (test -z "$SANDBOXED_TERMINFO_DIRS" && echo -n "-u TERMINFO_DIRS") \
+            (test -z "$SANDBOXED_XDG_CONFIG_DIRS" && echo -n "-u XDG_CONFIG_DIRS") \
+            (test -z "$SANDBOXED_XDG_DATA_DIRS" && echo -n "-u XDG_DATA_DIRS") \
+            (test -n "$SANDBOXED_PATH" && echo -n "PATH=\"$SANDBOXED_PATH\"") \
+            (test -n "$SANDBOXED_MANPATH" && echo -n "MANPATH=\"$SANDBOXED_MANPATH\"") \
+            (test -n "$SANDBOXED_TERMINFO_DIRS" && echo -n "TERMINFO_DIRS=\"$SANDBOXED_TERMINFO_DIRS\"") \
+            (test -n "$SANDBOXED_XDG_CONFIG_DIRS" && echo -n "XDG_CONFIG_DIRS=\"$SANDBOXED_XDG_CONFIG_DIRS\"") \
+            (test -n "$SANDBOXED_XDG_DATA_DIRS" && echo -n "XDG_DATA_DIRS=\"$SANDBOXED_XDG_DATA_DIRS\"") \
             $NONO_EXEC $argv
+
+          set -e SANDBOXED_PATH
+          set -e SANDBOXED_MANPATH
+          set -e SANDBOXED_TERMINFO_DIRS
+          set -e SANDBOXED_XDG_CONFIG_DIRS
+          set -e SANDBOXED_XDG_DATA_DIRS
         '';
         claude = ''
           set CLAUDE_CODE_EXEC $(realpath $(which claude))
 
-          if string match "*/scripts/claude" $CLAUDE_CODE_EXEC &> /dev/null; or test -n "$CLAUDECODE"
+          if string match "*/scripts/claude" $CLAUDE_CODE_EXEC &> /dev/null; or test -n "$CLAUDECODE"; or test -n "$NONO_CAP_FILE"
             $CLAUDE_CODE_EXEC $argv
           else
-            # Note that all of the allow/allow-file/read/read-fil lines
+            # Note that all of the allow/allow-file/read/read-file lines
             # (except for `--allow .`) can be removed when nono v0.5.0
             # hits nixpkgs-unstable
             #
@@ -291,6 +326,7 @@
               (test -d $XDG_CACHE_HOME/uv && echo -n "--allow $XDG_CACHE_HOME/uv") \
               (test -d $XDG_CONFIG_HOME/fish && echo -n "--allow $XDG_CONFIG_HOME/fish") \
               (test -d $XDG_CONFIG_HOME/go && echo -n "--allow $XDG_CONFIG_HOME/go") \
+              (test -d $XDG_CONFIG_HOME/zsh && echo -n "--allow $XDG_CONFIG_HOME/zsh") \
               (test -d $XDG_DATA_HOME/delta && echo -n "--allow $XDG_DATA_HOME/delta") \
               (test -d $XDG_DATA_HOME/fish && echo -n "--allow $XDG_DATA_HOME/fish") \
               (test -d $XDG_DATA_HOME/pnpm && echo -n "--allow $XDG_DATA_HOME/pnpm") \

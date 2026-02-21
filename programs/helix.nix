@@ -57,6 +57,8 @@ in {
     };
   };
 
+  home.sessionVariables.VISUAL = "hx";
+
   programs.helix = {
     enable = true;
     defaultEditor = true;

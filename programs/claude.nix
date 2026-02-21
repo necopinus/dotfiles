@@ -32,6 +32,12 @@
       strace # Used by the Anthropic Sandbox Runtime (part of Claude Code)
     ];
 
+  # Environment variables
+  #
+  home.sessionVariables.CLAUDE_CODE_SHELL = "${pkgs.bashInteractive}/bin/bash";
+
+  # Configuration files
+  #
   home.file.".claude/settings.json".source = ../artifacts/claude/settings.json;
   xdg.configFile."nono/profiles/claude-code.json".text = ''
     {
@@ -63,6 +69,7 @@
           "${config.xdg.cacheHome}/uv",
           "${config.xdg.configHome}/fish",
           "${config.xdg.configHome}/go",
+          "${config.xdg.configHome}/zsh",
           "${config.xdg.dataHome}/delta",
           "${config.xdg.dataHome}/fish",
           "${config.xdg.dataHome}/pnpm",
