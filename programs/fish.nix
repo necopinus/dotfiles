@@ -211,26 +211,18 @@
         # the environment, as nono will not follow home-manager's
         # symlinks without making all of $HOME readable
         #
-        claude = ''
-          set CLAUDE_CODE_EXEC $(realpath $(which claude))
+        nono = ''
           set NONO_EXEC $(realpath $(which nono))
 
           set SEP ""
           set NEW_PATH ""
-          for DIR in $PATH
+          for DIR in $(string split : $(string join : $PATH))
             if test -d $DIR
               set NEW_PATH "$NEW_PATH$SEP$(realpath $DIR)"
               if test -z "$SEP"
                 set SEP ":"
               end
             end
-          end
-          if test -z "$NEW_PATH"
-            set NEW_PATH_UNSET "-u PATH"
-            set NEW_PATH_SET ""
-          else
-            set NEW_PATH_UNSET ""
-            set NEW_PATH_SET "PATH=\"$PATH\""
           end
 
           set SEP ""
@@ -243,13 +235,6 @@
               end
             end
           end
-          if test -z "$NEW_MANPATH"
-            set NEW_MANPATH_UNSET "-u MANPATH"
-            set NEW_MANPATH_SET ""
-          else
-            set NEW_MANPATH_UNSET ""
-            set NEW_MANPATH_SET "MANPATH=\"$MANPATH\""
-          end
 
           set SEP ""
           set NEW_XDG_CONFIG_DIRS ""
@@ -260,13 +245,6 @@
                 set SEP ":"
               end
             end
-          end
-          if test -z "$NEW_XDG_CONFIG_DIRS"
-            set NEW_XDG_CONFIG_DIRS_UNSET "-u XDG_CONFIG_DIRS"
-            set NEW_XDG_CONFIG_DIRS_SET ""
-          else
-            set NEW_XDG_CONFIG_DIRS_UNSET ""
-            set NEW_XDG_CONFIG_DIRS_SET "XDG_CONFIG_DIRS=\"$XDG_CONFIG_DIRS\""
           end
 
           set SEP ""
@@ -279,52 +257,56 @@
               end
             end
           end
-          if test -z "$NEW_XDG_DATA_DIRS"
-            set NEW_XDG_DATA_DIRS_UNSET "-u XDG_DATA_DIRS"
-            set NEW_XDG_DATA_DIRS_SET ""
-          else
-            set NEW_XDG_DATA_DIRS_UNSET ""
-            set NEW_XDG_DATA_DIRS_SET "XDG_DATA_DIRS=\"$XDG_DATA_DIRS\""
-          end
+
+          eval env -S \
+            (test -z "$NEW_PATH" && echo -n "-u PATH") \
+            (test -z "$NEW_MANPATH" && echo -n "-u MANPATH") \
+            (test -z "$NEW_XDG_CONFIG_DIRS" && echo -n "-u NEW_XDG_CONFIG_DIRS") \
+            (test -z "$NEW_XDG_DATA_DIRS" && echo -n "-u NEW_XDG_DATA_DIRS") \
+            (test -n "$NEW_PATH" && echo -n "PATH=\"$NEW_PATH\"") \
+            (test -n "$NEW_MANPATH" && echo -n "MANPATH=\"$NEW_MANPATH\"") \
+            (test -n "$NEW_XDG_CONFIG_DIRS" && echo -n "XDG_CONFIG_DIRS=\"$NEW_XDG_CONFIG_DIRS\"") \
+            (test -n "$NEW_XDG_DATA_DIRS" && echo -n "XDG_DATA_DIRS=\"$NEW_XDG_DATA_DIRS\"") \
+            CLAUDE_CODE_SHELL=$(realpath $(which bash)) \
+            $NONO_EXEC $argv
+        '';
+        claude = ''
+          set CLAUDE_CODE_EXEC $(realpath $(which claude))
 
           if string match "*/scripts/claude" $CLAUDE_CODE_EXEC &> /dev/null; or test -n "$CLAUDECODE"
             $CLAUDE_CODE_EXEC $argv
           else
-            eval env -S \
-              $NEW_PATH_UNSET \
-              $NEW_MANPATH_UNSET \
-              $NEW_XDG_CONFIG_DIRS_UNSET \
-              $NEW_XDG_DATA_DIRS_UNSET \
-              $NEW_PATH_SET \
-              $NEW_MANPATH_SET \
-              $NEW_XDG_CONFIG_DIRS_SET \
-              $NEW_XDG_DATA_DIRS_SET \
-              CLAUDE_CODE_SHELL=$(realpath $(which bash)) \
-              $NONO_EXEC run \
-                --profile claude-code \
-                --allow . \
-                --allow $XDG_CACHE_HOME/fish \
-                --allow $XDG_CACHE_HOME/go-build \
-                --allow $XDG_CACHE_HOME/pip \
-                --allow $XDG_CACHE_HOME/pnpm \
-                --allow $XDG_CACHE_HOME/uv \
-                --allow $XDG_CONFIG_HOME/fish \
-                --allow $XDG_CONFIG_HOME/go \
-                --allow $XDG_DATA_HOME/delta \
-                --allow $XDG_DATA_HOME/fish \
-                --allow $XDG_DATA_HOME/pnpm \
-                --allow $XDG_STATE_HOME/pnpm \
-                --allow /tmp \
-                --allow-file /dev/null \
-                --read $HOME/.ssh \
-                --read $XDG_CACHE_HOME/bat \
-                --read $XDG_CONFIG_HOME \
-                --read /etc/skel \
-                --read /nix \
-                --read /usr/share \
-                --read-file $HOME/.bash_aliases \
-                --read-file /etc/bashrc \
-                -- $CLAUDE_CODE_EXEC --dangerously-skip-permissions $argv
+            # Note that all of the allow/allow-file/read/read-fil lines
+            # (except for `--allow .`) can be removed when nono v0.5.0
+            # hits nixpkgs-unstable
+            #
+            nono run \
+              --profile claude-code \
+              --allow . \
+              (test -d $XDG_CACHE_HOME/fish && echo -n "--allow $XDG_CACHE_HOME/fish") \
+              (test -d $XDG_CACHE_HOME/go-build && echo -n "--allow $XDG_CACHE_HOME/go-build") \
+              (test -d $XDG_CACHE_HOME/pip && echo -n "--allow $XDG_CACHE_HOME/pip") \
+              (test -d $XDG_CACHE_HOME/pnpm && echo -n "--allow $XDG_CACHE_HOME/pnpm") \
+              (test -d $XDG_CACHE_HOME/starship && echo -n "--allow $XDG_CACHE_HOME/starship") \
+              (test -d $XDG_CACHE_HOME/uv && echo -n "--allow $XDG_CACHE_HOME/uv") \
+              (test -d $XDG_CONFIG_HOME/fish && echo -n "--allow $XDG_CONFIG_HOME/fish") \
+              (test -d $XDG_CONFIG_HOME/go && echo -n "--allow $XDG_CONFIG_HOME/go") \
+              (test -d $XDG_DATA_HOME/delta && echo -n "--allow $XDG_DATA_HOME/delta") \
+              (test -d $XDG_DATA_HOME/fish && echo -n "--allow $XDG_DATA_HOME/fish") \
+              (test -d $XDG_DATA_HOME/pnpm && echo -n "--allow $XDG_DATA_HOME/pnpm") \
+              (test -d $XDG_STATE_HOME/pnpm && echo -n "--allow $XDG_STATE_HOME/pnpm") \
+              (test -d /tmp && echo -n "--allow /tmp") \
+              (test -d /var/folders && echo -n "--allow /var/folders") \
+              (test -e /dev/null && echo -n "--allow-file /dev/null") \
+              (test -d $HOME/.ssh && echo -n "--read $HOME/.ssh") \
+              (test -d $XDG_CACHE_HOME/bat && echo -n "--read $XDG_CACHE_HOME/bat") \
+              (test -d $XDG_CONFIG_HOME && echo -n "--read $XDG_CONFIG_HOME") \
+              (test -d /etc/skel && echo -n "--read /etc/skel") \
+              (test -d /nix && echo -n "--read /nix") \
+              (test -d /usr/share && echo -n "--read /usr/share") \
+              (test -e $HOME/.bash_aliases && echo -n "--read-file $HOME/.bash_aliases") \
+              (test -e /etc/bashrc && echo -n "--read-file /etc/bashrc") \
+              -- $CLAUDE_CODE_EXEC --dangerously-skip-permissions $argv
           end
         '';
       }

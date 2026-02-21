@@ -206,9 +206,7 @@
         # the environment, as nono will not follow home-manager's
         # symlinks without making all of $HOME readable
         #
-        function claude {
-          CLAUDE_CODE_EXEC="$(realpath "$(whence -p claude)")"
-
+        function nono {
           SEP=""
           NEW_PATH=""
           while IFS=: read -d: -r DIR; do
@@ -253,44 +251,55 @@
             fi
           done <<<"''${XDG_DATA_DIRS:+"''${XDG_DATA_DIRS}:"}"
 
+          env -S \
+            $([[ -z "$NEW_PATH" ]] && echo -n "-u PATH") \
+            $([[ -z "$NEW_MANPATH" ]] && echo -n "-u MANPATH") \
+            $([[ -z "$NEW_XDG_CONFIG_DIRS" ]] && echo -n "-u XDG_CONFIG_DIRS") \
+            $([[ -z "$NEW_XDG_DATA_DIRS" ]] && echo -n "-u XDG_DATA_DIRS") \
+            $([[ -n "$NEW_PATH" ]] && echo -n "PATH=\"$NEW_PATH\"") \
+            $([[ -n "$NEW_MANPATH" ]] && echo -n "MANPATH=\"$NEW_MANPATH\"") \
+            $([[ -n "$NEW_XDG_CONFIG_DIRS" ]] && echo -n "XDG_CONFIG_DIRS=\"$NEW_XDG_CONFIG_DIRS\"") \
+            $([[ -n "$NEW_XDG_DATA_DIRS" ]] && echo -n "XDG_DATA_DIRS=\"$NEW_XDG_DATA_DIRS\"") \
+            CLAUDE_CODE_SHELL="$(realpath $(whence -p bash))" \
+            "$(realpath "$(whence -p nono)")" "$@"
+        }
+        function claude {
+          CLAUDE_CODE_EXEC="$(realpath "$(whence -p claude)")"
+
           if [[ "$CLAUDE_CODE_EXEC" == */scripts/claude ]] || [[ -n "$CLAUDECODE" ]]; then
             "$CLAUDE_CODE_EXEC" "$@"
           else
-            env -S \
-              $([[ -z "$NEW_PATH" ]] && echo -n "-u PATH") \
-              $([[ -z "$NEW_MANPATH" ]] && echo -n "-u MANPATH") \
-              $([[ -z "$NEW_XDG_CONFIG_DIRS" ]] && echo -n "-u XDG_CONFIG_DIRS") \
-              $([[ -z "$NEW_XDG_DATA_DIRS" ]] && echo -n "-u XDG_DATA_DIRS") \
-              $([[ -n "$NEW_PATH" ]] && echo -n "PATH=\"$NEW_PATH\"") \
-              $([[ -n "$NEW_MANPATH" ]] && echo -n "MANPATH=\"$NEW_MANPATH\"") \
-              $([[ -n "$NEW_XDG_CONFIG_DIRS" ]] && echo -n "XDG_CONFIG_DIRS=\"$NEW_XDG_CONFIG_DIRS\"") \
-              $([[ -n "$NEW_XDG_DATA_DIRS" ]] && echo -n "XDG_DATA_DIRS=\"$NEW_XDG_DATA_DIRS\"") \
-              CLAUDE_CODE_SHELL="$(realpath $(whence -p bash))" \
-              "$(realpath "$(whence -p nono)")" run \
-                --profile claude-code \
-                --allow . \
-                --allow "$XDG_CACHE_HOME"/fish \
-                --allow "$XDG_CACHE_HOME"/go-build \
-                --allow "$XDG_CACHE_HOME"/pip \
-                --allow "$XDG_CACHE_HOME"/pnpm \
-                --allow "$XDG_CACHE_HOME"/uv \
-                --allow "$XDG_CONFIG_HOME"/fish \
-                --allow "$XDG_CONFIG_HOME"/go \
-                --allow "$XDG_DATA_HOME"/delta \
-                --allow "$XDG_DATA_HOME"/fish \
-                --allow "$XDG_DATA_HOME"/pnpm \
-                --allow "$XDG_STATE_HOME"/pnpm \
-                --allow /tmp \
-                --allow-file /dev/null \
-                --read "$HOME"/.ssh \
-                --read "$XDG_CACHE_HOME"/bat \
-                --read "$XDG_CONFIG_HOME" \
-                --read /etc/skel \
-                --read /nix \
-                --read /usr/share \
-                --read-file "$HOME"/.bash_aliases \
-                --read-file /etc/bashrc \
-                -- "$CLAUDE_CODE_EXEC" --dangerously-skip-permissions "$@"
+            # Note that all of the allow/allow-file/read/read-fil lines
+            # (except for `--allow .`) can be removed when nono v0.5.0
+            # hits nixpkgs-unstable
+            #
+            nono run \
+              --profile claude-code \
+              --allow . \
+              $([[ -d "$XDG_CACHE_HOME"/fish ]] && echo -n "--allow $XDG_CACHE_HOME/fish") \
+              $([[ -d "$XDG_CACHE_HOME"/go-build ]] && echo -n "--allow $XDG_CACHE_HOME/go-build") \
+              $([[ -d "$XDG_CACHE_HOME"/pip ]] && echo -n "--allow $XDG_CACHE_HOME/pip") \
+              $([[ -d "$XDG_CACHE_HOME"/pnpm ]] && echo -n "--allow $XDG_CACHE_HOME/pnpm") \
+              $([[ -d "$XDG_CACHE_HOME"/starship ]] && echo -n "--allow $XDG_CACHE_HOME/starship") \
+              $([[ -d "$XDG_CACHE_HOME"/uv ]] && echo -n "--allow $XDG_CACHE_HOME/uv") \
+              $([[ -d "$XDG_CONFIG_HOME"/fish ]] && echo -n "--allow $XDG_CONFIG_HOME/fish") \
+              $([[ -d "$XDG_CONFIG_HOME"/go ]] && echo -n "--allow $XDG_CONFIG_HOME/go") \
+              $([[ -d "$XDG_DATA_HOME"/delta ]] && echo -n "--allow $XDG_DATA_HOME/delta") \
+              $([[ -d "$XDG_DATA_HOME"/fish ]] && echo -n "--allow $XDG_DATA_HOME/fish") \
+              $([[ -d "$XDG_DATA_HOME"/pnpm ]] && echo -n "--allow $XDG_DATA_HOME/pnpm") \
+              $([[ -d "$XDG_STATE_HOME"/pnpm ]] && echo -n "--allow $XDG_STATE_HOME/pnpm") \
+              $([[ -d /tmp ]] && echo -n "--allow /tmp") \
+              $([[ -d /var/folders ]] && echo -n "--allow /var/folders") \
+              $([[ -e /dev/null ]] && echo -n "--allow-file /dev/null") \
+              $([[ -d "$HOME"/.ssh ]] && echo -n "--read $HOME/.ssh") \
+              $([[ -d "$XDG_CACHE_HOME"/bat ]] && echo -n "--read $XDG_CACHE_HOME/bat") \
+              $([[ -d "$XDG_CONFIG_HOME" ]] && echo -n "--read $XDG_CONFIG_HOME") \
+              $([[ -d /etc/skel ]] && echo -n "--read /etc/skel") \
+              $([[ -d /nix ]] && echo -n "--read /nix") \
+              $([[ -d /usr/share ]] && echo -n "--read /usr/share") \
+              $([[ -e "$HOME"/.bash_aliases ]] && echo -n "--read-file $HOME/.bash_aliases") \
+              $([[ -e /etc/bashrc ]] && echo -n "--read-file /etc/bashrc") \
+              -- "$CLAUDE_CODE_EXEC" --dangerously-skip-permissions "$@"
           fi
         }
 
