@@ -78,6 +78,7 @@ in {
     dataHome = "${config.home.homeDirectory}/local/share";
     stateHome = "${config.home.homeDirectory}/local/state";
   };
+  home.preferXdgDirectories = true;
 
   # https://github.com/nix-community/home-manager/issues/7935#issuecomment-3671184459
   #
