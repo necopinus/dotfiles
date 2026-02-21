@@ -14,7 +14,6 @@ in {
     ../programs/bottom.nix
     ../programs/claude.nix
     ../programs/delta.nix # Requires bat.nix
-    ../programs/dircolors.nix
     ../programs/direnv.nix
     ../programs/fish.nix
     ../programs/git.nix

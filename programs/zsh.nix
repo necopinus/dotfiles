@@ -173,6 +173,10 @@
         #
         export MANPAGER="sh -c 'sed -u -e \"s/\\x1B\[[0-9;]*m//g;s/.\\x08//g\" | bat -p -lman'"
 
+        # Colorful directory listsings
+        #
+        eval $(dircolors --sh)
+
         # Convenience aliases
         #
         alias :e="$(whence -p "$EDITOR")"
@@ -316,10 +320,8 @@
               $([[ -d "$XDG_CACHE_HOME"/pnpm ]] && echo -n "--allow $XDG_CACHE_HOME/pnpm") \
               $([[ -d "$XDG_CACHE_HOME"/starship ]] && echo -n "--allow $XDG_CACHE_HOME/starship") \
               $([[ -d "$XDG_CACHE_HOME"/uv ]] && echo -n "--allow $XDG_CACHE_HOME/uv") \
-              $([[ -d "$XDG_CONFIG_HOME"/fish ]] && echo -n "--allow $XDG_CONFIG_HOME/fish") \
               $([[ -d "$XDG_CONFIG_HOME"/go ]] && echo -n "--allow $XDG_CONFIG_HOME/go") \
               $([[ -d "$XDG_CONFIG_HOME"/zsh ]] && echo -n "--allow $XDG_CONFIG_HOME/zsh") \
-              $([[ -d "$XDG_DATA_HOME"/delta ]] && echo -n "--allow $XDG_DATA_HOME/delta") \
               $([[ -d "$XDG_DATA_HOME"/fish ]] && echo -n "--allow $XDG_DATA_HOME/fish") \
               $([[ -d "$XDG_DATA_HOME"/pnpm ]] && echo -n "--allow $XDG_DATA_HOME/pnpm") \
               $([[ -d "$XDG_STATE_HOME"/pnpm ]] && echo -n "--allow $XDG_STATE_HOME/pnpm") \
@@ -328,10 +330,10 @@
               $([[ -e /dev/null ]] && echo -n "--allow-file /dev/null") \
               $([[ -d "$HOME"/.ssh ]] && echo -n "--read $HOME/.ssh") \
               $([[ -d "$XDG_CACHE_HOME"/bat ]] && echo -n "--read $XDG_CACHE_HOME/bat") \
-              $([[ -d "$XDG_CONFIG_HOME" ]] && echo -n "--read $XDG_CONFIG_HOME") \
+              $([[ -d "$XDG_CONFIG_HOME"/fish ]] && echo -n "--read $XDG_CONFIG_HOME/fish") \
+              $([[ -d "$XDG_CONFIG_HOME"/starship ]] && echo -n "--read $XDG_CONFIG_HOME/starship") \
               $([[ -d /etc/skel ]] && echo -n "--read /etc/skel") \
               $([[ -d /nix ]] && echo -n "--read /nix") \
-              $([[ -d /usr/share ]] && echo -n "--read /usr/share") \
               $([[ -e "$HOME"/.bash_aliases ]] && echo -n "--read-file $HOME/.bash_aliases") \
               $([[ -e /etc/bashrc ]] && echo -n "--read-file /etc/bashrc") \
               -- "$CLAUDE_CODE_EXEC" --dangerously-skip-permissions "$@"

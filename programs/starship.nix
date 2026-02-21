@@ -12,6 +12,11 @@
     enableBashIntegration = false;
     enableZshIntegration = false;
 
+    # Move the Starship config into a subdirectory of XDG_CONFIG_HOME
+    # so as to make sandboxing easier
+    #
+    configPath = "${config.xdg.configHome}/starship/starship.toml";
+
     settings = {
       # Define schema (helps with auto-completion in some editors)
       #

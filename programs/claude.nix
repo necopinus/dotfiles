@@ -67,10 +67,8 @@
           "${config.xdg.cacheHome}/pnpm",
           "${config.xdg.cacheHome}/starship",
           "${config.xdg.cacheHome}/uv",
-          "${config.xdg.configHome}/fish",
           "${config.xdg.configHome}/go",
           "${config.xdg.configHome}/zsh",
-          "${config.xdg.dataHome}/delta",
           "${config.xdg.dataHome}/fish",
           "${config.xdg.dataHome}/pnpm",
           "${config.xdg.stateHome}/pnpm",
@@ -80,10 +78,10 @@
         "read": [
           "${config.home.homeDirectory}/.ssh",
           "${config.xdg.cacheHome}/bat",
-          "${config.xdg.configHome}",
+          "${config.xdg.configHome}/fish",
+          "${config.xdg.configHome}/starship",
           "/etc/skel",
-          "/nix",
-          "/usr/share"
+          "/nix"
         ],
         "allow_file": [
           "${config.home.homeDirectory}/.claude.json",
