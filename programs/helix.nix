@@ -15,6 +15,7 @@
       bash-language-server
       clang-tools
       dockerfile-language-server
+      ember-language-server
       fish-lsp
       gopls
       haskellPackages.haskell-language-server
@@ -37,10 +38,16 @@
       yaml-language-server
 
       #### Formatters ####
+      alejandra
       bibtex-tidy
       prettier
       shellcheck
       shfmt
+      swift-format
+
+      #### Debuggers ####
+      delve
+      lldb
     ]
     ++ lib.optionals pkgs.stdenv.isLinux [
       #### Utilities ####
@@ -57,13 +64,23 @@ in {
     };
   };
 
-  home.sessionVariables.VISUAL = "hx";
-
   programs.helix = {
     enable = true;
     defaultEditor = true;
 
     extraPackages = helperPkgs;
+
+    # Helix inexplicably doesn't support auto-formatting of .nix files
+    #
+    languages = {
+      language = [
+        {
+          name = "nix";
+          formatter = {command = "alejandra";};
+          auto-format = true;
+        }
+      ];
+    };
 
     settings = {
       theme = "gruvbox_light_mod";
