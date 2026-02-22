@@ -26,6 +26,7 @@ in {
     ../programs/starship.nix
     ../programs/wezterm.nix # Requires fish.nix
     ../programs/zed.nix
+    ../programs/zellij.nix # Requires fish.nix
     ../programs/zoxide.nix
   ];
 
