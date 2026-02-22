@@ -13,6 +13,14 @@ if [[ ! -f "$HOME/config/nix/flake.nix" ]]; then
     exit
 fi
 
+# Work around flaky DNS in Android VM
+#
+if [[ "$OS" == "Linux" ]]; then
+	if [[ $(grep -c "^nameserver 1.1.1.1" /etc/resolv.conf) -eq 0 ]]; then
+	        echo -e "nameserver 1.1.1.1\nnameserver 8.8.8.8\nnameserver 8.8.4.4" | sudo tee /etc/resolv.conf
+	fi
+fi
+
 # Install (or set up) Homebrew
 #
 if [[ "$OS" == "Darwin" ]]; then
@@ -95,6 +103,53 @@ if [[ -e "$HOME"/.profile ]] && [[ ! -L "$HOME"/.profile ]]; then
     mv "$HOME"/.profile "$HOME"/.profile.before-nix
 fi
 
+# Set up user application data "library" directories
+#
+# Note that we do this *before* running the initial Nix setup, as
+# otherwise any new SystemD units will fail to load
+#
+export XDG_CACHE_HOME="$HOME"/cache
+export XDG_CONFIG_HOME="$HOME"/config
+export XDG_DATA_HOME="$HOME"/local/share
+export XDG_STATE_HOME="$HOME"/local/state
+
+mkdir -p "$XDG_CACHE_HOME"
+if [[ -d "$HOME"/.cache ]] && [[ ! -L "$HOME"/.cache ]]; then
+    cp -an "$HOME"/.cache/* "$XDG_CACHE_HOME"/ || true
+    rm -rf "$HOME"/.cache
+fi
+if [[ ! -e "$HOME"/.cache ]]; then
+    ln -sfT "$XDG_CACHE_HOME" "$HOME"/.cache
+fi
+
+mkdir -p "$XDG_CONFIG_HOME"
+if [[ -d "$HOME"/.config ]] && [[ ! -L "$HOME"/.config ]]; then
+    cp -an "$HOME"/.config/* "$XDG_CONFIG_HOME"/ || true
+    rm -rf "$HOME"/.config
+fi
+if [[ ! -e "$HOME"/.config ]]; then
+    ln -sfT "$XDG_CONFIG_HOME" "$HOME"/.config
+fi
+
+mkdir -p "$HOME"/local
+if [[ -d "$HOME"/.local ]] && [[ ! -L "$HOME"/.local ]]; then
+    cp -an "$HOME"/.local/* "$HOME"/local/ || true
+    rm -rf "$HOME"/.local
+fi
+# If ~/.nix-profile/bin is already in our PATH, then the above move may
+# have broken our environment. We repair it here by fixing the profile
+# symlink using an explicit call to the *system* `ln` binary
+#
+if [[ -e "$XDG_STATE_HOME"/nix/profiles/profile ]] && [[ -e "$HOME"/.nix-profile ]]; then
+    /usr/bin/ln -sfT "$XDG_STATE_HOME"/nix/profiles/profile "$HOME"/.nix-profile
+fi
+if [[ ! -e "$HOME"/.local ]]; then
+    ln -sfT "$HOME"/local "$HOME"/.local
+fi
+if [[ ! -e "$HOME"/.var ]]; then
+    ln -sfT "$HOME"/local "$HOME"/.var
+fi
+
 # Build configuration
 #
 if [[ "$OS" == "Darwin" ]]; then
@@ -153,42 +208,6 @@ fi
 #
 if [[ "$OS" == "Linux" ]]; then
     sudo "$(which non-nixos-gpu-setup)"
-fi
-
-# Set up directories and symlinks
-#
-mkdir -p "$XDG_CACHE_HOME"
-if [[ -d "$HOME"/.cache ]] && [[ ! -L "$HOME"/.cache ]]; then
-    cp -an "$HOME"/.cache/* "$XDG_CACHE_HOME"/ || true
-    rm -rf "$HOME"/.cache
-fi
-if [[ ! -e "$HOME"/.cache ]]; then
-    ln -sfT "$XDG_CACHE_HOME" "$HOME"/.cache
-fi
-
-mkdir -p "$XDG_CONFIG_HOME"
-if [[ -d "$HOME"/.config ]] && [[ ! -L "$HOME"/.config ]]; then
-    cp -an "$HOME"/.config/* "$XDG_CONFIG_HOME"/ || true
-    rm -rf "$HOME"/.config
-fi
-if [[ ! -e "$HOME"/.config ]]; then
-    ln -sfT "$XDG_CONFIG_HOME" "$HOME"/.config
-fi
-
-mkdir -p "$HOME"/local
-if [[ -d "$HOME"/.local ]] && [[ ! -L "$HOME"/.local ]]; then
-    cp -an "$HOME"/.local/* "$HOME"/local/ || true
-    rm -rf "$HOME"/.local
-fi
-if [[ ! -e "$HOME"/.local ]]; then
-    # We need to use the system `ln` here, as Nix's `ln` will be
-    # (temporarily) broken
-    #
-    /usr/bin/ln -sfT "$HOME"/local "$HOME"/.local
-fi
-/usr/bin/ln -sfT "$XDG_STATE_HOME"/nix/profiles/profile "$HOME"/.nix-profile
-if [[ ! -e "$HOME"/.var ]]; then
-    ln -sfT "$HOME"/local "$HOME"/.var
 fi
 
 # Set up XDG user directories
