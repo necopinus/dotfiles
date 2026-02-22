@@ -13,7 +13,7 @@ if [[ ! -f "$HOME/config/nix/flake.nix" ]]; then
     exit
 fi
 
-# Work around flaky DNS in Android VM
+# Work around flakey DNS in Android VM
 #
 if [[ "$OS" == "Linux" ]]; then
 	if [[ $(grep -c "^nameserver 1.1.1.1" /etc/resolv.conf) -eq 0 ]]; then
