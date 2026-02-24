@@ -1,6 +1,6 @@
 # Personal dotfiles
 
-My dotfiles + a setup script for quickly configuring a new device. Currently only supports macOS and Debian VMs.
+My dotfiles + a setup script for quickly configuring a new device. Currently only supports [macOS](https://www.apple.com/os/macos/) and [Debian](https://debian.org) VMs.
 
 You don't want to use these files directly, as they hard-code certain aspects of my setup (username, etc.). They are provided publicly as a potential source of information for folks and/or examples of how to sove various problems with cross-OS dotfiles.
 
