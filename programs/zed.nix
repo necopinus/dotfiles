@@ -91,11 +91,12 @@ in {
       auto_indent_on_paste = true;
       format_on_save = "on";
       excerpt_context_lines = 5;
+      #buffer_font_family = "JetBrainsMono Nerd Font Mono"; # TODO: Uncomment once the Android Terminal supports custom fonts
       buffer_font_size = 12;
       ui_font_size = 14;
 
       theme = {
-        mode = "light";
+        mode = "dark"; # TODO: Change to "light" once the Android Terminal supports custom themes
         light = "Gruvbox Light";
         dark = "Gruvbox Dark";
       };
