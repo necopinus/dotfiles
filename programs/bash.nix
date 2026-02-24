@@ -5,8 +5,8 @@
     # ~/.profile
     #
     sessionVariables = {
-      BAT_THEME = "ansi";
-      DELTA_FEATURES = "+generic-dark-theme";
+      BAT_THEME = "ansi"; # TODO: Change to "gruvbox-light" once the Android Terminal supports custom themes
+      DELTA_FEATURES = "+ansi-dark"; # TODO: Change to "+gruvbox-light" once the Android Terminal supports custom themes
     };
 
     profileExtra = ''
@@ -104,23 +104,17 @@
         source /etc/skel/.bashrc
       fi
 
-      # Make sure that Nix is set up
-      #
-      if [[ -f /nix/var/nix/profiles/default/etc/profile.d/nix-daemon.sh ]]; then
-        source /nix/var/nix/profiles/default/etc/profile.d/nix-daemon.sh
-      fi
-    '';
-
-    historyControl = ["erasedups"];
-    shellOptions = ["histappend"];
-    enableCompletion = true;
-
-    initExtra = ''
       #### BEGIN: Repeat from ~/.profile to catch non-login shells ####
 
       # Set OS type
       #
       OS="$(uname -s)"
+
+      # Make sure that Nix is set up
+      #
+      if [[ -f /nix/var/nix/profiles/default/etc/profile.d/nix-daemon.sh ]]; then
+        source /nix/var/nix/profiles/default/etc/profile.d/nix-daemon.sh
+      fi
 
       # Check for SANDBOXED_* paths and replace computed paths with
       # these values if found (this works around the chicken-and-egg
@@ -164,6 +158,23 @@
       fi
 
       ##### END: Repeat from ~/.profile to catch non-login shells #####
+    '';
+
+    historyControl = ["erasedups"];
+    shellOptions = ["histappend"];
+    enableCompletion = true;
+
+    initExtra = ''
+      # Exec fish
+      #
+      if [[ -z "$__EXEC_FISH" ]] && [[ -n "$(which fish)" ]] &&
+        [[ ! -f "$HOME"/nofish ]] && [[ ! -f "$HOME"/nofish.txt ]] &&
+        [[ ! -f /mnt/shared/nofish ]] && [[ ! -f /mnt/shared/nofish.txt ]] &&
+        [[ ! -f /mnt/shared/Documents/nofish ]] && [[ ! -f /mnt/shared/Documents/nofish.txt ]] &&
+        [[ ! -f "$HOME"/Documents/nofish ]] && [[ ! -f "$HOME"/Documents/nofish.txt ]]; then
+        export __EXEC_FISH=1
+        exec $(which fish)
+      fi
 
       # Start ssh-agent, if necessary
       #
@@ -199,7 +210,7 @@
       alias :q=exit
       alias cat="$(which bat) -pp"
       alias diff="$(which delta)"
-      alias glow="$(which glow) -s dark"
+      alias glow="$(which glow) -s dark" # TODO: Change to $XDG_CONFIG_HOME/glow/styles/gruvbox-light.json once the Android Terminal supports custom themes
       alias htop="$(which btm) --basic"
       alias imgcat="$(which chafa)"
       alias jq="$(which jaq)"
@@ -215,15 +226,8 @@
       alias vim="$(which "$EDITOR")"
       alias yq="$(which jaq)"
 
-      # Alias LXQt session startup
-      #
-      if [[ "$OS" == "Linux" ]]; then
-        alias start-desktop="$(which startlxqtwayland)"
-        alias startlxqt="$(which startlxqtwayland)"
-      fi
-
-      # The Android Debian VM is surprisingly fragile, so we want to
-      # do a shutdown rather than just exiting the last session
+      # The Android VM is surprisingly fragile, so we want to do a
+      # shutdown rather than just exiting the last session
       #
       if [[ "$OS" == "Linux" ]]; then
         alias shutdown="/usr/bin/sudo /sbin/shutdown -h now"
@@ -294,7 +298,7 @@
 
         export SANDBOXED_PATH SANDBOXED_MANPATH SANDBOXED_TERMINFO_DIRS SANDBOXED_XDG_CONFIG_DIRS SANDBOXED_XDG_DATA_DIRS
 
-        env -S \
+        eval env -S \
           $([[ -z "$SANDBOXED_PATH" ]] && echo -n "-u PATH") \
           $([[ -z "$SANDBOXED_MANPATH" ]] && echo -n "-u MANPATH") \
           $([[ -z "$SANDBOXED_TERMINFO_DIRS" ]] && echo -n "-u TERMINFO_DIRS") \
@@ -316,12 +320,13 @@
           "$CLAUDE_CODE_EXEC" "$@"
         else
           # Note that all of the allow/allow-file/read/read-file lines
-          # (except for `--allow .`) can be removed when nono v0.5.0
+          # (except for `--allow .`) can be removed when nono v0.6.0
           # hits nixpkgs-unstable
           #
           nono run \
             --profile claude-code \
             --allow . \
+            $([[ -d "$HOME"/.bash_sessions ]] && echo -n "--allow $HOME/.bash_sessions") \
             $([[ -d "$XDG_CACHE_HOME"/fish ]] && echo -n "--allow $XDG_CACHE_HOME/fish") \
             $([[ -d "$XDG_CACHE_HOME"/go-build ]] && echo -n "--allow $XDG_CACHE_HOME/go-build") \
             $([[ -d "$XDG_CACHE_HOME"/pip ]] && echo -n "--allow $XDG_CACHE_HOME/pip") \
@@ -337,8 +342,12 @@
             $([[ -d /var/folders ]] && echo -n "--allow /var/folders") \
             $([[ -e /dev/null ]] && echo -n "--allow-file /dev/null") \
             $([[ -d "$HOME"/.ssh ]] && echo -n "--read $HOME/.ssh") \
+            $([[ -d "$HOME"/Library/"Application Support"/Chromium ]] && echo -n "--read $HOME/Library/Application\\ Support/Chromium") \
+            $([[ -d "$HOME"/Library/"Application Support"/Google/Chrome ]] && echo -n "--read $HOME/Library/Application\\ Support/Google/Chrome") \
             $([[ -d "$XDG_CACHE_HOME"/bat ]] && echo -n "--read $XDG_CACHE_HOME/bat") \
+            $([[ -d "$XDG_CONFIG_HOME"/chromium ]] && echo -n "--read $XDG_CONFIG_HOME/chromium") \
             $([[ -d "$XDG_CONFIG_HOME"/fish ]] && echo -n "--read $XDG_CONFIG_HOME/fish") \
+            $([[ -d "$XDG_CONFIG_HOME"/google-chrome ]] && echo -n "--read $XDG_CONFIG_HOME/google-chrome") \
             $([[ -d "$XDG_CONFIG_HOME"/starship ]] && echo -n "--read $XDG_CONFIG_HOME/starship") \
             $([[ -d /etc/skel ]] && echo -n "--read /etc/skel") \
             $([[ -d /nix ]] && echo -n "--read /nix") \

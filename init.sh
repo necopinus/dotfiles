@@ -13,12 +13,12 @@ if [[ ! -f "$HOME/config/nix/flake.nix" ]]; then
     exit
 fi
 
-# Work around flakey DNS in Android VM
+# Work around flakey DNS in the Android VM
 #
 if [[ "$OS" == "Linux" ]]; then
-	if [[ $(grep -c "^nameserver 1.1.1.1" /etc/resolv.conf) -eq 0 ]]; then
-	        echo -e "nameserver 1.1.1.1\nnameserver 8.8.8.8\nnameserver 8.8.4.4" | sudo tee /etc/resolv.conf
-	fi
+    if [[ $(grep -c "^nameserver 1.1.1.1" /etc/resolv.conf) -eq 0 ]]; then
+        echo -e "nameserver 1.1.1.1\nnameserver 8.8.8.8\nnameserver 8.8.4.4" | sudo tee /etc/resolv.conf
+    fi
 fi
 
 # Install (or set up) Homebrew
@@ -160,7 +160,7 @@ if [[ "$OS" == "Darwin" ]]; then
 else
     (
         cd "$HOME/config/nix"
-        dbus-run-session nix run home-manager/master -- switch --flake .#android
+        dbus-run-session nix run home-manager/master -- switch --flake .#debian-vm
     )
 fi
 
@@ -174,14 +174,13 @@ if [[ "$OS" == "Linux" ]]; then
         libseccomp-dev \
         procps \
         rtkit \
-        seatd \
-        yubikey-manager-qt
+        seatd
 
     # Comment out global SSH option that Nix's ssh binary doesn't like
     #
     sudo sed -i 's/^    GSSAPIAuthentication yes/#   GSSAPIAuthentication yes/' /etc/ssh/ssh_config
 
-    # Sync timezone with Android
+    # I mostly exist in US Mountain Time
     #
     sudo ln -sf /usr/share/zoneinfo/America/Denver /etc/localtime
 
@@ -420,10 +419,6 @@ mkdir -p "$HOME"/src
         git clone --recurse-submodules \
             https://github.com/davidphilipbarr/labwc-adwaita.git
     fi
-    if [[ ! -d KvLibadwaita ]]; then
-        git clone --recurse-submodules \
-            https://github.com/GabePoel/KvLibadwaita.git
-    fi
     if [[ ! -d twitter-archive-parser ]]; then
         git clone --recurse-submodules \
             https://github.com/timhutton/twitter-archive-parser.git
@@ -436,10 +431,7 @@ echo ""
 echo "Configuration complete!"
 echo ""
 if [[ "$OS" == "Darwin" ]]; then
-    echo "To finish setup you MUST take the following actions NOW:"
-    echo ""
-    echo "  1. grant the \"Full Disk Access\" privilege to WezTerm, and"
-    echo "  2. Reboot your system."
+    echo "To finish setup you MUST reboot your system NOW."
 else
     echo "To finish setup you MUST log out of all sessions NOW."
 fi

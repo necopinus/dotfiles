@@ -4,19 +4,20 @@
     enableGitIntegration = true;
 
     options = {
-      hyperlinks = true;
       line-numbers = true;
       navigate = true;
       side-by-side = true;
 
       # Themes; they're just defined here, but then explicitly enabled
-      # using the DELTA_FEATURES shell variable. This allows us to deal
-      # with systems that use multiple terminals with different feature
-      # sets (*cough* Android *cough).
+      # using the DELTA_FEATURES shell variable
       #
-      generic-dark-theme = {
+      ansi-dark = {
         dark = true;
         syntax-theme = "base16";
+      };
+      ansi-light = {
+        light = true;
+        syntax-theme = "ansi";
       };
       gruvbox-light = {
         light = true;

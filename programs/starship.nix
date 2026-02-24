@@ -6,12 +6,6 @@
   programs.starship = {
     enable = true;
 
-    # Disable bash and zsh integration, as these shells (generally) get
-    # used in terminals for which I can't set the color scheme
-    #
-    enableBashIntegration = false;
-    enableZshIntegration = false;
-
     # Move the Starship config into a subdirectory of XDG_CONFIG_HOME
     # so as to make sandboxing easier
     #
@@ -25,52 +19,46 @@
       # Actual prompt
       #
       format = lib.concatStrings [
-        "[](color_orange)"
+        "[](fg:color_orange)" # TODO: Replace with "[](fg:color_orange)" once the Android Terminal supports custom fonts
         "$os"
-        "$username"
-        "[](bg:color_yellow fg:color_orange)"
+        "$shell"
+        "[](fg:color_orange bg:color_yellow)"
         "$directory"
         "[](fg:color_yellow bg:color_cyan)"
         "$git_branch"
         "$git_status"
         "[](fg:color_cyan bg:color_blue)"
-        "$c"
-        "$cpp"
-        "$golang"
-        "$haskell"
-        "$java"
-        "$kotlin"
-        "$lua"
-        "$nodejs"
-        "$perl"
-        "$php"
-        "$python"
-        "$ruby"
-        "$rust"
-        "$solidity"
-        "$swift"
-        "[](fg:color_blue bg:color_bg3)"
-        "$cmake"
-        "$conda"
-        "$docker_context"
-        "$gradle"
         "$nix_shell"
-        "$pixi"
+        "$python"
+        "[](fg:color_blue bg:color_bg3)"
         "$cmd_duration"
         "[](fg:color_bg3 bg:color_bg1)"
         "$time"
-        "[](fg:color_bg1)"
+        "[](fg:color_bg1)" # TODO: Replace with "[](fg:color_bg1)" once the Android Terminal supports custom fonts
         "$line_break"
         "$character"
       ];
 
-      add_newline = false;
+      add_newline = true;
 
       # Define colors
       #
-      palette = "gruvbox_light";
+      palette = "term_dark"; # TODO: Change to "gruvbox_light" once the Android Terminal supports custom themes
 
       palettes = {
+        term_dark = {
+          color_fg0 = "bright-white";
+          color_fg1 = "white";
+          color_bg1 = "black";
+          color_bg3 = "bright-black";
+          color_blue = "blue";
+          color_cyan = "green";
+          color_green = "bright-green";
+          color_orange = "red";
+          color_purple = "purple";
+          color_red = "bright-red";
+          color_yellow = "yellow";
+        };
         gruvbox_light = {
           color_fg0 = "#fbf1c7";
           color_fg1 = "#ebdbb2";
@@ -103,50 +91,61 @@
 
       os = {
         disabled = false;
-        style = "bg:color_orange fg:color_fg0";
         symbols = {
-          AlmaLinux = "";
-          Alpine = "";
-          Amazon = "";
-          Android = "";
-          Arch = "";
-          Artix = "";
-          CentOS = "";
-          Debian = "";
-          EndeavourOS = "";
-          Fedora = "";
-          FreeBSD = "";
-          Garuda = "";
-          Gentoo = "";
-          Illumos = "";
-          Kali = "";
-          Linux = "";
-          Macos = "";
-          Manjaro = "";
-          Mint = "󰣭";
-          NixOS = "";
-          Nobara = "";
-          OpenBSD = "";
-          Pop = "";
-          Raspbian = "";
-          Redhat = "";
-          RedHatEnterprise = "";
-          RockyLinux = "";
-          SUSE = "";
-          Solus = "";
-          Ubuntu = "󰕈";
-          Unknown = "";
-          Void = "";
-          Windows = "";
-          openSUSE = "";
+          AlmaLinux = "○"; # TODO: Replace with "" once the Android Terminal supports custom fonts
+          Alpine = "○"; # TODO: Replace with "" once the Android Terminal supports custom fonts
+          Amazon = "○"; # TODO: Replace with "" once the Android Terminal supports custom fonts
+          Android = "○"; # TODO: Replace with "" once the Android Terminal supports custom fonts
+          Arch = "○"; # TODO: Replace with "" once the Android Terminal supports custom fonts
+          Artix = "○"; # TODO: Replace with "" once the Android Terminal supports custom fonts
+          CentOS = "○"; # TODO: Replace with "" once the Android Terminal supports custom fonts
+          Debian = "●"; # TODO: Replace with "" once the Android Terminal supports custom fonts
+          EndeavourOS = "○"; # TODO: Replace with "" once the Android Terminal supports custom fonts
+          Fedora = "○"; # TODO: Replace with "" once the Android Terminal supports custom fonts
+          FreeBSD = "○"; # TODO: Replace with "" once the Android Terminal supports custom fonts
+          Garuda = "○"; # TODO: Replace with "" once the Android Terminal supports custom fonts
+          Gentoo = "○"; # TODO: Replace with "" once the Android Terminal supports custom fonts
+          Illumos = "○"; # TODO: Replace with "" once the Android Terminal supports custom fonts
+          Kali = "○"; # TODO: Replace with "" once the Android Terminal supports custom fonts
+          Linux = "●"; # TODO: Replace with "" once the Android Terminal supports custom fonts
+          Macos = "○"; # TODO: Replace with "" once the Android Terminal supports custom fonts
+          Manjaro = "○"; # TODO: Replace with "" once the Android Terminal supports custom fonts
+          Mint = "○"; # TODO: Replace with "󰣭" once the Android Terminal supports custom fonts
+          NixOS = "●"; # TODO: Replace with "" once the Android Terminal supports custom fonts
+          Nobara = "○"; # TODO: Replace with "" once the Android Terminal supports custom fonts
+          OpenBSD = "○"; # TODO: Replace with "" once the Android Terminal supports custom fonts
+          Pop = "○"; # TODO: Replace with "" once the Android Terminal supports custom fonts
+          Raspbian = "○"; # TODO: Replace with "" once the Android Terminal supports custom fonts
+          Redhat = "○"; # TODO: Replace with "" once the Android Terminal supports custom fonts
+          RedHatEnterprise = "○"; # TODO: Replace with "" once the Android Terminal supports custom fonts
+          RockyLinux = "○"; # TODO: Replace with "" once the Android Terminal supports custom fonts
+          SUSE = "○"; # TODO: Replace with "" once the Android Terminal supports custom fonts
+          Solus = "○"; # TODO: Replace with "" once the Android Terminal supports custom fonts
+          Ubuntu = "○"; # TODO: Replace with "󰕈" once the Android Terminal supports custom fonts
+          Unknown = "○"; # TODO: Replace with "" once the Android Terminal supports custom fonts
+          Void = "○"; # TODO: Replace with "" once the Android Terminal supports custom fonts
+          Windows = "○"; # TODO: Replace with "" once the Android Terminal supports custom fonts
+          openSUSE = "○"; # TODO: Replace with "" once the Android Terminal supports custom fonts
         };
+        style = "bg:color_orange fg:color_fg0";
+        format = "[ $symbol]($style)";
       };
 
-      username = {
-        show_always = true;
-        style_user = "bg:color_orange fg:color_fg0";
-        style_root = "bg:color_orange fg:color_fg0";
-        format = "[ $user ]($style)";
+      shell = {
+        disabled = false;
+        bash_indicator = "bash";
+        fish_indicator = "fish";
+        zsh_indicator = "zsh";
+        powershell_indicator = "pwsh";
+        ion_indicator = "ion";
+        elvish_indicator = "elvish";
+        tcsh_indicator = "tcsh";
+        xonsh_indicator = "xonsh";
+        cmd_indicator = "cmd";
+        nu_indicator = "nu";
+        unknown_indicator = "----";
+        style = "bg:color_orange fg:color_fg0";
+        format = "[ $indicator ]($style)";
       };
 
       #### Yellow ##########################################################
@@ -154,14 +153,14 @@
       directory = {
         style = "fg:color_fg0 bg:color_yellow";
         format = "[ $path ]($style)";
-        truncation_length = 3;
+        truncation_length = 4;
         truncation_symbol = "…/";
       };
 
       #### Cyan ############################################################
 
       git_branch = {
-        symbol = "";
+        symbol = ""; # TODO: Replace with "" once the Android Terminal supports custom fonts
         style = "bg:color_cyan";
         format = "[[ $symbol $branch ](fg:color_fg0 bg:color_cyan)]($style)";
       };
@@ -171,126 +170,32 @@
         format = "[[($all_status$ahead_behind )](fg:color_fg0 bg:color_cyan)]($style)";
       };
 
+      #conflicted	'='	This branch has merge conflicts.
+      #ahead	'⇡'	The format of ahead
+      #behind	'⇣'	The format of behind
+      #diverged	'⇕'	The format of diverged
+      #up_to_date	''	The format of up_to_date
+      #untracked	'?'	The format of untracked
+      #stashed	'\$'	The format of stashed
+      #modified	'!'	The format of modified
+      #staged	'+'	The format of staged
+      #renamed	'»'	The format of renamed
+      #deleted	'✘'	The format of deleted
+      #typechanged	""	The format of typechanged
+
       #### Blue ############################################################
-
-      c = {
-        symbol = "";
-        style = "bg:color_blue";
-        format = "[[ $symbol( $version) ](fg:color_fg0 bg:color_blue)]($style)";
-      };
-
-      cmake = {
-        disabled = true;
-        symbol = "";
-        style = "bg:color_blue";
-        format = "[[ $symbol( $version) ](fg:color_fg0 bg:color_blue)]($style)";
-      };
-
-      cpp = {
-        symbol = "";
-        style = "bg:color_blue";
-        format = "[[ $symbol( $version) ](fg:color_fg0 bg:color_blue)]($style)";
-      };
-
-      docker_context = {
-        disabled = true;
-        symbol = "";
-        style = "bg:color_blue";
-        format = "[[ $symbol( $context) ](fg:color_fg0 bg:color_blue)]($style)";
-      };
-
-      golang = {
-        symbol = "";
-        style = "bg:color_blue";
-        format = "[[ $symbol( $version) ](fg:color_fg0 bg:color_blue)]($style)";
-      };
-
-      gradle = {
-        disabled = true;
-        symbol = "";
-        style = "bg:color_blue";
-        format = "[[ $symbol( $version) ](fg:color_fg0 bg:color_blue)]($style)";
-      };
-
-      haskell = {
-        symbol = "";
-        style = "bg:color_blue";
-        format = "[[ $symbol( $version) ](fg:color_fg0 bg:color_blue)]($style)";
-      };
-
-      java = {
-        symbol = "";
-        style = "bg:color_blue";
-        format = "[[ $symbol( $version) ](fg:color_fg0 bg:color_blue)]($style)";
-      };
-
-      kotlin = {
-        symbol = "";
-        style = "bg:color_blue";
-        format = "[[ $symbol( $version) ](fg:color_fg0 bg:color_blue)]($style)";
-      };
-
-      lua = {
-        symbol = "";
-        style = "bg:color_blue";
-        format = "[[ $symbol( $version) ](fg:color_fg0 bg:color_blue)]($style)";
-      };
 
       nix_shell = {
         disabled = false;
-        symbol = "";
+        symbol = "❄"; # TODO: Replace with "" once the Android Terminal supports custom fonts
         style = "bg:color_blue";
         format = "[[ $symbol( $state)( $name) ](fg:color_fg0 bg:color_blue)]($style)";
       };
 
-      nodejs = {
-        symbol = "";
-        style = "bg:color_blue";
-        format = "[[ $symbol( $version) ](fg:color_fg0 bg:color_blue)]($style)";
-      };
-
-      perl = {
-        disabled = true;
-        symbol = "";
-        style = "bg:color_blue";
-        format = "[[ $symbol( $version) ](fg:color_fg0 bg:color_blue)]($style)";
-      };
-
-      php = {
-        disabled = true;
-        symbol = "";
-        style = "bg:color_blue";
-        format = "[[ $symbol( $version) ](fg:color_fg0 bg:color_blue)]($style)";
-      };
-
       python = {
-        symbol = "";
+        symbol = "꩜"; # TODO: Replace with "" once the Android Terminal supports custom fonts
         style = "bg:color_blue";
         format = "[[ $symbol( $version)( $virtualenv) ](fg:color_fg0 bg:color_blue)]($style)";
-      };
-
-      ruby = {
-        symbol = "";
-        style = "bg:color_blue";
-        format = "[[ $symbol( $version) ](fg:color_fg0 bg:color_blue)]($style)";
-      };
-
-      rust = {
-        symbol = "";
-        style = "bg:color_blue";
-        format = "[[ $symbol( $version) ](fg:color_fg0 bg:color_blue)]($style)";
-      };
-
-      solidity = {
-        symbol = "";
-        style = "bg:color_blue";
-        format = "[[ $symbol( $version) ](fg:color_fg0 bg:color_blue)]($style)";
-      };
-
-      swift = {
-        symbol = "";
-        style = "bg:color_blue";
-        format = "[[ $symbol( $version) ](fg:color_fg0 bg:color_blue)]($style)";
       };
 
       #### Light Gray ######################################################
@@ -298,7 +203,7 @@
       cmd_duration = {
         disabled = false;
         style = "bg:color_bg3";
-        format = "[[  $duration ](fg:color_fg0 bg:color_bg3 bold)]($style)";
+        format = "[[ ⧗ $duration ](fg:color_fg0 bg:color_bg3 bold)]($style)"; # TODO: Replace with "[[  $duration ](fg:color_fg0 bg:color_bg3 bold)]($style)" once the Android Terminal supports custom fonts
       };
 
       #### Dark Gray #######################################################
@@ -307,7 +212,7 @@
         disabled = false;
         time_format = "%T";
         style = "bg:color_bg1";
-        format = "[[  $time ](fg:color_fg0 bg:color_bg1)]($style)";
+        format = "[[ ⏲ $time ](fg:color_fg0 bg:color_bg1)]($style)"; # TODO: Replace with "[[  $time ](fg:color_fg0 bg:color_bg1)]($style)" once the Android Terminal supports custom fonts
       };
 
       #### Second Line #####################################################
@@ -318,12 +223,12 @@
 
       character = {
         disabled = false;
-        success_symbol = "[](bold fg:color_green)";
-        error_symbol = "[](bold fg:color_red)";
-        vimcmd_symbol = "[](bold fg:color_green)";
-        vimcmd_replace_one_symbol = "[](bold fg:color_purple)";
-        vimcmd_replace_symbol = "[](bold fg:color_purple)";
-        vimcmd_visual_symbol = "[](bold fg:color_yellow)";
+        success_symbol = "[→](bold fg:color_green)"; # TODO: Replace with "[](bold fg:color_green)" once the Android Terminal supports custom fonts
+        error_symbol = "[→](bold fg:color_red)"; # TODO: Replace with "[](bold fg:color_red)" once the Android Terminal supports custom fonts
+        vimcmd_symbol = "[→](bold fg:color_green)"; # TODO: Replace with "[](bold fg:color_green)" once the Android Terminal supports custom fonts
+        vimcmd_replace_one_symbol = "[→](bold fg:color_purple)"; # TODO: Replace with "[](bold fg:color_purple)" once the Android Terminal supports custom fonts
+        vimcmd_replace_symbol = "[→](bold fg:color_purple)"; # TODO: Replace with "[](bold fg:color_purple)" once the Android Terminal supports custom fonts
+        vimcmd_visual_symbol = "[→](bold fg:color_yellow)"; # TODO: Replace with "[](bold fg:color_yellow)" once the Android Terminal supports custom fonts
       };
     };
   };

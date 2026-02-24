@@ -1,3 +1,0 @@
-[wezterm]
-custom_args=start --cwd .
-open_arg=-e

@@ -15,11 +15,15 @@
     # ~/.zshenv
     #
     sessionVariables = {
-      BAT_THEME = "ansi";
-      DELTA_FEATURES = "+generic-dark-theme";
+      BAT_THEME = "ansi"; # TODO: Change to "gruvbox-light" once the Android Terminal supports custom themes
+      DELTA_FEATURES = "+ansi-dark"; # TODO: Change to "+gruvbox-light" once the Android Terminal supports custom themes
     };
 
     envExtra = ''
+      # Set OS type
+      #
+      OS="$(uname -s)"
+
       # Load system defaults if they exist
       #
       if [[ -f /etc/skel/.zshenv ]]; then
@@ -85,25 +89,21 @@
           export SHELL="$(realpath /usr/bin)"/zsh
         fi
       fi
-    '';
-
-    # ~/.zprofile
-    #
-    profileExtra = ''
-      # Set OS type
-      #
-      OS="$(uname -s)"
-
-      # Load system defaults if they exist
-      #
-      if [[ -f /etc/skel/.zprofile ]]; then
-        source /etc/skel/.zprofile
-      fi
 
       # Load $XDG_CONFIG_HOME/user-dirs.dirs when applicable
       #
       if [[ "$OS" == "Darwin" ]] && [[ -f "$XDG_CONFIG_HOME/user-dirs.dirs" ]]; then
         eval "$(cat "$XDG_CONFIG_HOME/user-dirs.dirs" | sed "s/^XDG_/export XDG_/")"
+      fi
+    '';
+
+    # ~/.zprofile
+    #
+    profileExtra = ''
+      # Load system defaults if they exist
+      #
+      if [[ -f /etc/skel/.zprofile ]]; then
+        source /etc/skel/.zprofile
       fi
     '';
 
@@ -146,9 +146,16 @@
       # Loads in the normal position (near the end)
       #
       initExtra = lib.mkOrder 1000 ''
-        # Set OS type
+        # Exec fish
         #
-        OS="$(uname -s)"
+        if [[ -z "$__EXEC_FISH" ]] && [[ -n "$(whence -p fish)" ]] &&
+          [[ ! -f "$HOME"/nofish ]] && [[ ! -f "$HOME"/nofish.txt ]] &&
+          [[ ! -f /mnt/shared/nofish ]] && [[ ! -f /mnt/shared/nofish.txt ]] &&
+          [[ ! -f /mnt/shared/Documents/nofish ]] && [[ ! -f /mnt/shared/Documents/nofish.txt ]] &&
+          [[ ! -f "$HOME"/Documents/nofish ]] && [[ ! -f "$HOME"/Documents/nofish.txt ]]; then
+          export __EXEC_FISH=1
+          exec $(whence -p fish)
+        fi
 
         # Start ssh-agent, if necessary
         #
@@ -183,7 +190,7 @@
         alias :q=exit
         alias cat="$(whence -p bat) -pp"
         alias diff="$(whence -p delta)"
-        alias glow="$(whence -p glow) -s dark"
+        alias glow="$(whence -p glow) -s dark" # TODO: Change to $XDG_CONFIG_HOME/glow/styles/gruvbox-light.json once the Android Terminal supports custom themes
         alias htop="$(whence -p btm) --basic"
         alias imgcat="$(whence -p chafa)"
         alias jq="$(whence -p jaq)"
@@ -286,7 +293,7 @@
 
           export SANDBOXED_PATH SANDBOXED_MANPATH SANDBOXED_TERMINFO_DIRS SANDBOXED_XDG_CONFIG_DIRS SANDBOXED_XDG_DATA_DIRS
 
-          env -S \
+          eval env -S \
             $([[ -z "$SANDBOXED_PATH" ]] && echo -n "-u PATH") \
             $([[ -z "$SANDBOXED_MANPATH" ]] && echo -n "-u MANPATH") \
             $([[ -z "$SANDBOXED_TERMINFO_DIRS" ]] && echo -n "-u TERMINFO_DIRS") \
@@ -309,11 +316,12 @@
           else
             # Note that all of the allow/allow-file/read/read-file
             # lines (except for `--allow .`) can be removed when nono
-            # v0.5.0 hits nixpkgs-unstable
+            # v0.6.0 hits nixpkgs-unstable
             #
             nono run \
               --profile claude-code \
               --allow . \
+              $([[ -d "$HOME"/.bash_sessions ]] && echo -n "--allow $HOME/.bash_sessions") \
               $([[ -d "$XDG_CACHE_HOME"/fish ]] && echo -n "--allow $XDG_CACHE_HOME/fish") \
               $([[ -d "$XDG_CACHE_HOME"/go-build ]] && echo -n "--allow $XDG_CACHE_HOME/go-build") \
               $([[ -d "$XDG_CACHE_HOME"/pip ]] && echo -n "--allow $XDG_CACHE_HOME/pip") \
@@ -329,8 +337,12 @@
               $([[ -d /var/folders ]] && echo -n "--allow /var/folders") \
               $([[ -e /dev/null ]] && echo -n "--allow-file /dev/null") \
               $([[ -d "$HOME"/.ssh ]] && echo -n "--read $HOME/.ssh") \
+              $([[ -d "$HOME"/Library/"Application Support"/Chromium ]] && echo -n "--read $HOME/Library/Application\\ Support/Chromium") \
+              $([[ -d "$HOME"/Library/"Application Support"/Google/Chrome ]] && echo -n "--read $HOME/Library/Application\\ Support/Google/Chrome") \
               $([[ -d "$XDG_CACHE_HOME"/bat ]] && echo -n "--read $XDG_CACHE_HOME/bat") \
+              $([[ -d "$XDG_CONFIG_HOME"/chromium ]] && echo -n "--read $XDG_CONFIG_HOME/chromium") \
               $([[ -d "$XDG_CONFIG_HOME"/fish ]] && echo -n "--read $XDG_CONFIG_HOME/fish") \
+              $([[ -d "$XDG_CONFIG_HOME"/google-chrome ]] && echo -n "--read $XDG_CONFIG_HOME/google-chrome") \
               $([[ -d "$XDG_CONFIG_HOME"/starship ]] && echo -n "--read $XDG_CONFIG_HOME/starship") \
               $([[ -d /etc/skel ]] && echo -n "--read /etc/skel") \
               $([[ -d /nix ]] && echo -n "--read /nix") \

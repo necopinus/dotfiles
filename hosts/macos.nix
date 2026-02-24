@@ -1,8 +1,4 @@
-{
-  config,
-  pkgs,
-  ...
-}: {
+{config, ...}: {
   # Disable nix-darwin's management of the nix binary, as I'm using
   # determinate-nix
   #
@@ -43,11 +39,8 @@
       "brave-browser"
       "calibre"
       "claude"
-      "discord"
-      "doppler-app" # FIXME: I'd rather use Quod Libet...
       "google-drive"
       "handbrake-app"
-      "kid3" # FIXME: I'd rather use Ex Falso / Operon...
       "makemkv"
       {
         name = "obsidian";
@@ -55,11 +48,9 @@
       }
       "proton-drive"
       "protonvpn"
-      "qflipper"
       "qobuz-downloader"
       "scroll-reverser"
       "signal"
-      "stellarium"
       "vlc"
       "wireshark-chmodbpf" # Wireshark helper driver (only used by hackenv)
       "yubico-yubikey-manager"
@@ -67,15 +58,12 @@
     ];
   };
 
-  # Fonts
+  # Terminal "Nerd Font"
   #
-  fonts.packages = with pkgs; [
-    nerd-fonts.jetbrains-mono
-    noto-fonts
-    noto-fonts-cjk-sans
-    noto-fonts-cjk-serif
-    noto-fonts-monochrome-emoji
-  ];
+  # TODO: Uncomment once the Android Terminal supports custom fonts
+  # (`pkgs` will also need to be added to the inputs)
+  #
+  #fonts.packages = with pkgs; [nerd-fonts.jetbrains-mono];
 
   # macOS configuration
   #
@@ -120,7 +108,6 @@
       largesize = 128;
       mineffect = "scale";
       mru-spaces = false;
-      orientation = "right";
       showAppExposeGestureEnabled = true;
 
       wvous-bl-corner = 1;
@@ -132,9 +119,7 @@
         {app = "/System/Applications/Apps.app";}
         {app = "/Applications/Brave Browser.app";}
         {app = "/Applications/Claude.app";}
-        {app = "/Applications/Discord.app";}
         {app = "/System/Applications/Utilities/Terminal.app";}
-        {app = "/Users/${config.system.primaryUser}/Applications/Home Manager Apps/WezTerm.app";}
         {app = "/Applications/Zed.app";}
       ];
       persistent-others = [
@@ -197,15 +182,12 @@
 
     universalaccess = {
       reduceMotion = true;
-      reduceTransparency = true;
     };
 
     CustomUserPreferences = {
       # a.k.a. "Apple Global Domain"
       #
       NSGlobalDomain = {
-        SLSMenuBarUseBlurredAppearance = true;
-
         AppleLanguages = ["en-US"];
         AppleLocale = "en_US";
         AppleFirstWeekday = {gregorian = 2;};
@@ -246,8 +228,8 @@
       };
 
       "com.apple.Terminal" = {
-        "Default Window Settings" = "Clear Dark";
-        "Startup Window Settings" = "Clear Dark";
+        "Default Window Settings" = "Clear Dark"; # TODO: Create a "Gruvbox Light" theme once the Android Terminal supports custom themes
+        "Startup Window Settings" = "Clear Dark"; # TODO: Switch theme font to "JetBrainsMono Nerd Font" once the Android Terminal supports custom fonts
       };
 
       "com.apple.TextEdit" = {
@@ -295,10 +277,5 @@
 
       "org.videolan.vlc".SUEnableAutomaticChecks = true;
     };
-  };
-
-  system.keyboard = {
-    enableKeyMapping = true;
-    remapCapsLockToEscape = true;
   };
 }

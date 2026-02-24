@@ -14,6 +14,7 @@
           #
           selected_border_color = "green";
           selected_text = {
+            fg_color = "white"; # TODO: Remove once the Android Terminal supports custom themes
             bg_color = "dark grey";
           };
 

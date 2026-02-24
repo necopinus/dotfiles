@@ -1,13 +1,13 @@
 # Personal dotfiles
 
-My dotfiles + a setup script for quickly configuring a new device. Currently only supports macOS and Debian (specifically the Android VM).
+My dotfiles + a setup script for quickly configuring a new device. Currently only supports macOS and Debian VMs.
 
 You don't want to use these files directly, as they hard-code certain aspects of my setup (username, etc.). They are provided publicly as a potential source of information for folks and/or examples of how to sove various problems with cross-OS dotfiles.
 
 ## Quick start
 
 > [!important]
-> On macOS, you _must_ grant your terminal application the "Full Disk Access" privilege in order for the commands below to work. After `init.sh` finishes its run, you _must_ also grant this privilege to WezTerm!
+> On macOS, you _must_ grant your terminal application the "Full Disk Access" privilege in order for the commands below to work.
 
 ```bash
 if [[ -n "$(which apt 2> /dev/null)" ]]; then

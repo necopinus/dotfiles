@@ -3,10 +3,6 @@
   lib,
   ...
 }: {
-  home.packages = with pkgs; [
-    babelfish
-  ];
-
   programs.fish = {
     enable = true;
 
@@ -19,10 +15,6 @@
 
       # Make sure that Nix is set up
       #
-      # We need to reference babelfish by its full path here because
-      # ~/.nix-profile/bin isn't added to our PATH until after
-      # nix-daemon.sh has been sourced
-      #
       if test -d /run/current-system/sw/bin
         fish_add_path /run/current-system/sw/bin
       end
@@ -30,13 +22,13 @@
         cat /nix/var/nix/profiles/default/etc/profile.d/nix-daemon.sh | ${pkgs.babelfish}/bin/babelfish | source
       end
       if test -f $HOME/.nix-profile/etc/profile.d/hm-session-vars.sh; and test -z "$__HM_SESS_VARS_SOURCED"
-        cat $HOME/.nix-profile/etc/profile.d/hm-session-vars.sh | babelfish | source
+        cat $HOME/.nix-profile/etc/profile.d/hm-session-vars.sh | ${pkgs.babelfish}/bin/babelfish | source
       end
 
       # Load $XDG_CONFIG_HOME/user-dirs.dirs when applicable
       #
       if test "$OS" = "Darwin"; and test -f "$XDG_CONFIG_HOME/user-dirs.dirs"
-        cat $XDG_CONFIG_HOME/user-dirs.dirs | sed "s/^XDG_/export XDG_/" | babelfish | source
+        cat $XDG_CONFIG_HOME/user-dirs.dirs | sed "s/^XDG_/export XDG_/" | ${pkgs.babelfish}/bin/babelfish | source
       end
 
       # Append Homebrew bin directory to PATH, since some GUI casks
@@ -95,14 +87,14 @@
       #
       if test -z "$SSH_AUTH_SOCK"
         if test -f $HOME/.ssh/agent.env
-          cat $HOME/.ssh/agent.env | babelfish | source
+          cat $HOME/.ssh/agent.env | ${pkgs.babelfish}/bin/babelfish | source
         end
         if test -z "$SSH_AGENT_PID"; or test $(ps -ef | grep -v grep | grep -c "$SSH_AGENT_PID") -eq 0
           if test ! -d $HOME/.ssh
             mkdir -p $HOME/.ssh
           end
           ssh-agent | sed '/^echo/d' > $HOME/.ssh/agent.env
-          cat $HOME/.ssh/agent.env | babelfish | source
+          cat $HOME/.ssh/agent.env | ${pkgs.babelfish}/bin/babelfish | source
         end
       end
 
@@ -118,25 +110,27 @@
 
       # Theme options
       #
-      set -gx BAT_THEME "gruvbox-light"
-      set -gx DELTA_FEATURES "+gruvbox-light"
+      set -gx BAT_THEME "ansi" # TODO: Change to "gruvbox-light" once the Android Terminal supports custom themes
+      set -gx DELTA_FEATURES "+ansi-dark" # TODO: Change to "+gruvbox-light" once the Android Terminal supports custom themes
 
-      tweak_fish_colors gruvbox-light-medium
+      #tweak_fish_colors gruvbox-light-medium # TODO: Uncomment once the Android Terminal supports custom themes
 
       # Convenience aliases
+      #
+      # TODO: Add `--icons=auto` to all `eza` aliases once the Android Terminal supports custom fonts
       #
       alias :e "$(which $EDITOR)"
       alias :q exit
       alias cat "$(which bat) -pp"
       alias diff "$(which delta)"
-      alias glow "$(which glow) -s $XDG_CONFIG_HOME/glow/styles/gruvbox-light.json"
+      alias glow "$(which glow) -s dark" # TODO: Change to $XDG_CONFIG_HOME/glow/styles/gruvbox-light.json once the Android Terminal supports custom themes
       alias htop "$(which btm) --basic"
       alias imgcat "$(which chafa)"
       alias jq "$(which jaq)"
-      alias la "$(which eza) --classify=auto --color=auto --icons=auto --group-directories-first --git --hyperlink --group --long --all"
+      alias la "$(which eza) --classify=auto --color=auto --group-directories-first --git --group --long --all"
       alias less "$(which bat)"
-      alias ll "$(which eza) --classify=auto --color=auto --icons=auto --group-directories-first --git --hyperlink --group --long"
-      alias ls "$(which eza) --classify=auto --color=auto --icons=auto --group-directories-first --git --hyperlink --group"
+      alias ll "$(which eza) --classify=auto --color=auto --group-directories-first --git --group --long"
+      alias ls "$(which eza) --classify=auto --color=auto --group-directories-first --git --group"
       alias more "$(which bat)"
       alias nvim "$(which $EDITOR)"
       alias sudo "/usr/bin/sudo -E"
@@ -165,17 +159,6 @@
             alias zeditor "$(which zeditor) --zed \"$HOME/Applications/Home Manager Apps/Zed.app\""
           end
         end
-      end
-
-      # Hook fish postexec event to add a newline between prompts
-      #
-      #     https://stackoverflow.com/a/70644608
-      #
-      # For some reason this doesn't work if defined in `functions`, but
-      # does work if defined in config.fish directly
-      #
-      function postexec_add_newline --on-event fish_postexec
-        echo ""
       end
 
       # Suppress welcome message
@@ -316,12 +299,13 @@
             $CLAUDE_CODE_EXEC $argv
           else
             # Note that all of the allow/allow-file/read/read-file lines
-            # (except for `--allow .`) can be removed when nono v0.5.0
+            # (except for `--allow .`) can be removed when nono v0.6.0
             # hits nixpkgs-unstable
             #
             nono run \
               --profile claude-code \
               --allow . \
+              (test -d $HOME/.bash_sessions && echo -n "--allow $HOME/.bash_sessions") \
               (test -d $XDG_CACHE_HOME/fish && echo -n "--allow $XDG_CACHE_HOME/fish") \
               (test -d $XDG_CACHE_HOME/go-build && echo -n "--allow $XDG_CACHE_HOME/go-build") \
               (test -d $XDG_CACHE_HOME/pip && echo -n "--allow $XDG_CACHE_HOME/pip") \
@@ -337,8 +321,12 @@
               (test -d /var/folders && echo -n "--allow /var/folders") \
               (test -e /dev/null && echo -n "--allow-file /dev/null") \
               (test -d $HOME/.ssh && echo -n "--read $HOME/.ssh") \
+              (test -d $HOME/Library/"Application Support"/Chromium && echo -n "--read $HOME/Library/Application\\ Support/Chromium") \
+              (test -d $HOME/Library/"Application Support"/Google/Chrome && echo -n "--read $HOME/Library/Application\\ Support/Google/Chrome") \
               (test -d $XDG_CACHE_HOME/bat && echo -n "--read $XDG_CACHE_HOME/bat") \
+              (test -d $XDG_CONFIG_HOME/chromium && echo -n "--read $XDG_CONFIG_HOME/chromium") \
               (test -d $XDG_CONFIG_HOME/fish && echo -n "--read $XDG_CONFIG_HOME/fish") \
+              (test -d $XDG_CONFIG_HOME/google-chrome && echo -n "--read $XDG_CONFIG_HOME/google-chrome") \
               (test -d $XDG_CONFIG_HOME/starship && echo -n "--read $XDG_CONFIG_HOME/starship") \
               (test -d /etc/skel && echo -n "--read /etc/skel") \
               (test -d /nix && echo -n "--read /nix") \

@@ -1,5 +1,5 @@
 {
-  description = "Nix-managed dotfiles for macOS and the Android Debian VM";
+  description = "Nix-managed dotfiles for macOS and Debian VMs";
 
   # Input streams (flakes, not variables!)
   #
@@ -36,7 +36,7 @@
     # User names
     #
     myUserName = "necopinus";
-    androidUserName = "droid";
+    vmUserName = "droid"; # Not configurable on Android, so just use it everywhere
   in {
     # macOS configuration (nix-darwin + home-manager)
     #
@@ -84,9 +84,9 @@
       ];
     };
 
-    # Non-NixOS Linux configuration (home-manager)
+    # Debian VM configuration (home-manager)
     #
-    homeConfigurations."android" = home-manager.lib.homeManagerConfiguration {
+    homeConfigurations."debian-vm" = home-manager.lib.homeManagerConfiguration {
       # Looks weird, but just let's home-manager re-use the existing NixPkgs
       # definition, which is more efficient. See:
       #
@@ -105,12 +105,12 @@
 
         {
           home.stateVersion = "${homeManagerStateVersion}";
-          home.username = "${androidUserName}";
-          home.homeDirectory = "/home/${androidUserName}";
+          home.username = "${vmUserName}";
+          home.homeDirectory = "/home/${vmUserName}";
         }
 
         ./homes/common.nix
-        ./homes/android.nix
+        ./homes/debian-vm.nix
       ];
     };
   };

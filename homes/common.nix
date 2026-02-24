@@ -13,52 +13,38 @@ in {
     ../programs/bat.nix
     ../programs/bottom.nix
     ../programs/claude.nix
-    ../programs/delta.nix # Requires bat.nix
+    ../programs/delta.nix # Requires bat.nix and git.nix
     ../programs/direnv.nix
     ../programs/fish.nix
     ../programs/git.nix
     ../programs/glow.nix
     ../programs/helix.nix
     ../programs/jq.nix
-    ../programs/less.nix
-    ../programs/rclone.nix
     ../programs/ssh.nix
     ../programs/starship.nix
-    ../programs/wezterm.nix # Requires fish.nix
-    ../programs/zed.nix
-    ../programs/zellij.nix # Requires fish.nix
     ../programs/zoxide.nix
   ];
 
-  programs.pandoc.enable = true;
   programs.yt-dlp.enable = true;
 
   home.packages = with pkgs; [
     android-tools
     chafa
-    colorized-logs
     curlFull
-    dos2unix
-    expect
     eza # Don't use programs.eza.enable because aliases differ between fish and bash/zsh
     ffmpeg-full
     gawk
     gnutar
     imagemagick
-    ipcalc
     less
     libjpeg
     libqalculate
     msgpack-tools
     optipng
     poppler-utils
-    proton-pass-cli
     rsgain
     rsync
-    sqlite
-    texliveFull # Can't figure out how to get programs.texlive to work...
     unzip
-    util-linux
     uutils-coreutils-noprefix
     uutils-diffutils
     uutils-findutils
@@ -73,6 +59,9 @@ in {
   xdg = {
     enable = true;
 
+    # Is it weird not to make these directories hidden? Maybe, but it
+    # also makes them slightly easier to work with.
+    #
     cacheHome = "${config.home.homeDirectory}/cache";
     configHome = "${config.home.homeDirectory}/config";
     dataHome = "${config.home.homeDirectory}/local/share";

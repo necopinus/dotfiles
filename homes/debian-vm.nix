@@ -10,9 +10,9 @@
   };
 in {
   imports = [
-    ../programs/brave.nix
+    ../programs/chromium.nix
     ../programs/obsidian.nix
-    ../programs/lxqt.nix
+    ../programs/labwc.nix
   ];
 
   programs.home-manager.enable = true; # Make sure that home-manager binary is in the PATH
@@ -20,18 +20,13 @@ in {
   home.packages = with pkgs; [
     libgourou
     quodlibet-full
-    util-linux
 
     #### Look and feel ####
     adwaita-icon-theme-legacy # MoreWaita dependency; do NOT include adwaita-icon-theme here to prevent duplication errors!
     morewaita-icon-theme
 
-    lomiri.lomiri-wallpapers
-    pantheon.elementary-wallpapers
-    pop-wallpapers
-
     #### Fonts ####
-    nerd-fonts.jetbrains-mono
+    #nerd-fonts.jetbrains-mono # TODO: Uncomment once the Android Terminal supports custom fonts
     noto-fonts
     noto-fonts-cjk-sans
     noto-fonts-cjk-serif
@@ -50,7 +45,7 @@ in {
     defaultFonts = {
       emoji = ["Noto Emoji"];
       monospace = [
-        "JetBrainsMono Nerd Font Mono"
+        "Noto Sans Mono" # TODO: Switch to "JetBrainsMono Nerd Font Mono" once the Android Terminal supports custom fonts
         "Noto Emoji"
       ];
       sansSerif = [
@@ -71,12 +66,14 @@ in {
   xdg = {
     enable = true;
     mimeApps.enable = true;
-    terminal-exec.enable = true;
 
     userDirs = {
       enable = true;
       createDirectories = true;
 
+      # The /mnt/shared path can't be changed in the Android VM, so we
+      # just follow this pattern everywhere
+      #
       desktop = "${config.home.homeDirectory}/data/desktop";
       documents = "/mnt/shared/Documents";
       download = "/mnt/shared/Download";
@@ -85,61 +82,6 @@ in {
       publicShare = "${config.home.homeDirectory}/public";
       templates = "${config.home.homeDirectory}/data/templates";
       videos = "/mnt/shared/Movies";
-    };
-
-    portal = {
-      enable = true;
-      xdgOpenUsePortal = true;
-
-      config = {
-        common = {
-          default = "gtk";
-          "org.freedesktop.impl.portal.Secret" = "gnome-keyring";
-        };
-      };
-      extraPortals = with pkgs; [
-        xdg-desktop-portal-gtk
-      ];
-      configPackages = with pkgs; [
-        gnome-keyring
-      ];
-    };
-
-    configFile = {
-      # Expose service files to systemd
-      #
-      #   https://github.com/nix-community/home-manager/issues/4922#issuecomment-1914642319
-      #
-      "systemd/user/xdg-desktop-portal.service".source = "${pkgs.xdg-desktop-portal}/share/systemd/user/xdg-desktop-portal.service";
-      "systemd/user/xdg-desktop-portal-gtk.service".source = "${pkgs.xdg-desktop-portal-gtk}/share/systemd/user/xdg-desktop-portal-gtk.service";
-      "systemd/user/xdg-desktop-portal-rewrite-launchers.service".source = "${pkgs.xdg-desktop-portal}/share/systemd/user/xdg-desktop-portal-rewrite-launchers.service";
-      "systemd/user/xdg-document-portal.service".source = "${pkgs.xdg-desktop-portal}/share/systemd/user/xdg-document-portal.service";
-      "systemd/user/xdg-permission-store.service".source = "${pkgs.xdg-desktop-portal}/share/systemd/user/xdg-permission-store.service";
-
-      # Systemd target unit startup
-      #
-      # You would THINK that you'd want to start xdg-desktop-portal
-      # here, but if you do that then xdg-desktop-portal-gtk will just
-      # weirdly hang, and xdg-desktop-portal itself will eventually
-      # fail. At which point xdg-desktop-portal-gtk will start normally.
-      # But if you explicitly start xdg-desktop-portal-gtk, then
-      # xdg-desktop-portal will still get started automatically, but
-      # there will be no hangs and no failures.
-      #
-      # I have no idea why this is.
-      #
-      "systemd/user/graphical-session.target.wants/xdg-desktop-portal-gtk.service".source = "${pkgs.xdg-desktop-portal-gtk}/share/systemd/user/xdg-desktop-portal-gtk.service";
-
-      # GNOME Keyring's autostart file is broken on non-NixOS systems
-      #
-      "autostart/gnome-keyring-secrets.desktop".source = ../artifacts/config/autostart/gnome-keyring-secrets.desktop;
-
-      # QT KvLibadwaita is the closest thing to (current) Adwaita for Qt
-      # apps that I've managed to get working
-      #
-      "Kvantum/Colors".source = ../third-party/kvantum-adwaita/Colors;
-      "Kvantum/kvantum.kvconfig".source = ../artifacts/config/Kvantum/kvantum.kvconfig;
-      "Kvantum/KvLibadwaita".source = ../third-party/kvantum-adwaita/KvLibadwaita;
     };
 
     dataFile = {
@@ -160,7 +102,6 @@ in {
       "backgrounds/jared-evans-119758.jpg".source = "${pkgs.pop-wallpapers}/share/backgrounds/pop/jared-evans-119758.jpg";
       "backgrounds/jasper-van-der-meij-97274-edit.jpg".source = "${pkgs.pop-wallpapers}/share/backgrounds/pop/jasper-van-der-meij-97274-edit.jpg";
       "backgrounds/kait-herzog-8242.jpg".source = "${pkgs.pop-wallpapers}/share/backgrounds/pop/kait-herzog-8242.jpg";
-      "backgrounds/Kleiber_by_Lukas_Baubkus.jpg".source = "${pkgs.lomiri.lomiri-wallpapers}/share/wallpapers/Kleiber_by_Lukas_Baubkus.jpg";
       "backgrounds/Morskie Oko.jpg".source = "${pkgs.pantheon.elementary-wallpapers}/share/backgrounds/Morskie Oko.jpg";
       "backgrounds/Mr. Lee.jpg".source = "${pkgs.pantheon.elementary-wallpapers}/share/backgrounds/Mr. Lee.jpg";
       "backgrounds/Nattu Adnan.jpg".source = "${pkgs.pantheon.elementary-wallpapers}/share/backgrounds/Nattu Adnan.jpg";
@@ -191,12 +132,7 @@ in {
     };
   };
 
-  qt = {
-    enable = true;
-    style.name = "kvantum";
-  };
-
-  # The Android VM runs Debian, not NixOS
+  # VMs are Debian-based, not NixOS
   #
   targets.genericLinux.enable = true;
 

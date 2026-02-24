@@ -83,7 +83,7 @@ in {
     };
 
     settings = {
-      theme = "gruvbox_light_mod";
+      theme = "term16_dark"; # TODO: Change to "gruvbox_light_mod" once the Android Terminal supports custom themes
 
       editor = {
         cursorline = true;

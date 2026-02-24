@@ -44,13 +44,13 @@ in {
       if pkgs.stdenv.isLinux
       then
         pkgs.symlinkJoin {
-          name = "zed-editor-android-vm";
+          name = "zed-editor-debian-vm";
           paths = [pkgs.zed-editor-fhs];
           buildInputs = [pkgs.makeWrapper];
           postBuild = ''
             wrapProgram $out/bin/zeditor \
               --unset VK_ICD_FILENAMES \
-              --set ZED_ALLOW_EMULATED_GPU 1
+              --set ZED_ALLOW_EMULATED_GPU 1 # Zed doesn't like the Android VM's virtual GPU
           '';
         }
       else null;
@@ -91,7 +91,6 @@ in {
       auto_indent_on_paste = true;
       format_on_save = "on";
       excerpt_context_lines = 5;
-      buffer_font_family = "JetBrainsMono Nerd Font Mono";
       buffer_font_size = 12;
       ui_font_size = 14;
 
@@ -168,8 +167,8 @@ in {
     };
   };
 
-  # Make sure that the packages we'd normally install as extraPackages
-  # are available to Zed on macOS
+  # Make sure that the packages we'd normally install as
+  # programs.zed-editor.extraPackages are available to Zed on macOS
   #
   home.packages = lib.optionals pkgs.stdenv.isDarwin helperPkgs;
 }
