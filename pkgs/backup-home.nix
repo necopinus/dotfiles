@@ -1,17 +1,27 @@
-{writeShellApplication}:
+{
+  writeShellApplication,
+  gnugrep,
+  gnutar,
+  uutils-coreutils-noprefix,
+  uutils-findutils,
+}:
 writeShellApplication {
   name = "backup-home";
+
+  runtimeInputs = [
+    gnugrep
+    gnutar
+    uutils-coreutils-noprefix
+    uutils-findutils
+  ];
 
   text = ''
     # Set OS type
     #
     OS="$(uname -s)"
 
-    if [[ -z "$XDG_CONFIG_HOME" ]]; then
-      export XDG_CONFIG_HOME="$HOME/.config"
-    fi
     # shellcheck disable=SC1091
-    source "$XDG_CONFIG_HOME/user-dirs.dirs"
+    #source "$XDG_CONFIG_HOME/user-dirs.dirs"
 
     BACKUP_LIST="$(mktemp)"
     BACKUP_LIST_TMP="$(mktemp)"

@@ -1,9 +1,8 @@
-{pkgs, ...}: {
-  xdg.dataFile."applications/bottom.desktop" = {
-    enable = pkgs.stdenv.isLinux;
-    source = ../artifacts/local/share/applications/hidden.desktop;
-  };
-
+{
+  pkgs,
+  config,
+  ...
+}: {
   programs.bottom = {
     enable = true;
 
@@ -36,5 +35,34 @@
         };
       };
     };
+  };
+
+  #xdg.dataFile."applications/bottom.desktop" = {
+  #  enable = pkgs.stdenv.isLinux;
+  #  source = ../artifacts/local/share/applications/hidden.desktop;
+  #};
+
+  # Convenience aliases
+  #
+  xdg.configFile."bash/rc.d/bottom.sh" = {
+    enable = config.programs.bash.enable;
+    text = ''
+      alias htop="${pkgs.bottom}/bin/btm --basic"
+      alias top="${pkgs.bottom}/bin/btm --basic"
+    '';
+  };
+  xdg.configFile."zsh/rc.d/bottom.sh" = {
+    enable = config.programs.zsh.enable;
+    text = ''
+      alias htop="${pkgs.bottom}/bin/btm --basic"
+      alias top="${pkgs.bottom}/bin/btm --basic"
+    '';
+  };
+  xdg.configFile."fish/rc.d/bottom.fish" = {
+    enable = config.programs.fish.enable;
+    text = ''
+      alias htop "${pkgs.bottom}/bin/btm --basic"
+      alias top "${pkgs.bottom}/bin/btm --basic"
+    '';
   };
 }

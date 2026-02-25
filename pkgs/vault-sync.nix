@@ -1,17 +1,49 @@
 {
   writeShellApplication,
   rclone,
+  uutils-coreutils-noprefix,
 }:
 writeShellApplication {
   name = "vault-sync";
 
   runtimeInputs = [
     rclone
+    uutils-coreutils-noprefix
   ];
 
   text = ''
-    if [[ -z "$XDG_CONFIG_HOME" ]]; then
-      export XDG_CONFIG_HOME="$HOME/.config"
+    if [[ ! -d "$XDG_CONFIG_HOME"/rclone ]]; then
+      mkdir -p "$XDG_CONFIG_HOME"/rclone
+    fi
+    if [[ ! -f "$XDG_CONFIG_HOME"/rclone/exclude ]]; then
+      cat > "$XDG_CONFIG_HOME"/rclone/exclude <<- EOF
+    	# Files
+    	*~
+    	*.swp
+    	._*
+    	.#*
+    	.com.apple.timemachine.supported
+    	.DS_Store
+    	.localized
+    	.metadata
+    	Thumbs.db
+
+    	# Folders
+    	.stfolder/
+    	.stversions/
+    	.fseventsd/
+    	.recycle/
+    	.Spotlight-V100/
+    	.thumbnails/
+    	.trash/
+    	.Trash/
+    	.Trashes/
+    	.xvpics/
+    	LOST.DIR/
+    	EOF
+    fi
+    if [[ ! -f "$XDG_CONFIG_HOME"/rclone/rclone.conf ]]; then
+      touch "$XDG_CONFIG_HOME"/rclone/rclone.conf
     fi
 
     if [[ -d /Volumes/Vault ]] && [[ -d /Volumes/"Vault 1" ]]; then

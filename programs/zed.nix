@@ -1,6 +1,7 @@
 {
   pkgs,
   lib,
+  config,
   ...
 }: let
   helperPkgs = with pkgs; [
@@ -36,6 +37,11 @@
     sql-formatter
   ];
 in {
+  # Make sure that the packages we'd normally install as
+  # programs.zed-editor.extraPackages are available to Zed on macOS
+  #
+  home.packages = lib.optionals pkgs.stdenv.isDarwin helperPkgs;
+
   xdg.configFile."moxide/settings.toml".source = ../artifacts/config/moxide/settings.toml;
 
   programs.zed-editor = {
@@ -168,8 +174,72 @@ in {
     };
   };
 
-  # Make sure that the packages we'd normally install as
-  # programs.zed-editor.extraPackages are available to Zed on macOS
+  # Convenience aliases (Darwin only)
   #
-  home.packages = lib.optionals pkgs.stdenv.isDarwin helperPkgs;
+  xdg.configFile."bash/rc.d/zed.sh" = {
+    enable = pkgs.stdenv.isDarwin && config.programs.bash.enable;
+    text = ''
+      if [[ -n "$(which zed)" ]]; then
+        if [[ -d /Applications/Zed.app ]]; then
+          alias zed="$(which zed) --zed /Applications/Zed.app"
+          alias zeditor="$(which zed) --zed /Applications/Zed.app"
+        elif [[ -d "$HOME/Applications/Home Manager Apps/Zed.app" ]]; then
+          alias zed="$(which zed) --zed \"$HOME/Applications/Home Manager Apps/Zed.app\""
+          alias zeditor="$(which zed) --zed \"$HOME/Applications/Home Manager Apps/Zed.app\""
+        fi
+      elif [[ -n "$(which zeditor)" ]]; then
+        if [[ -d /Applications/Zed.app ]]; then
+          alias zed="$(which zeditor) --zed /Applications/Zed.app"
+          alias zeditor="$(which zeditor) --zed /Applications/Zed.app"
+        elif [[ -d "$HOME/Applications/Home Manager Apps/Zed.app" ]]; then
+          alias zed="$(which zeditor) --zed \"$HOME/Applications/Home Manager Apps/Zed.app\""
+          alias zeditor="$(which zeditor) --zed \"$HOME/Applications/Home Manager Apps/Zed.app\""
+        fi
+      fi
+    '';
+  };
+  xdg.configFile."zsh/rc.d/zed.sh" = {
+    enable = pkgs.stdenv.isDarwin && config.programs.zsh.enable;
+    text = ''
+      if [[ -n "$(whence -p zed)" ]]; then
+        if [[ -d /Applications/Zed.app ]]; then
+          alias zed="$(whence -p zed) --zed /Applications/Zed.app"
+          alias zeditor="$(whence -p zed) --zed /Applications/Zed.app"
+        elif [[ -d "$HOME/Applications/Home Manager Apps/Zed.app" ]]; then
+          alias zed="$(whence -p zed) --zed \"$HOME/Applications/Home Manager Apps/Zed.app\""
+          alias zeditor="$(whence -p zed) --zed \"$HOME/Applications/Home Manager Apps/Zed.app\""
+        fi
+      elif [[ -n "$(whence -p zeditor)" ]]; then
+        if [[ -d /Applications/Zed.app ]]; then
+          alias zed="$(whence -p zeditor) --zed /Applications/Zed.app"
+          alias zeditor="$(whence -p zeditor) --zed /Applications/Zed.app"
+        elif [[ -d "$HOME/Applications/Home Manager Apps/Zed.app" ]]; then
+          alias zed="$(whence -p zeditor) --zed \"$HOME/Applications/Home Manager Apps/Zed.app\""
+          alias zeditor="$(whence -p zeditor) --zed \"$HOME/Applications/Home Manager Apps/Zed.app\""
+        fi
+      fi
+    '';
+  };
+  xdg.configFile."fish/rc.d/zed.fish" = {
+    enable = pkgs.stdenv.isDarwin && config.programs.fish.enable;
+    text = ''
+      if test -n "$(which zed)"
+        if test -d /Applications/Zed.app
+          alias zed "$(which zed) --zed /Applications/Zed.app"
+          alias zeditor "$(which zed) --zed /Applications/Zed.app"
+        else if test -d "$HOME/Applications/Home Manager Apps/Zed.app"
+          alias zed "$(which zed) --zed \"$HOME/Applications/Home Manager Apps/Zed.app\""
+          alias zeditor "$(which zed) --zed \"$HOME/Applications/Home Manager Apps/Zed.app\""
+        end
+      else if test -n "$(which zeditor)"
+        if test -d /Applications/Zed.app
+          alias zed "$(which zeditor) --zed /Applications/Zed.app"
+          alias zeditor "$(which zeditor) --zed /Applications/Zed.app"
+        else if test -d "$HOME/Applications/Home Manager Apps/Zed.app"
+          alias zed "$(which zeditor) --zed \"$HOME/Applications/Home Manager Apps/Zed.app\""
+          alias zeditor "$(which zeditor) --zed \"$HOME/Applications/Home Manager Apps/Zed.app\""
+        end
+      end
+    '';
+  };
 }

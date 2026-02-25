@@ -11,9 +11,33 @@
 
   # Obsidian won't work with the Android VM's virtual GPU
   #
-  xdg.dataFile."applications/obsidian.desktop".source = ../artifacts/local/share/applications/obsidian.desktop;
-  programs.fish.functions.obsidian = ''
-    set OBSIDIAN_EXEC $(which obsidian)
-    $OBSIDIAN_EXEC --disable-gpu $argv
-  '';
+  xdg = {
+    desktopEntries."obsidian" = {
+      categories = ["Office"];
+      comment = "Knowledge base";
+      exec = "obsidian --disable-gpu %u";
+      icon = "obsidian";
+      mimeType = [
+        "text/html"
+        "x-scheme-handler/obsidian"
+      ];
+      name = "Obsidian";
+      settings = {
+        TryExec = "obsidian";
+      };
+      type = "Application";
+    };
+
+    configFile = {
+      "bash/rc.d/obsidian.sh".text = ''
+        alias obsidian="${pkgs.obsidian}/bin/obsidian --disable-gpu"
+      '';
+      "fish/rc.d/obsidian.fish".text = ''
+        alias obsidian "${pkgs.obsidian}/bin/obsidian --disable-gpu"
+      '';
+      "zsh/rc.d/obsidian.sh".text = ''
+        alias obsidian="${pkgs.obsidian}/bin/obsidian --disable-gpu"
+      '';
+    };
+  };
 }

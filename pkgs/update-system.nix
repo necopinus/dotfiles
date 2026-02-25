@@ -1,6 +1,19 @@
-{writeShellApplication}:
+{
+  writeShellApplication,
+  git,
+  helix,
+  uutils-coreutils-noprefix,
+  uutils-findutils,
+}:
 writeShellApplication {
   name = "update-system";
+
+  runtimeInputs = [
+    git
+    helix
+    uutils-coreutils-noprefix
+    uutils-findutils
+  ];
 
   text = ''
     # Set OS type

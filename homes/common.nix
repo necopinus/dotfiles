@@ -1,6 +1,7 @@
 {
   config,
   pkgs,
+  lib,
   ...
 }: let
   localPkgs = {
@@ -13,13 +14,16 @@ in {
     ../programs/bat.nix
     ../programs/bottom.nix
     ../programs/claude.nix
+    ../programs/chafa.nix
     ../programs/delta.nix # Requires bat.nix and git.nix
+    ../programs/dircolors.nix
     ../programs/direnv.nix
+    ../programs/eza.nix
     ../programs/fish.nix
     ../programs/git.nix
     ../programs/glow.nix
     ../programs/helix.nix
-    ../programs/jq.nix
+    ../programs/jaq.nix
     ../programs/ssh.nix
     ../programs/starship.nix
     ../programs/zoxide.nix
@@ -29,11 +33,10 @@ in {
 
   home.packages = with pkgs; [
     android-tools
-    chafa
     curlFull
-    eza # Don't use programs.eza.enable because aliases differ between fish and bash/zsh
     ffmpeg-full
     gawk
+    gnugrep
     gnutar
     imagemagick
     less
@@ -48,6 +51,7 @@ in {
     uutils-coreutils-noprefix
     uutils-diffutils
     uutils-findutils
+    uutils-sed
     xz
     zip
 
@@ -66,8 +70,69 @@ in {
     configHome = "${config.home.homeDirectory}/config";
     dataHome = "${config.home.homeDirectory}/local/share";
     stateHome = "${config.home.homeDirectory}/local/state";
+
+    userDirs = {
+      enable = true;
+      createDirectories = true;
+      setSessionVariables = true;
+
+      # We have limited latitude here; macOS always comes with a set of
+      # pre-created directories, and directories in /mnt/shared are
+      # similarly immutable in the Android VM
+      #
+      desktop =
+        if pkgs.stdenv.isLinux
+        then "${config.home.homeDirectory}/data/desktop"
+        else "${config.home.homeDirectory}/Desktop";
+      documents =
+        if pkgs.stdenv.isLinux
+        then "/mnt/shared/Documents"
+        else "${config.home.homeDirectory}/Documents";
+      download =
+        if pkgs.stdenv.isLinux
+        then "/mnt/shared/Download"
+        else "${config.home.homeDirectory}/Downloads";
+      music =
+        if pkgs.stdenv.isLinux
+        then "/mnt/shared/Music"
+        else "${config.home.homeDirectory}/Music";
+      pictures =
+        if pkgs.stdenv.isLinux
+        then "/mnt/shared/Pictures"
+        else "${config.home.homeDirectory}/Pictures";
+      publicShare =
+        if pkgs.stdenv.isLinux
+        then "${config.home.homeDirectory}/public"
+        else "${config.home.homeDirectory}/Public";
+      templates =
+        if pkgs.stdenv.isLinux
+        then "${config.home.homeDirectory}/data/templates"
+        else "${config.home.homeDirectory}/Documents/Templates";
+      videos =
+        if pkgs.stdenv.isLinux
+        then "/mnt/shared/Movies"
+        else "${config.home.homeDirectory}/Movies";
+    };
   };
   home.preferXdgDirectories = true;
+
+  # XDG_CONFIG_DIRS and XDG_DATA_DIRS are set here rather than in
+  # xdg.systemDirs in order to avoid as much path messiness as possible
+  # and to allow for easy inclusion in systemd.user.sessionVariables
+  # (debian-vm.nix)
+  #
+  # XDG_*_HOME variables are set here to ensure their availability in
+  # all shells
+  #
+  home.sessionVariables = {
+    XDG_CONFIG_DIRS = "${config.home.homeDirectory}/.nix-profile/etc/xdg:/nix/var/nix/profiles/default/etc/xdg:/etc/xdg";
+    XDG_DATA_DIRS = lib.mkForce "${config.home.homeDirectory}/.nix-profile/share:/nix/var/nix/profiles/default/share:/usr/local/share:/usr/share";
+
+    XDG_CACHE_HOME = "${config.xdg.cacheHome}";
+    XDG_CONFIG_HOME = "${config.xdg.configHome}";
+    XDG_DATA_HOME = "${config.xdg.dataHome}";
+    XDG_STATE_HOME = "${config.xdg.stateHome}";
+  };
 
   # https://github.com/nix-community/home-manager/issues/7935#issuecomment-3671184459
   #

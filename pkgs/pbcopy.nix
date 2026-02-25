@@ -16,8 +16,10 @@ writeShellApplication {
       exec wl-copy "$@"
     elif [[ -n "$DISPLAY" ]]; then
       exec xsel -i -b "$@"
-    else
+    elif [[ -d /run/user/$UID ]]; then
       echo -n "$@" > /run/user/$UID/.pasteboard
+    else
+      echo -n "$@" > /tmp/.$UID-pasteboard
     fi
   '';
 }

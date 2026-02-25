@@ -1,4 +1,8 @@
-{...}: {
+{
+  pkgs,
+  config,
+  ...
+}: {
   programs.delta = {
     enable = true;
     enableGitIntegration = true;
@@ -9,7 +13,7 @@
       side-by-side = true;
 
       # Themes; they're just defined here, but then explicitly enabled
-      # using the DELTA_FEATURES shell variable
+      # using the DELTA_FEATURES environment variable (below)
       #
       ansi-dark = {
         dark = true;
@@ -52,5 +56,28 @@
         plus-style = "syntax #ede4b7";
       };
     };
+  };
+
+  home.sessionVariables.DELTA_FEATURES = "+ansi-dark"; # TODO: Change to "+gruvbox-light" once the Android Terminal supports custom themes
+
+  # Convenience aliases
+  #
+  xdg.configFile."bash/rc.d/delta.sh" = {
+    enable = config.programs.bash.enable;
+    text = ''
+      alias diff="${pkgs.delta}/bin/delta"
+    '';
+  };
+  xdg.configFile."zsh/rc.d/delta.sh" = {
+    enable = config.programs.zsh.enable;
+    text = ''
+      alias diff="${pkgs.delta}/bin/delta"
+    '';
+  };
+  xdg.configFile."fish/rc.d/delta.fish" = {
+    enable = config.programs.fish.enable;
+    text = ''
+      alias diff "${pkgs.delta}/bin/delta"
+    '';
   };
 }

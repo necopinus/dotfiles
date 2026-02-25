@@ -198,10 +198,8 @@ unset __ETC_PROFILE_NIX_SOURCED
 source /nix/var/nix/profiles/default/etc/profile.d/nix-daemon.sh
 # shellcheck disable=SC1091
 source "$HOME/.nix-profile/etc/profile.d/hm-session-vars.sh"
-if [[ -f "$XDG_CONFIG_HOME/user-dirs.dirs" ]]; then
-    # shellcheck disable=SC1091
-    source "$XDG_CONFIG_HOME/user-dirs.dirs"
-fi
+# shellcheck disable=SC1091
+#source "$XDG_CONFIG_HOME/user-dirs.dirs"
 
 # Run GPU setup for nixpkgs/home-manager
 #

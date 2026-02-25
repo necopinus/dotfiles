@@ -1,12 +1,7 @@
 {pkgs, ...}: {
   programs.chromium = {
     enable = true;
-
     dictionaries = with pkgs; [hunspellDictsChromium.en_US];
-
-    # Chromium doesn't work right with the Android VM's virtual GPU
-    #
-    #commandLineArgs = ["--dsiable-gpu"];
   };
 
   # Set Chromium as the default browser

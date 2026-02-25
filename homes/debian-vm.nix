@@ -64,31 +64,13 @@ in {
   # XDG configuration
   #
   xdg = {
-    enable = true;
     mimeApps.enable = true;
-
-    userDirs = {
-      enable = true;
-      createDirectories = true;
-
-      # The /mnt/shared path can't be changed in the Android VM, so we
-      # just follow this pattern everywhere
-      #
-      desktop = "${config.home.homeDirectory}/data/desktop";
-      documents = "/mnt/shared/Documents";
-      download = "/mnt/shared/Download";
-      music = "/mnt/shared/Music";
-      pictures = "/mnt/shared/Pictures";
-      publicShare = "${config.home.homeDirectory}/public";
-      templates = "${config.home.homeDirectory}/data/templates";
-      videos = "/mnt/shared/Movies";
-    };
 
     dataFile = {
       # Hide some desktop applications
       #
-      "applications/io.github.quodlibet.QuodLibet.desktop".source = ../artifacts/local/share/applications/hidden.desktop;
-      "applications/vim.desktop".source = ../artifacts/local/share/applications/hidden.desktop;
+      #"applications/io.github.quodlibet.QuodLibet.desktop".source = ../artifacts/local/share/applications/hidden.desktop;
+      #"applications/vim.desktop".source = ../artifacts/local/share/applications/hidden.desktop;
 
       # Unified backgrounds folder
       #
@@ -147,22 +129,99 @@ in {
   # Make sure that systemd units (and regular console sessions) pick up
   # key environment variables
   #
-  # XDG_CONFIG_DIRS and XDG_DATA_DIRS are set here rather than in
-  # xdg.systemDirs in order to avoid as much path messiness as possible
-  #
   systemd.user.sessionVariables = {
     DBUS_SESSION_BUS_ADDRESS = "unix:path=/run/user/1000/bus";
     PATH = "${config.home.homeDirectory}/.nix-profile/bin:/nix/var/nix/profiles/default/bin:/usr/local/bin:/usr/bin:/bin:/usr/local/games:/usr/games";
     XDG_CACHE_HOME = "${config.xdg.cacheHome}";
-    XDG_CONFIG_DIRS = "${config.home.homeDirectory}/.nix-profile/etc/xdg:/nix/var/nix/profiles/default/etc/xdg:/etc/xdg";
+    XDG_CONFIG_DIRS = "${config.home.sessionVariables.XDG_CONFIG_DIRS}";
     XDG_CONFIG_HOME = "${config.xdg.configHome}";
-    XDG_DATA_DIRS = lib.mkForce "${config.home.homeDirectory}/.nix-profile/share:/nix/var/nix/profiles/default/share:/usr/local/share:/usr/share";
+    XDG_DATA_DIRS = lib.mkForce "${config.home.sessionVariables.XDG_DATA_DIRS}";
     XDG_DATA_HOME = "${config.xdg.dataHome}";
     XDG_STATE_HOME = "${config.xdg.stateHome}";
   };
 
-  home.sessionVariables = {
-    XDG_CONFIG_DIRS = "${config.home.homeDirectory}/.nix-profile/etc/xdg:/nix/var/nix/profiles/default/etc/xdg:/etc/xdg";
-    XDG_DATA_DIRS = lib.mkForce "${config.home.homeDirectory}/.nix-profile/share:/nix/var/nix/profiles/default/share:/usr/local/share:/usr/share";
+  # Cargo-culted from Google's /usr/local/bin/enable_gfxstream on
+  # 2025-12-09
+  #
+  xdg.configFile."bash/env.d/gfxstream.sh" = {
+    enable = config.programs.bash.enable;
+    text = ''
+      if [[ -f /usr/share/vulkan/icd.d/gfxstream_vk_icd.json ]]; then
+        MESA_LOADER_DRIVER_OVERRIDE="zink"
+        VK_ICD_FILENAMES="/usr/share/vulkan/icd.d/gfxstream_vk_icd.json"
+        MESA_VK_WSI_DEBUG="sw,linear"
+        XWAYLAND_NO_GLAMOR=1
+        LIBGL_KOPPER_DRI2=1
+      fi
+    '';
+  };
+  xdg.configFile."zsh/env.d/gfxstream.sh" = {
+    enable = config.programs.zsh.enable;
+    text = ''
+      if [[ -f /usr/share/vulkan/icd.d/gfxstream_vk_icd.json ]]; then
+        MESA_LOADER_DRIVER_OVERRIDE="zink"
+        VK_ICD_FILENAMES="/usr/share/vulkan/icd.d/gfxstream_vk_icd.json"
+        MESA_VK_WSI_DEBUG="sw,linear"
+        XWAYLAND_NO_GLAMOR=1
+        LIBGL_KOPPER_DRI2=1
+      fi
+    '';
+  };
+  xdg.configFile."fish/env.d/gfxstream.fish" = {
+    enable = config.programs.fish.enable;
+    text = ''
+      if test -f /usr/share/vulkan/icd.d/gfxstream_vk_icd.json
+        set -x MESA_LOADER_DRIVER_OVERRIDE "zink"
+        set -x VK_ICD_FILENAMES "/usr/share/vulkan/icd.d/gfxstream_vk_icd.json"
+        set -x MESA_VK_WSI_DEBUG "sw,linear"
+        set -x XWAYLAND_NO_GLAMOR 1
+        set -x LIBGL_KOPPER_DRI2 1
+      end
+    '';
+  };
+
+  # Convenience functions for launching graphical apps from the
+  # terminal
+  #
+  xdg.configFile."bash/rc.d/xcz.sh" = {
+    enable = config.programs.bash.enable;
+    text = ''
+      function xcv {
+        nohup "$@" 2>/dev/null
+      }
+    '';
+  };
+  xdg.configFile."zsh/rc.d/xcz.sh" = {
+    enable = config.programs.zsh.enable;
+    text = ''
+      function xcv {
+        nohup "$@" 2>/dev/null
+      }
+    '';
+  };
+  programs.fish.functions."xcz" = ''
+    nohup $argv 2>/dev/null
+  '';
+
+  # The Android VM is surprisingly fragile, so we want to do a
+  # shutdown rather than just exiting the last session
+  #
+  xdg.configFile."bash/rc.d/shutdown.sh" = {
+    enable = config.programs.bash.enable;
+    text = ''
+      alias shutdown="/usr/bin/sudo /sbin/shutdown -h now"
+    '';
+  };
+  xdg.configFile."zsh/rc.d/shutdown.sh" = {
+    enable = config.programs.zsh.enable;
+    text = ''
+      alias shutdown="/usr/bin/sudo /sbin/shutdown -h now"
+    '';
+  };
+  xdg.configFile."fish/rc.d/shutdown.fish" = {
+    enable = config.programs.fish.enable;
+    text = ''
+      alias shutdown "/usr/bin/sudo /sbin/shutdown -h now"
+    '';
   };
 }
