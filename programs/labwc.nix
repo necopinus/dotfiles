@@ -37,7 +37,7 @@
 
     autostart = [
       ''
-        ${pkgs.swaybg}/bin/swaybg -i "$(find ${config.xdg.dataHome}/backgrounds -type f | sort --random-sort | head -1)" &
+        ${pkgs.swaybg}/bin/swaybg -i "$(find -L ${config.xdg.dataHome}/backgrounds -type f | sort --random-sort | head -1)" &
       ''
       "${pkgs.wl-clip-persist}/bin/wl-clip-persist --clipboard regular &"
       "${pkgs.wayvnc}/bin/wayvnc 0.0.0.0 &"
@@ -51,7 +51,7 @@
           {
             menuId = "pipe-menu";
             label = "Launch";
-            execute = "${pkgs.labwc-menu-generator}/bin/labwc-menu-generator --pipemenu --icons --no-duplicates";
+            execute = "${pkgs.labwc-menu-generator}/bin/labwc-menu-generator --pipemenu --no-duplicates";
           }
           {
             menuId = "client-list-combined-menu";
@@ -89,7 +89,7 @@
           {
             menuId = "pipe-menu";
             label = "Launch";
-            execute = "${pkgs.labwc-menu-generator}/bin/labwc-menu-generator --pipemenu --icons --no-duplicates";
+            execute = "${pkgs.labwc-menu-generator}/bin/labwc-menu-generator --pipemenu --no-duplicates";
           }
           {
             menuId = "client-list-combined-menu";

@@ -6,7 +6,7 @@
 
     # Chromium doesn't work right with the Android VM's virtual GPU
     #
-    commandLineArgs = ["--dsiable-gpu"];
+    #commandLineArgs = ["--dsiable-gpu"];
   };
 
   # Set Chromium as the default browser

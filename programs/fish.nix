@@ -150,6 +150,13 @@
       alias vim "$(which $EDITOR)"
       alias yq "$(which jaq)"
 
+      # The Android VM is surprisingly fragile, so we want to do a
+      # shutdown rather than just exiting the last session
+      #
+      if test "$OS" = "Linux"
+        alias shutdown "/usr/bin/sudo /sbin/shutdown -h now"
+      end
+
       # Fix zeditor on macOS
       #
       if test "$OS" = "Darwin"

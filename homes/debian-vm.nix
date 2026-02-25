@@ -87,6 +87,7 @@ in {
     dataFile = {
       # Hide some desktop applications
       #
+      "applications/io.github.quodlibet.QuodLibet.desktop".source = ../artifacts/local/share/applications/hidden.desktop;
       "applications/vim.desktop".source = ../artifacts/local/share/applications/hidden.desktop;
 
       # Unified backgrounds folder

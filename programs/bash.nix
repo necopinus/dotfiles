@@ -179,7 +179,7 @@
       # Exec fish
       #
       if [[ -n "$TERM" ]] && [[ -z "$VSCODE_RESOLVING_ENVIRONMENT" ]] &&
-        [[ -z "$__EXEC_FISH" ]] && [[ -n "$(whence -p fish)" ]] &&
+        [[ -z "$__EXEC_FISH" ]] && [[ -n "$(which fish)" ]] &&
         [[ ! -f "$HOME"/nofish ]] && [[ ! -f "$HOME"/nofish.txt ]] &&
         [[ ! -f /mnt/shared/nofish ]] && [[ ! -f /mnt/shared/nofish.txt ]] &&
         [[ ! -f /mnt/shared/Documents/nofish ]] && [[ ! -f /mnt/shared/Documents/nofish.txt ]] &&
@@ -243,6 +243,28 @@
       #
       if [[ "$OS" == "Linux" ]]; then
         alias shutdown="/usr/bin/sudo /sbin/shutdown -h now"
+      fi
+
+      # Fix zeditor on macOS
+      #
+      if [[ "$OS" == "Darwin" ]]; then
+        if [[ -n "$(which zed)" ]]; then
+          if [[ -d /Applications/Zed.app ]]; then
+            alias zed="$(which zed) --zed /Applications/Zed.app"
+            alias zeditor="$(which zed) --zed /Applications/Zed.app"
+          elif [[ -d "$HOME/Applications/Home Manager Apps/Zed.app" ]]; then
+            alias zed="$(which zed) --zed \"$HOME/Applications/Home Manager Apps/Zed.app\""
+            alias zeditor="$(which zed) --zed \"$HOME/Applications/Home Manager Apps/Zed.app\""
+          fi
+        elif [[ -n "$(which zeditor)" ]]; then
+          if [[ -d /Applications/Zed.app ]]; then
+            alias zed="$(which zeditor) --zed /Applications/Zed.app"
+            alias zeditor="$(which zeditor) --zed /Applications/Zed.app"
+          elif [[ -d "$HOME/Applications/Home Manager Apps/Zed.app" ]]; then
+            alias zed="$(which zeditor) --zed \"$HOME/Applications/Home Manager Apps/Zed.app\""
+            alias zeditor="$(which zeditor) --zed \"$HOME/Applications/Home Manager Apps/Zed.app\""
+          fi
+        fi
       fi
 
       # Wrap Claude Code in the Nono sandbox, but only if not called
