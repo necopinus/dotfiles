@@ -89,6 +89,7 @@
 
       #### Orange ##########################################################
 
+      # FIXME: Need smaller circle character for Android VM!
       os = {
         disabled = false;
         symbols = {
@@ -159,6 +160,7 @@
 
       #### Cyan ############################################################
 
+      # FIXME: Current symbol is broken in Android VM!
       git_branch = {
         symbol = ""; # TODO: Replace with "" once the Android Terminal supports custom fonts
         style = "bg:color_cyan";
@@ -221,6 +223,7 @@
         disabled = false;
       };
 
+      # FIXME: Need a slightly shorter arrow for the Android VM!
       character = {
         disabled = false;
         success_symbol = "[→](bold fg:color_green)"; # TODO: Replace with "[](bold fg:color_green)" once the Android Terminal supports custom fonts

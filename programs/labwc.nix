@@ -12,7 +12,7 @@
 
   wayland.windowManager.labwc = {
     enable = true;
-    systemd.enable = true;
+    systemd.enable = true; # FIXME: Why doesn't this do anything on the Android VM?
 
     environment = [
       "XCURSOR_THEME=Adwaita"
