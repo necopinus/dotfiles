@@ -46,6 +46,12 @@
         export PATH="$PATH:/opt/homebrew/bin"
       fi
 
+      # Load $XDG_CONFIG_HOME/user-dirs.dirs when applicable
+      #
+      if [[ "$OS" == "Darwin" ]] && [[ -f "$XDG_CONFIG_HOME/user-dirs.dirs" ]]; then
+        eval "$(cat "$XDG_CONFIG_HOME/user-dirs.dirs" | sed "s/^XDG_/export XDG_/")"
+      fi
+
       # Check for SANDBOXED_* paths and replace computed paths with
       # these values if found (this works around the chicken-and-egg
       # problem where paths passed in during sandboxing may be wiped
@@ -90,10 +96,15 @@
         fi
       fi
 
-      # Load $XDG_CONFIG_HOME/user-dirs.dirs when applicable
+      # Cargo-culted from Google's /usr/local/bin/enable_gfxstream on
+      # 2025-12-09
       #
-      if [[ "$OS" == "Darwin" ]] && [[ -f "$XDG_CONFIG_HOME/user-dirs.dirs" ]]; then
-        eval "$(cat "$XDG_CONFIG_HOME/user-dirs.dirs" | sed "s/^XDG_/export XDG_/")"
+      if [[ -f /usr/share/vulkan/icd.d/gfxstream_vk_icd.json ]]; then
+        MESA_LOADER_DRIVER_OVERRIDE="zink"
+        VK_ICD_FILENAMES="/usr/share/vulkan/icd.d/gfxstream_vk_icd.json"
+        MESA_VK_WSI_DEBUG="sw,linear"
+        XWAYLAND_NO_GLAMOR=1
+        LIBGL_KOPPER_DRI2=1
       fi
     '';
 
@@ -148,7 +159,8 @@
       initExtra = lib.mkOrder 1000 ''
         # Exec fish
         #
-        if [[ -z "$__EXEC_FISH" ]] && [[ -n "$(whence -p fish)" ]] &&
+        if [[ -n "$TERM" ]] && [[ -z "$VSCODE_RESOLVING_ENVIRONMENT" ]] &&
+          [[ -z "$__EXEC_FISH" ]] && [[ -n "$(whence -p fish)" ]] &&
           [[ ! -f "$HOME"/nofish ]] && [[ ! -f "$HOME"/nofish.txt ]] &&
           [[ ! -f /mnt/shared/nofish ]] && [[ ! -f /mnt/shared/nofish.txt ]] &&
           [[ ! -f /mnt/shared/Documents/nofish ]] && [[ ! -f /mnt/shared/Documents/nofish.txt ]] &&

@@ -41,6 +41,11 @@
 
       add_newline = true;
 
+      # Android VM startup takes longer than the default scan scan
+      # timeout
+      #
+      scan_timeout = 100;
+
       # Define colors
       #
       palette = "term_dark"; # TODO: Change to "gruvbox_light" once the Android Terminal supports custom themes
@@ -49,9 +54,9 @@
         term_dark = {
           color_fg0 = "bright-white";
           color_fg1 = "white";
-          color_bg1 = "black";
-          color_bg3 = "bright-black";
-          color_blue = "blue";
+          color_bg1 = "bright-black";
+          color_bg3 = "blue";
+          color_blue = "cyan";
           color_cyan = "green";
           color_green = "bright-green";
           color_orange = "red";
@@ -89,44 +94,43 @@
 
       #### Orange ##########################################################
 
-      # FIXME: Need smaller circle character for Android VM!
       os = {
         disabled = false;
         symbols = {
-          AlmaLinux = "○"; # TODO: Replace with "" once the Android Terminal supports custom fonts
-          Alpine = "○"; # TODO: Replace with "" once the Android Terminal supports custom fonts
-          Amazon = "○"; # TODO: Replace with "" once the Android Terminal supports custom fonts
-          Android = "○"; # TODO: Replace with "" once the Android Terminal supports custom fonts
-          Arch = "○"; # TODO: Replace with "" once the Android Terminal supports custom fonts
-          Artix = "○"; # TODO: Replace with "" once the Android Terminal supports custom fonts
-          CentOS = "○"; # TODO: Replace with "" once the Android Terminal supports custom fonts
-          Debian = "●"; # TODO: Replace with "" once the Android Terminal supports custom fonts
-          EndeavourOS = "○"; # TODO: Replace with "" once the Android Terminal supports custom fonts
-          Fedora = "○"; # TODO: Replace with "" once the Android Terminal supports custom fonts
-          FreeBSD = "○"; # TODO: Replace with "" once the Android Terminal supports custom fonts
-          Garuda = "○"; # TODO: Replace with "" once the Android Terminal supports custom fonts
-          Gentoo = "○"; # TODO: Replace with "" once the Android Terminal supports custom fonts
-          Illumos = "○"; # TODO: Replace with "" once the Android Terminal supports custom fonts
-          Kali = "○"; # TODO: Replace with "" once the Android Terminal supports custom fonts
-          Linux = "●"; # TODO: Replace with "" once the Android Terminal supports custom fonts
-          Macos = "○"; # TODO: Replace with "" once the Android Terminal supports custom fonts
-          Manjaro = "○"; # TODO: Replace with "" once the Android Terminal supports custom fonts
-          Mint = "○"; # TODO: Replace with "󰣭" once the Android Terminal supports custom fonts
-          NixOS = "●"; # TODO: Replace with "" once the Android Terminal supports custom fonts
-          Nobara = "○"; # TODO: Replace with "" once the Android Terminal supports custom fonts
-          OpenBSD = "○"; # TODO: Replace with "" once the Android Terminal supports custom fonts
-          Pop = "○"; # TODO: Replace with "" once the Android Terminal supports custom fonts
-          Raspbian = "○"; # TODO: Replace with "" once the Android Terminal supports custom fonts
-          Redhat = "○"; # TODO: Replace with "" once the Android Terminal supports custom fonts
-          RedHatEnterprise = "○"; # TODO: Replace with "" once the Android Terminal supports custom fonts
-          RockyLinux = "○"; # TODO: Replace with "" once the Android Terminal supports custom fonts
-          SUSE = "○"; # TODO: Replace with "" once the Android Terminal supports custom fonts
-          Solus = "○"; # TODO: Replace with "" once the Android Terminal supports custom fonts
-          Ubuntu = "○"; # TODO: Replace with "󰕈" once the Android Terminal supports custom fonts
-          Unknown = "○"; # TODO: Replace with "" once the Android Terminal supports custom fonts
-          Void = "○"; # TODO: Replace with "" once the Android Terminal supports custom fonts
-          Windows = "○"; # TODO: Replace with "" once the Android Terminal supports custom fonts
-          openSUSE = "○"; # TODO: Replace with "" once the Android Terminal supports custom fonts
+          AlmaLinux = "◔"; # TODO: Replace with "" once the Android Terminal supports custom fonts
+          Alpine = "◔"; # TODO: Replace with "" once the Android Terminal supports custom fonts
+          Amazon = "◔"; # TODO: Replace with "" once the Android Terminal supports custom fonts
+          Android = "◔"; # TODO: Replace with "" once the Android Terminal supports custom fonts
+          Arch = "◔"; # TODO: Replace with "" once the Android Terminal supports custom fonts
+          Artix = "◔"; # TODO: Replace with "" once the Android Terminal supports custom fonts
+          CentOS = "◔"; # TODO: Replace with "" once the Android Terminal supports custom fonts
+          Debian = "◕"; # TODO: Replace with "" once the Android Terminal supports custom fonts
+          EndeavourOS = "◔"; # TODO: Replace with "" once the Android Terminal supports custom fonts
+          Fedora = "◔"; # TODO: Replace with "" once the Android Terminal supports custom fonts
+          FreeBSD = "◔"; # TODO: Replace with "" once the Android Terminal supports custom fonts
+          Garuda = "◔"; # TODO: Replace with "" once the Android Terminal supports custom fonts
+          Gentoo = "◔"; # TODO: Replace with "" once the Android Terminal supports custom fonts
+          Illumos = "◔"; # TODO: Replace with "" once the Android Terminal supports custom fonts
+          Kali = "◔"; # TODO: Replace with "" once the Android Terminal supports custom fonts
+          Linux = "◕"; # TODO: Replace with "" once the Android Terminal supports custom fonts
+          Macos = "◔"; # TODO: Replace with "" once the Android Terminal supports custom fonts
+          Manjaro = "◔"; # TODO: Replace with "" once the Android Terminal supports custom fonts
+          Mint = "◔"; # TODO: Replace with "󰣭" once the Android Terminal supports custom fonts
+          NixOS = "◕"; # TODO: Replace with "" once the Android Terminal supports custom fonts
+          Nobara = "◔"; # TODO: Replace with "" once the Android Terminal supports custom fonts
+          OpenBSD = "◔"; # TODO: Replace with "" once the Android Terminal supports custom fonts
+          Pop = "◔"; # TODO: Replace with "" once the Android Terminal supports custom fonts
+          Raspbian = "◔"; # TODO: Replace with "" once the Android Terminal supports custom fonts
+          Redhat = "◔"; # TODO: Replace with "" once the Android Terminal supports custom fonts
+          RedHatEnterprise = "◔"; # TODO: Replace with "" once the Android Terminal supports custom fonts
+          RockyLinux = "◔"; # TODO: Replace with "" once the Android Terminal supports custom fonts
+          SUSE = "◔"; # TODO: Replace with "" once the Android Terminal supports custom fonts
+          Solus = "◔"; # TODO: Replace with "" once the Android Terminal supports custom fonts
+          Ubuntu = "◔"; # TODO: Replace with "󰕈" once the Android Terminal supports custom fonts
+          Unknown = "◔"; # TODO: Replace with "" once the Android Terminal supports custom fonts
+          Void = "◔"; # TODO: Replace with "" once the Android Terminal supports custom fonts
+          Windows = "◔"; # TODO: Replace with "" once the Android Terminal supports custom fonts
+          openSUSE = "◔"; # TODO: Replace with "" once the Android Terminal supports custom fonts
         };
         style = "bg:color_orange fg:color_fg0";
         format = "[ $symbol]($style)";
@@ -160,9 +164,8 @@
 
       #### Cyan ############################################################
 
-      # FIXME: Current symbol is broken in Android VM!
       git_branch = {
-        symbol = ""; # TODO: Replace with "" once the Android Terminal supports custom fonts
+        symbol = "⌥"; # TODO: Replace with "" once the Android Terminal supports custom fonts
         style = "bg:color_cyan";
         format = "[[ $symbol $branch ](fg:color_fg0 bg:color_cyan)]($style)";
       };
@@ -171,19 +174,6 @@
         style = "bg:color_cyan";
         format = "[[($all_status$ahead_behind )](fg:color_fg0 bg:color_cyan)]($style)";
       };
-
-      #conflicted	'='	This branch has merge conflicts.
-      #ahead	'⇡'	The format of ahead
-      #behind	'⇣'	The format of behind
-      #diverged	'⇕'	The format of diverged
-      #up_to_date	''	The format of up_to_date
-      #untracked	'?'	The format of untracked
-      #stashed	'\$'	The format of stashed
-      #modified	'!'	The format of modified
-      #staged	'+'	The format of staged
-      #renamed	'»'	The format of renamed
-      #deleted	'✘'	The format of deleted
-      #typechanged	""	The format of typechanged
 
       #### Blue ############################################################
 
@@ -223,7 +213,6 @@
         disabled = false;
       };
 
-      # FIXME: Need a slightly shorter arrow for the Android VM!
       character = {
         disabled = false;
         success_symbol = "[→](bold fg:color_green)"; # TODO: Replace with "[](bold fg:color_green)" once the Android Terminal supports custom fonts

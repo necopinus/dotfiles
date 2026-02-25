@@ -35,17 +35,17 @@
         source "$HOME/.nix-profile/etc/profile.d/hm-session-vars.sh"
       fi
 
-      # Load $XDG_CONFIG_HOME/user-dirs.dirs when applicable
-      #
-      if [ "$OS" == "Darwin" ] && [ -f "$XDG_CONFIG_HOME/user-dirs.dirs" ]; then
-        eval "$(cat "$XDG_CONFIG_HOME/user-dirs.dirs" | sed "s/^XDG_/export XDG_/")"
-      fi
-
       # Append Homebrew bin directory to PATH, since some GUI casks
       # install CLI binaries there
       #
       if [ -d /opt/homebrew/bin ]; then
         export PATH="$PATH:/opt/homebrew/bin"
+      fi
+
+      # Load $XDG_CONFIG_HOME/user-dirs.dirs when applicable
+      #
+      if [ "$OS" == "Darwin" ] && [ -f "$XDG_CONFIG_HOME/user-dirs.dirs" ]; then
+        eval "$(cat "$XDG_CONFIG_HOME/user-dirs.dirs" | sed "s/^XDG_/export XDG_/")"
       fi
 
       # Check for SANDBOXED_* paths and replace computed paths with
@@ -90,6 +90,17 @@
         elif [ -x "$(realpath /usr/bin)"/bash ]; then
           export SHELL="$(realpath /usr/bin)"/bash
         fi
+      fi
+
+      # Cargo-culted from Google's /usr/local/bin/enable_gfxstream on
+      # 2025-12-09
+      #
+      if [[ -f /usr/share/vulkan/icd.d/gfxstream_vk_icd.json ]]; then
+        MESA_LOADER_DRIVER_OVERRIDE="zink"
+        VK_ICD_FILENAMES="/usr/share/vulkan/icd.d/gfxstream_vk_icd.json"
+        MESA_VK_WSI_DEBUG="sw,linear"
+        XWAYLAND_NO_GLAMOR=1
+        LIBGL_KOPPER_DRI2=1
       fi
     '';
 
@@ -167,7 +178,8 @@
     initExtra = ''
       # Exec fish
       #
-      if [[ -z "$__EXEC_FISH" ]] && [[ -n "$(which fish)" ]] &&
+      if [[ -n "$TERM" ]] && [[ -z "$VSCODE_RESOLVING_ENVIRONMENT" ]] &&
+        [[ -z "$__EXEC_FISH" ]] && [[ -n "$(whence -p fish)" ]] &&
         [[ ! -f "$HOME"/nofish ]] && [[ ! -f "$HOME"/nofish.txt ]] &&
         [[ ! -f /mnt/shared/nofish ]] && [[ ! -f /mnt/shared/nofish.txt ]] &&
         [[ ! -f /mnt/shared/Documents/nofish ]] && [[ ! -f /mnt/shared/Documents/nofish.txt ]] &&

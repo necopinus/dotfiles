@@ -96,7 +96,7 @@ in {
       ui_font_size = 14;
 
       theme = {
-        mode = "dark"; # TODO: Change to "light" once the Android Terminal supports custom themes
+        mode = "light";
         light = "Gruvbox Light";
         dark = "Gruvbox Dark";
       };

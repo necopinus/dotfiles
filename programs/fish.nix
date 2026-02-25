@@ -25,17 +25,17 @@
         cat $HOME/.nix-profile/etc/profile.d/hm-session-vars.sh | ${pkgs.babelfish}/bin/babelfish | source
       end
 
-      # Load $XDG_CONFIG_HOME/user-dirs.dirs when applicable
-      #
-      if test "$OS" = "Darwin"; and test -f "$XDG_CONFIG_HOME/user-dirs.dirs"
-        cat $XDG_CONFIG_HOME/user-dirs.dirs | sed "s/^XDG_/export XDG_/" | ${pkgs.babelfish}/bin/babelfish | source
-      end
-
       # Append Homebrew bin directory to PATH, since some GUI casks
       # install CLI binaries there
       #
       if test -d /opt/homebrew/bin
         fish_add_path --append /opt/homebrew/bin
+      end
+
+      # Load $XDG_CONFIG_HOME/user-dirs.dirs when applicable
+      #
+      if test "$OS" = "Darwin"; and test -f "$XDG_CONFIG_HOME/user-dirs.dirs"
+        cat $XDG_CONFIG_HOME/user-dirs.dirs | sed "s/^XDG_/export XDG_/" | ${pkgs.babelfish}/bin/babelfish | source
       end
 
       # Check for SANDBOXED_* paths and replace computed paths with
@@ -74,6 +74,17 @@
       # that we're catching the correct value
       #
       set SHELL $(which fish)
+
+      # Cargo-culted from Google's /usr/local/bin/enable_gfxstream on
+      # 2025-12-09
+      #
+      if test -f /usr/share/vulkan/icd.d/gfxstream_vk_icd.json
+        set -x MESA_LOADER_DRIVER_OVERRIDE "zink"
+        set -x VK_ICD_FILENAMES "/usr/share/vulkan/icd.d/gfxstream_vk_icd.json"
+        set -x MESA_VK_WSI_DEBUG "sw,linear"
+        set -x XWAYLAND_NO_GLAMOR 1
+        set -x LIBGL_KOPPER_DRI2 1
+      end
     '';
 
     # If defined, run `loginShellInit` for login shells

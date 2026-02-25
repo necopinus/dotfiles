@@ -10,23 +10,24 @@
     "themes/Adwaita-dark".source = ../third-party/labwc-adwaita/Adwaita-dark;
   };
 
+  # Cargo-culted from Google's /usr/local/bin/enable_gfxstream on 2025-12-09
+  #
+  home.sessionVariables = {
+    MESA_LOADER_DRIVER_OVERRIDE = "zink";
+    VK_ICD_FILENAMES = "/usr/share/vulkan/icd.d/gfxstream_vk_icd.json";
+    MESA_VK_WSI_DEBUG = "sw,linear";
+    XWAYLAND_NO_GLAMOR = 1;
+    LIBGL_KOPPER_DRI2 = 1;
+  };
+
   wayland.windowManager.labwc = {
     enable = true;
-    systemd.enable = true; # FIXME: Why doesn't this do anything on the Android VM?
 
     environment = [
       "XCURSOR_THEME=Adwaita"
       "XCURSOR_SIZE=24"
       "XDG_CURRENT_DESKTOP=labwc:wlroots"
       "XKB_DEFAULT_LAYOUT=us"
-
-      # Cargo-culted from Google's /usr/local/bin/enable_gfxstream on 2025-12-09
-      #
-      "MESA_LOADER_DRIVER_OVERRIDE=zink"
-      "VK_ICD_FILENAMES=/usr/share/vulkan/icd.d/gfxstream_vk_icd.json"
-      "MESA_VK_WSI_DEBUG=sw,linear"
-      "XWAYLAND_NO_GLAMOR=1"
-      "LIBGL_KOPPER_DRI2=1"
 
       # Run headless
       #
