@@ -17,7 +17,7 @@
     envExtra = ''
       # Set OS type
       #
-      OS="$(uname -s)"
+      OS="$(${pkgs.uutils-coreutils-noprefix}/bin/uname -s)"
 
       # Load system defaults if they exist
       #
@@ -46,26 +46,20 @@
       if [[ -d "$XDG_CONFIG_HOME"/zsh/env.d ]]; then
         while read -r FILE; do
           source "$FILE"
-        done < <(find -L "$XDG_CONFIG_HOME"/zsh/env.d -type f -iname '*.sh' | sort)
+        done < <(${pkgs.uutils-findutils}/bin/find -L "$XDG_CONFIG_HOME"/zsh/env.d -type f -iname '*.sh' | ${pkgs.uutils-coreutils-noprefix}/bin/sort)
       fi
-
-      # Load $XDG_CONFIG_HOME/user-dirs.dirs when applicable
-      #
-      #if [[ -f "$XDG_CONFIG_HOME/user-dirs.dirs" ]]; then
-      #  eval "$(cat "$XDG_CONFIG_HOME/user-dirs.dirs" | sed "s/^XDG_/export XDG_/")"
-      #fi
 
       # Set SHELL to the correct value
       #
       # We do this after the PATH has been fully configured to ensure
       # that we're catching the correct value
       #
-      export SHELL="$(which zsh)"
+      export SHELL="$(whence -p zsh)"
       if [[ -o login ]]; then
-        if [[ -x "$(realpath /bin)"/zsh ]]; then
-          export SHELL="$(realpath /bin)"/zsh
-        elif [[ -x "$(realpath /usr/bin)"/zsh ]]; then
-          export SHELL="$(realpath /usr/bin)"/zsh
+        if [[ -x "$(${pkgs.uutils-coreutils-noprefix}/bin/realpath /bin)"/zsh ]]; then
+          export SHELL="$(${pkgs.uutils-coreutils-noprefix}/bin/realpath /bin)"/zsh
+        elif [[ -x "$(${pkgs.uutils-coreutils-noprefix}/bin/realpath /usr/bin)"/zsh ]]; then
+          export SHELL="$(${pkgs.uutils-coreutils-noprefix}/bin/realpath /usr/bin)"/zsh
         fi
       fi
     '';
@@ -139,6 +133,7 @@
         alias :e="$(whence -p "$EDITOR")"
         alias :q=exit
         alias nvim="$(whence -p "$EDITOR")"
+        alias shutdown="/usr/bin/sudo /sbin/shutdown -h now"
         alias sudo="/usr/bin/sudo -E"
         alias vi="$(whence -p "$EDITOR")"
         alias vim="$(whence -p "$EDITOR")"
@@ -148,7 +143,7 @@
         if [[ -d "$XDG_CONFIG_HOME"/zsh/rc.d ]]; then
           while read -r FILE; do
             source "$FILE"
-          done < <(find -L "$XDG_CONFIG_HOME"/zsh/rc.d -type f -iname '*.sh' | sort)
+          done < <(${pkgs.uutils-findutils}/bin/find -L "$XDG_CONFIG_HOME"/zsh/rc.d -type f -iname '*.sh' | ${pkgs.uutils-coreutils-noprefix}/bin/sort)
         fi
       '';
     in

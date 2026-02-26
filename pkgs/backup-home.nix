@@ -16,13 +16,6 @@ writeShellApplication {
   ];
 
   text = ''
-    # Set OS type
-    #
-    OS="$(uname -s)"
-
-    # shellcheck disable=SC1091
-    #source "$XDG_CONFIG_HOME/user-dirs.dirs"
-
     BACKUP_LIST="$(mktemp)"
     BACKUP_LIST_TMP="$(mktemp)"
 
@@ -57,15 +50,9 @@ writeShellApplication {
     mkBackupList "$XDG_CONFIG_HOME/aacs"
     mkBackupList "$XDG_CONFIG_HOME/adept"
 
-    if [[ "$OS" == "Linux" ]]; then
-      mkBackupList "$HOME/data"
-    else
-      mkBackupList "$HOME/data/calibre"
-      mkBackupList "$HOME/Documents"
-    fi
-
     mkBackupList "$XDG_CONFIG_HOME/engagements"
 
+    mkBackupList "$HOME/Documents/Calibre"
     mkBackupList "$HOME/Library/Preferences/calibre"
     mkBackupList "$XDG_CONFIG_HOME/calibre"
 

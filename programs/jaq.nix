@@ -3,10 +3,9 @@
   config,
   ...
 }: {
-  programs.jq = {
-    enable = true;
-    package = pkgs.jaq;
-  };
+  home.packages = with pkgs; [
+    jaq
+  ];
 
   # Convenience aliases
   #

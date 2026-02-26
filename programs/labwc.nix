@@ -55,14 +55,14 @@
             label = "Chromium";
             action = {
               name = "Execute";
-              command = "chromium-browser";
+              command = "${config.programs.chromium.finalPackage}/bin/chromium-browser";
             };
           }
           {
             label = "Obsidian";
             action = {
               name = "Execute";
-              command = "obsidian --disable-gpu";
+              command = "${pkgs.obsidian}/bin/obsidian --disable-gpu";
             };
           }
           {separator = {};}

@@ -31,11 +31,11 @@
         if [[ -f "$HOME"/.ssh/agent.env ]]; then
           source "$HOME"/.ssh/agent.env
         fi
-        if [[ -z "$SSH_AGENT_PID" ]] || [[ $(ps -ef | grep -v grep | grep -c "$SSH_AGENT_PID") -eq 0 ]]; then
+        if [[ -z "$SSH_AGENT_PID" ]] || [[ $(${pkgs.procps}/bin/ps -ef | ${pkgs.gnugrep}/bin/grep -v grep | ${pkgs.gnugrep}/bin/grep -c "$SSH_AGENT_PID") -eq 0 ]]; then
           if [[ ! -d "$HOME"/.ssh ]]; then
-            mkdir -p "$HOME"/.ssh
+            ${pkgs.uutils-coreutils-noprefix}/bin/mkdir -p "$HOME"/.ssh
           fi
-          ssh-agent | sed '/^echo/d' > "$HOME"/.ssh/agent.env
+          ${config.programs.ssh.package}/bin/ssh-agent | ${pkgs.uutils-sed}/bin/sed '/^echo/d' > "$HOME"/.ssh/agent.env
           source "$HOME"/.ssh/agent.env
         fi
       fi
@@ -48,11 +48,11 @@
         if [[ -f "$HOME"/.ssh/agent.env ]]; then
           source "$HOME"/.ssh/agent.env
         fi
-        if [[ -z "$SSH_AGENT_PID" ]] || [[ $(ps -ef | grep -v grep | grep -c "$SSH_AGENT_PID") -eq 0 ]]; then
+        if [[ -z "$SSH_AGENT_PID" ]] || [[ $(${pkgs.procps}/bin/ps -ef | ${pkgs.gnugrep}/bin/grep -v grep | ${pkgs.gnugrep}/bin/grep -c "$SSH_AGENT_PID") -eq 0 ]]; then
           if [[ ! -d "$HOME"/.ssh ]]; then
-            mkdir -p "$HOME"/.ssh
+            ${pkgs.uutils-coreutils-noprefix}/bin/mkdir -p "$HOME"/.ssh
           fi
-          ssh-agent | sed '/^echo/d' > "$HOME"/.ssh/agent.env
+          ${config.programs.ssh.package}/bin/ssh-agent | ${pkgs.uutils-sed}/bin/sed '/^echo/d' > "$HOME"/.ssh/agent.env
           source "$HOME"/.ssh/agent.env
         fi
       fi
@@ -63,14 +63,14 @@
     text = ''
       if test -z "$SSH_AUTH_SOCK"
         if test -f $HOME/.ssh/agent.env
-          cat $HOME/.ssh/agent.env | ${pkgs.babelfish}/bin/babelfish | source
+          ${pkgs.uutils-coreutils-noprefix}/bin/cat $HOME/.ssh/agent.env | ${pkgs.babelfish}/bin/babelfish | source
         end
-        if test -z "$SSH_AGENT_PID"; or test $(ps -ef | grep -v grep | grep -c "$SSH_AGENT_PID") -eq 0
+        if test -z "$SSH_AGENT_PID"; or test $(${pkgs.procps}/bin/ps -ef | ${pkgs.gnugrep}/bin/grep -v grep | ${pkgs.gnugrep}/bin/grep -c "$SSH_AGENT_PID") -eq 0
           if test ! -d $HOME/.ssh
-            mkdir -p $HOME/.ssh
+            ${pkgs.uutils-coreutils-noprefix}/bin/mkdir -p $HOME/.ssh
           end
-          ssh-agent | sed '/^echo/d' > $HOME/.ssh/agent.env
-          cat $HOME/.ssh/agent.env | ${pkgs.babelfish}/bin/babelfish | source
+          ${config.programs.ssh.package}/bin/ssh-agent | ${pkgs.uutils-sed}/bin/sed '/^echo/d' > $HOME/.ssh/agent.env
+          ${pkgs.uutils-coreutils-noprefix}/bin/cat $HOME/.ssh/agent.env | ${pkgs.babelfish}/bin/babelfish | source
         end
       end
     '';

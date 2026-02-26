@@ -45,6 +45,7 @@ in {
     msgpack-tools
     optipng
     poppler-utils
+    procps
     rsgain
     rsync
     unzip
@@ -52,6 +53,7 @@ in {
     uutils-diffutils
     uutils-findutils
     uutils-sed
+    which
     xz
     zip
 
@@ -63,27 +65,15 @@ in {
   xdg = {
     enable = true;
 
-    # Is it weird not to make these directories hidden? Maybe, but it
-    # also makes them slightly easier to work with.
-    #
-    cacheHome = "${config.home.homeDirectory}/cache";
-    configHome = "${config.home.homeDirectory}/config";
-    dataHome = "${config.home.homeDirectory}/local/share";
-    stateHome = "${config.home.homeDirectory}/local/state";
-
     userDirs = {
       enable = true;
       createDirectories = true;
       setSessionVariables = true;
 
-      # We have limited latitude here; macOS always comes with a set of
-      # pre-created directories, and directories in /mnt/shared are
-      # similarly immutable in the Android VM
+      # Some XDG user directories need to be reset, as macOS
+      # directories don't always match the spec and equivalent
+      # directories in the Android VM live in /mnt/shared
       #
-      desktop =
-        if pkgs.stdenv.isLinux
-        then "${config.home.homeDirectory}/data/desktop"
-        else "${config.home.homeDirectory}/Desktop";
       documents =
         if pkgs.stdenv.isLinux
         then "/mnt/shared/Documents"
@@ -100,14 +90,6 @@ in {
         if pkgs.stdenv.isLinux
         then "/mnt/shared/Pictures"
         else "${config.home.homeDirectory}/Pictures";
-      publicShare =
-        if pkgs.stdenv.isLinux
-        then "${config.home.homeDirectory}/public"
-        else "${config.home.homeDirectory}/Public";
-      templates =
-        if pkgs.stdenv.isLinux
-        then "${config.home.homeDirectory}/data/templates"
-        else "${config.home.homeDirectory}/Documents/Templates";
       videos =
         if pkgs.stdenv.isLinux
         then "/mnt/shared/Movies"
@@ -119,7 +101,7 @@ in {
   # XDG_CONFIG_DIRS and XDG_DATA_DIRS are set here rather than in
   # xdg.systemDirs in order to avoid as much path messiness as possible
   # and to allow for easy inclusion in systemd.user.sessionVariables
-  # (debian-vm.nix)
+  # (debian.nix)
   #
   # XDG_*_HOME variables are set here to ensure their availability in
   # all shells

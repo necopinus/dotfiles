@@ -86,7 +86,7 @@
 
     # Debian VM configuration (home-manager)
     #
-    homeConfigurations."debian-vm" = home-manager.lib.homeManagerConfiguration {
+    homeConfigurations."debian" = home-manager.lib.homeManagerConfiguration {
       # Looks weird, but just let's home-manager re-use the existing NixPkgs
       # definition, which is more efficient. See:
       #
@@ -110,7 +110,7 @@
         }
 
         ./homes/common.nix
-        ./homes/debian-vm.nix
+        ./homes/debian.nix
       ];
     };
   };

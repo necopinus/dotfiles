@@ -18,11 +18,6 @@ in {
     localPkgs.vault-sync
   ];
 
-  # Home-manager won't allow some XDG settings on macOS, so we roll them
-  # by hand here
-  #
-  #xdg.configFile."user-dirs.dirs".source = ../artifacts/config/user-dirs.dirs;
-
   # Futile attempt to suppress Homebrew hint messages
   #
   home.sessionVariables.HOMEBREW_NO_ENV_HINTS = 1;

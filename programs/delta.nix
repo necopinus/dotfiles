@@ -1,8 +1,4 @@
-{
-  pkgs,
-  config,
-  ...
-}: {
+{config, ...}: {
   programs.delta = {
     enable = true;
     enableGitIntegration = true;
@@ -65,19 +61,19 @@
   xdg.configFile."bash/rc.d/delta.sh" = {
     enable = config.programs.bash.enable;
     text = ''
-      alias diff="${pkgs.delta}/bin/delta"
+      alias diff="${config.programs.delta.package}/bin/delta"
     '';
   };
   xdg.configFile."zsh/rc.d/delta.sh" = {
     enable = config.programs.zsh.enable;
     text = ''
-      alias diff="${pkgs.delta}/bin/delta"
+      alias diff="${config.programs.delta.package}/bin/delta"
     '';
   };
   xdg.configFile."fish/rc.d/delta.fish" = {
     enable = config.programs.fish.enable;
     text = ''
-      alias diff "${pkgs.delta}/bin/delta"
+      alias diff "${config.programs.delta.package}/bin/delta"
     '';
   };
 }

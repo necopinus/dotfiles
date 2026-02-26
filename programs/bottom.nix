@@ -1,8 +1,4 @@
-{
-  pkgs,
-  config,
-  ...
-}: {
+{config, ...}: {
   programs.bottom = {
     enable = true;
 
@@ -47,22 +43,22 @@
   xdg.configFile."bash/rc.d/bottom.sh" = {
     enable = config.programs.bash.enable;
     text = ''
-      alias htop="${pkgs.bottom}/bin/btm --basic"
-      alias top="${pkgs.bottom}/bin/btm --basic"
+      alias htop="${config.programs.bottom.package}/bin/btm --basic"
+      alias top="${config.programs.bottom.package}/bin/btm --basic"
     '';
   };
   xdg.configFile."zsh/rc.d/bottom.sh" = {
     enable = config.programs.zsh.enable;
     text = ''
-      alias htop="${pkgs.bottom}/bin/btm --basic"
-      alias top="${pkgs.bottom}/bin/btm --basic"
+      alias htop="${config.programs.bottom.package}/bin/btm --basic"
+      alias top="${config.programs.bottom.package}/bin/btm --basic"
     '';
   };
   xdg.configFile."fish/rc.d/bottom.fish" = {
     enable = config.programs.fish.enable;
     text = ''
-      alias htop "${pkgs.bottom}/bin/btm --basic"
-      alias top "${pkgs.bottom}/bin/btm --basic"
+      alias htop "${config.programs.bottom.package}/bin/btm --basic"
+      alias top "${config.programs.bottom.package}/bin/btm --basic"
     '';
   };
 }

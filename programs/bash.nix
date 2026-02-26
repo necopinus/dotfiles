@@ -7,7 +7,7 @@
     profileExtra = ''
       # Set OS type
       #
-      OS="$(uname -s)"
+      OS="$(${pkgs.uutils-coreutils-noprefix}/bin/uname -s)"
 
       # Load system defaults if they exist
       #
@@ -42,26 +42,20 @@
       if [[ -d "$XDG_CONFIG_HOME"/bash/env.d ]]; then
         while read -r FILE; do
           source "$FILE"
-        done < <(find -L "$XDG_CONFIG_HOME"/bash/env.d -type f -iname '*.sh' | sort)
+        done < <(${pkgs.uutils-findutils}/bin/find -L "$XDG_CONFIG_HOME"/bash/env.d -type f -iname '*.sh' | ${pkgs.uutils-findutils}/bin/sort)
       fi
-
-      # Load $XDG_CONFIG_HOME/user-dirs.dirs when applicable
-      #
-      #if [ -f "$XDG_CONFIG_HOME/user-dirs.dirs" ]; then
-      #  eval "$(cat "$XDG_CONFIG_HOME/user-dirs.dirs" | sed "s/^XDG_/export XDG_/")"
-      #fi
 
       # Set SHELL to the correct value
       #
       # We do this after the PATH has been fully configured to ensure
       # that we're catching the correct value
       #
-      export SHELL="$(which bash)"
+      export SHELL="$(${pkgs.which}/bin/which bash)"
       if shopt -q login_shell; then
-        if [ -x "$(realpath /bin)"/bash ]; then
-          export SHELL="$(realpath /bin)"/bash
-        elif [ -x "$(realpath /usr/bin)"/bash ]; then
-          export SHELL="$(realpath /usr/bin)"/bash
+        if [ -x "$(${pkgs.uutils-coreutils-noprefix}/bin/realpath /bin)"/bash ]; then
+          export SHELL="$(${pkgs.uutils-coreutils-noprefix}/bin/realpath /bin)"/bash
+        elif [ -x "$(${pkgs.uutils-coreutils-noprefix}/bin/realpath /usr/bin)"/bash ]; then
+          export SHELL="$(${pkgs.uutils-coreutils-noprefix}/bin/realpath /usr/bin)"/bash
         fi
       fi
     '';
@@ -81,7 +75,7 @@
 
       # Set OS type
       #
-      OS="$(uname -s)"
+      OS="$(${pkgs.uutils-coreutils-noprefix}/bin/uname -s)"
 
       # Make sure that Nix is set up
       #
@@ -94,17 +88,17 @@
       if [[ -d "$XDG_CONFIG_HOME"/bash/env.d ]]; then
         while read -r FILE; do
           source "$FILE"
-        done < <(find -L "$XDG_CONFIG_HOME"/bash/env.d -type f -iname '*.sh' | sort)
+        done < <(${pkgs.uutils-findutils}/bin/find -L "$XDG_CONFIG_HOME"/bash/env.d -type f -iname '*.sh' | ${pkgs.uutils-coreutils-noprefix}/bin/sort)
       fi
 
       # Set SHELL to the correct value
       #
-      export SHELL="$(which bash)"
+      export SHELL="$(${pkgs.which}/bin/which bash)"
       if shopt -q login_shell; then
-        if [[ -x "$(realpath /bin)"/bash ]]; then
-          export SHELL="$(realpath /bin)"/bash
-        elif [[ -x "$(realpath /usr/bin)"/bash ]]; then
-          export SHELL="$(realpath /usr/bin)"/bash
+        if [[ -x "$(${pkgs.uutils-coreutils-noprefix}/bin/realpath /bin)"/bash ]]; then
+          export SHELL="$(${pkgs.uutils-coreutils-noprefix}/bin/realpath /bin)"/bash
+        elif [[ -x "$(${pkgs.uutils-coreutils-noprefix}/bin/realpath /usr/bin)"/bash ]]; then
+          export SHELL="$(${pkgs.uutils-coreutils-noprefix}/bin/realpath /usr/bin)"/bash
         fi
       fi
 
@@ -122,7 +116,7 @@
       # ~/.config/bash/rc.d, because we may exec fish
       #
       if [[ -n "$TERM" ]] && [[ -z "$VSCODE_RESOLVING_ENVIRONMENT" ]] &&
-        [[ -z "$__EXEC_FISH" ]] && [[ -n "$(which fish)" ]] &&
+        [[ -z "$__EXEC_FISH" ]] && [[ -n "$(${pkgs.which}/bin/which fish)" ]] &&
         [[ ! -f "$HOME"/nofish ]] && [[ ! -f "$HOME"/nofish.txt ]] &&
         [[ ! -f /mnt/shared/nofish ]] && [[ ! -f /mnt/shared/nofish.txt ]] &&
         [[ ! -f /mnt/shared/Documents/nofish ]] && [[ ! -f /mnt/shared/Documents/nofish.txt ]] &&
@@ -139,19 +133,20 @@
 
       # Convenience aliases
       #
-      alias :e="$(which "$EDITOR")"
+      alias :e="$(${pkgs.which}/bin/which "$EDITOR")"
       alias :q=exit
-      alias nvim="$(which "$EDITOR")"
+      alias nvim="$(${pkgs.which}/bin/which "$EDITOR")"
+      alias shutdown="/usr/bin/sudo /sbin/shutdown -h now"
       alias sudo="/usr/bin/sudo -E"
-      alias vi="$(which "$EDITOR")"
-      alias vim="$(which "$EDITOR")"
+      alias vi="$(${pkgs.which}/bin/which "$EDITOR")"
+      alias vim="$(${pkgs.which}/bin/which "$EDITOR")"
 
       # Source files for interactive shell setup
       #
       if [[ -d "$XDG_CONFIG_HOME"/bash/rc.d ]]; then
         while read -r FILE; do
           source "$FILE"
-        done < <(find -L "$XDG_CONFIG_HOME"/bash/rc.d -type f -iname '*.sh' | sort)
+        done < <(${pkgs.uutils-findutils}/bin/find -L "$XDG_CONFIG_HOME"/bash/rc.d -type f -iname '*.sh' | ${pkgs.uutils-coreutils-noprefix}/bin/sort)
       fi
     '';
 

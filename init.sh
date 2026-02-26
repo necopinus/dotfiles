@@ -8,8 +8,8 @@ OS="$(uname -s)"
 
 # Sanity check
 #
-if [[ ! -f "$HOME/config/nix/flake.nix" ]]; then
-    echo "This configuration must be cloned into $HOME/config/nix!"
+if [[ ! -f "$HOME/.config/nix/flake.nix" ]]; then
+    echo "This configuration must be cloned into $HOME/.config/nix!"
     exit
 fi
 
@@ -103,64 +103,17 @@ if [[ -e "$HOME"/.profile ]] && [[ ! -L "$HOME"/.profile ]]; then
     mv "$HOME"/.profile "$HOME"/.profile.before-nix
 fi
 
-# Set up user application data "library" directories
-#
-# Note that we do this *before* running the initial Nix setup, as
-# otherwise any new SystemD units will fail to load
-#
-export XDG_CACHE_HOME="$HOME"/cache
-export XDG_CONFIG_HOME="$HOME"/config
-export XDG_DATA_HOME="$HOME"/local/share
-export XDG_STATE_HOME="$HOME"/local/state
-
-mkdir -p "$XDG_CACHE_HOME"
-if [[ -d "$HOME"/.cache ]] && [[ ! -L "$HOME"/.cache ]]; then
-    cp -an "$HOME"/.cache/* "$XDG_CACHE_HOME"/ || true
-    rm -rf "$HOME"/.cache
-fi
-if [[ ! -e "$HOME"/.cache ]]; then
-    ln -sfT "$XDG_CACHE_HOME" "$HOME"/.cache
-fi
-
-mkdir -p "$XDG_CONFIG_HOME"
-if [[ -d "$HOME"/.config ]] && [[ ! -L "$HOME"/.config ]]; then
-    cp -an "$HOME"/.config/* "$XDG_CONFIG_HOME"/ || true
-    rm -rf "$HOME"/.config
-fi
-if [[ ! -e "$HOME"/.config ]]; then
-    ln -sfT "$XDG_CONFIG_HOME" "$HOME"/.config
-fi
-
-mkdir -p "$HOME"/local
-if [[ -d "$HOME"/.local ]] && [[ ! -L "$HOME"/.local ]]; then
-    cp -an "$HOME"/.local/* "$HOME"/local/ || true
-    rm -rf "$HOME"/.local
-fi
-# If ~/.nix-profile/bin is already in our PATH, then the above move may
-# have broken our environment. We repair it here by fixing the profile
-# symlink using an explicit call to the *system* `ln` binary
-#
-if [[ -e "$XDG_STATE_HOME"/nix/profiles/profile ]] && [[ -e "$HOME"/.nix-profile ]]; then
-    /usr/bin/ln -sfT "$XDG_STATE_HOME"/nix/profiles/profile "$HOME"/.nix-profile
-fi
-if [[ ! -e "$HOME"/.local ]]; then
-    ln -sfT "$HOME"/local "$HOME"/.local
-fi
-if [[ ! -e "$HOME"/.var ]]; then
-    ln -sfT "$HOME"/local "$HOME"/.var
-fi
-
 # Build configuration
 #
 if [[ "$OS" == "Darwin" ]]; then
     (
-        cd "$HOME/config/nix"
+        cd "$HOME/.config/nix"
         sudo -H nix run nix-darwin -- switch --flake .#macos
     )
 else
     (
-        cd "$HOME/config/nix"
-        dbus-run-session nix run home-manager/master -- switch --flake .#debian-vm
+        cd "$HOME/.config/nix"
+        dbus-run-session nix run home-manager/master -- switch --flake .#debian
     )
 fi
 
@@ -198,8 +151,6 @@ unset __ETC_PROFILE_NIX_SOURCED
 source /nix/var/nix/profiles/default/etc/profile.d/nix-daemon.sh
 # shellcheck disable=SC1091
 source "$HOME/.nix-profile/etc/profile.d/hm-session-vars.sh"
-# shellcheck disable=SC1091
-#source "$XDG_CONFIG_HOME/user-dirs.dirs"
 
 # Run GPU setup for nixpkgs/home-manager
 #
@@ -209,122 +160,40 @@ fi
 
 # Set up XDG user directories
 #
-mkdir -p "$XDG_DOCUMENTS_DIR"
-if [[ -d "$HOME/Documents" ]] &&
-    [[ "$XDG_DOCUMENTS_DIR" != "$HOME/Documents" ]]; then
-    cp -an "$HOME/Documents"/* "$XDG_DOCUMENTS_DIR"/ || true
-    rm -rf "$HOME/Documents"
-fi
-if [[ -d "$HOME/data/documents" ]] &&
-    [[ "$XDG_DOCUMENTS_DIR" != "$HOME/data/documents" ]]; then
-    cp -an "$HOME/data/documents"/* "$XDG_DOCUMENTS_DIR"/ || true
-    rm -rf "$HOME/data/documents"
-fi
 if [[ "$XDG_DOCUMENTS_DIR" == /mnt/shared/Documents ]]; then
-    mkdir -p "$HOME/data"
-    ln -sfT /mnt/shared/Documents "$HOME/data/documents"
+    ln -sfT /mnt/shared/Documents "$HOME/Document"
+else
+    mkdir -p "$XDG_DOCUMENTS_DIR"
 fi
-
 mkdir -p "$XDG_DESKTOP_DIR"
-if [[ -d "$HOME/Desktop" ]] &&
-    [[ "$XDG_DESKTOP_DIR" != "$HOME/Desktop" ]]; then
-    cp -an "$HOME/Desktop"/* "$XDG_DESKTOP_DIR"/ || true
-    rm -rf "$HOME/Desktop"
-fi
-
-mkdir -p "$XDG_DOWNLOAD_DIR"
-if [[ -d "$HOME/Downloads" ]] &&
-    [[ "$XDG_DOWNLOAD_DIR" != "$HOME/Downloads" ]]; then
-    cp -an "$HOME/Downloads"/* "$XDG_DOWNLOAD_DIR"/ || true
-    rm -rf "$HOME/Downloads"
-fi
-if [[ -d "$HOME/Download" ]] &&
-    [[ "$XDG_DOWNLOAD_DIR" != "$HOME/Download" ]]; then
-    cp -an "$HOME/Download"/* "$XDG_DOWNLOAD_DIR"/ || true
-    rm -rf "$HOME/Download"
-fi
-if [[ -d "$HOME/downloads" ]] &&
-    [[ "$XDG_DOWNLOAD_DIR" != "$HOME/downloads" ]]; then
-    cp -an "$HOME/downloads"/* "$XDG_DOWNLOAD_DIR"/ || true
-    rm -rf "$HOME/downloads"
-fi
-if [[ -d "$HOME/data/downloads" ]] &&
-    [[ "$XDG_DOWNLOAD_DIR" != "$HOME/data/downloads" ]]; then
-    cp -an "$HOME/data/downloads"/* "$XDG_DOWNLOAD_DIR"/ || true
-    rm -rf "$HOME/data/downloads"
-fi
 if [[ "$XDG_DOWNLOAD_DIR" == /mnt/shared/Download ]]; then
-    mkdir -p "$HOME/data"
-    ln -sfT /mnt/shared/Download "$HOME/downloads"
-fi
-
-mkdir -p "$XDG_MUSIC_DIR"
-if [[ -d "$HOME/Music" ]] &&
-    [[ "$XDG_MUSIC_DIR" != "$HOME/Music" ]]; then
-    cp -an "$HOME/Music"/* "$XDG_MUSIC_DIR"/ || true
-    rm -rf "$HOME/Music"
-fi
-if [[ -d "$HOME/data/music" ]] &&
-    [[ "$XDG_MUSIC_DIR" != "$HOME/data/music" ]]; then
-    cp -an "$HOME/data/music"/* "$XDG_MUSIC_DIR"/ || true
-    rm -rf "$HOME/data/music"
+    ln -sfT /mnt/shared/Download "$HOME/Downloads"
+else
+    mkdir -p "$XDG_DOWNLOAD_DIR"
 fi
 if [[ "$XDG_MUSIC_DIR" == /mnt/shared/Music ]]; then
-    mkdir -p "$HOME/data"
-    ln -sfT /mnt/shared/Music "$HOME/data/music"
-fi
-
-mkdir -p "$XDG_PICTURES_DIR"
-if [[ -d "$HOME/Pictures" ]] &&
-    [[ "$XDG_PICTURES_DIR" != "$HOME/Pictures" ]]; then
-    cp -an "$HOME/Pictures"/* "$XDG_PICTURES_DIR"/ || true
-    rm -rf "$HOME/Pictures"
-fi
-if [[ -d "$HOME/data/pictures" ]] &&
-    [[ "$XDG_PICTURES_DIR" != "$HOME/data/pictures" ]]; then
-    cp -an "$HOME/data/pictures"/* "$XDG_PICTURES_DIR"/ || true
-    rm -rf "$HOME/data/pictures"
+    ln -sfT /mnt/shared/Music "$HOME/Music"
+else
+    mkdir -p "$XDG_MUSIC_DIR"
 fi
 if [[ "$XDG_PICTURES_DIR" == /mnt/shared/Pictures ]]; then
-    mkdir -p "$HOME/data"
-    ln -sfT /mnt/shared/Pictures "$HOME/data/pictures"
+    ln -sfT /mnt/shared/Pictures "$HOME/Pictures"
+else
+    mkdir -p "$XDG_PICTURES_DIR"
 fi
-
 mkdir -p "$XDG_PUBLICSHARE_DIR"
-if [[ -d "$HOME/Public" ]] &&
-    [[ "$XDG_PUBLICSHARE_DIR" != "$HOME/Public" ]]; then
-    cp -an "$HOME/Public"/* "$XDG_PUBLICSHARE_DIR"/ || true
-    rm -rf "$HOME/Public"
-fi
-
 mkdir -p "$XDG_TEMPLATES_DIR"
-if [[ -d "$HOME/Templates" ]] &&
-    [[ "$XDG_TEMPLATES_DIR" != "$HOME/Templates" ]]; then
-    cp -an "$HOME/Templates"/* "$XDG_TEMPLATES_DIR"/ || true
-    rm -rf "$HOME/Templates"
-fi
-
-mkdir -p "$XDG_VIDEOS_DIR"
-if [[ -d "$HOME/Videos" ]] &&
-    [[ "$XDG_VIDEOS_DIR" != "$HOME/Videos" ]]; then
-    cp -an "$HOME/Videos"/* "$XDG_VIDEOS_DIR"/ || true
-    rm -rf "$HOME/Videos"
-fi
-if [[ -d "$HOME/data/videos" ]] &&
-    [[ "$XDG_VIDEOS_DIR" != "$HOME/data/videos" ]]; then
-    cp -an "$HOME/data/videos"/* "$XDG_VIDEOS_DIR"/ || true
-    rm -rf "$HOME/data/videos"
-fi
 if [[ "$XDG_VIDEOS_DIR" == /mnt/shared/Movies ]]; then
-    mkdir -p "$HOME/data"
-    ln -sfT /mnt/shared/Movies "$HOME/data/videos"
+    ln -sfT /mnt/shared/Movies "$HOME/Videos"
+else
+    mkdir -p "$XDG_VIDEOS_DIR"
 fi
 
 # Calibre pre-setup
 #
 if [[ "$OS" == "Darwin" ]]; then
     mkdir -p "$HOME/Library/Preferences/calibre"
-    mkdir -p "$HOME/data/calibre"
+    mkdir -p "$HOME/Documents/Calibre"
 fi
 
 # Make sure that SSH is set up
@@ -358,9 +227,9 @@ hx -g build
 
 # Check out a few useful code repositories
 #
-mkdir -p "$HOME"/src
+mkdir -p "$HOME"/Projects
 (
-    cd "$HOME"/src || exit 1
+    cd "$HOME"/Projects || exit 1
 
     if [[ ! -d hackenv ]]; then
         git clone --recurse-submodules \

@@ -52,7 +52,7 @@ writeShellApplication {
       if [[ "$OS" == "Darwin" ]]; then
         sudo darwin-rebuild switch --flake .#macos
       else
-        home-manager switch --flake .#debian-vm
+        home-manager switch --flake .#debian
         sudo "$(which non-nixos-gpu-setup)"
       fi
     )
@@ -83,9 +83,9 @@ writeShellApplication {
 
     # Git repositories
     #
-    if [[ -d "$HOME/src" ]]; then
+    if [[ -d "$HOME/Projects" ]]; then
       (
-        cd "$HOME/src"
+        cd "$HOME/Projects"
         while IFS= read -r -d "" OBJECT; do
           if [[ -d "$OBJECT/.git" ]]; then
             echo "Refreshing $(basename "$OBJECT")"

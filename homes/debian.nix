@@ -187,7 +187,7 @@ in {
     enable = config.programs.bash.enable;
     text = ''
       function xcv {
-        nohup "$@" 2>/dev/null
+        ${pkgs.uutils-coreutils-noprefix}/bin/nohup "$@" 2>/dev/null
       }
     '';
   };
@@ -195,33 +195,11 @@ in {
     enable = config.programs.zsh.enable;
     text = ''
       function xcv {
-        nohup "$@" 2>/dev/null
+        ${pkgs.uutils-coreutils-noprefix}/bin/nohup "$@" 2>/dev/null
       }
     '';
   };
   programs.fish.functions."xcz" = ''
-    nohup $argv 2>/dev/null
+    ${pkgs.uutils-coreutils-noprefix}/bin/nohup $argv 2>/dev/null
   '';
-
-  # The Android VM is surprisingly fragile, so we want to do a
-  # shutdown rather than just exiting the last session
-  #
-  xdg.configFile."bash/rc.d/shutdown.sh" = {
-    enable = config.programs.bash.enable;
-    text = ''
-      alias shutdown="/usr/bin/sudo /sbin/shutdown -h now"
-    '';
-  };
-  xdg.configFile."zsh/rc.d/shutdown.sh" = {
-    enable = config.programs.zsh.enable;
-    text = ''
-      alias shutdown="/usr/bin/sudo /sbin/shutdown -h now"
-    '';
-  };
-  xdg.configFile."fish/rc.d/shutdown.fish" = {
-    enable = config.programs.fish.enable;
-    text = ''
-      alias shutdown "/usr/bin/sudo /sbin/shutdown -h now"
-    '';
-  };
 }

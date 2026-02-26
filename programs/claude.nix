@@ -205,7 +205,7 @@ in {
     enable = config.programs.bash.enable;
     text = ''
       function claude {
-        CLAUDE_CODE_EXEC="$(realpath "$(which claude)")"
+        CLAUDE_CODE_EXEC="$(${pkgs.uutils-coreutils-noprefix}/bin/realpath "$(which claude)")"
 
         if [[ "$CLAUDE_CODE_EXEC" == */scripts/claude ]] || [[ -n "$CLAUDECODE" ]] || [[ -n "$NONO_CAP_FILE" ]]; then
           "$CLAUDE_CODE_EXEC" "$@"
@@ -245,7 +245,7 @@ in {
     enable = config.programs.zsh.enable;
     text = ''
       function claude {
-        CLAUDE_CODE_EXEC="$(realpath "$(whence -p claude)")"
+        CLAUDE_CODE_EXEC="$(${pkgs.uutils-coreutils-noprefix}/bin/realpath "$(whence -p claude)")"
 
         if [[ "$CLAUDE_CODE_EXEC" == */scripts/claude ]] || [[ -n "$CLAUDECODE" ]] || [[ -n "$NONO_CAP_FILE" ]]; then
           "$CLAUDE_CODE_EXEC" "$@"
@@ -282,7 +282,7 @@ in {
     '';
   };
   programs.fish.functions."claude" = ''
-    set CLAUDE_CODE_EXEC $(realpath $(which claude))
+    set CLAUDE_CODE_EXEC $(${pkgs.uutils-coreutils-noprefix}/bin/realpath $(${pkgs.which}/bin/which claude))
 
     if string match "*/scripts/claude" $CLAUDE_CODE_EXEC &> /dev/null; or test -n "$CLAUDECODE"; or test -n "$NONO_CAP_FILE"
       $CLAUDE_CODE_EXEC $argv
@@ -332,7 +332,7 @@ in {
         SANDBOXED_PATH=""
         while IFS=: read -d: -r DIR; do
           if [[ -d "$DIR" ]]; then
-            SANDBOXED_PATH="$SANDBOXED_PATH$SEP$(realpath "$DIR")"
+            SANDBOXED_PATH="$SANDBOXED_PATH$SEP$(${pkgs.uutils-coreutils-noprefix}/bin/realpath "$DIR")"
             if [[ -z "$SEP" ]]; then
               SEP=":"
             fi
@@ -343,7 +343,7 @@ in {
         SANDBOXED_MANPATH=""
         while IFS=: read -d: -r DIR; do
           if [[ -d "$DIR" ]]; then
-            SANDBOXED_MANPATH="$SANDBOXED_MANPATH$SEP$(realpath "$DIR")"
+            SANDBOXED_MANPATH="$SANDBOXED_MANPATH$SEP$(${pkgs.uutils-coreutils-noprefix}/bin/realpath "$DIR")"
             if [[ -z "$SEP" ]]; then
               SEP=":"
             fi
@@ -354,7 +354,7 @@ in {
         SANDBOXED_TERMINFO_DIRS=""
         while IFS=: read -d: -r DIR; do
           if [[ -d "$DIR" ]]; then
-            SANDBOXED_TERMINFO_DIRS="$SANDBOXED_TERMINFO_DIRS$SEP$(realpath "$DIR")"
+            SANDBOXED_TERMINFO_DIRS="$SANDBOXED_TERMINFO_DIRS$SEP$(${pkgs.uutils-coreutils-noprefix}/bin/realpath "$DIR")"
             if [[ -z "$SEP" ]]; then
               SEP=":"
             fi
@@ -365,7 +365,7 @@ in {
         SANDBOXED_XDG_CONFIG_DIRS=""
         while IFS=: read -d: -r DIR; do
           if [[ -d "$DIR" ]]; then
-            SANDBOXED_XDG_CONFIG_DIRS="$SANDBOXED_XDG_CONFIG_DIRS$SEP$(realpath "$DIR")"
+            SANDBOXED_XDG_CONFIG_DIRS="$SANDBOXED_XDG_CONFIG_DIRS$SEP$(${pkgs.uutils-coreutils-noprefix}/bin/realpath "$DIR")"
             if [[ -z "$SEP" ]]; then
               SEP=":"
             fi
@@ -376,7 +376,7 @@ in {
         SANDBOXED_XDG_DATA_DIRS=""
         while IFS=: read -d: -r DIR; do
           if [[ -d "$DIR" ]]; then
-            SANDBOXED_XDG_DATA_DIRS="$SANDBOXED_XDG_DATA_DIRS$SEP$(realpath "$DIR")"
+            SANDBOXED_XDG_DATA_DIRS="$SANDBOXED_XDG_DATA_DIRS$SEP$(${pkgs.uutils-coreutils-noprefix}/bin/realpath "$DIR")"
             if [[ -z "$SEP" ]]; then
               SEP=":"
             fi
@@ -385,7 +385,7 @@ in {
 
         export SANDBOXED_PATH SANDBOXED_MANPATH SANDBOXED_TERMINFO_DIRS SANDBOXED_XDG_CONFIG_DIRS SANDBOXED_XDG_DATA_DIRS
 
-        eval env -S \
+        eval ${pkgs.uutils-coreutils-noprefix}/bin/env -S \
           $([[ -z "$SANDBOXED_PATH" ]] && echo -n "-u PATH") \
           $([[ -z "$SANDBOXED_MANPATH" ]] && echo -n "-u MANPATH") \
           $([[ -z "$SANDBOXED_TERMINFO_DIRS" ]] && echo -n "-u TERMINFO_DIRS") \
@@ -396,7 +396,7 @@ in {
           $([[ -n "$SANDBOXED_TERMINFO_DIRS" ]] && echo -n "XDG_CONFIG_DIRS=\"$SANDBOXED_TERMINFO_DIRS\"") \
           $([[ -n "$SANDBOXED_XDG_CONFIG_DIRS" ]] && echo -n "XDG_CONFIG_DIRS=\"$SANDBOXED_XDG_CONFIG_DIRS\"") \
           $([[ -n "$SANDBOXED_XDG_DATA_DIRS" ]] && echo -n "XDG_DATA_DIRS=\"$SANDBOXED_XDG_DATA_DIRS\"") \
-          "$(realpath "$(which nono)")" "$@"
+          "$(${pkgs.uutils-coreutils-noprefix}/bin/realpath "$(${pkgs.which}/bin/which nono)")" "$@"
 
         unset SANDBOXED_PATH SANDBOXED_MANPATH SANDBOXED_TERMINFO_DIRS SANDBOXED_XDG_CONFIG_DIRS SANDBOXED_XDG_DATA_DIRS
       }
@@ -410,7 +410,7 @@ in {
         SANDBOXED_PATH=""
         while IFS=: read -d: -r DIR; do
           if [[ -d "$DIR" ]]; then
-            SANDBOXED_PATH="$SANDBOXED_PATH$SEP$(realpath "$DIR")"
+            SANDBOXED_PATH="$SANDBOXED_PATH$SEP$(${pkgs.uutils-coreutils-noprefix}/bin/realpath "$DIR")"
             if [[ -z "$SEP" ]]; then
               SEP=":"
             fi
@@ -421,7 +421,7 @@ in {
         SANDBOXED_MANPATH=""
         while IFS=: read -d: -r DIR; do
           if [[ -d "$DIR" ]]; then
-            SANDBOXED_MANPATH="$SANDBOXED_MANPATH$SEP$(realpath "$DIR")"
+            SANDBOXED_MANPATH="$SANDBOXED_MANPATH$SEP$(${pkgs.uutils-coreutils-noprefix}/bin/realpath "$DIR")"
             if [[ -z "$SEP" ]]; then
               SEP=":"
             fi
@@ -432,7 +432,7 @@ in {
         SANDBOXED_TERMINFO_DIRS=""
         while IFS=: read -d: -r DIR; do
           if [[ -d "$DIR" ]]; then
-            SANDBOXED_TERMINFO_DIRS="$SANDBOXED_TERMINFO_DIRS$SEP$(realpath "$DIR")"
+            SANDBOXED_TERMINFO_DIRS="$SANDBOXED_TERMINFO_DIRS$SEP$(${pkgs.uutils-coreutils-noprefix}/bin/realpath "$DIR")"
             if [[ -z "$SEP" ]]; then
               SEP=":"
             fi
@@ -443,7 +443,7 @@ in {
         SANDBOXED_XDG_CONFIG_DIRS=""
         while IFS=: read -d: -r DIR; do
           if [[ -d "$DIR" ]]; then
-            SANDBOXED_XDG_CONFIG_DIRS="$SANDBOXED_XDG_CONFIG_DIRS$SEP$(realpath "$DIR")"
+            SANDBOXED_XDG_CONFIG_DIRS="$SANDBOXED_XDG_CONFIG_DIRS$SEP$(${pkgs.uutils-coreutils-noprefix}/bin/realpath "$DIR")"
             if [[ -z "$SEP" ]]; then
               SEP=":"
             fi
@@ -454,7 +454,7 @@ in {
         SANDBOXED_XDG_DATA_DIRS=""
         while IFS=: read -d: -r DIR; do
           if [[ -d "$DIR" ]]; then
-            SANDBOXED_XDG_DATA_DIRS="$SANDBOXED_XDG_DATA_DIRS$SEP$(realpath "$DIR")"
+            SANDBOXED_XDG_DATA_DIRS="$SANDBOXED_XDG_DATA_DIRS$SEP$(${pkgs.uutils-coreutils-noprefix}/bin/realpath "$DIR")"
             if [[ -z "$SEP" ]]; then
               SEP=":"
             fi
@@ -463,7 +463,7 @@ in {
 
         export SANDBOXED_PATH SANDBOXED_MANPATH SANDBOXED_TERMINFO_DIRS SANDBOXED_XDG_CONFIG_DIRS SANDBOXED_XDG_DATA_DIRS
 
-        eval env -S \
+        eval ${pkgs.uutils-coreutils-noprefix}/bin/env -S \
           $([[ -z "$SANDBOXED_PATH" ]] && echo -n "-u PATH") \
           $([[ -z "$SANDBOXED_MANPATH" ]] && echo -n "-u MANPATH") \
           $([[ -z "$SANDBOXED_TERMINFO_DIRS" ]] && echo -n "-u TERMINFO_DIRS") \
@@ -474,20 +474,20 @@ in {
           $([[ -n "$SANDBOXED_TERMINFO_DIRS" ]] && echo -n "TERMINFO_DIRS=\"$SANDBOXED_TERMINFO_DIRS\"") \
           $([[ -n "$SANDBOXED_XDG_CONFIG_DIRS" ]] && echo -n "XDG_CONFIG_DIRS=\"$SANDBOXED_XDG_CONFIG_DIRS\"") \
           $([[ -n "$SANDBOXED_XDG_DATA_DIRS" ]] && echo -n "XDG_DATA_DIRS=\"$SANDBOXED_XDG_DATA_DIRS\"") \
-          "$(realpath "$(whence -p nono)")" "$@"
+          "$(${pkgs.uutils-coreutils-noprefix}/bin/realpath "$(whence -p nono)")" "$@"
 
         unset SANDBOXED_PATH SANDBOXED_MANPATH SANDBOXED_TERMINFO_DIRS SANDBOXED_XDG_CONFIG_DIRS SANDBOXED_XDG_DATA_DIRS
       }
     '';
   };
   programs.fish.functions."nono" = ''
-    set NONO_EXEC $(realpath $(which nono))
+    set NONO_EXEC $(${pkgs.uutils-coreutils-noprefix}/bin/realpath $(${pkgs.which}/bin/which nono))
 
     set SEP ""
     set SANDBOXED_PATH ""
     for DIR in $(string split : $(string join : $PATH))
       if test -d $DIR
-        set -x SANDBOXED_PATH "$SANDBOXED_PATH$SEP$(realpath $DIR)"
+        set -x SANDBOXED_PATH "$SANDBOXED_PATH$SEP$(${pkgs.uutils-coreutils-noprefix}/bin/realpath $DIR)"
         if test -z "$SEP"
           set SEP ":"
         end
@@ -498,7 +498,7 @@ in {
     set SANDBOXED_MANPATH ""
     for DIR in $(string split : $MANPATH)
       if test -d $DIR
-        set -x SANDBOXED_MANPATH "$SANDBOXED_MANPATH$SEP$(realpath $DIR)"
+        set -x SANDBOXED_MANPATH "$SANDBOXED_MANPATH$SEP$(${pkgs.uutils-coreutils-noprefix}/bin/realpath $DIR)"
         if test -z "$SEP"
           set SEP ":"
         end
@@ -509,7 +509,7 @@ in {
     set SANDBOXED_TERMINFO_DIRS ""
     for DIR in $(string split : $TERMINFO_DIRS)
       if test -d $DIR
-        set -x SANDBOXED_TERMINFO_DIRS "$SANDBOXED_TERMINFO_DIRS$SEP$(realpath $DIR)"
+        set -x SANDBOXED_TERMINFO_DIRS "$SANDBOXED_TERMINFO_DIRS$SEP$(${pkgs.uutils-coreutils-noprefix}/bin/realpath $DIR)"
         if test -z "$SEP"
           set SEP ":"
         end
@@ -520,7 +520,7 @@ in {
     set SANDBOXED_XDG_CONFIG_DIRS ""
     for DIR in $(string split : $XDG_CONFIG_DIRS)
       if test -d $DIR
-        set -x SANDBOXED_XDG_CONFIG_DIRS "$SANDBOXED_XDG_CONFIG_DIRS$SEP$(realpath $DIR)"
+        set -x SANDBOXED_XDG_CONFIG_DIRS "$SANDBOXED_XDG_CONFIG_DIRS$SEP$(${pkgs.uutils-coreutils-noprefix}/bin/realpath $DIR)"
         if test -z "$SEP"
           set SEP ":"
         end
@@ -531,14 +531,14 @@ in {
     set SANDBOXED_XDG_DATA_DIRS ""
     for DIR in $(string split : $XDG_DATA_DIRS)
       if test -d $DIR
-        set -x SANDBOXED_XDG_DATA_DIRS "$SANDBOXED_XDG_DATA_DIRS$SEP$(realpath $DIR)"
+        set -x SANDBOXED_XDG_DATA_DIRS "$SANDBOXED_XDG_DATA_DIRS$SEP$(${pkgs.uutils-coreutils-noprefix}/bin/realpath $DIR)"
         if test -z "$SEP"
           set SEP ":"
         end
       end
     end
 
-    eval env -S \
+    eval ${pkgs.uutils-coreutils-noprefix}/bin/env -S \
       (test -z "$SANDBOXED_PATH" && echo -n "-u PATH") \
       (test -z "$SANDBOXED_MANPATH" && echo -n "-u MANPATH") \
       (test -z "$SANDBOXED_TERMINFO_DIRS" && echo -n "-u TERMINFO_DIRS") \

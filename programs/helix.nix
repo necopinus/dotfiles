@@ -1,59 +1,49 @@
-{
-  pkgs,
-  lib,
-  ...
-}: let
+{pkgs, ...}: let
   localPkgs = {
     pbcopy = pkgs.callPackage ../pkgs/pbcopy.nix {};
     pbpaste = pkgs.callPackage ../pkgs/pbpaste.nix {};
   };
 
-  helperPkgs = with pkgs;
-    [
-      #### LSPs ####
-      awk-language-server
-      bash-language-server
-      clang-tools
-      dockerfile-language-server
-      ember-language-server
-      fish-lsp
-      gopls
-      haskellPackages.haskell-language-server
-      jdt-language-server
-      jq-lsp
-      kotlin-language-server
-      lua-language-server
-      markdown-oxide
-      nixd
-      rubyPackages.solargraph
-      ruff
-      rust-analyzer
-      solc
-      systemd-lsp
-      texlab
-      tombi
-      ty
-      typescript-language-server
-      vscode-langservers-extracted
-      yaml-language-server
+  helperPkgs = with pkgs; [
+    #### LSPs ####
+    awk-language-server
+    bash-language-server
+    clang-tools
+    dockerfile-language-server
+    ember-language-server
+    fish-lsp
+    gopls
+    haskellPackages.haskell-language-server
+    jdt-language-server
+    jq-lsp
+    kotlin-language-server
+    lua-language-server
+    markdown-oxide
+    nixd
+    rubyPackages.solargraph
+    ruff
+    rust-analyzer
+    solc
+    systemd-lsp
+    texlab
+    tombi
+    ty
+    typescript-language-server
+    vscode-langservers-extracted
+    yaml-language-server
 
-      #### Formatters ####
-      alejandra
-      bibtex-tidy
-      prettier
-      shellcheck
-      shfmt
-      swift-format
+    #### Formatters ####
+    alejandra
+    bibtex-tidy
+    prettier
+    shellcheck
+    shfmt
+    swift-format
 
-      #### Debuggers ####
-      delve
-      lldb
-    ]
-    ++ lib.optionals pkgs.stdenv.isLinux [
-      #### Utilities ####
-      localPkgs.pbcopy
-      localPkgs.pbpaste
-    ];
+    #### Debuggers ####
+    delve
+    lldb
+  ];
 in {
   xdg = {
     configFile."moxide/settings.toml".source = ../artifacts/config/moxide/settings.toml;
@@ -76,7 +66,7 @@ in {
       language = [
         {
           name = "nix";
-          formatter = {command = "alejandra";};
+          formatter = {command = "${pkgs.alejandra}/bin/alejandra";};
           auto-format = true;
         }
       ];
@@ -93,10 +83,22 @@ in {
         trim-final-newlines = true;
 
         clipboard-provider.custom = {
-          yank.command = "pbpaste";
-          paste.command = "pbcopy";
-          primary-yank.command = "pbpaste";
-          primary-paste.command = "pbcopy";
+          yank.command =
+            if pkgs.stdenv.isDarwin
+            then "/usr/bin/pbpaste"
+            else "${localPkgs.pbpaste}/bin/pbpaste";
+          paste.command =
+            if pkgs.stdenv.isDarwin
+            then "/usr/bin/pbcopy"
+            else "${localPkgs.pbcopy}/bin/pbcopy";
+          primary-yank.command =
+            if pkgs.stdenv.isDarwin
+            then "/usr/bin/pbpaste"
+            else "${localPkgs.pbpaste}/bin/pbpaste";
+          primary-paste.command =
+            if pkgs.stdenv.isDarwin
+            then "/usr/bin/pbcopy"
+            else "${localPkgs.pbcopy}/bin/pbcopy";
         };
 
         cursor-shape = {

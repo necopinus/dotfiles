@@ -15,7 +15,7 @@
     desktopEntries."obsidian" = {
       categories = ["Office"];
       comment = "Knowledge base";
-      exec = "obsidian --disable-gpu %u";
+      exec = "${pkgs.obsidian}/bin/obsidian --disable-gpu %u";
       icon = "obsidian";
       mimeType = [
         "text/html"
@@ -23,7 +23,7 @@
       ];
       name = "Obsidian";
       settings = {
-        TryExec = "obsidian";
+        TryExec = "${pkgs.obsidian}/bin/obsidian";
       };
       type = "Application";
     };

@@ -7,7 +7,7 @@
     shellInit = ''
       # Set OS type
       #
-      set OS $(uname -s)
+      set OS $(${pkgs.uutils-coreutils-noprefix}/bin/uname -s)
 
       # Make sure that Nix is set up
       #
@@ -15,10 +15,10 @@
         fish_add_path /run/current-system/sw/bin
       end
       if test -f /nix/var/nix/profiles/default/etc/profile.d/nix-daemon.sh; and test -z "$__ETC_PROFILE_NIX_SOURCED"
-        cat /nix/var/nix/profiles/default/etc/profile.d/nix-daemon.sh | ${pkgs.babelfish}/bin/babelfish | source
+        ${pkgs.uutils-coreutils-noprefix}/bin/cat /nix/var/nix/profiles/default/etc/profile.d/nix-daemon.sh | ${pkgs.babelfish}/bin/babelfish | source
       end
       if test -f $HOME/.nix-profile/etc/profile.d/hm-session-vars.sh; and test -z "$__HM_SESS_VARS_SOURCED"
-        cat $HOME/.nix-profile/etc/profile.d/hm-session-vars.sh | ${pkgs.babelfish}/bin/babelfish | source
+        ${pkgs.uutils-coreutils-noprefix}/bin/cat $HOME/.nix-profile/etc/profile.d/hm-session-vars.sh | ${pkgs.babelfish}/bin/babelfish | source
       end
 
       # Append Homebrew bin directory to PATH, since some GUI casks
@@ -31,23 +31,17 @@
       # Source files for environment setup
       #
       if test -d "$XDG_CONFIG_HOME"/fish/env.d
-        for FILE in (find -L "$XDG_CONFIG_HOME"/fish/env.d -type f -iname '*.fish' | sort)
+        for FILE in (${pkgs.uutils-findutils}/bin/find -L "$XDG_CONFIG_HOME"/fish/env.d -type f -iname '*.fish' | ${pkgs.uutils-coreutils-noprefix}/bin/sort)
           source "$FILE"
         end
       end
-
-      # Load $XDG_CONFIG_HOME/user-dirs.dirs when applicable
-      #
-      #if test -f "$XDG_CONFIG_HOME/user-dirs.dirs"
-      #  cat $XDG_CONFIG_HOME/user-dirs.dirs | sed "s/^XDG_/export XDG_/" | ${pkgs.babelfish}/bin/babelfish | source
-      #end
 
       # Set SHELL to the correct value
       #
       # We do this after the PATH has been fully configured to ensure
       # that we're catching the correct value
       #
-      set SHELL $(which fish)
+      set SHELL $(${pkgs.which}/bin/which fish)
     '';
 
     # If defined, run `loginShellInit` for login shells
@@ -63,12 +57,13 @@
 
       # Convenience aliases
       #
-      alias :e "$(which $EDITOR)"
+      alias :e "$(${pkgs.which}/bin/which $EDITOR)"
       alias :q exit
-      alias nvim "$(which $EDITOR)"
+      alias nvim "$(${pkgs.which}/bin/which $EDITOR)"
+      alias shutdown "/usr/bin/sudo /sbin/shutdown -h now"
       alias sudo "/usr/bin/sudo -E"
-      alias vi "$(which $EDITOR)"
-      alias vim "$(which $EDITOR)"
+      alias vi "$(${pkgs.which}/bin/which $EDITOR)"
+      alias vim "$(${pkgs.which}/bin/which $EDITOR)"
 
       # Suppress welcome message
       #
@@ -77,7 +72,7 @@
       # Source files for interactive shell setup
       #
       if test -d "$XDG_CONFIG_HOME"/fish/rc.d
-        for FILE in (find -L "$XDG_CONFIG_HOME"/fish/rc.d -type f -iname '*.fish' | sort)
+        for FILE in (${pkgs.uutils-findutils}/bin/find -L "$XDG_CONFIG_HOME"/fish/rc.d -type f -iname '*.fish' | ${pkgs.uutils-coreutils-noprefix}/bin/sort)
           source "$FILE"
         end
       end

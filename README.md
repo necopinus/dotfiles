@@ -22,8 +22,8 @@ fi
 
 cd $HOME
 
-mkdir -p $HOME/config
-git clone git@github.com:necopinus/dotfiles.git $HOME/config/nix
+mkdir -p $HOME/.config
+git clone git@github.com:necopinus/dotfiles.git $HOME/.config/nix
 
-$HOME/config/nix/init.sh
+$HOME/.config/nix/init.sh
 ```
