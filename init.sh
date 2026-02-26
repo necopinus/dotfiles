@@ -149,6 +149,11 @@ if [[ "$OS" == "Linux" ]]; then
     #
     sudo sed -i 's/^    GSSAPIAuthentication yes/#   GSSAPIAuthentication yes/' /etc/ssh/ssh_config
 
+    # GNOME auto-login
+    #
+    sudo sed -i 's/^#.*AutomaticLoginEnable.*=.*/AutomaticLoginEnable = true/' /etc/gdm3/daemon.conf
+    sudo sed -i "s/^#.*AutomaticLogin.*=.*/AutomaticLogin = $USER/" /etc/gdm3/daemon.conf
+
     # I mostly exist in US Mountain Time
     #
     sudo ln -sf /usr/share/zoneinfo/America/Denver /etc/localtime

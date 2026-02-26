@@ -33,11 +33,6 @@
     };
   };
 
-  #xdg.dataFile."applications/bottom.desktop" = {
-  #  enable = pkgs.stdenv.isLinux;
-  #  source = ../artifacts/local/share/applications/hidden.desktop;
-  #};
-
   # Convenience aliases
   #
   xdg.configFile."bash/rc.d/bottom.sh" = {

@@ -45,14 +45,7 @@
     lldb
   ];
 in {
-  xdg = {
-    configFile."moxide/settings.toml".source = ../artifacts/config/moxide/settings.toml;
-
-    #dataFile."applications/Helix.desktop" = {
-    #  enable = pkgs.stdenv.isLinux;
-    #  source = ../artifacts/local/share/applications/hidden.desktop;
-    #};
-  };
+  xdg.configFile."moxide/settings.toml".source = ../artifacts/config/moxide/settings.toml;
 
   programs.helix = {
     enable = true;
