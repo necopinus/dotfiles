@@ -129,15 +129,21 @@ fi
 
 # Install desktop on Debian VM
 #
+# NOTE: The `bubblewrap` package is required by Claude Code, but is
+# pulled in automatically as a dependency of `gnome-session`
+#
 if [[ "$OS" == "Linux" ]]; then
+    pkill weston || true
+
     sudo apt install -y \
-        bubblewrap \
+        adwait-icon-theme-legacy \
         build-essential \
-        fuse3 \
+        dconf-editor \
+        gdm3 \
+        gnome-console \
+        gnome-session \
         libseccomp-dev \
-        procps \
-        rtkit \
-        seatd
+        seahorse
 
     # Comment out global SSH option that Nix's ssh binary doesn't like
     #
@@ -156,11 +162,18 @@ if [[ "$OS" == "Linux" ]]; then
     if [[ -f /usr/share/vulkan/icd.d/gfxstream_vk_icd.json ]]; then
         sudo mkdir -p /etc/environment.d
         sudo tee /etc/environment.d/gfxstream_vk_icd.conf <<- EOF
-		MESA_LOADER_DRIVER_OVERRIDE="zink"
-		VK_ICD_FILENAMES="/usr/share/vulkan/icd.d/gfxstream_vk_icd.json"
-		MESA_VK_WSI_DEBUG="sw,linear"
+		#MESA_LOADER_DRIVER_OVERRIDE=zink
+		VK_ICD_FILENAMES=/usr/share/vulkan/icd.d/gfxstream_vk_icd.json
+		MESA_VK_WSI_DEBUG=sw,linear
 		XWAYLAND_NO_GLAMOR=1
 		LIBGL_KOPPER_DRI2=1
+
+		# Reduce artifacting on Android VM
+		#
+		# FIXME: Check if this is still necessary after each Android release!
+		#
+		MESA_LOADER_DRIVER_OVERRIDE=kms_swrast
+		LIBGL_ALWAYS_SOFTWARE=1
 		EOF
     fi
     if [[ -f /etc/profile.d/activate_display.sh ]]; then
