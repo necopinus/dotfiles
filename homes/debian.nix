@@ -12,7 +12,6 @@ in {
   imports = [
     ../programs/chromium.nix
     ../programs/obsidian.nix
-    ../programs/labwc.nix
   ];
 
   programs.home-manager.enable = true; # Make sure that home-manager binary is in the PATH
@@ -20,10 +19,6 @@ in {
   home.packages = with pkgs; [
     libgourou
     quodlibet-full
-
-    #### Look and feel ####
-    adwaita-icon-theme-legacy # MoreWaita dependency; do NOT include adwaita-icon-theme here to prevent duplication errors!
-    morewaita-icon-theme
 
     #### Fonts ####
     #nerd-fonts.jetbrains-mono # TODO: Uncomment once the Android Terminal supports custom fonts
@@ -63,43 +58,7 @@ in {
 
   # XDG configuration
   #
-  xdg = {
-    mimeApps.enable = true;
-
-    dataFile = {
-      # Hide some desktop applications
-      #
-      #"applications/io.github.quodlibet.QuodLibet.desktop".source = ../artifacts/local/share/applications/hidden.desktop;
-      #"applications/vim.desktop".source = ../artifacts/local/share/applications/hidden.desktop;
-
-      # Unified backgrounds folder
-      #
-      "backgrounds/A Large Body of Water Surrounded By Mountains.jpg".source = "${pkgs.pantheon.elementary-wallpapers}/share/backgrounds/A Large Body of Water Surrounded By Mountains.jpg";
-      "backgrounds/ahmadreza-sajadi-10140-edit.jpg".source = "${pkgs.pop-wallpapers}/share/backgrounds/pop/ahmadreza-sajadi-10140-edit.jpg";
-      "backgrounds/A Trail of Footprints In The Sand.jpg".source = "${pkgs.pantheon.elementary-wallpapers}/share/backgrounds/A Trail of Footprints In The Sand.jpg";
-      "backgrounds/Ashim DSilva.jpg".source = "${pkgs.pantheon.elementary-wallpapers}/share/backgrounds/Ashim DSilva.jpg";
-      "backgrounds/benjamin-voros-250200.jpg".source = "${pkgs.pop-wallpapers}/share/backgrounds/pop/benjamin-voros-250200.jpg";
-      "backgrounds/Canazei Granite Ridges.jpg".source = "${pkgs.pantheon.elementary-wallpapers}/share/backgrounds/Canazei Granite Ridges.jpg";
-      "backgrounds/galen-crout-175291.jpg".source = "${pkgs.pop-wallpapers}/share/backgrounds/pop/galen-crout-175291.jpg";
-      "backgrounds/jad-limcaco-183877.jpg".source = "${pkgs.pop-wallpapers}/share/backgrounds/pop/jad-limcaco-183877.jpg";
-      "backgrounds/jared-evans-119758.jpg".source = "${pkgs.pop-wallpapers}/share/backgrounds/pop/jared-evans-119758.jpg";
-      "backgrounds/jasper-van-der-meij-97274-edit.jpg".source = "${pkgs.pop-wallpapers}/share/backgrounds/pop/jasper-van-der-meij-97274-edit.jpg";
-      "backgrounds/kait-herzog-8242.jpg".source = "${pkgs.pop-wallpapers}/share/backgrounds/pop/kait-herzog-8242.jpg";
-      "backgrounds/Morskie Oko.jpg".source = "${pkgs.pantheon.elementary-wallpapers}/share/backgrounds/Morskie Oko.jpg";
-      "backgrounds/Mr. Lee.jpg".source = "${pkgs.pantheon.elementary-wallpapers}/share/backgrounds/Mr. Lee.jpg";
-      "backgrounds/Nattu Adnan.jpg".source = "${pkgs.pantheon.elementary-wallpapers}/share/backgrounds/Nattu Adnan.jpg";
-      "backgrounds/odin.jpg".source = "${pkgs.pantheon.elementary-wallpapers}/share/backgrounds/odin.jpg";
-      "backgrounds/odin-dark.jpg".source = "${pkgs.pantheon.elementary-wallpapers}/share/backgrounds/odin-dark.jpg";
-      "backgrounds/Photo of Valley.jpg".source = "${pkgs.pantheon.elementary-wallpapers}/share/backgrounds/Photo of Valley.jpg";
-      "backgrounds/sean-afnan-244576.jpg".source = "${pkgs.pop-wallpapers}/share/backgrounds/pop/sean-afnan-244576.jpg";
-      "backgrounds/Snow-Capped Mountain.jpg".source = "${pkgs.pantheon.elementary-wallpapers}/share/backgrounds/Snow-Capped Mountain.jpg";
-      "backgrounds/spacex-81773.jpg".source = "${pkgs.pop-wallpapers}/share/backgrounds/pop/spacex-81773.jpg";
-      "backgrounds/Sunset by the Pier.jpg".source = "${pkgs.pantheon.elementary-wallpapers}/share/backgrounds/Sunset by the Pier.jpg";
-      "backgrounds/tim-mccartney-39907.jpg".source = "${pkgs.pop-wallpapers}/share/backgrounds/pop/tim-mccartney-39907.jpg";
-      "backgrounds/Tj Holowaychuk.jpg".source = "${pkgs.pantheon.elementary-wallpapers}/share/backgrounds/Tj Holowaychuk.jpg";
-      "backgrounds/tony-webster-97532.jpg".source = "${pkgs.pop-wallpapers}/share/backgrounds/pop/tony-webster-97532.jpg";
-    };
-  };
+  xdg.mimeApps.enable = true;
 
   # No-frills theme configuration
   #
@@ -108,7 +67,7 @@ in {
     colorScheme = "dark";
     theme.name = "Adwaita";
     cursorTheme.name = "Adwaita";
-    iconTheme.name = "MoreWaita";
+    iconTheme.name = "Adwaita";
     font = {
       name = "Noto Sans";
       size = 10;

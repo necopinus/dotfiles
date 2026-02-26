@@ -109,6 +109,7 @@
           home.homeDirectory = "/home/${vmUserName}";
         }
 
+        ./hosts/debian.nix
         ./homes/common.nix
         ./homes/debian.nix
       ];
