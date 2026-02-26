@@ -28,7 +28,16 @@
         fish_add_path --append /opt/homebrew/bin
       end
 
-      # Source files for environment setup
+      # Make sure that environment defined in /etc/environment.d is
+      # available
+      #
+      if test -d /etc/environment.d
+        for FILE in (${pkgs.uutils-findutils}/bin/find -L /etc/environment.d -type f -iname '*.conf' | ${pkgs.uutils-coreutils-noprefix}/bin/sort)
+          source "$FILE"
+        end
+      end
+
+      # Source files for local environment setup
       #
       if test -d "$XDG_CONFIG_HOME"/fish/env.d
         for FILE in (${pkgs.uutils-findutils}/bin/find -L "$XDG_CONFIG_HOME"/fish/env.d -type f -iname '*.fish' | ${pkgs.uutils-coreutils-noprefix}/bin/sort)

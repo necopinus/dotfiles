@@ -41,7 +41,16 @@
         export PATH="$PATH:/opt/homebrew/bin"
       fi
 
-      # Source files for environment setup
+      # Make sure that environment defined in /etc/environment.d is
+      # available
+      #
+      if [[ -d /etc/environment.d ]]; then
+        while read -r FILE; do
+          source "$FILE"
+        done < <(${pkgs.uutils-findutils}/bin/find -L /etc/environment.d -type f -iname '*.conf' | ${pkgs.uutils-coreutils-noprefix}/bin/sort)
+      fi
+
+      # Source files for local environment setup
       #
       if [[ -d "$XDG_CONFIG_HOME"/zsh/env.d ]]; then
         while read -r FILE; do

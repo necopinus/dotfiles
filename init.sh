@@ -42,6 +42,16 @@ if [[ "$OS" == "Darwin" ]]; then
     fi
 fi
 
+# Keep installation slim on Debian
+#
+if [[ "$OS" == "Linux" ]]; then
+    sudo mkdir -p /etc/apt/apt.conf.d
+    sudo tee /etc/apt/apt.conf.d/99local <<- EOF
+	APT::Install-Recommends "0";
+	APT::Install-Suggests "0";
+	EOF
+fi
+
 # Make sure that required packages are installed
 #
 if [[ "$OS" == "Linux" ]]; then
@@ -140,9 +150,26 @@ if [[ "$OS" == "Linux" ]]; then
     # We need to tweak a few things in order to manage our own graphical
     # shell
     #
+    # Environment variables cargo-culted from Google's
+    # /usr/local/bin/enable_gfxstream on 2025-12-09
+    #
+    if [[ -f /usr/share/vulkan/icd.d/gfxstream_vk_icd.json ]]; then
+        sudo mkdir -p /etc/environment.d
+        sudo tee /etc/environment.d/gfxstream_vk_icd.conf <<- EOF
+		MESA_LOADER_DRIVER_OVERRIDE="zink"
+		VK_ICD_FILENAMES="/usr/share/vulkan/icd.d/gfxstream_vk_icd.json"
+		MESA_VK_WSI_DEBUG="sw,linear"
+		XWAYLAND_NO_GLAMOR=1
+		LIBGL_KOPPER_DRI2=1
+		EOF
+    fi
+    if [[ -f /etc/profile.d/activate_display.sh ]]; then
+        sudo mv /etc/profile.d/activate_display.sh /etc/profile.d/activate_display.sh.disabled
+    fi
+    if [[ -f "$HOME"/weston.env ]]; then
+        rm -f "$HOME"/weston.env
+    fi
     sudo usermod -a -G render "$USER"
-    sudo mv /etc/profile.d/activate_display.sh /etc/profile.d/activate_display.sh.disabled
-    rm -f "$HOME"/weston.env
 fi
 
 # Update runtime environment
@@ -166,11 +193,7 @@ else
     mkdir -p "$XDG_DOCUMENTS_DIR"
 fi
 mkdir -p "$XDG_DESKTOP_DIR"
-if [[ "$XDG_DOWNLOAD_DIR" == /mnt/shared/Download ]]; then
-    ln -sfT /mnt/shared/Download "$HOME/Downloads"
-else
-    mkdir -p "$XDG_DOWNLOAD_DIR"
-fi
+mkdir -p "$XDG_DOWNLOAD_DIR"
 if [[ "$XDG_MUSIC_DIR" == /mnt/shared/Music ]]; then
     ln -sfT /mnt/shared/Music "$HOME/Music"
 else

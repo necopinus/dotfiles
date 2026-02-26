@@ -37,9 +37,18 @@
         export PATH="$PATH:/opt/homebrew/bin"
       fi
 
-      # Source files for environment setup
+      # Make sure that environment defined in /etc/environment.d is
+      # available
       #
-      if [[ -d "$XDG_CONFIG_HOME"/bash/env.d ]]; then
+      if [ -d /etc/environment.d ]; then
+        while read -r FILE; do
+          source "$FILE"
+        done < <(${pkgs.uutils-findutils}/bin/find -L /etc/environment.d -type f -iname '*.conf' | ${pkgs.uutils-coreutils-noprefix}/bin/sort)
+      fi
+
+      # Source files for local environment setup
+      #
+      if [ -d "$XDG_CONFIG_HOME"/bash/env.d ]; then
         while read -r FILE; do
           source "$FILE"
         done < <(${pkgs.uutils-findutils}/bin/find -L "$XDG_CONFIG_HOME"/bash/env.d -type f -iname '*.sh' | ${pkgs.uutils-findutils}/bin/sort)
@@ -83,7 +92,7 @@
         source /nix/var/nix/profiles/default/etc/profile.d/nix-daemon.sh
       fi
 
-      # Source files for environment setup
+      # Source files for local environment setup
       #
       if [[ -d "$XDG_CONFIG_HOME"/bash/env.d ]]; then
         while read -r FILE; do

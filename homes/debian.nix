@@ -140,46 +140,6 @@ in {
     XDG_STATE_HOME = "${config.xdg.stateHome}";
   };
 
-  # Cargo-culted from Google's /usr/local/bin/enable_gfxstream on
-  # 2025-12-09
-  #
-  xdg.configFile."bash/env.d/gfxstream.sh" = {
-    enable = config.programs.bash.enable;
-    text = ''
-      if [[ -f /usr/share/vulkan/icd.d/gfxstream_vk_icd.json ]]; then
-        MESA_LOADER_DRIVER_OVERRIDE="zink"
-        VK_ICD_FILENAMES="/usr/share/vulkan/icd.d/gfxstream_vk_icd.json"
-        MESA_VK_WSI_DEBUG="sw,linear"
-        XWAYLAND_NO_GLAMOR=1
-        LIBGL_KOPPER_DRI2=1
-      fi
-    '';
-  };
-  xdg.configFile."zsh/env.d/gfxstream.sh" = {
-    enable = config.programs.zsh.enable;
-    text = ''
-      if [[ -f /usr/share/vulkan/icd.d/gfxstream_vk_icd.json ]]; then
-        MESA_LOADER_DRIVER_OVERRIDE="zink"
-        VK_ICD_FILENAMES="/usr/share/vulkan/icd.d/gfxstream_vk_icd.json"
-        MESA_VK_WSI_DEBUG="sw,linear"
-        XWAYLAND_NO_GLAMOR=1
-        LIBGL_KOPPER_DRI2=1
-      fi
-    '';
-  };
-  xdg.configFile."fish/env.d/gfxstream.fish" = {
-    enable = config.programs.fish.enable;
-    text = ''
-      if test -f /usr/share/vulkan/icd.d/gfxstream_vk_icd.json
-        set -x MESA_LOADER_DRIVER_OVERRIDE "zink"
-        set -x VK_ICD_FILENAMES "/usr/share/vulkan/icd.d/gfxstream_vk_icd.json"
-        set -x MESA_VK_WSI_DEBUG "sw,linear"
-        set -x XWAYLAND_NO_GLAMOR 1
-        set -x LIBGL_KOPPER_DRI2 1
-      end
-    '';
-  };
-
   # Convenience functions for launching graphical apps from the
   # terminal
   #
