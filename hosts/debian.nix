@@ -130,7 +130,7 @@
   xdg.desktopEntries."vim" = {
     noDisplay = true;
     settings = {
-      Hidden = true;
+      Hidden = "true";
     };
   };
 }

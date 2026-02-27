@@ -9,7 +9,7 @@
   xdg.desktopEntries."io.github.quodLibet" = {
     noDisplay = true;
     settings = {
-      Hidden = true;
+      Hidden = "true";
     };
   };
 }

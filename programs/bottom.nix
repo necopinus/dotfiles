@@ -38,7 +38,7 @@
   xdg.desktopEntries."bottom" = {
     noDisplay = true;
     settings = {
-      Hidden = true;
+      Hidden = "true";
     };
   };
 

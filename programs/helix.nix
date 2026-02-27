@@ -411,7 +411,7 @@ in {
   xdg.desktopEntries."Helix" = {
     noDisplay = true;
     settings = {
-      Hidden = true;
+      Hidden = "true";
     };
   };
 }
