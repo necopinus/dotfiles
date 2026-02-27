@@ -19,7 +19,7 @@ writeShellApplication {
     elif [[ -d /run/user/$UID ]]; then
       echo -n "$@" > /run/user/$UID/.pasteboard
     else
-      echo -n "$@" > /tmp/.$UID-pasteboard
+      echo -n "$@" > /tmp/.pasteboard-$UID
     fi
   '';
 }

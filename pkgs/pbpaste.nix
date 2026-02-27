@@ -18,8 +18,8 @@ writeShellApplication {
       exec xsel -o -b "$@"
     elif [[ -f /run/user/$UID/.pasteboard ]]; then
       cat /run/user/$UID/.pasteboard
-    elif [[ -f /tmp/.$UID-pasteboard ]]; then
-      cat /tmp/.$UID-pasteboard
+    elif [[ -f /tmp/.pasteboard-$UID ]]; then
+      cat /tmp/.pasteboard-$UID
     fi
   '';
 }
