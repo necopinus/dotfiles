@@ -17,4 +17,10 @@ in {
     #### Local packages (see above) ####
     localPkgs.vault-sync
   ];
+
+  # This *looks* like it should supress hint messages, but doesn't...
+  #
+  #   https://docs.brew.sh/Brew-Bundle-and-Brewfile?pubDate=20251207#advanced-brewfiles
+  #
+  home.sessionVariables.HOMEBREW_NO_ENV_HINTS = 1;
 }
