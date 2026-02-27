@@ -67,6 +67,10 @@
           export SHELL="$(${pkgs.uutils-coreutils-noprefix}/bin/realpath /usr/bin)"/bash
         fi
       fi
+
+      # Indicate that the profile has been sourced
+      #
+      export PROFILE_SOURCED=1
     '';
 
     # ~/.bash_profile sources ~/.profile and then ~/.bashrc
@@ -74,44 +78,17 @@
     # ~/.bashrc
     #
     bashrcExtra = ''
+      # Source ~/.profile, if necessary
+      #
+      if [[ -z "$PROFILE_SOURCED" ]] && [[ -f "$HOME"/.profile ]]; then
+        source "$HOME"/.profile
+      fi
+
       # Load system defaults if they exist
       #
       if [[ -f /etc/skel/.bashrc ]]; then
         source /etc/skel/.bashrc
       fi
-
-      #### BEGIN: Repeat from ~/.profile to catch non-login shells ####
-
-      # Set OS type
-      #
-      OS="$(${pkgs.uutils-coreutils-noprefix}/bin/uname -s)"
-
-      # Make sure that Nix is set up
-      #
-      if [[ -f /nix/var/nix/profiles/default/etc/profile.d/nix-daemon.sh ]]; then
-        source /nix/var/nix/profiles/default/etc/profile.d/nix-daemon.sh
-      fi
-
-      # Source files for local environment setup
-      #
-      if [[ -d "$XDG_CONFIG_HOME"/bash/env.d ]]; then
-        while read -r FILE; do
-          source "$FILE"
-        done < <(${pkgs.uutils-findutils}/bin/find -L "$XDG_CONFIG_HOME"/bash/env.d -type f -iname '*.sh' | ${pkgs.uutils-coreutils-noprefix}/bin/sort)
-      fi
-
-      # Set SHELL to the correct value
-      #
-      export SHELL="$(${pkgs.which}/bin/which bash)"
-      if shopt -q login_shell; then
-        if [[ -x "$(${pkgs.uutils-coreutils-noprefix}/bin/realpath /bin)"/bash ]]; then
-          export SHELL="$(${pkgs.uutils-coreutils-noprefix}/bin/realpath /bin)"/bash
-        elif [[ -x "$(${pkgs.uutils-coreutils-noprefix}/bin/realpath /usr/bin)"/bash ]]; then
-          export SHELL="$(${pkgs.uutils-coreutils-noprefix}/bin/realpath /usr/bin)"/bash
-        fi
-      fi
-
-      ##### END: Repeat from ~/.profile to catch non-login shells #####
     '';
 
     historyControl = ["erasedups"];
