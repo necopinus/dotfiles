@@ -74,14 +74,19 @@ in {
       # directories don't always match the spec and equivalent
       # directories in the Android VM live in /mnt/shared
       #
+      # NOTE: We *don't* map the XDG_DOWNLOAD_DIR, as there's no way to
+      # get a consistent host name between the Debian VMs (on an
+      # Android host it will be /mnt/share/Download, while on a macOS
+      # host it will be /mnt/share/Downloads)
+      #
       documents =
         if pkgs.stdenv.isLinux
         then "/mnt/shared/Documents"
         else "${config.home.homeDirectory}/Documents";
-      download =
-        if pkgs.stdenv.isLinux
-        then "/mnt/shared/Download"
-        else "${config.home.homeDirectory}/Downloads";
+      #download =
+      #  if pkgs.stdenv.isLinux
+      #  then "/mnt/shared/Download"
+      #  else "${config.home.homeDirectory}/Downloads";
       music =
         if pkgs.stdenv.isLinux
         then "/mnt/shared/Music"
