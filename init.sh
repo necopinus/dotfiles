@@ -17,7 +17,11 @@ fi
 #
 if [[ "$OS" == "Linux" ]]; then
     if [[ $(grep -c "^nameserver 1.1.1.1" /etc/resolv.conf) -eq 0 ]]; then
-        echo -e "nameserver 1.1.1.1\nnameserver 8.8.8.8\nnameserver 8.8.4.4" | sudo tee /etc/resolv.conf
+        sudo tee /etc/resolv.conf <<- EOF
+		nameserver 1.1.1.1
+		nameserver 8.8.8.8
+		nameserver 8.8.4.4
+		EOF
     fi
 fi
 
@@ -136,7 +140,7 @@ if [[ "$OS" == "Linux" ]]; then
     pkill weston || true
 
     sudo apt install -y \
-        adwait-icon-theme-legacy \
+        adwaita-icon-theme-legacy \
         build-essential \
         dconf-editor \
         gdm3 \

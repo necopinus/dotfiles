@@ -51,7 +51,7 @@
       if [ -d "$XDG_CONFIG_HOME"/bash/env.d ]; then
         while read -r FILE; do
           source "$FILE"
-        done < <(${pkgs.uutils-findutils}/bin/find -L "$XDG_CONFIG_HOME"/bash/env.d -type f -iname '*.sh' | ${pkgs.uutils-findutils}/bin/sort)
+        done < <(${pkgs.uutils-findutils}/bin/find -L "$XDG_CONFIG_HOME"/bash/env.d -type f -iname '*.sh' | ${pkgs.uutils-coreutils-noprefix}/bin/sort)
       fi
 
       # Set SHELL to the correct value

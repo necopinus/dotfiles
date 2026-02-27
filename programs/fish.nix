@@ -33,7 +33,7 @@
       #
       if test -d /etc/environment.d
         for FILE in (${pkgs.uutils-findutils}/bin/find -L /etc/environment.d -type f -iname '*.conf' | ${pkgs.uutils-coreutils-noprefix}/bin/sort)
-          source "$FILE"
+          ${pkgs.uutils-coreutils-noprefix}/bin/cat "$FILE" | ${pkgs.babelfish}/bin/babelfish | source
         end
       end
 
