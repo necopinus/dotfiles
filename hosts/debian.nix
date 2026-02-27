@@ -87,6 +87,8 @@
     };
 
     "org/gnome/desktop/interface" = {
+      clock-format = "24h";
+      clock-show-seconds = true;
       overlay-scrolling = false;
     };
 
