@@ -17,7 +17,7 @@ fi
 #
 if [[ "$OS" == "Linux" ]]; then
     if [[ $(grep -c "^nameserver 1.1.1.1" /etc/resolv.conf) -eq 0 ]]; then
-        sudo tee /etc/resolv.conf <<- EOF
+        sudo tee /etc/resolv.conf <<-EOF
 		nameserver 1.1.1.1
 		nameserver 8.8.8.8
 		nameserver 8.8.4.4
@@ -50,7 +50,7 @@ fi
 #
 if [[ "$OS" == "Linux" ]]; then
     sudo mkdir -p /etc/apt/apt.conf.d
-    sudo tee /etc/apt/apt.conf.d/99local <<- EOF
+    sudo tee /etc/apt/apt.conf.d/99local <<-EOF
 	APT::Install-Recommends "0";
 	APT::Install-Suggests "0";
 	EOF
@@ -123,7 +123,7 @@ if [[ "$OS" == "Linux" ]]; then
     #
     if [[ -f /usr/share/vulkan/icd.d/gfxstream_vk_icd.json ]]; then
         sudo mkdir -p /etc/environment.d
-        sudo tee /etc/environment.d/gfxstream_vk_icd.conf <<- EOF
+        sudo tee /etc/environment.d/gfxstream_vk_icd.conf <<-EOF
 		#MESA_LOADER_DRIVER_OVERRIDE=zink
 		VK_ICD_FILENAMES=/usr/share/vulkan/icd.d/gfxstream_vk_icd.json
 		MESA_VK_WSI_DEBUG=sw,linear
@@ -150,11 +150,9 @@ fi
 # Clear out macOS settings that need to be set (or not set) explicitly
 #
 if [[ "$OS" == "Darwin" ]]; then
-    defaults delete com.apple.TextEdit AlwaysLightBackground 2>/dev/null || true
     defaults delete kCFPreferencesAnyApplication AppleAccentColor 2>/dev/null || true
     defaults delete kCFPreferencesAnyApplication AppleHighlightColor 2>/dev/null || true
     defaults delete kCFPreferencesAnyApplication AppleIconAppearanceTintColor 2>/dev/null || true
-    defaults delete kCFPreferencesAnyApplication AppleInterfaceStyle 2>/dev/null || true
 fi
 
 # Move files that we might overwrite out of the way
