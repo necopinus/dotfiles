@@ -6,7 +6,7 @@
   # Hide Quod Libet desktop entry, since we really only care about Ex
   # Falso
   #
-  xdg.desktopEntries."io.github.quodLibet" = {
+  xdg.desktopEntries."io.github.quodlibet.QuodLibet" = {
     name = "Quod Libet";
     noDisplay = true;
     settings = {

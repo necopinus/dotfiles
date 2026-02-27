@@ -1,6 +1,7 @@
 {
   pkgs,
   lib,
+  config,
   ...
 }: {
   home.packages = with pkgs; [
@@ -134,4 +135,55 @@
       Hidden = "true";
     };
   };
+
+  # Convenience functions for launching graphical apps from the
+  # terminal
+  #
+  xdg.configFile."bash/env.d/gnome-console.sh" = {
+    enable = config.programs.bash.enable;
+    text = ''
+      if [[ "$TERM_PROGRAM" == "kgx" ]] && [[ "$TERM" == "dumb" ]]; then
+        export TERM=xterm
+      fi
+    '';
+  };
+  xdg.configFile."zsh/env.d/gnome-console.sh" = {
+    enable = config.programs.zsh.enable;
+    text = ''
+      if [[ "$TERM_PROGRAM" == "kgx" ]] && [[ "$TERM" == "dumb" ]]; then
+        export TERM=xterm
+      fi
+    '';
+  };
+  xdg.configFile."zsh/env.d/gnome-console.fish" = {
+    enable = config.programs.fish.enable;
+    text = ''
+      if test "$TERM_PROGRAM" = "kgx"; and test "$TERM" = "dumb"
+        set -x TERM xterm
+      end
+    '';
+  };
+
+  # Convenience functions for launching graphical apps from the
+  # terminal
+  #
+  xdg.configFile."bash/rc.d/xcz.sh" = {
+    enable = config.programs.bash.enable;
+    text = ''
+      function xcv {
+        ${pkgs.uutils-coreutils-noprefix}/bin/nohup "$@" 2>/dev/null
+      }
+    '';
+  };
+  xdg.configFile."zsh/rc.d/xcz.sh" = {
+    enable = config.programs.zsh.enable;
+    text = ''
+      function xcv {
+        ${pkgs.uutils-coreutils-noprefix}/bin/nohup "$@" 2>/dev/null
+      }
+    '';
+  };
+  programs.fish.functions."xcz" = ''
+    ${pkgs.uutils-coreutils-noprefix}/bin/nohup $argv 2>/dev/null
+  '';
 }

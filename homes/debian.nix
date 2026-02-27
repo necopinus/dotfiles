@@ -49,27 +49,4 @@ in {
     XDG_DATA_HOME = "${config.xdg.dataHome}";
     XDG_STATE_HOME = "${config.xdg.stateHome}";
   };
-
-  # Convenience functions for launching graphical apps from the
-  # terminal
-  #
-  xdg.configFile."bash/rc.d/xcz.sh" = {
-    enable = config.programs.bash.enable;
-    text = ''
-      function xcv {
-        ${pkgs.uutils-coreutils-noprefix}/bin/nohup "$@" 2>/dev/null
-      }
-    '';
-  };
-  xdg.configFile."zsh/rc.d/xcz.sh" = {
-    enable = config.programs.zsh.enable;
-    text = ''
-      function xcv {
-        ${pkgs.uutils-coreutils-noprefix}/bin/nohup "$@" 2>/dev/null
-      }
-    '';
-  };
-  programs.fish.functions."xcz" = ''
-    ${pkgs.uutils-coreutils-noprefix}/bin/nohup $argv 2>/dev/null
-  '';
 }
