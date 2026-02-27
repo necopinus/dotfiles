@@ -140,8 +140,7 @@
     Hidden=true
   '';
 
-  # Convenience functions for launching graphical apps from the
-  # terminal
+  # Fix brain dead TERM choice for GNOME Console
   #
   xdg.configFile."bash/env.d/gnome-console.sh" = {
     enable = config.programs.bash.enable;
