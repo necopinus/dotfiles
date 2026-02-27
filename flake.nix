@@ -52,6 +52,31 @@
         #
         {nixpkgs.config.allowUnfree = true;}
 
+        # FIXME: Temporary fix for broken yt-dlp package
+        #
+        # https://github.com/NixOS/nixpkgs/issues/493775#issuecomment-3969526444
+        # https://github.com/NixOS/nixpkgs/pull/493943
+        #
+        {
+          nixpkgs.overlays = [
+            (_f: p: {
+              yt-dlp = p.yt-dlp.overridePythonAttrs (o: {
+                # don't use gnome keyring
+                dependencies = (
+                  __filter (
+                    p:
+                      !(__elem p.pname [
+                        "cffi"
+                        "secretstorage"
+                      ])
+                  )
+                  o.dependencies
+                );
+              });
+            })
+          ];
+        }
+
         {
           system.stateVersion = nixDarwinStateVersion;
           system.primaryUser = "${myUserName}";

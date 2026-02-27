@@ -1,4 +1,8 @@
-{pkgs, ...}: let
+{
+  lib,
+  pkgs,
+  ...
+}: let
   localPkgs = {
     pbcopy = pkgs.callPackage ../pkgs/pbcopy.nix {};
     pbpaste = pkgs.callPackage ../pkgs/pbpaste.nix {};
@@ -408,11 +412,13 @@ in {
 
   # Hide desktop entry
   #
-  xdg.desktopEntries."Helix" = {
-    name = "Helix";
-    noDisplay = true;
-    settings = {
-      Hidden = "true";
+  xdg.desktopEntries = lib.attrsets.optionalAttrs pkgs.stdenv.isLinux {
+    "Helix" = {
+      name = "Helix";
+      noDisplay = true;
+      settings = {
+        Hidden = "true";
+      };
     };
   };
 }

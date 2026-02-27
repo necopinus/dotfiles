@@ -1,4 +1,9 @@
-{config, ...}: {
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}: {
   programs.bottom = {
     enable = true;
 
@@ -35,11 +40,13 @@
 
   # Hide desktop entry
   #
-  xdg.desktopEntries."bottom" = {
-    name = "bottom";
-    noDisplay = true;
-    settings = {
-      Hidden = "true";
+  xdg.desktopEntries = lib.attrsets.optionalAttrs pkgs.stdenv.isLinux {
+    "bottom" = {
+      name = "bottom";
+      noDisplay = true;
+      settings = {
+        Hidden = "true";
+      };
     };
   };
 

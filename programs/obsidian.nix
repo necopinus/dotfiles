@@ -1,4 +1,8 @@
-{pkgs, ...}: {
+{
+  pkgs,
+  lib,
+  ...
+}: {
   # Manually install Obsidian rather than using programs.obsidian.enable
   # = true in order to work around vaults not being remembered. See:
   #
@@ -12,16 +16,18 @@
   # Obsidian won't work with the Android VM's virtual GPU
   #
   xdg = {
-    desktopEntries."obsidian" = {
-      categories = ["Office"];
-      comment = "Knowledge base";
-      exec = "${pkgs.obsidian}/bin/obsidian --disable-gpu %u";
-      icon = "obsidian";
-      mimeType = [
-        "x-scheme-handler/obsidian"
-      ];
-      name = "Obsidian";
-      type = "Application";
+    desktopEntries = lib.attrsets.optionalAttrs pkgs.stdenv.isLinux {
+      "obsidian" = {
+        categories = ["Office"];
+        comment = "Knowledge base";
+        exec = "${pkgs.obsidian}/bin/obsidian --disable-gpu %u";
+        icon = "obsidian";
+        mimeType = [
+          "x-scheme-handler/obsidian"
+        ];
+        name = "Obsidian";
+        type = "Application";
+      };
     };
 
     configFile = {
