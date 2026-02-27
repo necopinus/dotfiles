@@ -1,4 +1,8 @@
-{config, ...}: {
+{
+  pkgs,
+  config,
+  ...
+}: {
   # Disable nix-darwin's management of the nix binary, as I'm using
   # determinate-nix
   #
@@ -60,10 +64,7 @@
 
   # Terminal "Nerd Font"
   #
-  # TODO: Uncomment once the Android Terminal supports custom fonts
-  # (`pkgs` will also need to be added to the inputs)
-  #
-  #fonts.packages = with pkgs; [nerd-fonts.jetbrains-mono];
+  fonts.packages = with pkgs; [nerd-fonts.jetbrains-mono];
 
   # macOS configuration
   #

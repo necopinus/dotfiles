@@ -97,7 +97,7 @@ in {
       auto_indent_on_paste = true;
       format_on_save = "on";
       excerpt_context_lines = 5;
-      #buffer_font_family = "JetBrainsMono Nerd Font Mono"; # TODO: Uncomment once the Android Terminal supports custom fonts
+      buffer_font_family = "JetBrainsMono Nerd Font Mono";
       buffer_font_size = 12;
       ui_font_size = 14;
 

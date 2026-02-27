@@ -8,7 +8,7 @@
     dconf2nix
 
     #### Fonts ####
-    #nerd-fonts.jetbrains-mono # TODO: Uncomment once the Android Terminal supports custom fonts
+    nerd-fonts.jetbrains-mono
     noto-fonts
     noto-fonts-cjk-sans
     noto-fonts-cjk-serif
@@ -31,7 +31,8 @@
     defaultFonts = {
       emoji = ["Noto Emoji"];
       monospace = [
-        "Noto Sans Mono" # TODO: Switch to "JetBrainsMono Nerd Font Mono" once the Android Terminal supports custom fonts
+        "JetBrainsMono Nerd Font Mono"
+        "Noto Sans Mono"
         "Noto Emoji"
       ];
       sansSerif = [
@@ -128,13 +129,16 @@
 
   # Hide extraneous system ViM desktop entry
   #
-  xdg.desktopEntries."vim" = {
-    name = "Vim";
-    noDisplay = true;
-    settings = {
-      Hidden = "true";
-    };
-  };
+  # NOTE: We have to do this using xdg.dataFile rather than
+  # xdg.desktopEntries because .desktop files in ~/.nix-profile don't
+  # mask system-level .desktop files
+  #
+  xdg.dataFile."applications/vim.desktop".text = ''
+    [Desktop Entry]
+    Name=Vim
+    NoDisplay=true
+    Hidden=true
+  '';
 
   # Convenience functions for launching graphical apps from the
   # terminal
