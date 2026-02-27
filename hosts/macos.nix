@@ -35,8 +35,10 @@
     #
     #   https://docs.brew.sh/Brew-Bundle-and-Brewfile?pubDate=20251207#advanced-brewfiles
     #
+    home.sessionVariables.HOMEBREW_NO_ENV_HINTS = 1;
+
     extraConfig = ''
-      ENV["HOMEBREW_NO_ENV_HINTS"] = "1"
+      ENV["HOMEBREW_NO_ENV_HINTS"] = "${config.home.sessionVariables.HOMEBREW_NO_ENV_HINTS}"
     '';
 
     casks = [

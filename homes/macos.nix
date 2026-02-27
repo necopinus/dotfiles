@@ -17,8 +17,4 @@ in {
     #### Local packages (see above) ####
     localPkgs.vault-sync
   ];
-
-  # Futile attempt to suppress Homebrew hint messages
-  #
-  home.sessionVariables.HOMEBREW_NO_ENV_HINTS = 1;
 }
