@@ -201,7 +201,7 @@ in {
     enable = config.programs.bash.enable;
     text = ''
       function claude {
-        CLAUDE_CODE_EXEC="$(${pkgs.uutils-coreutils-noprefix}/bin/realpath "$(which claude)")"
+        CLAUDE_CODE_EXEC="$(${pkgs.uutils-coreutils-noprefix}/bin/realpath "$(${pkgs.which}/bin/which claude)")"
 
         if [[ "$CLAUDE_CODE_EXEC" == */scripts/claude ]] || [[ -n "$CLAUDECODE" ]] || [[ -n "$NONO_CAP_FILE" ]]; then
           "$CLAUDE_CODE_EXEC" "$@"
