@@ -81,60 +81,13 @@ if [[ $(grep -c "^trusted-users = " /etc/nix/nix.custom.conf) -eq 0 ]]; then
     fi
 fi
 
-# Clear out macOS settings that need to be set (or not set) explicitly
-#
-if [[ "$OS" == "Darwin" ]]; then
-    defaults delete com.apple.TextEdit AlwaysLightBackground 2>/dev/null || true
-    defaults delete kCFPreferencesAnyApplication AppleAccentColor 2>/dev/null || true
-    defaults delete kCFPreferencesAnyApplication AppleHighlightColor 2>/dev/null || true
-    defaults delete kCFPreferencesAnyApplication AppleIconAppearanceTintColor 2>/dev/null || true
-    defaults delete kCFPreferencesAnyApplication AppleInterfaceStyle 2>/dev/null || true
-fi
-
-# Move files that we might overwrite out of the way
-#
-if [[ "$OS" == "Darwin" ]]; then
-    if [[ -e /etc/bashrc ]] && [[ ! -L /etc/bashrc ]]; then
-        sudo mv /etc/bashrc /etc/bashrc.before-nix
-    fi
-    if [[ -e /etc/pam.d/sudo_local ]] && [[ ! -L /etc/pam.d/sudo_local ]]; then
-        sudo mv /etc/pam.d/sudo_local /etc/pam.d/sudo_local.before-nix
-    fi
-    if [[ -e /etc/zprofile ]] && [[ ! -L /etc/zprofile ]]; then
-        sudo mv /etc/zprofile /etc/zprofile.before-nix
-    fi
-    if [[ -e /etc/zshenv ]] && [[ ! -L /etc/zshenv ]]; then
-        sudo mv /etc/zshenv /etc/zshenv.before-nix
-    fi
-    if [[ -e /etc/zshrc ]] && [[ ! -L /etc/zshrc ]]; then
-        sudo mv /etc/zshrc /etc/zshrc.before-nix
-    fi
-fi
-if [[ -e "$HOME"/.bashrc ]] && [[ ! -L "$HOME"/.bashrc ]]; then
-    mv "$HOME"/.bashrc "$HOME"/.bashrc.before-nix
-fi
-if [[ -e "$HOME"/.profile ]] && [[ ! -L "$HOME"/.profile ]]; then
-    mv "$HOME"/.profile "$HOME"/.profile.before-nix
-fi
-
-# Build configuration
-#
-if [[ "$OS" == "Darwin" ]]; then
-    (
-        cd "$HOME/.config/nix"
-        sudo -H nix run nix-darwin -- switch --flake .#macos
-    )
-else
-    (
-        cd "$HOME/.config/nix"
-        dbus-run-session nix run home-manager/master -- switch --flake .#debian
-    )
-fi
-
 # Install desktop on Debian VM
 #
 # NOTE: The `bubblewrap` package is required by Claude Code, but is
 # pulled in automatically as a dependency of `gnome-session`
+#
+# NOTE: We need to install all system packages *before* building our
+# dotfiles, as otherwise calls to gsettings will fail!
 #
 if [[ "$OS" == "Linux" ]]; then
     pkill weston || true
@@ -192,6 +145,56 @@ if [[ "$OS" == "Linux" ]]; then
         rm -f "$HOME"/weston.env
     fi
     sudo usermod -a -G render "$USER"
+fi
+
+# Clear out macOS settings that need to be set (or not set) explicitly
+#
+if [[ "$OS" == "Darwin" ]]; then
+    defaults delete com.apple.TextEdit AlwaysLightBackground 2>/dev/null || true
+    defaults delete kCFPreferencesAnyApplication AppleAccentColor 2>/dev/null || true
+    defaults delete kCFPreferencesAnyApplication AppleHighlightColor 2>/dev/null || true
+    defaults delete kCFPreferencesAnyApplication AppleIconAppearanceTintColor 2>/dev/null || true
+    defaults delete kCFPreferencesAnyApplication AppleInterfaceStyle 2>/dev/null || true
+fi
+
+# Move files that we might overwrite out of the way
+#
+if [[ "$OS" == "Darwin" ]]; then
+    if [[ -e /etc/bashrc ]] && [[ ! -L /etc/bashrc ]]; then
+        sudo mv /etc/bashrc /etc/bashrc.before-nix
+    fi
+    if [[ -e /etc/pam.d/sudo_local ]] && [[ ! -L /etc/pam.d/sudo_local ]]; then
+        sudo mv /etc/pam.d/sudo_local /etc/pam.d/sudo_local.before-nix
+    fi
+    if [[ -e /etc/zprofile ]] && [[ ! -L /etc/zprofile ]]; then
+        sudo mv /etc/zprofile /etc/zprofile.before-nix
+    fi
+    if [[ -e /etc/zshenv ]] && [[ ! -L /etc/zshenv ]]; then
+        sudo mv /etc/zshenv /etc/zshenv.before-nix
+    fi
+    if [[ -e /etc/zshrc ]] && [[ ! -L /etc/zshrc ]]; then
+        sudo mv /etc/zshrc /etc/zshrc.before-nix
+    fi
+fi
+if [[ -e "$HOME"/.bashrc ]] && [[ ! -L "$HOME"/.bashrc ]]; then
+    mv "$HOME"/.bashrc "$HOME"/.bashrc.before-nix
+fi
+if [[ -e "$HOME"/.profile ]] && [[ ! -L "$HOME"/.profile ]]; then
+    mv "$HOME"/.profile "$HOME"/.profile.before-nix
+fi
+
+# Build configuration
+#
+if [[ "$OS" == "Darwin" ]]; then
+    (
+        cd "$HOME/.config/nix"
+        sudo -H nix run nix-darwin -- switch --flake .#macos
+    )
+else
+    (
+        cd "$HOME/.config/nix"
+        dbus-run-session nix run home-manager/master -- switch --flake .#debian
+    )
 fi
 
 # Update runtime environment
