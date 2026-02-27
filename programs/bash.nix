@@ -108,7 +108,7 @@
         [[ ! -f /mnt/shared/Documents/nofish ]] && [[ ! -f /mnt/shared/Documents/nofish.txt ]] &&
         [[ ! -f "$HOME"/Documents/nofish ]] && [[ ! -f "$HOME"/Documents/nofish.txt ]]; then
         export __EXEC_FISH=1
-        exec $(which fish)
+        exec $(${pkgs.which}/bin/which fish)
       fi
 
       # Hack to get Bash to more agressively save its history
