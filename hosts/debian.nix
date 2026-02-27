@@ -18,7 +18,7 @@
     # NOTE: These need to be explicitly included in home.packages in
     # order to show up in the GNOME Control Center
     #
-    elementary-wallpapers
+    pantheon.elementary-wallpapers
     pop-wallpapers
   ];
 
