@@ -55,6 +55,7 @@
       "qobuz-downloader"
       "scroll-reverser"
       "signal"
+      "utm"
       "vlc"
       "wireshark-chmodbpf" # Wireshark helper driver (only used by hackenv)
       "yubico-yubikey-manager"
@@ -277,6 +278,13 @@
       };
 
       "org.videolan.vlc".SUEnableAutomaticChecks = true;
+
+      "com.utmapp.UTM" = {
+        HideDockIcon = true;
+        KeepRunningAfterLastWindowClosed = true;
+        "NSStatusItem VisibleCC Item-0" = true;
+        ShowMenuIcon = true;
+      };
     };
   };
 }
