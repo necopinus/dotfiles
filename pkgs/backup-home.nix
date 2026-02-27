@@ -50,7 +50,7 @@ writeShellApplication {
     mkBackupList "$XDG_CONFIG_HOME/aacs"
     mkBackupList "$XDG_CONFIG_HOME/adept"
 
-    mkBackupList "$XDG_CONFIG_HOME/engagements"
+    mkBackupList "$XDG_CONFIG_HOME/Engagements"
 
     mkBackupList "$HOME/Documents/Calibre"
     mkBackupList "$HOME/Library/Preferences/calibre"
