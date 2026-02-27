@@ -5,7 +5,14 @@
 }: {
   home.packages = with pkgs; [
     dconf2nix
-    pop-wallpapers # This needs to be in home.packages to show up in Control Center
+
+    # Additional wallpapers
+    #
+    # NOTE: These need to be explicitly included in home.packages in
+    # order to show up in the GNOME Control Center
+    #
+    elementary-wallpapers
+    pop-wallpapers
   ];
 
   # Generated via dconf2nix: https://github.com/gvolpe/dconf2nix
