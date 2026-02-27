@@ -43,7 +43,7 @@ writeShellApplication {
     #
     sudo determinate-nixd upgrade
     (
-      cd "$HOME/config/nix"
+      cd "$XDG_CONFIG_HOME"/nix
       nix flake update
       nix flake archive
       git add -A -v
@@ -60,15 +60,15 @@ writeShellApplication {
     # Garbage collection
     #
     sudo find /nix/var/nix/gcroots -xtype l -exec rm "{}" \;
-    find "$HOME/local/state/nix/profiles" -type l -name "profile-*-link" -ctime +32 | sort -t- -k2n | while read -r OLD_PROFILE; do
-      if [[ $(find "$HOME/local/state/nix/profiles" -type l -name "profile-*-link" | wc -l) -gt 8 ]]; then
+    find "$XDG_STATE_HOME"/nix/profiles -type l -name "profile-*-link" -ctime +32 | sort -t- -k2n | while read -r OLD_PROFILE; do
+      if [[ $(find "$XDG_STATE_HOME"/nix/profiles -type l -name "profile-*-link" | wc -l) -gt 8 ]]; then
         rm "$OLD_PROFILE"
       else
         break
       fi
     done
-    find "$HOME/local/state/nix/profiles" -type l -name "home-manager-*-link" -ctime +32 | sort -t- -k2n | while read -r OLD_PROFILE; do
-      if [[ $(find "$HOME/local/state/nix/profiles" -type l -name "home-manager-*-link" | wc -l) -gt 8 ]]; then
+    find "$XDG_STATE_HOME"/nix/profiles -type l -name "home-manager-*-link" -ctime +32 | sort -t- -k2n | while read -r OLD_PROFILE; do
+      if [[ $(find "$XDG_STATE_HOME"/nix/profiles -type l -name "home-manager-*-link" | wc -l) -gt 8 ]]; then
         rm "$OLD_PROFILE"
       else
         break
