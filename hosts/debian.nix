@@ -128,6 +128,7 @@
   # Hide extraneous system ViM desktop entry
   #
   xdg.desktopEntries."vim" = {
+    name = "Vim";
     noDisplay = true;
     settings = {
       Hidden = "true";

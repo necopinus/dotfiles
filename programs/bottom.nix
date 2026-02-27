@@ -36,6 +36,7 @@
   # Hide desktop entry
   #
   xdg.desktopEntries."bottom" = {
+    name = "bottom";
     noDisplay = true;
     settings = {
       Hidden = "true";

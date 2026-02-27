@@ -409,6 +409,7 @@ in {
   # Hide desktop entry
   #
   xdg.desktopEntries."Helix" = {
+    name = "Helix";
     noDisplay = true;
     settings = {
       Hidden = "true";

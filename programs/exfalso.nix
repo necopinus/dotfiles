@@ -7,6 +7,7 @@
   # Falso
   #
   xdg.desktopEntries."io.github.quodLibet" = {
+    name = "Quod Libet";
     noDisplay = true;
     settings = {
       Hidden = "true";
