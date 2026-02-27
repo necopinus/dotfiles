@@ -6,7 +6,14 @@
   home.packages = with pkgs; [
     dconf2nix
 
-    # Additional wallpapers
+    #### Fonts ####
+    #nerd-fonts.jetbrains-mono # TODO: Uncomment once the Android Terminal supports custom fonts
+    noto-fonts
+    noto-fonts-cjk-sans
+    noto-fonts-cjk-serif
+    noto-fonts-monochrome-emoji
+
+    #### Additional wallpapers ####
     #
     # NOTE: These need to be explicitly included in home.packages in
     # order to show up in the GNOME Control Center
@@ -14,6 +21,48 @@
     elementary-wallpapers
     pop-wallpapers
   ];
+
+  # Needed to force font cache to be rebuilt
+  #
+  fonts.fontconfig = {
+    enable = true;
+
+    defaultFonts = {
+      emoji = ["Noto Emoji"];
+      monospace = [
+        "Noto Sans Mono" # TODO: Switch to "JetBrainsMono Nerd Font Mono" once the Android Terminal supports custom fonts
+        "Noto Emoji"
+      ];
+      sansSerif = [
+        "Noto Sans"
+        "Noto Sans CJK JP"
+        "Noto Emoji"
+      ];
+      serif = [
+        "Noto Serif"
+        "Noto Serif CJK JP"
+        "Noto Emoji"
+      ];
+    };
+  };
+
+  # XDG configuration
+  #
+  xdg.mimeApps.enable = true;
+
+  # No-frills theme configuration
+  #
+  gtk = {
+    enable = true;
+    colorScheme = "dark";
+    theme.name = "Adwaita";
+    cursorTheme.name = "Adwaita";
+    iconTheme.name = "Adwaita";
+    font = {
+      name = "Noto Sans";
+      size = 10;
+    };
+  };
 
   # Generated via dconf2nix: https://github.com/gvolpe/dconf2nix
   #
@@ -73,6 +122,15 @@
 
     "org/gtk/gtk4/settings/file-chooser" = {
       sort-directories-first = true;
+    };
+  };
+
+  # Hide extraneous system ViM desktop entry
+  #
+  xdg.desktopEntries."vim" = {
+    noDisplay = true;
+    settings = {
+      Hidden = true;
     };
   };
 }

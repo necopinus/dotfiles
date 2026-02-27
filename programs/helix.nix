@@ -405,4 +405,13 @@ in {
       };
     };
   };
+
+  # Hide desktop entry
+  #
+  xdg.desktopEntries."Helix" = {
+    noDisplay = true;
+    settings = {
+      Hidden = true;
+    };
+  };
 }

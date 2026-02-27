@@ -33,6 +33,15 @@
     };
   };
 
+  # Hide desktop entry
+  #
+  xdg.desktopEntries."bottom" = {
+    noDisplay = true;
+    settings = {
+      Hidden = true;
+    };
+  };
+
   # Convenience aliases
   #
   xdg.configFile."bash/rc.d/bottom.sh" = {

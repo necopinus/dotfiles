@@ -11,6 +11,7 @@
 in {
   imports = [
     ../programs/chromium.nix
+    ../programs/exfalso.nix
     ../programs/obsidian.nix
   ];
 
@@ -18,61 +19,11 @@ in {
 
   home.packages = with pkgs; [
     libgourou
-    quodlibet-full
-
-    #### Fonts ####
-    #nerd-fonts.jetbrains-mono # TODO: Uncomment once the Android Terminal supports custom fonts
-    noto-fonts
-    noto-fonts-cjk-sans
-    noto-fonts-cjk-serif
-    noto-fonts-monochrome-emoji
 
     #### Local packages (see above) ####
     localPkgs.pbcopy
     localPkgs.pbpaste
   ];
-
-  # Needed to force font cache to be rebuilt
-  #
-  fonts.fontconfig = {
-    enable = true;
-
-    defaultFonts = {
-      emoji = ["Noto Emoji"];
-      monospace = [
-        "Noto Sans Mono" # TODO: Switch to "JetBrainsMono Nerd Font Mono" once the Android Terminal supports custom fonts
-        "Noto Emoji"
-      ];
-      sansSerif = [
-        "Noto Sans"
-        "Noto Sans CJK JP"
-        "Noto Emoji"
-      ];
-      serif = [
-        "Noto Serif"
-        "Noto Serif CJK JP"
-        "Noto Emoji"
-      ];
-    };
-  };
-
-  # XDG configuration
-  #
-  xdg.mimeApps.enable = true;
-
-  # No-frills theme configuration
-  #
-  gtk = {
-    enable = true;
-    colorScheme = "dark";
-    theme.name = "Adwaita";
-    cursorTheme.name = "Adwaita";
-    iconTheme.name = "Adwaita";
-    font = {
-      name = "Noto Sans";
-      size = 10;
-    };
-  };
 
   # VMs are Debian-based, not NixOS
   #

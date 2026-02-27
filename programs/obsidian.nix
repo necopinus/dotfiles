@@ -18,13 +18,9 @@
       exec = "${pkgs.obsidian}/bin/obsidian --disable-gpu %u";
       icon = "obsidian";
       mimeType = [
-        "text/html"
         "x-scheme-handler/obsidian"
       ];
       name = "Obsidian";
-      settings = {
-        TryExec = "${pkgs.obsidian}/bin/obsidian";
-      };
       type = "Application";
     };
 
