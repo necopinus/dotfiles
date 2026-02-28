@@ -63,7 +63,13 @@ in {
       enable = pkgs.stdenv.isDarwin;
       source = config.xdg.configFile."keepassxc/keepassxc.ini".source;
     };
-    "Library/Application Support/BraveSoftware/Brave-Browser/NativeMessagingHosts/org.keepassxc.keepassxc_browser.json" = {
+
+    # You would think that this should be BraveSoftware/Brave-Browser,
+    # but you would be wrong
+    #
+    #   https://github.com/brave/brave-browser/issues/5074
+    #
+    "Library/Application Support/Google/Chrome/NativeMessagingHosts/org.keepassxc.keepassxc_browser.json" = {
       enable = pkgs.stdenv.isDarwin;
       text = ''
         {
