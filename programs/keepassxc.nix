@@ -44,6 +44,20 @@ in {
     };
   };
 
+  launchd.agents."org.keepassxc.KeePassXC" = {
+    enable = pkgs.stdenv.isDarwin;
+    config = {
+      AssociatedBundleIdentifiers = "org.keepassxc.KeePassXC";
+      Label = "org.keepassxc.KeePassXC";
+      ProgramArguments = [
+        "/Applications/KeePassXC.app/Contents/MacOS/KeePassXC"
+      ];
+      RunAtLoad = true;
+      StandardErrorPath = "/dev/null";
+      StandardOutPath = "/dev/null";
+    };
+  };
+
   home.file = {
     "Library/Application Support/KeePassXC/keepassxc.ini" = {
       enable = pkgs.stdenv.isDarwin;

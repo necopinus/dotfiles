@@ -329,10 +329,6 @@ mkdir -p "$HOME"/Projects
             git@github.com:necopinus/necopinus.xyz.git
     fi
 
-    if [[ ! -d labwc-adwaita ]]; then
-        git clone --recurse-submodules \
-            https://github.com/davidphilipbarr/labwc-adwaita.git
-    fi
     if [[ ! -d twitter-archive-parser ]]; then
         git clone --recurse-submodules \
             https://github.com/timhutton/twitter-archive-parser.git
