@@ -100,6 +100,7 @@ if [[ "$OS" == "Linux" ]]; then
         gnome-console \
         gnome-session \
         libseccomp-dev \
+        procps \
         seahorse
 
     # Comment out global SSH option that Nix's ssh binary doesn't like

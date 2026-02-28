@@ -45,7 +45,6 @@ in {
     msgpack-tools
     optipng
     poppler-utils
-    procps
     rsgain
     rsync
     unzip
