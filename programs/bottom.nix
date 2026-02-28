@@ -4,39 +4,7 @@
   pkgs,
   ...
 }: {
-  programs.bottom = {
-    enable = true;
-
-    settings = {
-      styles = {
-        widgets = {
-          # Default (tweaks)
-          #
-          selected_border_color = "green";
-          selected_text = {
-            fg_color = "white"; # TODO: Remove once the Android Terminal supports custom themes
-            bg_color = "dark grey";
-          };
-
-          # Gruvbox Light
-          #
-          # selected_border_color = "yellow";
-          # selected_text = {
-          #   color = "#fbf1c7";
-          #   bg_color = "green";
-          # };
-
-          # Gruvbox Material Light
-          #
-          # selected_border_color = "yellow";
-          # selected_text = {
-          #   color = "#f9f5d7";
-          #   bg_color = "green"
-          # };
-        };
-      };
-    };
-  };
+  programs.bottom.enable = true;
 
   # Hide desktop entry
   #
@@ -52,25 +20,31 @@
 
   # Convenience aliases
   #
+  # TODO: Change this to "--theme gruvbox-light" once the Android
+  # Terminal supports custom themes
+  #
   xdg.configFile."bash/rc.d/bottom.sh" = {
     enable = config.programs.bash.enable;
     text = ''
-      alias htop="${config.programs.bottom.package}/bin/btm --basic"
-      alias top="${config.programs.bottom.package}/bin/btm --basic"
+      alias btm="${config.programs.bottom.package}/bin/btm --theme default"
+      alias htop="${config.programs.bottom.package}/bin/btm --basic --theme default"
+      alias top="${config.programs.bottom.package}/bin/btm --basic --theme default"
     '';
   };
   xdg.configFile."zsh/rc.d/bottom.sh" = {
     enable = config.programs.zsh.enable;
     text = ''
-      alias htop="${config.programs.bottom.package}/bin/btm --basic"
-      alias top="${config.programs.bottom.package}/bin/btm --basic"
+      alias btm="${config.programs.bottom.package}/bin/btm --theme default"
+      alias htop="${config.programs.bottom.package}/bin/btm --basic --theme default"
+      alias top="${config.programs.bottom.package}/bin/btm --basic --theme default"
     '';
   };
   xdg.configFile."fish/rc.d/bottom.fish" = {
     enable = config.programs.fish.enable;
     text = ''
-      alias htop "${config.programs.bottom.package}/bin/btm --basic"
-      alias top "${config.programs.bottom.package}/bin/btm --basic"
+      alias btm "${config.programs.bottom.package}/bin/btm --theme default"
+      alias htop "${config.programs.bottom.package}/bin/btm --basic --theme default"
+      alias top "${config.programs.bottom.package}/bin/btm --basic --theme default"
     '';
   };
 }
