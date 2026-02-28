@@ -37,8 +37,8 @@ in {
         TrayIconApearance = "monochrome";
       };
       Security = {
-        LockDatabaseIdle = false;
         IconDownloadFallback = true;
+        LockDatabaseIdle = false;
       };
       SSHAgent.Enabled = true;
     };
@@ -54,7 +54,7 @@ in {
       text = ''
         {
           "allowed_origins": [
-            "chrome-extension://pdffhmdngciaglkoonimfcmckehcpafo/"
+            "chrome-extension://pdffhmdngciaglkoonimfcmckehcpafo/",
             "chrome-extension://oboonakemofpalcgghocfoadofidjkkk/"
           ],
           "description": "KeePassXC integration with native messaging support",
