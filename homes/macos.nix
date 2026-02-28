@@ -4,6 +4,7 @@
   };
 in {
   imports = [
+    ../programs/keepassxc.nix
     ../programs/zed.nix
     ../programs/zsh.nix
   ];

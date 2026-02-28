@@ -45,6 +45,7 @@
       "claude"
       "google-drive"
       "handbrake-app"
+      "keepassxc"
       "makemkv"
       {
         name = "obsidian";
@@ -123,6 +124,7 @@
         {app = "/System/Applications/Apps.app";}
         {app = "/Applications/Brave Browser.app";}
         {app = "/Applications/Claude.app";}
+        {app = "/Applications/KeePassXC.app";}
         {app = "/System/Applications/Utilities/Terminal.app";}
         {app = "/Applications/Zed.app";}
       ];
