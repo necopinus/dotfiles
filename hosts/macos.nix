@@ -262,7 +262,7 @@
       # "dk.tacit.desktop"."/dk/tacit/desktop/" = {
       #   "foldersync/" = {
       #     always_show_tray_icon = true;
-      #     only_show_tray_icon = true;
+      #     only_show_tray_icon = false;
       #     start_minimized_to_tray = true;
       #     close_to_tray = true;
       #     launch_on_login = true;
