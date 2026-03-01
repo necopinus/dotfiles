@@ -261,13 +261,15 @@
       #
       # "dk.tacit.desktop"."/dk/tacit/desktop/" = {
       #   "foldersync/" = {
-      #     always_show_tray_icon = false;
-      #     start_minimized_to_tray = false;
-      #     close_to_tray = false;
+      #     always_show_tray_icon = true;
+      #     only_show_tray_icon = true;
+      #     start_minimized_to_tray = true;
+      #     close_to_tray = true;
+      #     launch_on_login = true;
       #
       #     sync_transfer_threads = 1;
       #
-      #     backup_folder = "/Users/${config.system.primaryUser}/data/backups/FolderSync/Desktop/";
+      #     backup_folder = "/Users/${config.system.primaryUser}/Documents/Backups/FolderSync/Desktop/";
       #   };
       # };
 
