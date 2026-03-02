@@ -53,85 +53,88 @@ in {
   programs.claude-code = {
     enable = true;
 
+    # IMPORTANT: You cannot use both nono and Claude's built-in sandboxing at
+    # the same time! Doing so will result in all Bash() calls being denied!
+    #
     settings = {
       outputStyle = "Explanatory";
       alwaysThinkingEnabled = true;
       skipDangerousModePermissionPrompt = true;
-      permissions = {
-        deny = [
-          "Bash(su *)"
-          "Bash(sudo *)"
-          "Edit(/${config.home.homeDirectory}/.cert)"
-          "Edit(/${config.home.homeDirectory}/.gitconfig)"
-          "Edit(/${config.home.homeDirectory}/.gnupg)"
-          "Edit(/${config.home.homeDirectory}/.kde/share/apps/networkmanagement)"
-          "Edit(/${config.home.homeDirectory}/.ssh)"
-          "Edit(/${config.home.homeDirectory}/Desktop)"
-          "Edit(/${config.home.homeDirectory}/Documents)"
-          "Edit(/${config.home.homeDirectory}/Downloads)"
-          "Edit(/${config.home.homeDirectory}/Library)"
-          "Edit(/${config.home.homeDirectory}/Movies)"
-          "Edit(/${config.home.homeDirectory}/Music)"
-          "Edit(/${config.home.homeDirectory}/Pictures)"
-          "Edit(/${config.home.homeDirectory}/Public)"
-          "Edit(/${config.home.homeDirectory}/Templates)"
-          "Edit(/${config.home.homeDirectory}/Videos)"
-          "Edit(/${config.xdg.configHome}/git)"
-          "Edit(/${config.xdg.dataHome}/certs)"
-          "Edit(/${config.xdg.dataHome}/keyrings)"
-          "Edit(/${config.xdg.dataHome}/kwalletd)"
-          "Edit(/${config.xdg.dataHome}/networkmanagement)"
-          "Edit(//etc/NetworkManager)"
-          "Edit(//etc/ssh)"
-          "Edit(//mnt)"
-          "Edit(//Volumes)"
-          "Read(/${config.home.homeDirectory}/.cert)"
-          "Read(/${config.home.homeDirectory}/.gnupg)"
-          "Read(/${config.home.homeDirectory}/.kde/share/apps/networkmanagement)"
-          "Read(/${config.home.homeDirectory}/Desktop)"
-          "Read(/${config.home.homeDirectory}/Documents)"
-          "Read(/${config.home.homeDirectory}/Downloads)"
-          "Read(/${config.home.homeDirectory}/Movies)"
-          "Read(/${config.home.homeDirectory}/Music)"
-          "Read(/${config.home.homeDirectory}/Pictures)"
-          "Read(/${config.home.homeDirectory}/Public)"
-          "Read(/${config.home.homeDirectory}/Templates)"
-          "Read(/${config.home.homeDirectory}/Videos)"
-          "Read(/${config.xdg.dataHome}/certs)"
-          "Read(/${config.xdg.dataHome}/keyrings)"
-          "Read(/${config.xdg.dataHome}/kwalletd)"
-          "Read(/${config.xdg.dataHome}/networkmanagement)"
-          "Read(//etc/NetworkManager)"
-          "Read(//etc/ssh)"
-          "Read(//mnt)"
-          "Read(//Volumes)"
-        ];
-        ask = [
-          "Bash(rm *)"
-        ];
-        allow = [
-          "Bash(ls *)"
-          "Read(/${config.home.homeDirectory}/Library/Application Support/Chromium/Default/Extensions)"
-          "Read(/${config.home.homeDirectory}/Library/Application Support/Chromium/NativeMessagingHosts)"
-          "Read(/${config.home.homeDirectory}/Library/Application Support/Google/Chrome/Default/Extensions)"
-          "Read(/${config.home.homeDirectory}/Library/Application Support/Google/Chrome/NativeMessagingHosts)"
-          "Read(/${config.xdg.configHome}/chromium/Default/Extensions)"
-          "Read(/${config.xdg.configHome}/chromium/NativeMessagingHosts)"
-          "Read(/${config.xdg.configHome}/google-chrome/Default/Extensions)"
-          "Read(/${config.xdg.configHome}/google-chrome/NativeMessagingHosts)"
-        ];
-      };
-      sandbox = {
-        enabled = true;
-        autoAllowBashIfSandboxed = true;
-        allowUnsandboxedCommands = false;
-        network = {
-          allowedDomains = [];
-          allowUnixSockets = [];
-          allowLocalBinding = true;
-        };
-        excludedCommands = [];
-      };
+      #permissions = {
+      #  deny = [
+      #    "Bash(su *)"
+      #    "Bash(sudo *)"
+      #    "Edit(/${config.home.homeDirectory}/.cert)"
+      #    "Edit(/${config.home.homeDirectory}/.gitconfig)"
+      #    "Edit(/${config.home.homeDirectory}/.gnupg)"
+      #    "Edit(/${config.home.homeDirectory}/.kde/share/apps/networkmanagement)"
+      #    "Edit(/${config.home.homeDirectory}/.ssh)"
+      #    "Edit(/${config.home.homeDirectory}/Desktop)"
+      #    "Edit(/${config.home.homeDirectory}/Documents)"
+      #    "Edit(/${config.home.homeDirectory}/Downloads)"
+      #    "Edit(/${config.home.homeDirectory}/Library)"
+      #    "Edit(/${config.home.homeDirectory}/Movies)"
+      #    "Edit(/${config.home.homeDirectory}/Music)"
+      #    "Edit(/${config.home.homeDirectory}/Pictures)"
+      #    "Edit(/${config.home.homeDirectory}/Public)"
+      #    "Edit(/${config.home.homeDirectory}/Templates)"
+      #    "Edit(/${config.home.homeDirectory}/Videos)"
+      #    "Edit(/${config.xdg.configHome}/git)"
+      #    "Edit(/${config.xdg.dataHome}/certs)"
+      #    "Edit(/${config.xdg.dataHome}/keyrings)"
+      #    "Edit(/${config.xdg.dataHome}/kwalletd)"
+      #    "Edit(/${config.xdg.dataHome}/networkmanagement)"
+      #    "Edit(//etc/NetworkManager)"
+      #    "Edit(//etc/ssh)"
+      #    "Edit(//mnt)"
+      #    "Edit(//Volumes)"
+      #    "Read(/${config.home.homeDirectory}/.cert)"
+      #    "Read(/${config.home.homeDirectory}/.gnupg)"
+      #    "Read(/${config.home.homeDirectory}/.kde/share/apps/networkmanagement)"
+      #    "Read(/${config.home.homeDirectory}/Desktop)"
+      #    "Read(/${config.home.homeDirectory}/Documents)"
+      #    "Read(/${config.home.homeDirectory}/Downloads)"
+      #    "Read(/${config.home.homeDirectory}/Movies)"
+      #    "Read(/${config.home.homeDirectory}/Music)"
+      #    "Read(/${config.home.homeDirectory}/Pictures)"
+      #    "Read(/${config.home.homeDirectory}/Public)"
+      #    "Read(/${config.home.homeDirectory}/Templates)"
+      #    "Read(/${config.home.homeDirectory}/Videos)"
+      #    "Read(/${config.xdg.dataHome}/certs)"
+      #    "Read(/${config.xdg.dataHome}/keyrings)"
+      #    "Read(/${config.xdg.dataHome}/kwalletd)"
+      #    "Read(/${config.xdg.dataHome}/networkmanagement)"
+      #    "Read(//etc/NetworkManager)"
+      #    "Read(//etc/ssh)"
+      #    "Read(//mnt)"
+      #    "Read(//Volumes)"
+      #  ];
+      #  ask = [
+      #    "Bash(rm *)"
+      #  ];
+      #  allow = [
+      #    "Bash(ls *)"
+      #    "Read(/${config.home.homeDirectory}/Library/Application Support/Chromium/Default/Extensions)"
+      #    "Read(/${config.home.homeDirectory}/Library/Application Support/Chromium/NativeMessagingHosts)"
+      #    "Read(/${config.home.homeDirectory}/Library/Application Support/Google/Chrome/Default/Extensions)"
+      #    "Read(/${config.home.homeDirectory}/Library/Application Support/Google/Chrome/NativeMessagingHosts)"
+      #    "Read(/${config.xdg.configHome}/chromium/Default/Extensions)"
+      #    "Read(/${config.xdg.configHome}/chromium/NativeMessagingHosts)"
+      #    "Read(/${config.xdg.configHome}/google-chrome/Default/Extensions)"
+      #    "Read(/${config.xdg.configHome}/google-chrome/NativeMessagingHosts)"
+      #  ];
+      #};
+      #sandbox = {
+      #  enabled = true;
+      #  autoAllowBashIfSandboxed = true;
+      #  allowUnsandboxedCommands = false;
+      #  network = {
+      #    allowedDomains = [];
+      #    allowUnixSockets = [];
+      #    allowLocalBinding = true;
+      #  };
+      #  excludedCommands = [];
+      #};
       hooks = {
         PostToolUseFailure = [
           {
