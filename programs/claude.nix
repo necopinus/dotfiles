@@ -54,87 +54,12 @@ in {
     enable = true;
 
     # IMPORTANT: You cannot use both nono and Claude's built-in sandboxing at
-    # the same time! Doing so will result in all Bash() calls being denied!
+    # the same time!
     #
     settings = {
       outputStyle = "Explanatory";
       alwaysThinkingEnabled = true;
       skipDangerousModePermissionPrompt = true;
-      #permissions = {
-      #  deny = [
-      #    "Bash(su *)"
-      #    "Bash(sudo *)"
-      #    "Edit(/${config.home.homeDirectory}/.cert)"
-      #    "Edit(/${config.home.homeDirectory}/.gitconfig)"
-      #    "Edit(/${config.home.homeDirectory}/.gnupg)"
-      #    "Edit(/${config.home.homeDirectory}/.kde/share/apps/networkmanagement)"
-      #    "Edit(/${config.home.homeDirectory}/.ssh)"
-      #    "Edit(/${config.home.homeDirectory}/Desktop)"
-      #    "Edit(/${config.home.homeDirectory}/Documents)"
-      #    "Edit(/${config.home.homeDirectory}/Downloads)"
-      #    "Edit(/${config.home.homeDirectory}/Library)"
-      #    "Edit(/${config.home.homeDirectory}/Movies)"
-      #    "Edit(/${config.home.homeDirectory}/Music)"
-      #    "Edit(/${config.home.homeDirectory}/Pictures)"
-      #    "Edit(/${config.home.homeDirectory}/Public)"
-      #    "Edit(/${config.home.homeDirectory}/Templates)"
-      #    "Edit(/${config.home.homeDirectory}/Videos)"
-      #    "Edit(/${config.xdg.configHome}/git)"
-      #    "Edit(/${config.xdg.dataHome}/certs)"
-      #    "Edit(/${config.xdg.dataHome}/keyrings)"
-      #    "Edit(/${config.xdg.dataHome}/kwalletd)"
-      #    "Edit(/${config.xdg.dataHome}/networkmanagement)"
-      #    "Edit(//etc/NetworkManager)"
-      #    "Edit(//etc/ssh)"
-      #    "Edit(//mnt)"
-      #    "Edit(//Volumes)"
-      #    "Read(/${config.home.homeDirectory}/.cert)"
-      #    "Read(/${config.home.homeDirectory}/.gnupg)"
-      #    "Read(/${config.home.homeDirectory}/.kde/share/apps/networkmanagement)"
-      #    "Read(/${config.home.homeDirectory}/Desktop)"
-      #    "Read(/${config.home.homeDirectory}/Documents)"
-      #    "Read(/${config.home.homeDirectory}/Downloads)"
-      #    "Read(/${config.home.homeDirectory}/Movies)"
-      #    "Read(/${config.home.homeDirectory}/Music)"
-      #    "Read(/${config.home.homeDirectory}/Pictures)"
-      #    "Read(/${config.home.homeDirectory}/Public)"
-      #    "Read(/${config.home.homeDirectory}/Templates)"
-      #    "Read(/${config.home.homeDirectory}/Videos)"
-      #    "Read(/${config.xdg.dataHome}/certs)"
-      #    "Read(/${config.xdg.dataHome}/keyrings)"
-      #    "Read(/${config.xdg.dataHome}/kwalletd)"
-      #    "Read(/${config.xdg.dataHome}/networkmanagement)"
-      #    "Read(//etc/NetworkManager)"
-      #    "Read(//etc/ssh)"
-      #    "Read(//mnt)"
-      #    "Read(//Volumes)"
-      #  ];
-      #  ask = [
-      #    "Bash(rm *)"
-      #  ];
-      #  allow = [
-      #    "Bash(ls *)"
-      #    "Read(/${config.home.homeDirectory}/Library/Application Support/Chromium/Default/Extensions)"
-      #    "Read(/${config.home.homeDirectory}/Library/Application Support/Chromium/NativeMessagingHosts)"
-      #    "Read(/${config.home.homeDirectory}/Library/Application Support/Google/Chrome/Default/Extensions)"
-      #    "Read(/${config.home.homeDirectory}/Library/Application Support/Google/Chrome/NativeMessagingHosts)"
-      #    "Read(/${config.xdg.configHome}/chromium/Default/Extensions)"
-      #    "Read(/${config.xdg.configHome}/chromium/NativeMessagingHosts)"
-      #    "Read(/${config.xdg.configHome}/google-chrome/Default/Extensions)"
-      #    "Read(/${config.xdg.configHome}/google-chrome/NativeMessagingHosts)"
-      #  ];
-      #};
-      #sandbox = {
-      #  enabled = true;
-      #  autoAllowBashIfSandboxed = true;
-      #  allowUnsandboxedCommands = false;
-      #  network = {
-      #    allowedDomains = [];
-      #    allowUnixSockets = [];
-      #    allowLocalBinding = true;
-      #  };
-      #  excludedCommands = [];
-      #};
       hooks = {
         PostToolUseFailure = [
           {
@@ -209,33 +134,7 @@ in {
         if [[ "$CLAUDE_CODE_EXEC" == */scripts/claude ]] || [[ -n "$CLAUDECODE" ]] || [[ -n "$NONO_CAP_FILE" ]]; then
           "$CLAUDE_CODE_EXEC" "$@"
         else
-          # Note that all of the allow/allow-file/read/read-file lines
-          # (except for `--allow .`) can be removed when nono v0.6.0
-          # hits nixpkgs-unstable
-          #
-          nono run \
-            --profile claude-code \
-            --allow . \
-            $([[ -d "$XDG_CACHE_HOME"/go-build ]] && echo -n "--allow $XDG_CACHE_HOME/go-build") \
-            $([[ -d "$XDG_CACHE_HOME"/pip ]] && echo -n "--allow $XDG_CACHE_HOME/pip") \
-            $([[ -d "$XDG_CACHE_HOME"/pnpm ]] && echo -n "--allow $XDG_CACHE_HOME/pnpm") \
-            $([[ -d "$XDG_CACHE_HOME"/uv ]] && echo -n "--allow $XDG_CACHE_HOME/uv") \
-            $([[ -d "$XDG_CONFIG_HOME"/go ]] && echo -n "--allow $XDG_CONFIG_HOME/go") \
-            $([[ -d "$XDG_DATA_HOME"/pnpm ]] && echo -n "--allow $XDG_DATA_HOME/pnpm") \
-            $([[ -d "$XDG_STATE_HOME"/pnpm ]] && echo -n "--allow $XDG_STATE_HOME/pnpm") \
-            $([[ -d /tmp ]] && echo -n "--allow /tmp") \
-            $([[ -d /var/folders ]] && echo -n "--allow /var/folders") \
-            $([[ -e /dev/null ]] && echo -n "--allow-file /dev/null") \
-            $([[ -d "$HOME"/.ssh ]] && echo -n "--read $HOME/.ssh") \
-            $([[ -d "$HOME"/Library/"Application Support"/Chromium ]] && echo -n "--read $HOME/Library/Application\\ Support/Chromium") \
-            $([[ -d "$HOME"/Library/"Application Support"/Google/Chrome ]] && echo -n "--read $HOME/Library/Application\\ Support/Google/Chrome") \
-            $([[ -d "$XDG_CONFIG_HOME"/chromium ]] && echo -n "--read $XDG_CONFIG_HOME/chromium") \
-            $([[ -d "$XDG_CONFIG_HOME"/google-chrome ]] && echo -n "--read $XDG_CONFIG_HOME/google-chrome") \
-            $([[ -d /etc/skel ]] && echo -n "--read /etc/skel") \
-            $([[ -d /nix ]] && echo -n "--read /nix") \
-            $([[ -e "$HOME"/.bash_aliases ]] && echo -n "--read-file $HOME/.bash_aliases") \
-            $([[ -e /etc/bashrc ]] && echo -n "--read-file /etc/bashrc") \
-            -- "$CLAUDE_CODE_EXEC" --dangerously-skip-permissions "$@"
+          nono run --profile claude-code --allow . -- "$CLAUDE_CODE_EXEC" --dangerously-skip-permissions "$@"
         fi
       }
     '';
@@ -249,33 +148,7 @@ in {
         if [[ "$CLAUDE_CODE_EXEC" == */scripts/claude ]] || [[ -n "$CLAUDECODE" ]] || [[ -n "$NONO_CAP_FILE" ]]; then
           "$CLAUDE_CODE_EXEC" "$@"
         else
-          # Note that all of the allow/allow-file/read/read-file
-          # lines (except for `--allow .`) can be removed when nono
-          # v0.6.0 hits nixpkgs-unstable
-          #
-          nono run \
-            --profile claude-code \
-            --allow . \
-            $([[ -d "$XDG_CACHE_HOME"/go-build ]] && echo -n "--allow $XDG_CACHE_HOME/go-build") \
-            $([[ -d "$XDG_CACHE_HOME"/pip ]] && echo -n "--allow $XDG_CACHE_HOME/pip") \
-            $([[ -d "$XDG_CACHE_HOME"/pnpm ]] && echo -n "--allow $XDG_CACHE_HOME/pnpm") \
-            $([[ -d "$XDG_CACHE_HOME"/uv ]] && echo -n "--allow $XDG_CACHE_HOME/uv") \
-            $([[ -d "$XDG_CONFIG_HOME"/go ]] && echo -n "--allow $XDG_CONFIG_HOME/go") \
-            $([[ -d "$XDG_DATA_HOME"/pnpm ]] && echo -n "--allow $XDG_DATA_HOME/pnpm") \
-            $([[ -d "$XDG_STATE_HOME"/pnpm ]] && echo -n "--allow $XDG_STATE_HOME/pnpm") \
-            $([[ -d /tmp ]] && echo -n "--allow /tmp") \
-            $([[ -d /var/folders ]] && echo -n "--allow /var/folders") \
-            $([[ -e /dev/null ]] && echo -n "--allow-file /dev/null") \
-            $([[ -d "$HOME"/.ssh ]] && echo -n "--read $HOME/.ssh") \
-            $([[ -d "$HOME"/Library/"Application Support"/Chromium ]] && echo -n "--read $HOME/Library/Application\\ Support/Chromium") \
-            $([[ -d "$HOME"/Library/"Application Support"/Google/Chrome ]] && echo -n "--read $HOME/Library/Application\\ Support/Google/Chrome") \
-            $([[ -d "$XDG_CONFIG_HOME"/chromium ]] && echo -n "--read $XDG_CONFIG_HOME/chromium") \
-            $([[ -d "$XDG_CONFIG_HOME"/google-chrome ]] && echo -n "--read $XDG_CONFIG_HOME/google-chrome") \
-            $([[ -d /etc/skel ]] && echo -n "--read /etc/skel") \
-            $([[ -d /nix ]] && echo -n "--read /nix") \
-            $([[ -e "$HOME"/.bash_aliases ]] && echo -n "--read-file $HOME/.bash_aliases") \
-            $([[ -e /etc/bashrc ]] && echo -n "--read-file /etc/bashrc") \
-            -- "$CLAUDE_CODE_EXEC" --dangerously-skip-permissions "$@"
+          nono run --profile claude-code --allow . -- "$CLAUDE_CODE_EXEC" --dangerously-skip-permissions "$@"
         fi
       }
     '';
@@ -286,33 +159,7 @@ in {
     if string match "*/scripts/claude" $CLAUDE_CODE_EXEC &> /dev/null; or test -n "$CLAUDECODE"; or test -n "$NONO_CAP_FILE"
       $CLAUDE_CODE_EXEC $argv
     else
-      # Note that all of the allow/allow-file/read/read-file lines
-      # (except for `--allow .`) can be removed when nono v0.6.0
-      # hits nixpkgs-unstable
-      #
-      nono run \
-        --profile claude-code \
-        --allow . \
-        (test -d $XDG_CACHE_HOME/go-build && echo -n "--allow $XDG_CACHE_HOME/go-build") \
-        (test -d $XDG_CACHE_HOME/pip && echo -n "--allow $XDG_CACHE_HOME/pip") \
-        (test -d $XDG_CACHE_HOME/pnpm && echo -n "--allow $XDG_CACHE_HOME/pnpm") \
-        (test -d $XDG_CACHE_HOME/uv && echo -n "--allow $XDG_CACHE_HOME/uv") \
-        (test -d $XDG_CONFIG_HOME/go && echo -n "--allow $XDG_CONFIG_HOME/go") \
-        (test -d $XDG_DATA_HOME/pnpm && echo -n "--allow $XDG_DATA_HOME/pnpm") \
-        (test -d $XDG_STATE_HOME/pnpm && echo -n "--allow $XDG_STATE_HOME/pnpm") \
-        (test -d /tmp && echo -n "--allow /tmp") \
-        (test -d /var/folders && echo -n "--allow /var/folders") \
-        (test -e /dev/null && echo -n "--allow-file /dev/null") \
-        (test -d $HOME/.ssh && echo -n "--read $HOME/.ssh") \
-        (test -d $HOME/Library/"Application Support"/Chromium && echo -n "--read $HOME/Library/Application\\ Support/Chromium") \
-        (test -d $HOME/Library/"Application Support"/Google/Chrome && echo -n "--read $HOME/Library/Application\\ Support/Google/Chrome") \
-        (test -d $XDG_CONFIG_HOME/chromium && echo -n "--read $XDG_CONFIG_HOME/chromium") \
-        (test -d $XDG_CONFIG_HOME/google-chrome && echo -n "--read $XDG_CONFIG_HOME/google-chrome") \
-        (test -d /etc/skel && echo -n "--read /etc/skel") \
-        (test -d /nix && echo -n "--read /nix") \
-        (test -e $HOME/.bash_aliases && echo -n "--read-file $HOME/.bash_aliases") \
-        (test -e /etc/bashrc && echo -n "--read-file /etc/bashrc") \
-        -- $CLAUDE_CODE_EXEC --dangerously-skip-permissions $argv
+      nono run --profile claude-code --allow . -- $CLAUDE_CODE_EXEC --dangerously-skip-permissions $argv
     end
   '';
 
@@ -395,7 +242,7 @@ in {
           $([[ -n "$SANDBOXED_TERMINFO_DIRS" ]] && echo -n "XDG_CONFIG_DIRS=\"$SANDBOXED_TERMINFO_DIRS\"") \
           $([[ -n "$SANDBOXED_XDG_CONFIG_DIRS" ]] && echo -n "XDG_CONFIG_DIRS=\"$SANDBOXED_XDG_CONFIG_DIRS\"") \
           $([[ -n "$SANDBOXED_XDG_DATA_DIRS" ]] && echo -n "XDG_DATA_DIRS=\"$SANDBOXED_XDG_DATA_DIRS\"") \
-          "$(${pkgs.uutils-coreutils-noprefix}/bin/realpath "$(${pkgs.which}/bin/which nono)")" "$@"
+          ${pkgs.nono}/bin/nono "$@"
 
         unset SANDBOXED_PATH SANDBOXED_MANPATH SANDBOXED_TERMINFO_DIRS SANDBOXED_XDG_CONFIG_DIRS SANDBOXED_XDG_DATA_DIRS
       }
@@ -473,15 +320,13 @@ in {
           $([[ -n "$SANDBOXED_TERMINFO_DIRS" ]] && echo -n "TERMINFO_DIRS=\"$SANDBOXED_TERMINFO_DIRS\"") \
           $([[ -n "$SANDBOXED_XDG_CONFIG_DIRS" ]] && echo -n "XDG_CONFIG_DIRS=\"$SANDBOXED_XDG_CONFIG_DIRS\"") \
           $([[ -n "$SANDBOXED_XDG_DATA_DIRS" ]] && echo -n "XDG_DATA_DIRS=\"$SANDBOXED_XDG_DATA_DIRS\"") \
-          "$(${pkgs.uutils-coreutils-noprefix}/bin/realpath "$(whence -p nono)")" "$@"
+          ${pkgs.nono}/bin/nono "$@"
 
         unset SANDBOXED_PATH SANDBOXED_MANPATH SANDBOXED_TERMINFO_DIRS SANDBOXED_XDG_CONFIG_DIRS SANDBOXED_XDG_DATA_DIRS
       }
     '';
   };
   programs.fish.functions."nono" = ''
-    set NONO_EXEC $(${pkgs.uutils-coreutils-noprefix}/bin/realpath $(${pkgs.which}/bin/which nono))
-
     set SEP ""
     set SANDBOXED_PATH ""
     for DIR in $(string split : $(string join : $PATH))
@@ -548,7 +393,7 @@ in {
       (test -n "$SANDBOXED_TERMINFO_DIRS" && echo -n "TERMINFO_DIRS=\"$SANDBOXED_TERMINFO_DIRS\"") \
       (test -n "$SANDBOXED_XDG_CONFIG_DIRS" && echo -n "XDG_CONFIG_DIRS=\"$SANDBOXED_XDG_CONFIG_DIRS\"") \
       (test -n "$SANDBOXED_XDG_DATA_DIRS" && echo -n "XDG_DATA_DIRS=\"$SANDBOXED_XDG_DATA_DIRS\"") \
-      $NONO_EXEC $argv
+      ${pkgs.nono}/bin/nono $argv
 
     set -e SANDBOXED_PATH
     set -e SANDBOXED_MANPATH
@@ -647,83 +492,57 @@ in {
 
   # Customized nono profile
   #
-  xdg.configFile."nono/profiles/claude-code.json".text = ''
-    {
-      "meta": {
-        "name": "claude-code",
-        "version": "1.0.1",
-        "description": "Anthropic Claude Code CLI agent",
-        "author": "Nathan Acks (based on default nono profile)"
-      },
-      "security": {
-        "groups": [
-          "go_runtime",
-          "node_runtime",
-          "python_runtime",
-          "rust_runtime",
-          "unlink_protection",
-          "user_caches_macos"
-        ]
-      },
-      "trust_groups": [],
-      "filesystem": {
-        "allow": [
-          "${config.home.homeDirectory}/.claude"
-          "${config.xdg.cacheHome}/go-build",
-          "${config.xdg.cacheHome}/pip",
-          "${config.xdg.cacheHome}/pnpm",
-          "${config.xdg.cacheHome}/uv",
-          "${config.xdg.configHome}/go",
-          "${config.xdg.configHome}/zsh",
-          "${config.xdg.dataHome}/pnpm",
-          "${config.xdg.stateHome}/pnpm",
-          "/tmp",
-          "/var/folders"
-        ],
-        "read": [
-          "${config.home.homeDirectory}/.ssh",
-          "${config.home.homeDirectory}/Library/Application Support/Chromium",
-          "${config.home.homeDirectory}/Library/Application Support/Google/Chrome",
-          "${config.xdg.configHome}/chromium",
-          "${config.xdg.configHome}/google-chrome",
-          "/etc/skel",
-          "/nix"
-        ],
-        "allow_file": [
-          "${config.home.homeDirectory}/.claude.json",
-          "/dev/null"
-        ],
-        "read_file": [
-          "${config.home.homeDirectory}/.bash_aliases",
-          "${config.home.homeDirectory}/Library/Keychains/login.keychain-db",
-          "/etc/bashrc"
-        ]
-      },
-      "network": {
-        "block": false
-      },
-      "workdir": {
-        "access": "readwrite"
-      },
-      "hooks": {
-        "claude-code": {
-          "event": "PostToolUseFailure",
-          "matcher": "Read|Write|Edit|Bash",
-          "script": "nono-hook.sh"
-        }
-      },
-      "undo": {
-        "exclude_patterns": [
-          "node_modules",
-          ".next",
-          "__pycache__",
-          "target"
-        ],
-        "exclude_globs": [
-          "*.tmp.[0-9]*.[0-9]*"
-        ]
-      },
-      "interactive": true
-    }
+  xdg.configFile."nono/profiles/claude-code.toml".text = ''
+    interactive = true
+
+    [meta]
+    name = "claude-code"
+    version = "1.0.1"
+    description = "Anthropic Claude Code CLI agent"
+    "author" = "Nathan Acks (based on the default nono claude-code profile)"
+
+    [filesystem]
+    allow = [
+      "${config.home.homeDirectory}/.claude",
+      "${config.xdg.cacheHome}/go-build",
+      "${config.xdg.cacheHome}/pip",
+      "${config.xdg.cacheHome}/pnpm",
+      "${config.xdg.cacheHome}/uv",
+      "${config.xdg.configHome}/go",
+      "${config.xdg.configHome}/zsh",
+      "${config.xdg.dataHome}/pnpm",
+      "${config.xdg.stateHome}/pnpm",
+      "/tmp",
+      "/var/folders"
+    ]
+    read = [
+      "${config.home.homeDirectory}/.ssh",
+      "${config.home.homeDirectory}/Library/Application Support/Chromium",
+      "${config.home.homeDirectory}/Library/Application Support/Google/Chrome",
+      "${config.xdg.configHome}/chromium",
+      "${config.xdg.configHome}/google-chrome",
+      "/etc/skel",
+      "/nix"
+    ]
+    allow_file = [
+      "${config.home.homeDirectory}/.claude.json",
+      "/dev/null"
+    ]
+    read_file = [
+      "${config.home.homeDirectory}/.bash_aliases",
+      "${config.home.homeDirectory}/Library/Keychains/login.keychain-db",
+      "/etc/bashrc"
+    ]
+
+    [network]
+    block = false
+
+    [workdir]
+    access = "readwrite"
+
+    [hooks.claude-code]
+    event = "PostToolUseFailure"
+    matcher = "Read|Write|Edit|Bash"
+    script = "nono-hook.sh"
   '';
 }
