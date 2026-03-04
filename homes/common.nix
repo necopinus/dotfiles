@@ -33,8 +33,8 @@ in {
 
   home.packages = with pkgs; [
     android-tools
-    curlFull
-    ffmpeg-full
+    curl
+    ffmpeg
     gawk
     gnugrep
     gnutar

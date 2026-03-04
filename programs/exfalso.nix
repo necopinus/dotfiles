@@ -4,7 +4,7 @@
   ...
 }: {
   home.packages = with pkgs; [
-    quodlibet-full
+    quodlibet
   ];
 
   # Hide Quod Libet desktop entry, since we really only care about Ex
