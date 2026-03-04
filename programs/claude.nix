@@ -509,7 +509,6 @@ in {
       "${config.xdg.cacheHome}/pnpm",
       "${config.xdg.cacheHome}/uv",
       "${config.xdg.configHome}/go",
-      "${config.xdg.configHome}/zsh",
       "${config.xdg.dataHome}/pnpm",
       "${config.xdg.stateHome}/pnpm",
       "/tmp",
