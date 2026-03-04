@@ -44,7 +44,7 @@
       # Android VM startup takes longer than the default scan scan
       # timeout
       #
-      scan_timeout = 100;
+      scan_timeout = 500;
 
       # Define colors
       #
