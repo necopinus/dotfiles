@@ -329,6 +329,10 @@ mkdir -p "$HOME"/Projects
             git@github.com:necopinus/necopinus.xyz.git
     fi
 
+    if [[ ! -d quartz ]]; then
+        git clone --recurse-submodules \
+            https://github.com/jackyzha0/quartz.git
+    fi
     if [[ ! -d twitter-archive-parser ]]; then
         git clone --recurse-submodules \
             https://github.com/timhutton/twitter-archive-parser.git
