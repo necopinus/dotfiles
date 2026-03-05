@@ -519,6 +519,7 @@ in {
       "${config.home.homeDirectory}/Library/Application Support/Chromium",
       "${config.home.homeDirectory}/Library/Application Support/Google/Chrome",
       "${config.xdg.configHome}/chromium",
+      "${config.xdg.configHome}/git",
       "${config.xdg.configHome}/google-chrome",
       "/etc/skel",
       "/nix"
