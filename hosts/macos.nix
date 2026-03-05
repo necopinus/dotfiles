@@ -51,14 +51,10 @@
         name = "obsidian";
         greedy = true; # App core doesn't actually get auto-updated
       }
-      "proton-drive"
-      "protonvpn"
       "qobuz-downloader"
       "scroll-reverser"
-      "signal"
       "utm"
       "vlc"
-      "wireshark-chmodbpf" # Wireshark helper driver (only used by hackenv)
       "yubico-yubikey-manager"
       "zed"
     ];
