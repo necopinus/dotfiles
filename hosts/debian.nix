@@ -176,7 +176,7 @@
     enable = config.programs.bash.enable;
     text = ''
       function xcv {
-        ${pkgs.uutils-coreutils-noprefix}/bin/nohup "$@" 2>/dev/null
+        ${pkgs.uutils-coreutils-noprefix}/bin/nohup -- "$@" 2>/dev/null &
       }
     '';
   };
@@ -184,11 +184,11 @@
     enable = config.programs.zsh.enable;
     text = ''
       function xcv {
-        ${pkgs.uutils-coreutils-noprefix}/bin/nohup "$@" 2>/dev/null
+        ${pkgs.uutils-coreutils-noprefix}/bin/nohup -- "$@" 2>/dev/null &
       }
     '';
   };
   programs.fish.functions."xcz" = ''
-    ${pkgs.uutils-coreutils-noprefix}/bin/nohup $argv 2>/dev/null
+    ${pkgs.uutils-coreutils-noprefix}/bin/nohup -- $argv 2>/dev/null &
   '';
 }
