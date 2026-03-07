@@ -61,12 +61,12 @@ fi
 if [[ "$OS" == "Linux" ]]; then
     sudo sed -i 's#^Components: .*$#Components: main contrib non-free non-free-firmware#' /etc/apt/sources.list.d/debian.sources
 
-    sudo apt update
-    sudo apt full-upgrade
+    sudo apt update -y
+    sudo apt full-upgrade -y
 
     sudo apt install -y curl dconf-service dialog man-db
 
-    sudo apt autoremove --purge --autoremove
+    sudo apt autoremove -y --purge --autoremove
 fi
 
 # Install Nix
