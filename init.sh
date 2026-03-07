@@ -351,8 +351,4 @@ mkdir -p "$HOME"/Projects
 echo ""
 echo "Configuration complete!"
 echo ""
-if [[ "$OS" == "Darwin" ]]; then
-    echo "To finish setup you MUST reboot your system NOW."
-else
-    echo "To finish setup you MUST log out of all sessions NOW."
-fi
+echo "To finish setup you MUST restart the system NOW."
