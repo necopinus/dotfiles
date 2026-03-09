@@ -42,6 +42,9 @@ writeShellApplication {
     sudo determinate-nixd upgrade
     (
       cd "$XDG_CONFIG_HOME"/nix
+      mkdir -p "$XDG_CACHE_HOME"/nix/flakes
+      cp flake.lock "$XDG_CACHE_HOME"/nix/flakes/flake.$(date "+%Y%m%d%H%M%S").lock
+      git pull
       nix flake update
       nix flake archive
       git add -A -v
