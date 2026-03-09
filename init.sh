@@ -185,6 +185,12 @@ fi
 if [[ -e "$HOME"/.bashrc ]] && [[ ! -L "$HOME"/.bashrc ]]; then
     mv "$HOME"/.bashrc "$HOME"/.bashrc.before-nix
 fi
+if [[ -e "$HOME"/.claude/CLAUDE.md ]] && [[ ! -L "$HOME"/.claude/CLAUDE.md ]]; then
+    mv "$HOME"/.claude/CLAUDE.md "$HOME"/.claude/CLAUDE.md.before-nix
+fi
+if [[ -e "$HOME"/.claude/settings.json ]] && [[ ! -L "$HOME"/.claude/settings.json ]]; then
+    mv "$HOME"/.claude/settings.json "$HOME"/.claude/settings.json.before-nix
+fi
 if [[ -e "$HOME"/.profile ]] && [[ ! -L "$HOME"/.profile ]]; then
     mv "$HOME"/.profile "$HOME"/.profile.before-nix
 fi
