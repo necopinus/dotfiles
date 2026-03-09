@@ -41,6 +41,13 @@
         export PATH="$PATH:/opt/homebrew/bin"
       fi
 
+      # Append ~/.local/bin to PATH, to allow for some work-around
+      # symlinks
+      #
+      if [ -d "$HOME"/.local/bin ]; then
+        export PATH="$PATH:$HOME/.local/bin"
+      fi
+
       # Make sure that environment defined in /etc/environment.d is
       # available
       #

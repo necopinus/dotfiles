@@ -126,6 +126,11 @@ in {
   home.sessionVariables.ENABLE_LSP_TOOL = "1";
   home.file.".claude/CLAUDE.md".source = ../artifacts/claude/CLAUDE.md;
 
+  # Claude expects a kotlin-lsp binary, but Nixpkgs provides
+  # kotlin-language-server
+  #
+  home.file.".local/bin/kotlin-lsp".source = config.lib.file.mkOutOfStoreSymlink "${pkgs.kotlin-language-server}/bin/kotlin-language-server";
+
   # Use Claude in Chrome with Chromium
   #
   programs.chromium.extensions = [
@@ -550,10 +555,7 @@ in {
     [filesystem]
     allow = [
       "${config.home.homeDirectory}/.claude",
-      "${config.xdg.cacheHome}/go-build",
-      "${config.xdg.cacheHome}/pip",
-      "${config.xdg.cacheHome}/pnpm",
-      "${config.xdg.cacheHome}/uv",
+      "${config.xdg.cacheHome}",
       "${config.xdg.configHome}/go",
       "${config.xdg.dataHome}/pnpm",
       "${config.xdg.stateHome}/pnpm",
@@ -572,6 +574,8 @@ in {
     ]
     allow_file = [
       "${config.home.homeDirectory}/.claude.json",
+      "${config.home.homeDirectory}/.claude.json.lock",
+      "${config.home.homeDirectory}/.claude.lock",
       "/dev/null"
     ]
     read_file = [

@@ -28,6 +28,13 @@
         fish_add_path --append /opt/homebrew/bin
       end
 
+      # Append ~/.local/bin to PATH, to allow for some work-around
+      # symlinks
+      #
+      if test -d $HOME/.local/bin
+        fish_add_path --append $HOME/.local/bin
+      end
+
       # Make sure that environment defined in /etc/environment.d is
       # available
       #
