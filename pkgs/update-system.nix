@@ -43,7 +43,7 @@ writeShellApplication {
     (
       cd "$XDG_CONFIG_HOME"/nix
       mkdir -p "$XDG_CACHE_HOME"/nix/flakes
-      cp flake.lock "$XDG_CACHE_HOME"/nix/flakes/flake.$(date "+%Y%m%d%H%M%S").lock
+      cp flake.lock "$XDG_CACHE_HOME/nix/flakes/flake.$(date "+%Y%m%d%H%M%S").lock"
       git pull
       nix flake update
       nix flake archive
