@@ -1,6 +1,7 @@
 {
   config,
   pkgs,
+  lib,
   ...
 }: let
   claudeInChrome = {
@@ -46,7 +47,6 @@ in {
 
       #### Language Servers ####
       clang-tools
-      csharp-ls
       gopls
       intelephense
       jdt-language-server
@@ -58,6 +58,9 @@ in {
       swift
       typescript
       typescript-language-server
+    ]
+    ++ pkgs.lib.optionals (pkgs.stdenv.hostPlatform.system != "aarch64-darwin") [
+      csharp-ls # Currently broken on macOS ARM
     ]
     ++ pkgs.lib.optionals pkgs.stdenv.isLinux [
       strace # Used by the Anthropic Sandbox Runtime (part of Claude Code)
@@ -78,19 +81,22 @@ in {
       env = {
         "ENABLE_LSP_TOOL" = "1";
       };
-      "enabledPlugins" = {
-        "clangd-lsp@claude-plugins-official" = true;
-        "csharp-lsp@claude-plugins-official" = true;
-        "gopls-lsp@claude-plugins-official" = true;
-        "jdtls-lsp@claude-plugins-official" = true;
-        "kotlin-lsp@claude-plugins-official" = true;
-        "lua-lsp@claude-plugins-official" = true;
-        "php-lsp@claude-plugins-official" = true;
-        "pyright-lsp@claude-plugins-official" = true;
-        "rust-analyzer-lsp@claude-plugins-official" = true;
-        "swift-lsp@claude-plugins-official" = true;
-        "typescript-lsp@claude-plugins-official" = true;
-      };
+      "enabledPlugins" =
+        {
+          "clangd-lsp@claude-plugins-official" = true;
+          "gopls-lsp@claude-plugins-official" = true;
+          "jdtls-lsp@claude-plugins-official" = true;
+          "kotlin-lsp@claude-plugins-official" = true;
+          "lua-lsp@claude-plugins-official" = true;
+          "php-lsp@claude-plugins-official" = true;
+          "pyright-lsp@claude-plugins-official" = true;
+          "rust-analyzer-lsp@claude-plugins-official" = true;
+          "swift-lsp@claude-plugins-official" = true;
+          "typescript-lsp@claude-plugins-official" = true;
+        }
+        // lib.attrsets.optionalAttrs (pkgs.stdenv.hostPlatform.system != "aarch64-darwin") {
+          "csharp-lsp@claude-plugins-official" = true; # LSP currently broken on macOS ARM
+        };
       hooks = {
         PostToolUseFailure = [
           {
