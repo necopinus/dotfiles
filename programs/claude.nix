@@ -43,6 +43,21 @@ in {
       #### Python ####
       python3
       ruff
+
+      #### Language Servers ####
+      clang-tools
+      csharp-ls
+      gopls
+      intelephense
+      jdt-language-server
+      kotlin-language-server
+      lua-language-server
+      pyright
+      rust-analyzer
+      sourcekit-lsp
+      swift
+      typescript
+      typescript-language-server
     ]
     ++ pkgs.lib.optionals pkgs.stdenv.isLinux [
       strace # Used by the Anthropic Sandbox Runtime (part of Claude Code)
@@ -60,6 +75,22 @@ in {
       outputStyle = "Explanatory";
       alwaysThinkingEnabled = true;
       skipDangerousModePermissionPrompt = true;
+      env = {
+        "ENABLE_LSP_TOOL" = "1";
+      };
+      "enabledPlugins" = {
+        "clangd-lsp@claude-plugins-official" = true;
+        "csharp-lsp@claude-plugins-official" = true;
+        "gopls-lsp@claude-plugins-official" = true;
+        "jdtls-lsp@claude-plugins-official" = true;
+        "kotlin-lsp@claude-plugins-official" = true;
+        "lua-lsp@claude-plugins-official" = true;
+        "php-lsp@claude-plugins-official" = true;
+        "pyright-lsp@claude-plugins-official" = true;
+        "rust-analyzer-lsp@claude-plugins-official" = true;
+        "swift-lsp@claude-plugins-official" = true;
+        "typescript-lsp@claude-plugins-official" = true;
+      };
       hooks = {
         PostToolUseFailure = [
           {
@@ -79,6 +110,15 @@ in {
   # Make sure that Claude Code always uses bash for its shell
   #
   home.sessionVariables.CLAUDE_CODE_SHELL = "${pkgs.bashInteractive}/bin/bash";
+
+  # Force LSP service on (still requires related plugins to be
+  # installed)
+  #
+  #   https://karanbansal.in/blog/claude-code-lsp/
+  #   https://github.com/anthropics/claude-code/issues/15619
+  #
+  home.sessionVariables.ENABLE_LSP_TOOL = "1";
+  home.file.".claude/CLAUDE.md".source = ../artifacts/claude/CLAUDE.md;
 
   # Use Claude in Chrome with Chromium
   #
