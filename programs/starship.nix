@@ -21,7 +21,6 @@
       format = lib.concatStrings [
         "[](fg:color_orange)" # TODO: Replace with "[](fg:color_orange)" once the Android Terminal supports custom fonts
         "$os"
-        "$shell"
         "[](fg:color_orange bg:color_yellow)"
         "$directory"
         "[](fg:color_yellow bg:color_cyan)"
@@ -97,60 +96,43 @@
       os = {
         disabled = false;
         symbols = {
-          AlmaLinux = "◔"; # TODO: Replace with "" once the Android Terminal supports custom fonts
-          Alpine = "◔"; # TODO: Replace with "" once the Android Terminal supports custom fonts
-          Amazon = "◔"; # TODO: Replace with "" once the Android Terminal supports custom fonts
+          AlmaLinux = "◕"; # TODO: Replace with "" once the Android Terminal supports custom fonts
+          Alpine = "◕"; # TODO: Replace with "" once the Android Terminal supports custom fonts
+          Amazon = "◕"; # TODO: Replace with "" once the Android Terminal supports custom fonts
           Android = "◔"; # TODO: Replace with "" once the Android Terminal supports custom fonts
-          Arch = "◔"; # TODO: Replace with "" once the Android Terminal supports custom fonts
-          Artix = "◔"; # TODO: Replace with "" once the Android Terminal supports custom fonts
-          CentOS = "◔"; # TODO: Replace with "" once the Android Terminal supports custom fonts
+          Arch = "◕"; # TODO: Replace with "" once the Android Terminal supports custom fonts
+          Artix = "◕"; # TODO: Replace with "" once the Android Terminal supports custom fonts
+          CentOS = "◕"; # TODO: Replace with "" once the Android Terminal supports custom fonts
           Debian = "◕"; # TODO: Replace with "" once the Android Terminal supports custom fonts
-          EndeavourOS = "◔"; # TODO: Replace with "" once the Android Terminal supports custom fonts
-          Fedora = "◔"; # TODO: Replace with "" once the Android Terminal supports custom fonts
+          EndeavourOS = "◕"; # TODO: Replace with "" once the Android Terminal supports custom fonts
+          Fedora = "◕"; # TODO: Replace with "" once the Android Terminal supports custom fonts
           FreeBSD = "◔"; # TODO: Replace with "" once the Android Terminal supports custom fonts
-          Garuda = "◔"; # TODO: Replace with "" once the Android Terminal supports custom fonts
-          Gentoo = "◔"; # TODO: Replace with "" once the Android Terminal supports custom fonts
+          Garuda = "◕"; # TODO: Replace with "" once the Android Terminal supports custom fonts
+          Gentoo = "◕"; # TODO: Replace with "" once the Android Terminal supports custom fonts
           Illumos = "◔"; # TODO: Replace with "" once the Android Terminal supports custom fonts
-          Kali = "◔"; # TODO: Replace with "" once the Android Terminal supports custom fonts
+          Kali = "◕"; # TODO: Replace with "" once the Android Terminal supports custom fonts
           Linux = "◕"; # TODO: Replace with "" once the Android Terminal supports custom fonts
           Macos = "◔"; # TODO: Replace with "" once the Android Terminal supports custom fonts
-          Manjaro = "◔"; # TODO: Replace with "" once the Android Terminal supports custom fonts
-          Mint = "◔"; # TODO: Replace with "󰣭" once the Android Terminal supports custom fonts
+          Manjaro = "◕"; # TODO: Replace with "" once the Android Terminal supports custom fonts
+          Mint = "◕"; # TODO: Replace with "󰣭" once the Android Terminal supports custom fonts
           NixOS = "◕"; # TODO: Replace with "" once the Android Terminal supports custom fonts
-          Nobara = "◔"; # TODO: Replace with "" once the Android Terminal supports custom fonts
+          Nobara = "◕"; # TODO: Replace with "" once the Android Terminal supports custom fonts
           OpenBSD = "◔"; # TODO: Replace with "" once the Android Terminal supports custom fonts
-          Pop = "◔"; # TODO: Replace with "" once the Android Terminal supports custom fonts
-          Raspbian = "◔"; # TODO: Replace with "" once the Android Terminal supports custom fonts
-          Redhat = "◔"; # TODO: Replace with "" once the Android Terminal supports custom fonts
-          RedHatEnterprise = "◔"; # TODO: Replace with "" once the Android Terminal supports custom fonts
-          RockyLinux = "◔"; # TODO: Replace with "" once the Android Terminal supports custom fonts
-          SUSE = "◔"; # TODO: Replace with "" once the Android Terminal supports custom fonts
-          Solus = "◔"; # TODO: Replace with "" once the Android Terminal supports custom fonts
-          Ubuntu = "◔"; # TODO: Replace with "󰕈" once the Android Terminal supports custom fonts
+          Pop = "◕"; # TODO: Replace with "" once the Android Terminal supports custom fonts
+          Raspbian = "◕"; # TODO: Replace with "" once the Android Terminal supports custom fonts
+          Redhat = "◕"; # TODO: Replace with "" once the Android Terminal supports custom fonts
+          RedHatEnterprise = "◕"; # TODO: Replace with "" once the Android Terminal supports custom fonts
+          RockyLinux = "◕"; # TODO: Replace with "" once the Android Terminal supports custom fonts
+          SUSE = "◕"; # TODO: Replace with "" once the Android Terminal supports custom fonts
+          Solus = "◕"; # TODO: Replace with "" once the Android Terminal supports custom fonts
+          Ubuntu = "◕"; # TODO: Replace with "󰕈" once the Android Terminal supports custom fonts
           Unknown = "◔"; # TODO: Replace with "" once the Android Terminal supports custom fonts
-          Void = "◔"; # TODO: Replace with "" once the Android Terminal supports custom fonts
+          Void = "◕"; # TODO: Replace with "" once the Android Terminal supports custom fonts
           Windows = "◔"; # TODO: Replace with "" once the Android Terminal supports custom fonts
-          openSUSE = "◔"; # TODO: Replace with "" once the Android Terminal supports custom fonts
+          openSUSE = "◕"; # TODO: Replace with "" once the Android Terminal supports custom fonts
         };
         style = "bg:color_orange fg:color_fg0";
-        format = "[ $symbol]($style)";
-      };
-
-      shell = {
-        disabled = false;
-        bash_indicator = "bash";
-        fish_indicator = "fish";
-        zsh_indicator = "zsh";
-        powershell_indicator = "pwsh";
-        ion_indicator = "ion";
-        elvish_indicator = "elvish";
-        tcsh_indicator = "tcsh";
-        xonsh_indicator = "xonsh";
-        cmd_indicator = "cmd";
-        nu_indicator = "nu";
-        unknown_indicator = "----";
-        style = "bg:color_orange fg:color_fg0";
-        format = "[ $indicator ]($style)";
+        format = "[ $symbol $name ]($style)";
       };
 
       #### Yellow ##########################################################
