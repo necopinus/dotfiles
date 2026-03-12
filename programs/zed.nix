@@ -179,7 +179,7 @@ in {
   xdg.configFile."bash/rc.d/zed.sh" = {
     enable = pkgs.stdenv.isDarwin && config.programs.bash.enable;
     text = ''
-      if [[ -n "$(${pkgs.which}/bin/which zeditor)" ]]; then
+      if [[ -n "$(${pkgs.which}/bin/which zeditor 2>/dev/null)" ]]; then
         if [[ -d /Applications/Zed.app ]]; then
           alias zed="$(${pkgs.which}/bin/which zeditor) --zed /Applications/Zed.app"
           alias zeditor="$(${pkgs.which}/bin/which zeditor) --zed /Applications/Zed.app"
@@ -187,7 +187,7 @@ in {
           alias zed="$(${pkgs.which}/bin/which zeditor) --zed \"$HOME/Applications/Home Manager Apps/Zed.app\""
           alias zeditor="$(${pkgs.which}/bin/which zeditor) --zed \"$HOME/Applications/Home Manager Apps/Zed.app\""
         fi
-      elif [[ -n "$(${pkgs.which}/bin/which zed)" ]]; then
+      elif [[ -n "$(${pkgs.which}/bin/which zed 2>/dev/null)" ]]; then
         if [[ -d /Applications/Zed.app ]]; then
           alias zed="$(${pkgs.which}/bin/which zed) --zed /Applications/Zed.app"
           alias zeditor="$(${pkgs.which}/bin/which zed) --zed /Applications/Zed.app"
@@ -223,7 +223,7 @@ in {
   xdg.configFile."fish/rc.d/zed.fish" = {
     enable = pkgs.stdenv.isDarwin && config.programs.fish.enable;
     text = ''
-      if test -n "$(${pkgs.which}/bin/which zeditor)"
+      if test -n "$(${pkgs.which}/bin/which zeditor 2>/dev/null)"
         if test -d /Applications/Zed.app
           alias zed "$(${pkgs.which}/bin/which zeditor) --zed /Applications/Zed.app"
           alias zeditor "$(${pkgs.which}/bin/which zeditor) --zed /Applications/Zed.app"
@@ -231,7 +231,7 @@ in {
           alias zed "$(${pkgs.which}/bin/which zeditor) --zed \"$HOME/Applications/Home Manager Apps/Zed.app\""
           alias zeditor "$(${pkgs.which}/bin/which zeditor) --zed \"$HOME/Applications/Home Manager Apps/Zed.app\""
         end
-      else if test -n "$(${pkgs.which}/bin/which zed)"
+      else if test -n "$(${pkgs.which}/bin/which zed 2>/dev/null)"
         if test -d /Applications/Zed.app
           alias zed "$(${pkgs.which}/bin/which zed) --zed /Applications/Zed.app"
           alias zeditor "$(${pkgs.which}/bin/which zed) --zed /Applications/Zed.app"

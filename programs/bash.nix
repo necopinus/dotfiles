@@ -109,7 +109,7 @@
       # ~/.config/bash/rc.d, because we may exec fish
       #
       if [[ -n "$TERM" ]] && [[ -z "$VSCODE_RESOLVING_ENVIRONMENT" ]] &&
-        [[ -z "$__EXEC_FISH" ]] && [[ -n "$(${pkgs.which}/bin/which fish)" ]] &&
+        [[ -z "$__EXEC_FISH" ]] && [[ -n "$(${pkgs.which}/bin/which fish 2>/dev/null)" ]] &&
         [[ ! -f "$HOME"/nofish ]] && [[ ! -f "$HOME"/nofish.txt ]] &&
         [[ ! -f /mnt/shared/nofish ]] && [[ ! -f /mnt/shared/nofish.txt ]] &&
         [[ ! -f /mnt/shared/Documents/nofish ]] && [[ ! -f /mnt/shared/Documents/nofish.txt ]] &&
