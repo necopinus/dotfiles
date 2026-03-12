@@ -122,6 +122,7 @@
         {app = "/Applications/Claude.app";}
         {app = "/Applications/KeePassXC.app";}
         {app = "/System/Applications/Utilities/Terminal.app";}
+        {app = "/Applications/UTM.app";}
         {app = "/Applications/Zed.app";}
       ];
       persistent-others = [
