@@ -15,7 +15,7 @@ in {
     ../programs/bottom.nix
     ../programs/claude.nix
     ../programs/chafa.nix
-    ../programs/delta.nix # Requires bat.nix and git.nix
+    ../programs/delta.nix # Depends on bat.nix
     ../programs/dircolors.nix
     ../programs/direnv.nix
     ../programs/eza.nix
