@@ -34,7 +34,7 @@ in {
       hostname = "127.0.0.1";
       port = 2222;
       extraOptions = {
-        RequestTTY = true;
+        RequestTTY = "yes";
         RemoteCommand = "/home/droid/.nix-profile/bin/zellij attach";
       };
       compression = true;
