@@ -26,6 +26,7 @@ in {
     ../programs/jaq.nix
     ../programs/ssh.nix
     ../programs/starship.nix
+    ../programs/zellij.nix # Depends on fish.nix
     ../programs/zoxide.nix
   ];
 

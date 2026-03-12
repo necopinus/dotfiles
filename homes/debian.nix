@@ -13,7 +13,6 @@ in {
     ../programs/chromium.nix
     ../programs/exfalso.nix
     ../programs/obsidian.nix
-    ../programs/zellij.nix # Depends on fish.nix
   ];
 
   programs.home-manager.enable = true; # Make sure that home-manager binary is in the PATH
