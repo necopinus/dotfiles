@@ -179,15 +179,7 @@ in {
   xdg.configFile."bash/rc.d/zed.sh" = {
     enable = pkgs.stdenv.isDarwin && config.programs.bash.enable;
     text = ''
-      if [[ -n "$(${pkgs.which}/bin/which zed)" ]]; then
-        if [[ -d /Applications/Zed.app ]]; then
-          alias zed="$(${pkgs.which}/bin/which zed) --zed /Applications/Zed.app"
-          alias zeditor="$(${pkgs.which}/bin/which zed) --zed /Applications/Zed.app"
-        elif [[ -d "$HOME/Applications/Home Manager Apps/Zed.app" ]]; then
-          alias zed="$(${pkgs.which}/bin/which zed) --zed \"$HOME/Applications/Home Manager Apps/Zed.app\""
-          alias zeditor="$(${pkgs.which}/bin/which zed) --zed \"$HOME/Applications/Home Manager Apps/Zed.app\""
-        fi
-      elif [[ -n "$(${pkgs.which}/bin/which zeditor)" ]]; then
+      if [[ -n "$(${pkgs.which}/bin/which zeditor)" ]]; then
         if [[ -d /Applications/Zed.app ]]; then
           alias zed="$(${pkgs.which}/bin/which zeditor) --zed /Applications/Zed.app"
           alias zeditor="$(${pkgs.which}/bin/which zeditor) --zed /Applications/Zed.app"
@@ -195,21 +187,21 @@ in {
           alias zed="$(${pkgs.which}/bin/which zeditor) --zed \"$HOME/Applications/Home Manager Apps/Zed.app\""
           alias zeditor="$(${pkgs.which}/bin/which zeditor) --zed \"$HOME/Applications/Home Manager Apps/Zed.app\""
         fi
+      elif [[ -n "$(${pkgs.which}/bin/which zed)" ]]; then
+        if [[ -d /Applications/Zed.app ]]; then
+          alias zed="$(${pkgs.which}/bin/which zed) --zed /Applications/Zed.app"
+          alias zeditor="$(${pkgs.which}/bin/which zed) --zed /Applications/Zed.app"
+        elif [[ -d "$HOME/Applications/Home Manager Apps/Zed.app" ]]; then
+          alias zed="$(${pkgs.which}/bin/which zed) --zed \"$HOME/Applications/Home Manager Apps/Zed.app\""
+          alias zeditor="$(${pkgs.which}/bin/which zed) --zed \"$HOME/Applications/Home Manager Apps/Zed.app\""
+        fi
       fi
     '';
   };
   xdg.configFile."zsh/rc.d/zed.sh" = {
     enable = pkgs.stdenv.isDarwin && config.programs.zsh.enable;
     text = ''
-      if [[ -n "$(whence -p zed)" ]]; then
-        if [[ -d /Applications/Zed.app ]]; then
-          alias zed="$(whence -p zed) --zed /Applications/Zed.app"
-          alias zeditor="$(whence -p zed) --zed /Applications/Zed.app"
-        elif [[ -d "$HOME/Applications/Home Manager Apps/Zed.app" ]]; then
-          alias zed="$(whence -p zed) --zed \"$HOME/Applications/Home Manager Apps/Zed.app\""
-          alias zeditor="$(whence -p zed) --zed \"$HOME/Applications/Home Manager Apps/Zed.app\""
-        fi
-      elif [[ -n "$(whence -p zeditor)" ]]; then
+      if [[ -n "$(whence -p zeditor)" ]]; then
         if [[ -d /Applications/Zed.app ]]; then
           alias zed="$(whence -p zeditor) --zed /Applications/Zed.app"
           alias zeditor="$(whence -p zeditor) --zed /Applications/Zed.app"
@@ -217,27 +209,35 @@ in {
           alias zed="$(whence -p zeditor) --zed \"$HOME/Applications/Home Manager Apps/Zed.app\""
           alias zeditor="$(whence -p zeditor) --zed \"$HOME/Applications/Home Manager Apps/Zed.app\""
         fi
+      elif [[ -n "$(whence -p zed)" ]]; then
+        if [[ -d /Applications/Zed.app ]]; then
+          alias zed="$(whence -p zed) --zed /Applications/Zed.app"
+          alias zeditor="$(whence -p zed) --zed /Applications/Zed.app"
+        elif [[ -d "$HOME/Applications/Home Manager Apps/Zed.app" ]]; then
+          alias zed="$(whence -p zed) --zed \"$HOME/Applications/Home Manager Apps/Zed.app\""
+          alias zeditor="$(whence -p zed) --zed \"$HOME/Applications/Home Manager Apps/Zed.app\""
+        fi
       fi
     '';
   };
   xdg.configFile."fish/rc.d/zed.fish" = {
     enable = pkgs.stdenv.isDarwin && config.programs.fish.enable;
     text = ''
-      if test -n "$(${pkgs.which}/bin/which zed)"
-        if test -d /Applications/Zed.app
-          alias zed "$(${pkgs.which}/bin/which zed) --zed /Applications/Zed.app"
-          alias zeditor "$(${pkgs.which}/bin/which zed) --zed /Applications/Zed.app"
-        else if test -d "$HOME/Applications/Home Manager Apps/Zed.app"
-          alias zed "$(${pkgs.which}/bin/which zed) --zed \"$HOME/Applications/Home Manager Apps/Zed.app\""
-          alias zeditor "$(${pkgs.which}/bin/which zed) --zed \"$HOME/Applications/Home Manager Apps/Zed.app\""
-        end
-      else if test -n "$(${pkgs.which}/bin/which zeditor)"
+      if test -n "$(${pkgs.which}/bin/which zeditor)"
         if test -d /Applications/Zed.app
           alias zed "$(${pkgs.which}/bin/which zeditor) --zed /Applications/Zed.app"
           alias zeditor "$(${pkgs.which}/bin/which zeditor) --zed /Applications/Zed.app"
         else if test -d "$HOME/Applications/Home Manager Apps/Zed.app"
           alias zed "$(${pkgs.which}/bin/which zeditor) --zed \"$HOME/Applications/Home Manager Apps/Zed.app\""
           alias zeditor "$(${pkgs.which}/bin/which zeditor) --zed \"$HOME/Applications/Home Manager Apps/Zed.app\""
+        end
+      else if test -n "$(${pkgs.which}/bin/which zed)"
+        if test -d /Applications/Zed.app
+          alias zed "$(${pkgs.which}/bin/which zed) --zed /Applications/Zed.app"
+          alias zeditor "$(${pkgs.which}/bin/which zed) --zed /Applications/Zed.app"
+        else if test -d "$HOME/Applications/Home Manager Apps/Zed.app"
+          alias zed "$(${pkgs.which}/bin/which zed) --zed \"$HOME/Applications/Home Manager Apps/Zed.app\""
+          alias zeditor "$(${pkgs.which}/bin/which zed) --zed \"$HOME/Applications/Home Manager Apps/Zed.app\""
         end
       end
     '';
