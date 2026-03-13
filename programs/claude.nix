@@ -617,19 +617,19 @@ in {
       if test -n "$SANDBOXED_XDG_CACHE_HOME"
         set -x XDG_CACHE_HOME $SANDBOXED_XDG_CACHE_HOME
         set -e SANDBOXED_XDG_CACHE_HOME
-      fi
+      end
       if test -n "$SANDBOXED_XDG_CONFIG_HOME"
         set -x XDG_CONFIG_HOME $SANDBOXED_XDG_CONFIG_HOME
         set -e SANDBOXED_XDG_CONFIG_HOME
-      fi
+      end
       if test -n "$SANDBOXED_XDG_DATA_HOME"
         set -x XDG_DATA_HOME $SANDBOXED_XDG_DATA_HOME
         set -e SANDBOXED_XDG_DATA_HOME
-      fi
+      end
       if test -n "$SANDBOXED_XDG_STATE_HOME"
         set -x XDG_STATE_HOME $SANDBOXED_XDG_STATE_HOME
         set -e SANDBOXED_XDG_STATE_HOME
-      fi
+      end
     '';
   };
 
