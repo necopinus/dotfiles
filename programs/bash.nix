@@ -77,7 +77,7 @@
 
       # Indicate that the profile has been sourced
       #
-      export PROFILE_SOURCED=1
+      export __PROFILE_SOURCED=1
     '';
 
     # ~/.bash_profile sources ~/.profile and then ~/.bashrc
@@ -87,7 +87,7 @@
     bashrcExtra = ''
       # Source ~/.profile, if necessary
       #
-      if [[ -z "$PROFILE_SOURCED" ]] && [[ -f "$HOME"/.profile ]]; then
+      if [[ -z "$__PROFILE_SOURCED" ]] && [[ -f "$HOME"/.profile ]]; then
         source "$HOME"/.profile
       fi
 
