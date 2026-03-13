@@ -280,22 +280,30 @@ in {
           fi
         done <<<"''${XDG_DATA_DIRS:+"''${XDG_DATA_DIRS}:"}"
 
-        export SANDBOXED_PATH SANDBOXED_MANPATH SANDBOXED_TERMINFO_DIRS SANDBOXED_XDG_CONFIG_DIRS SANDBOXED_XDG_DATA_DIRS
+        SANDBOXED_XDG_CACHE_HOME="$(realpath "''${XDG_CACHE_HOME:-$HOME/.cache}")"
+        SANDBOXED_XDG_CONFIG_HOME="$(realpath "''${XDG_CONFIG_HOME:-$HOME/.config}")"
+        SANDBOXED_XDG_DATA_HOME="$(realpath "''${XDG_DATA_HOME:-$HOME/.local/share}")"
+        SANDBOXED_XDG_STATE_HOME="$(realpath "''${XDG_STATE_HOME:-$HOME/.local/state}")"
+
+        export SANDBOXED_PATH SANDBOXED_MANPATH SANDBOXED_TERMINFO_DIRS SANDBOXED_XDG_CONFIG_DIRS SANDBOXED_XDG_DATA_DIRS SANDBOXED_XDG_CACHE_HOME SANDBOXED_XDG_CONFIG_HOME SANDBOXED_XDG_DATA_HOME SANDBOXED_XDG_STATE_HOME
 
         eval ${pkgs.uutils-coreutils-noprefix}/bin/env -S \
-          $([[ -z "$SANDBOXED_PATH" ]] && echo -n "-u PATH") \
           $([[ -z "$SANDBOXED_MANPATH" ]] && echo -n "-u MANPATH") \
           $([[ -z "$SANDBOXED_TERMINFO_DIRS" ]] && echo -n "-u TERMINFO_DIRS") \
           $([[ -z "$SANDBOXED_XDG_CONFIG_DIRS" ]] && echo -n "-u XDG_CONFIG_DIRS") \
           $([[ -z "$SANDBOXED_XDG_DATA_DIRS" ]] && echo -n "-u XDG_DATA_DIRS") \
-          $([[ -n "$SANDBOXED_PATH" ]] && echo -n "PATH=\"$SANDBOXED_PATH\"") \
           $([[ -n "$SANDBOXED_MANPATH" ]] && echo -n "MANPATH=\"$SANDBOXED_MANPATH\"") \
           $([[ -n "$SANDBOXED_TERMINFO_DIRS" ]] && echo -n "XDG_CONFIG_DIRS=\"$SANDBOXED_TERMINFO_DIRS\"") \
           $([[ -n "$SANDBOXED_XDG_CONFIG_DIRS" ]] && echo -n "XDG_CONFIG_DIRS=\"$SANDBOXED_XDG_CONFIG_DIRS\"") \
           $([[ -n "$SANDBOXED_XDG_DATA_DIRS" ]] && echo -n "XDG_DATA_DIRS=\"$SANDBOXED_XDG_DATA_DIRS\"") \
+          PATH="$SANDBOXED_PATH" \
+          XDG_CACHE_HOME="$SANDBOXED_XDG_CACHE_HOME" \
+          XDG_CONFIG_HOME="$SANDBOXED_XDG_CONFIG_HOME" \
+          XDG_DATA_HOME="$SANDBOXED_XDG_DATA_HOME" \
+          XDG_STATE_HOME="$SANDBOXED_XDG_STATE_HOME" \
           ${pkgs.nono}/bin/nono "$@"
 
-        unset SANDBOXED_PATH SANDBOXED_MANPATH SANDBOXED_TERMINFO_DIRS SANDBOXED_XDG_CONFIG_DIRS SANDBOXED_XDG_DATA_DIRS
+        unset SANDBOXED_PATH SANDBOXED_MANPATH SANDBOXED_TERMINFO_DIRS SANDBOXED_XDG_CONFIG_DIRS SANDBOXED_XDG_DATA_DIRS SANDBOXED_XDG_CACHE_HOME SANDBOXED_XDG_CONFIG_HOME SANDBOXED_XDG_DATA_HOME SANDBOXED_XDG_STATE_HOME
       }
     '';
   };
@@ -358,22 +366,30 @@ in {
           fi
         done <<<"''${XDG_DATA_DIRS:+"''${XDG_DATA_DIRS}:"}"
 
-        export SANDBOXED_PATH SANDBOXED_MANPATH SANDBOXED_TERMINFO_DIRS SANDBOXED_XDG_CONFIG_DIRS SANDBOXED_XDG_DATA_DIRS
+        SANDBOXED_XDG_CACHE_HOME="$(realpath "''${XDG_CACHE_HOME:-$HOME/.cache}")"
+        SANDBOXED_XDG_CONFIG_HOME="$(realpath "''${XDG_CONFIG_HOME:-$HOME/.config}")"
+        SANDBOXED_XDG_DATA_HOME="$(realpath "''${XDG_DATA_HOME:-$HOME/.local/share}")"
+        SANDBOXED_XDG_STATE_HOME="$(realpath "''${XDG_STATE_HOME:-$HOME/.local/state}")"
+
+        export SANDBOXED_PATH SANDBOXED_MANPATH SANDBOXED_TERMINFO_DIRS SANDBOXED_XDG_CONFIG_DIRS SANDBOXED_XDG_DATA_DIRS SANDBOXED_XDG_CACHE_HOME SANDBOXED_XDG_CONFIG_HOME SANDBOXED_XDG_DATA_HOME SANDBOXED_XDG_STATE_HOME
 
         eval ${pkgs.uutils-coreutils-noprefix}/bin/env -S \
-          $([[ -z "$SANDBOXED_PATH" ]] && echo -n "-u PATH") \
           $([[ -z "$SANDBOXED_MANPATH" ]] && echo -n "-u MANPATH") \
           $([[ -z "$SANDBOXED_TERMINFO_DIRS" ]] && echo -n "-u TERMINFO_DIRS") \
           $([[ -z "$SANDBOXED_XDG_CONFIG_DIRS" ]] && echo -n "-u XDG_CONFIG_DIRS") \
           $([[ -z "$SANDBOXED_XDG_DATA_DIRS" ]] && echo -n "-u XDG_DATA_DIRS") \
-          $([[ -n "$SANDBOXED_PATH" ]] && echo -n "PATH=\"$SANDBOXED_PATH\"") \
           $([[ -n "$SANDBOXED_MANPATH" ]] && echo -n "MANPATH=\"$SANDBOXED_MANPATH\"") \
-          $([[ -n "$SANDBOXED_TERMINFO_DIRS" ]] && echo -n "TERMINFO_DIRS=\"$SANDBOXED_TERMINFO_DIRS\"") \
+          $([[ -n "$SANDBOXED_TERMINFO_DIRS" ]] && echo -n "XDG_CONFIG_DIRS=\"$SANDBOXED_TERMINFO_DIRS\"") \
           $([[ -n "$SANDBOXED_XDG_CONFIG_DIRS" ]] && echo -n "XDG_CONFIG_DIRS=\"$SANDBOXED_XDG_CONFIG_DIRS\"") \
           $([[ -n "$SANDBOXED_XDG_DATA_DIRS" ]] && echo -n "XDG_DATA_DIRS=\"$SANDBOXED_XDG_DATA_DIRS\"") \
+          PATH="$SANDBOXED_PATH" \
+          XDG_CACHE_HOME="$SANDBOXED_XDG_CACHE_HOME" \
+          XDG_CONFIG_HOME="$SANDBOXED_XDG_CONFIG_HOME" \
+          XDG_DATA_HOME="$SANDBOXED_XDG_DATA_HOME" \
+          XDG_STATE_HOME="$SANDBOXED_XDG_STATE_HOME" \
           ${pkgs.nono}/bin/nono "$@"
 
-        unset SANDBOXED_PATH SANDBOXED_MANPATH SANDBOXED_TERMINFO_DIRS SANDBOXED_XDG_CONFIG_DIRS SANDBOXED_XDG_DATA_DIRS
+        unset SANDBOXED_PATH SANDBOXED_MANPATH SANDBOXED_TERMINFO_DIRS SANDBOXED_XDG_CONFIG_DIRS SANDBOXED_XDG_DATA_DIRS SANDBOXED_XDG_CACHE_HOME SANDBOXED_XDG_CONFIG_HOME SANDBOXED_XDG_DATA_HOME SANDBOXED_XDG_STATE_HOME
       }
     '';
   };
@@ -433,17 +449,41 @@ in {
       end
     end
 
+    if test -z "$XDG_CACHE_HOME"
+      set -x SANDBOXED_XDG_CACHE_HOME "$(realpath $HOME/.cache)"
+    else
+      set -x SANDBOXED_XDG_CACHE_HOME "$(realpath $XDG_CACHE_HOME)"
+    end
+    if test -z "$XDG_CONFIG_HOME"
+      set -x SANDBOXED_XDG_CONFIG_HOME "$(realpath $HOME/.config)"
+    else
+      set -x SANDBOXED_XDG_CONFIG_HOME "$(realpath $XDG_CONFIG_HOME)"
+    end
+    if test -z "$XDG_DATA_HOME"
+      set -x SANDBOXED_XDG_DATA_HOME "$(realpath $HOME/.local/share)"
+    else
+      set -x SANDBOXED_XDG_DATA_HOME "$(realpath $XDG_DATA_HOME)"
+    end
+    if test -z "$XDG_DATA_HOME"
+      set -x SANDBOXED_XDG_STATE_HOME "$(realpath $HOME/.local/state)"
+    else
+      set -x SANDBOXED_XDG_STATE_HOME "$(realpath $XDG_STATE_HOME)"
+    end
+
     eval ${pkgs.uutils-coreutils-noprefix}/bin/env -S \
-      (test -z "$SANDBOXED_PATH" && echo -n "-u PATH") \
       (test -z "$SANDBOXED_MANPATH" && echo -n "-u MANPATH") \
       (test -z "$SANDBOXED_TERMINFO_DIRS" && echo -n "-u TERMINFO_DIRS") \
       (test -z "$SANDBOXED_XDG_CONFIG_DIRS" && echo -n "-u XDG_CONFIG_DIRS") \
       (test -z "$SANDBOXED_XDG_DATA_DIRS" && echo -n "-u XDG_DATA_DIRS") \
-      (test -n "$SANDBOXED_PATH" && echo -n "PATH=\"$SANDBOXED_PATH\"") \
       (test -n "$SANDBOXED_MANPATH" && echo -n "MANPATH=\"$SANDBOXED_MANPATH\"") \
       (test -n "$SANDBOXED_TERMINFO_DIRS" && echo -n "TERMINFO_DIRS=\"$SANDBOXED_TERMINFO_DIRS\"") \
       (test -n "$SANDBOXED_XDG_CONFIG_DIRS" && echo -n "XDG_CONFIG_DIRS=\"$SANDBOXED_XDG_CONFIG_DIRS\"") \
       (test -n "$SANDBOXED_XDG_DATA_DIRS" && echo -n "XDG_DATA_DIRS=\"$SANDBOXED_XDG_DATA_DIRS\"") \
+      PATH="$SANDBOXED_PATH" \
+      XDG_CACHE_HOME="$SANDBOXED_XDG_CACHE_HOME" \
+      XDG_CONFIG_HOME="$SANDBOXED_XDG_CONFIG_HOME" \
+      XDG_DATA_HOME="$SANDBOXED_XDG_DATA_HOME" \
+      XDG_STATE_HOME="$SANDBOXED_XDG_STATE_HOME" \
       ${pkgs.nono}/bin/nono $argv
 
     set -e SANDBOXED_PATH
@@ -451,6 +491,10 @@ in {
     set -e SANDBOXED_TERMINFO_DIRS
     set -e SANDBOXED_XDG_CONFIG_DIRS
     set -e SANDBOXED_XDG_DATA_DIRS
+    set -e SANDBOXED_XDG_CACHE_HOME
+    set -e SANDBOXED_XDG_CONFIG_HOME
+    set -e SANDBOXED_XDG_DATA_HOME
+    set -e SANDBOXED_XDG_STATE_HOME
   '';
 
   # Check for SANDBOXED_* paths and replace computed paths with these
@@ -488,6 +532,22 @@ in {
         export XDG_DATA_DIRS="$SANDBOXED_XDG_DATA_DIRS"
         unset SANDBOXED_XDG_DATA_DIRS
       fi
+      if [ -n "$SANDBOXED_XDG_CACHE_HOME" ]; then
+        export XDG_CACHE_HOME="$SANDBOXED_XDG_CACHE_HOME"
+        unset SANDBOXED_XDG_CACHE_HOME
+      fi
+      if [ -n "$SANDBOXED_XDG_CONFIG_HOME" ]; then
+        export XDG_CONFIG_HOME="$SANDBOXED_XDG_CONFIG_HOME"
+        unset SANDBOXED_XDG_CONFIG_HOME
+      fi
+      if [ -n "$SANDBOXED_XDG_DATA_HOME" ]; then
+        export XDG_DATA_HOME="$SANDBOXED_XDG_DATA_HOME"
+        unset SANDBOXED_XDG_DATA_HOME
+      fi
+      if [ -n "$SANDBOXED_XDG_STATE_HOME" ]; then
+        export XDG_STATE_HOME="$SANDBOXED_XDG_STATE_HOME"
+        unset SANDBOXED_XDG_STATE_HOME
+      fi
     '';
   };
   xdg.configFile."zsh/env.d/00_nono.sh" = {
@@ -512,6 +572,22 @@ in {
       if [[ -n "$SANDBOXED_XDG_DATA_DIRS" ]]; then
         export XDG_DATA_DIRS="$SANDBOXED_XDG_DATA_DIRS"
         unset SANDBOXED_XDG_DATA_DIRS
+      fi
+      if [[ -n "$SANDBOXED_XDG_CACHE_HOME" ]]; then
+        export XDG_CACHE_HOME="$SANDBOXED_XDG_CACHE_HOME"
+        unset SANDBOXED_XDG_CACHE_HOME
+      fi
+      if [[ -n "$SANDBOXED_XDG_CONFIG_HOME" ]]; then
+        export XDG_CONFIG_HOME="$SANDBOXED_XDG_CONFIG_HOME"
+        unset SANDBOXED_XDG_CONFIG_HOME
+      fi
+      if [[ -n "$SANDBOXED_XDG_DATA_HOME" ]]; then
+        export XDG_DATA_HOME="$SANDBOXED_XDG_DATA_HOME"
+        unset SANDBOXED_XDG_DATA_HOME
+      fi
+      if [[ -n "$SANDBOXED_XDG_STATE_HOME" ]]; then
+        export XDG_STATE_HOME="$SANDBOXED_XDG_STATE_HOME"
+        unset SANDBOXED_XDG_STATE_HOME
       fi
     '';
   };
@@ -538,6 +614,22 @@ in {
         set -x XDG_DATA_DIRS $SANDBOXED_XDG_DATA_DIRS
         set -e SANDBOXED_XDG_DATA_DIRS
       end
+      if test -n "$SANDBOXED_XDG_CACHE_HOME"
+        set -x XDG_CACHE_HOME $SANDBOXED_XDG_CACHE_HOME
+        set -e SANDBOXED_XDG_CACHE_HOME
+      fi
+      if test -n "$SANDBOXED_XDG_CONFIG_HOME"
+        set -x XDG_CONFIG_HOME $SANDBOXED_XDG_CONFIG_HOME
+        set -e SANDBOXED_XDG_CONFIG_HOME
+      fi
+      if test -n "$SANDBOXED_XDG_DATA_HOME"
+        set -x XDG_DATA_HOME $SANDBOXED_XDG_DATA_HOME
+        set -e SANDBOXED_XDG_DATA_HOME
+      fi
+      if test -n "$SANDBOXED_XDG_STATE_HOME"
+        set -x XDG_STATE_HOME $SANDBOXED_XDG_STATE_HOME
+        set -e SANDBOXED_XDG_STATE_HOME
+      fi
     '';
   };
 
