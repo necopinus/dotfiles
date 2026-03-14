@@ -76,19 +76,6 @@
           color_red = "#9d0006";
           color_yellow = "#b57614";
         };
-        gruvbox_material_light_hard = {
-          color_fg0 = "#f9f5d7";
-          color_fg1 = "#f3eac7";
-          color_bg1 = "#654735";
-          color_bg3 = "#7c6f64";
-          color_blue = "#45707a";
-          color_cyan = "#4c7a5d";
-          color_green = "#6c782e";
-          color_orange = "#c35e0a";
-          color_purple = "#945e80";
-          color_red = "#c14a4a";
-          color_yellow = "#b47109";
-        };
       };
 
       #### Orange ##########################################################

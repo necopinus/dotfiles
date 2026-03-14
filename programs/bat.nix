@@ -3,16 +3,7 @@
   pkgs,
   ...
 }: {
-  programs.bat = {
-    enable = true;
-
-    themes = {
-      gruvbox-material-light-hard = {
-        src = ../artifacts/config/bat/themes;
-        file = "gruvbox-material-light-hard.tmTheme";
-      };
-    };
-  };
+  programs.bat.enable = true;
 
   home.sessionVariables.BAT_THEME = "ansi"; # TODO: Change to "gruvbox-light" once the Android Terminal supports custom themes
 
