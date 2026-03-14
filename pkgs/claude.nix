@@ -41,7 +41,6 @@
 writeShellApplication {
   name = "claude";
 
-  # NOTE: We don't pull in these packages one-by-one, since
   runtimeInputs =
     [
       #### Core packages ####
