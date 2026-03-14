@@ -80,22 +80,10 @@ in {
         trim-final-newlines = true;
 
         clipboard-provider.custom = {
-          yank.command =
-            if pkgs.stdenv.isDarwin
-            then "/usr/bin/pbpaste"
-            else "${localPkgs.pbpaste}/bin/pbpaste";
-          paste.command =
-            if pkgs.stdenv.isDarwin
-            then "/usr/bin/pbcopy"
-            else "${localPkgs.pbcopy}/bin/pbcopy";
-          primary-yank.command =
-            if pkgs.stdenv.isDarwin
-            then "/usr/bin/pbpaste"
-            else "${localPkgs.pbpaste}/bin/pbpaste";
-          primary-paste.command =
-            if pkgs.stdenv.isDarwin
-            then "/usr/bin/pbcopy"
-            else "${localPkgs.pbcopy}/bin/pbcopy";
+          yank.command = "${localPkgs.pbpaste}/bin/pbpaste";
+          paste.command = "${localPkgs.pbcopy}/bin/pbcopy";
+          primary-yank.command = "${localPkgs.pbpaste}/bin/pbpaste";
+          primary-paste.command = "${localPkgs.pbcopy}/bin/pbcopy";
         };
 
         cursor-shape = {

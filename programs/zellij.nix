@@ -10,10 +10,7 @@ in {
       theme = "ansi";
       default_shell = "${pkgs.fish}/bin/fish";
 
-      copy_command =
-        if pkgs.stdenv.isDarwin
-        then "/usr/bin/pbcopy"
-        else "${localPkgs.pbcopy}/bin/pbcopy";
+      copy_command = "${localPkgs.pbcopy}/bin/pbcopy";
     };
 
     # Do not enable the fish shell integration, as we use Zellij to

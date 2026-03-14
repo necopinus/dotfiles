@@ -3,12 +3,7 @@
   lib,
   pkgs,
   ...
-}: let
-  localPkgs = {
-    pbcopy = pkgs.callPackage ../pkgs/pbcopy.nix {};
-    pbpaste = pkgs.callPackage ../pkgs/pbpaste.nix {};
-  };
-in {
+}: {
   imports = [
     ../programs/chromium.nix
     ../programs/exfalso.nix
@@ -19,10 +14,6 @@ in {
 
   home.packages = with pkgs; [
     libgourou
-
-    #### Local packages (see above) ####
-    localPkgs.pbcopy
-    localPkgs.pbpaste
   ];
 
   # VMs are Debian-based, not NixOS
