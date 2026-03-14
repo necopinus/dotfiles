@@ -3,7 +3,11 @@
   lib,
   config,
   ...
-}: {
+}: let
+  localPkgs = {
+    xcv = pkgs.callPackage ../pkgs/xcv.nix {};
+  };
+in {
   home.packages = with pkgs; [
     dconf2nix
 
@@ -21,6 +25,9 @@
     #
     pantheon.elementary-wallpapers
     pop-wallpapers
+
+    #### Launch GUI apps from the terminal without blocking ####
+    localPkgs.xcv
   ];
 
   # Needed to force font cache to be rebuilt
@@ -168,27 +175,4 @@
       end
     '';
   };
-
-  # Convenience functions for launching graphical apps from the
-  # terminal
-  #
-  xdg.configFile."bash/rc.d/xcz.sh" = {
-    enable = config.programs.bash.enable;
-    text = ''
-      function xcv {
-        ${pkgs.uutils-coreutils-noprefix}/bin/nohup -- "$@" 2>/dev/null &
-      }
-    '';
-  };
-  xdg.configFile."zsh/rc.d/xcz.sh" = {
-    enable = config.programs.zsh.enable;
-    text = ''
-      function xcv {
-        ${pkgs.uutils-coreutils-noprefix}/bin/nohup -- "$@" 2>/dev/null &
-      }
-    '';
-  };
-  programs.fish.functions."xcz" = ''
-    ${pkgs.uutils-coreutils-noprefix}/bin/nohup -- $argv 2>/dev/null &
-  '';
 }
