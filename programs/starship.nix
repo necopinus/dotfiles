@@ -40,10 +40,10 @@
 
       add_newline = true;
 
-      # Android VM startup takes longer than the default scan scan
-      # timeout
+      # Avoid timeouts in some more complex situations
       #
-      scan_timeout = 500;
+      scan_timeout = 500; # Default: 30
+      command_timeout = 750; # Default: 500
 
       # Define colors
       #
