@@ -37,9 +37,6 @@ in {
       outputStyle = "Explanatory";
       alwaysThinkingEnabled = true;
       skipDangerousModePermissionPrompt = true;
-      env = {
-        "ENABLE_LSP_TOOL" = "1";
-      };
       enabledPlugins =
         {
           "clangd-lsp@claude-plugins-official" = true;
