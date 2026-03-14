@@ -103,21 +103,6 @@
     enableCompletion = true;
 
     initExtra = ''
-      # Exec fish
-      #
-      # We explicitly include this here, rather than as a file in
-      # ~/.config/bash/rc.d, because we may exec fish
-      #
-      if [[ -n "$TERM" ]] && [[ -z "$VSCODE_RESOLVING_ENVIRONMENT" ]] &&
-        [[ -z "$__EXEC_FISH" ]] && [[ -n "$(${pkgs.which}/bin/which fish 2>/dev/null)" ]] &&
-        [[ ! -f "$HOME"/nofish ]] && [[ ! -f "$HOME"/nofish.txt ]] &&
-        [[ ! -f /mnt/shared/nofish ]] && [[ ! -f /mnt/shared/nofish.txt ]] &&
-        [[ ! -f /mnt/shared/Documents/nofish ]] && [[ ! -f /mnt/shared/Documents/nofish.txt ]] &&
-        [[ ! -f "$HOME"/Documents/nofish ]] && [[ ! -f "$HOME"/Documents/nofish.txt ]]; then
-        export __EXEC_FISH=1
-        exec $(${pkgs.which}/bin/which fish)
-      fi
-
       # Hack to get Bash to more agressively save its history
       #
       #   https://askubuntu.com/questions/67283/is-it-possible-to-make-writing-to-bash-history-immediate

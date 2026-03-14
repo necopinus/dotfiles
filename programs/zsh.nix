@@ -129,21 +129,6 @@
       # Loads in the normal position (near the end)
       #
       initExtra = lib.mkOrder 1000 ''
-        # Exec fish
-        #
-        # We explicitly include this here, rather than as a file in
-        # ~/.config/zsh/rc.d, because we may exec fish
-        #
-        if [[ -n "$TERM" ]] && [[ -z "$VSCODE_RESOLVING_ENVIRONMENT" ]] &&
-          [[ -z "$__EXEC_FISH" ]] && [[ -n "$(whence -p fish)" ]] &&
-          [[ ! -f "$HOME"/nofish ]] && [[ ! -f "$HOME"/nofish.txt ]] &&
-          [[ ! -f /mnt/shared/nofish ]] && [[ ! -f /mnt/shared/nofish.txt ]] &&
-          [[ ! -f /mnt/shared/Documents/nofish ]] && [[ ! -f /mnt/shared/Documents/nofish.txt ]] &&
-          [[ ! -f "$HOME"/Documents/nofish ]] && [[ ! -f "$HOME"/Documents/nofish.txt ]]; then
-          export __EXEC_FISH=1
-          exec $(whence -p fish)
-        fi
-
         # Convenience aliases
         #
         alias :e="$(whence -p "$EDITOR")"

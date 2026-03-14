@@ -1,32 +1,32 @@
 {
-  config,
   pkgs,
+  lib,
   ...
 }: {
   programs.zellij = {
     enable = true;
 
-    settings = {
-      theme = "ansi";
-      default_shell = "${config.xdg.configHome}/zellij/.fish-wrapper";
-    };
+    settings =
+      {
+        theme = "ansi";
+        default_shell = "${pkgs.fish}/bin/fish";
+      }
+      // lib.attrsets.optionalAttrs pkgs.stdenv.isDarwin {
+        copy_command = "pbcopy";
+      };
 
-    # Do not enable any integrations, as we only want Zellij for
-    # managing SSH connections
+    # Do not enable the fish shell integration, as we use Zellij to
+    # start fish in the first place
     #
-    enableBashIntegration = false;
+    # FIXME: Why do I explicitly have to set the bash and zsh
+    # integrations here, but not for other programs?
+    #
+    enableBashIntegration = true;
     enableFishIntegration = false;
-    enableZshIntegration = false;
-  };
+    enableZshIntegration = true;
 
-  # Wrapper to launch fish as a login shell, since
-  # settings.default_shell can only be a path
-  #
-  xdg.configFile."zellij/.fish-wrapper" = {
-    executable = true;
-    text = ''
-      #!${pkgs.bashInteractive}/bin/sh
-      exec ${pkgs.fish}/bin/fish --interactive --login
-    '';
+    # We live in Zellij now, the parent shell is but a memory
+    #
+    exitShellOnExit = true;
   };
 }
