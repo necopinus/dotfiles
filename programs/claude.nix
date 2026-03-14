@@ -133,6 +133,7 @@ in {
       "${config.home.homeDirectory}/.claude",
       "${config.xdg.cacheHome}",
       "${config.xdg.configHome}/go",
+      "${config.xdg.dataHome}/claude",
       "${config.xdg.dataHome}/pnpm",
       "${config.xdg.stateHome}/pnpm",
       "/tmp",
