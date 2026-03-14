@@ -1,19 +1,20 @@
-{
-  pkgs,
-  lib,
-  ...
-}: {
+{pkgs, ...}: let
+  localPkgs = {
+    pbcopy = pkgs.callPackage ../pkgs/pbcopy.nix {};
+  };
+in {
   programs.zellij = {
     enable = true;
 
-    settings =
-      {
-        theme = "ansi";
-        default_shell = "${pkgs.fish}/bin/fish";
-      }
-      // lib.attrsets.optionalAttrs pkgs.stdenv.isDarwin {
-        copy_command = "pbcopy";
-      };
+    settings = {
+      theme = "ansi";
+      default_shell = "${pkgs.fish}/bin/fish";
+
+      copy_command =
+        if pkgs.stdenv.isDarwin
+        then "/usr/bin/pbcopy"
+        else "${localPkgs.pbcopy}/bin/pbcopy";
+    };
 
     # Do not enable the fish shell integration, as we use Zellij to
     # start fish in the first place
