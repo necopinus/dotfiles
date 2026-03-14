@@ -231,8 +231,8 @@
       };
 
       "com.apple.Terminal" = {
-        "Default Window Settings" = "Clear Dark"; # TODO: Create a "Gruvbox Light" theme once the Android Terminal supports custom themes
-        "Startup Window Settings" = "Clear Dark"; # TODO: Switch theme font to "JetBrainsMono Nerd Font" once the Android Terminal supports custom fonts
+        "Default Window Settings" = "Gruvbox - Mod"; # TODO: Create a true "Gruvbox Light" theme once the Android Terminal supports custom themes
+        "Startup Window Settings" = "Gruvbox - Mod"; # TODO: Switch theme font to "JetBrainsMono Nerd Font" once the Android Terminal supports custom fonts
       };
 
       "com.apple.TextEdit" = {
