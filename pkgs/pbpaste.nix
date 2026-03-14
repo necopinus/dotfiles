@@ -1,5 +1,6 @@
 {
   writeShellApplication,
+  uutils-coreutils-noprefix,
   wl-clipboard,
   xsel,
 }:
@@ -7,6 +8,7 @@ writeShellApplication {
   name = "pbpaste";
 
   runtimeInputs = [
+    uutils-coreutils-noprefix
     wl-clipboard
     xsel
   ];
