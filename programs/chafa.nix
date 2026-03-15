@@ -5,6 +5,7 @@
 }: {
   home.packages = with pkgs; [
     chafa
+    uutils-coreutils-noprefix
   ];
 
   # Convenience aliases
@@ -12,19 +13,22 @@
   xdg.configFile."bash/rc.d/chafa.sh" = {
     enable = config.programs.bash.enable;
     text = ''
-      alias imgcat="${pkgs.chafa}/bin/chafa"
+      alias chafa="${pkgs.uutils-coreutils-noprefix}/bin/env TERM=xterm-kitty ${pkgs.chafa}/bin/chafa --format symbols"
+      alias imgcat="${pkgs.uutils-coreutils-noprefix}/bin/env TERM=xterm-kitty ${pkgs.chafa}/bin/chafa --format symbols"
     '';
   };
   xdg.configFile."zsh/rc.d/chafa.sh" = {
     enable = config.programs.zsh.enable;
     text = ''
-      alias imgcat="${pkgs.chafa}/bin/chafa"
+      alias chafa="${pkgs.uutils-coreutils-noprefix}/bin/env TERM=xterm-kitty ${pkgs.chafa}/bin/chafa --format symbols"
+      alias imgcat="${pkgs.uutils-coreutils-noprefix}/bin/env TERM=xterm-kitty ${pkgs.chafa}/bin/chafa --format symbols"
     '';
   };
   xdg.configFile."fish/rc.d/chafa.fish" = {
     enable = config.programs.fish.enable;
     text = ''
-      alias imgcat "${pkgs.chafa}/bin/chafa"
+      alias chafa "${pkgs.uutils-coreutils-noprefix}/bin/env TERM=xterm-kitty ${pkgs.chafa}/bin/chafa --format symbols"
+      alias imgcat "${pkgs.uutils-coreutils-noprefix}/bin/env TERM=xterm-kitty ${pkgs.chafa}/bin/chafa --format symbols"
     '';
   };
 }

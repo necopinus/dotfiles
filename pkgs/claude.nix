@@ -89,6 +89,15 @@ writeShellApplication {
       strace # Used by the Anthropic Sandbox Runtime (part of Claude Code)
     ];
 
+  # Remove "nounset" from the default list, as we need to test against
+  # potentially unset environment variables (CLAUDECODE and
+  # NONO_CAP_FILE)
+  #
+  extraShellCheckFlags = [
+    "errexit"
+    "pipefail"
+  ];
+
   text = ''
     # Launch Claude Code (but only if not called recursively to avoid
     # sandboxing the sandbox)

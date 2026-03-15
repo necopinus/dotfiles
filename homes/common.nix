@@ -50,6 +50,7 @@ in {
     poppler-utils
     rsgain
     rsync
+    serpl
     unzip
     uutils-coreutils-noprefix
     uutils-diffutils

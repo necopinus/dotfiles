@@ -12,6 +12,19 @@ in {
 
       copy_command = "${localPkgs.pbcopy}/bin/pbcopy";
     };
+    extraConfig = ''
+      keybinds {
+        shared_except "locked" {
+          unbind "Alt f"
+          bind "Alt Shift f" { ToggleFloatingPanes; }
+
+          bind "Alt Shift Left" { MoveFocusOrTab "Left"; }
+          bind "Alt Shift Right" { MoveFocusOrTab "Right"; }
+          bind "Alt Shift Down" { MoveFocus "Down"; }
+          bind "Alt Shift Up" { MoveFocus "Up"; }
+        }
+      }
+    '';
 
     # Do not enable the fish shell integration, as we use Zellij to
     # start fish in the first place

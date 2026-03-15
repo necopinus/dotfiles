@@ -6,6 +6,12 @@
   programs.starship = {
     enable = true;
 
+    # Only enable in fish
+    #
+    enableBashIntegration = false;
+    enableFishIntegration = true;
+    enableZshIntegration = false;
+
     # Move the Starship config into a subdirectory of XDG_CONFIG_HOME
     # so as to make sandboxing easier
     #
