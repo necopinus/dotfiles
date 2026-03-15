@@ -75,7 +75,7 @@ writeShellApplication {
         break
       fi
     done
-    nix store gc --verbose
+    nix store gc -v
 
     # Update Helix grammars
     #
@@ -106,7 +106,7 @@ writeShellApplication {
     # We do this last as this command may force a reboot
     #
     if [[ "$OS" == "Darwin" ]]; then
-      softwareupdate --install --all --include-config --include-config-data
+      softwareupdate -ia --include-config --include-config-data
     fi
   '';
 }

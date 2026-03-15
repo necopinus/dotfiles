@@ -30,7 +30,7 @@ fi
 if [[ "$OS" == "Darwin" ]]; then
     if [[ ! -x /opt/homebrew/bin/brew ]] && [[ ! -x /usr/local/bin/brew ]]; then
         xcode-select --install || true
-        until xcode-select --print-path &>/dev/null; do
+        until xcode-select -p &>/dev/null; do
             sleep 4
         done
 

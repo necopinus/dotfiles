@@ -9,7 +9,7 @@
 **IMMEDIATELY tell the user:**
 
 > This path is not accessible in the current nono sandbox session. You need to exit and restart with:
-> `nono run --allow /path/to/needed -- claude`
+> `nono run -a /path/that/is/needed -- claude`
 
 **NEVER attempt:**
 
@@ -19,7 +19,7 @@
 - Manual workarounds for the user to try
 - ANY other approach besides restarting nono
 
-The sandbox is a hard security boundary. Once applied, it cannot be expanded. The ONLY solution is to restart the session with additional --allow flags.
+The sandbox is a hard security boundary. Once applied, it cannot be expanded. The ONLY solution is to restart the session with additional allow (-a) flags.
 
 <!-- nono-sandbox-end -->
 

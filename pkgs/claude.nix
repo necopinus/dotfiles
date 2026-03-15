@@ -93,7 +93,7 @@ writeShellApplication {
   # potentially unset environment variables (CLAUDECODE and
   # NONO_CAP_FILE)
   #
-  extraShellCheckFlags = [
+  bashOptions = [
     "errexit"
     "pipefail"
   ];
@@ -192,7 +192,7 @@ writeShellApplication {
         XDG_CONFIG_HOME="$SANDBOXED_XDG_CONFIG_HOME" \
         XDG_DATA_HOME="$SANDBOXED_XDG_DATA_HOME" \
         XDG_STATE_HOME="$SANDBOXED_XDG_STATE_HOME" \
-        nono run --profile claude-code --allow . -- ${claude-code}/bin/claude --dangerously-skip-permissions "$@"
+        nono run -p claude-code -a . -- ${claude-code}/bin/claude --dangerously-skip-permissions "$@"
     else
       exec ${claude-code}/bin/claude "$@"
     fi

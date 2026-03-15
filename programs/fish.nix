@@ -25,14 +25,14 @@
       # install CLI binaries there
       #
       if test -d /opt/homebrew/bin
-        fish_add_path --append /opt/homebrew/bin
+        fish_add_path -a /opt/homebrew/bin
       end
 
       # Append ~/.local/bin to PATH, to allow for some work-around
       # symlinks
       #
       if test -d $HOME/.local/bin
-        fish_add_path --append $HOME/.local/bin
+        fish_add_path -a $HOME/.local/bin
       end
 
       # Make sure that environment defined in /etc/environment.d is
@@ -70,20 +70,20 @@
       # TODO: Uncomment once the Android Terminal supports custom themes
       #
       #set -g fish_color_autosuggestion a89984
-      #set -g fish_color_cancel --bold red
-      #set -g fish_color_command --bold cyan
+      #set -g fish_color_cancel -o red
+      #set -g fish_color_command -o cyan
       #set -g fish_color_comment 928374
       #set -g fish_color_end d65d0e
-      #set -g fish_color_error --bold red
-      #set -g fish_color_escape --bold magenta
-      #set -g fish_color_keyword --bold blue
+      #set -g fish_color_error -o red
+      #set -g fish_color_escape -o magenta
+      #set -g fish_color_keyword -o blue
       #set -g fish_color_normal normal
-      #set -g fish_color_operator --bold green
+      #set -g fish_color_operator -o green
       #set -g fish_color_param normal
-      #set -g fish_color_quote --bold yellow
+      #set -g fish_color_quote -o yellow
       #set -g fish_color_redirection normal
-      #set -g fish_color_search_match --background f9f5d7
-      #set -g fish_color_selection normal --background d5c4a1
+      #set -g fish_color_search_match -b f9f5d7
+      #set -g fish_color_selection normal -b d5c4a1
 
       # Convenience aliases
       #

@@ -27,24 +27,24 @@
     enable = config.programs.bash.enable;
     text = ''
       alias btm="${config.programs.bottom.package}/bin/btm --theme default"
-      alias htop="${config.programs.bottom.package}/bin/btm --basic --theme default"
-      alias top="${config.programs.bottom.package}/bin/btm --basic --theme default"
+      alias htop="${config.programs.bottom.package}/bin/btm -b --theme default"
+      alias top="${config.programs.bottom.package}/bin/btm -b --theme default"
     '';
   };
   xdg.configFile."zsh/rc.d/bottom.sh" = {
     enable = config.programs.zsh.enable;
     text = ''
       alias btm="${config.programs.bottom.package}/bin/btm --theme default"
-      alias htop="${config.programs.bottom.package}/bin/btm --basic --theme default"
-      alias top="${config.programs.bottom.package}/bin/btm --basic --theme default"
+      alias htop="${config.programs.bottom.package}/bin/btm -b --theme default"
+      alias top="${config.programs.bottom.package}/bin/btm -b --theme default"
     '';
   };
   xdg.configFile."fish/rc.d/bottom.fish" = {
     enable = config.programs.fish.enable;
     text = ''
       alias btm "${config.programs.bottom.package}/bin/btm --theme default"
-      alias htop "${config.programs.bottom.package}/bin/btm --basic --theme default"
-      alias top "${config.programs.bottom.package}/bin/btm --basic --theme default"
+      alias htop "${config.programs.bottom.package}/bin/btm -b --theme default"
+      alias top "${config.programs.bottom.package}/bin/btm -b --theme default"
     '';
   };
 }

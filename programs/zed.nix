@@ -147,7 +147,7 @@ in {
           formatter = {
             external = {
               command = "${pkgs.alejandra}/bin/alejandra";
-              arguments = ["--quiet" "--"];
+              arguments = ["-q" "--"];
             };
           };
         };
@@ -156,7 +156,7 @@ in {
           formatter = {
             external = {
               command = "${pkgs.shfmt}/bin/shfmt";
-              arguments = ["--filename" "{buffer_path}" "--indent" "4"];
+              arguments = ["--filename" "{buffer_path}" "-i" "4"];
             };
           };
         };

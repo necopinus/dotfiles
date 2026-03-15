@@ -7,9 +7,9 @@
     icons = "never"; # TODO: Change to "auto" once the Android Terminal supports custom fonts
 
     extraOptions = [
-      "--classify=auto"
+      "-F"
+      "-g"
       "--group-directories-first"
-      "--group"
     ];
   };
 }

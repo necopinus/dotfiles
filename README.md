@@ -15,7 +15,7 @@ if [[ -n "$(which apt 2> /dev/null)" ]]; then
 elif [[ -n "$(which xcode-select 2> /dev/null)" ]]; then
 	xcode-select --install || true
 
-	until $(xcode-select --print-path &> /dev/null); do
+	until $(xcode-select -p &> /dev/null); do
 		sleep 4;
 	done
 fi

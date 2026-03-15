@@ -35,7 +35,7 @@ in {
       port = 2222;
       extraOptions = {
         RequestTTY = "yes";
-        RemoteCommand = "/home/droid/.nix-profile/bin/zellij attach --create";
+        RemoteCommand = "/home/droid/.nix-profile/bin/zellij attach -c";
       };
       compression = true;
       forwardAgent = false;
