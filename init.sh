@@ -2,15 +2,23 @@
 
 set -e
 
-# Set OS type
-#
-OS="$(uname -s)"
-
 # Sanity check
 #
 if [[ ! -f "$HOME/.config/nix/flake.nix" ]]; then
     echo "This configuration must be cloned into $HOME/.config/nix!"
     exit
+fi
+
+# Set OS type
+#
+OS="$(uname -s)"
+
+# On normal Debian VMs, giving our user unrestricted sudo access will
+# make the remainder of the setup process MUCH less annoying (this is
+# set up out-of-the-box on the Android VM)
+# 
+if [[ "$OS" == "Linux" ]] && [[ ! -d /mnt/internal ]]; then
+    echo "droid ALL=(ALL) NOPASSWD:ALL" | sudo tee /etc/sudoers.d/droid
 fi
 
 # Work around flakey DNS in the Android VM
@@ -109,6 +117,12 @@ if [[ "$OS" == "Linux" ]]; then
         libseccomp-dev \
         procps \
         seahorse
+
+    # Additional packages to install on normal Debian VMs
+    #
+    if [[ ! -d /mnt/internal ]]; then
+        sudo apt install -y spice-vdagent
+    fi
 
     # Comment out global SSH option that Nix's ssh binary doesn't like
     #
