@@ -233,6 +233,8 @@
       "com.apple.Terminal" = {
         "Default Window Settings" = "Gruvbox - Mod"; # TODO: Create a true "Gruvbox Light" theme once the Android Terminal supports custom themes
         "Startup Window Settings" = "Gruvbox - Mod"; # TODO: Switch theme font to "JetBrainsMono Nerd Font" once the Android Terminal supports custom fonts
+        "PermanentServers" = ["debian"];
+        "PreviousCommands" = ["ssh debian"];
       };
 
       "com.apple.TextEdit" = {
