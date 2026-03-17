@@ -44,25 +44,6 @@ in {
     };
   };
 
-  xdg.configFile."bash/rc.d/bat.sh" = {
-    enable = config.programs.bash.enable;
-    text = ''
-      alias debian="${pkgs.openssh}/bin/ssh debian"
-    '';
-  };
-  xdg.configFile."zsh/rc.d/bat.sh" = {
-    enable = config.programs.zsh.enable;
-    text = ''
-      alias debian="${pkgs.openssh}/bin/ssh debian"
-    '';
-  };
-  xdg.configFile."fish/rc.d/bat.fish" = {
-    enable = config.programs.fish.enable;
-    text = ''
-      alias debian "${pkgs.openssh}/bin/ssh debian"
-    '';
-  };
-
   # This *looks* like it should supress hint messages, but doesn't...
   #
   #   https://docs.brew.sh/Brew-Bundle-and-Brewfile?pubDate=20251207#advanced-brewfiles

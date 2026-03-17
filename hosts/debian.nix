@@ -155,7 +155,7 @@ in {
     enable = config.programs.bash.enable;
     text = ''
       if [[ "$TERM_PROGRAM" == "kgx" ]] && [[ "$TERM" == "dumb" ]]; then
-        export TERM=xterm
+        export TERM=xterm-256color
       fi
     '';
   };
@@ -163,7 +163,7 @@ in {
     enable = config.programs.zsh.enable;
     text = ''
       if [[ "$TERM_PROGRAM" == "kgx" ]] && [[ "$TERM" == "dumb" ]]; then
-        export TERM=xterm
+        export TERM=xterm-256color
       fi
     '';
   };
@@ -171,7 +171,7 @@ in {
     enable = config.programs.fish.enable;
     text = ''
       if test "$TERM_PROGRAM" = "kgx"; and test "$TERM" = "dumb"
-        set -x TERM xterm
+        set -x TERM xterm-256color
       end
     '';
   };
