@@ -42,7 +42,6 @@
     casks = [
       "brave-browser"
       "calibre"
-      "claude"
       "google-drive"
       "handbrake-app"
       "keepassxc"
@@ -119,7 +118,6 @@
       persistent-apps = [
         {app = "/System/Applications/Apps.app";}
         {app = "/Applications/Brave Browser.app";}
-        {app = "/Applications/Claude.app";}
         {app = "/Applications/KeePassXC.app";}
         {app = "/System/Applications/Utilities/Terminal.app";}
         {app = "/Applications/UTM.app";}
