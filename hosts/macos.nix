@@ -45,6 +45,7 @@
       "google-drive"
       "handbrake-app"
       "keepassxc"
+      "libreoffice"
       "makemkv"
       {
         name = "obsidian";
