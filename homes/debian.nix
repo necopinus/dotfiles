@@ -40,8 +40,4 @@
     XDG_DATA_HOME = "${config.xdg.dataHome}";
     XDG_STATE_HOME = "${config.xdg.stateHome}";
   };
-
-  # Advertise that the terminal actually supports truecolor mode
-  #
-  home.sessionVariables.COlORTERM = "truecolor";
 }
