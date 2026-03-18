@@ -47,6 +47,7 @@ in {
     libqalculate
     msgpack-tools
     optipng
+    pdftk
     poppler-utils
     rsgain
     rsync
