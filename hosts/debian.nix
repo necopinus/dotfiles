@@ -71,6 +71,11 @@ in {
       name = "Noto Sans";
       size = 10;
     };
+
+    # Silence GTK4 warning, which doesn't really apply to me anyway
+    # because I'm just trying to force Adwaita
+    #
+    gtk4.theme = null;
   };
 
   # Generated via dconf2nix: https://github.com/gvolpe/dconf2nix
