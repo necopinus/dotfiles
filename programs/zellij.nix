@@ -1,6 +1,5 @@
 {
   pkgs,
-  lib,
   config,
   ...
 }: let
@@ -15,23 +14,17 @@ in {
   programs.zellij = {
     enable = true;
 
-    settings =
-      {
-        theme = "ansi";
-        default_shell = "${pkgs.fish}/bin/fish";
+    settings = {
+      theme = "ansi";
+      default_shell = "${pkgs.fish}/bin/fish";
 
-        # Setting `post_command_discovery_hook` makes
-        # `zellij-launch-helix` more robust, but also INSANELY SLOW
-        #
-        #post_command_discovery_hook = "${localPkgs.zellij-post-command-discovery-hook}/bin/zellij-post-command-discovery-hook";
-      }
-      // lib.attrsets.optionalAttrs pkgs.stdenv.isDarwin {
-        # Only set copy_command on macOS, as the Android Terminal
-        # supports OSC 52 copy codes, and custom copy_commands don't
-        # help over SSH connections anyway
-        #
-        copy_command = "${localPkgs.pbcopy}/bin/pbcopy";
-      };
+      # Setting `post_command_discovery_hook` makes
+      # `zellij-launch-helix` more robust, but also INSANELY SLOW
+      #
+      #post_command_discovery_hook = "${localPkgs.zellij-post-command-discovery-hook}/bin/zellij-post-command-discovery-hook";
+
+      copy_command = "${localPkgs.pbcopy}/bin/pbcopy";
+    };
     extraConfig = ''
       keybinds {
         shared_except "locked" {
