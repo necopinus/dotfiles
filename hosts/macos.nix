@@ -50,7 +50,6 @@
         name = "obsidian";
         greedy = true; # App core doesn't actually get auto-updated
       }
-      "qobuz-downloader"
       "scroll-reverser"
       "utm"
       "vlc"
@@ -119,6 +118,7 @@
         {app = "/System/Applications/Apps.app";}
         {app = "/Applications/Brave Browser.app";}
         {app = "/Applications/KeePassXC.app";}
+        {app = "/System/Applications/Music.app";}
         {app = "/Applications/Obsidian.app";}
         {app = "/System/Applications/System Settings.app";}
         {app = "/System/Applications/Utilities/Terminal.app";}
