@@ -50,7 +50,7 @@
         name = "obsidian";
         greedy = true; # App core doesn't actually get auto-updated
       }
-      "proton-vpn"
+      "protonvpn"
       "scroll-reverser"
       "utm"
       "vlc"
