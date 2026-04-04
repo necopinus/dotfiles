@@ -116,55 +116,56 @@ in {
 
   #################### Nono ####################
 
-  xdg.configFile."nono/profiles/claude-code.toml".text = ''
-    interactive = true
-
-    [meta]
-    name = "claude-code"
-    version = "1.0.1"
-    description = "Anthropic Claude Code CLI agent"
-    "author" = "Nathan Acks (based on the default nono claude-code profile)"
-
-    [filesystem]
-    allow = [
-      "${config.home.homeDirectory}/.claude",
-      "${config.xdg.cacheHome}",
-      "${config.xdg.configHome}/go",
-      "${config.xdg.dataHome}/claude",
-      "${config.xdg.dataHome}/pnpm",
-      "${config.xdg.stateHome}/pnpm",
-      "/tmp",
-      "/var/folders"
-    ]
-    read = [
-      "${config.home.homeDirectory}/Library/Application Support/Chromium",
-      "${config.home.homeDirectory}/Library/Application Support/Google/Chrome",
-      "${config.xdg.configHome}/chromium",
-      "${config.xdg.configHome}/google-chrome",
-      "/etc/skel",
-      "/nix"
-    ]
-    allow_file = [
-      "${config.home.homeDirectory}/.claude.json",
-      "${config.home.homeDirectory}/.claude.json.lock",
-      "${config.home.homeDirectory}/.claude.lock",
-      "${config.home.homeDirectory}/Library/Keychains/login.keychain-db", # Needs to be read/write or credential refreshes fail
-      "/dev/null"
-    ]
-    read_file = [
-      "${config.home.homeDirectory}/.bash_aliases",
-      "/etc/bashrc"
-    ]
-
-    [network]
-    block = false
-
-    [workdir]
-    access = "readwrite"
-
-    [hooks.claude-code]
-    event = "PostToolUseFailure"
-    matcher = "Read|Write|Edit|Bash"
-    script = "nono-hook.sh"
-  '';
+  #xdg.configFile."nono/profiles/claude-code.toml".text = ''
+  #  interactive = true
+  #
+  #  [meta]
+  #  name = "claude-code"
+  #  version = "1.0.1"
+  #  description = "Anthropic Claude Code CLI agent"
+  #  "author" = "Nathan Acks (based on the default nono claude-code profile)"
+  #
+  #  [filesystem]
+  #  allow = [
+  #    "${config.home.homeDirectory}/.claude",
+  #    "${config.xdg.dataHome}/claude",
+  #    "${config.xdg.configHome}/go",
+  #    "${config.home.homeDirectory}/Library/pnpm"
+  #    "${config.xdg.dataHome}/pnpm",
+  #    "${config.xdg.stateHome}/pnpm",
+  #    "${config.xdg.cacheHome}",
+  #    "/tmp",
+  #    "/var/folders"
+  #  ]
+  #  read = [
+  #    "${config.home.homeDirectory}/Library/Application Support/Chromium",
+  #    "${config.xdg.configHome}/chromium",
+  #    "${config.home.homeDirectory}/Library/Application Support/Google/Chrome",
+  #    "${config.xdg.configHome}/google-chrome",
+  #    "/etc/skel",
+  #    "/nix"
+  #  ]
+  #  allow_file = [
+  #    "${config.home.homeDirectory}/.claude.json",
+  #    "${config.home.homeDirectory}/.claude.json.lock",
+  #    "${config.home.homeDirectory}/.claude.lock",
+  #    "${config.home.homeDirectory}/Library/Keychains/login.keychain-db", # Needs to be read/write or credential refreshes fail
+  #    "/dev/null"
+  #  ]
+  #  read_file = [
+  #    "${config.home.homeDirectory}/.bash_aliases",
+  #    "/etc/bashrc"
+  #  ]
+  #
+  #  [network]
+  #  block = false
+  #
+  #  [workdir]
+  #  access = "readwrite"
+  #
+  #  [hooks.claude-code]
+  #  event = "PostToolUseFailure"
+  #  matcher = "Read|Write|Edit|Bash"
+  #  script = "nono-hook.sh"
+  #'';
 }
