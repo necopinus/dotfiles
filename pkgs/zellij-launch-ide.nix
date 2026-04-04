@@ -67,7 +67,7 @@ writeShellApplication {
       exit 1
     else
       echo "Opening project directory: $IDE_DIR"
-      zellij action new-tab -c "$IDE_DIR" -l ide -n "IDE :: $IDE_DIR"
+      zellij action new-tab -c "$IDE_DIR" -l ide -n "IDE :: $IDE_DIR" > /dev/null
     fi
   '';
 }

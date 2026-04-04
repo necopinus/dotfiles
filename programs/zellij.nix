@@ -7,9 +7,8 @@
   localPkgs = {
     claude = pkgs.callPackage ../pkgs/claude.nix {inherit llm-agents;};
     pbcopy = pkgs.callPackage ../pkgs/pbcopy.nix {};
-    zellij-launch-helix = pkgs.callPackage ../pkgs/zellij-launch-helix.nix {};
+    zellij-launch-editor = pkgs.callPackage ../pkgs/zellij-launch-editor.nix {};
     zellij-launch-ide = pkgs.callPackage ../pkgs/zellij-launch-ide.nix {};
-    zellij-post-command-discovery-hook = pkgs.callPackage ../pkgs/zellij-post-command-discovery-hook.nix {};
   };
 in {
   programs.zellij = {
@@ -18,12 +17,6 @@ in {
     settings = {
       theme = "ansi";
       default_shell = "${pkgs.fish}/bin/fish";
-
-      # Setting `post_command_discovery_hook` makes
-      # `zellij-launch-helix` more robust, but also INSANELY SLOW
-      #
-      #post_command_discovery_hook = "${localPkgs.zellij-post-command-discovery-hook}/bin/zellij-post-command-discovery-hook";
-
       copy_command = "${localPkgs.pbcopy}/bin/pbcopy";
     };
     extraConfig = ''
@@ -55,24 +48,10 @@ in {
               "pane split_direction=\"vertical\"" = {
                 _children = [
                   {
-                    "pane name=\"Files\" size=\"20%\"" = {
-                      "plugin location=\"zellij:strider\"" = {};
-                    };
-                  }
-                  {
-                    "pane size=\"80%\" stacked=true" = {
+                    "pane stacked=true" = {
                       _children = [
                         {
-                          "pane name=\"Claude\"" = {
-                            command = "${localPkgs.claude}/bin/claude";
-                            start_suspended = true;
-                          };
-                        }
-                        {
-                          "pane name=\"Helix\" focus=true expanded=true" = {
-                            command = "${config.programs.helix.package}/bin/hx";
-                            start_suspended = false;
-                          };
+                          "pane name=\"Terminal\" focus=true expanded=true" = {};
                         }
                         {
                           "pane name=\"Search\"" = {
@@ -80,8 +59,23 @@ in {
                             start_suspended = false;
                           };
                         }
+                      ];
+                    };
+                  }
+                  {
+                    "pane stacked=true" = {
+                      _children = [
                         {
-                          "pane name=\"Terminal\"" = {};
+                          "pane name=\"Helix\" expanded=true" = {
+                            command = "${config.programs.helix.package}/bin/hx";
+                            start_suspended = false;
+                          };
+                        }
+                        {
+                          "pane name=\"Claude\"" = {
+                            command = "${localPkgs.claude}/bin/claude";
+                            start_suspended = true;
+                          };
                         }
                       ];
                     };
@@ -114,52 +108,14 @@ in {
     exitShellOnExit = true;
   };
 
-  # Set the zellij-launch-helix wrapper as our EDITOR. We do this when
-  # we're NOT in Zellij, since we want Zellij to pick up this value. But
-  # we DON'T want to set this WITHIN Zellij, so that fish will source
-  # the home-manager variables and properly set EDITOR to point to
-  # Helix.
-  #
-  # Got that?
-  #
-  xdg.configFile."bash/env.d/zellij.sh" = {
-    enable = config.programs.bash.enable;
-    text = ''
-      if [[ -z "$ZELLIJ_SESSION_NAME" ]]; then
-        export EDITOR=${localPkgs.zellij-launch-helix}/bin/zellij-launch-helix
-      else
-        export EDITOR="$VISUAL"
-      fi
-    '';
-  };
-  xdg.configFile."zsh/env.d/zellij.sh" = {
-    enable = config.programs.zsh.enable;
-    text = ''
-      if [[ -z "$ZELLIJ_SESSION_NAME" ]]; then
-        export EDITOR=${localPkgs.zellij-launch-helix}/bin/zellij-launch-helix
-      else
-        export EDITOR="$VISUAL"
-      fi
-    '';
-  };
-  xdg.configFile."fish/env.d/zellij.fish" = {
-    enable = config.programs.fish.enable;
-    text = ''
-      if test -z "$ZELLIJ_SESSION_NAME"
-        set -x EDITOR ${localPkgs.zellij-launch-helix}/bin/zellij-launch-helix
-      else
-        set -x EDITOR $VISUAL
-      end
-    '';
-  };
-
-  # Custom command to launch our Zellij + Helix + Claude IDE
+  # Custom commands for the Zellij + Helix + Claude IDE
   #
   xdg.configFile."bash/rc.d/zellij.sh" = {
     enable = config.programs.bash.enable;
     text = ''
       if [[ -n "$ZELLIJ_SESSION_NAME" ]]; then
         alias ide=${localPkgs.zellij-launch-ide}/bin/zellij-launch-ide
+        alias edit=${localPkgs.zellij-launch-editor}/bin/zellij-launch-editor
       fi
     '';
   };
@@ -168,6 +124,7 @@ in {
     text = ''
       if [[ -n "$ZELLIJ_SESSION_NAME" ]]; then
         alias ide=${localPkgs.zellij-launch-ide}/bin/zellij-launch-ide
+        alias edit=${localPkgs.zellij-launch-editor}/bin/zellij-launch-editor
       fi
     '';
   };
@@ -176,6 +133,7 @@ in {
     text = ''
       if test -n "$ZELLIJ_SESSION_NAME"
         alias ide ${localPkgs.zellij-launch-ide}/bin/zellij-launch-ide
+        alias edit ${localPkgs.zellij-launch-editor}/bin/zellij-launch-editor
       end
     '';
   };
