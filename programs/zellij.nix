@@ -1,10 +1,11 @@
 {
   pkgs,
   config,
+  llm-agents,
   ...
 }: let
   localPkgs = {
-    claude = pkgs.callPackage ../pkgs/claude.nix {};
+    claude = pkgs.callPackage ../pkgs/claude.nix {inherit llm-agents;};
     pbcopy = pkgs.callPackage ../pkgs/pbcopy.nix {};
     zellij-launch-helix = pkgs.callPackage ../pkgs/zellij-launch-helix.nix {};
     zellij-launch-ide = pkgs.callPackage ../pkgs/zellij-launch-ide.nix {};

@@ -38,7 +38,7 @@
   typescript,
   typescript-language-server,
 }: let
-  llmAgents = llm-agents.packages.${stdenv.hostPlatform.system}; # Set in flake.nix overlay
+  llmAgents = llm-agents.packages.${stdenv.hostPlatform.system}; # llm-agents defined in flake.nix
 in
   writeShellApplication {
     name = "claude";
@@ -192,14 +192,15 @@ in
           echo "=================================================="
           echo ""
           if [[ "$(uname -s)" == "Darwin" ]]; then
-            CLAUDE_COMMAND="${llmAgents.nono}/bin/nono run -p claude-code -a . --allow-launch-services -- ${llmAgents.claude-code}/bin/claude /login"
+            CLAUDE_COMMAND="${llmAgents.nono}/bin/nono run -p claude-code-local -a . --allow-launch-services -- ${llmAgents.claude-code}/bin/claude /login"
           else
-            CLAUDE_COMMAND="${llmAgents.nono}/bin/nono run -p claude-code -a . -- ${llmAgents.claude-code}/bin/claude /login"
+            CLAUDE_COMMAND="${llmAgents.nono}/bin/nono run -p claude-code-local -a . -- ${llmAgents.claude-code}/bin/claude /login"
           fi
         else
-          CLAUDE_COMMAND="${llmAgents.nono}/bin/nono run -p claude-code -a . -- ${llmAgents.claude-code}/bin/claude --dangerously-skip-permissions ""$@"
+          CLAUDE_COMMAND="${llmAgents.nono}/bin/nono run -p claude-code-local -a . -- ${llmAgents.claude-code}/bin/claude --dangerously-skip-permissions $*"
         fi
 
+        # shellcheck disable=SC2046,SC2086
         env -S \
           $([[ -z "$SANDBOXED_MANPATH" ]] && echo -n "-u MANPATH") \
           $([[ -z "$SANDBOXED_TERMINFO_DIRS" ]] && echo -n "-u TERMINFO_DIRS") \

@@ -2,10 +2,11 @@
   config,
   pkgs,
   lib,
+  llm-agents,
   ...
 }: let
   localPkgs = {
-    claude = pkgs.callPackage ../pkgs/claude.nix {};
+    claude = pkgs.callPackage ../pkgs/claude.nix {inherit llm-agents;};
   };
 
   claudeInChrome = {
@@ -58,7 +59,11 @@ in {
           {
             hooks = [
               {
-                command = "${config.home.homeDirectory}/.claude/hooks/nono-hook.sh";
+                # Must be $HOME and not ${config.home.homeDirectory},
+                # or nono's autodetction will fail and the sandbox will
+                # pull an error
+                #
+                command = "$HOME/.claude/hooks/nono-hook.sh";
                 type = "command";
               }
             ];
@@ -116,56 +121,46 @@ in {
 
   #################### Nono ####################
 
-  #xdg.configFile."nono/profiles/claude-code.toml".text = ''
-  #  interactive = true
+  # Read access to Chromium / Google Chrome directories is necessary for
+  # browser integrtion to work
   #
-  #  [meta]
-  #  name = "claude-code"
-  #  version = "1.0.1"
-  #  description = "Anthropic Claude Code CLI agent"
-  #  "author" = "Nathan Acks (based on the default nono claude-code profile)"
+  # Read access to Bash configuration files is necessary to ensure that
+  # shell calls work as expected
   #
-  #  [filesystem]
-  #  allow = [
-  #    "${config.home.homeDirectory}/.claude",
-  #    "${config.xdg.dataHome}/claude",
-  #    "${config.xdg.configHome}/go",
-  #    "${config.home.homeDirectory}/Library/pnpm"
-  #    "${config.xdg.dataHome}/pnpm",
-  #    "${config.xdg.stateHome}/pnpm",
-  #    "${config.xdg.cacheHome}",
-  #    "/tmp",
-  #    "/var/folders"
-  #  ]
-  #  read = [
-  #    "${config.home.homeDirectory}/Library/Application Support/Chromium",
-  #    "${config.xdg.configHome}/chromium",
-  #    "${config.home.homeDirectory}/Library/Application Support/Google/Chrome",
-  #    "${config.xdg.configHome}/google-chrome",
-  #    "/etc/skel",
-  #    "/nix"
-  #  ]
-  #  allow_file = [
-  #    "${config.home.homeDirectory}/.claude.json",
-  #    "${config.home.homeDirectory}/.claude.json.lock",
-  #    "${config.home.homeDirectory}/.claude.lock",
-  #    "${config.home.homeDirectory}/Library/Keychains/login.keychain-db", # Needs to be read/write or credential refreshes fail
-  #    "/dev/null"
-  #  ]
-  #  read_file = [
-  #    "${config.home.homeDirectory}/.bash_aliases",
-  #    "/etc/bashrc"
-  #  ]
-  #
-  #  [network]
-  #  block = false
-  #
-  #  [workdir]
-  #  access = "readwrite"
-  #
-  #  [hooks.claude-code]
-  #  event = "PostToolUseFailure"
-  #  matcher = "Read|Write|Edit|Bash"
-  #  script = "nono-hook.sh"
-  #'';
+  xdg.configFile."nono/profiles/claude-code-local.json".text = ''
+    {
+      "meta": {
+        "name": "claude-code-local"
+      },
+      "extends": "claude-code",
+      "security": {
+        "groups": [
+          "go_runtime"
+        ]
+      },
+      "filesystem": {
+        "read": [
+          "${config.home.homeDirectory}/Library/Application Support/Chromium",
+          "${config.xdg.configHome}/chromium",
+          "${config.home.homeDirectory}/Library/Application Support/Google/Chrome",
+          "${config.xdg.configHome}/google-chrome",
+          "/etc/bash_completion.d",
+          "/etc/profile.d"
+        ],
+        "read_file": [
+          "${config.home.homeDirectory}/.bash_aliases",
+          "${config.home.homeDirectory}/.bash_profile",
+          "${config.home.homeDirectory}/.bashrc",
+          "${config.home.homeDirectory}/.profile",
+          "/etc/bash.bashrc",
+          "/etc/bashrc",
+          "/etc/bashrc_Apple_Terminal",
+          "/etc/profile",
+          "/etc/skel/.bash_profile",
+          "/etc/skel/.bashrc",
+          "/etc/skel/.profile"
+        ]
+      }
+    }
+  '';
 }
