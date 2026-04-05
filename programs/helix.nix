@@ -70,7 +70,7 @@ in {
     };
 
     settings = {
-      theme = "gruvbox";
+      theme = "gruvbox-mod";
 
       editor = {
         cursorline = true;
@@ -118,6 +118,44 @@ in {
       keys.insert = {
         C-a = "goto_line_start";
         C-e = "goto_line_end_newline";
+      };
+    };
+
+    themes = {
+      gruvbox-mod = {
+        inherits = "gruvbox";
+
+        # Slightly more muted colors
+        #
+        "ui.bufferline" = {
+          fg = "fg1";
+          bg = "bg2";
+        };
+        "ui.bufferline.active" = {
+          fg = "fg0";
+          bg = "bg0";
+        };
+
+        "ui.linenr.selected" = {fg = "fg4";};
+
+        "ui.selection.primary" = {bg = "bg2";};
+        "ui.selection" = {bg = "bg1";};
+
+        # Replace (most) italics with bold
+        #
+        "attribute" = {
+          fg = "aqua1";
+          modifiers = ["bold"];
+        };
+        "type.enum.variant" = {modifiers = ["bold"];};
+        "variable.builtin" = {
+          fg = "orange1";
+          modifiers = ["bold"];
+        };
+        "variable.parameter" = {
+          fg = "blue1";
+          modifiers = ["bold"];
+        };
       };
     };
   };
