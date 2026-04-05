@@ -15,7 +15,7 @@ in {
     enable = true;
 
     settings = {
-      theme = "ansi";
+      theme = "gruvbox-dark";
       default_shell = "${pkgs.fish}/bin/fish";
       copy_command = "${localPkgs.pbcopy}/bin/pbcopy";
     };
