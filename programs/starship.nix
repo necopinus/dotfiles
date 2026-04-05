@@ -53,7 +53,7 @@
 
       # Define colors
       #
-      palette = "term_dark"; # TODO: Change to "gruvbox_light" once the Android Terminal supports custom themes
+      palette = "gruvbox_dark";
 
       palettes = {
         term_dark = {
@@ -69,18 +69,18 @@
           color_red = "bright-red";
           color_yellow = "yellow";
         };
-        gruvbox_light = {
+        gruvbox_dark = {
           color_fg0 = "#fbf1c7";
           color_fg1 = "#ebdbb2";
           color_bg1 = "#3c3836";
-          color_bg3 = "#7c6f64";
-          color_blue = "#076678";
-          color_cyan = "#427b58";
-          color_green = "#79740e";
-          color_orange = "#af3a03";
-          color_purple = "#8f3f71";
-          color_red = "#9d0006";
-          color_yellow = "#b57614";
+          color_bg3 = "#665c54";
+          color_blue = "#458588";
+          color_cyan = "#689d6a";
+          color_green = "#98971a";
+          color_orange = "#d65d0e";
+          color_purple = "#b16286";
+          color_red = "#cc241d";
+          color_yellow = "#d79921";
         };
       };
 

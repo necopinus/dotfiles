@@ -19,26 +19,18 @@
         light = true;
         syntax-theme = "ansi";
       };
+      gruvbox-dark = {
+        dark = true;
+        syntax-theme = "gruvbox-dark"; # Requires bat.nix
+      };
       gruvbox-light = {
         light = true;
         syntax-theme = "gruvbox-light"; # Requires bat.nix
-        blame-palette = "#fbf1c7 #f2e5bc #ebdbb2";
-        line-numbers-minus-style = "red";
-        line-numbers-plus-style = "green";
-        line-numbers-zero-style = "normal";
-        minus-emph-style = "syntax #f1d194";
-        minus-empty-line-marker-style = "normal #f5e1ae";
-        minus-non-emph-style = "syntax #f5e1ae";
-        minus-style = "syntax #f5e1ae";
-        plus-emph-style = "syntax #e8dea8";
-        plus-empty-line-marker-style = "normal #f2e7b8";
-        plus-non-emph-style = "syntax #f2e7b8";
-        plus-style = "syntax #f2e7b8";
       };
     };
   };
 
-  home.sessionVariables.DELTA_FEATURES = "+ansi-dark"; # TODO: Change to "+gruvbox-light" once the Android Terminal supports custom themes
+  home.sessionVariables.DELTA_FEATURES = "+gruvbox-dark";
 
   # Convenience aliases
   #

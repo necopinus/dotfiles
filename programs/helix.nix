@@ -70,7 +70,7 @@ in {
     };
 
     settings = {
-      theme = "term16_dark"; # TODO: Change to "gruvbox_light_mod" once the Android Terminal supports custom themes
+      theme = "gruvbox";
 
       editor = {
         cursorline = true;
@@ -118,62 +118,6 @@ in {
       keys.insert = {
         C-a = "goto_line_start";
         C-e = "goto_line_end_newline";
-      };
-    };
-
-    themes = {
-      gruvbox_light_mod = {
-        inherits = "gruvbox_light";
-
-        # Slightly lower contrast
-        #
-        "ui.cursorline" = {bg = "bg2";};
-        "ui.bufferline" = {
-          fg = "fg1";
-          bg = "bg2";
-        };
-        "ui.bufferline.active" = {
-          fg = "bg0";
-          bg = "fg4";
-        };
-        "ui.bufferline.background" = {bg = "bg1";};
-
-        "ui.linenr.selected" = {fg = "fg4";};
-
-        "ui.selection" = {bg = "bg3";};
-        "ui.selection.primary" = {bg = "bg2";};
-        "ui.statusline" = {
-          fg = "fg1";
-          bg = "bg1";
-        };
-        "ui.statusline.inactive" = {
-          fg = "fg4";
-          bg = "bg1";
-        };
-        "ui.menu" = {
-          fg = "fg1";
-          bg = "bg1";
-        };
-
-        # Replace (most) italics with bold
-        #
-        "attribute" = {
-          fg = "aqua1";
-          modifiers = ["bold"];
-        };
-        "type.enum.variant" = {modifiers = ["bold"];};
-        "variable.builtin" = {
-          fg = "orange1";
-          modifiers = ["bold"];
-        };
-        "variable.parameter" = {
-          fg = "blue1";
-          modifiers = [];
-        };
-
-        palette = {
-          bg0_s = "#f2e5bc";
-        };
       };
     };
   };

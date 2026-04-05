@@ -20,31 +20,28 @@
 
   # Convenience aliases
   #
-  # TODO: Change this to "--theme gruvbox-light" once the Android
-  # Terminal supports custom themes
-  #
   xdg.configFile."bash/rc.d/bottom.sh" = {
     enable = config.programs.bash.enable;
     text = ''
-      alias btm="${config.programs.bottom.package}/bin/btm --theme default"
-      alias htop="${config.programs.bottom.package}/bin/btm -b --theme default"
-      alias top="${config.programs.bottom.package}/bin/btm -b --theme default"
+      alias btm="${config.programs.bottom.package}/bin/btm --theme gruvbox"
+      alias htop="${config.programs.bottom.package}/bin/btm -b --theme gruvbox"
+      alias top="${config.programs.bottom.package}/bin/btm -b --theme gruvbox"
     '';
   };
   xdg.configFile."zsh/rc.d/bottom.sh" = {
     enable = config.programs.zsh.enable;
     text = ''
-      alias btm="${config.programs.bottom.package}/bin/btm --theme default"
-      alias htop="${config.programs.bottom.package}/bin/btm -b --theme default"
-      alias top="${config.programs.bottom.package}/bin/btm -b --theme default"
+      alias btm="${config.programs.bottom.package}/bin/btm --theme gruvbox"
+      alias htop="${config.programs.bottom.package}/bin/btm -b --theme gruvbox"
+      alias top="${config.programs.bottom.package}/bin/btm -b --theme gruvbox"
     '';
   };
   xdg.configFile."fish/rc.d/bottom.fish" = {
     enable = config.programs.fish.enable;
     text = ''
-      alias btm "${config.programs.bottom.package}/bin/btm --theme default"
-      alias htop "${config.programs.bottom.package}/bin/btm -b --theme default"
-      alias top "${config.programs.bottom.package}/bin/btm -b --theme default"
+      alias btm "${config.programs.bottom.package}/bin/btm --theme gruvbox"
+      alias htop "${config.programs.bottom.package}/bin/btm -b --theme gruvbox"
+      alias top "${config.programs.bottom.package}/bin/btm -b --theme gruvbox"
     '';
   };
 }

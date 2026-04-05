@@ -5,7 +5,7 @@
 }: {
   programs.bat.enable = true;
 
-  home.sessionVariables.BAT_THEME = "ansi"; # TODO: Change to "gruvbox-light" once the Android Terminal supports custom themes
+  home.sessionVariables.BAT_THEME = "gruvbox-dark";
 
   # Colorize man pages with bat
   #
