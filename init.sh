@@ -249,7 +249,7 @@ fi
 # Set up XDG user directories
 #
 if [[ "$XDG_DOCUMENTS_DIR" == /mnt/shared/Documents ]]; then
-    ln -sfT /mnt/shared/Documents "$HOME/Document"
+    ln -sfT /mnt/shared/Documents "$HOME/Documents"
 else
     mkdir -p "$XDG_DOCUMENTS_DIR"
 fi
