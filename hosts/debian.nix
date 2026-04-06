@@ -104,6 +104,10 @@ in {
       overlay-scrolling = false;
     };
 
+    "org/gnome/desktop/peripherals/mouse" = {
+      natural-scroll = true;
+    };
+
     "org/gnome/desktop/privacy" = {
       recent-files-max-age = 30;
       remove-old-temp-files = true;
