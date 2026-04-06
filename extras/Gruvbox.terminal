@@ -24,10 +24,10 @@
 	<data>
 	YnBsaXN0MDDUAQIDBAUGBwpYJHZlcnNpb25ZJGFyY2hpdmVyVCR0b3BYJG9iamVjdHMS
 	AAGGoF8QD05TS2V5ZWRBcmNoaXZlctEICVRyb290gAGjCwwTVSRudWxs0w0ODxARElVO
-	U1JHQlxOU0NvbG9yU3BhY2VWJGNsYXNzTxAeMC40IDAuMzYwNzg0MzEzNyAwLjMyOTQx
-	MTc2NDcAEAKAAtIUFRYXWiRjbGFzc25hbWVYJGNsYXNzZXNXTlNDb2xvcqIWGFhOU09i
-	amVjdAgRGiQpMjdJTFFTV11kand+n6GjqLO8xMcAAAAAAAABAQAAAAAAAAAZAAAAAAAA
-	AAAAAAAAAAAA0A==
+	U1JHQlxOU0NvbG9yU3BhY2VWJGNsYXNzTxAnMC41NzI1NDkwMTk2IDAuNTEzNzI1NDkw
+	MiAwLjQ1NDkwMTk2MDgAEAKAAtIUFRYXWiRjbGFzc25hbWVYJGNsYXNzZXNXTlNDb2xv
+	cqIWGFhOU09iamVjdAgRGiQpMjdJTFFTV11kand+qKqssbzFzdAAAAAAAAABAQAAAAAA
+	AAAZAAAAAAAAAAAAAAAAAAAA2Q==
 	</data>
 	<key>ANSIBrightBlueColor</key>
 	<data>
@@ -225,7 +225,7 @@
 	<key>columnCount</key>
 	<integer>120</integer>
 	<key>name</key>
-	<string>Gruvbox - Mod</string>
+	<string>Gruvbox</string>
 	<key>noWarnProcesses</key>
 	<array>
 		<dict>
