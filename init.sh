@@ -67,7 +67,11 @@ fi
 # Make sure that required packages are installed
 #
 if [[ "$OS" == "Linux" ]]; then
-    sudo sed -i 's#^Components: .*$#Components: main contrib non-free non-free-firmware#' /etc/apt/sources.list.d/debian.sources
+    if [[ -f /etc/apt/sources.list.d/debian.sources ]]; then
+        sudo sed -i 's#^Components: .*$#Components: main contrib non-free non-free-firmware#' /etc/apt/sources.list.d/debian.sources
+    else
+        sudo sed -i 's# main$# main contrib non-free non-free-firmware#' /etc/apt/sources.list
+    fi
 
     sudo apt update -y
     sudo apt full-upgrade -y
