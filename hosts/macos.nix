@@ -185,6 +185,7 @@
 
     universalaccess = {
       reduceMotion = true;
+      reduceTransparency = true;
     };
 
     CustomUserPreferences = {
@@ -253,6 +254,7 @@
       };
 
       "com.apple.universalaccess".showWindowTitlebarIcons = true;
+      "com.apple.Accessibility".EnhancedBackgroundContrastEnabled = true;
 
       "com.google.drivefs.settings".PromptToBackupDevices = false;
 
