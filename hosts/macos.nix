@@ -42,7 +42,6 @@
     casks = [
       "brave-browser"
       "calibre"
-      "google-drive"
       "handbrake-app"
       "keepassxc"
       "makemkv"
@@ -204,6 +203,9 @@
         };
 
         "com.apple.sound.uiaudio.enabled" = 0;
+
+        NSGlassDiffusionSetting = 1;
+        SLSMenuBarUseBlurredAppearance = true;
       };
 
       "com.apple.AdLib".allowApplePersonalizedAdvertising = false;
