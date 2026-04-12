@@ -273,6 +273,14 @@ else
     mkdir -p "$XDG_VIDEOS_DIR"
 fi
 
+# Claude Code pre-setup
+#
+mkdir -p "$XDG_CACHE_HOME"/claude-cli-nodejs
+mkdir -p "$XDG_DATA_HOME"/claude
+if [[ ! -f "$HOME"/.claude.json ]]; then
+    echo "{}" > "$HOME"/.claude.json
+fi
+
 # Calibre pre-setup
 #
 if [[ "$OS" == "Darwin" ]]; then

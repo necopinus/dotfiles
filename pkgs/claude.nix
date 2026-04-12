@@ -192,9 +192,9 @@ in
           echo "=================================================="
           echo ""
           if [[ "$(uname -s)" == "Darwin" ]]; then
-            CLAUDE_COMMAND="${llmAgents.nono}/bin/nono run -p claude-code-local -a . --allow-launch-services -- ${llmAgents.claude-code}/bin/claude /login"
+            CLAUDE_COMMAND="${llmAgents.nono}/bin/nono run -p claude-code-local -a . --allow-launch-services -- ${llmAgents.claude-code}/bin/claude"
           else
-            CLAUDE_COMMAND="${llmAgents.nono}/bin/nono run -p claude-code-local -a . -- ${llmAgents.claude-code}/bin/claude /login"
+            CLAUDE_COMMAND="${llmAgents.nono}/bin/nono run -p claude-code-local -a . -- ${llmAgents.claude-code}/bin/claude"
           fi
         else
           CLAUDE_COMMAND="${llmAgents.nono}/bin/nono run -p claude-code-local -a . -- ${llmAgents.claude-code}/bin/claude --dangerously-skip-permissions $*"
