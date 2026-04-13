@@ -57,10 +57,6 @@ writeShellApplication {
 
     mkBackupList "$XDG_CONFIG_HOME/Engagements"
 
-    mkBackupList "$HOME/Documents/Calibre"
-    mkBackupList "$HOME/Library/Preferences/calibre"
-    mkBackupList "$XDG_CONFIG_HOME/calibre"
-
     mkBackupList "$HOME/Library/Application Support/obsidian"
     mkBackupList "$XDG_CONFIG_HOME/obsidian"
 

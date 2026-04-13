@@ -41,7 +41,6 @@
 
     casks = [
       "brave-browser"
-      "calibre"
       "handbrake-app"
       "keepassxc"
       "makemkv"
