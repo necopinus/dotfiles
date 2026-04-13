@@ -160,7 +160,10 @@ in {
 
   # Fix brain dead TERM choice for GNOME Console
   #
-  xdg.configFile."bash/env.d/gnome-console.sh" = {
+  # This needs to be sourced in rc.d rather than env.d, since GNOME
+  # Console does not start use login shells
+  #
+  xdg.configFile."bash/rc.d/gnome-console.sh" = {
     enable = config.programs.bash.enable;
     text = ''
       if [[ "$TERM_PROGRAM" == "kgx" ]] && [[ "$TERM" == "dumb" ]]; then
@@ -168,7 +171,7 @@ in {
       fi
     '';
   };
-  xdg.configFile."zsh/env.d/gnome-console.sh" = {
+  xdg.configFile."zsh/rc.d/gnome-console.sh" = {
     enable = config.programs.zsh.enable;
     text = ''
       if [[ "$TERM_PROGRAM" == "kgx" ]] && [[ "$TERM" == "dumb" ]]; then
@@ -176,7 +179,7 @@ in {
       fi
     '';
   };
-  xdg.configFile."zsh/env.d/gnome-console.fish" = {
+  xdg.configFile."zsh/rc.d/gnome-console.fish" = {
     enable = config.programs.fish.enable;
     text = ''
       if test "$TERM_PROGRAM" = "kgx"; and test "$TERM" = "dumb"
