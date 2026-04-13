@@ -1,6 +1,7 @@
 {
   pkgs,
   config,
+  lib,
   llm-agents,
   ...
 }: let
@@ -175,41 +176,58 @@ in {
             }
             {
               "pane split_direction=\"vertical\"" = {
-                _children = [
-                  {
-                    "pane stacked=true" = {
-                      _children = [
-                        {
-                          "pane name=\"Terminal\" focus=true expanded=true" = {};
-                        }
-                        {
-                          "pane name=\"Search\"" = {
-                            command = "${pkgs.serpl}/bin/serpl";
-                            start_suspended = false;
-                          };
-                        }
-                      ];
-                    };
-                  }
-                  {
-                    "pane stacked=true" = {
-                      _children = [
-                        {
-                          "pane name=\"Helix\" expanded=true" = {
-                            command = "${config.programs.helix.package}/bin/hx";
-                            start_suspended = false;
-                          };
-                        }
-                        {
-                          "pane name=\"Claude\"" = {
-                            command = "${localPkgs.claude}/bin/claude";
-                            start_suspended = true;
-                          };
-                        }
-                      ];
-                    };
-                  }
-                ];
+                _children =
+                  [
+                    {
+                      "pane stacked=true" = {
+                        _children = [
+                          {
+                            "pane name=\"Terminal\" focus=true expanded=true" = {};
+                          }
+                          {
+                            "pane name=\"Search\"" = {
+                              command = "${pkgs.serpl}/bin/serpl";
+                              start_suspended = false;
+                            };
+                          }
+                        ];
+                      };
+                    }
+                  ]
+                  ++ lib.optionals pkgs.stdenv.isDarwin [
+                    {
+                      "pane" = {
+                        _children = [
+                          {
+                            "pane name=\"Helix\"" = {
+                              command = "${config.programs.helix.package}/bin/hx";
+                              start_suspended = false;
+                            };
+                          }
+                        ];
+                      };
+                    }
+                  ]
+                  ++ lib.optionals pkgs.stdenv.isLinux [
+                    {
+                      "pane stacked=true" = {
+                        _children = [
+                          {
+                            "pane name=\"Helix\" expanded=true" = {
+                              command = "${config.programs.helix.package}/bin/hx";
+                              start_suspended = false;
+                            };
+                          }
+                          {
+                            "pane name=\"Claude\"" = {
+                              command = "${localPkgs.claude}/bin/claude";
+                              start_suspended = false;
+                            };
+                          }
+                        ];
+                      };
+                    }
+                  ];
               };
             }
             {

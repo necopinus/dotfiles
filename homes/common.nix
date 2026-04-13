@@ -15,7 +15,6 @@ in {
     ../programs/bash.nix
     ../programs/bat.nix
     ../programs/bottom.nix
-    ../programs/claude.nix
     ../programs/chafa.nix
     ../programs/delta.nix # Depends on bat.nix
     ../programs/dircolors.nix
@@ -28,7 +27,7 @@ in {
     ../programs/jaq.nix
     ../programs/ssh.nix
     ../programs/starship.nix
-    ../programs/zellij.nix # Depends on claude.nix, fish.nix, and helix.nix
+    ../programs/zellij.nix # Depends on claude.nix (Debian-only), fish.nix, and helix.nix
     ../programs/zoxide.nix
   ];
 

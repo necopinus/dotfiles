@@ -48,7 +48,6 @@ writeShellApplication {
 
     mkBackupList "$HOME/.claude"
     mkBackupList "$HOME/.claude.json"
-    mkBackupList "$HOME/Library/Application Support/Claude"
 
     mkBackupList "$HOME/.cddb"
     mkBackupList "$HOME/.dvdcss"

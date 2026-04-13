@@ -38,22 +38,19 @@ in {
       outputStyle = "Explanatory";
       alwaysThinkingEnabled = true;
       skipDangerousModePermissionPrompt = true;
-      enabledPlugins =
-        {
-          "clangd-lsp@claude-plugins-official" = true;
-          "gopls-lsp@claude-plugins-official" = true;
-          "jdtls-lsp@claude-plugins-official" = true;
-          "kotlin-lsp@claude-plugins-official" = true;
-          "lua-lsp@claude-plugins-official" = true;
-          "php-lsp@claude-plugins-official" = true;
-          "pyright-lsp@claude-plugins-official" = true;
-          "rust-analyzer-lsp@claude-plugins-official" = true;
-          "swift-lsp@claude-plugins-official" = true;
-          "typescript-lsp@claude-plugins-official" = true;
-        }
-        // lib.attrsets.optionalAttrs (pkgs.stdenv.hostPlatform.system != "aarch64-darwin") {
-          "csharp-lsp@claude-plugins-official" = true; # LSP currently broken on macOS ARM
-        };
+      enabledPlugins = {
+        "clangd-lsp@claude-plugins-official" = true;
+        "csharp-lsp@claude-plugins-official" = true;
+        "gopls-lsp@claude-plugins-official" = true;
+        "jdtls-lsp@claude-plugins-official" = true;
+        "kotlin-lsp@claude-plugins-official" = true;
+        "lua-lsp@claude-plugins-official" = true;
+        "php-lsp@claude-plugins-official" = true;
+        "pyright-lsp@claude-plugins-official" = true;
+        "rust-analyzer-lsp@claude-plugins-official" = true;
+        "swift-lsp@claude-plugins-official" = true;
+        "typescript-lsp@claude-plugins-official" = true;
+      };
       hooks = {
         PostToolUseFailure = [
           {
@@ -86,36 +83,20 @@ in {
   programs.chromium.extensions = [
     {id = "${claudeInChrome.extensionId}";} # Claude for Chrome
   ];
-  home.file."Library/Application Support/Chromium/Default/Extensions/.keep" = {
-    enable = pkgs.stdenv.isDarwin && config.programs.chromium.enable;
-    text = "";
-  };
-  home.file."Library/Application Support/Chromium/NativeMessagingHosts/${claudeInChrome.nativeHostName}.json" = {
-    enable = pkgs.stdenv.isDarwin && config.programs.chromium.enable;
-    text = "${claudeInChrome.nativeHostConfig}";
-  };
-  home.file."Library/Application Support/Google/Chrome/Default/Extensions" = {
-    enable = pkgs.stdenv.isDarwin && config.programs.chromium.enable;
-    source = config.lib.file.mkOutOfStoreSymlink "${config.home.homeDirectory}/Library/Application Support/Chromium/Default/Extensions";
-  };
-  home.file."Library/Application Support/Google/Chrome/NativeMessagingHosts" = {
-    enable = pkgs.stdenv.isDarwin && config.programs.chromium.enable;
-    source = config.lib.file.mkOutOfStoreSymlink "${config.home.homeDirectory}/Library/Application Support/Chromium/NativeMessagingHosts";
-  };
   xdg.configFile."chromium/Default/Extensions/.keep" = {
-    enable = pkgs.stdenv.isLinux && config.programs.chromium.enable;
+    enable = config.programs.chromium.enable;
     text = "";
   };
   xdg.configFile."chromium/NativeMessagingHosts/${claudeInChrome.nativeHostName}.json" = {
-    enable = pkgs.stdenv.isLinux && config.programs.chromium.enable;
+    enable = config.programs.chromium.enable;
     text = "${claudeInChrome.nativeHostConfig}";
   };
   xdg.configFile."google-chrome/Default/Extensions" = {
-    enable = pkgs.stdenv.isLinux && config.programs.chromium.enable;
+    enable = config.programs.chromium.enable;
     source = config.lib.file.mkOutOfStoreSymlink "${config.xdg.configHome}/chromium/Default/Extensions";
   };
   xdg.configFile."google-chrome/NativeMessagingHosts" = {
-    enable = pkgs.stdenv.isLinux && config.programs.chromium.enable;
+    enable = config.programs.chromium.enable;
     source = config.lib.file.mkOutOfStoreSymlink "${config.xdg.configHome}/chromium/NativeMessagingHosts";
   };
 
