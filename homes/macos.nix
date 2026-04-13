@@ -1,15 +1,10 @@
-{
-  config,
-  pkgs,
-  ...
-}: let
+{pkgs, ...}: let
   localPkgs = {
     vault-sync = pkgs.callPackage ../pkgs/vault-sync.nix {};
   };
 in {
   imports = [
     ../programs/keepassxc.nix
-    ../programs/zed.nix
     ../programs/zsh.nix
   ];
 

@@ -53,7 +53,6 @@
       "utm"
       "vlc"
       "yubico-yubikey-manager"
-      "zed"
     ];
   };
 
@@ -122,7 +121,6 @@
         {app = "/System/Applications/System Settings.app";}
         {app = "/System/Applications/Utilities/Terminal.app";}
         {app = "/Applications/UTM.app";}
-        {app = "/Applications/Zed.app";}
       ];
       persistent-others = [
         {
