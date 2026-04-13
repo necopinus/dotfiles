@@ -135,7 +135,6 @@ in {
           "${config.home.homeDirectory}/.profile",
           "/etc/bash.bashrc",
           "/etc/bashrc",
-          "/etc/bashrc_Apple_Terminal",
           "/etc/profile",
           "/etc/skel/.bash_profile",
           "/etc/skel/.bashrc",
