@@ -20,20 +20,22 @@ writeShellApplication {
     BACKUP_LIST_TMP="$(mktemp)"
 
     function mkBackupList {
-        if [[ -d "$1" ]]; then
-          find "$1" \( \
-            \( -type f -o \( -type d -empty \) \) \
-            -not \( -name ".DS_Store" \
-                 -o -name ".localized" \
-                 -o -name "*.pyc" \
-                 -o -name "*.swp" \
-                 -o -name "*~" \
-                 -o -name ".#*" \
-                 -o -name "._*" \) \
-          \) -exec realpath "{}" \; | tee -a "$BACKUP_LIST"
-        elif [[ -f "$1" ]]; then
-          realpath "$1" | tee -a "$BACKUP_LIST"
-        fi
+      if [[ -d "$1" ]]; then
+        echo "Adding files: $1 ..."
+        find "$1" \( \
+          \( -type f -o \( -type d -empty \) \) \
+          -not \( -name ".DS_Store" \
+               -o -name ".localized" \
+               -o -name "*.pyc" \
+               -o -name "*.swp" \
+               -o -name "*~" \
+               -o -name ".#*" \
+                -o -name "._*" \) \
+        \) -exec realpath "{}" \; >> "$BACKUP_LIST"
+      elif [[ -f "$1" ]]; then
+        echo "Adding file: $1 ..."
+        realpath "$1" >> "$BACKUP_LIST"
+      fi
     }
 
     mkBackupList "$XDG_CONFIG_HOME/nix"
