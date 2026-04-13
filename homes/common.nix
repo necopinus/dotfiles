@@ -18,7 +18,6 @@ in {
     ../programs/chafa.nix
     ../programs/delta.nix # Depends on bat.nix
     ../programs/dircolors.nix
-    ../programs/direnv.nix
     ../programs/eza.nix
     ../programs/fish.nix
     ../programs/git.nix

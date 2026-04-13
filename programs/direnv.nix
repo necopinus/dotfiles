@@ -28,7 +28,7 @@
     };
     config = {
       whitelist = {
-        prefix = ["${config.home.homeDirectory}/engagements"];
+        prefix = ["${config.home.homeDirectory}/Engagements"];
       };
     };
   };

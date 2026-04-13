@@ -7,6 +7,7 @@
   imports = [
     ../programs/chromium.nix
     ../programs/claude.nix
+    ../programs/direnv.nix
     ../programs/exfalso.nix
     ../programs/obsidian.nix
   ];
