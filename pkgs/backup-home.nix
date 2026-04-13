@@ -33,7 +33,7 @@ writeShellApplication {
                 -o -name "._*" \) \
         \) -exec realpath "{}" \; >> "$BACKUP_LIST"
       elif [[ -f "$1" ]]; then
-        echo "Adding file: $1 ..."
+        echo "Adding file:  $1 ..."
         realpath "$1" >> "$BACKUP_LIST"
       fi
     }
