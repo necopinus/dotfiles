@@ -32,10 +32,6 @@ in {
         RequestTTY = "yes";
         RemoteCommand = "/home/droid/.nix-profile/bin/zellij attach -c";
       };
-      compression = true;
-      forwardAgent = false;
-      serverAliveInterval = 15;
-      serverAliveCountMax = 4;
     };
   };
 
