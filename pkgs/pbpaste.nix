@@ -18,6 +18,15 @@ writeShellApplication {
       xsel
     ];
 
+  # Remove "nounset" from the default list, as we need to test against
+  # potentially unset environment variables (WAYLAND_DISPLAY and
+  # DISPLAY)
+  #
+  bashOptions = [
+    "errexit"
+    "pipefail"
+  ];
+
   text =
     (
       if stdenv.isLinux
