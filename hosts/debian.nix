@@ -3,11 +3,7 @@
   lib,
   config,
   ...
-}: let
-  localPkgs = {
-    xcv = pkgs.callPackage ../pkgs/xcv.nix {};
-  };
-in {
+}: {
   home.packages = with pkgs; [
     dconf2nix
 
@@ -25,9 +21,6 @@ in {
     #
     pantheon.elementary-wallpapers
     pop-wallpapers
-
-    #### Launch GUI apps from the terminal without blocking ####
-    localPkgs.xcv
   ];
 
   # Needed to force font cache to be rebuilt
