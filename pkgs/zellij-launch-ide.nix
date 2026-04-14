@@ -34,7 +34,7 @@ writeShellApplication {
       #
       IDE_DIR="$(realpath "$(pwd)")"
 
-      if [[ ! -r "$IDE_DIR" ]] || [[ ! -w "$IDE_DIR" ]] || [[ -x "$IDE_DIR" ]]; then
+      if [[ ! -r "$IDE_DIR" ]] || [[ ! -w "$IDE_DIR" ]] || [[ ! -x "$IDE_DIR" ]]; then
         IDE_DIR=""
       fi
     else

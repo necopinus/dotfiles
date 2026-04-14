@@ -30,8 +30,6 @@ writeShellApplication {
   ];
 
   text = ''
-    set -x
-
     # If we're in a Zellij session, then we try to locate the "Helix"
     # pane (or create one, if necessary)
     #
