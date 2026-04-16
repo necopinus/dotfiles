@@ -78,15 +78,11 @@
       show-warning = false;
     };
 
-    "org/gnome/Console" = {
-      ignore-scrollback-limit = true;
-    };
-
     "org/gnome/desktop/background" = {
       color-shading-type = "solid";
       picture-options = "zoom";
-      picture-uri = "file://${pkgs.pop-wallpapers}/share/backgrounds/pop/sean-afnan-244576.jpg";
-      picture-uri-dark = "file://${pkgs.pop-wallpapers}/share/backgrounds/pop/sean-afnan-244576.jpg";
+      picture-uri = "file://${pkgs.pop-wallpapers}/share/backgrounds/pop/spacex-81773.jpg";
+      picture-uri-dark = "file://${pkgs.pop-wallpapers}/share/backgrounds/pop/spacex-81773.jpg";
       primary-color = "#000000";
       secondary-color = "#000000";
     };
@@ -98,7 +94,7 @@
     };
 
     "org/gnome/desktop/peripherals/mouse" = {
-      natural-scroll = true;
+      natural-scroll = false;
     };
 
     "org/gnome/desktop/privacy" = {
@@ -111,7 +107,7 @@
       color-shading-type = "solid";
       lock-enabled = false;
       picture-options = "zoom";
-      picture-uri = "file://${pkgs.pop-wallpapers}/share/backgrounds/pop/sean-afnan-244576.jpg";
+      picture-uri = "file://${pkgs.pop-wallpapers}/share/backgrounds/pop/spacex-81773.jpg";
       primary-color = "#000000";
       secondary-color = "#000000";
     };
@@ -120,12 +116,22 @@
       idle-delay = mkUint32 0;
     };
 
+    "org/gnome/desktop/peripherals/touchpad" = {
+      natural-scroll = true;
+      two-finger-scrolling-enabled = true;
+    };
+
     "org/gnome/nautilus/list-view" = {
       use-tree-view = true;
     };
 
     "org/gnome/nautilus/preferences" = {
       default-folder-viewer = "list-view";
+    };
+
+    "org/gnome/Ptyxis" = {
+      interface-style = "dark";
+      "scrollbar-policy" = "never";
     };
 
     "org/gnome/settings-daemon/plugins/power" = {

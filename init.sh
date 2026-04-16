@@ -116,10 +116,10 @@ if [[ "$OS" == "Linux" ]]; then
         build-essential \
         dconf-editor \
         gdm3 \
-        gnome-console \
         gnome-session \
         libseccomp-dev \
         procps \
+        ptyxis \
         seahorse
 
     # Additional packages to install on normal Debian VMs
