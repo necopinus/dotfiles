@@ -31,9 +31,9 @@ in {
         ColorPasswords = true;
         MinimizeOnClose = true;
         MinimizeOnStartup = true;
-        MinimizeToTray = pkgs.stdenv.isDarwin;
+        MinimizeToTray = true;
         MonospaceNotes = true;
-        ShowTrayIcon = pkgs.stdenv.isDarwin;
+        ShowTrayIcon = true;
         TrayIconApearance = "monochrome";
       };
       Security = {
