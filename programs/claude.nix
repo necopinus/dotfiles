@@ -1,7 +1,6 @@
 {
   config,
   pkgs,
-  lib,
   llm-agents,
   ...
 }: let
@@ -35,7 +34,9 @@ in {
     # the same time!
     #
     settings = {
+      tui = "fullscreen";
       outputStyle = "Explanatory";
+      model = "opus";
       alwaysThinkingEnabled = true;
       skipDangerousModePermissionPrompt = true;
       enabledPlugins = {

@@ -1,3 +1,7 @@
+## Reasoning
+
+If you have not already developed a plan, do so before making any changes, no matter how simple the task. Never shy away from asking clarifying questions.
+
 <!-- nono-sandbox-start -->
 
 ## Nono Sandbox - CRITICAL

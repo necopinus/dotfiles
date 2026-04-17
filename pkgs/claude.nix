@@ -184,6 +184,7 @@ in
           $([[ -n "$SANDBOXED_XDG_CONFIG_DIRS" ]] && echo -n "XDG_CONFIG_DIRS=\"$SANDBOXED_XDG_CONFIG_DIRS\"") \
           $([[ -n "$SANDBOXED_XDG_DATA_DIRS" ]] && echo -n "XDG_DATA_DIRS=\"$SANDBOXED_XDG_DATA_DIRS\"") \
           CLAUDE_CODE_SHELL=${bashInteractive}/bin/bash \
+          CLAUDE_CODE_EFFORT_LEVEL=max \
           ENABLE_LSP_TOOL=1 \
           PATH="$SANDBOXED_PATH" \
           XDG_CACHE_HOME="$SANDBOXED_XDG_CACHE_HOME" \
