@@ -132,6 +132,7 @@
     "org/gnome/Ptyxis" = {
       default-profile-uuid = "2d7007695ddd91580b6e8ab069e127b2";
       profile-uuids = ["2d7007695ddd91580b6e8ab069e127b2"];
+      interface-style = "dark";
       scrollbar-policy = "never";
     };
 
@@ -175,7 +176,7 @@
     '';
   };
 
-  xdg.configFile."bash/env.d/dbus-update-activation-environment.sh" = {
+  xdg.configFile."bash/rc.d/dbus-update-activation-environment.sh" = {
     enable = config.programs.bash.enable;
     text = ''
       if [[ $(pgrep --uid $(${pkgs.uutils-coreutils-noprefix}/bin/id -u) dbus-daemon | ${pkgs.uutils-coreutils-noprefix}/bin/wc -l) -gt 0 ]]; then
@@ -186,7 +187,7 @@
       fi
     '';
   };
-  xdg.configFile."zsh/env.d/dbus-update-activation-environment.sh" = {
+  xdg.configFile."zsh/rc.d/dbus-update-activation-environment.sh" = {
     enable = config.programs.zsh.enable;
     text = ''
       if [[ $(pgrep --uid $(${pkgs.uutils-coreutils-noprefix}/bin/id -u) dbus-daemon | ${pkgs.uutils-coreutils-noprefix}/bin/wc -l) -gt 0 ]]; then
@@ -197,7 +198,7 @@
       fi
     '';
   };
-  xdg.configFile."fish/env.d/dbus-update-activation-environment.fish" = {
+  xdg.configFile."fish/rc.d/dbus-update-activation-environment.fish" = {
     enable = config.programs.fish.enable;
     text = ''
       if test $(pgrep --uid $(${pkgs.uutils-coreutils-noprefix}/bin/id -u) dbus-daemon | ${pkgs.uutils-coreutils-noprefix}/bin/wc -l) -gt 0
