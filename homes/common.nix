@@ -117,7 +117,7 @@ in {
   #
   home.sessionVariables = {
     XDG_CONFIG_DIRS = "${config.home.homeDirectory}/.nix-profile/etc/xdg:/nix/var/nix/profiles/default/etc/xdg:/etc/xdg";
-    XDG_DATA_DIRS = lib.mkForce "${config.home.homeDirectory}/.nix-profile/share:/nix/var/nix/profiles/default/share:/usr/local/share:/usr/share";
+    XDG_DATA_DIRS = lib.mkForce "${config.home.homeDirectory}/.nix-profile/share:/nix/var/nix/profiles/default/share:/usr/local/share:/usr/share/gnome:/usr/share";
 
     XDG_CACHE_HOME = "${config.xdg.cacheHome}";
     XDG_CONFIG_HOME = "${config.xdg.configHome}";
