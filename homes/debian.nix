@@ -1,5 +1,4 @@
 {
-  config,
   lib,
   pkgs,
   ...
@@ -27,19 +26,5 @@
   news = {
     display = "silent";
     entries = lib.mkForce [];
-  };
-
-  # Make sure that systemd units (and regular console sessions) pick up
-  # key environment variables
-  #
-  systemd.user.sessionVariables = {
-    DBUS_SESSION_BUS_ADDRESS = "unix:path=/run/user/1000/bus";
-    PATH = "${config.home.homeDirectory}/.nix-profile/bin:/nix/var/nix/profiles/default/bin:/usr/local/bin:/usr/bin:/bin:/usr/local/games:/usr/games";
-    XDG_CACHE_HOME = "${config.xdg.cacheHome}";
-    XDG_CONFIG_DIRS = "${config.home.sessionVariables.XDG_CONFIG_DIRS}";
-    XDG_CONFIG_HOME = "${config.xdg.configHome}";
-    XDG_DATA_DIRS = lib.mkForce "${config.home.sessionVariables.XDG_DATA_DIRS}";
-    XDG_DATA_HOME = "${config.xdg.dataHome}";
-    XDG_STATE_HOME = "${config.xdg.stateHome}";
   };
 }

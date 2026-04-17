@@ -144,6 +144,31 @@
     };
   };
 
+  # Fix various GNOME environment issues that can randomly happen; see:
+  #
+  #   https://github.com/nix-community/home-manager/pull/7949#issuecomment-3434867383
+  #   https://github.com/systemd/systemd/issues/32423#issuecomment-2907893187
+  #   https://wiki.archlinux.org/title/Systemd/User#Re-using_the_shell_login_environment
+  #   https://noah.meyerhans.us/2020/07/07/setting-environment-variables-for-gnome-session/
+  #
+  xdg.configFile = {
+    "systemd/user.conf".text = ''
+      [Manager]
+      ManagerEnvironment=SYSTEMD_ENVIRONMENT_GENERATOR_PATH=${config.home.homeDirectory}/.config/systemd/user-environment-generators:/run/systemd/user-environment-generators:/etc/systemd/user-environment-generators:/usr/local/lib/systemd/user-environment-generators:/usr/lib/systemd/user-environment-generators
+    '';
+    "systemd/user-environment-generators/10-home-manager" = {
+      executable = true;
+      text = ''
+        #!/bin/sh
+        env -i -- $SHELL --login -c env | grep -vE '^(_|SHLVL|PWD|OLDPWD)='
+      '';
+    };
+    "systemd/user/org.gnome.Shell@wayland.service.d/path.conf".text = ''
+      [Service]
+      Environment=PATH=${config.home.homeDirectory}/.local/bin:${config.home.homeDirectory}/.nix-profile/bin:/nix/var/nix/profiles/default/bin:/usr/local/bin:/usr/bin:/bin:/usr/local/games:/usr/games
+    '';
+  };
+
   # Hide extraneous system ViM desktop entry
   #
   # NOTE: We have to do this using xdg.dataFile rather than
@@ -156,34 +181,4 @@
     NoDisplay=true
     Hidden=true
   '';
-
-  # Fix brain dead TERM choice for GNOME Console
-  #
-  # This needs to be sourced in rc.d rather than env.d, since GNOME
-  # Console does not start use login shells
-  #
-  xdg.configFile."bash/rc.d/gnome-console.sh" = {
-    enable = config.programs.bash.enable;
-    text = ''
-      if [[ "$TERM_PROGRAM" == "kgx" ]] && [[ "$TERM" == "dumb" ]]; then
-        export TERM=xterm-256color
-      fi
-    '';
-  };
-  xdg.configFile."zsh/rc.d/gnome-console.sh" = {
-    enable = config.programs.zsh.enable;
-    text = ''
-      if [[ "$TERM_PROGRAM" == "kgx" ]] && [[ "$TERM" == "dumb" ]]; then
-        export TERM=xterm-256color
-      fi
-    '';
-  };
-  xdg.configFile."zsh/rc.d/gnome-console.fish" = {
-    enable = config.programs.fish.enable;
-    text = ''
-      if test "$TERM_PROGRAM" = "kgx"; and test "$TERM" = "dumb"
-        set -x TERM xterm-256color
-      end
-    '';
-  };
 }
