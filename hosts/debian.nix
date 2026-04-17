@@ -130,8 +130,13 @@
     };
 
     "org/gnome/Ptyxis" = {
-      interface-style = "dark";
-      "scrollbar-policy" = "never";
+      default-profile-uuid = "2d7007695ddd91580b6e8ab069e127b2";
+      profile-uuids = ["2d7007695ddd91580b6e8ab069e127b2"];
+      scrollbar-policy = "never";
+    };
+
+    "org/gnome/Ptyxis/Profiles/2d7007695ddd91580b6e8ab069e127b2" = {
+      palette = "Gruvbox";
     };
 
     "org/gnome/settings-daemon/plugins/power" = {
