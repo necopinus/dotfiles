@@ -149,7 +149,8 @@
     };
   };
 
-  # Fix various GNOME environment issues that can randomly happen; see:
+  # Fixes for various GNOME environment issues that can randomly happen;
+  # see:
   #
   #   https://github.com/nix-community/home-manager/pull/7949#issuecomment-3434867383
   #   https://github.com/systemd/systemd/issues/32423#issuecomment-2907893187
@@ -171,6 +172,40 @@
     "systemd/user/org.gnome.Shell@wayland.service.d/path.conf".text = ''
       [Service]
       Environment=PATH=${config.home.homeDirectory}/.local/bin:${config.home.homeDirectory}/.nix-profile/bin:/nix/var/nix/profiles/default/bin:/usr/local/bin:/usr/bin:/bin:/usr/local/games:/usr/games
+    '';
+  };
+
+  xdg.configFile."bash/env.d/dbus-update-activation-environment.sh" = {
+    enable = config.programs.bash.enable;
+    text = ''
+      if [[ $(pgrep --uid $(${pkgs.uutils-coreutils-noprefix}/bin/id -u) dbus-daemon | ${pkgs.uutils-coreutils-noprefix}/bin/wc -l) -gt 0 ]]; then
+        dbus-update-activation-environment \
+          PATH="$PATH" \
+          XDG_CONFIG_DIRS="$XDG_CONFIG_DIRS" \
+          XDG_DATA_DIRS="$XDG_DATA_DIRS"
+      fi
+    '';
+  };
+  xdg.configFile."zsh/env.d/dbus-update-activation-environment.sh" = {
+    enable = config.programs.zsh.enable;
+    text = ''
+      if [[ $(pgrep --uid $(${pkgs.uutils-coreutils-noprefix}/bin/id -u) dbus-daemon | ${pkgs.uutils-coreutils-noprefix}/bin/wc -l) -gt 0 ]]; then
+        dbus-update-activation-environment \
+          PATH="$PATH" \
+          XDG_CONFIG_DIRS="$XDG_CONFIG_DIRS" \
+          XDG_DATA_DIRS="$XDG_DATA_DIRS"
+      fi
+    '';
+  };
+  xdg.configFile."fish/env.d/dbus-update-activation-environment.fish" = {
+    enable = config.programs.fish.enable;
+    text = ''
+      if test $(pgrep --uid $(${pkgs.uutils-coreutils-noprefix}/bin/id -u) dbus-daemon | ${pkgs.uutils-coreutils-noprefix}/bin/wc -l) -gt 0
+        dbus-update-activation-environment \
+          PATH="$PATH" \
+          XDG_CONFIG_DIRS="$XDG_CONFIG_DIRS" \
+          XDG_DATA_DIRS="$XDG_DATA_DIRS"
+      end
     '';
   };
 
