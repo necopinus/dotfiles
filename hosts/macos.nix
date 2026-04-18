@@ -126,6 +126,7 @@
         {
           folder = {
             path = "/Users/${config.system.primaryUser}/Applications/Brave Browser Apps.localized";
+            displayas = "folder";
             showas = "grid";
           };
         }
