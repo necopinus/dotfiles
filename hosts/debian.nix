@@ -170,9 +170,11 @@
         env -i -- $SHELL --login -c env | grep -vE '^(_|SHLVL|PWD|OLDPWD)='
       '';
     };
-    "systemd/user/org.gnome.Shell@wayland.service.d/path.conf".text = ''
+    "systemd/user/org.gnome.Shell@wayland.service.d/environment.conf".text = ''
       [Service]
       Environment=PATH=${config.home.homeDirectory}/.local/bin:${config.home.homeDirectory}/.nix-profile/bin:/nix/var/nix/profiles/default/bin:/usr/local/bin:/usr/bin:/bin:/usr/local/games:/usr/games
+      Environment=XDG_CONFIG_DIRS=${config.home.sessionVariables.XDG_CONFIG_DIRS}
+      Environment=XDG_DATA_DIRS=${config.home.sessionVariables.XDG_DATA_DIRS}
     '';
   };
 
