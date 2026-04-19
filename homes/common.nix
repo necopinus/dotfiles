@@ -109,15 +109,17 @@ in {
 
   # XDG_CONFIG_DIRS and XDG_DATA_DIRS are set here rather than in
   # xdg.systemDirs in order to avoid as much path messiness as possible
-  # and to allow for easy inclusion in systemd.user.sessionVariables
-  # (debian.nix)
+  #
+  # IMPORTANT: We don't add the Nix profile XDG data dirs to
+  # XDG_DATA_DIRS, as these will be appended to the end automatically
+  # by /etc/profile.d/nix.sh
   #
   # XDG_*_HOME variables are set here to ensure their availability in
   # all shells
   #
   home.sessionVariables = {
-    XDG_CONFIG_DIRS = "${config.home.homeDirectory}/.nix-profile/etc/xdg:/nix/var/nix/profiles/default/etc/xdg:/etc/xdg";
-    XDG_DATA_DIRS = lib.mkForce "${config.home.homeDirectory}/.nix-profile/share:/nix/var/nix/profiles/default/share:/usr/local/share:/usr/share/gnome:/usr/share";
+    XDG_CONFIG_DIRS = "/etc/xdg:${config.home.homeDirectory}/.nix-profile/etc/xdg:/nix/var/nix/profiles/default/etc/xdg";
+    XDG_DATA_DIRS = lib.mkForce "/usr/local/share:/usr/share/gnome:/usr/share";
 
     XDG_CACHE_HOME = "${config.xdg.cacheHome}";
     XDG_CONFIG_HOME = "${config.xdg.configHome}";

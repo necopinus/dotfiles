@@ -159,56 +159,56 @@
   #   https://noah.meyerhans.us/2020/07/07/setting-environment-variables-for-gnome-session/
   #
   xdg.configFile = {
-    "systemd/user.conf".text = ''
-      [Manager]
-      ManagerEnvironment=SYSTEMD_ENVIRONMENT_GENERATOR_PATH=${config.home.homeDirectory}/.config/systemd/user-environment-generators:/run/systemd/user-environment-generators:/etc/systemd/user-environment-generators:/usr/local/lib/systemd/user-environment-generators:/usr/lib/systemd/user-environment-generators
-    '';
-    "systemd/user-environment-generators/10-home-manager" = {
-      executable = true;
-      text = ''
-        #!/bin/sh
-        env -i -- $SHELL --login -c env | grep -vE '^(_|SHLVL|PWD|OLDPWD)='
-      '';
-    };
+    #"systemd/user.conf".text = ''
+    #  [Manager]
+    #  ManagerEnvironment=SYSTEMD_ENVIRONMENT_GENERATOR_PATH=${config.home.homeDirectory}/.config/systemd/user-environment-generators:/run/systemd/user-environment-generators:/etc/systemd/user-environment-generators:/usr/local/lib/systemd/user-environment-generators:/usr/lib/systemd/user-environment-generators
+    #'';
+    #"systemd/user-environment-generators/10-home-manager" = {
+    #  executable = true;
+    #  text = ''
+    #    #!/bin/sh
+    #    env -i -- $SHELL --login -c env | grep -vE '^(_|SHLVL|PWD|OLDPWD)='
+    #  '';
+    #};
     "systemd/user/org.gnome.Shell@wayland.service.d/path.conf".text = ''
       [Service]
       Environment=PATH=${config.home.homeDirectory}/.local/bin:${config.home.homeDirectory}/.nix-profile/bin:/nix/var/nix/profiles/default/bin:/usr/local/bin:/usr/bin:/bin:/usr/local/games:/usr/games
     '';
   };
 
-  xdg.configFile."bash/rc.d/dbus-update-activation-environment.sh" = {
-    enable = config.programs.bash.enable;
-    text = ''
-      if [[ $(pgrep --uid $(${pkgs.uutils-coreutils-noprefix}/bin/id -u) dbus-daemon | ${pkgs.uutils-coreutils-noprefix}/bin/wc -l) -gt 0 ]]; then
-        dbus-update-activation-environment \
-          PATH="$PATH" \
-          XDG_CONFIG_DIRS="$XDG_CONFIG_DIRS" \
-          XDG_DATA_DIRS="$XDG_DATA_DIRS"
-      fi
-    '';
-  };
-  xdg.configFile."zsh/rc.d/dbus-update-activation-environment.sh" = {
-    enable = config.programs.zsh.enable;
-    text = ''
-      if [[ $(pgrep --uid $(${pkgs.uutils-coreutils-noprefix}/bin/id -u) dbus-daemon | ${pkgs.uutils-coreutils-noprefix}/bin/wc -l) -gt 0 ]]; then
-        dbus-update-activation-environment \
-          PATH="$PATH" \
-          XDG_CONFIG_DIRS="$XDG_CONFIG_DIRS" \
-          XDG_DATA_DIRS="$XDG_DATA_DIRS"
-      fi
-    '';
-  };
-  xdg.configFile."fish/rc.d/dbus-update-activation-environment.fish" = {
-    enable = config.programs.fish.enable;
-    text = ''
-      if test $(pgrep --uid $(${pkgs.uutils-coreutils-noprefix}/bin/id -u) dbus-daemon | ${pkgs.uutils-coreutils-noprefix}/bin/wc -l) -gt 0
-        dbus-update-activation-environment \
-          PATH="$PATH" \
-          XDG_CONFIG_DIRS="$XDG_CONFIG_DIRS" \
-          XDG_DATA_DIRS="$XDG_DATA_DIRS"
-      end
-    '';
-  };
+  #xdg.configFile."bash/rc.d/dbus-update-activation-environment.sh" = {
+  #  enable = config.programs.bash.enable;
+  #  text = ''
+  #    if [[ $(pgrep --uid $(${pkgs.uutils-coreutils-noprefix}/bin/id -u) dbus-daemon | ${pkgs.uutils-coreutils-noprefix}/bin/wc -l) -gt 0 ]]; then
+  #      dbus-update-activation-environment \
+  #        PATH="$PATH" \
+  #        XDG_CONFIG_DIRS="$XDG_CONFIG_DIRS" \
+  #        XDG_DATA_DIRS="$XDG_DATA_DIRS"
+  #    fi
+  #  '';
+  #};
+  #xdg.configFile."zsh/rc.d/dbus-update-activation-environment.sh" = {
+  #  enable = config.programs.zsh.enable;
+  #  text = ''
+  #    if [[ $(pgrep --uid $(${pkgs.uutils-coreutils-noprefix}/bin/id -u) dbus-daemon | ${pkgs.uutils-coreutils-noprefix}/bin/wc -l) -gt 0 ]]; then
+  #      dbus-update-activation-environment \
+  #        PATH="$PATH" \
+  #        XDG_CONFIG_DIRS="$XDG_CONFIG_DIRS" \
+  #        XDG_DATA_DIRS="$XDG_DATA_DIRS"
+  #    fi
+  #  '';
+  #};
+  #xdg.configFile."fish/rc.d/dbus-update-activation-environment.fish" = {
+  #  enable = config.programs.fish.enable;
+  #  text = ''
+  #    if test $(pgrep --uid $(${pkgs.uutils-coreutils-noprefix}/bin/id -u) dbus-daemon | ${pkgs.uutils-coreutils-noprefix}/bin/wc -l) -gt 0
+  #      dbus-update-activation-environment \
+  #        PATH="$PATH" \
+  #        XDG_CONFIG_DIRS="$XDG_CONFIG_DIRS" \
+  #        XDG_DATA_DIRS="$XDG_DATA_DIRS"
+  #    end
+  #  '';
+  #};
 
   # Hide extraneous system ViM desktop entry
   #
