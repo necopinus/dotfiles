@@ -30,7 +30,7 @@ in {
     ../programs/zoxide.nix
   ];
 
-  programs.yt-dlp.enable = pkgs.stdenv.isDarwin; # FIXME: 2026-04-19 - The `deno` dependency seems to be broken on aarch64-linux
+  programs.yt-dlp.enable = true;
 
   home.packages = with pkgs; [
     android-tools
