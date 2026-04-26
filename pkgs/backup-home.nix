@@ -54,6 +54,10 @@ writeShellApplication {
     mkBackupList "$XDG_CONFIG_HOME/aacs"
     mkBackupList "$XDG_CONFIG_HOME/adept"
 
+    mkBackupList "$HOME/.bash_history"
+    mkBackupList "$XDG_CONFIG_HOME/zsh/.zsh_history"
+    mkBackupList "$XDG_DATA_HOME/fish/fish_history"
+
     mkBackupList "$XDG_CONFIG_HOME/Engagements"
 
     mkBackupList "$HOME/Library/Application Support/obsidian"
