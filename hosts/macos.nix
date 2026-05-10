@@ -100,9 +100,8 @@
     controlcenter.BatteryShowPercentage = true;
 
     dock = {
-      autohide = true;
-      tilesize = 128;
-      largesize = 128;
+      tilesize = 48;
+      largesize = 48;
       mineffect = "scale";
       mru-spaces = false;
       showAppExposeGestureEnabled = true;
