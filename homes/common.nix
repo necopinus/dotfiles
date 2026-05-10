@@ -26,11 +26,10 @@ in {
     ../programs/jaq.nix
     ../programs/ssh.nix
     ../programs/starship.nix
+    ../programs/yt-dlp.nix
     ../programs/zellij.nix # Depends on claude.nix (Debian-only), fish.nix, and helix.nix
     ../programs/zoxide.nix
   ];
-
-  programs.yt-dlp.enable = true;
 
   home.packages = with pkgs; [
     android-tools

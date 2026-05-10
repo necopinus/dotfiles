@@ -1,0 +1,27 @@
+{
+  pkgs,
+  lib,
+  ...
+}: {
+  programs.yt-dlp = {
+    enable = true;
+
+    # The `deno` dependency for `yt-dlp` frequently breaks on
+    # aarch64-linux, so we swap it out for `nodejs` instead
+    #
+    # https://www.reddit.com/r/NixOS/comments/1t13tp1/comment/ojdyk01/
+    #
+    package =
+      if pkgs.stdenv.isDarwin
+      then pkgs.yt-dlp
+      else
+        pkgs.yt-dlp.overrideAttrs (previousAttrs: {
+          postPatch = ''
+            substituteInPlace yt_dlp/version.py \
+              --replace-fail "UPDATE_HINT = None" 'UPDATE_HINT = "Nixpkgs/NixOS likely already contain an updated version.\n       To get it run nix-channel --update or nix flake update in your config directory."'
+            substituteInPlace yt_dlp/utils/_jsruntime.py \
+              --replace-fail "path = _determine_runtime_path(self._path, '${pkgs.nodejs.meta.mainProgram}')" "path = '${lib.getExe pkgs.nodejs}'"
+          '';
+        });
+  };
+}
