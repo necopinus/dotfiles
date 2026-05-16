@@ -40,6 +40,7 @@
     '';
 
     casks = [
+      "adobe-creative-cloud"
       "brave-browser"
       "handbrake-app"
       "keepassxc"
