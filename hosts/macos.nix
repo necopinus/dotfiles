@@ -114,7 +114,9 @@
 
       persistent-apps = [
         {app = "/System/Applications/Apps.app";}
+        {app = "/Applications/Adobe Lightroom CC/Adobe Lightroom.app";}
         {app = "/Applications/Brave Browser.app";}
+        {app = "/Users/${config.system.primaryUser}/Applications/FolderSync Desktop.app";}
         {app = "/Applications/KeePassXC.app";}
         {app = "/System/Applications/Music.app";}
         {app = "/Applications/Obsidian.app";}
