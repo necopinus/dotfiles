@@ -31,6 +31,8 @@ in {
     ../programs/zoxide.nix
   ];
 
+  programs.uv.enable = true;
+
   home.packages = with pkgs; [
     android-tools
     curl
