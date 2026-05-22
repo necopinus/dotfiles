@@ -127,13 +127,6 @@
       persistent-others = [
         {
           folder = {
-            path = "/Users/${config.system.primaryUser}/Applications/Brave Browser Apps.localized";
-            displayas = "folder";
-            showas = "grid";
-          };
-        }
-        {
-          folder = {
             path = "/Users/${config.system.primaryUser}/Downloads";
             arrangement = "date-added";
           };

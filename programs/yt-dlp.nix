@@ -12,9 +12,8 @@
     # https://www.reddit.com/r/NixOS/comments/1t13tp1/comment/ojdyk01/
     #
     package =
-      if pkgs.stdenv.isDarwin
-      then pkgs.yt-dlp
-      else
+      if (pkgs.stdenv.hostPlatform.system == "aarch64-linux")
+      then
         pkgs.yt-dlp.overrideAttrs (previousAttrs: {
           postPatch = ''
             substituteInPlace yt_dlp/version.py \
@@ -22,6 +21,7 @@
             substituteInPlace yt_dlp/utils/_jsruntime.py \
               --replace-fail "path = _determine_runtime_path(self._path, '${pkgs.nodejs.meta.mainProgram}')" "path = '${lib.getExe pkgs.nodejs}'"
           '';
-        });
+        })
+      else pkgs.yt-dlp;
   };
 }

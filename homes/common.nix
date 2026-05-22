@@ -15,13 +15,10 @@ in {
     ../programs/bash.nix
     ../programs/bat.nix
     ../programs/bottom.nix
-    ../programs/chafa.nix
-    ../programs/delta.nix # Depends on bat.nix
     ../programs/dircolors.nix
     ../programs/eza.nix
     ../programs/fish.nix
     ../programs/git.nix
-    ../programs/glow.nix
     ../programs/helix.nix
     ../programs/jaq.nix
     ../programs/ssh.nix
@@ -36,7 +33,6 @@ in {
   home.packages = with pkgs; [
     android-tools
     curl
-    ffmpeg
     gawk
     gnugrep
     gnutar
@@ -50,7 +46,6 @@ in {
     poppler-utils
     rsgain
     rsync
-    serpl
     unzip
     uutils-coreutils-noprefix
     uutils-diffutils

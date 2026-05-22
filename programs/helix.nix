@@ -57,7 +57,8 @@ in {
 
     extraPackages = helperPkgs;
 
-    # Helix inexplicably doesn't support auto-formatting of .nix files
+    # Helix inexplicably doesn't have out-of-the-box support for
+    # auto-formatting .nix files
     #
     languages = {
       language = [
