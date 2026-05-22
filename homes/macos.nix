@@ -22,17 +22,12 @@ in {
 
   # UTM SSH convenience setup
   #
-  programs.ssh = {
-    matchBlocks."debian" = {
-      host = "debian";
-      user = "droid";
-      hostname = "127.0.0.1";
-      port = 2222;
-      extraOptions = {
-        RequestTTY = "yes";
-        RemoteCommand = "/home/droid/.nix-profile/bin/zellij attach -c";
-      };
-    };
+  programs.ssh.settings."debian" = {
+    User = "droid";
+    Hostname = "127.0.0.1";
+    Port = 2222;
+    RequestTTY = "yes";
+    RemoteCommand = "/home/droid/.nix-profile/bin/zellij attach -c";
   };
 
   # This *looks* like it should supress hint messages, but doesn't...

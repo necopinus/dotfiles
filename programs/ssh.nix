@@ -9,14 +9,13 @@
 
     includes = ["hosts/*"];
     enableDefaultConfig = false;
-    matchBlocks."*" = {
-      host = "* !127.0.0.1 !localhost";
-      addKeysToAgent = "yes";
-      compression = true;
-      forwardAgent = false;
-      identityFile = "${config.home.homeDirectory}/.ssh/id_ed25519";
-      serverAliveInterval = 15;
-      serverAliveCountMax = 4;
+    settings."*" = {
+      AddKeysToAgent = "yes";
+      Compression = true;
+      ForwardAgent = false;
+      IdentityFile = "${config.home.homeDirectory}/.ssh/id_ed25519";
+      ServerAliveInterval = 15;
+      ServerAliveCountMax = 4;
     };
   };
 
