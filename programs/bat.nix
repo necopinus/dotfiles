@@ -5,7 +5,7 @@
 }: {
   programs.bat.enable = true;
 
-  home.sessionVariables.BAT_THEME = "gruvbox-dark";
+  home.sessionVariables.BAT_THEME = "gruvbox-light";
 
   # Colorize man pages with bat
   #

@@ -53,12 +53,11 @@
 
       # Define colors
       #
-      palette = "gruvbox_dark";
+      palette = "gruvbox_light";
 
       palettes = {
         term_dark = {
           color_fg0 = "bright-white";
-          color_fg1 = "white";
           color_bg1 = "bright-black";
           color_bg3 = "blue";
           color_blue = "cyan";
@@ -71,8 +70,19 @@
         };
         gruvbox_dark = {
           color_fg0 = "#fbf1c7";
-          color_fg1 = "#ebdbb2";
           color_bg1 = "#3c3836";
+          color_bg3 = "#665c54";
+          color_blue = "#458588";
+          color_cyan = "#689d6a";
+          color_green = "#98971a";
+          color_orange = "#d65d0e";
+          color_purple = "#b16286";
+          color_red = "#cc241d";
+          color_yellow = "#d79921";
+        };
+        gruvbox_light = {
+          color_fg0 = "#fbf1c7";
+          color_bg1 = "#928374";
           color_bg3 = "#665c54";
           color_blue = "#458588";
           color_cyan = "#689d6a";
@@ -170,7 +180,7 @@
       cmd_duration = {
         disabled = false;
         style = "bg:color_bg3";
-        format = "[[ ⧗ $duration ](fg:color_fg0 bg:color_bg3 bold)]($style)"; # TODO: Replace with "[[  $duration ](fg:color_fg0 bg:color_bg3 bold)]($style)" once the Android Terminal supports custom fonts
+        format = "[[ ⧗ $duration ](fg:color_fg0 bg:color_bg3)]($style)"; # TODO: Replace with "[[  $duration ](fg:color_fg0 bg:color_bg3)]($style)" once the Android Terminal supports custom fonts
       };
 
       #### Dark Gray #######################################################
@@ -190,12 +200,12 @@
 
       character = {
         disabled = false;
-        success_symbol = "[→](bold fg:color_green)"; # TODO: Replace with "[](bold fg:color_green)" once the Android Terminal supports custom fonts
-        error_symbol = "[→](bold fg:color_red)"; # TODO: Replace with "[](bold fg:color_red)" once the Android Terminal supports custom fonts
-        vimcmd_symbol = "[→](bold fg:color_green)"; # TODO: Replace with "[](bold fg:color_green)" once the Android Terminal supports custom fonts
-        vimcmd_replace_one_symbol = "[→](bold fg:color_purple)"; # TODO: Replace with "[](bold fg:color_purple)" once the Android Terminal supports custom fonts
-        vimcmd_replace_symbol = "[→](bold fg:color_purple)"; # TODO: Replace with "[](bold fg:color_purple)" once the Android Terminal supports custom fonts
-        vimcmd_visual_symbol = "[→](bold fg:color_yellow)"; # TODO: Replace with "[](bold fg:color_yellow)" once the Android Terminal supports custom fonts
+        success_symbol = "[→](fg:color_green)"; # TODO: Replace with "[](fg:color_green)" once the Android Terminal supports custom fonts
+        error_symbol = "[→](fg:color_red)"; # TODO: Replace with "[](fg:color_red)" once the Android Terminal supports custom fonts
+        vimcmd_symbol = "[→](fg:color_green)"; # TODO: Replace with "[](fg:color_green)" once the Android Terminal supports custom fonts
+        vimcmd_replace_one_symbol = "[→](fg:color_purple)"; # TODO: Replace with "[](fg:color_purple)" once the Android Terminal supports custom fonts
+        vimcmd_replace_symbol = "[→](fg:color_purple)"; # TODO: Replace with "[](fg:color_purple)" once the Android Terminal supports custom fonts
+        vimcmd_visual_symbol = "[→](fg:color_yellow)"; # TODO: Replace with "[](fg:color_yellow)" once the Android Terminal supports custom fonts
       };
     };
   };

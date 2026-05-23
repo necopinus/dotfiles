@@ -23,25 +23,25 @@
   xdg.configFile."bash/rc.d/bottom.sh" = {
     enable = config.programs.bash.enable;
     text = ''
-      alias btm="${config.programs.bottom.package}/bin/btm --theme gruvbox"
-      alias htop="${config.programs.bottom.package}/bin/btm -b --theme gruvbox"
-      alias top="${config.programs.bottom.package}/bin/btm -b --theme gruvbox"
+      alias btm="${config.programs.bottom.package}/bin/btm --theme gruvbox-light"
+      alias htop="${config.programs.bottom.package}/bin/btm -b --theme gruvbox-light"
+      alias top="${config.programs.bottom.package}/bin/btm -b --theme gruvbox-light"
     '';
   };
   xdg.configFile."zsh/rc.d/bottom.sh" = {
     enable = config.programs.zsh.enable;
     text = ''
-      alias btm="${config.programs.bottom.package}/bin/btm --theme gruvbox"
-      alias htop="${config.programs.bottom.package}/bin/btm -b --theme gruvbox"
-      alias top="${config.programs.bottom.package}/bin/btm -b --theme gruvbox"
+      alias btm="${config.programs.bottom.package}/bin/btm --theme gruvbox-light"
+      alias htop="${config.programs.bottom.package}/bin/btm -b --theme gruvbox-light"
+      alias top="${config.programs.bottom.package}/bin/btm -b --theme gruvbox-light"
     '';
   };
   xdg.configFile."fish/rc.d/bottom.fish" = {
     enable = config.programs.fish.enable;
     text = ''
-      alias btm "${config.programs.bottom.package}/bin/btm --theme gruvbox"
-      alias htop "${config.programs.bottom.package}/bin/btm -b --theme gruvbox"
-      alias top "${config.programs.bottom.package}/bin/btm -b --theme gruvbox"
+      alias btm "${config.programs.bottom.package}/bin/btm --theme gruvbox-light"
+      alias htop "${config.programs.bottom.package}/bin/btm -b --theme gruvbox-light"
+      alias top "${config.programs.bottom.package}/bin/btm -b --theme gruvbox-light"
     '';
   };
 }

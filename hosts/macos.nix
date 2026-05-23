@@ -231,8 +231,8 @@
         # TODO: Switch theme font to "JetBrainsMono Nerd Font" once the
         # Android Terminal supports custom fonts
         #
-        "Default Window Settings" = "Gruvbox";
-        "Startup Window Settings" = "Gruvbox";
+        "Default Window Settings" = "Gruvbox Light";
+        "Startup Window Settings" = "Gruvbox Light";
         "PermanentServers" = ["debian"];
         "PreviousCommands" = ["ssh debian"];
       };

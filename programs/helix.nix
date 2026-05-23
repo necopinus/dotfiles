@@ -71,7 +71,7 @@ in {
     };
 
     settings = {
-      theme = "gruvbox-mod";
+      theme = "gruvbox_light_mod";
 
       editor = {
         cursorline = true;
@@ -123,7 +123,7 @@ in {
     };
 
     themes = {
-      gruvbox-mod = {
+      gruvbox_dark_mod = {
         inherits = "gruvbox";
 
         # Slightly more muted colors
@@ -156,6 +156,41 @@ in {
         "variable.parameter" = {
           fg = "blue1";
           modifiers = ["bold"];
+        };
+      };
+      gruvbox_light_mod = {
+        inherits = "gruvbox_dark_mod";
+
+        palette = {
+          bg0 = "#fbf1c7";
+          bg0_s = "#f2e5bc";
+          bg1 = "#ebdbb2";
+          bg2 = "#d5c4a1";
+          bg3 = "#bdae93";
+          bg4 = "#a89984";
+
+          fg0 = "#282828";
+          fg1 = "#3c3836";
+          fg2 = "#504945";
+          fg3 = "#665c54";
+          fg4 = "#7c6f64";
+
+          gray = "#928374";
+
+          red0 = "#cc241d";
+          red1 = "#9d0006";
+          green0 = "#98971a";
+          green1 = "#79740e";
+          yellow0 = "#d79921";
+          yellow1 = "#b57614";
+          blue0 = "#458588";
+          blue1 = "#076678";
+          purple0 = "#b16286";
+          purple1 = "#8f3f71";
+          aqua0 = "#689d6a";
+          aqua1 = "#427b58";
+          orange0 = "#d65d0e";
+          orange1 = "#af3a03";
         };
       };
     };

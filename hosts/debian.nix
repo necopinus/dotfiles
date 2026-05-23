@@ -131,7 +131,7 @@
     "org/gnome/Ptyxis" = {
       default-profile-uuid = "2d7007695ddd91580b6e8ab069e127b2";
       profile-uuids = ["2d7007695ddd91580b6e8ab069e127b2"];
-      interface-style = "dark";
+      interface-style = "light";
       scrollbar-policy = "never";
     };
 
