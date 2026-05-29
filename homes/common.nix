@@ -25,6 +25,7 @@ in {
     ../programs/python.nix
     ../programs/ssh.nix
     ../programs/starship.nix
+    ../programs/utils.nix
     ../programs/yt-dlp.nix
     ../programs/zellij.nix # Depends on claude.nix (Debian-only), fish.nix, and helix.nix
     ../programs/zoxide.nix
@@ -32,28 +33,13 @@ in {
 
   home.packages = with pkgs; [
     android-tools
-    curl
-    gawk
-    gnugrep
-    gnutar
     imagemagick
-    less
     libjpeg
     libqalculate
     msgpack-tools
     optipng
     pdftk
-    poppler-utils
     rsgain
-    rsync
-    unzip
-    uutils-coreutils-noprefix
-    uutils-diffutils
-    uutils-findutils
-    uutils-sed
-    which
-    xz
-    zip
 
     #### Local packages (see above) ####
     localPkgs.backup-home

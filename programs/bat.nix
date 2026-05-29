@@ -7,6 +7,12 @@
 
   home.sessionVariables.BAT_THEME = "gruvbox-light";
 
+  # bat uses less under the hood
+  #
+  home.packages = with pkgs; [
+    less
+  ];
+
   # Colorize man pages with bat
   #
   # https://github.com/sharkdp/bat/issues/1433#issuecomment-3298530339
