@@ -40,6 +40,9 @@ writeShellApplication {
     # Update Nix packages
     #
     sudo determinate-nixd upgrade
+    if [[ "$OS" == "Darwin" ]] && [[ -d "$HOME"/.cache/nix/fetcher-locks ]]; then
+      sudo chown "$USER":staff "$HOME"/.cache/nix/fetcher-locks/*
+    fi
     (
       cd "$XDG_CONFIG_HOME"/nix
       mkdir -p "$XDG_CACHE_HOME"/nix/flakes
