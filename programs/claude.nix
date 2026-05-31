@@ -38,6 +38,8 @@ in {
       outputStyle = "Explanatory";
       model = "opus";
       alwaysThinkingEnabled = true;
+      autoMemoryEnabled = true;
+      autoDreamEnabled = true;
       skipDangerousModePermissionPrompt = true;
       enabledPlugins = {
         "clangd-lsp@claude-plugins-official" = true;
