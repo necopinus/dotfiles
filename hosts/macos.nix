@@ -29,6 +29,7 @@
       autoUpdate = true;
       upgrade = true;
       cleanup = "zap";
+      extraFlags = ["--force-cleanup"];
     };
 
     # This *looks* like it should supress hint messages, but doesn't...
