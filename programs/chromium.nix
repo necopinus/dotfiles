@@ -66,7 +66,7 @@
         alias chromium="${pkgs.chromium}/bin/chromium --no-sandbox --test-type"
         alias chromium-browser="${pkgs.chromium}/bin/chromium-browser --no-sandbox --test-type"
       '';
-      "zsh/rc.d/chromium.sh".text = ''
+      "zsh/rc.d/chromium.zsh".text = ''
         alias chromium="${pkgs.chromium}/bin/chromium --no-sandbox --test-type"
         alias chromium-browser="${pkgs.chromium}/bin/chromium-browser --no-sandbox --test-type"
       '';

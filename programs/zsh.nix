@@ -62,7 +62,7 @@
       if [[ -d "$XDG_CONFIG_HOME"/zsh/env.d ]]; then
         while read -r FILE; do
           source "$FILE"
-        done < <(${pkgs.uutils-findutils}/bin/find -L "$XDG_CONFIG_HOME"/zsh/env.d -type f -iname '*.sh' | ${pkgs.uutils-coreutils-noprefix}/bin/sort)
+        done < <(${pkgs.uutils-findutils}/bin/find -L "$XDG_CONFIG_HOME"/zsh/env.d -type f -iname '*.zsh' | ${pkgs.uutils-coreutils-noprefix}/bin/sort)
       fi
 
       # Set SHELL to the correct value
@@ -144,7 +144,7 @@
         if [[ -d "$XDG_CONFIG_HOME"/zsh/rc.d ]]; then
           while read -r FILE; do
             source "$FILE"
-          done < <(${pkgs.uutils-findutils}/bin/find -L "$XDG_CONFIG_HOME"/zsh/rc.d -type f -iname '*.sh' | ${pkgs.uutils-coreutils-noprefix}/bin/sort)
+          done < <(${pkgs.uutils-findutils}/bin/find -L "$XDG_CONFIG_HOME"/zsh/rc.d -type f -iname '*.zsh' | ${pkgs.uutils-coreutils-noprefix}/bin/sort)
         fi
       '';
     in

@@ -34,7 +34,7 @@
       "bash/rc.d/obsidian.sh".text = ''
         alias obsidian="${pkgs.obsidian}/bin/obsidian --disable-gpu --no-sandbox"
       '';
-      "zsh/rc.d/obsidian.sh".text = ''
+      "zsh/rc.d/obsidian.zsh".text = ''
         alias obsidian="${pkgs.obsidian}/bin/obsidian --disable-gpu --no-sandbox"
       '';
       "fish/rc.d/obsidian.fish".text = ''

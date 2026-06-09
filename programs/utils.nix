@@ -34,7 +34,7 @@
       alias rm="${pkgs.uutils-coreutils-noprefix}/bin/rm -v"
     '';
   };
-  xdg.configFile."zsh/rc.d/utils.sh" = {
+  xdg.configFile."zsh/rc.d/utils.zsh" = {
     enable = config.programs.zsh.enable;
     text = ''
       alias cp="${pkgs.xcp}/bin/xcp -r"

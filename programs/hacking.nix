@@ -103,7 +103,7 @@
       }
     '';
   };
-  xdg.configFile."zsh/rc.d/msfconsole.sh" = {
+  xdg.configFile."zsh/rc.d/msfconsole.zsh" = {
     enable = config.programs.zsh.enable;
     text = ''
       # Set the default MSF_CFGROOT_CONFIG explicitly for XDG

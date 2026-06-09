@@ -29,7 +29,7 @@
       alias more="${config.programs.bat.package}/bin/bat"
     '';
   };
-  xdg.configFile."zsh/rc.d/bat.sh" = {
+  xdg.configFile."zsh/rc.d/bat.zsh" = {
     enable = config.programs.zsh.enable;
     text = ''
       export MANPAGER="${pkgs.bashInteractive}/bin/sh -c '${pkgs.uutils-sed}/bin/sed -u -e \"s/\\x1B\[[0-9;]*m//g;s/.\\x08//g\" | ${config.programs.bat.package}/bin/bat -p -lman'"

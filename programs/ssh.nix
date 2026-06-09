@@ -40,7 +40,7 @@
       fi
     '';
   };
-  xdg.configFile."zsh/rc.d/ssh.sh" = {
+  xdg.configFile."zsh/rc.d/ssh.zsh" = {
     enable = config.programs.zsh.enable;
     text = ''
       if [[ -z "$SSH_AUTH_SOCK" ]]; then

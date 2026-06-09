@@ -28,7 +28,7 @@
       alias top="${config.programs.bottom.package}/bin/btm -b --theme gruvbox-light"
     '';
   };
-  xdg.configFile."zsh/rc.d/bottom.sh" = {
+  xdg.configFile."zsh/rc.d/bottom.zsh" = {
     enable = config.programs.zsh.enable;
     text = ''
       alias btm="${config.programs.bottom.package}/bin/btm --theme gruvbox-light"
