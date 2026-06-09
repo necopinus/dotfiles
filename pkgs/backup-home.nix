@@ -58,8 +58,6 @@ writeShellApplication {
     mkBackupList "$XDG_CONFIG_HOME/zsh/.zsh_history"
     mkBackupList "$XDG_DATA_HOME/fish/fish_history"
 
-    mkBackupList "$XDG_CONFIG_HOME/Engagements"
-
     mkBackupList "$HOME/Library/Application Support/obsidian"
     mkBackupList "$XDG_CONFIG_HOME/obsidian"
 

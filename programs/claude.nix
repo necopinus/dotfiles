@@ -6,6 +6,7 @@
 }: let
   localPkgs = {
     claude = pkgs.callPackage ../pkgs/claude.nix {inherit llm-agents;};
+    kotlin-lsp = pkgs.callPackage ../pkgs/kotlin-lsp.nix {};
   };
 
   claudeInChrome = {
@@ -79,7 +80,9 @@ in {
   # Claude expects a kotlin-lsp binary, but Nixpkgs provides
   # kotlin-language-server
   #
-  home.file.".local/bin/kotlin-lsp".source = config.lib.file.mkOutOfStoreSymlink "${pkgs.kotlin-language-server}/bin/kotlin-language-server";
+  home.packages = [
+    localPkgs.kotlin-lsp
+  ];
 
   # Use Claude in Chrome with Chromium
   #

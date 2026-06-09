@@ -287,13 +287,6 @@ if [[ ! -f "$HOME"/.claude.json ]]; then
     echo "{}" > "$HOME"/.claude.json
 fi
 
-# Calibre pre-setup
-#
-if [[ "$OS" == "Darwin" ]]; then
-    mkdir -p "$HOME/Library/Preferences/calibre"
-    mkdir -p "$HOME/Documents/Calibre"
-fi
-
 # Make sure that SSH is set up
 #
 chmod 700 "$HOME/.ssh"

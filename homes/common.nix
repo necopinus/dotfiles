@@ -19,6 +19,7 @@ in {
     ../programs/eza.nix
     ../programs/fish.nix
     ../programs/git.nix
+    ../programs/hacking.nix
     ../programs/helix.nix
     ../programs/jaq.nix
     ../programs/nodejs.nix
@@ -27,7 +28,7 @@ in {
     ../programs/starship.nix
     ../programs/utils.nix
     ../programs/yt-dlp.nix
-    ../programs/zellij.nix # Depends on claude.nix (Debian-only), fish.nix, and helix.nix
+    ../programs/zellij.nix # Depends on fish.nix
     ../programs/zoxide.nix
   ];
 
