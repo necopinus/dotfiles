@@ -169,15 +169,15 @@
       # lines 30 - 38 of lib/msf/base/config.rb to see if this has been
       # changed because of a compatability break is necessary.
       #
-      set -gx MSF_CFGROOT_CONFIG "$XDG_CONFIG_HOME"/msf4
+      set -gx MSF_CFGROOT_CONFIG $XDG_CONFIG_HOME/msf4
 
       function msfconsole
         # Init database, if necessary
         #
-        if test ! -d "$MSF_CFGROOT_CONFIG"/clients
-          ${pkgs.uutils-coreutils-noprefix}/bin/mkdir -p "$MSF_CFGROOT_CONFIG"/clients
+        if test ! -d $MSF_CFGROOT_CONFIG/clients
+          ${pkgs.uutils-coreutils-noprefix}/bin/mkdir -p $MSF_CFGROOT_CONFIG/clients
         end
-        if test ! -d "$MSF_CFGROOT_CONFIG"/db
+        if test ! -d $MSF_CFGROOT_CONFIG/db
           ${pkgs.metasploit}/bin/msfdb init
         end
 
@@ -186,13 +186,13 @@
         # NOTE: The pgrep binary needs special permissions that
         # Nix-on-non-Nix can't provide, so we can't prefix it
         #
-        if test -f "$MSF_CFGROOT_CONFIG"/db/postmaster.pid; and test -z "$(pgrep -F "$MSF_CFGROOT_CONFIG"/db/postmaster.pid)"
-          ${pkgs.uutils-coreutils-noprefix}/bin/rm "$MSF_CFGROOT_CONFIG"/db/postmaster.pid
+        if test -f $MSF_CFGROOT_CONFIG/db/postmaster.pid; and test -z "$(pgrep -F $MSF_CFGROOT_CONFIG/db/postmaster.pid)"
+          ${pkgs.uutils-coreutils-noprefix}/bin/rm $MSF_CFGROOT_CONFIG/db/postmaster.pid
         end
 
         # Start PostgreSQL, if it's not already running
         #
-        if test ! -f "$MSF_CFGROOT_CONFIG"/db/postmaster.pid
+        if test ! -f $MSF_CFGROOT_CONFIG/db/postmaster.pid
           ${pkgs.metasploit}/bin/msfdb start
         end
 
@@ -201,16 +201,16 @@
         # NOTE: There's no consistent uuidgen binary derivation for both
         # Linux and macOS via Nix, so we can't prefix it
         #
-        set MSFCONSOLE_CLIENT_ID "$(uuidgen)"
-        ${pkgs.uutils-coreutils-noprefix}/bin/touch "$MSF_CFGROOT_CONFIG"/clients/"$MSFCONSOLE_CLIENT_ID"
+        set MSFCONSOLE_CLIENT_ID $(uuidgen)
+        ${pkgs.uutils-coreutils-noprefix}/bin/touch $MSF_CFGROOT_CONFIG/clients/$MSFCONSOLE_CLIENT_ID
 
         ${pkgs.metasploit}/bin/msfconsole $argv
 
-        ${pkgs.uutils-coreutils-noprefix}/bin/rm "$MSF_CFGROOT_CONFIG"/clients/"$MSFCONSOLE_CLIENT_ID"
+        ${pkgs.uutils-coreutils-noprefix}/bin/rm $MSF_CFGROOT_CONFIG/clients/$MSFCONSOLE_CLIENT_ID
 
         # Shut down PostgreSQL, if there are no other clients connected
         #
-        if test $(${pkgs.uutils-findutils}/bin/find "$MSF_CFGROOT_CONFIG"/clients -type f | ${pkgs.uutils-coreutils-noprefix}/bin/wc -l) -eq 0
+        if test $(${pkgs.uutils-findutils}/bin/find $MSF_CFGROOT_CONFIG/clients -type f | ${pkgs.uutils-coreutils-noprefix}/bin/wc -l) -eq 0
           ${pkgs.metasploit}/bin/msfdb stop
         end
       end

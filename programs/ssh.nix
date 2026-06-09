@@ -64,7 +64,7 @@
         if test -f $HOME/.ssh/agent.env
           ${pkgs.uutils-coreutils-noprefix}/bin/cat $HOME/.ssh/agent.env | ${pkgs.babelfish}/bin/babelfish | source
         end
-        if test -z "$SSH_AGENT_PID"; or test $(ps -ef | ${pkgs.gnugrep}/bin/grep -v grep | ${pkgs.gnugrep}/bin/grep -c "$SSH_AGENT_PID") -eq 0
+        if test -z "$SSH_AGENT_PID"; or test $(ps -ef | ${pkgs.gnugrep}/bin/grep -v grep | ${pkgs.gnugrep}/bin/grep -c $SSH_AGENT_PID) -eq 0
           if test ! -d $HOME/.ssh
             ${pkgs.uutils-coreutils-noprefix}/bin/mkdir -p $HOME/.ssh
           end

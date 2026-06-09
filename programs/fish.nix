@@ -46,8 +46,8 @@
 
       # Source files for local environment setup
       #
-      if test -d "$XDG_CONFIG_HOME"/fish/env.d
-        for FILE in (${pkgs.uutils-findutils}/bin/find -L "$XDG_CONFIG_HOME"/fish/env.d -type f -iname '*.fish' | ${pkgs.uutils-coreutils-noprefix}/bin/sort)
+      if test -d $XDG_CONFIG_HOME/fish/env.d
+        for FILE in (${pkgs.uutils-findutils}/bin/find -L $XDG_CONFIG_HOME/fish/env.d -type f -iname '*.fish' | ${pkgs.uutils-coreutils-noprefix}/bin/sort)
           source "$FILE"
         end
       end
@@ -67,13 +67,13 @@
     interactiveShellInit = ''
       # Convenience aliases
       #
-      alias :e "$(${pkgs.which}/bin/which $EDITOR)"
+      alias :e $(${pkgs.which}/bin/which $EDITOR)
       alias :q exit
-      alias nvim "$(${pkgs.which}/bin/which $EDITOR)"
+      alias nvim $(${pkgs.which}/bin/which $EDITOR)
       alias shutdown "/usr/bin/sudo /sbin/shutdown -h now"
       alias sudo "/usr/bin/sudo -E"
-      alias vi "$(${pkgs.which}/bin/which $EDITOR)"
-      alias vim "$(${pkgs.which}/bin/which $EDITOR)"
+      alias vi $(${pkgs.which}/bin/which $EDITOR)
+      alias vim $(${pkgs.which}/bin/which $EDITOR)
 
       # Suppress welcome message
       #
@@ -81,8 +81,8 @@
 
       # Source files for interactive shell setup
       #
-      if test -d "$XDG_CONFIG_HOME"/fish/rc.d
-        for FILE in (${pkgs.uutils-findutils}/bin/find -L "$XDG_CONFIG_HOME"/fish/rc.d -type f -iname '*.fish' | ${pkgs.uutils-coreutils-noprefix}/bin/sort)
+      if test -d $XDG_CONFIG_HOME/fish/rc.d
+        for FILE in (${pkgs.uutils-findutils}/bin/find -L $XDG_CONFIG_HOME/fish/rc.d -type f -iname '*.fish' | ${pkgs.uutils-coreutils-noprefix}/bin/sort)
           source "$FILE"
         end
       end

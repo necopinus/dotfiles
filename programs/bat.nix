@@ -45,8 +45,8 @@
       set -gx MANPAGER "${pkgs.bashInteractive}/bin/sh -c 'sed -u -e \"s/\\x1B\[[0-9;]*m//g;s/.\\x08//g\" | ${config.programs.bat.package}/bin/bat -p -lman'"
 
       alias cat "${config.programs.bat.package}/bin/bat -pp"
-      alias less "${config.programs.bat.package}/bin/bat"
-      alias more "${config.programs.bat.package}/bin/bat"
+      alias less ${config.programs.bat.package}/bin/bat
+      alias more ${config.programs.bat.package}/bin/bat
     '';
   };
 }

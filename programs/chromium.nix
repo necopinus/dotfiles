@@ -66,13 +66,13 @@
         alias chromium="${pkgs.chromium}/bin/chromium --no-sandbox --test-type"
         alias chromium-browser="${pkgs.chromium}/bin/chromium-browser --no-sandbox --test-type"
       '';
-      "fish/rc.d/.fish".text = ''
-        alias chromium "${pkgs.chromium}/bin/chromium --no-sandbox --test-type"
-        alias chromium-browser "${pkgs.chromium}/bin/chromium-browser --no-sandbox --test-type"
-      '';
       "zsh/rc.d/chromium.sh".text = ''
         alias chromium="${pkgs.chromium}/bin/chromium --no-sandbox --test-type"
         alias chromium-browser="${pkgs.chromium}/bin/chromium-browser --no-sandbox --test-type"
+      '';
+      "fish/rc.d/chromium.fish".text = ''
+        alias chromium "${pkgs.chromium}/bin/chromium --no-sandbox --test-type"
+        alias chromium-browser "${pkgs.chromium}/bin/chromium-browser --no-sandbox --test-type"
       '';
     };
 
