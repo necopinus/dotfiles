@@ -22,7 +22,7 @@
   xdg.configFile."bash/rc.d/bat.sh" = {
     enable = config.programs.bash.enable;
     text = ''
-      export MANPAGER="${pkgs.bashInteractive}/bin/sh -c 'sed -u -e \"s/\\x1B\[[0-9;]*m//g;s/.\\x08//g\" | ${config.programs.bat.package}/bin/bat -p -lman'"
+      export MANPAGER="${pkgs.bashInteractive}/bin/sh -c '${pkgs.uutils-sed}/bin/sed -u -e \"s/\\x1B\[[0-9;]*m//g;s/.\\x08//g\" | ${config.programs.bat.package}/bin/bat -p -lman'"
 
       alias cat="${config.programs.bat.package}/bin/bat -pp"
       alias less="${config.programs.bat.package}/bin/bat"
@@ -32,7 +32,7 @@
   xdg.configFile."zsh/rc.d/bat.sh" = {
     enable = config.programs.zsh.enable;
     text = ''
-      export MANPAGER="${pkgs.bashInteractive}/bin/sh -c 'sed -u -e \"s/\\x1B\[[0-9;]*m//g;s/.\\x08//g\" | ${config.programs.bat.package}/bin/bat -p -lman'"
+      export MANPAGER="${pkgs.bashInteractive}/bin/sh -c '${pkgs.uutils-sed}/bin/sed -u -e \"s/\\x1B\[[0-9;]*m//g;s/.\\x08//g\" | ${config.programs.bat.package}/bin/bat -p -lman'"
 
       alias cat="${config.programs.bat.package}/bin/bat -pp"
       alias less="${config.programs.bat.package}/bin/bat"
@@ -42,7 +42,7 @@
   xdg.configFile."fish/rc.d/bat.fish" = {
     enable = config.programs.fish.enable;
     text = ''
-      set -gx MANPAGER "${pkgs.bashInteractive}/bin/sh -c 'sed -u -e \"s/\\x1B\[[0-9;]*m//g;s/.\\x08//g\" | ${config.programs.bat.package}/bin/bat -p -lman'"
+      set -gx MANPAGER "${pkgs.bashInteractive}/bin/sh -c '${pkgs.uutils-sed}/bin/sed -u -e \"s/\\x1B\[[0-9;]*m//g;s/.\\x08//g\" | ${config.programs.bat.package}/bin/bat -p -lman'"
 
       alias cat "${config.programs.bat.package}/bin/bat -pp"
       alias less ${config.programs.bat.package}/bin/bat
