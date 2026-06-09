@@ -325,59 +325,40 @@ hx -g build
 
 # Check out a few useful code repositories
 #
-mkdir -p "$HOME"/Projects
+mkdir -p "$HOME"/Repositories
 (
-    cd "$HOME"/Projects || exit 1
+    cd "$HOME"/Repositories || exit 1
 
-    if [[ ! -d hackenv ]]; then
+    REPOS="$( (
+        curl -sL -X GET \
+             -H "Accept: application/vnd.github+json" \
+             -H "X-GitHub-Api-Version: 2026-03-10" \
+                https://api.github.com/users/necopinus/repos && \
+        curl -sL -X GET \
+             -H "Accept: application/vnd.github+json" \
+             -H "X-GitHub-Api-Version: 2026-03-10" \
+                https://api.github.com/orgs/cardboard-iguana/repos && \
+        curl -sL -X GET \
+             -H "Accept: application/vnd.github+json" \
+             -H "X-GitHub-Api-Version: 2026-03-10" \
+                https://api.github.com/orgs/The-Yak-Collective/repos ) | \
+        jaq -r '.[] | select(.archived==false) | .full_name' | xargs
+    )"
+
+    for REPO in $REPOS; do
+        if [[ ! -d "$(basename "$REPO")" ]]; then
+            git clone --recurse-submodules \
+                "git@github.com:${REPO}.git"
+        fi
+    done
+
+    if [[ ! -d hacker-hotel ]]; then
         git clone --recurse-submodules \
-            git@github.com:cardboard-iguana/hackenv.git
+            git@github.com:cardboard-iguana/hacker-hotel.git
     fi
     if [[ ! -d smart-contracts-hacking ]]; then
         git clone --recurse-submodules \
             git@github.com:cardboard-iguana/smart-contracts-hacking.git
-    fi
-    if [[ ! -d resume ]]; then
-        git clone --recurse-submodules \
-            git@github.com:necopinus/resume.git
-    fi
-    if [[ ! -d website-theme ]]; then
-        git clone --recurse-submodules \
-            git@github.com:necopinus/website-theme.git
-    fi
-
-    if [[ ! -d backups ]]; then
-        git clone --recurse-submodules \
-            git@github.com:The-Yak-Collective/backups.git
-    fi
-    if [[ ! -d GPTDiscord ]]; then
-        git clone --recurse-submodules \
-            git@github.com:The-Yak-Collective/GPTDiscord.git
-    fi
-    if [[ ! -d yakcollective ]]; then
-        git clone --recurse-submodules \
-            git@github.com:The-Yak-Collective/yakcollective.git
-    fi
-
-    if [[ ! -d cardboard-iguana.com ]]; then
-        git clone --recurse-submodules \
-            git@github.com:cardboard-iguana/cardboard-iguana.com.git
-    fi
-    if [[ ! -d chateaumaxmin.info ]]; then
-        git clone --recurse-submodules \
-            git@github.com:necopinus/chateaumaxmin.info.git
-    fi
-    if [[ ! -d delphi-strategy.com ]]; then
-        git clone --recurse-submodules \
-            git@github.com:necopinus/delphi-strategy.com.git
-    fi
-    if [[ ! -d digital-orrery.com ]]; then
-        git clone --recurse-submodules \
-            git@github.com:necopinus/digital-orrery.com.git
-    fi
-    if [[ ! -d necopinus.xyz ]]; then
-        git clone --recurse-submodules \
-            git@github.com:necopinus/necopinus.xyz.git
     fi
 
     if [[ ! -d quartz ]]; then
