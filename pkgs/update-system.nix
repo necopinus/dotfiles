@@ -67,7 +67,7 @@ writeShellApplication {
     sudo "$(which nix-collect-garbage)" --delete-older-than 14d
     sudo find /nix/var/nix/gcroots -xtype l -exec rm -v "{}" \;
     nix store gc -v
-    nix store optimize -v
+    nix store optimise -v
     echo ""
 
     # Update Helix grammars
