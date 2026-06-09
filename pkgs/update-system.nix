@@ -63,22 +63,12 @@ writeShellApplication {
 
     # Garbage collection
     #
-    sudo find /nix/var/nix/gcroots -xtype l -exec rm "{}" \;
-    find "$XDG_STATE_HOME"/nix/profiles -type l -name "profile-*-link" -ctime +32 | sort -t- -k2n | while read -r OLD_PROFILE; do
-      if [[ $(find "$XDG_STATE_HOME"/nix/profiles -type l -name "profile-*-link" | wc -l) -gt 8 ]]; then
-        rm "$OLD_PROFILE"
-      else
-        break
-      fi
-    done
-    find "$XDG_STATE_HOME"/nix/profiles -type l -name "home-manager-*-link" -ctime +32 | sort -t- -k2n | while read -r OLD_PROFILE; do
-      if [[ $(find "$XDG_STATE_HOME"/nix/profiles -type l -name "home-manager-*-link" | wc -l) -gt 8 ]]; then
-        rm "$OLD_PROFILE"
-      else
-        break
-      fi
-    done
+    nix-collect-garbage --delete-older-than 14d
+    sudo "$(which nix-collect-garbage)" --delete-older-than 14d
+    sudo find /nix/var/nix/gcroots -xtype l -exec rm -v "{}" \;
     nix store gc -v
+    nix store optimize -v
+    echo ""
 
     # Update Helix grammars
     #
