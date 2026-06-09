@@ -120,7 +120,8 @@ if [[ "$OS" == "Linux" ]]; then
         libseccomp-dev \
         procps \
         ptyxis \
-        seahorse
+        seahorse \
+        uuid-runtime
 
     # Additional packages to install on normal Debian VMs
     #
