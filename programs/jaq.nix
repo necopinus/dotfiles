@@ -1,33 +1,12 @@
-{
-  pkgs,
-  config,
-  ...
-}: {
+{pkgs, ...}: let
+  localPkgs = {
+    jq = pkgs.callPackage ../pkgs/jq.nix {};
+    yq = pkgs.callPackage ../pkgs/yq.nix {};
+  };
+in {
   home.packages = with pkgs; [
     jaq
+    localPkgs.jq
+    localPkgs.yq
   ];
-
-  # Convenience aliases
-  #
-  xdg.configFile."bash/rc.d/jaq.sh" = {
-    enable = config.programs.bash.enable;
-    text = ''
-      alias jq="${pkgs.jaq}/bin/jaq"
-      alias yq="${pkgs.jaq}/bin/jaq"
-    '';
-  };
-  xdg.configFile."zsh/rc.d/jaq.sh" = {
-    enable = config.programs.zsh.enable;
-    text = ''
-      alias jq="${pkgs.jaq}/bin/jaq"
-      alias yq="${pkgs.jaq}/bin/jaq"
-    '';
-  };
-  xdg.configFile."fish/rc.d/jaq.fish" = {
-    enable = config.programs.fish.enable;
-    text = ''
-      alias jq "${pkgs.jaq}/bin/jaq"
-      alias yq "${pkgs.jaq}/bin/jaq"
-    '';
-  };
 }

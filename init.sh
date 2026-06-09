@@ -342,7 +342,7 @@ mkdir -p "$HOME"/Repositories
              -H "Accept: application/vnd.github+json" \
              -H "X-GitHub-Api-Version: 2026-03-10" \
                 https://api.github.com/orgs/The-Yak-Collective/repos ) | \
-        jaq -r '.[] | select(.archived==false) | .full_name' | xargs
+        jq -r '.[] | select(.archived==false) | .full_name' | xargs
     )"
 
     for REPO in $REPOS; do
