@@ -67,6 +67,8 @@ writeShellApplication {
     mkBackupList "$XDG_CONFIG_HOME/chromium"
     mkBackupList "$HOME/Library/Application Support/Chromium"
 
+    mkBackupList "$HOME/Repositories"
+
     grep "^$HOME/" "$BACKUP_LIST" | sed "s#^$HOME/##g" | sort -u > "$BACKUP_LIST_TMP"
     mv "$BACKUP_LIST_TMP" "$BACKUP_LIST"
 
