@@ -17,7 +17,7 @@ OS="$(uname -s)"
 # make the remainder of the setup process MUCH less annoying (this is
 # set up out-of-the-box on the Android VM)
 # 
-if [[ "$OS" == "Linux" ]] && [[ ! -d /mnt/internal ]]; then
+if [[ "$OS" == "Linux" ]] && [[ ! -d /mnt/internal ]] && [[ -d /mnt/shared ]]; then
     echo "droid ALL=(ALL) NOPASSWD:ALL" | sudo tee /etc/sudoers.d/droid
 fi
 
@@ -123,7 +123,7 @@ if [[ "$OS" == "Linux" ]]; then
 
     # Additional packages to install on normal Debian VMs
     #
-    if [[ ! -d /mnt/internal ]]; then
+    if [[ ! -d /mnt/internal ]] && [[ -d /mnt/shared ]]; then
         sudo apt install -y spice-vdagent
     fi
 
