@@ -319,51 +319,61 @@ hx -g build
 
 # Check out a few useful code repositories
 #
-mkdir -p "$HOME"/Repositories
-(
-    cd "$HOME"/Repositories || exit 1
+CREATE_REPOSITORIES=0
+if [[ "$OS" == "Darwin" ]]; then
+    CREATE_REPOSITORIES=1
+elif [[ -d /mnt/shared ]] && [[ -d /mnt/internal ]]; then
+    CREATE_REPOSITORIES=1
+fi
 
-    REPOS="$( (
-        curl -sL -X GET \
-             -H "Accept: application/vnd.github+json" \
-             -H "X-GitHub-Api-Version: 2026-03-10" \
-                https://api.github.com/users/necopinus/repos && \
-        curl -sL -X GET \
-             -H "Accept: application/vnd.github+json" \
-             -H "X-GitHub-Api-Version: 2026-03-10" \
-                https://api.github.com/orgs/cardboard-iguana/repos && \
-        curl -sL -X GET \
-             -H "Accept: application/vnd.github+json" \
-             -H "X-GitHub-Api-Version: 2026-03-10" \
-                https://api.github.com/orgs/The-Yak-Collective/repos ) | \
-        jq -r '.[] | select(.archived==false) | .full_name' | xargs
-    )"
+if [[ $CREATE_REPOSITORIES -eq 1 ]]; then
+    mkdir -p "$HOME"/Repositories
 
-    for REPO in $REPOS; do
-        if [[ ! -d "$(basename "$REPO")" ]]; then
+    (
+        cd "$HOME"/Repositories || exit 1
+
+        REPOS="$( (
+            curl -sL -X GET \
+                 -H "Accept: application/vnd.github+json" \
+                 -H "X-GitHub-Api-Version: 2026-03-10" \
+                    https://api.github.com/users/necopinus/repos && \
+            curl -sL -X GET \
+                 -H "Accept: application/vnd.github+json" \
+                 -H "X-GitHub-Api-Version: 2026-03-10" \
+                    https://api.github.com/orgs/cardboard-iguana/repos && \
+            curl -sL -X GET \
+                 -H "Accept: application/vnd.github+json" \
+                 -H "X-GitHub-Api-Version: 2026-03-10" \
+                    https://api.github.com/orgs/The-Yak-Collective/repos ) | \
+            jq -r '.[] | select(.archived==false) | .full_name' | xargs
+        )"
+
+        for REPO in $REPOS; do
+            if [[ ! -d "$(basename "$REPO")" ]]; then
+                git clone --recurse-submodules \
+                    "git@github.com:${REPO}.git"
+            fi
+        done
+
+        if [[ ! -d hacker-hotel ]]; then
             git clone --recurse-submodules \
-                "git@github.com:${REPO}.git"
+                git@github.com:cardboard-iguana/hacker-hotel.git
         fi
-    done
+        if [[ ! -d smart-contracts-hacking ]]; then
+            git clone --recurse-submodules \
+                git@github.com:cardboard-iguana/smart-contracts-hacking.git
+        fi
 
-    if [[ ! -d hacker-hotel ]]; then
-        git clone --recurse-submodules \
-            git@github.com:cardboard-iguana/hacker-hotel.git
-    fi
-    if [[ ! -d smart-contracts-hacking ]]; then
-        git clone --recurse-submodules \
-            git@github.com:cardboard-iguana/smart-contracts-hacking.git
-    fi
-
-    if [[ ! -d quartz ]]; then
-        git clone --recurse-submodules \
-            https://github.com/jackyzha0/quartz.git
-    fi
-    if [[ ! -d twitter-archive-parser ]]; then
-        git clone --recurse-submodules \
-            https://github.com/timhutton/twitter-archive-parser.git
-    fi
-)
+        if [[ ! -d quartz ]]; then
+            git clone --recurse-submodules \
+                https://github.com/jackyzha0/quartz.git
+        fi
+        if [[ ! -d twitter-archive-parser ]]; then
+            git clone --recurse-submodules \
+                https://github.com/timhutton/twitter-archive-parser.git
+        fi
+    )
+fi
 
 # A reboot is STRONGLY recommended
 #
