@@ -3,6 +3,7 @@
   writeShellApplication,
   #### Core packages ####
   bashInteractive,
+  gnugrep,
   uutils-coreutils-noprefix,
   #### Up-to-date versions of Claude Code and Nono ####
   llm-agents,
@@ -27,10 +28,12 @@
   csharp-ls, # Currently broken on macOS ARM
   gopls,
   intelephense,
+  jdk, # Not an LSP, but required by JDT.LS
   jdt-language-server,
   kotlin-language-server,
   lua-language-server,
   pyright,
+  ruby-lsp,
   rust-analyzer,
   sourcekit-lsp,
   swift,
@@ -45,6 +48,7 @@ in
     runtimeInputs = [
       #### Core packages ####
       bashInteractive
+      gnugrep
       uutils-coreutils-noprefix
 
       #### Up-to-date versions of Claude Code and Nono ####
@@ -76,10 +80,12 @@ in
       csharp-ls
       gopls
       intelephense
+      jdk
       jdt-language-server
       kotlin-language-server
       lua-language-server
       pyright
+      ruby-lsp
       rust-analyzer
       sourcekit-lsp
       swift
@@ -101,6 +107,14 @@ in
       # sandboxing the sandbox)
       #
       if [[ -z "$CLAUDECODE" ]] && [[ -z "$NONO_CAP_FILE" ]]; then
+        # Make sure that profile is installed and up-to-date
+        #
+        if [[ $(nono list --installed | grep -c claude) -eq 0 ]]; then
+          nono pull always-further/claude
+        else
+          nono update
+        fi
+
         # Resolve symlinks to paths in critical environment variables
         #
         SEP=""
