@@ -6,23 +6,6 @@
 }: let
   localPkgs = {
     claude = pkgs.callPackage ../pkgs/claude.nix {inherit llm-agents;};
-    kotlin-lsp = pkgs.callPackage ../pkgs/kotlin-lsp.nix {};
-  };
-
-  claudeInChrome = {
-    extensionId = "fcoeoabgfenejglbffodgkkbkcdhcgfn";
-    nativeHostName = "com.anthropic.claude_code_browser_extension";
-    nativeHostConfig = ''
-      {
-        "name": "${claudeInChrome.nativeHostName}",
-        "description": "Claude Code Browser Extension Native Host",
-        "path": "${config.home.homeDirectory}/.claude/chrome/chrome-native-host",
-        "type": "stdio",
-        "allowed_origins": [
-          "chrome-extension://${claudeInChrome.extensionId}/",
-        ]
-      }
-    '';
   };
 in {
   #################### Claude Code ####################
@@ -67,13 +50,13 @@ in {
       After writing or editing code, check LSP diagnostics before moving on. Fix any type errors or missing imports immediately.
     '';
 
-    # IMPORTANT: You cannot use both nono and Claude's built-in sandboxing at
-    # the same time!
+    # Sandbox isn't configured here, as we only use Claude Code in
+    # isolated VMs, allowing us to go full YOLO-mode
     #
     settings = {
       tui = "fullscreen";
       outputStyle = "Explanatory";
-      model = "opus";
+      model = "opus"; # TODO: Is it worth switching this to "fable"?
       alwaysThinkingEnabled = true;
       autoMemoryEnabled = true;
       autoDreamEnabled = true;
@@ -94,80 +77,4 @@ in {
       };
     };
   };
-
-  # Claude expects a kotlin-lsp binary, but Nixpkgs provides
-  # kotlin-language-server
-  #
-  home.packages = [
-    localPkgs.kotlin-lsp
-  ];
-
-  # Use Claude in Chrome with Chromium
-  #
-  programs.chromium.extensions = [
-    {id = "${claudeInChrome.extensionId}";} # Claude for Chrome
-  ];
-  xdg.configFile."chromium/Default/Extensions/.keep" = {
-    enable = config.programs.chromium.enable;
-    text = "";
-  };
-  xdg.configFile."chromium/NativeMessagingHosts/${claudeInChrome.nativeHostName}.json" = {
-    enable = config.programs.chromium.enable;
-    text = "${claudeInChrome.nativeHostConfig}";
-  };
-  xdg.configFile."google-chrome/Default/Extensions" = {
-    enable = config.programs.chromium.enable;
-    source = config.lib.file.mkOutOfStoreSymlink "${config.xdg.configHome}/chromium/Default/Extensions";
-  };
-  xdg.configFile."google-chrome/NativeMessagingHosts" = {
-    enable = config.programs.chromium.enable;
-    source = config.lib.file.mkOutOfStoreSymlink "${config.xdg.configHome}/chromium/NativeMessagingHosts";
-  };
-
-  #################### Nono ####################
-
-  # Read access to Chromium / Google Chrome directories is necessary for
-  # browser integrtion to work
-  #
-  # Read access to Bash configuration files is necessary to ensure that
-  # shell calls work as expected
-  #
-  xdg.configFile."nono/profiles/claude-code-local.json".text = ''
-    {
-      "meta": {
-        "name": "claude-code-local"
-      },
-      "extends": "claude-code",
-      "security": {
-        "groups": [
-          "go_runtime"
-        ]
-      },
-      "filesystem": {
-        "allow": [
-          "${config.xdg.configHome}/claude"
-        ],
-        "read": [
-          "${config.home.homeDirectory}/Library/Application Support/Chromium",
-          "${config.xdg.configHome}/chromium",
-          "${config.home.homeDirectory}/Library/Application Support/Google/Chrome",
-          "${config.xdg.configHome}/google-chrome",
-          "/etc/bash_completion.d",
-          "/etc/profile.d"
-        ],
-        "read_file": [
-          "${config.home.homeDirectory}/.bash_aliases",
-          "${config.home.homeDirectory}/.bash_profile",
-          "${config.home.homeDirectory}/.bashrc",
-          "${config.home.homeDirectory}/.profile",
-          "/etc/bash.bashrc",
-          "/etc/bashrc",
-          "/etc/profile",
-          "/etc/skel/.bash_profile",
-          "/etc/skel/.bashrc",
-          "/etc/skel/.profile"
-        ]
-      }
-    }
-  '';
 }

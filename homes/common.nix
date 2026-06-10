@@ -15,6 +15,7 @@ in {
     ../programs/bash.nix
     ../programs/bat.nix
     ../programs/bottom.nix
+    ../programs/claude.nix
     ../programs/dircolors.nix
     ../programs/eza.nix
     ../programs/fish.nix

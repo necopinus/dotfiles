@@ -102,17 +102,15 @@ fi
 
 # Install desktop on Debian VM
 #
-# NOTE: The `bubblewrap` package is required by Claude Code, but is
-# pulled in automatically as a dependency of `gnome-session`
-#
 # NOTE: We need to install all system packages *before* building our
-# dotfiles, as otherwise calls to gsettings will fail!
+# dotfiles, as otherwise some setup calls will fail!
 #
 if [[ "$OS" == "Linux" ]]; then
     pkill weston || true
 
     sudo apt install -y \
         adwaita-icon-theme-legacy \
+        bubblewrap \
         build-essential \
         dconf-editor \
         gdm3 \
@@ -216,11 +214,11 @@ fi
 if [[ -e "$HOME"/.bashrc ]] && [[ ! -L "$HOME"/.bashrc ]]; then
     mv "$HOME"/.bashrc "$HOME"/.bashrc.before-nix
 fi
-if [[ -e "$HOME"/.claude/CLAUDE.md ]] && [[ ! -L "$HOME"/.claude/CLAUDE.md ]]; then
-    mv "$HOME"/.claude/CLAUDE.md "$HOME"/.claude/CLAUDE.md.before-nix
+if [[ -e "$HOME"/.config/claude/CLAUDE.md ]] && [[ ! -L "$HOME"/.config/claude/CLAUDE.md ]]; then
+    mv "$HOME"/.config/claude/CLAUDE.md "$HOME"/.config/claude/CLAUDE.md.before-nix
 fi
-if [[ -e "$HOME"/.claude/settings.json ]] && [[ ! -L "$HOME"/.claude/settings.json ]]; then
-    mv "$HOME"/.claude/settings.json "$HOME"/.claude/settings.json.before-nix
+if [[ -e "$HOME"/.config/claude/settings.json ]] && [[ ! -L "$HOME"/.config/claude/settings.json ]]; then
+    mv "$HOME"/.config/claude/settings.json "$HOME"/.config/claude/settings.json.before-nix
 fi
 if [[ -e "$HOME"/.profile ]] && [[ ! -L "$HOME"/.profile ]]; then
     mv "$HOME"/.profile "$HOME"/.profile.before-nix
@@ -322,7 +320,7 @@ hx -g build
 CREATE_REPOSITORIES=0
 if [[ "$OS" == "Darwin" ]]; then
     CREATE_REPOSITORIES=1
-elif [[ -d /mnt/shared ]] && [[ -d /mnt/internal ]]; then
+elif [[ -d /mnt/internal ]] && [[ -d /mnt/shared ]]; then
     CREATE_REPOSITORIES=1
 fi
 

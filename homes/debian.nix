@@ -1,7 +1,5 @@
 {lib, ...}: {
   imports = [
-    ../programs/chromium.nix
-    ../programs/claude.nix
     ../programs/obsidian.nix
   ];
 

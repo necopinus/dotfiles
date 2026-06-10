@@ -46,8 +46,9 @@ writeShellApplication {
     mkBackupList "$HOME/.android"
     mkBackupList "$XDG_CONFIG_HOME/shodan/api_key"
 
-    mkBackupList "$HOME/.claude"
     mkBackupList "$HOME/.claude.json"
+    mkBackupList "$XDG_CONFIG_HOME/claude"
+    mkBackupList "$XDG_DATA_HOME/claude"
 
     mkBackupList "$HOME/.cddb"
     mkBackupList "$HOME/.dvdcss"
@@ -63,9 +64,6 @@ writeShellApplication {
 
     mkBackupList "$XDG_CONFIG_HOME/BraveSoftware"
     mkBackupList "$HOME/Library/Application Support/BraveSoftware"
-
-    mkBackupList "$XDG_CONFIG_HOME/chromium"
-    mkBackupList "$HOME/Library/Application Support/Chromium"
 
     mkBackupList "$HOME/Repositories"
 
