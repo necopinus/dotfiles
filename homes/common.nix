@@ -22,25 +22,20 @@ in {
     ../programs/hacking.nix
     ../programs/helix.nix
     ../programs/jaq.nix
+    ../programs/media-tools.nix
     ../programs/nodejs.nix
     ../programs/python.nix
     ../programs/ssh.nix
     ../programs/starship.nix
     ../programs/utils.nix
-    ../programs/yt-dlp.nix
     ../programs/zellij.nix # Depends on fish.nix
     ../programs/zoxide.nix
   ];
 
   home.packages = with pkgs; [
     android-tools
-    imagemagick
-    libjpeg
     libqalculate
     msgpack-tools
-    optipng
-    pdftk
-    rsgain
 
     #### Local packages (see above) ####
     localPkgs.backup-home

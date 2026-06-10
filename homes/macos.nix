@@ -13,9 +13,6 @@ in {
   home.packages = with pkgs; [
     plistwatch
 
-    #### Desktop apps not available through Homebrew ####
-    xld
-
     #### Local packages (see above) ####
     localPkgs.vault-sync
   ];

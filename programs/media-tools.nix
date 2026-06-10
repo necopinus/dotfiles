@@ -3,6 +3,24 @@
   lib,
   ...
 }: {
+  home.packages = with pkgs;
+    [
+      exiv2
+      ffmpeg-full
+      imagemagick
+      libjpeg
+      optipng
+      pdftk
+      rsgain
+    ]
+    ++ lib.optionals pkgs.stdenv.isLinux [
+      kid3-cli # Not available on macOS
+      libgourou # Broken on macOS as of 2026-06-09
+    ]
+    ++ lib.optionals pkgs.stdenv.isDarwin [
+      xld # No longer available through Homebrew as of 2026-09-01
+    ];
+
   programs.yt-dlp = {
     enable = true;
 

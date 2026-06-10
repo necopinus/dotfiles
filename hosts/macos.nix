@@ -45,6 +45,7 @@
       "brave-browser"
       "handbrake-app"
       "keepassxc"
+      "kid3"
       "makemkv"
       {
         name = "obsidian";

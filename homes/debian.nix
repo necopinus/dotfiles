@@ -1,20 +1,11 @@
-{
-  lib,
-  pkgs,
-  ...
-}: {
+{lib, ...}: {
   imports = [
     ../programs/chromium.nix
     ../programs/claude.nix
-    ../programs/exfalso.nix
     ../programs/obsidian.nix
   ];
 
   programs.home-manager.enable = true; # Make sure that home-manager binary is in the PATH
-
-  home.packages = with pkgs; [
-    libgourou
-  ];
 
   # VMs are Debian-based, not NixOS
   #
