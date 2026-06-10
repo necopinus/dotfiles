@@ -13,12 +13,10 @@ fi
 #
 OS="$(uname -s)"
 
-# On normal Debian VMs, giving our user unrestricted sudo access will
-# make the remainder of the setup process MUCH less annoying (this is
-# set up out-of-the-box on the Android VM)
+# Make sure our user has unrestricted sudo access on Linux
 # 
-if [[ "$OS" == "Linux" ]] && [[ ! -d /mnt/internal ]] && [[ -d /mnt/shared ]]; then
-    echo "droid ALL=(ALL) NOPASSWD:ALL" | sudo tee /etc/sudoers.d/droid
+if [[ "$OS" == "Linux" ]]; then
+    echo "$USER ALL=(ALL) NOPASSWD:ALL" | sudo tee "/etc/sudoers.d/$USER"
 fi
 
 # Work around flakey DNS in the Android VM
