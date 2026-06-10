@@ -8,8 +8,6 @@ in {
     ../programs/zsh.nix
   ];
 
-  programs.gpg.enable = true;
-
   home.packages = with pkgs; [
     plistwatch
 
