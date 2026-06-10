@@ -5,7 +5,6 @@
   writeShellApplication,
   #### Core packages ####
   bashInteractive,
-  gnugrep,
   uutils-coreutils-noprefix,
   #### Up-to-date version of Claude Code ####
   llm-agents,
@@ -55,9 +54,11 @@ in
     runtimeInputs =
       [
         #### Core packages ####
-        bashInteractive
-        gnugrep
         uutils-coreutils-noprefix
+      ]
+      ++ lib.optionals pkgs.stdenv.isLinux [
+        #### Core packages ####
+        bashInteractive
 
         #### Up-to-date version of Claude Code ####
         llmAgents.claude-code
@@ -84,6 +85,7 @@ in
 
         #### Language Servers ####
         clang-tools
+        csharp-ls # Not available on macOS ARM
         gopls
         intelephense
         jdk # Not actually an LSP, but necessary for JDT.LS to work
@@ -97,9 +99,6 @@ in
         swift
         typescript
         typescript-language-server
-      ]
-      ++ lib.optionals pkgs.stdenv.isLinux [
-        csharp-ls # Not available on macOS ARM
       ];
 
     text = ''
