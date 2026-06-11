@@ -2,21 +2,14 @@
   pkgs,
   config,
   ...
-}: let
-  localPkgs = {
-    vault-sync = pkgs.callPackage ../pkgs/vault-sync.nix {};
-  };
-in {
+}: {
   imports = [
-    ../programs/keepassxc.nix
-    ../programs/zsh.nix
+    ../bundles/keepassxc
+    ../bundles/zsh
   ];
 
   home.packages = with pkgs; [
     plistwatch
-
-    #### Local packages (see above) ####
-    localPkgs.vault-sync
   ];
 
   # UTM SSH convenience setup

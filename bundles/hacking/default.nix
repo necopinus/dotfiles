@@ -10,7 +10,6 @@
       pythonPackages.mitmproxy
       pythonPackages.shodan
       pythonPackages.solc-select
-      pythonPackages.wfuzz # Pulled in for the wordlists
     ]))
 
     #### Hacker paraphernalia ####
@@ -18,19 +17,11 @@
     evil-winrm
     exploitdb
     gobuster
-    hashcat
-    hashcat-utils
-    john
-    kerbrute
     metasploit
-    mimikatz
     netcat-gnu
     netexec
     nmap
     openvpn
-    powershell
-    powersploit
-    powerview
     responder
     rlwrap
     socat

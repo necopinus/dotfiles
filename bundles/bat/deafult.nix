@@ -4,7 +4,7 @@
   ...
 }: let
   localPkgs = {
-    less = pkgs.callPackage ../pkgs/less.nix {};
+    less = pkgs.callPackage ./pkgs/less.nix {};
   };
 in {
   programs.bat.enable = true;

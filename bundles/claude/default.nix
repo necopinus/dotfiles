@@ -5,7 +5,7 @@
   ...
 }: let
   localPkgs = {
-    claude = pkgs.callPackage ../pkgs/claude.nix {inherit llm-agents;};
+    claude = pkgs.callPackage ./pkgs/claude.nix {inherit llm-agents;};
   };
 in {
   #################### Claude Code ####################

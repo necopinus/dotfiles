@@ -4,8 +4,8 @@
   ...
 }: let
   localPkgs = {
-    htop = pkgs.callPackage ../pkgs/htop.nix {};
-    top = pkgs.callPackage ../pkgs/top.nix {};
+    htop = pkgs.callPackage ./pkgs/htop.nix {};
+    top = pkgs.callPackage ./pkgs/top.nix {};
   };
 in {
   programs.bottom = {

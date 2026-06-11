@@ -44,7 +44,7 @@
   # Wrap kotlin-language-server so Claude can find it
   #
   localPkgs = {
-    kotlin-lsp = pkgs.callPackage ../pkgs/kotlin-lsp.nix {};
+    kotlin-lsp = pkgs.callPackage ./kotlin-lsp.nix {};
   };
 in
   writeShellApplication {

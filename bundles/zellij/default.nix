@@ -1,6 +1,6 @@
 {pkgs, ...}: let
   localPkgs = {
-    pbcopy = pkgs.callPackage ../pkgs/pbcopy.nix {};
+    pbcopy = pkgs.callPackage ../utils/pkgs/pbcopy.nix {};
   };
 in {
   programs.zellij = {

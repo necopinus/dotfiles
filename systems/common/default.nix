@@ -3,40 +3,33 @@
   pkgs,
   lib,
   ...
-}: let
-  localPkgs = {
-    backup-home = pkgs.callPackage ../pkgs/backup-home.nix {};
-    update-system = pkgs.callPackage ../pkgs/update-system.nix {};
-  };
-in {
+}: {
   imports = [
-    ../programs/bash.nix
-    ../programs/bat.nix
-    ../programs/bottom.nix
-    ../programs/dircolors.nix
-    ../programs/eza.nix
-    ../programs/fish.nix
-    ../programs/git.nix
-    ../programs/helix.nix
-    ../programs/jaq.nix
-    ../programs/media-tools.nix
-    ../programs/nodejs.nix
-    ../programs/python.nix
-    ../programs/ssh.nix
-    ../programs/starship.nix
-    ../programs/utils.nix
-    ../programs/zellij.nix # Depends on fish.nix
-    ../programs/zoxide.nix
+    ../bundles/bash
+    ../bundles/bat
+    ../bundles/bottom
+    ../bundles/dircolors
+    ../bundles/eza
+    ../bundles/fish
+    ../bundles/git
+    ../bundles/helix
+    ../bundles/jaq
+    ../bundles/media-tools
+    ../bundles/ssh
+    ../bundles/starship
+    ../bundles/utils
+    ../bundles/zellij # Depends on ../bundles/fish
+    ../bundles/zoxide
   ];
+
+  programs.npm.enable = true;
+  programs.uv.enable = true;
 
   home.packages = with pkgs; [
     android-tools
     libqalculate
     msgpack-tools
-
-    #### Local packages (see above) ####
-    localPkgs.backup-home
-    localPkgs.update-system
+    pnpm
   ];
 
   xdg = {

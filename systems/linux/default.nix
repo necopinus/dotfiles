@@ -1,9 +1,13 @@
 {
-  pkgs,
   lib,
+  pkgs,
   config,
   ...
 }: {
+  imports = [
+    ../bundles/obsidian
+  ];
+
   home.packages = with pkgs; [
     dconf2nix
 
@@ -21,6 +25,12 @@
     #
     pop-wallpapers
   ];
+
+  programs.home-manager.enable = true; # Make sure that home-manager binary is in the PATH
+
+  # Ironically, this designed to work with Debian-ish distros, not NixOS
+  #
+  targets.genericLinux.enable = true;
 
   # Needed to force font cache to be rebuilt
   #
@@ -170,4 +180,11 @@
     NoDisplay=true
     Hidden=true
   '';
+
+  # https://github.com/nix-community/home-manager/issues/2033
+  #
+  news = {
+    display = "silent";
+    entries = lib.mkForce [];
+  };
 }

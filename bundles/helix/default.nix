@@ -4,8 +4,8 @@
   ...
 }: let
   localPkgs = {
-    pbcopy = pkgs.callPackage ../pkgs/pbcopy.nix {};
-    pbpaste = pkgs.callPackage ../pkgs/pbpaste.nix {};
+    pbcopy = pkgs.callPackage ../utils/pkgs/pbcopy.nix {};
+    pbpaste = pkgs.callPackage ../utils/pkgs/pbpaste.nix {};
   };
 
   helperPkgs = with pkgs; [
@@ -49,7 +49,7 @@
     lldb
   ];
 in {
-  xdg.configFile."moxide/settings.toml".source = ../artifacts/config/moxide/settings.toml;
+  xdg.configFile."moxide/settings.toml".source = ./files/config/moxide/settings.toml;
 
   programs.helix = {
     enable = true;

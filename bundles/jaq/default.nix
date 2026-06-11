@@ -1,7 +1,7 @@
 {pkgs, ...}: let
   localPkgs = {
-    jq = pkgs.callPackage ../pkgs/jq.nix {};
-    yq = pkgs.callPackage ../pkgs/yq.nix {};
+    jq = pkgs.callPackage ./pkgs/jq.nix {};
+    yq = pkgs.callPackage ./pkgs/yq.nix {};
   };
 in {
   home.packages = with pkgs; [

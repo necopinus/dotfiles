@@ -64,9 +64,8 @@
         home.stateVersion = "${homeManagerStateVersion}";
       }
 
-      ./hosts/linux.nix
-      ./homes/common.nix
-      ./homes/linux.nix
+      ./systems/common
+      ./systems/linux
     ];
   in {
     # macOS configuration (nix-darwin + home-manager)
@@ -85,7 +84,7 @@
           };
         }
 
-        ./hosts/macos.nix
+        ./systems/macos/nix-darwin.nix
 
         home-manager.darwinModules.home-manager
         {
@@ -100,9 +99,9 @@
               home.homeDirectory = "/Users/${myUserName.standard}";
 
               imports = [
-                ./homes/common.nix
-                ./homes/macos.nix
-                ./programs/claude.nix
+                ./systems/common
+                ./systems/macos
+                ./bundles/claude
               ];
             };
           };
@@ -149,8 +148,8 @@
             home.homeDirectory = "/home/${myUserName.standard}";
           }
 
-          ./programs/claude.nix
-          ./programs/hacking.nix
+          ./bundles/claude
+          ./bundles/hacking
         ]
         ++ linuxHomeManagerCommonModules;
     };
@@ -173,8 +172,8 @@
             home.homeDirectory = "/home/${myUserName.exedev}";
           }
 
-          ./programs/claude.nix
-          ./programs/hacking.nix
+          ./bundles/claude
+          ./bundles/hacking
         ]
         ++ linuxHomeManagerCommonModules;
     };

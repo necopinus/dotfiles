@@ -5,7 +5,6 @@
 }: {
   home.packages = with pkgs;
     [
-      exiv2
       ffmpeg-full
       imagemagick
       libjpeg
