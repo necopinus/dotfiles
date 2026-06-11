@@ -253,35 +253,17 @@ if [[ "$OS" == "Linux" ]]; then
     sudo "$(which non-nixos-gpu-setup)"
 fi
 
-# Set up XDG user directories
+# Create (most of) the XDG user directories on Android
 #
-if [[ -d /mnt/shared/Documents ]]; then
+if [[ "$USER" == "droid" ]]; then
+    mkdir -p "$XDG_DESKTOP_DIR"
     ln -sfT /mnt/shared/Documents "$HOME/Documents"
-else
-    mkdir -p "$XDG_DOCUMENTS_DIR"
-fi
-mkdir -p "$XDG_DESKTOP_DIR"
-if [[ -d /mnt/shared/Dowonload ]]; then
     ln -sfT /mnt/shared/Download "$HOME/Downloads"
-else
-    mkdir -p "$XDG_DOWNLOAD_DIR"
-fi
-if [[ -d /mnt/shared/Music ]]; then
     ln -sfT /mnt/shared/Music "$HOME/Music"
-else
-    mkdir -p "$XDG_MUSIC_DIR"
-fi
-if [[ -d /mnt/shared/Pictures ]]; then
     ln -sfT /mnt/shared/Pictures "$HOME/Pictures"
-else
-    mkdir -p "$XDG_PICTURES_DIR"
-fi
-mkdir -p "$XDG_PUBLICSHARE_DIR"
-mkdir -p "$XDG_TEMPLATES_DIR"
-if [[ -d /mnt/shared/Movies ]]; then
+    mkdir -p "$XDG_PUBLICSHARE_DIR"
+    mkdir -p "$XDG_TEMPLATES_DIR"
     ln -sfT /mnt/shared/Movies "$HOME/Videos"
-else
-    mkdir -p "$XDG_VIDEOS_DIR"
 fi
 
 # Claude Code pre-setup
@@ -324,10 +306,10 @@ hx -g build
 # Check out a few useful code repositories
 #
 if [[ "$OS" == "Darwin" ]] || [[ "$USER" == "droid" ]]; then
-    mkdir -p "$HOME"/Repositories
+    mkdir -p "$HOME"/Projects
 
     (
-        cd "$HOME"/Repositories || exit 1
+        cd "$HOME"/Projects || exit 1
 
         REPOS="$( (
             curl -sL -X GET \

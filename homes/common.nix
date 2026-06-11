@@ -48,7 +48,6 @@ in {
 
     userDirs = {
       enable = true;
-      createDirectories = true;
       setSessionVariables = true;
 
       # Reset the XDG_VIDEOS_DIR on macOS, since it uses ~/Movies

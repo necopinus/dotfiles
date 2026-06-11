@@ -65,7 +65,7 @@ writeShellApplication {
     mkBackupList "$XDG_CONFIG_HOME/BraveSoftware"
     mkBackupList "$HOME/Library/Application Support/BraveSoftware"
 
-    mkBackupList "$HOME/Repositories"
+    mkBackupList "$HOME/Projects"
 
     grep "^$HOME/" "$BACKUP_LIST" | sed "s#^$HOME/##g" | sort -u > "$BACKUP_LIST_TMP"
     mv "$BACKUP_LIST_TMP" "$BACKUP_LIST"

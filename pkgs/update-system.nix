@@ -83,9 +83,9 @@ writeShellApplication {
 
     # Git repositories
     #
-    if [[ -d "$HOME/Repositories" ]]; then
+    if [[ -d "$HOME/Projects" ]]; then
       (
-        cd "$HOME/Repositories"
+        cd "$HOME/Projects" || exit 1
         while IFS= read -r -d "" OBJECT; do
           if [[ -d "$OBJECT/.git" ]]; then
             echo "Refreshing $(basename "$OBJECT")"
