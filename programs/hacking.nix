@@ -44,19 +44,19 @@
     seclists
   ];
 
+  # Set the default MSF_CFGROOT_CONFIG explicitly for XDG conformance,
+  # and so that we can more easily check if we need to run `msfdb init`.
+  # As of 2026-06-09 the default is ~/.msf4; check lines 30 - 38 of
+  # lib/msf/base/config.rb to see if this has been changed because of a
+  # compatability break is necessary.
+  #
+  home.sessionVariables.MSF_CFGROOT_CONFIG = "${config.xdg.configHome}/msf4";
+
   # Metasploit console wrapper
   #
   xdg.configFile."bash/rc.d/msfconsole.sh" = {
     enable = config.programs.bash.enable;
     text = ''
-      # Set the default MSF_CFGROOT_CONFIG explicitly for XDG
-      # conformance, and so that we can more easily check if we need to
-      # run `msfdb init`. As of 2026-06-09 the default is ~/.msf4; check
-      # lines 30 - 38 of lib/msf/base/config.rb to see if this has been
-      # changed because of a compatability break is necessary.
-      #
-      export MSF_CFGROOT_CONFIG="$XDG_CONFIG_HOME"/msf4
-
       msfconsole () {
         # Init database, if necessary
         #
@@ -106,14 +106,6 @@
   xdg.configFile."zsh/rc.d/msfconsole.zsh" = {
     enable = config.programs.zsh.enable;
     text = ''
-      # Set the default MSF_CFGROOT_CONFIG explicitly for XDG
-      # conformance, and so that we can more easily check if we need to
-      # run `msfdb init`. As of 2026-06-09 the default is ~/.msf4; check
-      # lines 30 - 38 of lib/msf/base/config.rb to see if this has been
-      # changed because of a compatability break is necessary.
-      #
-      export MSF_CFGROOT_CONFIG="$XDG_CONFIG_HOME"/msf4
-
       msfconsole () {
         # Init database, if necessary
         #
@@ -163,14 +155,6 @@
   xdg.configFile."fish/rc.d/msfconsole.fish" = {
     enable = config.programs.fish.enable;
     text = ''
-      # Set the default MSF_CFGROOT_CONFIG explicitly for XDG
-      # conformance, and so that we can more easily check if we need to
-      # run `msfdb init`. As of 2026-06-09 the default is ~/.msf4; check
-      # lines 30 - 38 of lib/msf/base/config.rb to see if this has been
-      # changed because of a compatability break is necessary.
-      #
-      set -gx MSF_CFGROOT_CONFIG $XDG_CONFIG_HOME/msf4
-
       function msfconsole
         # Init database, if necessary
         #

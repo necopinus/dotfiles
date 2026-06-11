@@ -78,6 +78,11 @@ in {
     };
   };
 
+  # Not all of Claude's tool calls work correctly unless the bash from
+  # pkgs.bashInteractive is used
+  #
+  home.sessionVariables.CLAUDE_CODE_SHELL = "${pkgs.bashInteractive}/bin/bash";
+
   # YOLO mode by default
   #
   # We add this flag as an alias, rather than within the `claude`

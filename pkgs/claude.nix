@@ -107,8 +107,6 @@ in
       if [[ "$(uname -m)" == "Darwin" ]]; then
         open https://claude.ai/code
       else
-        export CLAUDE_CODE_SHELL=${bashInteractive}/bin/bash
-
         exec ${llmAgents.claude-code}/bin/claude "$@"
       fi
     '';

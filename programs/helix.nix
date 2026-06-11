@@ -208,9 +208,7 @@ in {
     };
   };
 
-  # Fix Helix theme support in the Android VM
+  # Make sure that theming is always enabled
   #
-  home.sessionVariables = lib.attrsets.optionalAttrs pkgs.stdenv.isLinux {
-    COLORTERM = "truecolor";
-  };
+  home.sessionVariables.COLORTERM = "truecolor";
 }
