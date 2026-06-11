@@ -1,5 +1,5 @@
 {
-  description = "Nix-managed dotfiles for macOS and Debian VMs";
+  description = "Nix-managed dotfiles for macOS, Debian(ish) VMs (including the Android 16+ Terminal), and exe.dev";
 
   # Numtide binary cache for AI-related tools
   #
@@ -50,8 +50,24 @@
 
     # User names
     #
-    myUserName = "necopinus";
-    vmUserName = "droid"; # Not configurable on Android, so just use it everywhere
+    myUserName = {
+      standard = "necopinus";
+      android = "droid";
+      exedev = "exedev";
+    };
+
+    # Home Manager modules/imports
+    #
+    linuxHomeManagerCommonModules = [
+      {
+        nixpkgs.config.allowUnfree = true;
+        home.stateVersion = "${homeManagerStateVersion}";
+      }
+
+      ./hosts/linux.nix
+      ./homes/common.nix
+      ./homes/linux.nix
+    ];
   in {
     # macOS configuration (nix-darwin + home-manager)
     #
@@ -59,20 +75,13 @@
       system = "aarch64-darwin";
 
       modules = [
-        # Allow "unfree" packages; needs to be set here rather than in
-        # the global let statement above... for reasons?
-        #
-        # I honestly don't get why NixPkgs overlays and config
-        # directives go in different places...
-        #
-        {nixpkgs.config.allowUnfree = true;}
-
         {
+          nixpkgs.config.allowUnfree = true;
           system.stateVersion = nixDarwinStateVersion;
-          system.primaryUser = "${myUserName}";
-          users.users."${myUserName}" = {
-            name = "${myUserName}";
-            home = "/Users/${myUserName}";
+          system.primaryUser = "${myUserName.standard}";
+          users.users."${myUserName.standard}" = {
+            name = "${myUserName.standard}";
+            home = "/Users/${myUserName.standard}";
           };
         }
 
@@ -87,12 +96,13 @@
 
             users."${myUserName}" = {
               home.stateVersion = "${homeManagerStateVersion}";
-              home.username = "${myUserName}";
-              home.homeDirectory = "/Users/${myUserName}";
+              home.username = "${myUserName.standard}";
+              home.homeDirectory = "/Users/${myUserName.standard}";
 
               imports = [
                 ./homes/common.nix
                 ./homes/macos.nix
+                ./programs/claude.nix
               ];
             };
           };
@@ -100,9 +110,9 @@
       ];
     };
 
-    # Debian VM configuration (home-manager)
+    # Android 16+ Linux Terminal configuration (home-manager)
     #
-    homeConfigurations."debian" = home-manager.lib.homeManagerConfiguration {
+    homeConfigurations."android" = home-manager.lib.homeManagerConfiguration {
       # Looks weird, but just let's home-manager re-use the existing NixPkgs
       # definition, which is more efficient. See:
       #
@@ -111,25 +121,62 @@
       pkgs = nixpkgs.legacyPackages.aarch64-linux;
       extraSpecialArgs = {inherit llm-agents;};
 
-      modules = [
-        # Allow "unfree" packages; needs to be set here rather than in
-        # the global let statement above... for reasons?
-        #
-        # I honestly don't get why NixPkgs overlays and config
-        # directives go in different places...
-        #
-        {nixpkgs.config.allowUnfree = true;}
+      modules =
+        [
+          {
+            home.username = "${myUserName.android}";
+            home.homeDirectory = "/home/${myUserName.android}";
+          }
+        ]
+        ++ linuxHomeManagerCommonModules;
+    };
 
-        {
-          home.stateVersion = "${homeManagerStateVersion}";
-          home.username = "${vmUserName}";
-          home.homeDirectory = "/home/${vmUserName}";
-        }
+    # Isolated Linux VM configuration (home-manager)
+    #
+    homeConfigurations."linux" = home-manager.lib.homeManagerConfiguration {
+      # Looks weird, but just let's home-manager re-use the existing NixPkgs
+      # definition, which is more efficient. See:
+      #
+      #   https://discourse.nixos.org/t/two-ways-to-write-a-home-manager-flake-is-legacypackages-needed/28109
+      #
+      pkgs = nixpkgs.legacyPackages.aarch64-linux;
+      extraSpecialArgs = {inherit llm-agents;};
 
-        ./hosts/debian.nix
-        ./homes/common.nix
-        ./homes/debian.nix
-      ];
+      modules =
+        [
+          {
+            home.username = "${myUserName.standard}";
+            home.homeDirectory = "/home/${myUserName.standard}";
+          }
+
+          ./programs/claude.nix
+          ./programs/hacking.nix
+        ]
+        ++ linuxHomeManagerCommonModules;
+    };
+
+    # exedev configuration (home-manager)
+    #
+    homeConfigurations."exedev" = home-manager.lib.homeManagerConfiguration {
+      # Looks weird, but just let's home-manager re-use the existing NixPkgs
+      # definition, which is more efficient. See:
+      #
+      #   https://discourse.nixos.org/t/two-ways-to-write-a-home-manager-flake-is-legacypackages-needed/28109
+      #
+      pkgs = nixpkgs.legacyPackages.aarch64-linux;
+      extraSpecialArgs = {inherit llm-agents;};
+
+      modules =
+        [
+          {
+            home.username = "${myUserName.exedev}";
+            home.homeDirectory = "/home/${myUserName.exedev}";
+          }
+
+          ./programs/claude.nix
+          ./programs/hacking.nix
+        ]
+        ++ linuxHomeManagerCommonModules;
     };
   };
 }

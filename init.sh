@@ -52,7 +52,7 @@ if [[ "$OS" == "Darwin" ]]; then
     fi
 fi
 
-# Keep installation slim on Debian
+# Keep installation slim on Linux
 #
 if [[ "$OS" == "Linux" ]]; then
     sudo mkdir -p /etc/apt/apt.conf.d
@@ -67,6 +67,8 @@ fi
 if [[ "$OS" == "Linux" ]]; then
     if [[ -f /etc/apt/sources.list.d/debian.sources ]]; then
         sudo sed -i 's#^Components: .*$#Components: main contrib non-free non-free-firmware#' /etc/apt/sources.list.d/debian.sources
+    elif [[ -f /etc/apt/sources.list.d/ubuntu.sources ]]; then
+        sudo sed -i 's#^Components: .*$#Components: main universe multiverse restricted#' /etc/apt/sources.list.d/ubuntu.sources
     else
         sudo sed -i 's# main$# main contrib non-free non-free-firmware#' /etc/apt/sources.list
     fi
@@ -98,7 +100,7 @@ if [[ $(grep -c "^trusted-users = " /etc/nix/nix.custom.conf) -eq 0 ]]; then
     fi
 fi
 
-# Install desktop on Debian VM
+# Install desktop on Linux
 #
 # NOTE: We need to install all system packages *before* building our
 # dotfiles, as otherwise some setup calls will fail!
@@ -119,9 +121,9 @@ if [[ "$OS" == "Linux" ]]; then
         seahorse \
         uuid-runtime
 
-    # Additional packages to install on normal Debian VMs
+    # Additional packages to install on non-Android Linux VMs
     #
-    if [[ ! -d /mnt/internal ]] && [[ -d /mnt/shared ]]; then
+    if [[ "$USER" != "droid" ]] && [[ "$USER" != "exedev" ]]; then
         sudo apt install -y spice-vdagent
     fi
 
@@ -224,17 +226,19 @@ fi
 
 # Build configuration
 #
-if [[ "$OS" == "Darwin" ]]; then
-    (
-        cd "$HOME/.config/nix"
+(
+    cd "$HOME/.config/nix" || exit 1
+
+    if [[ "$OS" == "Darwin" ]]; then
         sudo -H nix run nix-darwin -- switch --flake .#macos
-    )
-else
-    (
-        cd "$HOME/.config/nix"
-        dbus-run-session nix run home-manager/master -- switch --flake .#debian
-    )
-fi
+    elif [[ "$USER" == "droid" ]]; then
+        dbus-run-session nix run home-manager/master -- switch --flake .#android
+    elif [[ "$USER" == "exedev" ]]; then
+        dbus-run-session nix run home-manager/master -- switch --flake .#exedev
+    else
+        dbus-run-session nix run home-manager/master -- switch --flake .#linux
+    fi
+)
 
 # Update runtime environment
 #
@@ -251,26 +255,30 @@ fi
 
 # Set up XDG user directories
 #
-if [[ "$XDG_DOCUMENTS_DIR" == /mnt/shared/Documents ]]; then
+if [[ -d /mnt/shared/Documents ]]; then
     ln -sfT /mnt/shared/Documents "$HOME/Documents"
 else
     mkdir -p "$XDG_DOCUMENTS_DIR"
 fi
 mkdir -p "$XDG_DESKTOP_DIR"
-mkdir -p "$XDG_DOWNLOAD_DIR"
-if [[ "$XDG_MUSIC_DIR" == /mnt/shared/Music ]]; then
+if [[ -d /mnt/shared/Dowonload ]]; then
+    ln -sfT /mnt/shared/Download "$HOME/Downloads"
+else
+    mkdir -p "$XDG_DOWNLOAD_DIR"
+fi
+if [[ -d /mnt/shared/Music ]]; then
     ln -sfT /mnt/shared/Music "$HOME/Music"
 else
     mkdir -p "$XDG_MUSIC_DIR"
 fi
-if [[ "$XDG_PICTURES_DIR" == /mnt/shared/Pictures ]]; then
+if [[ -d /mnt/shared/Pictures ]]; then
     ln -sfT /mnt/shared/Pictures "$HOME/Pictures"
 else
     mkdir -p "$XDG_PICTURES_DIR"
 fi
 mkdir -p "$XDG_PUBLICSHARE_DIR"
 mkdir -p "$XDG_TEMPLATES_DIR"
-if [[ "$XDG_VIDEOS_DIR" == /mnt/shared/Movies ]]; then
+if [[ -d /mnt/shared/Movies ]]; then
     ln -sfT /mnt/shared/Movies "$HOME/Videos"
 else
     mkdir -p "$XDG_VIDEOS_DIR"
@@ -315,14 +323,7 @@ hx -g build
 
 # Check out a few useful code repositories
 #
-CREATE_REPOSITORIES=0
-if [[ "$OS" == "Darwin" ]]; then
-    CREATE_REPOSITORIES=1
-elif [[ -d /mnt/internal ]] && [[ -d /mnt/shared ]]; then
-    CREATE_REPOSITORIES=1
-fi
-
-if [[ $CREATE_REPOSITORIES -eq 1 ]]; then
+if [[ "$OS" == "Darwin" ]] || [[ "$USER" == "droid" ]]; then
     mkdir -p "$HOME"/Repositories
 
     (

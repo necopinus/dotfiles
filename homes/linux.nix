@@ -5,7 +5,7 @@
 
   programs.home-manager.enable = true; # Make sure that home-manager binary is in the PATH
 
-  # VMs are Debian-based, not NixOS
+  # Ironically, this designed to work with Debian-ish distros, not NixOS
   #
   targets.genericLinux.enable = true;
 

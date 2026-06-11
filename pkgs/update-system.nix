@@ -20,7 +20,7 @@ writeShellApplication {
     #
     OS="$(uname -s)"
 
-    # Debian system packages
+    # (Debian) Linux system packages
     #
     if [[ "$OS" == "Linux" ]]; then
       sudo apt update
@@ -55,8 +55,14 @@ writeShellApplication {
       git push
       if [[ "$OS" == "Darwin" ]]; then
         sudo darwin-rebuild switch --flake .#macos
+      elif [[ "$USER" == "droid" ]]; then
+        home-manager switch --flake .#android
+        sudo "$(which non-nixos-gpu-setup)"
+      elif [[ "$USER" == "exedev" ]]; then
+        home-manager switch --flake .#exedev
+        sudo "$(which non-nixos-gpu-setup)"
       else
-        home-manager switch --flake .#debian
+        home-manager switch --flake .#linux
         sudo "$(which non-nixos-gpu-setup)"
       fi
     )

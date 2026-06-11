@@ -1,4 +1,8 @@
-{pkgs, ...}: let
+{
+  pkgs,
+  config,
+  ...
+}: let
   localPkgs = {
     vault-sync = pkgs.callPackage ../pkgs/vault-sync.nix {};
   };
@@ -17,8 +21,8 @@ in {
 
   # UTM SSH convenience setup
   #
-  programs.ssh.settings."debian" = {
-    User = "droid";
+  programs.ssh.settings."linux-vm" = {
+    User = "${config.home.username}";
     Hostname = "127.0.0.1";
     Port = 2222;
     RequestTTY = "yes";

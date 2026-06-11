@@ -235,8 +235,8 @@
         #
         "Default Window Settings" = "Gruvbox Light";
         "Startup Window Settings" = "Gruvbox Light";
-        "PermanentServers" = ["debian"];
-        "PreviousCommands" = ["ssh debian"];
+        "PermanentServers" = ["linux-vm"];
+        "PreviousCommands" = ["ssh linux-vm"];
       };
 
       "com.apple.TextEdit" = {

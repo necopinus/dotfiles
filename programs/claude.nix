@@ -78,7 +78,7 @@ in {
     };
   };
 
-  # YOLO mode by default, but only on isolated systems
+  # YOLO mode by default
   #
   # We add this flag as an alias, rather than within the `claude`
   # wrapper, so that we can still call Claude without this flag when
@@ -87,25 +87,19 @@ in {
   xdg.configFile."bash/rc.d/claude.sh" = {
     enable = config.programs.bash.enable;
     text = ''
-      if [[ "$(${pkgs.uutils-coreutils-noprefix}/bin/uname -m)" != "Darwin" ]] && [[ ! -d /mnt/internal ]] && [[ ! -d /mnt/shared ]]; then
-        alias claude="${config.programs.claud.package}/bin/claude --dangerously-skip-permissions"
-      fi
+      alias claude="${config.programs.claud.package}/bin/claude --dangerously-skip-permissions"
     '';
   };
   xdg.configFile."zsh/rc.d/claude.zsh" = {
     enable = config.programs.zsh.enable;
     text = ''
-      if [[ "$(${pkgs.uutils-coreutils-noprefix}/bin/uname -m)" != "Darwin" ]] && [[ ! -d /mnt/internal ]] && [[ ! -d /mnt/shared ]]; then
-        alias claude="${config.programs.claud.package}/bin/claude --dangerously-skip-permissions"
-      fi
+      alias claude="${config.programs.claud.package}/bin/claude --dangerously-skip-permissions"
     '';
   };
   xdg.configFile."fish/rc.d/claude.fish" = {
     enable = config.programs.fish.enable;
     text = ''
-      if test "$(${pkgs.uutils-coreutils-noprefix}/bin/uname -m)" != "Darwin"; and test ! -d /mnt/internal; and test ! -d /mnt/shared
-        alias claude "${config.programs.claud.package}/bin/claude --dangerously-skip-permissions"
-      end
+      alias claude "${config.programs.claud.package}/bin/claude --dangerously-skip-permissions"
     '';
   };
 }

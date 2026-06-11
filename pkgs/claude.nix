@@ -106,9 +106,6 @@ in
       #
       if [[ "$(uname -m)" == "Darwin" ]]; then
         open https://claude.ai/code
-      elif [[ -d /mnt/internal ]] && [[ -d /mnt/shared ]]; then
-        echo "Refusing to launch Claude Code in a non-isolated environment"
-        exit 1
       else
         export CLAUDE_CODE_SHELL=${bashInteractive}/bin/bash
 

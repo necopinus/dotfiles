@@ -15,12 +15,10 @@ in {
     ../programs/bash.nix
     ../programs/bat.nix
     ../programs/bottom.nix
-    ../programs/claude.nix
     ../programs/dircolors.nix
     ../programs/eza.nix
     ../programs/fish.nix
     ../programs/git.nix
-    ../programs/hacking.nix
     ../programs/helix.nix
     ../programs/jaq.nix
     ../programs/media-tools.nix
@@ -53,35 +51,12 @@ in {
       createDirectories = true;
       setSessionVariables = true;
 
-      # Some XDG user directories need to be reset, as macOS
-      # directories don't always match the spec and equivalent
-      # directories in the Android VM live in /mnt/shared
+      # Reset the XDG_VIDEOS_DIR on macOS, since it uses ~/Movies
       #
-      # NOTE: We *don't* map the XDG_DOWNLOAD_DIR, as there's no way to
-      # get a consistent host name between the Debian VMs (on an
-      # Android host it will be /mnt/share/Download, while on a macOS
-      # host it will be /mnt/share/Downloads)
-      #
-      documents =
-        if pkgs.stdenv.isLinux
-        then "/mnt/shared/Documents"
-        else "${config.home.homeDirectory}/Documents";
-      #download =
-      #  if pkgs.stdenv.isLinux
-      #  then "/mnt/shared/Download"
-      #  else "${config.home.homeDirectory}/Downloads";
-      music =
-        if pkgs.stdenv.isLinux
-        then "/mnt/shared/Music"
-        else "${config.home.homeDirectory}/Music";
-      pictures =
-        if pkgs.stdenv.isLinux
-        then "/mnt/shared/Pictures"
-        else "${config.home.homeDirectory}/Pictures";
       videos =
-        if pkgs.stdenv.isLinux
-        then "/mnt/shared/Movies"
-        else "${config.home.homeDirectory}/Movies";
+        if pkgs.stdenv.isDarwin
+        then "${config.home.homeDirectory}/Movies"
+        else "${config.home.homeDirectory}/Videos";
     };
   };
   home.preferXdgDirectories = true;
