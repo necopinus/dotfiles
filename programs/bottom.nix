@@ -1,10 +1,22 @@
 {
-  config,
   lib,
   pkgs,
   ...
-}: {
-  programs.bottom.enable = true;
+}: let
+  localPkgs = {
+    htop = pkgs.callPackage ../pkgs/htop.nix {};
+    top = pkgs.callPackage ../pkgs/top.nix {};
+  };
+in {
+  programs.bottom = {
+    enable = true;
+
+    settings = {
+      styles = {
+        theme = "gruvbox-light";
+      };
+    };
+  };
 
   # Hide desktop entry
   #
@@ -18,30 +30,10 @@
     };
   };
 
-  # Convenience aliases
+  # Convenience wrappers
   #
-  xdg.configFile."bash/rc.d/bottom.sh" = {
-    enable = config.programs.bash.enable;
-    text = ''
-      alias btm="${config.programs.bottom.package}/bin/btm --theme gruvbox-light"
-      alias htop="${config.programs.bottom.package}/bin/btm -b --theme gruvbox-light"
-      alias top="${config.programs.bottom.package}/bin/btm -b --theme gruvbox-light"
-    '';
-  };
-  xdg.configFile."zsh/rc.d/bottom.zsh" = {
-    enable = config.programs.zsh.enable;
-    text = ''
-      alias btm="${config.programs.bottom.package}/bin/btm --theme gruvbox-light"
-      alias htop="${config.programs.bottom.package}/bin/btm -b --theme gruvbox-light"
-      alias top="${config.programs.bottom.package}/bin/btm -b --theme gruvbox-light"
-    '';
-  };
-  xdg.configFile."fish/rc.d/bottom.fish" = {
-    enable = config.programs.fish.enable;
-    text = ''
-      alias btm "${config.programs.bottom.package}/bin/btm --theme gruvbox-light"
-      alias htop "${config.programs.bottom.package}/bin/btm -b --theme gruvbox-light"
-      alias top "${config.programs.bottom.package}/bin/btm -b --theme gruvbox-light"
-    '';
-  };
+  home.packages = [
+    localPkgs.htop
+    localPkgs.top
+  ];
 }

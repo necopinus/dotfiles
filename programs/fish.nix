@@ -67,13 +67,8 @@
     interactiveShellInit = ''
       # Convenience aliases
       #
-      alias :e $(${pkgs.which}/bin/which $EDITOR)
+      alias :e editor
       alias :q exit
-      alias nvim $(${pkgs.which}/bin/which $EDITOR)
-      alias shutdown "/usr/bin/sudo /sbin/shutdown -h now"
-      alias sudo "/usr/bin/sudo -E"
-      alias vi $(${pkgs.which}/bin/which $EDITOR)
-      alias vim $(${pkgs.which}/bin/which $EDITOR)
 
       # Suppress welcome message
       #

@@ -6,8 +6,6 @@
 }: let
   localPkgs = {
     backup-home = pkgs.callPackage ../pkgs/backup-home.nix {};
-    pbcopy = pkgs.callPackage ../pkgs/pbcopy.nix {};
-    pbpaste = pkgs.callPackage ../pkgs/pbpaste.nix {};
     update-system = pkgs.callPackage ../pkgs/update-system.nix {};
   };
 in {
@@ -38,8 +36,6 @@ in {
 
     #### Local packages (see above) ####
     localPkgs.backup-home
-    localPkgs.pbcopy
-    localPkgs.pbpaste
     localPkgs.update-system
   ];
 

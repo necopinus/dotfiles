@@ -2,8 +2,20 @@
   pkgs,
   config,
   ...
-}: {
+}: let
+  localPkgs = {
+    editor = pkgs.callPackage ../pkgs/editor.nix {};
+    nvim = pkgs.callPackage ../pkgs/nvim.nix {};
+    pbcopy = pkgs.callPackage ../pkgs/pbcopy.nix {};
+    pbpaste = pkgs.callPackage ../pkgs/pbpaste.nix {};
+    shutdown = pkgs.callPackage ../pkgs/shutdown.nix {};
+    sudo = pkgs.callPackage ../pkgs/sudo.nix {};
+    vi = pkgs.callPackage ../pkgs/vi.nix {};
+    vim = pkgs.callPackage ../pkgs/vim.nix {};
+  };
+in {
   home.packages = with pkgs; [
+    #### Essential utilities ####
     curl
     dnsutils
     gawk
@@ -22,6 +34,16 @@
     xcp
     xz # Used by gnutar
     zip
+
+    #### Convenience wrappers (see above) ####
+    localPkgs.editor
+    localPkgs.nvim
+    localPkgs.pbcopy
+    localPkgs.pbpaste
+    localPkgs.shutdown
+    localPkgs.sudo
+    localPkgs.vi
+    localPkgs.vim
   ];
 
   # Convenience aliases

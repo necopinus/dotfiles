@@ -131,13 +131,8 @@
       initExtra = lib.mkOrder 1000 ''
         # Convenience aliases
         #
-        alias :e="$(whence -p "$EDITOR")"
+        alias :e=editor
         alias :q=exit
-        alias nvim="$(whence -p "$EDITOR")"
-        alias shutdown="/usr/bin/sudo /sbin/shutdown -h now"
-        alias sudo="/usr/bin/sudo -E"
-        alias vi="$(whence -p "$EDITOR")"
-        alias vim="$(whence -p "$EDITOR")"
 
         # Source files for interactive shell setup
         #
