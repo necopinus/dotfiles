@@ -29,7 +29,6 @@
   csharp-ls, # Not available on macOS ARM
   gopls,
   intelephense,
-  jdk, # Not actually an LSP, but necessary for JDT.LS to work
   jdt-language-server,
   lua-language-server,
   pyright,
@@ -88,7 +87,6 @@ in
         csharp-ls # Not available on macOS ARM
         gopls
         intelephense
-        jdk # Not actually an LSP, but necessary for JDT.LS to work
         jdt-language-server
         localPkgs.kotlin-lsp # Wraps kotlin-language-server so Claude can find it
         lua-language-server
@@ -101,13 +99,12 @@ in
         typescript-language-server
       ];
 
-    text = ''
-      # Launch Claude Code, but only in an isolated VM
-      #
-      if [[ "$(uname -m)" == "Darwin" ]]; then
-        open https://claude.ai/code
-      else
+    text =
+      if pkgs.stdenv.isDarwin
+      then ''
+        exec /usr/bin/open https://claude.ai/code
+      ''
+      else ''
         exec ${llmAgents.claude-code}/bin/claude "$@"
-      fi
-    '';
+      '';
   }
