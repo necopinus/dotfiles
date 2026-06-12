@@ -101,7 +101,7 @@
               imports = [
                 ./systems/common
                 ./systems/macos
-                ./bundles/claude
+                ./bundles/agentic-coding
               ];
             };
           };
@@ -148,7 +148,7 @@
             home.homeDirectory = "/home/${myUserName.standard}";
           }
 
-          ./bundles/claude
+          ./bundles/agentic-coding
           ./bundles/hacking
         ]
         ++ linuxHomeManagerCommonModules;
@@ -172,7 +172,7 @@
             home.homeDirectory = "/home/${myUserName.exedev}";
           }
 
-          ./bundles/claude
+          ./bundles/agentic-coding
           ./bundles/hacking
         ]
         ++ linuxHomeManagerCommonModules;
