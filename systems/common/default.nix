@@ -32,21 +32,9 @@
     pnpm
   ];
 
-  xdg = {
-    enable = true;
-
-    userDirs = {
-      enable = true;
-      setSessionVariables = true;
-
-      # Reset the XDG_VIDEOS_DIR on macOS, since it uses ~/Movies
-      #
-      videos =
-        if pkgs.stdenv.isDarwin
-        then "${config.home.homeDirectory}/Movies"
-        else "${config.home.homeDirectory}/Videos";
-    };
-  };
+  # Prefer to use ~/.cache, ~/.config, and ~/.local
+  #
+  xdg.enable = true;
   home.preferXdgDirectories = true;
 
   # XDG_CONFIG_DIRS and XDG_DATA_DIRS are set here rather than in

@@ -21,17 +21,15 @@ fi
 
 # Work around flakey DNS in the Android VM
 #
-if [[ "$OS" == "Linux" ]]; then
-    if [[ $(grep -c "^nameserver 1.1.1.1" /etc/resolv.conf) -eq 0 ]]; then
-        sudo tee /etc/resolv.conf <<-EOF
-		nameserver 1.1.1.1
-		nameserver 8.8.8.8
-		nameserver 8.8.4.4
-		EOF
-    fi
+if [[ "$USER" == "droid" ]]; then
+    sudo tee /etc/resolv.conf <<-EOF
+	nameserver 1.1.1.1
+	nameserver 8.8.8.8
+	nameserver 8.8.4.4
+	EOF
 fi
 
-# Install (or set up) Homebrew
+# Install (or set up) Homebrew on macOS
 #
 if [[ "$OS" == "Darwin" ]]; then
     if [[ ! -x /opt/homebrew/bin/brew ]] && [[ ! -x /usr/local/bin/brew ]]; then
@@ -52,19 +50,19 @@ if [[ "$OS" == "Darwin" ]]; then
     fi
 fi
 
-# Keep installation slim on Linux
+# Make sure that required packages are installed on Linux
 #
 if [[ "$OS" == "Linux" ]]; then
+    # Keep installation slim on Linux
+    #
     sudo mkdir -p /etc/apt/apt.conf.d
     sudo tee /etc/apt/apt.conf.d/99local <<-EOF
 	APT::Install-Recommends "0";
 	APT::Install-Suggests "0";
 	EOF
-fi
 
-# Make sure that required packages are installed
-#
-if [[ "$OS" == "Linux" ]]; then
+    # Make all repositories available, we're not picky
+    # 
     if [[ -f /etc/apt/sources.list.d/debian.sources ]]; then
         sudo sed -i 's#^Components: .*$#Components: main contrib non-free non-free-firmware#' /etc/apt/sources.list.d/debian.sources
     elif [[ -f /etc/apt/sources.list.d/ubuntu.sources ]]; then
@@ -73,10 +71,20 @@ if [[ "$OS" == "Linux" ]]; then
         sudo sed -i 's# main$# main contrib non-free non-free-firmware#' /etc/apt/sources.list
     fi
 
+    # Update, install, claen
+    # 
     sudo apt update -y
     sudo apt full-upgrade -y
 
-    sudo apt install -y curl dconf-service dialog man-db
+    sudo apt install -y \
+        bubblewrap \
+        build-essential \
+        curl \
+        dialog \
+        libseccomp-dev \
+        man-db \
+        procps \
+        uuid-runtime
 
     sudo apt autoremove -y --purge --autoremove
 fi
@@ -100,41 +108,12 @@ if [[ $(grep -c "^trusted-users = " /etc/nix/nix.custom.conf) -eq 0 ]]; then
     fi
 fi
 
-# Install desktop on Linux
-#
-# NOTE: We need to install all system packages *before* building our
-# dotfiles, as otherwise some setup calls will fail!
+# Linux configuration tweaks
 #
 if [[ "$OS" == "Linux" ]]; then
-    pkill weston || true
-
-    sudo apt install -y \
-        adwaita-icon-theme-legacy \
-        bubblewrap \
-        build-essential \
-        dconf-editor \
-        gdm3 \
-        gnome-session \
-        libseccomp-dev \
-        procps \
-        ptyxis \
-        seahorse \
-        uuid-runtime
-
-    # Additional packages to install on non-Android Linux VMs
-    #
-    if [[ "$USER" != "droid" ]] && [[ "$USER" != "exedev" ]]; then
-        sudo apt install -y spice-vdagent
-    fi
-
     # Comment out global SSH option that Nix's ssh binary doesn't like
     #
     sudo sed -i 's/^    GSSAPIAuthentication yes/#   GSSAPIAuthentication yes/' /etc/ssh/ssh_config
-
-    # GNOME auto-login
-    #
-    sudo sed -i 's/^#.*AutomaticLoginEnable.*=.*/AutomaticLoginEnable = true/' /etc/gdm3/daemon.conf
-    sudo sed -i "s/^#.*AutomaticLogin.*=.*/AutomaticLogin = $USER/" /etc/gdm3/daemon.conf
 
     # I mostly exist in US Mountain Time
     #
@@ -151,37 +130,6 @@ if [[ "$OS" == "Linux" ]]; then
       # 
       sudo sed -i "s/-t disableLeaveAlert=true/-t disableLeaveAlert=true -t fontFamily=monospace -t fontSize=14 -t 'theme={\"foreground\":\"#3c3836\",\"background\":\"#fbf1c7\",\"cursor\":\"#928374\",\"cursorAccent\":\"#282828\",\"selectionBackground\":\"#d5c4a1\",\"selectionForeground\":\"#282828\",\"black\":\"#fbf1c7\",\"red\":\"#cc241d\",\"green\":\"#98971a\",\"yellow\":\"#d79921\",\"blue\":\"#458588\",\"magenta\":\"#b16286\",\"cyan\":\"#689d6a\",\"white\":\"#7c6f64\",\"brightBlack\":\"#928374\",\"brightRed\":\"#9d0006\",\"brightGreen\":\"#79740e\",\"brightYellow\":\"#b57614\",\"brightBlue\":\"#076678\",\"brightMagenta\":\"#8f3f71\",\"brightCyan\":\"#427b58\",\"brightWhite\":\"#3c3836\"}'/" /etc/systemd/system/ttyd.service
     fi
-
-    # We need to tweak a few things in order to manage our own graphical
-    # shell
-    #
-    # Environment variables cargo-culted from Google's
-    # /usr/local/bin/enable_gfxstream on 2025-12-09
-    #
-    if [[ -f /usr/share/vulkan/icd.d/gfxstream_vk_icd.json ]]; then
-        sudo mkdir -p /etc/environment.d
-        sudo tee /etc/environment.d/gfxstream_vk_icd.conf <<-EOF
-		#MESA_LOADER_DRIVER_OVERRIDE=zink
-		VK_ICD_FILENAMES=/usr/share/vulkan/icd.d/gfxstream_vk_icd.json
-		MESA_VK_WSI_DEBUG=sw,linear
-		XWAYLAND_NO_GLAMOR=1
-		LIBGL_KOPPER_DRI2=1
-
-		# Reduce artifacting on Android VM
-		#
-		# FIXME: Check if this is still necessary after each Android release!
-		#
-		MESA_LOADER_DRIVER_OVERRIDE=kms_swrast
-		LIBGL_ALWAYS_SOFTWARE=1
-		EOF
-    fi
-    if [[ -f /etc/profile.d/activate_display.sh ]]; then
-        sudo mv /etc/profile.d/activate_display.sh /etc/profile.d/activate_display.sh.disabled
-    fi
-    if [[ -f "$HOME"/weston.env ]]; then
-        rm -f "$HOME"/weston.env
-    fi
-    sudo usermod -a -G render "$USER"
 fi
 
 # Clear out macOS settings that need to be set (or not set) explicitly
@@ -253,27 +201,6 @@ if [[ "$OS" == "Linux" ]]; then
     sudo "$(which non-nixos-gpu-setup)"
 fi
 
-# Create (most of) the XDG user directories on Android
-#
-if [[ "$USER" == "droid" ]]; then
-    mkdir -p "$XDG_DESKTOP_DIR"
-    ln -sfT /mnt/shared/Documents "$HOME/Documents"
-    ln -sfT /mnt/shared/Download "$HOME/Downloads"
-    ln -sfT /mnt/shared/Music "$HOME/Music"
-    ln -sfT /mnt/shared/Pictures "$HOME/Pictures"
-    mkdir -p "$XDG_PUBLICSHARE_DIR"
-    mkdir -p "$XDG_TEMPLATES_DIR"
-    ln -sfT /mnt/shared/Movies "$HOME/Videos"
-fi
-
-# Claude Code pre-setup
-#
-mkdir -p "$XDG_CACHE_HOME"/claude-cli-nodejs
-mkdir -p "$XDG_DATA_HOME"/claude
-if [[ ! -f "$HOME"/.claude.json ]]; then
-    echo "{}" > "$HOME"/.claude.json
-fi
-
 # Make sure that SSH is set up
 #
 chmod 700 "$HOME/.ssh"
@@ -306,10 +233,20 @@ hx -g build
 # Check out a few useful code repositories
 #
 if [[ "$OS" == "Darwin" ]] || [[ "$USER" == "droid" ]]; then
-    mkdir -p "$HOME"/Projects
+    if [[ "$OS" == "Darwin" ]]; then
+        mkdir -p "$HOME"/Projects
+    else
+        mkdir -p "$HOME"/src
+    fi
 
     (
-        cd "$HOME"/Projects || exit 1
+        if [[ "$(uname -s)" == "Darwin" ]] && [[ -d "$HOME/Projects" ]]; then
+            cd "$HOME/Projects" || exit 1
+        elif [[ "$(uname -s)" == "Linux" ]] && [[ -d "$HOME/src" ]]; then
+            cd "$HOME/src" || exit 1
+        else
+            exit 1
+        fi
 
         REPOS="$( (
             curl -sL -X GET \
@@ -359,4 +296,4 @@ fi
 echo ""
 echo "Configuration complete!"
 echo ""
-echo "To finish setup you MUST restart the system NOW."
+echo "You MUST restart the system NOW."

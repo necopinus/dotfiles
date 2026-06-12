@@ -12,6 +12,13 @@
     plistwatch
   ];
 
+  # XDG user directory mapping for macOS
+  #
+  xdg.userDirs = {
+    enable = true;
+    videos = "${config.home.homeDirectory}/Movies";
+  };
+
   # UTM SSH convenience setup
   #
   programs.ssh.settings."linux-vm" = {

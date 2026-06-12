@@ -60,12 +60,10 @@ writeShellApplication {
     mkBackupList "$XDG_DATA_HOME/fish/fish_history"
 
     mkBackupList "$HOME/Library/Application Support/obsidian"
-    mkBackupList "$XDG_CONFIG_HOME/obsidian"
-
-    mkBackupList "$XDG_CONFIG_HOME/BraveSoftware"
     mkBackupList "$HOME/Library/Application Support/BraveSoftware"
 
     mkBackupList "$HOME/Projects"
+    mkBackupList "$HOME/src"
 
     grep "^$HOME/" "$BACKUP_LIST" | sed "s#^$HOME/##g" | sort -u > "$BACKUP_LIST_TMP"
     mv "$BACKUP_LIST_TMP" "$BACKUP_LIST"
@@ -75,7 +73,14 @@ writeShellApplication {
       echo ""
       echo "=== Creating backup archive ==="
       echo ""
-      tar -cJv -f "$XDG_DOWNLOAD_DIR/backup.tar.xz" -T "$BACKUP_LIST"
+      if [[ -d "$HOME/Downloads" ]]; then
+        BACKUP_DIR="$HOME/Downloads"
+      elif [[ -d /mnt/share/Download ]]; then
+        BACKUP_DIR=/mnt/share/Download
+      else
+        BACKUP_DIR="$HOME"
+      fi
+      tar -cJv -f "$BACKUP_DIR/backup.tar.xz" -T "$BACKUP_LIST"
     )
 
     rm -f "$BACKUP_LIST"

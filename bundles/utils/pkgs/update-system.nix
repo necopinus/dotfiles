@@ -83,9 +83,15 @@ writeShellApplication {
 
     # Git repositories
     #
-    if [[ -d "$HOME/Projects" ]]; then
+    if [[ -d "$HOME/Projects" ]] || [[ -d "$HOME/src" ]]; then
       (
-        cd "$HOME/Projects" || exit 1
+        if [[ "$(uname -s)" == "Darwin" ]] && [[ -d "$HOME/Projects" ]]; then
+          cd "$HOME/Projects" || exit 1
+        elif [[ "$(uname -s)" == "Linux" ]] && [[ -d "$HOME/src" ]]; then
+          cd "$HOME/src" || exit 1
+        else
+          exit 1
+        fi
         while IFS= read -r -d "" OBJECT; do
           if [[ -d "$OBJECT/.git" ]]; then
             echo "Refreshing $(basename "$OBJECT")"
