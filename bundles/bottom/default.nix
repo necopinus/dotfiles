@@ -18,18 +18,6 @@ in {
     };
   };
 
-  # Hide desktop entry
-  #
-  xdg.desktopEntries = lib.attrsets.optionalAttrs pkgs.stdenv.isLinux {
-    "bottom" = {
-      name = "bottom";
-      noDisplay = true;
-      settings = {
-        Hidden = "true";
-      };
-    };
-  };
-
   # Convenience wrappers
   #
   home.packages = [

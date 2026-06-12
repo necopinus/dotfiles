@@ -196,18 +196,6 @@ in {
     };
   };
 
-  # Hide desktop entry
-  #
-  xdg.desktopEntries = lib.attrsets.optionalAttrs pkgs.stdenv.isLinux {
-    "Helix" = {
-      name = "Helix";
-      noDisplay = true;
-      settings = {
-        Hidden = "true";
-      };
-    };
-  };
-
   # Make sure that theming is always enabled
   #
   home.sessionVariables.COLORTERM = "truecolor";
