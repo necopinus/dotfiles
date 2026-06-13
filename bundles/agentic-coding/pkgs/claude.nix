@@ -55,7 +55,7 @@ in
         #### Core packages ####
         uutils-coreutils-noprefix
       ]
-      ++ lib.optionals pkgs.stdenv.isLinux [
+      ++ lib.optionals stdenv.isLinux [
         #### Core packages ####
         bashInteractive
 
@@ -100,7 +100,7 @@ in
       ];
 
     text =
-      if pkgs.stdenv.isDarwin
+      if stdenv.isDarwin
       then ''
         exec /usr/bin/open https://claude.ai/code
       ''
