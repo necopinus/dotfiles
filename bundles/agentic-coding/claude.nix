@@ -8,8 +8,6 @@
     claude = pkgs.callPackage ./pkgs/claude.nix {inherit llm-agents;};
   };
 in {
-  #################### Claude Code ####################
-
   programs.claude-code = {
     enable = true;
     package = localPkgs.claude;
