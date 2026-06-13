@@ -5,12 +5,12 @@
   ...
 }: let
   localPkgs = {
-    claude = pkgs.callPackage ./pkgs/claude.nix {inherit llm-agents;};
+    claude-code = pkgs.callPackage ./pkgs/claude-code.nix {inherit llm-agents;};
   };
 in {
   programs.claude-code = {
     enable = true;
-    package = localPkgs.claude;
+    package = localPkgs.claude-code;
 
     configDir = "${config.xdg.configHome}/claude";
     context = ''
@@ -52,7 +52,6 @@ in {
     # isolated VMs, allowing us to go full YOLO-mode
     #
     settings = {
-      tui = "fullscreen";
       outputStyle = "Explanatory";
       model = "opus"; # TODO: Is it worth switching this to "fable"?
       alwaysThinkingEnabled = true;
@@ -88,21 +87,21 @@ in {
   # desired (by directly calling ~/.nix-profile/bin/claude)
   #
   xdg.configFile."bash/rc.d/claude.sh" = {
-    enable = config.programs.bash.enable;
+    enable = config.programs.bash.enable && pkgs.stdenv.isLinux;
     text = ''
-      alias claude="${config.programs.claud.package}/bin/claude --dangerously-skip-permissions"
+      alias claude="${config.programs.claude.package}/bin/claude --dangerously-skip-permissions"
     '';
   };
   xdg.configFile."zsh/rc.d/claude.zsh" = {
-    enable = config.programs.zsh.enable;
+    enable = config.programs.zsh.enable && pkgs.stdenv.isLinux;
     text = ''
-      alias claude="${config.programs.claud.package}/bin/claude --dangerously-skip-permissions"
+      alias claude="${config.programs.claude.package}/bin/claude --dangerously-skip-permissions"
     '';
   };
   xdg.configFile."fish/rc.d/claude.fish" = {
-    enable = config.programs.fish.enable;
+    enable = config.programs.fish.enable && pkgs.stdenv.isLinux;
     text = ''
-      alias claude "${config.programs.claud.package}/bin/claude --dangerously-skip-permissions"
+      alias claude "${config.programs.claude.package}/bin/claude --dangerously-skip-permissions"
     '';
   };
 }

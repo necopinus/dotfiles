@@ -168,6 +168,18 @@ fi
 if [[ -e "$HOME"/.config/claude/settings.json ]] && [[ ! -L "$HOME"/.config/claude/settings.json ]]; then
     mv "$HOME"/.config/claude/settings.json "$HOME"/.config/claude/settings.json.before-nix
 fi
+if [[ -e "$HOME"/.config/codex/AGENTS.md ]] && [[ ! -L "$HOME"/.config/codex/AGENTS.md ]]; then
+    mv "$HOME"/.config/codex/AGENTS.md "$HOME"/.config/codex/AGENTS.md.before-nix
+fi
+if [[ -e "$HOME"/.config/codex/config.toml ]] && [[ ! -L "$HOME"/.config/codex/config.toml ]]; then
+    mv "$HOME"/.config/codex/config.toml "$HOME"/.config/codex/config.toml.before-nix
+fi
+if [[ -e "$HOME"/.gemini/GEMINI.md ]] && [[ ! -L "$HOME"/.gemini/GEMINI.md ]]; then
+    mv "$HOME"/.gemini/GEMINI.md "$HOME"/.gemini/GEMINI.md.before-nix
+fi
+if [[ -e "$HOME"/.gemini/antigravity-cli/settings.json ]] && [[ ! -L "$HOME"/.gemini/antigravity-cli/settings.json ]]; then
+    mv "$HOME"/.gemini/antigravity-cli/settings.json "$HOME"/.gemini/antigravity-cli/settings.json.before-nix
+fi
 if [[ -e "$HOME"/.profile ]] && [[ ! -L "$HOME"/.profile ]]; then
     mv "$HOME"/.profile "$HOME"/.profile.before-nix
 fi

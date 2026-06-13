@@ -1,5 +1,7 @@
 {...}: {
   imports = [
-    ./claude.nix
+    ./antigravity-cli.nix
+    ./claude-code.nix
+    ./codex.nix
   ];
 }
