@@ -3,46 +3,21 @@
   lib,
   stdenv,
   uutils-coreutils-noprefix,
-  wl-clipboard,
-  xsel,
 }:
 writeShellApplication {
   name = "pbpaste";
 
-  runtimeInputs =
-    [
-      uutils-coreutils-noprefix
-    ]
-    ++ lib.optionals stdenv.isLinux [
-      wl-clipboard
-      xsel
-    ];
-
-  # Remove "nounset" from the default list, as we need to test against
-  # potentially unset environment variables (WAYLAND_DISPLAY and
-  # DISPLAY)
-  #
-  bashOptions = [
-    "errexit"
-    "pipefail"
+  runtimeInputs = lib.optionals stdenv.isLinux [
+    uutils-coreutils-noprefix
   ];
 
   text =
-    (
-      if stdenv.isLinux
-      then ''
-        if [[ -n "$WAYLAND_DISPLAY" ]]; then
-          exec wl-paste "$@"
-        elif [[ -n "$DISPLAY" ]]; then
-          exec xsel -o -b "$@"
-      ''
-      else ''
-        if [[ -x /usr/bin/pbpaste ]]; then
-          exec /usr/bin/pbpaste "$@"
-      ''
-    )
-    + ''
-      elif [[ -f /run/user/$UID/.pasteboard ]]; then
+    if stdenv.isDarwin
+    then ''
+      exec /usr/bin/pbpaste "$@"
+    ''
+    else ''
+      if [[ -f /run/user/$UID/.pasteboard ]]; then
         cat /run/user/$UID/.pasteboard
       elif [[ -f /tmp/.pasteboard-$UID ]]; then
         cat /tmp/.pasteboard-$UID
