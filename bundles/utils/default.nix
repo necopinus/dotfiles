@@ -4,15 +4,15 @@
   ...
 }: let
   localPkgs = {
-    backup-home = pkgs.callPackage ../pkgs/backup-home.nix {};
+    backup-home = pkgs.callPackage ./pkgs/backup-home.nix {};
     editor = pkgs.callPackage ./pkgs/editor.nix {};
     nvim = pkgs.callPackage ./pkgs/nvim.nix {};
     pbcopy = pkgs.callPackage ./pkgs/pbcopy.nix {};
     pbpaste = pkgs.callPackage ./pkgs/pbpaste.nix {};
     shutdown = pkgs.callPackage ./pkgs/shutdown.nix {};
     sudo = pkgs.callPackage ./pkgs/sudo.nix {};
-    update-system = pkgs.callPackage ../pkgs/update-system.nix {};
-    vault-sync = pkgs.callPackage ../pkgs/vault-sync.nix {};
+    update-system = pkgs.callPackage ./pkgs/update-system.nix {};
+    vault-sync = pkgs.callPackage ./pkgs/vault-sync.nix {};
     vi = pkgs.callPackage ./pkgs/vi.nix {};
     vim = pkgs.callPackage ./pkgs/vim.nix {};
   };

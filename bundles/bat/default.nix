@@ -17,7 +17,7 @@ in {
   #
   # https://github.com/sharkdp/bat/issues/1433#issuecomment-3298530339
   #
-  home.sessionVariables.MANPAGER = "${pkgs.bashInteractive}/bin/sh -c '${pkgs.uutils-sed}/bin/sed -u -e \"s/\\x1B\\[[0-9;]*m//g;s/.\\x08//g\" | ${config.programs.bat.package}/bin/bat -p -lman'";
+  home.sessionVariables.MANPAGER = "${pkgs.bashInteractive}/bin/sh -c '${pkgs.uutils-sed}/bin/sed -u -e \\\"s/\\\\x1B\\[[0-9;]*m//g;s/.\\\\x08//g\\\" | ${config.programs.bat.package}/bin/bat -p -lman'";
 
   # Convenience wrappers and aliases
   #

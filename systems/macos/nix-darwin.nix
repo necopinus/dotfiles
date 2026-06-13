@@ -28,17 +28,9 @@
     onActivation = {
       autoUpdate = true;
       upgrade = true;
-      cleanup = "zap";
-      extraFlags = ["--force-cleanup"];
+      extraEnv.HOMEBREW_NO_ENV_HINTS = "1";
+      extraFlags = ["--zap --force-cleanup"];
     };
-
-    # This *looks* like it should supress hint messages, but doesn't...
-    #
-    #   https://docs.brew.sh/Brew-Bundle-and-Brewfile?pubDate=20251207#advanced-brewfiles
-    #
-    extraConfig = ''
-      ENV["HOMEBREW_NO_ENV_HINTS"] = "1"
-    '';
 
     casks = [
       "adobe-creative-cloud"

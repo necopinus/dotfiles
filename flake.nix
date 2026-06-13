@@ -45,8 +45,8 @@
     # DO NOT UPDATE without first reading (and, if applicable, acting) on all
     # intervening release notes!
     #
-    homeManagerStateVersion = "25.11";
-    nixDarwinStateVersion = 6;
+    homeManagerStateVersion = "26.05";
+    nixDarwinStateVersion = 7;
 
     # User names
     #
@@ -93,7 +93,7 @@
             useUserPackages = false;
             extraSpecialArgs = {inherit llm-agents;};
 
-            users."${myUserName}" = {
+            users."${myUserName.standard}" = {
               home.stateVersion = "${homeManagerStateVersion}";
               home.username = "${myUserName.standard}";
               home.homeDirectory = "/Users/${myUserName.standard}";

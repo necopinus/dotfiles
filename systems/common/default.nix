@@ -5,21 +5,21 @@
   ...
 }: {
   imports = [
-    ../bundles/bash
-    ../bundles/bat
-    ../bundles/bottom
-    ../bundles/dircolors
-    ../bundles/eza
-    ../bundles/fish
-    ../bundles/git
-    ../bundles/helix
-    ../bundles/jaq
-    ../bundles/media-tools
-    ../bundles/ssh
-    ../bundles/starship
-    ../bundles/utils
-    ../bundles/zellij # Depends on ../bundles/fish
-    ../bundles/zoxide
+    ../../bundles/bash
+    ../../bundles/bat
+    ../../bundles/bottom
+    ../../bundles/dircolors
+    ../../bundles/eza
+    ../../bundles/fish
+    ../../bundles/git
+    ../../bundles/helix
+    ../../bundles/jaq
+    ../../bundles/media-tools
+    ../../bundles/ssh
+    ../../bundles/starship
+    ../../bundles/utils
+    ../../bundles/zellij # Depends on ../bundles/fish
+    ../../bundles/zoxide
   ];
 
   programs.npm.enable = true;

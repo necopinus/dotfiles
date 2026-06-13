@@ -1,8 +1,4 @@
-{
-  lib,
-  pkgs,
-  ...
-}: let
+{pkgs, ...}: let
   localPkgs = {
     pbcopy = pkgs.callPackage ../utils/pkgs/pbcopy.nix {};
     pbpaste = pkgs.callPackage ../utils/pkgs/pbpaste.nix {};
