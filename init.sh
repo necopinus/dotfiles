@@ -143,45 +143,45 @@ fi
 # Move files that we might overwrite out of the way
 #
 if [[ "$OS" == "Darwin" ]]; then
-    if [[ -e /etc/bashrc ]] && [[ ! -L /etc/bashrc ]]; then
-        sudo mv /etc/bashrc /etc/bashrc.before-nix
+    if [[ -e /etc/bashrc ]]; then
+        sudo mv /etc/bashrc "/etc/bashrc.$(date "+%Y%m%d%H%M%S")"
     fi
-    if [[ -e /etc/pam.d/sudo_local ]] && [[ ! -L /etc/pam.d/sudo_local ]]; then
-        sudo mv /etc/pam.d/sudo_local /etc/pam.d/sudo_local.before-nix
+    if [[ -e /etc/pam.d/sudo_local ]]; then
+        sudo mv /etc/pam.d/sudo_local "/etc/pam.d/sudo_local.$(date "+%Y%m%d%H%M%S")"
     fi
-    if [[ -e /etc/zprofile ]] && [[ ! -L /etc/zprofile ]]; then
-        sudo mv /etc/zprofile /etc/zprofile.before-nix
+    if [[ -e /etc/zprofile ]]; then
+        sudo mv /etc/zprofile "/etc/zprofile.$(date "+%Y%m%d%H%M%S")"
     fi
-    if [[ -e /etc/zshenv ]] && [[ ! -L /etc/zshenv ]]; then
-        sudo mv /etc/zshenv /etc/zshenv.before-nix
+    if [[ -e /etc/zshenv ]]; then
+        sudo mv /etc/zshenv "/etc/zshenv.$(date "+%Y%m%d%H%M%S")"
     fi
-    if [[ -e /etc/zshrc ]] && [[ ! -L /etc/zshrc ]]; then
-        sudo mv /etc/zshrc /etc/zshrc.before-nix
+    if [[ -e /etc/zshrc ]]; then
+        sudo mv /etc/zshrc "/etc/zshrc.$(date "+%Y%m%d%H%M%S")"
     fi
 fi
-if [[ -e "$HOME"/.bashrc ]] && [[ ! -L "$HOME"/.bashrc ]]; then
-    mv "$HOME"/.bashrc "$HOME"/.bashrc.before-nix
+if [[ -e "$HOME"/.bashrc ]]; then
+    mv "$HOME"/.bashrc "$HOME/.bashrc.$(date "+%Y%m%d%H%M%S")"
 fi
-if [[ -e "$HOME"/.config/claude/CLAUDE.md ]] && [[ ! -L "$HOME"/.config/claude/CLAUDE.md ]]; then
-    mv "$HOME"/.config/claude/CLAUDE.md "$HOME"/.config/claude/CLAUDE.md.before-nix
+if [[ -e "$HOME"/.config/claude/CLAUDE.md ]]; then
+    mv "$HOME"/.config/claude/CLAUDE.md "$HOME/.config/claude/CLAUDE.md.$(date "+%Y%m%d%H%M%S")"
 fi
-if [[ -e "$HOME"/.config/claude/settings.json ]] && [[ ! -L "$HOME"/.config/claude/settings.json ]]; then
-    mv "$HOME"/.config/claude/settings.json "$HOME"/.config/claude/settings.json.before-nix
+if [[ -e "$HOME"/.config/claude/settings.json ]]; then
+    mv "$HOME"/.config/claude/settings.json "$HOME/.config/claude/settings.json.$(date "+%Y%m%d%H%M%S")"
 fi
-if [[ -e "$HOME"/.config/codex/AGENTS.md ]] && [[ ! -L "$HOME"/.config/codex/AGENTS.md ]]; then
-    mv "$HOME"/.config/codex/AGENTS.md "$HOME"/.config/codex/AGENTS.md.before-nix
+if [[ -e "$HOME"/.config/codex/AGENTS.md ]]; then
+    mv "$HOME"/.config/codex/AGENTS.md "$HOME/.config/codex/AGENTS.md.$(date "+%Y%m%d%H%M%S")"
 fi
-if [[ -e "$HOME"/.config/codex/config.toml ]] && [[ ! -L "$HOME"/.config/codex/config.toml ]]; then
-    mv "$HOME"/.config/codex/config.toml "$HOME"/.config/codex/config.toml.before-nix
+if [[ -e "$HOME"/.config/codex/config.toml ]]; then
+    mv "$HOME"/.config/codex/config.toml "$HOME/.config/codex/config.toml.$(date "+%Y%m%d%H%M%S")"
 fi
-if [[ -e "$HOME"/.gemini/GEMINI.md ]] && [[ ! -L "$HOME"/.gemini/GEMINI.md ]]; then
-    mv "$HOME"/.gemini/GEMINI.md "$HOME"/.gemini/GEMINI.md.before-nix
+if [[ -e "$HOME"/.gemini/GEMINI.md ]]; then
+    mv "$HOME"/.gemini/GEMINI.md "$HOME/.gemini/GEMINI.md.$(date "+%Y%m%d%H%M%S")"
 fi
-if [[ -e "$HOME"/.gemini/antigravity-cli/settings.json ]] && [[ ! -L "$HOME"/.gemini/antigravity-cli/settings.json ]]; then
-    mv "$HOME"/.gemini/antigravity-cli/settings.json "$HOME"/.gemini/antigravity-cli/settings.json.before-nix
+if [[ -e "$HOME"/.gemini/antigravity-cli/settings.json ]]; then
+    mv "$HOME"/.gemini/antigravity-cli/settings.json "$HOME/.gemini/antigravity-cli/settings.json.$(date "+%Y%m%d%H%M%S")"
 fi
-if [[ -e "$HOME"/.profile ]] && [[ ! -L "$HOME"/.profile ]]; then
-    mv "$HOME"/.profile "$HOME"/.profile.before-nix
+if [[ -e "$HOME"/.profile ]]; then
+    mv "$HOME"/.profile "$HOME/.profile.$(date "+%Y%m%d%H%M%S")"
 fi
 
 # Build configuration
