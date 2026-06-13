@@ -213,26 +213,29 @@ if [[ "$OS" == "Linux" ]]; then
     sudo "$(which non-nixos-gpu-setup)"
 fi
 
-# Make sure that SSH is set up
+# Make sure that SSH is set up on macOS and Android (agent forwarding is
+# used for Linux VMs and exe.dev)
 #
-chmod 700 "$HOME/.ssh"
-find "$HOME/.ssh" -type d -exec chmod 700 "{}" \;
-find "$HOME/.ssh" -type f -exec chmod 600 "{}" \;
+if [[ "$OS" == "Darwin" ]] || [[ "$USER" == "droid" ]]; then
+    chmod 700 "$HOME/.ssh"
+    find "$HOME/.ssh" -type d -exec chmod 700 "{}" \;
+    find "$HOME/.ssh" -type f -exec chmod 600 "{}" \;
 
-if [[ $(find "$HOME/.ssh" -mindepth 1 -maxdepth 1 -type f -iname "id_ed25519" 2>/dev/null | wc -l) -eq 0 ]]; then
-    ssh-keygen -C "Nathan Acks <nathan.acks@cardboard-iguana.com> ($(date)) [$USER@$(hostname)]" -f "$HOME"/.ssh/id_ed25519 -t ed25519
-    echo ""
-    echo "-------------------"
-    echo "New SSH key created"
-    echo "-------------------"
-    echo ""
-    cat "$HOME"/.ssh/id_ed25519.pub
-    echo ""
-    echo "You must add the public SSH key displayed above to GitHub (as BOTH an"
-    echo "authentication AND signing key) before continuing."
-    echo ""
-    read -rs -n 1 -p "Press any key to continue once this step is complete."
-    echo ""
+    if [[ $(find "$HOME/.ssh" -mindepth 1 -maxdepth 1 -type f -iname "id_ed25519" 2>/dev/null | wc -l) -eq 0 ]]; then
+        ssh-keygen -C "Nathan Acks <nathan.acks@cardboard-iguana.com> ($(date)) [$USER@$(hostname)]" -f "$HOME"/.ssh/id_ed25519 -t ed25519
+        echo ""
+        echo "-------------------"
+        echo "New SSH key created"
+        echo "-------------------"
+        echo ""
+        cat "$HOME"/.ssh/id_ed25519.pub
+        echo ""
+        echo "You must add the public SSH key displayed above to GitHub (as BOTH an"
+        echo "authentication AND signing key) before continuing."
+        echo ""
+        read -rs -n 1 -p "Press any key to continue once this step is complete."
+        echo ""
+    fi
 fi
 
 # Install Helix grammars
