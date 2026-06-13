@@ -50,54 +50,50 @@ in
   writeShellApplication {
     name = "claude";
 
-    runtimeInputs =
-      [
-        #### Core packages ####
-        uutils-coreutils-noprefix
-      ]
-      ++ lib.optionals stdenv.isLinux [
-        #### Core packages ####
-        bashInteractive
+    runtimeInputs = lib.optionals stdenv.isLinux [
+      #### Core packages ####
+      bashInteractive
+      uutils-coreutils-noprefix
 
-        #### Up-to-date version of Claude Code ####
-        llmAgents.claude-code
+      #### Up-to-date version of Claude Code ####
+      llmAgents.claude-code
 
-        #### Anthropic Sandbox Runtime (part of Claude Code) ####
-        ripgrep
-        socat
-        strace
+      #### Anthropic Sandbox Runtime (part of Claude Code) ####
+      ripgrep
+      socat
+      strace
 
-        #### Bash ####
-        shellcheck
-        shfmt
+      #### Bash ####
+      shellcheck
+      shfmt
 
-        #### JavaScript / Typescript ####
-        nodejs
-        pnpm
-        prettier
-        rslint
+      #### JavaScript / Typescript ####
+      nodejs
+      pnpm
+      prettier
+      rslint
 
-        #### Python ####
-        python3
-        ruff
-        uv
+      #### Python ####
+      python3
+      ruff
+      uv
 
-        #### Language Servers ####
-        clang-tools
-        csharp-ls # Not available on macOS ARM
-        gopls
-        intelephense
-        jdt-language-server
-        localPkgs.kotlin-lsp # Wraps kotlin-language-server so Claude can find it
-        lua-language-server
-        pyright
-        ruby-lsp
-        rust-analyzer
-        sourcekit-lsp
-        swift
-        typescript
-        typescript-language-server
-      ];
+      #### Language Servers ####
+      clang-tools
+      csharp-ls # Not available on macOS ARM
+      gopls
+      intelephense
+      jdt-language-server
+      localPkgs.kotlin-lsp # Wraps kotlin-language-server so Claude can find it
+      lua-language-server
+      pyright
+      ruby-lsp
+      rust-analyzer
+      sourcekit-lsp
+      swift
+      typescript
+      typescript-language-server
+    ];
 
     text =
       if stdenv.isDarwin
