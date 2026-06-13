@@ -8,10 +8,6 @@
   uutils-coreutils-noprefix,
   #### Up-to-date version of Claude Code ####
   llm-agents,
-  #### Anthropic Sandbox Runtime (part of Claude Code) ####
-  ripgrep,
-  socat,
-  strace,
   #### Bash ####
   shellcheck,
   shfmt,
@@ -57,11 +53,6 @@ in
 
       #### Up-to-date version of Claude Code ####
       llmAgents.claude-code
-
-      #### Anthropic Sandbox Runtime (part of Claude Code) ####
-      ripgrep
-      socat
-      strace
 
       #### Bash ####
       shellcheck
