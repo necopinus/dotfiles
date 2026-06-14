@@ -45,6 +45,7 @@
       }
       "protonvpn"
       "scroll-reverser"
+      "termius"
       "utm"
       "vlc"
       "yubico-yubikey-manager"
