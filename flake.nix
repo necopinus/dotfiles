@@ -162,7 +162,7 @@
       #
       #   https://discourse.nixos.org/t/two-ways-to-write-a-home-manager-flake-is-legacypackages-needed/28109
       #
-      pkgs = nixpkgs.legacyPackages.aarch64-linux;
+      pkgs = nixpkgs.legacyPackages.x86_64-linux;
       extraSpecialArgs = {inherit llm-agents;};
 
       modules =
