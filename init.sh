@@ -177,6 +177,18 @@ fi
 if [[ -e "$HOME"/.bashrc ]]; then
     mv "$HOME"/.bashrc "$HOME/.bashrc.$(date "+%Y%m%d%H%M%S")"
 fi
+if [[ -e "$HOME"/.claude/CLAUDE.md ]]; then
+    mv "$HOME"/.claude/CLAUDE.md "$HOME/.claude/CLAUDE.md.$(date "+%Y%m%d%H%M%S")"
+fi
+if [[ -e "$HOME"/.claude/settings.json ]]; then
+    mv "$HOME"/.claude/settings.json "$HOME/.claude/settings.json.$(date "+%Y%m%d%H%M%S")"
+fi
+if [[ -e "$HOME"/.codex/AGENTS.md ]]; then
+    mv "$HOME"/.codex/AGENTS.md "$HOME/.codex/AGENTS.md.$(date "+%Y%m%d%H%M%S")"
+fi
+if [[ -e "$HOME"/.codex/config.toml ]]; then
+    mv "$HOME"/.codex/config.toml "$HOME/.codex/config.toml.$(date "+%Y%m%d%H%M%S")"
+fi
 if [[ -e "$HOME"/.config/claude/CLAUDE.md ]]; then
     mv "$HOME"/.config/claude/CLAUDE.md "$HOME/.config/claude/CLAUDE.md.$(date "+%Y%m%d%H%M%S")"
 fi
