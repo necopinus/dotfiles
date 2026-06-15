@@ -40,8 +40,8 @@ writeShellApplication {
 
     mkBackupList "$XDG_CONFIG_HOME/nix"
 
-    mkBackupList "$HOME/.gpg"
     mkBackupList "$HOME/.ssh"
+    mkBackupList "$HOME/.gnupg"
     mkBackupList "$HOME/.android"
     mkBackupList "$XDG_CONFIG_HOME/shodan/api_key"
 
