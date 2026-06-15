@@ -76,11 +76,6 @@ writeShellApplication {
     nix store optimise -v
     echo ""
 
-    # Update Helix grammars
-    #
-    hx -g fetch
-    hx -g build
-
     # Git repositories
     #
     if [[ -d "$HOME/Projects" ]] || [[ -d "$HOME/src" ]]; then

@@ -247,13 +247,6 @@ if [[ "$OS" == "Darwin" ]] || [[ "$USER" == "droid" ]]; then
     fi
 fi
 
-# Install Helix grammars
-#
-# NOTE: This must be done *after* git is fully setup!
-#
-hx -g fetch
-hx -g build
-
 # Check out a few useful code repositories
 #
 if [[ "$OS" == "Darwin" ]] || [[ "$USER" == "droid" ]]; then
