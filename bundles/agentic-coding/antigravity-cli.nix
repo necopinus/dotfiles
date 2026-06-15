@@ -30,8 +30,6 @@ in {
       If you need an additional linter, you should ask the user to install one. Never disable linter checks without first receiving approval from the user. **The project is not complete until all warnings and errors have been resolved.**
     '';
 
-    defaultModel = "Gemini 3.1 Pro (High)";
-
     settings = {
       artifactReviewPolicy = "agent-decides";
       notifications = true;
