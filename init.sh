@@ -203,11 +203,11 @@ fi
     if [[ "$OS" == "Darwin" ]]; then
         sudo -H nix run nix-darwin -- switch --flake .#macos
     elif [[ "$USER" == "droid" ]]; then
-        dbus-run-session nix run home-manager/master -- switch --flake .#android
+        nix run home-manager/master -- switch --flake .#android
     elif [[ "$USER" == "exedev" ]]; then
-        dbus-run-session nix run home-manager/master -- switch --flake .#exedev
+        nix run home-manager/master -- switch --flake .#exedev
     else
-        dbus-run-session nix run home-manager/master -- switch --flake .#linux
+        nix run home-manager/master -- switch --flake .#linux
     fi
 )
 
@@ -227,7 +227,6 @@ fi
 # Garbage collection
 #
 nix-collect-garbage --delete-older-than 14d
-sudo "$(which nix-collect-garbage)" --delete-older-than 14d
 sudo find /nix/var/nix/gcroots -xtype l -exec rm -v "{}" \;
 nix store gc -v
 nix store optimise -v
