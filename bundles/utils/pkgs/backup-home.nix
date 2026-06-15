@@ -40,21 +40,28 @@ writeShellApplication {
 
     mkBackupList "$XDG_CONFIG_HOME/nix"
 
+    mkBackupList "$HOME/.gpg"
     mkBackupList "$HOME/.ssh"
     mkBackupList "$HOME/.android"
     mkBackupList "$XDG_CONFIG_HOME/shodan/api_key"
-
-    mkBackupList "$HOME/.claude.json"
-    mkBackupList "$XDG_CONFIG_HOME/claude"
-    mkBackupList "$XDG_DATA_HOME/claude"
 
     mkBackupList "$HOME/.cddb"
     mkBackupList "$HOME/.dvdcss"
     mkBackupList "$XDG_CONFIG_HOME/aacs"
     mkBackupList "$XDG_CONFIG_HOME/adept"
 
+    mkBackupList "$HOME/.claude"
+    mkBackupList "$HOME/.claude.json"
+    mkBackupList "$XDG_CONFIG_HOME/claude"
+    mkBackupList "$XDG_DATA_HOME/claude"
+
+    mkBackupList "$HOME/.codex"
+    mkBackupList "$XDG_CONFIG_HOME/codex"
+
+    mkBackupList "$HOME/.gemini"
+
     mkBackupList "$HOME/.bash_history"
-    mkBackupList "$XDG_CONFIG_HOME/zsh/.zsh_history"
+    mkBackupList "$HOME/.zsh_history"
     mkBackupList "$XDG_DATA_HOME/fish/fish_history"
 
     mkBackupList "$HOME/Library/Application Support/obsidian"
