@@ -58,6 +58,7 @@ in {
       autoMemoryEnabled = true;
       autoDreamEnabled = true;
       skipDangerousModePermissionPrompt = true;
+      theme = "light-ansi";
       enabledPlugins = {
         "clangd-lsp@claude-plugins-official" = true;
         "csharp-lsp@claude-plugins-official" = true;
