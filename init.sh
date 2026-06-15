@@ -115,6 +115,17 @@ if [[ "$OS" == "Linux" ]]; then
     #
     sudo sed -i 's/^    GSSAPIAuthentication yes/#   GSSAPIAuthentication yes/' /etc/ssh/ssh_config
 
+    # Make sure that our custom GIT_SIGNING_KEY environment variable can be passed over SSH
+    #
+    if [[ $(grep -c "GIT_SIGNING_KEY" /etc/ssh/ssh_config) -eq 0 ]]; then
+        sudo sed -i 's/^#   SendEnv /    SendEnv /' /etc/ssh/ssh_config
+        sudo sed -i 's/^ SendEnv / SendEnv GIT_SIGNING_KEY /' /etc/ssh/ssh_config
+    fi
+    if [[ $(grep -c "GIT_SIGNING_KEY" /etc/ssh/sshd_config) -eq 0 ]]; then
+        sudo sed -i 's/^#   AcceptEnv /    AcceptEnv /' /etc/ssh/sshd_config
+        sudo sed -i 's/^ AcceptEnv / AcceptEnv GIT_SIGNING_KEY /' /etc/ssh/sshd_config
+    fi
+
     # I mostly exist in US Mountain Time
     #
     sudo ln -sf /usr/share/zoneinfo/America/Denver /etc/localtime
