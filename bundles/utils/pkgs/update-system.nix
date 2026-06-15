@@ -49,7 +49,7 @@ writeShellApplication {
       nix flake update
       nix flake archive
       git add -A -v
-      git -x user.signingKey="''${GIT_SIGNING_KEY:-$HOME/.ssh/id_ed25519}" commit -m "Automated system update: $(date)" || true
+      git -c user.signingKey="''${GIT_SIGNING_KEY:-$HOME/.ssh/id_ed25519}" commit -m "Automated system update: $(date)" || true
       git push
       if [[ "$OS" == "Darwin" ]]; then
         sudo darwin-rebuild switch --flake .#macos
