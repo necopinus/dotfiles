@@ -7,10 +7,10 @@
   programs.zsh = {
     enable = true;
 
-    # Move Zsh configuration files; can be removed when
-    # home.stateVersion is advanced to 26.05
+    # Work around weird issue in Termius where Zsh doesn't source its
+    # environment properly
     #
-    dotDir = "${config.xdg.configHome}/zsh";
+    dotDir = "${config.home.homeDirectory}";
 
     # ~/.zshenv
     #

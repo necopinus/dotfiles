@@ -116,7 +116,7 @@
         {app = "/System/Applications/Music.app";}
         {app = "/Applications/Obsidian.app";}
         {app = "/System/Applications/System Settings.app";}
-        {app = "/System/Applications/Utilities/Terminal.app";}
+        {app = "/Applications/Termius.app";}
         {app = "/Applications/UTM.app";}
       ];
       persistent-others = [
