@@ -89,19 +89,19 @@ in {
   xdg.configFile."bash/rc.d/claude.sh" = {
     enable = config.programs.bash.enable && pkgs.stdenv.isLinux;
     text = ''
-      alias claude="${config.programs.claude.package}/bin/claude --dangerously-skip-permissions"
+      alias claude="${config.programs.claude-code.package}/bin/claude --dangerously-skip-permissions"
     '';
   };
   xdg.configFile."zsh/rc.d/claude.zsh" = {
     enable = config.programs.zsh.enable && pkgs.stdenv.isLinux;
     text = ''
-      alias claude="${config.programs.claude.package}/bin/claude --dangerously-skip-permissions"
+      alias claude="${config.programs.claude-code.package}/bin/claude --dangerously-skip-permissions"
     '';
   };
   xdg.configFile."fish/rc.d/claude.fish" = {
     enable = config.programs.fish.enable && pkgs.stdenv.isLinux;
     text = ''
-      alias claude "${config.programs.claude.package}/bin/claude --dangerously-skip-permissions"
+      alias claude "${config.programs.claude-code.package}/bin/claude --dangerously-skip-permissions"
     '';
   };
 }
