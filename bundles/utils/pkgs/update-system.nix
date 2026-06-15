@@ -1,7 +1,6 @@
 {
   writeShellApplication,
   git,
-  helix,
   uutils-coreutils-noprefix,
   uutils-findutils,
 }:
@@ -10,7 +9,6 @@ writeShellApplication {
 
   runtimeInputs = [
     git
-    helix
     uutils-coreutils-noprefix
     uutils-findutils
   ];
