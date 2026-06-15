@@ -213,6 +213,15 @@ if [[ "$OS" == "Linux" ]]; then
     sudo "$(which non-nixos-gpu-setup)"
 fi
 
+# Garbage collection
+#
+nix-collect-garbage --delete-older-than 14d
+sudo "$(which nix-collect-garbage)" --delete-older-than 14d
+sudo find /nix/var/nix/gcroots -xtype l -exec rm -v "{}" \;
+nix store gc -v
+nix store optimise -v
+echo ""
+
 # Make sure that SSH is set up on macOS and Android (agent forwarding is
 # used for Linux VMs and exe.dev)
 #
