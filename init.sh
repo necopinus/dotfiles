@@ -125,6 +125,10 @@ if [[ "$OS" == "Linux" ]]; then
         sudo sed -i 's/^#AcceptEnv /AcceptEnv /' /etc/ssh/sshd_config
         sudo sed -i 's/^AcceptEnv /AcceptEnv GIT_SIGNING_KEY /' /etc/ssh/sshd_config
     fi
+    if [[ -f /exe.dev/etc/ssh/sshd_config ]] && [[ $(grep -c "GIT_SIGNING_KEY" /etc/ssh/sshd_config) -eq 0 ]]; then
+        sudo sed -i 's/^#AcceptEnv /AcceptEnv /' /exe.dev/etc/ssh/sshd_config
+        sudo sed -i 's/^AcceptEnv /AcceptEnv GIT_SIGNING_KEY /' /exe.dev/etc/ssh/sshd_config
+    fi
 
     # I mostly exist in US Mountain Time
     #
