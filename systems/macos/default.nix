@@ -27,11 +27,11 @@
 
   # UTM SSH convenience setup
   #
-  programs.ssh.settings."linux-vm" = {
+  programs.ssh.settings."linux" = {
     User = "${config.home.username}";
     Hostname = "127.0.0.1";
     Port = 2222;
     RequestTTY = "yes";
-    RemoteCommand = "/home/droid/.nix-profile/bin/zellij attach -c";
+    RemoteCommand = "/home/necopinus/.nix-profile/bin/zellij attach -c";
   };
 }

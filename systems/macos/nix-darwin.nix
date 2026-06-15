@@ -228,8 +228,8 @@
         #
         "Default Window Settings" = "Gruvbox Light";
         "Startup Window Settings" = "Gruvbox Light";
-        "PermanentServers" = ["linux-vm"];
-        "PreviousCommands" = ["ssh linux-vm"];
+        "PermanentServers" = ["linux"];
+        "PreviousCommands" = ["ssh linux"];
       };
 
       "com.apple.TextEdit" = {
