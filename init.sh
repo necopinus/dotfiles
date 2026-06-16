@@ -14,19 +14,9 @@ fi
 OS="$(uname -s)"
 
 # Make sure our user has unrestricted sudo access on Linux
-# 
+#
 if [[ "$OS" == "Linux" ]]; then
     echo "$USER ALL=(ALL) NOPASSWD:ALL" | sudo tee "/etc/sudoers.d/$USER"
-fi
-
-# Work around flakey DNS in the Android VM
-#
-if [[ "$USER" == "droid" ]]; then
-    sudo tee /etc/resolv.conf <<-EOF
-	nameserver 1.1.1.1
-	nameserver 8.8.8.8
-	nameserver 8.8.4.4
-	EOF
 fi
 
 # Install (or set up) Homebrew on macOS
@@ -246,7 +236,6 @@ nix-collect-garbage --delete-older-than 14d
 sudo find /nix/var/nix/gcroots -xtype l -exec rm -v "{}" \;
 nix store gc -v
 nix store optimise -v
-echo ""
 
 # Make sure that SSH is set up on macOS and Android (agent forwarding is
 # used for Linux VMs and exe.dev)
