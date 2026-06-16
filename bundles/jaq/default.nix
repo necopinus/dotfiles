@@ -5,6 +5,7 @@
   };
 in {
   home.packages = with pkgs; [
+    cq
     jaq
     localPkgs.jq
     localPkgs.yq
