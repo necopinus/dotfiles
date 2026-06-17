@@ -1,4 +1,8 @@
-{pkgs, ...}: let
+{
+  pkgs,
+  config,
+  ...
+}: let
   localPkgs = {
     pbcopy = pkgs.callPackage ../utils/pkgs/pbcopy.nix {};
   };
@@ -274,15 +278,12 @@ in {
       }
     '';
 
-    # Do not enable the fish shell integration, as we use Zellij to
-    # start fish in the first place
+    # Only enable auto-start in Bash and Zsh, and even then only on
+    # macOS and Android
     #
-    # FIXME: Why do I explicitly have to set the bash and zsh
-    # integrations here, but not for other programs?
-    #
-    enableBashIntegration = true;
+    enableBashIntegration = ("${config.home.username}" == "droid");
     enableFishIntegration = false;
-    enableZshIntegration = true;
+    enableZshIntegration = pkgs.stdenv.isDarwin;
 
     # We live in Zellij now, the parent shell is but a memory
     #
