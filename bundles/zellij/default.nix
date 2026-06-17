@@ -281,12 +281,12 @@ in {
     # Only enable auto-start in Bash and Zsh, and even then only on
     # macOS and Android
     #
-    enableBashIntegration = ("${config.home.username}" == "droid");
+    enableBashIntegration = "${config.home.username}" == "droid";
     enableFishIntegration = false;
     enableZshIntegration = pkgs.stdenv.isDarwin;
 
     # We live in Zellij now, the parent shell is but a memory
     #
-    exitShellOnExit = true;
+    exitShellOnExit = pkgs.stdenv.isDarwin || ("${config.home.username}" == "droid");
   };
 }
