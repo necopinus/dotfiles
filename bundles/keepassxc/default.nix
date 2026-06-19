@@ -2,12 +2,7 @@
   config,
   pkgs,
   ...
-}: let
-  proxyPath =
-    if pkgs.stdenv.isDarwin
-    then "/Applications/KeePassXC.app/Contents/MacOS/keepassxc-proxy"
-    else "${pkgs.keepassxc}/bin/keepassxc-proxy";
-in {
+}: {
   programs.keepassxc = {
     enable = true;
     package =
@@ -20,6 +15,7 @@ in {
     settings = {
       General = {
         AutoGeneratePasswordForNewEntries = true;
+        ConfigVersion = 2;
         UpdateCheckMessageShown = true;
       };
       Browser = {
@@ -28,13 +24,14 @@ in {
         UpdateBinaryPath = false;
       };
       GUI = {
+        ApplicationTheme = "dark";
         ColorPasswords = true;
         MinimizeOnClose = true;
         MinimizeOnStartup = true;
         MinimizeToTray = true;
         MonospaceNotes = true;
         ShowTrayIcon = true;
-        TrayIconApearance = "monochrome";
+        TrayIconApearance = "monochrome-light";
       };
       Security = {
         IconDownloadFallback = true;
@@ -79,7 +76,7 @@ in {
           ],
           "description": "KeePassXC integration with native messaging support",
           "name": "org.keepassxc.keepassxc_browser",
-          "path": "${proxyPath}",
+          "path": "/Applications/KeePassXC.app/Contents/MacOS/keepassxc-proxy",
           "type": "stdio"
         }
       '';

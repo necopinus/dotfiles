@@ -1,13 +1,6 @@
-{
-  writeShellApplication,
-  which,
-}:
+{writeShellApplication}:
 writeShellApplication {
   name = "vi";
-
-  runtimeInputs = [
-    which
-  ];
 
   # Remove "nounset" from the options default list, as EDITOR may be
   # unset

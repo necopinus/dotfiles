@@ -1,13 +1,6 @@
-{
-  writeShellApplication,
-  which,
-}:
+{writeShellApplication}:
 writeShellApplication {
   name = "nvim";
-
-  runtimeInputs = [
-    which
-  ];
 
   # Remove "nounset" from the options default list, as EDITOR may be
   # unset

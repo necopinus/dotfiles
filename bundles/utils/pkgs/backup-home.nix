@@ -1,19 +1,6 @@
-{
-  writeShellApplication,
-  gnugrep,
-  gnutar,
-  uutils-coreutils-noprefix,
-  uutils-findutils,
-}:
+{writeShellApplication}:
 writeShellApplication {
   name = "backup-home";
-
-  runtimeInputs = [
-    gnugrep
-    gnutar
-    uutils-coreutils-noprefix
-    uutils-findutils
-  ];
 
   text = ''
     BACKUP_LIST="$(mktemp)"

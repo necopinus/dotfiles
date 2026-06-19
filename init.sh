@@ -66,15 +66,45 @@ if [[ "$OS" == "Linux" ]]; then
     sudo apt update -y
     sudo apt full-upgrade -y
 
+    # Ensure that expected system packages are installed
+    # 
     sudo apt install -y \
+        adb \
+        bind9-dnsutils \
         bubblewrap \
         build-essential \
+        coreutils \
         curl \
         dialog \
-        libseccomp-dev \
+        diffutils \
+        eza \
+        fastboot \
+        ffmpeg \
+        findutils \
+        gawk \
+        git \
+        gnu-which \
+        grep \
+        imagemagick \
+        jq \
+        kid3-cli \
+        libjpeg-turbo-progs \
         man-db \
+        openssh-client \
+        optipng \
+        pdftk-java \
+        poppler-utils \
         procps \
-        uuid-runtime
+        qalc \
+        rsgain \
+        rsync \
+        sed \
+        tar \
+        tmux \
+        unzip \
+        uuid-runtime \
+        xz-utils \
+        zip
 
     sudo apt autoremove -y --purge --autoremove
 fi
@@ -101,10 +131,6 @@ fi
 # Linux configuration tweaks
 #
 if [[ "$OS" == "Linux" ]]; then
-    # Comment out global SSH option that Nix's ssh binary doesn't like
-    #
-    sudo sed -i 's/^    GSSAPIAuthentication yes/#   GSSAPIAuthentication yes/' /etc/ssh/ssh_config
-
     # I mostly exist in US Mountain Time
     #
     sudo ln -sf /usr/share/zoneinfo/America/Denver /etc/localtime

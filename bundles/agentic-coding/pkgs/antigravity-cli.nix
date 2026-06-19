@@ -2,9 +2,6 @@
   lib,
   stdenv,
   writeShellApplication,
-  #### Core packages ####
-  bashInteractive,
-  uutils-coreutils-noprefix,
   #### Up-to-date version of Antigravity ####
   llm-agents,
   #### Bash ####
@@ -16,7 +13,6 @@
   prettier,
   rslint,
   #### Python ####
-  python3,
   ruff,
   uv,
 }: let
@@ -26,10 +22,6 @@ in
     name = "agy";
 
     runtimeInputs = lib.optionals stdenv.isLinux [
-      #### Core packages ####
-      bashInteractive
-      uutils-coreutils-noprefix
-
       #### Up-to-date version of Codex ####
       llmAgents.codex
 
@@ -44,7 +36,6 @@ in
       rslint
 
       #### Python ####
-      python3
       ruff
       uv
     ];

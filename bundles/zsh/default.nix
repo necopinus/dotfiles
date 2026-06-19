@@ -1,6 +1,5 @@
 {
   config,
-  pkgs,
   lib,
   ...
 }: {
@@ -17,7 +16,7 @@
     envExtra = ''
       # Set OS type
       #
-      OS="$(${pkgs.uutils-coreutils-noprefix}/bin/uname -s)"
+      OS="$(uname -s)"
 
       # Load system defaults if they exist
       #
@@ -52,17 +51,17 @@
       # available
       #
       if [[ -d /etc/environment.d ]]; then
-        while read -r FILE; do
+        for FILE in $(find -L /etc/environment.d -type f -iname '*.conf' | sort); do
           source "$FILE"
-        done < <(${pkgs.uutils-findutils}/bin/find -L /etc/environment.d -type f -iname '*.conf' | ${pkgs.uutils-coreutils-noprefix}/bin/sort)
+        done
       fi
 
       # Source files for local environment setup
       #
       if [[ -d "$XDG_CONFIG_HOME"/zsh/env.d ]]; then
-        while read -r FILE; do
+        for FILE in $(find -L "$XDG_CONFIG_HOME"/zsh/env.d -type f -iname '*.zsh' | sort); do
           source "$FILE"
-        done < <(${pkgs.uutils-findutils}/bin/find -L "$XDG_CONFIG_HOME"/zsh/env.d -type f -iname '*.zsh' | ${pkgs.uutils-coreutils-noprefix}/bin/sort)
+        done
       fi
 
       # Set SHELL to the correct value
@@ -72,10 +71,10 @@
       #
       export SHELL="$(whence -p zsh)"
       if [[ -o login ]]; then
-        if [[ -x "$(${pkgs.uutils-coreutils-noprefix}/bin/realpath /bin)"/zsh ]]; then
-          export SHELL="$(${pkgs.uutils-coreutils-noprefix}/bin/realpath /bin)"/zsh
-        elif [[ -x "$(${pkgs.uutils-coreutils-noprefix}/bin/realpath /usr/bin)"/zsh ]]; then
-          export SHELL="$(${pkgs.uutils-coreutils-noprefix}/bin/realpath /usr/bin)"/zsh
+        if [[ -x "$(realpath /bin)"/zsh ]]; then
+          export SHELL="$(realpath /bin)"/zsh
+        elif [[ -x "$(realpath /usr/bin)"/zsh ]]; then
+          export SHELL="$(realpath /usr/bin)"/zsh
         fi
       fi
     '';
@@ -137,9 +136,9 @@
         # Source files for interactive shell setup
         #
         if [[ -d "$XDG_CONFIG_HOME"/zsh/rc.d ]]; then
-          while read -r FILE; do
+          for FILE in $(find -L "$XDG_CONFIG_HOME"/zsh/rc.d -type f -iname '*.zsh' | sort); do
             source "$FILE"
-          done < <(${pkgs.uutils-findutils}/bin/find -L "$XDG_CONFIG_HOME"/zsh/rc.d -type f -iname '*.zsh' | ${pkgs.uutils-coreutils-noprefix}/bin/sort)
+          done
         fi
       '';
     in
@@ -147,8 +146,6 @@
         initExtraFirst
         initExtra
       ];
-
-    enableVteIntegration = pkgs.stdenv.isLinux;
 
     # ~/.zlogin
     #

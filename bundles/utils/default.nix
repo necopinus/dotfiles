@@ -1,8 +1,4 @@
-{
-  pkgs,
-  config,
-  ...
-}: let
+{pkgs, ...}: let
   localPkgs = {
     backup-home = pkgs.callPackage ./pkgs/backup-home.nix {};
     editor = pkgs.callPackage ./pkgs/editor.nix {};
@@ -19,26 +15,6 @@
 in {
   home.packages = with pkgs;
     [
-      #### Essential utilities ####
-      curl
-      dnsutils
-      gawk
-      gnugrep
-      gnutar # Switch to `uutils-tar` when stable
-      poppler-utils
-      rsync
-      unzip
-      uutils-coreutils-noprefix
-      uutils-diffutils
-      uutils-findutils
-      #uutils-hostname # Unmask when stable
-      #uutils-login # Unmask when stable
-      uutils-sed
-      which
-      xcp
-      xz # Used by gnutar
-      zip
-
       #### Convenience wrappers (see above) ####
       localPkgs.backup-home
       localPkgs.editor
@@ -52,33 +28,12 @@ in {
       localPkgs.vim
     ]
     ++ lib.optionals pkgs.stdenv.isDarwin [
+      #### Essential utilities ####
+      coreutils-full # macOS coreutils is missing some utilities; use the *-full variant to get man pages
+      gawk
+      xz
+
+      #### Convenience wrappers (see above) ####
       localPkgs.vault-sync
     ];
-
-  # Convenience aliases
-  #
-  xdg.configFile."bash/rc.d/utils.sh" = {
-    enable = config.programs.bash.enable;
-    text = ''
-      alias cp="${pkgs.xcp}/bin/xcp -r"
-      alias mv="${pkgs.uutils-coreutils-noprefix}/bin/mv -v"
-      alias rm="${pkgs.uutils-coreutils-noprefix}/bin/rm -v"
-    '';
-  };
-  xdg.configFile."zsh/rc.d/utils.zsh" = {
-    enable = config.programs.zsh.enable;
-    text = ''
-      alias cp="${pkgs.xcp}/bin/xcp -r"
-      alias mv="${pkgs.uutils-coreutils-noprefix}/bin/mv -v"
-      alias rm="${pkgs.uutils-coreutils-noprefix}/bin/rm -v"
-    '';
-  };
-  xdg.configFile."fish/rc.d/utils.fish" = {
-    enable = config.programs.fish.enable;
-    text = ''
-      alias cp "${pkgs.xcp}/bin/xcp -r"
-      alias mv "${pkgs.uutils-coreutils-noprefix}/bin/mv -v"
-      alias rm "${pkgs.uutils-coreutils-noprefix}/bin/rm -v"
-    '';
-  };
 }

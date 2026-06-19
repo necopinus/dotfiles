@@ -17,7 +17,16 @@ in {
   #
   # https://github.com/sharkdp/bat/issues/1433#issuecomment-3298530339
   #
-  home.sessionVariables.MANPAGER = "${pkgs.bashInteractive}/bin/sh -c '${pkgs.uutils-sed}/bin/sed -u -e \\\"s/\\\\x1B\\[[0-9;]*m//g;s/.\\\\x08//g\\\" | ${config.programs.bat.package}/bin/bat -p -lman'";
+  home.sessionVariables.MANPAGER = "sh -c 'sed -u -e \\\"s/\\\\x1B\\[[0-9;]*m//g;s/.\\\\x08//g\\\" | ${config.programs.bat.package}/bin/bat -p -lman'";
+
+  # Make sure that Nerd Fonts display in less
+  #
+  # https://github.com/ryanoasis/nerd-fonts/wiki/FAQ-and-Troubleshooting#less-settings
+  #
+  home.sessionVariables.LESSUTFCHARDEF =
+    if "${config.home.username}" == "droid"
+    then null
+    else "e000-f8ff:p,f0001-fffff:p";
 
   # Convenience wrappers and aliases
   #

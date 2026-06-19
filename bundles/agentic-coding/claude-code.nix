@@ -22,7 +22,13 @@ in {
 
       **Write code, comments, and documentation so that a future version of yourself will be able to understand this project quickly and with minimal tokens.**
 
-      Always run a linter to check your code for obvious security problems. The following linters are already available:
+      Always run a formatter to ensure that code is presented consistently. The following formatters are already available:
+
+      - `shfmt` (Bash-compatible code)
+      - `prettier` (JavaScript and TypeScript)
+      - `ruff` (Python)
+
+      Always run a linter to check your code for potential issues. The following linters are already available:
 
       - `shellcheck` (Bash-compatible shell code)
       - `rslint` (JavaScript and TypeScript)
@@ -51,6 +57,11 @@ in {
     # Sandbox isn't configured here, as we only use Claude Code in
     # isolated VMs, allowing us to go full YOLO-mode
     #
+    # Official plugins: https://github.com/anthropics/claude-plugins-official/tree/main/plugins
+    #
+    # Plugin dependencies should be added to the ./pkgs/claude-code.nix
+    # wrapper
+    #
     settings = {
       outputStyle = "Explanatory";
       model = "opus"; # TODO: Is it worth switching this to "fable"?
@@ -60,26 +71,15 @@ in {
       skipDangerousModePermissionPrompt = true;
       theme = "light-ansi";
       enabledPlugins = {
-        "clangd-lsp@claude-plugins-official" = true;
-        "csharp-lsp@claude-plugins-official" = true;
-        "gopls-lsp@claude-plugins-official" = true;
-        "jdtls-lsp@claude-plugins-official" = true;
-        "kotlin-lsp@claude-plugins-official" = true;
-        "lua-lsp@claude-plugins-official" = true;
-        "php-lsp@claude-plugins-official" = true;
         "pyright-lsp@claude-plugins-official" = true;
-        "ruby-lsp@claude-plugins-official" = true;
-        "rust-analyzer-lsp@claude-plugins-official" = true;
-        "swift-lsp@claude-plugins-official" = true;
         "typescript-lsp@claude-plugins-official" = true;
       };
     };
   };
 
-  # Not all of Claude's tool calls work correctly unless the bash from
-  # pkgs.bashInteractive is used
+  # Not all of Claude's tool calls work correctly under non-bash shells
   #
-  home.sessionVariables.CLAUDE_CODE_SHELL = "${pkgs.bashInteractive}/bin/bash";
+  home.sessionVariables.CLAUDE_CODE_SHELL = "bash";
 
   # YOLO mode by default
   #

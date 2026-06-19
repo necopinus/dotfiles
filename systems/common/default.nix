@@ -7,27 +7,25 @@
   imports = [
     ../../bundles/bash
     ../../bundles/bat
-    ../../bundles/bottom
-    ../../bundles/dircolors
     ../../bundles/eza
     ../../bundles/fish
     ../../bundles/git
     ../../bundles/helix
-    ../../bundles/jaq
+    ../../bundles/htop
     ../../bundles/media-tools
     ../../bundles/ssh
     ../../bundles/starship
+    ../../bundles/tmux # Depends on ../bundles/fish
     ../../bundles/utils
-    ../../bundles/zellij # Depends on ../bundles/fish
     ../../bundles/zoxide
   ];
 
-  programs.npm.enable = true;
+  programs.dircolors.enable = true;
+  programs.npm.enable = true; # Keep the NodeJS version consistent
   programs.uv.enable = true;
 
   home.packages = with pkgs; [
-    android-tools
-    libqalculate
+    msgpack-tools
     pnpm
   ];
 

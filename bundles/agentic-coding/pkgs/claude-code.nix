@@ -1,11 +1,7 @@
 {
   lib,
-  pkgs,
   stdenv,
   writeShellApplication,
-  #### Core packages ####
-  bashInteractive,
-  uutils-coreutils-noprefix,
   #### Up-to-date version of Claude Code ####
   llm-agents,
   #### Bash ####
@@ -17,40 +13,19 @@
   prettier,
   rslint,
   #### Python ####
-  python3,
   ruff,
   uv,
-  #### Language Servers ####
-  clang-tools,
-  csharp-ls, # Not available on macOS ARM
-  gopls,
-  intelephense,
-  jdt-language-server,
-  lua-language-server,
+  #### Language server dependencies ####
   pyright,
-  ruby-lsp,
-  rust-analyzer,
-  sourcekit-lsp,
-  swift,
   typescript,
   typescript-language-server,
 }: let
   llmAgents = llm-agents.packages.${stdenv.hostPlatform.system}; # llm-agents defined in flake.nix
-
-  # Wrap kotlin-language-server so Claude can find it
-  #
-  localPkgs = {
-    kotlin-lsp = pkgs.callPackage ./kotlin-lsp.nix {};
-  };
 in
   writeShellApplication {
     name = "claude";
 
     runtimeInputs = lib.optionals stdenv.isLinux [
-      #### Core packages ####
-      bashInteractive
-      uutils-coreutils-noprefix
-
       #### Up-to-date version of Claude Code ####
       llmAgents.claude-code
 
@@ -65,23 +40,11 @@ in
       rslint
 
       #### Python ####
-      python3
       ruff
       uv
 
-      #### Language Servers ####
-      clang-tools
-      csharp-ls # Not available on macOS ARM
-      gopls
-      intelephense
-      jdt-language-server
-      localPkgs.kotlin-lsp # Wraps kotlin-language-server so Claude can find it
-      lua-language-server
+      #### Language server dependencies ####
       pyright
-      ruby-lsp
-      rust-analyzer
-      sourcekit-lsp
-      swift
       typescript
       typescript-language-server
     ];

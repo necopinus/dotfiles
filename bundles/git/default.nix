@@ -1,6 +1,8 @@
 {config, ...}: {
   programs.git = {
     enable = true;
+    package = null; # Use system git
+
     lfs.enable = true;
 
     settings = {
@@ -27,12 +29,14 @@
     enable = config.programs.bash.enable;
     text = ''
       git () {
+        GIT_EXEC="$(which git)"
+
         if [[ -n "$GIT_SIGNING_KEY" ]]; then
-          ${config.programs.git.package}/bin/git -c user.signingKey="$GIT_SIGNING_KEY" "$@"
+          $GIT_EXEC -c user.signingKey="$GIT_SIGNING_KEY" "$@"
         elif [[ -f "${config.home.homeDirectory}/.ssh/id_ed25519" ]]; then
-          ${config.programs.git.package}/bin/git -c user.signingKey="${config.home.homeDirectory}/.ssh/id_ed25519" "$@"
+          $GIT_EXEC -c user.signingKey="${config.home.homeDirectory}/.ssh/id_ed25519" "$@"
         else
-          ${config.programs.git.package}/bin/git "$@"
+          $GIT_EXEC "$@"
         fi
       }
     '';
@@ -41,12 +45,14 @@
     enable = config.programs.zsh.enable;
     text = ''
       git () {
+        GIT_EXEC="$(whence -p git)"
+
         if [[ -n "$GIT_SIGNING_KEY" ]]; then
-          ${config.programs.git.package}/bin/git -c user.signingKey="$GIT_SIGNING_KEY" "$@"
+          $GIT_EXEC -c user.signingKey="$GIT_SIGNING_KEY" "$@"
         elif [[ -f "${config.home.homeDirectory}/.ssh/id_ed25519" ]]; then
-          ${config.programs.git.package}/bin/git -c user.signingKey="${config.home.homeDirectory}/.ssh/id_ed25519" "$@"
+          $GIT_EXEC -c user.signingKey="${config.home.homeDirectory}/.ssh/id_ed25519" "$@"
         else
-          ${config.programs.git.package}/bin/git "$@"
+          $GIT_EXEC "$@"
         fi
       }
     '';
@@ -55,12 +61,14 @@
     enable = config.programs.fish.enable;
     text = ''
       function git
+        set GIT_EXEC $(which git)
+
         if test -n "$GIT_SIGNING_KEY"
-          ${config.programs.git.package}/bin/git -c user.signingKey="$GIT_SIGNING_KEY" $argv
+          $GIT_EXEC -c user.signingKey="$GIT_SIGNING_KEY" $argv
         else if test -f "${config.home.homeDirectory}/.ssh/id_ed25519"
-          ${config.programs.git.package}/bin/git -c user.signingKey="${config.home.homeDirectory}/.ssh/id_ed25519" $argv
+          $GIT_EXEC -c user.signingKey="${config.home.homeDirectory}/.ssh/id_ed25519" $argv
         else
-          ${config.programs.git.package}/bin/git $argv
+          $GIT_EXEC $argv
         end
       end
     '';

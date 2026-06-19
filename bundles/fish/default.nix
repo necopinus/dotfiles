@@ -7,7 +7,7 @@
     shellInit = ''
       # Set OS type
       #
-      set OS $(${pkgs.uutils-coreutils-noprefix}/bin/uname -s)
+      set OS $(uname -s)
 
       # Make sure that Nix is set up
       #
@@ -15,10 +15,10 @@
         fish_add_path /run/current-system/sw/bin
       end
       if test -f /nix/var/nix/profiles/default/etc/profile.d/nix-daemon.sh; and test -z "$__ETC_PROFILE_NIX_SOURCED"
-        ${pkgs.uutils-coreutils-noprefix}/bin/cat /nix/var/nix/profiles/default/etc/profile.d/nix-daemon.sh | ${pkgs.babelfish}/bin/babelfish | source
+        cat /nix/var/nix/profiles/default/etc/profile.d/nix-daemon.sh | ${pkgs.babelfish}/bin/babelfish | source
       end
       if test -f $HOME/.nix-profile/etc/profile.d/hm-session-vars.sh; and test -z "$__HM_SESS_VARS_SOURCED"
-        ${pkgs.uutils-coreutils-noprefix}/bin/cat $HOME/.nix-profile/etc/profile.d/hm-session-vars.sh | ${pkgs.babelfish}/bin/babelfish | source
+        cat $HOME/.nix-profile/etc/profile.d/hm-session-vars.sh | ${pkgs.babelfish}/bin/babelfish | source
       end
 
       # Append Homebrew bin directory to PATH, since some GUI casks
@@ -39,15 +39,15 @@
       # available
       #
       if test -d /etc/environment.d
-        for FILE in (${pkgs.uutils-findutils}/bin/find -L /etc/environment.d -type f -iname '*.conf' | ${pkgs.uutils-coreutils-noprefix}/bin/sort)
-          ${pkgs.uutils-coreutils-noprefix}/bin/cat "$FILE" | ${pkgs.babelfish}/bin/babelfish | source
+        for FILE in (find -L /etc/environment.d -type f -iname '*.conf' | sort)
+          cat "$FILE" | ${pkgs.babelfish}/bin/babelfish | source
         end
       end
 
       # Source files for local environment setup
       #
       if test -d $XDG_CONFIG_HOME/fish/env.d
-        for FILE in (${pkgs.uutils-findutils}/bin/find -L $XDG_CONFIG_HOME/fish/env.d -type f -iname '*.fish' | ${pkgs.uutils-coreutils-noprefix}/bin/sort)
+        for FILE in (find -L $XDG_CONFIG_HOME/fish/env.d -type f -iname '*.fish' | sort)
           source "$FILE"
         end
       end
@@ -57,7 +57,7 @@
       # We do this after the PATH has been fully configured to ensure
       # that we're catching the correct value
       #
-      set SHELL $(${pkgs.which}/bin/which fish)
+      set SHELL $(which fish)
     '';
 
     # If defined, run `loginShellInit` for login shells
@@ -77,7 +77,7 @@
       # Source files for interactive shell setup
       #
       if test -d $XDG_CONFIG_HOME/fish/rc.d
-        for FILE in (${pkgs.uutils-findutils}/bin/find -L $XDG_CONFIG_HOME/fish/rc.d -type f -iname '*.fish' | ${pkgs.uutils-coreutils-noprefix}/bin/sort)
+        for FILE in (find -L $XDG_CONFIG_HOME/fish/rc.d -type f -iname '*.fish' | sort)
           source "$FILE"
         end
       end

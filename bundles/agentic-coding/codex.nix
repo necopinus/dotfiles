@@ -21,7 +21,13 @@ in {
 
       **Write code, comments, and documentation so that a future version of yourself will be able to understand this project quickly and with minimal tokens.**
 
-      Always run a linter to check your code for obvious security problems. The following linters are already available:
+      Always run a formatter to ensure that code is presented consistently. The following formatters are already available:
+
+      - `shfmt` (Bash-compatible code)
+      - `prettier` (JavaScript and TypeScript)
+      - `ruff` (Python)
+
+      Always run a linter to check your code for potential issues. The following linters are already available:
 
       - `shellcheck` (Bash-compatible shell code)
       - `rslint` (JavaScript and TypeScript)

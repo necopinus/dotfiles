@@ -1,7 +1,6 @@
-{pkgs, ...}: {
+{...}: {
   programs.ssh = {
     enable = true;
-    package = pkgs.openssh;
 
     includes = ["hosts/*"];
     enableDefaultConfig = false;

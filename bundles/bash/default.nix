@@ -1,13 +1,17 @@
 {pkgs, ...}: {
   programs.bash = {
     enable = true;
+    package =
+      if pkgs.stdenv.isDarwin
+      then pkgs.bashInteractive # Bash on macOS is too old
+      else null;
 
     # ~/.profile
     #
     profileExtra = ''
       # Set OS type
       #
-      OS="$(${pkgs.uutils-coreutils-noprefix}/bin/uname -s)"
+      OS="$(uname -s)"
 
       # Load system defaults if they exist
       #
@@ -48,17 +52,17 @@
       # available
       #
       if [ -d /etc/environment.d ]; then
-        while read -r FILE; do
+        for FILE in $(find -L /etc/environment.d -type f -iname '*.conf' | sort); do
           source "$FILE"
-        done < <(${pkgs.uutils-findutils}/bin/find -L /etc/environment.d -type f -iname '*.conf' | ${pkgs.uutils-coreutils-noprefix}/bin/sort)
+        done
       fi
 
       # Source files for local environment setup
       #
       if [ -d "$XDG_CONFIG_HOME"/bash/env.d ]; then
-        while read -r FILE; do
+        for FILE in $(find -L "$XDG_CONFIG_HOME"/bash/env.d -type f -iname '*.sh' | sort); do
           source "$FILE"
-        done < <(${pkgs.uutils-findutils}/bin/find -L "$XDG_CONFIG_HOME"/bash/env.d -type f -iname '*.sh' | ${pkgs.uutils-coreutils-noprefix}/bin/sort)
+        done
       fi
 
       # Set SHELL to the correct value
@@ -66,12 +70,12 @@
       # We do this after the PATH has been fully configured to ensure
       # that we're catching the correct value
       #
-      export SHELL="$(${pkgs.which}/bin/which bash)"
+      export SHELL="$(which bash)"
       if shopt -q login_shell; then
-        if [ -x "$(${pkgs.uutils-coreutils-noprefix}/bin/realpath /bin)"/bash ]; then
-          export SHELL="$(${pkgs.uutils-coreutils-noprefix}/bin/realpath /bin)"/bash
-        elif [ -x "$(${pkgs.uutils-coreutils-noprefix}/bin/realpath /usr/bin)"/bash ]; then
-          export SHELL="$(${pkgs.uutils-coreutils-noprefix}/bin/realpath /usr/bin)"/bash
+        if [ -x "$(realpath /bin)"/bash ]; then
+          export SHELL="$(realpath /bin)"/bash
+        elif [ -x "$(realpath /usr/bin)"/bash ]; then
+          export SHELL="$(realpath /usr/bin)"/bash
         fi
       fi
 
@@ -117,12 +121,10 @@
       # Source files for interactive shell setup
       #
       if [[ -d "$XDG_CONFIG_HOME"/bash/rc.d ]]; then
-        while read -r FILE; do
+        for FILE in $(find -L "$XDG_CONFIG_HOME"/bash/rc.d -type f -iname '*.sh' | sort); do
           source "$FILE"
-        done < <(${pkgs.uutils-findutils}/bin/find -L "$XDG_CONFIG_HOME"/bash/rc.d -type f -iname '*.sh' | ${pkgs.uutils-coreutils-noprefix}/bin/sort)
+        done
       fi
     '';
-
-    enableVteIntegration = pkgs.stdenv.isLinux;
   };
 }

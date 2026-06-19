@@ -8,21 +8,13 @@
     #### LSPs ####
     awk-language-server
     bash-language-server
-    clang-tools
+    docker-compose-language-service
     dockerfile-language-server
-    ember-language-server
     fish-lsp
-    gopls
-    haskellPackages.haskell-language-server
-    jdt-language-server
     jq-lsp
-    kotlin-language-server
-    lua-language-server
     markdown-oxide
     nixd
-    rubyPackages.solargraph
     ruff
-    rust-analyzer
     solc
     systemd-lsp
     texlab
@@ -35,14 +27,7 @@
     #### Formatters ####
     alejandra
     bibtex-tidy
-    prettier
-    shellcheck
-    shfmt
-    swift-format
-
-    #### Debuggers ####
-    delve
-    lldb
+    fish
   ];
 in {
   xdg.configFile."moxide/settings.toml".source = ./files/config/moxide/settings.toml;
@@ -50,6 +35,10 @@ in {
   programs.helix = {
     enable = true;
     defaultEditor = true;
+
+    # IMPORTANT: We don't use the system Helix package on Linux because
+    # the Nix package includes all of the grammars already, and these
+    # are a real pain to build ourselves
 
     extraPackages = helperPkgs;
 
@@ -60,7 +49,7 @@ in {
       language = [
         {
           name = "nix";
-          formatter = {command = "${pkgs.alejandra}/bin/alejandra";};
+          formatter = {command = "alejandra";};
           auto-format = true;
         }
       ];

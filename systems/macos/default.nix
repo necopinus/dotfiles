@@ -9,6 +9,8 @@
   ];
 
   home.packages = with pkgs; [
+    android-tools
+    libqalculate
     plistwatch
   ];
 

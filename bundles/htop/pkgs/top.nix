@@ -1,15 +1,15 @@
 {
   writeShellApplication,
-  jaq,
+  htop,
 }:
 writeShellApplication {
-  name = "jq";
+  name = "top";
 
   runtimeInputs = [
-    jaq
+    htop
   ];
 
   text = ''
-    exec jaq "$@"
+    exec htop "$@"
   '';
 }

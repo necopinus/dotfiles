@@ -1,21 +1,13 @@
 {
-  config,
   lib,
+  config,
   ...
 }: {
   programs.starship = {
     enable = true;
 
-    # Only enable in fish
-    #
-    enableBashIntegration = false;
-    enableFishIntegration = true;
-    enableZshIntegration = false;
-
-    # Move the Starship config into a subdirectory of XDG_CONFIG_HOME
-    # so as to make sandboxing easier
-    #
-    configPath = "${config.xdg.configHome}/starship/starship.toml";
+    # TODO: Unify if/then/else blocks once the Android Terminal supports
+    # custom fonts
 
     settings = {
       # Define schema (helps with auto-completion in some editors)
@@ -25,7 +17,11 @@
       # Actual prompt
       #
       format = lib.concatStrings [
-        "[](fg:color_orange)" # TODO: Replace with "[](fg:color_orange)" once the Android Terminal supports custom fonts
+        (
+          if ("${config.home.username}" == "droid")
+          then "[](fg:color_orange)"
+          else "[](fg:color_orange)"
+        )
         "$os"
         "[](fg:color_orange bg:color_yellow)"
         "$directory"
@@ -39,7 +35,11 @@
         "$cmd_duration"
         "[](fg:color_bg3 bg:color_bg1)"
         "$time"
-        "[](fg:color_bg1)" # TODO: Replace with "[](fg:color_bg1)" once the Android Terminal supports custom fonts
+        (
+          if ("${config.home.username}" == "droid")
+          then "[](fg:color_bg1)"
+          else "[](fg:color_bg1)"
+        )
         "$line_break"
         "$character"
       ];
@@ -56,18 +56,6 @@
       palette = "gruvbox_light";
 
       palettes = {
-        term_dark = {
-          color_fg0 = "bright-white";
-          color_bg1 = "bright-black";
-          color_bg3 = "blue";
-          color_blue = "cyan";
-          color_cyan = "green";
-          color_green = "bright-green";
-          color_orange = "red";
-          color_purple = "purple";
-          color_red = "bright-red";
-          color_yellow = "yellow";
-        };
         gruvbox_dark = {
           color_fg0 = "#fbf1c7";
           color_bg1 = "#3c3836";
@@ -99,40 +87,142 @@
       os = {
         disabled = false;
         symbols = {
-          AlmaLinux = "◕"; # TODO: Replace with "" once the Android Terminal supports custom fonts
-          Alpine = "◕"; # TODO: Replace with "" once the Android Terminal supports custom fonts
-          Amazon = "◕"; # TODO: Replace with "" once the Android Terminal supports custom fonts
-          Android = "◔"; # TODO: Replace with "" once the Android Terminal supports custom fonts
-          Arch = "◕"; # TODO: Replace with "" once the Android Terminal supports custom fonts
-          Artix = "◕"; # TODO: Replace with "" once the Android Terminal supports custom fonts
-          CentOS = "◕"; # TODO: Replace with "" once the Android Terminal supports custom fonts
-          Debian = "◕"; # TODO: Replace with "" once the Android Terminal supports custom fonts
-          EndeavourOS = "◕"; # TODO: Replace with "" once the Android Terminal supports custom fonts
-          Fedora = "◕"; # TODO: Replace with "" once the Android Terminal supports custom fonts
-          FreeBSD = "◔"; # TODO: Replace with "" once the Android Terminal supports custom fonts
-          Garuda = "◕"; # TODO: Replace with "" once the Android Terminal supports custom fonts
-          Gentoo = "◕"; # TODO: Replace with "" once the Android Terminal supports custom fonts
-          Illumos = "◔"; # TODO: Replace with "" once the Android Terminal supports custom fonts
-          Kali = "◕"; # TODO: Replace with "" once the Android Terminal supports custom fonts
-          Linux = "◕"; # TODO: Replace with "" once the Android Terminal supports custom fonts
-          Macos = "◔"; # TODO: Replace with "" once the Android Terminal supports custom fonts
-          Manjaro = "◕"; # TODO: Replace with "" once the Android Terminal supports custom fonts
-          Mint = "◕"; # TODO: Replace with "󰣭" once the Android Terminal supports custom fonts
-          NixOS = "◕"; # TODO: Replace with "" once the Android Terminal supports custom fonts
-          Nobara = "◕"; # TODO: Replace with "" once the Android Terminal supports custom fonts
-          OpenBSD = "◔"; # TODO: Replace with "" once the Android Terminal supports custom fonts
-          Pop = "◕"; # TODO: Replace with "" once the Android Terminal supports custom fonts
-          Raspbian = "◕"; # TODO: Replace with "" once the Android Terminal supports custom fonts
-          Redhat = "◕"; # TODO: Replace with "" once the Android Terminal supports custom fonts
-          RedHatEnterprise = "◕"; # TODO: Replace with "" once the Android Terminal supports custom fonts
-          RockyLinux = "◕"; # TODO: Replace with "" once the Android Terminal supports custom fonts
-          SUSE = "◕"; # TODO: Replace with "" once the Android Terminal supports custom fonts
-          Solus = "◕"; # TODO: Replace with "" once the Android Terminal supports custom fonts
-          Ubuntu = "◕"; # TODO: Replace with "󰕈" once the Android Terminal supports custom fonts
-          Unknown = "◔"; # TODO: Replace with "" once the Android Terminal supports custom fonts
-          Void = "◕"; # TODO: Replace with "" once the Android Terminal supports custom fonts
-          Windows = "◔"; # TODO: Replace with "" once the Android Terminal supports custom fonts
-          openSUSE = "◕"; # TODO: Replace with "" once the Android Terminal supports custom fonts
+          AlmaLinux =
+            if ("${config.home.username}" == "droid")
+            then "◕"
+            else "";
+          Alpine =
+            if ("${config.home.username}" == "droid")
+            then "◕"
+            else "";
+          Amazon =
+            if ("${config.home.username}" == "droid")
+            then "◕"
+            else "";
+          Android =
+            if ("${config.home.username}" == "droid")
+            then "◔"
+            else "";
+          Arch =
+            if ("${config.home.username}" == "droid")
+            then "◕"
+            else "";
+          Artix =
+            if ("${config.home.username}" == "droid")
+            then "◕"
+            else "";
+          CentOS =
+            if ("${config.home.username}" == "droid")
+            then "◕"
+            else "";
+          Debian =
+            if ("${config.home.username}" == "droid")
+            then "◕"
+            else "";
+          EndeavourOS =
+            if ("${config.home.username}" == "droid")
+            then "◕"
+            else "";
+          Fedora =
+            if ("${config.home.username}" == "droid")
+            then "◕"
+            else "";
+          FreeBSD =
+            if ("${config.home.username}" == "droid")
+            then "◔"
+            else "";
+          Garuda =
+            if ("${config.home.username}" == "droid")
+            then "◕"
+            else "";
+          Gentoo =
+            if ("${config.home.username}" == "droid")
+            then "◕"
+            else "";
+          Illumos =
+            if ("${config.home.username}" == "droid")
+            then "◔"
+            else "";
+          Kali =
+            if ("${config.home.username}" == "droid")
+            then "◕"
+            else "";
+          Linux =
+            if ("${config.home.username}" == "droid")
+            then "◕"
+            else "";
+          Macos =
+            if ("${config.home.username}" == "droid")
+            then "◔"
+            else "";
+          Manjaro =
+            if ("${config.home.username}" == "droid")
+            then "◕"
+            else "";
+          Mint =
+            if ("${config.home.username}" == "droid")
+            then "◕"
+            else "󰣭";
+          NixOS =
+            if ("${config.home.username}" == "droid")
+            then "◕"
+            else "";
+          Nobara =
+            if ("${config.home.username}" == "droid")
+            then "◕"
+            else "";
+          OpenBSD =
+            if ("${config.home.username}" == "droid")
+            then "◔"
+            else "";
+          Pop =
+            if ("${config.home.username}" == "droid")
+            then "◕"
+            else "";
+          Raspbian =
+            if ("${config.home.username}" == "droid")
+            then "◕"
+            else "";
+          Redhat =
+            if ("${config.home.username}" == "droid")
+            then "◕"
+            else "";
+          RedHatEnterprise =
+            if ("${config.home.username}" == "droid")
+            then "◕"
+            else "";
+          RockyLinux =
+            if ("${config.home.username}" == "droid")
+            then "◕"
+            else "";
+          SUSE =
+            if ("${config.home.username}" == "droid")
+            then "◕"
+            else "";
+          Solus =
+            if ("${config.home.username}" == "droid")
+            then "◕"
+            else "";
+          Ubuntu =
+            if ("${config.home.username}" == "droid")
+            then "◕"
+            else "󰕈";
+          Unknown =
+            if ("${config.home.username}" == "droid")
+            then "◔"
+            else "";
+          Void =
+            if ("${config.home.username}" == "droid")
+            then "◕"
+            else "";
+          Windows =
+            if ("${config.home.username}" == "droid")
+            then "◔"
+            else "";
+          openSUSE =
+            if ("${config.home.username}" == "droid")
+            then "◕"
+            else "";
         };
         style = "bg:color_orange fg:color_fg0";
         format = "[ $symbol $name ]($style)";
@@ -150,7 +240,10 @@
       #### Cyan ############################################################
 
       git_branch = {
-        symbol = "⌥"; # TODO: Replace with "" once the Android Terminal supports custom fonts
+        symbol =
+          if ("${config.home.username}" == "droid")
+          then "⌥"
+          else "";
         style = "bg:color_cyan";
         format = "[[ $symbol $branch ](fg:color_fg0 bg:color_cyan)]($style)";
       };
@@ -164,13 +257,16 @@
 
       nix_shell = {
         disabled = false;
-        symbol = "❄"; # TODO: Replace with "" once the Android Terminal supports custom fonts
+        symbol = "❄"; # TODO: Change to "" once Termius updates the built-in Nerd Fonts to support this character
         style = "bg:color_blue";
         format = "[[ $symbol( $state)( $name) ](fg:color_fg0 bg:color_blue)]($style)";
       };
 
       python = {
-        symbol = "꩜"; # TODO: Replace with "" once the Android Terminal supports custom fonts
+        symbol =
+          if ("${config.home.username}" == "droid")
+          then "꩜"
+          else "";
         style = "bg:color_blue";
         format = "[[ $symbol( $version)( $virtualenv) ](fg:color_fg0 bg:color_blue)]($style)";
       };
@@ -180,7 +276,10 @@
       cmd_duration = {
         disabled = false;
         style = "bg:color_bg3";
-        format = "[[ ⧗ $duration ](fg:color_fg0 bg:color_bg3)]($style)"; # TODO: Replace with "[[  $duration ](fg:color_fg0 bg:color_bg3)]($style)" once the Android Terminal supports custom fonts
+        format =
+          if ("${config.home.username}" == "droid")
+          then "[[ ⧗ $duration ](fg:color_fg0 bg:color_bg3)]($style)"
+          else "[[  $duration ](fg:color_fg0 bg:color_bg3)]($style)";
       };
 
       #### Dark Gray #######################################################
@@ -189,7 +288,10 @@
         disabled = false;
         time_format = "%T";
         style = "bg:color_bg1";
-        format = "[[ ⏲ $time ](fg:color_fg0 bg:color_bg1)]($style)"; # TODO: Replace with "[[  $time ](fg:color_fg0 bg:color_bg1)]($style)" once the Android Terminal supports custom fonts
+        format =
+          if ("${config.home.username}" == "droid")
+          then "[[ ⏲ $time ](fg:color_fg0 bg:color_bg1)]($style)"
+          else "[[  $time ](fg:color_fg0 bg:color_bg1)]($style)";
       };
 
       #### Second Line #####################################################
@@ -200,15 +302,13 @@
 
       character = {
         disabled = false;
-        success_symbol = "[→](fg:color_green)"; # TODO: Replace with "[](fg:color_green)" once the Android Terminal supports custom fonts
-        error_symbol = "[→](fg:color_red)"; # TODO: Replace with "[](fg:color_red)" once the Android Terminal supports custom fonts
-        vimcmd_symbol = "[→](fg:color_green)"; # TODO: Replace with "[](fg:color_green)" once the Android Terminal supports custom fonts
-        vimcmd_replace_one_symbol = "[→](fg:color_purple)"; # TODO: Replace with "[](fg:color_purple)" once the Android Terminal supports custom fonts
-        vimcmd_replace_symbol = "[→](fg:color_purple)"; # TODO: Replace with "[](fg:color_purple)" once the Android Terminal supports custom fonts
-        vimcmd_visual_symbol = "[→](fg:color_yellow)"; # TODO: Replace with "[](fg:color_yellow)" once the Android Terminal supports custom fonts
+        success_symbol = "[→](fg:color_green)";
+        error_symbol = "[→](fg:color_red)";
+        vimcmd_symbol = "[←](fg:color_green)";
+        vimcmd_replace_one_symbol = "[←](fg:color_purple)";
+        vimcmd_replace_symbol = "[←](fg:color_purple)";
+        vimcmd_visual_symbol = "[←](fg:color_yellow)";
       };
     };
   };
-
-  home.sessionVariables.STARSHIP_CACHE = "${config.xdg.cacheHome}/starship";
 }

@@ -1,15 +1,9 @@
 {
   writeShellApplication,
-  lib,
   stdenv,
-  uutils-coreutils-noprefix,
 }:
 writeShellApplication {
   name = "pbpaste";
-
-  runtimeInputs = lib.optionals stdenv.isLinux [
-    uutils-coreutils-noprefix
-  ];
 
   text =
     if stdenv.isDarwin

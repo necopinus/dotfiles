@@ -1,14 +1,12 @@
 {
   writeShellApplication,
   rclone,
-  uutils-coreutils-noprefix,
 }:
 writeShellApplication {
   name = "vault-sync";
 
   runtimeInputs = [
     rclone
-    uutils-coreutils-noprefix
   ];
 
   text = ''
