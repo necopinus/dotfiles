@@ -16,7 +16,16 @@
     mouse = true;
     resizeAmount = 1;
     shell = "${config.programs.fish.package}/bin/fish";
-    shortcut = "a";
+
+    # Set Tmux prefix to M-Space
+    #
+    # NOTE: We use programs.tmux.shortcut as an intermediary, even
+    # though it's ignored by home-manager when programs.tmux.prefix is
+    # set, so that we can cleanly reference the key in subsequent
+    # bindings
+    #
+    shortcut = "Space";
+    prefix = "M-${config.programs.tmux.shortcut}";
 
     # Use tmuxPackages.sensible to apply the following defaults:
     #
@@ -88,13 +97,56 @@
 
         # Better pane/tab names
         #
+        # NOTE: Tmux runs scripts in the background, so if the #()
+        # construct is used below then pane names will always be one
+        # keystroke behind!
+        #
         setw -g automatic-rename-format "#{?pane_in_mode,[tmux],#{?pane_dead,[dead],#{?#{m/r:(bash|zsh|sh|fish),#{pane_current_command}},#{?#{==:#{=16:pane_current_path},#{pane_current_path}},#{pane_current_path},../#{b:pane_current_path}},#{pane_current_command}  #{?#{==:#{=16:pane_current_path},#{pane_current_path}},#{pane_current_path},../#{b:pane_current_path}}}}}"
-
 
         # Refresh status bar once per second, since the clock displays
         # seconds
         #
         set -g status-interval 1
+
+        # Convenience keybindings
+        #
+        # NOTE: For some reason, M-Left actually gets picked up as M-b,
+        # and M-Right gets picked up as M-f; see:
+        #
+        #   https://mikebian.co/learning-tmux/
+        #
+        # NOTE: We don't use M-Enter for new-window to preserve the
+        # ability to add line breaks to Claude Code, et al.
+        #
+        bind-key -T root M-Up      select-pane -U
+        bind-key -T root M-b       select-pane -L # Actually M-Left
+        bind-key -T root M-Down    select-pane -D
+        bind-key -T root M-f       select-pane -R # Actually M-Right
+        bind-key -T root M-S-Up    swap-pane -s "{down-of}"
+        bind-key -T root M-S-Left  swap-pane -s "{left-of}"
+        bind-key -T root M-S-Down  swap-pane -s "{down-of}"
+        bind-key -T root M-S-Right swap-pane -s "{right-of}"
+        bind-key -T root M--       split-window -v -c "#{pane_current_path}"
+        bind-key -T root M-=       split-window -h -c "#{pane_current_path}"
+        bind-key -T root M-\\      new-window -c "#{pane_current_path}"
+        bind-key -T root M-[       previous-window
+        bind-key -T root M-]       next-window
+        bind-key -T root M-1       select-window -t :=1
+        bind-key -T root M-2       select-window -t :=2
+        bind-key -T root M-3       select-window -t :=3
+        bind-key -T root M-4       select-window -t :=4
+        bind-key -T root M-5       select-window -t :=5
+        bind-key -T root M-6       select-window -t :=6
+        bind-key -T root M-7       select-window -t :=7
+        bind-key -T root M-8       select-window -t :=8
+        bind-key -T root M-9       select-window -t :=9
+        bind-key -T root M-0       select-window -t :=0
+        bind-key -T root M-/       run-shell -b ${pkgs.tmuxPlugins.fuzzback}/share/tmux-plugins/fuzzback/scripts/fuzzback.sh
+
+        unbind-key -T prefix b
+        unbind-key -T prefix ${config.programs.tmux.shortcut}
+
+        bind-key -T prefix ${config.programs.tmux.shortcut} if-shell "test #{window_panes} -gt 1" last-pane last-window
       ''
       + lib.optionalString pkgs.stdenv.isDarwin ''
 
@@ -316,9 +368,9 @@
       if [[ $- == *i* ]] && [[ -z "$TMUX" ]] && [[ ! -f "$HOME/notmux" ]] && [[ ! -f "$HOME/notmux.txt" ]] && [[ ! -f /mnt/shared/Documents/notmux ]] && [[ ! -f /mnt/shared/Documents/notmux.txt ]]; then
         TMUX_SESSION="$(tmux list-sessions -F '#{session_name}' -f '#{?session_attached,0,1}' | head -n1)"
         if [[ -n "$TMUX_SESSION" ]]; then
-          tmux attach-session -t "$TMUX_SESSION" && exit
+          tmux -u attach-session -t "$TMUX_SESSION" && exit
         else
-          tmux new-session && exit
+          tmux -u new-session && exit
         fi
       fi
     '';
@@ -329,9 +381,9 @@
       if [[ -o interactive ]] && [[ -z "$TMUX" ]] && [[ ! -f "$HOME/notmux" ]] && [[ ! -f "$HOME/notmux.txt" ]] && [[ ! -f /mnt/shared/Documents/notmux ]] && [[ ! -f /mnt/shared/Documents/notmux.txt ]]; then
         TMUX_SESSION="$(tmux list-sessions -F '#{session_name}' -f '#{?session_attached,0,1}' | head -n1)"
         if [[ -n "$TMUX_SESSION" ]]; then
-          tmux attach-session -t "$TMUX_SESSION" && exit
+          tmux -u attach-session -t "$TMUX_SESSION" && exit
         else
-          tmux new-session && exit
+          tmux -u new-session && exit
         fi
       fi
     '';
@@ -342,9 +394,9 @@
       if status --is-interactive; and test -z "$TMUX"; and test ! -f $HOME/notmux; and test ! -f $HOME/notmux.txt; and test ! -f /mnt/shared/Documents/notmux; and test ! -f /mnt/shared/Documents/notmux.txt
         set TMUX_SESSION $(tmux list-sessions -F '#{session_name}' -f '#{?session_attached,0,1}' | head -n1)
         if test -n "$TMUX_SESSION"
-          tmux attach-session -t "$TMUX_SESSION" && exit
+          tmux -u attach-session -t "$TMUX_SESSION" && exit
         else
-          tmux new-session && exit
+          tmux -u new-session && exit
         end
       end
     '';
