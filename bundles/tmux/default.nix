@@ -87,6 +87,10 @@
 
     extraConfig =
       ''
+        # Make sure Tmux understands that it has full RGB color support
+        #
+        set -ag terminal-overrides ",$TERM:RGB"
+
         # Tweak tmuxPlugins.gruvbox colors
         #
         run-shell ${config.home.homeDirectory}/${config.xdg.configFile."tmux/scripts/tweak-gruvbox.sh".target}
