@@ -19,25 +19,45 @@
       format = lib.concatStrings [
         (
           if ("${config.home.username}" == "droid")
-          then "[](fg:color_orange)"
+          then "[ ](fg:color_orange)"
           else "[](fg:color_orange)"
         )
         "$os"
-        "[](fg:color_orange bg:color_yellow)"
+        (
+          if ("${config.home.username}" == "droid")
+          then "[ ](fg:color_orange bg:color_yellow)"
+          else "[](fg:color_orange bg:color_yellow)"
+        )
         "$directory"
-        "[](fg:color_yellow bg:color_cyan)"
+        (
+          if ("${config.home.username}" == "droid")
+          then "[ ](fg:color_yellow bg:color_cyan)"
+          else "[](fg:color_yellow bg:color_cyan)"
+        )
         "$git_branch"
         "$git_status"
-        "[](fg:color_cyan bg:color_blue)"
+        (
+          if ("${config.home.username}" == "droid")
+          then "[ ](fg:color_cyan bg:color_blue)"
+          else "[](fg:color_cyan bg:color_blue)"
+        )
         "$nix_shell"
         "$python"
-        "[](fg:color_blue bg:color_bg3)"
+        (
+          if ("${config.home.username}" == "droid")
+          then "[ ](fg:color_blue bg:color_bg3)"
+          else "[](fg:color_blue bg:color_bg3)"
+        )
         "$cmd_duration"
-        "[](fg:color_bg3 bg:color_bg1)"
+        (
+          if ("${config.home.username}" == "droid")
+          then "[ ](fg:color_bg3 bg:color_bg1)"
+          else "[](fg:color_bg3 bg:color_bg1)"
+        )
         "$time"
         (
           if ("${config.home.username}" == "droid")
-          then "[](fg:color_bg1)"
+          then "[ ](fg:color_bg1)"
           else "[](fg:color_bg1)"
         )
         "$line_break"

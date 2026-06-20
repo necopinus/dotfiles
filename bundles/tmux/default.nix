@@ -24,7 +24,7 @@
     # set, so that we can cleanly reference the key in subsequent
     # bindings
     #
-    shortcut = "Space";
+    shortcut = "\\;";
     prefix = "M-${config.programs.tmux.shortcut}";
 
     # Use tmuxPackages.sensible to apply the following defaults:
@@ -91,10 +91,6 @@
         #
         set -ag terminal-overrides ",$TERM:RGB"
 
-        # Tweak tmuxPlugins.gruvbox colors
-        #
-        run-shell ${config.home.homeDirectory}/${config.xdg.configFile."tmux/scripts/tweak-gruvbox.sh".target}
-
         # Hook session creation for Zellij-like naming
         #
         set-hook -ag after-new-session "run-shell ${config.home.homeDirectory}/${config.xdg.configFile."tmux/scripts/zellij-session-name.sh".target}"
@@ -106,6 +102,13 @@
         # keystroke behind!
         #
         setw -g automatic-rename-format "#{?pane_in_mode,[tmux],#{?pane_dead,[dead],#{?#{m/r:(bash|zsh|sh|fish),#{pane_current_command}},#{?#{==:#{=16:pane_current_path},#{pane_current_path}},#{pane_current_path},../#{b:pane_current_path}},#{pane_current_command}  #{?#{==:#{=16:pane_current_path},#{pane_current_path}},#{pane_current_path},../#{b:pane_current_path}}}}}"
+
+        # Tweak tmuxPlugins.gruvbox colors
+        #
+        # IMPORTANT: This must be run *after* all commands that set a
+        # format option!
+        #
+        run-shell ${config.home.homeDirectory}/${config.xdg.configFile."tmux/scripts/tweak-gruvbox.sh".target}
 
         # Refresh status bar once per second, since the clock displays
         # seconds
@@ -209,6 +212,17 @@
           tweak_attribute window  window-status-current-format  ",bold"      ",nobold"
           tweak_attribute window  window-status-current-style   "fg=#ebdbb2" "fg=#fbf1c7"
           tweak_attribute window  window-status-style           "fg=#ebdbb2" "fg=#fbf1c7"
+        fi
+
+        if [[ "$USER" == "droid" ]]; then
+          tweak_attribute session status-left                  "" " "
+          tweak_attribute session status-right                 "" " "
+          tweak_attribute session status-right                 "" "\|"
+          tweak_attribute window  automatic-rename-format      "" "\|"
+          tweak_attribute window  window-status-current-format "" " "
+          tweak_attribute window  window-status-current-format "" "\|"
+          tweak_attribute window  window-status-format         "" " "
+          tweak_attribute window  window-status-format         "" "\|"
         fi
       '';
     };
