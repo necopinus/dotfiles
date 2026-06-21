@@ -76,6 +76,7 @@ in {
       alwaysThinkingEnabled = true;
       autoMemoryEnabled = true;
       autoDreamEnabled = true;
+      effortLevel = "xhigh";
       skipDangerousModePermissionPrompt = true;
       theme = "light-ansi";
       enabledPlugins = {
