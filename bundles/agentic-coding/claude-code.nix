@@ -20,6 +20,14 @@ in {
 
       **When writing code, prioritize readability, simplicity, and security.** Alway include comments that explain the purpose and functionality of significant code blocks in plain language. Make sure that variables have descriptive names, and prefer straight-forward solutions to "clever" approaches that are less intelligble. Always use secure coding practices, even if doing so results in slightly slower or less efficient code. If the project is large enough to span multiple files, it is large enough to use unit tests for input/output functionality.
 
+      **Follow the UNIX philosophy.** In particular:
+
+      - Write programs that do one thing and do it well
+      - Write programs to work together
+      - Write programs to handle text streams, because that is a universal interface
+
+      Prioritize simple, readable programs that can be easily composed using pipes and input/putput redirection. Programs should be able to handle expected input types robustly, and fail in ways that are easy to diagnose. Balance economy of output with economy of tool calls - while unnecessary output should be avoided, also try to avoid situations where common operations require multiple tool calls to the same tool. In terms of the user experience, follow established UNIX conventions where it makes sense to do so, and cleanly separate configuration from actual business logic.
+
       **Write code, comments, and documentation so that a future version of yourself will be able to understand this project quickly and with minimal tokens.**
 
       Always run a formatter to ensure that code is presented consistently. The following formatters are already available:
