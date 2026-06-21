@@ -101,7 +101,7 @@
         # construct is used below then pane names will always be one
         # keystroke behind!
         #
-        setw -g automatic-rename-format "#{?pane_in_mode,[tmux],#{?pane_dead,[dead],#{?#{m/r:(bash|zsh|sh|fish),#{pane_current_command}},#{?#{==:#{=16:pane_current_path},#{pane_current_path}},#{pane_current_path},../#{b:pane_current_path}},#{pane_current_command}  #{?#{==:#{=16:pane_current_path},#{pane_current_path}},#{pane_current_path},../#{b:pane_current_path}}}}}"
+        setw -g automatic-rename-format "#{?pane_in_mode,[tmux],#{?pane_dead,[dead],#{?#{m/r:(bash|zsh|sh|fish),#{pane_current_command}},#{?#{==:#{=16:pane_current_path},#{pane_current_path}},#{pane_current_path},.../#{b:pane_current_path}},#{pane_current_command}  #{?#{==:#{=16:pane_current_path},#{pane_current_path}},#{pane_current_path},../#{b:pane_current_path}}}}}"
 
         # Tweak tmuxPlugins.gruvbox colors
         #
