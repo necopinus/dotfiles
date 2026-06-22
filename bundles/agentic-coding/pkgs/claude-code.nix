@@ -1,5 +1,6 @@
 {
   lib,
+  pkgs,
   stdenv,
   writeShellApplication,
   #### Up-to-date version of Claude Code ####
@@ -16,11 +17,14 @@
   ruff,
   uv,
   #### Language server dependencies ####
-  pyright,
   typescript,
   typescript-language-server,
 }: let
   llmAgents = llm-agents.packages.${stdenv.hostPlatform.system}; # llm-agents defined in flake.nix
+  localPkgs = {
+    pyright = pkgs.callPackage ./pyright.nix {};
+    pyright-langserver = pkgs.callPackage ./pyright-langserver.nix {};
+  };
 in
   writeShellApplication {
     name = "claude";
@@ -44,7 +48,8 @@ in
       uv
 
       #### Language server dependencies ####
-      pyright
+      localPkgs.pyright
+      localPkgs.pyright-langserver
       typescript
       typescript-language-server
     ];

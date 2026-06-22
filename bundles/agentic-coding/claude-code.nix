@@ -28,7 +28,7 @@ in {
 
       Prioritize simple, readable programs that can be easily composed using pipes and input/putput redirection. Programs should be able to handle expected input types robustly, and fail in ways that are easy to diagnose. Balance economy of output with economy of tool calls - while unnecessary output should be avoided, also try to avoid situations where common operations require multiple tool calls to the same tool. In terms of the user experience, follow established UNIX conventions where it makes sense to do so, and cleanly separate configuration from actual business logic.
 
-      **Write code, comments, and documentation so that a future version of yourself will be able to understand this project quickly and with minimal tokens.**
+      **Write code, comments, and documentation so that a future version of yourself (or the human working with you) will be able to understand this project quickly and with minimal tokens.**
 
       Always run a formatter to ensure that code is presented consistently. The following formatters are already available:
 
@@ -46,7 +46,7 @@ in {
 
       ## Code Intelligence
 
-      Prefer LSP over Grep/Glob/Read for code navigation:
+      Prefer LSP over Grep/Glob/Read for code navigation **within your own code (not all functions are available for files and libraries matched by a repo's .gitignore)**:
 
       - `goToDefinition` / `goToImplementation` to jump to source
       - `findReferences` to see all usages across the codebase
@@ -61,16 +61,23 @@ in {
 
       After writing or editing code, check LSP diagnostics before moving on. Fix any type errors or missing imports immediately.
 
-      **IMPORTANT!** The Pyright LSP server does not properly detect dependencies in a virtual environment created by `uv`. When using `uv`, you will need to ensure that a block similar to the following exists in `pyproject.toml` after running `uv init` or `uv sync` and *before* the Pyright LSP plugin is initialized by the harness:
+      ### LSP Limitation: No Navigation Into Git-Ignored Paths
 
-      ```toml
-      [tool.pyright]
-      venvPath = "."
-      venv = ".venv"
-      extraPaths = ["src"]
-      ```
+      The LSP tool **silently discards location results that match a repository's .gitignore file (such as `.venv/`, `node_modules/`, build outputs, etc.). This is intentional harness behavior, *not* an LSP-server bug (the server resolves the symbol correctly, but the harness filters out the result). It cannot be overridden by changing language servers or harness settings.
 
-      If the Pyright LSP plugin is initialized before path information for Pyright is added to `pyproject.toml`, then the harness will need to be stopped and the current session restarted.
+      What breaks when the target lives in a git-ignored path (e.g. a dependency):
+
+      - `goToDefinition` / `goToImplementation` returns "No definition found"
+      - `findReferences` returns only the tracked references **(silently incomplete)**
+      - `workspaceSymbol` omits symbols defined in git-ignored files
+
+      What still works into git-ignored code:
+
+      - `hover` still returns full type/signature/docstring (reads file content, not a location)
+      - `documentSymbol` can still be passed the dependency file's path to explicitly list its symbols
+      - `incomingCalls` / `outgoingCalls` still resolved call hierarchy into ignored targets
+
+      To inspect a dependency/library, `hover` on the symbol, open the file directly with `documentSymbol`, or fall back to Grep/Read inside the dependency directory. When refactoring, remember `findReferences` only covers tracked files, and will miss usages in any git-ignored generated/build directories.
     '';
 
     # Sandbox isn't configured here, as we only use Claude Code in
