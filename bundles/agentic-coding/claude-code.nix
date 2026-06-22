@@ -60,6 +60,17 @@ in {
       Use Grep/Glob only for text/pattern searches (comments, strings, config values) where LSP doesn't help.
 
       After writing or editing code, check LSP diagnostics before moving on. Fix any type errors or missing imports immediately.
+
+      **IMPORTANT!** The Pyright LSP server does not properly detect dependencies in a virtual environment created by `uv`. When using `uv`, you will need to ensure that a block similar to the following exists in `pyproject.toml` after running `uv init` or `uv sync` and *before* the Pyright LSP plugin is initialized by the harness:
+
+      ```toml
+      [tool.pyright]
+      venvPath = "."
+      venv = ".venv"
+      extraPaths = ["src"]
+      ```
+
+      If the Pyright LSP plugin is initialized before path information for Pyright is added to `pyproject.toml`, then the harness will need to be stopped and the current session restarted.
     '';
 
     # Sandbox isn't configured here, as we only use Claude Code in
