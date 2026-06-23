@@ -78,6 +78,14 @@ in {
       - `incomingCalls` / `outgoingCalls` still resolved call hierarchy into ignored targets
 
       To inspect a dependency/library, `hover` on the symbol, open the file directly with `documentSymbol`, or fall back to Grep/Read inside the dependency directory. When refactoring, remember `findReferences` only covers tracked files, and will miss usages in any git-ignored generated/build directories.
+
+      ## Committing Code
+
+      Git commit signing is required, but the location of the signing key is context dependent.
+
+      - If the GIT_SIGNING_KEY environment variable is set, then use `git -c user.signingKey="$GIT_SIGNING_KEY"`.
+      - If the GIT_SIGNING_KEY environment variable is not set but the id_ed25519 SSH key exists, then use `git -c user.signingKey="${config.home.homeDirectory}/.ssh/id_ed25519"`.
+      - If the GIT_SIGNING_KEY environment variable is not set and the id_ed25519 SSH key does not exist, then no signing key is available and you will need to ask the user for assistance when committing code.
     '';
 
     # Sandbox isn't configured here, as we only use Claude Code in

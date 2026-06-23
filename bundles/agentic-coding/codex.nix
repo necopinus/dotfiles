@@ -42,6 +42,14 @@ in {
       - `ruff` (Python)
 
       If you need an additional linter, you should ask the user to install one. Never disable linter checks without first receiving approval from the user. **The project is not complete until all warnings and errors have been resolved.**
+
+      ## Committing Code
+
+      Git commit signing is required, but the location of the signing key is context dependent.
+
+      - If the GIT_SIGNING_KEY environment variable is set, then use `git -c user.signingKey="$GIT_SIGNING_KEY"`.
+      - If the GIT_SIGNING_KEY environment variable is not set but the id_ed25519 SSH key exists, then use `git -c user.signingKey="${config.home.homeDirectory}/.ssh/id_ed25519"`.
+      - If the GIT_SIGNING_KEY environment variable is not set and the id_ed25519 SSH key does not exist, then no signing key is available and you will need to ask the user for assistance when committing code.
     '';
 
     settings = {
