@@ -96,7 +96,7 @@ in {
       autoDreamEnabled = true;
       effortLevel = "xhigh";
       skipDangerousModePermissionPrompt = true;
-      theme = "light-ansi";
+      theme = "dark-ansi"; # `light-ansi` is more sensible, but diffs are unreadable
       enabledPlugins = {
         "pyright-lsp@claude-plugins-official" = true;
         "typescript-lsp@claude-plugins-official" = true;
