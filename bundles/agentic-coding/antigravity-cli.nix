@@ -5,12 +5,33 @@
   ...
 }: let
   localPkgs = {
-    antigravity-cli = pkgs.callPackage ./pkgs/antigravity-cli.nix {inherit llm-agents;};
+    antigravity-cli = pkgs.callPackage ./pkgs/antigravity-cli.nix {};
   };
 in {
+  home.packages = with pkgs;
+    lib.optionals pkgs.stdenv.isLinux [
+      #### Bash ####
+      shellcheck
+      shfmt
+
+      #### JavaScript / Typescript ####
+      nodejs
+      pnpm
+      prettier
+      rslint
+
+      #### Python ####
+      ruff
+      uv
+    ];
+
   programs.antigravity-cli = {
     enable = true;
-    package = localPkgs.antigravity-cli;
+
+    package =
+      if pkgs.stdenv.isLinux
+      then llm-agents.packages.${pkgs.stdenv.hostPlatform.system}.antigravity-cli
+      else localPkgs.antigravity-cli;
 
     context.GEMINI = ''
       ## Coding Guidance
@@ -67,9 +88,9 @@ in {
 
   # YOLO mode by default
   #
-  # We add this flag as an alias, rather than within the `agy` wrapper,
-  # so that we can still call Antigravity without this flag when desired
-  # (by directly calling ~/.nix-profile/bin/agy)
+  # We add this flag as an alias so that we can still call Antigravity
+  # without this flag when desired (by directly calling
+  # ~/.nix-profile/bin/agy)
   #
   xdg.configFile."bash/rc.d/antigravity.sh" = {
     enable = config.programs.bash.enable && pkgs.stdenv.isLinux;

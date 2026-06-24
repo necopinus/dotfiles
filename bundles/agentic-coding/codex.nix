@@ -5,12 +5,33 @@
   ...
 }: let
   localPkgs = {
-    codex = pkgs.callPackage ./pkgs/codex.nix {inherit llm-agents;};
+    codex = pkgs.callPackage ./pkgs/codex.nix {};
   };
 in {
+  home.packages = with pkgs;
+    lib.optionals pkgs.stdenv.isLinux [
+      #### Bash ####
+      shellcheck
+      shfmt
+
+      #### JavaScript / Typescript ####
+      nodejs
+      pnpm
+      prettier
+      rslint
+
+      #### Python ####
+      ruff
+      uv
+    ];
+
   programs.codex = {
     enable = true;
-    package = localPkgs.codex;
+
+    package =
+      if pkgs.stdenv.isLinux
+      then llm-agents.packages.${pkgs.stdenv.hostPlatform.system}.codex
+      else localPkgs.codex;
 
     context = ''
       ## Coding Guidance
@@ -87,26 +108,34 @@ in {
 
   # YOLO mode by default
   #
-  # We add this flag as an alias, rather than within the `codex`
-  # wrapper, so that we can still call Codex without this flag when
-  # desired (by directly calling ~/.nix-profile/bin/codex)
+  # We need to use a function here so that (1) we can still call Codex
+  # without the --yolo flag when desired (by directly calling
+  # ~/.nix-profile/bin/codex), and (2) we can programatically trust the
+  # current directory, since doing so from within the Codex TUI is
+  # borked when using programs.codex.settings
   #
   xdg.configFile."bash/rc.d/codex.sh" = {
     enable = config.programs.bash.enable && pkgs.stdenv.isLinux;
     text = ''
-      alias codex="${config.programs.codex.package}/bin/codex --yolo"
+      codex () {
+        ${config.programs.codex.package}/bin/codex --config "projects.\"$(pwd)\".trust_level=\"trusted\"" --yolo "$@"
+      }
     '';
   };
   xdg.configFile."zsh/rc.d/codex.zsh" = {
     enable = config.programs.zsh.enable && pkgs.stdenv.isLinux;
     text = ''
-      alias codex="${config.programs.codex.package}/bin/codex --yolo"
+      codex () {
+        ${config.programs.codex.package}/bin/codex --config "projects.\"$(pwd)\".trust_level=\"trusted\"" --yolo "$@"
+      }
     '';
   };
   xdg.configFile."fish/rc.d/codex.fish" = {
     enable = config.programs.fish.enable && pkgs.stdenv.isLinux;
     text = ''
-      alias codex "${config.programs.codex.package}/bin/codex --yolo"
+      function codex
+        ${config.programs.codex.package}/bin/codex --config projects."$(pwd)".trust_level="trusted" --yolo $argv
+      end
     '';
   };
 }

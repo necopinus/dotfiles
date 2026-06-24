@@ -5,12 +5,41 @@
   ...
 }: let
   localPkgs = {
-    claude-code = pkgs.callPackage ./pkgs/claude-code.nix {inherit llm-agents;};
+    claude-code = pkgs.callPackage ./pkgs/claude-code.nix {};
+    pyright = pkgs.callPackage ./pkgs/pyright.nix {};
+    pyright-langserver = pkgs.callPackage ./pkgs/pyright-langserver.nix {};
   };
 in {
+  home.packages = with pkgs;
+    lib.optionals pkgs.stdenv.isLinux [
+      #### Bash ####
+      shellcheck
+      shfmt
+
+      #### JavaScript / Typescript ####
+      nodejs
+      pnpm
+      prettier
+      rslint
+
+      #### Python ####
+      ruff
+      uv
+
+      #### Language server dependencies ####
+      localPkgs.pyright
+      localPkgs.pyright-langserver
+      typescript
+      typescript-language-server
+    ];
+
   programs.claude-code = {
     enable = true;
-    package = localPkgs.claude-code;
+
+    package =
+      if pkgs.stdenv.isLinux
+      then llm-agents.packages.${pkgs.stdenv.hostPlatform.system}.claude-code
+      else localPkgs.claude-code;
 
     configDir = "${config.xdg.configHome}/claude";
     context = ''
@@ -118,9 +147,9 @@ in {
 
   # YOLO mode by default
   #
-  # We add this flag as an alias, rather than within the `claude`
-  # wrapper, so that we can still call Claude without this flag when
-  # desired (by directly calling ~/.nix-profile/bin/claude)
+  # We add this flag as an alias so that we can still call Claude
+  # without this flag when desired (by directly calling
+  # ~/.nix-profile/bin/claude)
   #
   xdg.configFile."bash/rc.d/claude.sh" = {
     enable = config.programs.bash.enable && pkgs.stdenv.isLinux;

@@ -1,51 +1,8 @@
-{
-  lib,
-  stdenv,
-  writeShellApplication,
-  #### Up-to-date version of Codex ####
-  llm-agents,
-  #### Bash ####
-  shellcheck,
-  shfmt,
-  #### JavaScript / Typescript ####
-  nodejs,
-  pnpm,
-  prettier,
-  rslint,
-  #### Python ####
-  ruff,
-  uv,
-}: let
-  llmAgents = llm-agents.packages.${stdenv.hostPlatform.system}; # llm-agents defined in flake.nix
-in
-  writeShellApplication {
-    name = "codex";
+{writeShellApplication}:
+writeShellApplication {
+  name = "codex";
 
-    runtimeInputs = lib.optionals stdenv.isLinux [
-      #### Up-to-date version of Codex ####
-      llmAgents.codex
-
-      #### Bash ####
-      shellcheck
-      shfmt
-
-      #### JavaScript / Typescript ####
-      nodejs
-      pnpm
-      prettier
-      rslint
-
-      #### Python ####
-      ruff
-      uv
-    ];
-
-    text =
-      if stdenv.isDarwin
-      then ''
-        exec /usr/bin/open https://chatgpt.com/codex/cloud
-      ''
-      else ''
-        exec ${llmAgents.codex}/bin/codex "$@"
-      '';
-  }
+  text = ''
+    exec /usr/bin/open https://chatgpt.com/codex/cloud
+  '';
+}
