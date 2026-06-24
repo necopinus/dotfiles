@@ -32,7 +32,7 @@
         GIT_EXEC="$(which git)"
 
         if [[ -n "$GIT_SIGNING_KEY" ]]; then
-          $GIT_EXEC -c user.signingKey="$GIT_SIGNING_KEY" "$@"
+          $GIT_EXEC -c user.signingKey="key::$GIT_SIGNING_KEY" "$@"
         elif [[ -f "${config.home.homeDirectory}/.ssh/id_ed25519" ]]; then
           $GIT_EXEC -c user.signingKey="${config.home.homeDirectory}/.ssh/id_ed25519" "$@"
         else
@@ -48,7 +48,7 @@
         GIT_EXEC="$(whence -p git)"
 
         if [[ -n "$GIT_SIGNING_KEY" ]]; then
-          $GIT_EXEC -c user.signingKey="$GIT_SIGNING_KEY" "$@"
+          $GIT_EXEC -c user.signingKey="key::$GIT_SIGNING_KEY" "$@"
         elif [[ -f "${config.home.homeDirectory}/.ssh/id_ed25519" ]]; then
           $GIT_EXEC -c user.signingKey="${config.home.homeDirectory}/.ssh/id_ed25519" "$@"
         else
@@ -64,7 +64,7 @@
         set GIT_EXEC $(which git)
 
         if test -n "$GIT_SIGNING_KEY"
-          $GIT_EXEC -c user.signingKey="$GIT_SIGNING_KEY" $argv
+          $GIT_EXEC -c user.signingKey="key::$GIT_SIGNING_KEY" $argv
         else if test -f "${config.home.homeDirectory}/.ssh/id_ed25519"
           $GIT_EXEC -c user.signingKey="${config.home.homeDirectory}/.ssh/id_ed25519" $argv
         else
