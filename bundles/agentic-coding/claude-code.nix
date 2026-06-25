@@ -6,6 +6,7 @@
 }: let
   localPkgs = {
     claude-code = pkgs.callPackage ./pkgs/claude-code.nix {};
+    kotlin-lsp = pkgs.callPackage ./pkgs/kotlin-lsp.nix {};
     pyright = pkgs.callPackage ./pkgs/pyright.nix {};
     pyright-langserver = pkgs.callPackage ./pkgs/pyright-langserver.nix {};
   };
@@ -27,6 +28,7 @@ in {
       uv
 
       #### Language server dependencies ####
+      jdt-language-server
       localPkgs.pyright
       localPkgs.pyright-langserver
       typescript
@@ -135,6 +137,8 @@ in {
       skipDangerousModePermissionPrompt = true;
       theme = "dark-ansi"; # `light-ansi` is more sensible, but diffs are unreadable
       enabledPlugins = {
+        "jdtls-lsp@claude-plugins-official" = true;
+        "kotlin-lsp@claude-plugins-official" = true;
         "pyright-lsp@claude-plugins-official" = true;
         "typescript-lsp@claude-plugins-official" = true;
       };

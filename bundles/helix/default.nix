@@ -11,7 +11,9 @@
     docker-compose-language-service
     dockerfile-language-server
     fish-lsp
+    jdt-language-server
     jq-lsp
+    kotlin-language-server
     markdown-oxide
     nixd
     ruff
