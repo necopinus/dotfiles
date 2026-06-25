@@ -24,21 +24,21 @@
       ssh-agent-switcher
     ];
 
-  xdg.configFile."bash/rc.d/bat.sh" = {
+  xdg.configFile."bash/rc.d/ssh.sh" = {
     enable = config.programs.bash.enable && pkgs.stdenv.isLinux && (("${config.home.username}" == "exedev") || ("${config.home.username}" == "necopinus"));
     text = ''
       ssh-agent-switcher --daemon &> /dev/null || true
       export SSH_AUTH_SOCK="/tmp/ssh-agent.$USER"
     '';
   };
-  xdg.configFile."zsh/rc.d/bat.zsh" = {
+  xdg.configFile."zsh/rc.d/ssh.zsh" = {
     enable = config.programs.zsh.enable && pkgs.stdenv.isLinux && (("${config.home.username}" == "exedev") || ("${config.home.username}" == "necopinus"));
     text = ''
       ssh-agent-switcher --daemon &> /dev/null || true
       export SSH_AUTH_SOCK="/tmp/ssh-agent.$USER"
     '';
   };
-  xdg.configFile."fish/rc.d/bat.fish" = {
+  xdg.configFile."fish/rc.d/ssh.fish" = {
     enable = config.programs.fish.enable && pkgs.stdenv.isLinux && (("${config.home.username}" == "exedev") || ("${config.home.username}" == "necopinus"));
     text = ''
       ssh-agent-switcher --daemon &> /dev/null || true
