@@ -29,6 +29,7 @@ in {
 
       #### Language server dependencies ####
       jdt-language-server
+      localPkgs.kotlin-lsp
       localPkgs.pyright
       localPkgs.pyright-langserver
       typescript
