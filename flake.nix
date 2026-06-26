@@ -126,8 +126,6 @@
             home.username = "${myUserName.android}";
             home.homeDirectory = "/home/${myUserName.android}";
           }
-
-          ./bundles/hacking
         ]
         ++ linuxHomeManagerCommonModules;
     };
