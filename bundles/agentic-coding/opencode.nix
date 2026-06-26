@@ -63,7 +63,7 @@
 
       ## Code Intelligence
 
-      Prefer LSP over Grep/Glob/Read for code navigation **within your own code (not all functions are available for files and libraries matched by a repo's .gitignore)**:
+      Prefer LSP over Grep/Glob/Read for code navigation:
 
       - `goToDefinition` / `goToImplementation` to jump to source
       - `findReferences` to see all usages across the codebase
@@ -118,6 +118,7 @@
         alejandra = {
           command = [
             "${pkgs.alejandra}/bin/alejandra"
+            "--quiet"
             "$FILE"
           ];
           extensions = [".nix"];

@@ -49,7 +49,10 @@ in {
       language = [
         {
           name = "nix";
-          formatter = {command = "alejandra";};
+          formatter = {
+            command = "alejandra";
+            args = ["--quiet"];
+          };
           auto-format = true;
         }
       ];
