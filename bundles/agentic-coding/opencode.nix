@@ -124,6 +124,7 @@
           extensions = [".nix"];
         };
       };
+      plugin = ["opencode-pty"];
     };
     tui = {
       theme = "gruvbox";
