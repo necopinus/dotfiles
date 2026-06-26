@@ -3,34 +3,6 @@
     pbcopy = pkgs.callPackage ../utils/pkgs/pbcopy.nix {};
     pbpaste = pkgs.callPackage ../utils/pkgs/pbpaste.nix {};
   };
-
-  helperPkgs = with pkgs; [
-    #### LSPs ####
-    awk-language-server
-    bash-language-server
-    docker-compose-language-service
-    dockerfile-language-server
-    fish-lsp
-    jdt-language-server
-    jq-lsp
-    kotlin-language-server
-    markdown-oxide
-    nixd
-    ruff
-    solc
-    systemd-lsp
-    texlab
-    tombi
-    ty
-    typescript-language-server
-    vscode-langservers-extracted
-    yaml-language-server
-
-    #### Formatters ####
-    alejandra
-    bibtex-tidy
-    fish
-  ];
 in {
   xdg.configFile."moxide/settings.toml".source = ./files/config/moxide/settings.toml;
 
@@ -42,7 +14,33 @@ in {
     # the Nix package includes all of the grammars already, and these
     # are a real pain to build ourselves
 
-    extraPackages = helperPkgs;
+    extraPackages = with pkgs; [
+      #### Formatters ####
+      alejandra
+      bibtex-tidy
+      fish
+
+      #### LSPs ####
+      awk-language-server
+      bash-language-server
+      docker-compose-language-service
+      dockerfile-language-server
+      fish-lsp
+      jdt-language-server
+      jq-lsp
+      kotlin-language-server
+      markdown-oxide
+      nixd
+      ruff
+      solc
+      systemd-lsp
+      texlab
+      tombi
+      ty
+      typescript-language-server
+      vscode-langservers-extracted
+      yaml-language-server
+    ];
 
     # Helix inexplicably doesn't have out-of-the-box support for
     # auto-formatting .nix files
