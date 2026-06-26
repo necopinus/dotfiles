@@ -105,22 +105,27 @@
       Results should be written to a document in the root of the working tree called CODE_REVIEW_RESULTS.md, consisting of a series of Markdown todo items, each of which represents a single issue and recommend remediation approach. If this file already exists, append the results to the end using a header with the date and time of the analysis to separate new results from those previously reported. The command `date "+%Y-%m-%d %H:%M` can be used to output the current date and time for this purpose. Do not duplicate any findings that already exist.
     '';
 
-    #settings = {
-    #  permission = "allow"; # YOLO mode
-    #  formatter = {
-    #    nixfmt = {
-    #      disabled = true;
-    #    };
-    #    alejandra = {
-    #      command = [
-    #        "${pkgs.alejandra}/bin/alejandra"
-    #        "$FILE"
-    #      ];
-    #      extensions = [".nix"];
-    #    };
-    #  };
-    #};
-    #themes = {};
-    #tui = {};
+    settings = {
+      model = "opencode/claude-opus-4-8";
+      small_model = "opencode/claude-haiku-4-5";
+      shell = "bash";
+      permission = "allow"; # YOLO mode
+      lsp = true;
+      formatter = {
+        nixfmt = {
+          disabled = true;
+        };
+        alejandra = {
+          command = [
+            "${pkgs.alejandra}/bin/alejandra"
+            "$FILE"
+          ];
+          extensions = [".nix"];
+        };
+      };
+    };
+    tui = {
+      theme = "gruvbox";
+    };
   };
 }

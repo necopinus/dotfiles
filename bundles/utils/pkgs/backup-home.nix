@@ -47,6 +47,10 @@ writeShellApplication {
 
     mkBackupList "$HOME/.gemini"
 
+    mkBackupList "$XDG_CONFIG_HOME/opencode"
+    mkBackupList "$XDG_DATA_HOME/opencode"
+    mkBackupList "$XDG_STATE_HOME/opencode"
+
     mkBackupList "$HOME/.bash_history"
     mkBackupList "$HOME/.zsh_history"
     mkBackupList "$XDG_CONFIG_HOME/zsh/.zsh_history"
