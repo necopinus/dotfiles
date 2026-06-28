@@ -101,7 +101,6 @@
               imports = [
                 ./systems/common
                 ./systems/macos
-                ./bundles/agentic-coding
               ];
             };
           };
@@ -148,8 +147,8 @@
             home.homeDirectory = "/home/${myUserName.standard}";
           }
 
-          ./bundles/agentic-coding
           ./bundles/hacking
+          ./bundles/opencode
         ]
         ++ linuxHomeManagerCommonModules;
     };
@@ -172,8 +171,8 @@
             home.homeDirectory = "/home/${myUserName.exedev}";
           }
 
-          ./bundles/agentic-coding
           ./bundles/hacking
+          ./bundles/opencode
         ]
         ++ linuxHomeManagerCommonModules;
     };

@@ -56,7 +56,7 @@ writeShellApplication {
 
     # Garbage collection
     #
-    nix-collect-garbage --delete-older-than 14d
+    nix-collect-garbage -d
     sudo find /nix/var/nix/gcroots -xtype l -exec rm -v "{}" \;
     nix store gc -v
     nix store optimise -v

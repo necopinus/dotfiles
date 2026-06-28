@@ -37,16 +37,6 @@ writeShellApplication {
     mkBackupList "$XDG_CONFIG_HOME/aacs"
     mkBackupList "$XDG_CONFIG_HOME/adept"
 
-    mkBackupList "$HOME/.claude"
-    mkBackupList "$HOME/.claude.json"
-    mkBackupList "$XDG_CONFIG_HOME/claude"
-    mkBackupList "$XDG_DATA_HOME/claude"
-
-    mkBackupList "$HOME/.codex"
-    mkBackupList "$XDG_CONFIG_HOME/codex"
-
-    mkBackupList "$HOME/.gemini"
-
     mkBackupList "$XDG_CONFIG_HOME/opencode"
     mkBackupList "$XDG_DATA_HOME/opencode"
     mkBackupList "$XDG_STATE_HOME/opencode"
