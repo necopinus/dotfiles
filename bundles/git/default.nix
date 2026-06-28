@@ -1,4 +1,8 @@
-{config, ...}: {
+{
+  pkgs,
+  config,
+  ...
+}: {
   programs.git = {
     enable = true;
     package = null; # Use system git
@@ -15,6 +19,11 @@
       };
       pull = {
         rebase = false;
+      };
+      "lfs \"customtransfer.xet\"" = {
+        path = "${pkgs.git-xet}/bin/git-xet";
+        args = "transfer";
+        concurrent = "true";
       };
     };
     signing = {
