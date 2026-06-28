@@ -101,6 +101,8 @@
               imports = [
                 ./systems/common
                 ./systems/macos
+
+                ./bundles/hermes
               ];
             };
           };
@@ -129,7 +131,7 @@
         ++ linuxHomeManagerCommonModules;
     };
 
-    # Isolated Linux VM configuration (home-manager)
+    # Generic (isolated) Linux VM configuration (home-manager)
     #
     homeConfigurations."linux" = home-manager.lib.homeManagerConfiguration {
       # Looks weird, but just let's home-manager re-use the existing NixPkgs
@@ -153,7 +155,7 @@
         ++ linuxHomeManagerCommonModules;
     };
 
-    # exedev configuration (home-manager)
+    # Generic exe.dev configuration (home-manager)
     #
     homeConfigurations."exedev" = home-manager.lib.homeManagerConfiguration {
       # Looks weird, but just let's home-manager re-use the existing NixPkgs
@@ -173,6 +175,29 @@
 
           ./bundles/hacking
           ./bundles/opencode
+        ]
+        ++ linuxHomeManagerCommonModules;
+    };
+
+    # Hermes (exe.dev) server configuration (home-manager)
+    #
+    homeConfigurations."hermes" = home-manager.lib.homeManagerConfiguration {
+      # Looks weird, but just let's home-manager re-use the existing NixPkgs
+      # definition, which is more efficient. See:
+      #
+      #   https://discourse.nixos.org/t/two-ways-to-write-a-home-manager-flake-is-legacypackages-needed/28109
+      #
+      pkgs = nixpkgs.legacyPackages.x86_64-linux;
+      extraSpecialArgs = {inherit llm-agents;};
+
+      modules =
+        [
+          {
+            home.username = "${myUserName.exedev}";
+            home.homeDirectory = "/home/${myUserName.exedev}";
+          }
+
+          ./bundles/hermes
         ]
         ++ linuxHomeManagerCommonModules;
     };
