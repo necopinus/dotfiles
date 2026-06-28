@@ -3,13 +3,15 @@
   lib,
   llm-agents,
   ...
-}: {
+}: let
+  llmAgents = llm-agents.packages.${pkgs.stdenv.hostPlatform.system}; # llm-agents defined in flake.nix
+in {
   home.packages =
     lib.optionals pkgs.stdenv.isLinux [
-      llm-agents.packages.${pkgs.stdenv.hostPlatform.system}.hermes-agent
-      llm-agents.packages.${pkgs.stdenv.hostPlatform.system}.hermes-hud
+      llmAgents.hermes-agent
+      llmAgents.hermes-hud
     ]
     ++ lib.optionals pkgs.stdenv.isDarwin [
-      llm-agents.packages.${pkgs.stdenv.hostPlatform.system}.hermes-desktop
+      llmAgents.hermes-desktop
     ];
 }

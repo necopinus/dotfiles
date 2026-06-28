@@ -3,10 +3,12 @@
   pkgs,
   llm-agents,
   ...
-}: {
+}: let
+  llmAgents = llm-agents.packages.${pkgs.stdenv.hostPlatform.system}; # llm-agents defined in flake.nix
+in {
   programs.opencode = {
     enable = true;
-    package = llm-agents.packages.${pkgs.stdenv.hostPlatform.system}.opencode;
+    package = llmAgents.opencode;
 
     extraPackages = with pkgs; [
       #### Helper tools ####

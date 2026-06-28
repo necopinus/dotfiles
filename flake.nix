@@ -102,7 +102,7 @@
                 ./systems/common
                 ./systems/macos
 
-                ./bundles/hermes
+                ./bundles/hermes # Requires llm-agents
               ];
             };
           };
@@ -119,7 +119,6 @@
       #   https://discourse.nixos.org/t/two-ways-to-write-a-home-manager-flake-is-legacypackages-needed/28109
       #
       pkgs = nixpkgs.legacyPackages.aarch64-linux;
-      extraSpecialArgs = {inherit llm-agents;};
 
       modules =
         [
@@ -150,7 +149,7 @@
           }
 
           ./bundles/hacking
-          ./bundles/opencode
+          ./bundles/opencode # Requires llm-agents
         ]
         ++ linuxHomeManagerCommonModules;
     };
@@ -174,7 +173,7 @@
           }
 
           ./bundles/hacking
-          ./bundles/opencode
+          ./bundles/opencode # Requires llm-agents
         ]
         ++ linuxHomeManagerCommonModules;
     };
@@ -197,7 +196,7 @@
             home.homeDirectory = "/home/${myUserName.exedev}";
           }
 
-          ./bundles/hermes
+          ./bundles/hermes # Requires llm-agents
         ]
         ++ linuxHomeManagerCommonModules;
     };
