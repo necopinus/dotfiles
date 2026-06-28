@@ -17,16 +17,6 @@
     resizeAmount = 1;
     shell = "${config.programs.fish.package}/bin/fish";
 
-    # Set Tmux prefix to M-Space
-    #
-    # NOTE: We use programs.tmux.shortcut as an intermediary, even
-    # though it's ignored by home-manager when programs.tmux.prefix is
-    # set, so that we can cleanly reference the key in subsequent
-    # bindings
-    #
-    shortcut = "\\;";
-    prefix = "M-${config.programs.tmux.shortcut}";
-
     # Use tmuxPackages.sensible to apply the following defaults:
     #
     #   set -s escape-time 0
@@ -149,11 +139,6 @@
         bind-key -T root M-9       select-window -t :=9
         bind-key -T root M-0       select-window -t :=0
         bind-key -T root M-/       run-shell -b ${pkgs.tmuxPlugins.fuzzback}/share/tmux-plugins/fuzzback/scripts/fuzzback.sh
-
-        unbind-key -T prefix b
-        unbind-key -T prefix ${config.programs.tmux.shortcut}
-
-        bind-key -T prefix ${config.programs.tmux.shortcut} if-shell "test #{window_panes} -gt 1" last-pane last-window
       ''
       + lib.optionalString pkgs.stdenv.isDarwin ''
 
