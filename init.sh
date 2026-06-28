@@ -178,24 +178,6 @@ fi
 if [[ -e "$HOME"/.bashrc ]]; then
     mv "$HOME"/.bashrc "$HOME/.bashrc.$(date "+%Y%m%d%H%M%S")"
 fi
-if [[ -e "$HOME"/.config/claude/CLAUDE.md ]]; then
-    mv "$HOME"/.config/claude/CLAUDE.md "$HOME/.config/claude/CLAUDE.md.$(date "+%Y%m%d%H%M%S")"
-fi
-if [[ -e "$HOME"/.config/claude/settings.json ]]; then
-    mv "$HOME"/.config/claude/settings.json "$HOME/.config/claude/settings.json.$(date "+%Y%m%d%H%M%S")"
-fi
-if [[ -e "$HOME"/.config/codex/AGENTS.md ]]; then
-    mv "$HOME"/.config/codex/AGENTS.md "$HOME/.config/codex/AGENTS.md.$(date "+%Y%m%d%H%M%S")"
-fi
-if [[ -e "$HOME"/.config/codex/config.toml ]]; then
-    mv "$HOME"/.config/codex/config.toml "$HOME/.config/codex/config.toml.$(date "+%Y%m%d%H%M%S")"
-fi
-if [[ -e "$HOME"/.gemini/GEMINI.md ]]; then
-    mv "$HOME"/.gemini/GEMINI.md "$HOME/.gemini/GEMINI.md.$(date "+%Y%m%d%H%M%S")"
-fi
-if [[ -e "$HOME"/.gemini/antigravity-cli/settings.json ]]; then
-    mv "$HOME"/.gemini/antigravity-cli/settings.json "$HOME/.gemini/antigravity-cli/settings.json.$(date "+%Y%m%d%H%M%S")"
-fi
 if [[ -e "$HOME"/.profile ]]; then
     mv "$HOME"/.profile "$HOME/.profile.$(date "+%Y%m%d%H%M%S")"
 fi
