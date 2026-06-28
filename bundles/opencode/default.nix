@@ -5,7 +5,7 @@
   ...
 }: {
   programs.opencode = {
-    enable = pkgs.stdenv.isLinux;
+    enable = true;
     package = llm-agents.packages.${pkgs.stdenv.hostPlatform.system}.opencode;
 
     extraPackages = with pkgs; [
