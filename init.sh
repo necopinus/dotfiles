@@ -89,6 +89,7 @@ if [[ "$OS" == "Linux" ]]; then
         jq \
         kid3-cli \
         libjpeg-turbo-progs \
+        libopus0 \
         man-db \
         openssh-client \
         optipng \

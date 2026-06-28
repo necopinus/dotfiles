@@ -41,6 +41,8 @@ writeShellApplication {
     mkBackupList "$XDG_DATA_HOME/opencode"
     mkBackupList "$XDG_STATE_HOME/opencode"
 
+    mkBackupList "$HOME/.hermes"
+
     mkBackupList "$HOME/.bash_history"
     mkBackupList "$HOME/.zsh_history"
     mkBackupList "$XDG_CONFIG_HOME/zsh/.zsh_history"
