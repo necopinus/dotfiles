@@ -14,6 +14,8 @@ in {
     llmAgents.hermes-agent
 
     #### Additional deps ####
+    dos2unix
+    ffmpeg
     playwright
 
     ##### LSP servers & dependencies ####
