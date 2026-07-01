@@ -17,6 +17,7 @@ in {
       xld # No longer available through Homebrew as of 2026-09-01
 
       #### Installed at the system level on Linux ####
+      exiv2
       ffmpeg
       imagemagick
       libjpeg

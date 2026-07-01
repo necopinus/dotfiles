@@ -77,6 +77,7 @@ if [[ "$OS" == "Linux" ]]; then
         curl \
         dialog \
         diffutils \
+        exiv2 \
         eza \
         fastboot \
         ffmpeg \
