@@ -14,9 +14,8 @@ in {
     llmAgents.hermes-agent
 
     #### Additional deps ####
-    dos2unix
-    ffmpeg
     playwright
+    tirith
 
     ##### LSP servers & dependencies ####
     bash-language-server
@@ -32,7 +31,8 @@ in {
     yaml-language-server
   ];
 
-  programs.npm.enable = true;
-  programs.ripgrep.enable = true;
+  programs.chromium.enable = true; # Install here to avoid Ubuntu Snap-based install
+  programs.npm.enable = true; # Just use Nix to avoid NodeJs package conflicts
+  programs.ripgrep.enable = pkgs.stdenv.isDarwin; # Installed at the system level on Linux
   programs.uv.enable = true;
 }

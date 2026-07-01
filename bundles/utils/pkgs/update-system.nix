@@ -45,6 +45,9 @@ writeShellApplication {
       elif [[ "$USER" == "droid" ]]; then
         home-manager switch --flake .#android
         sudo "$(which non-nixos-gpu-setup)"
+      elif [[ "$(hostname)" == "kitsune" ]]; then
+        home-manager switch --flake .#hermes
+        sudo "$(which non-nixos-gpu-setup)"
       elif [[ "$USER" == "exedev" ]]; then
         home-manager switch --flake .#exedev
         sudo "$(which non-nixos-gpu-setup)"

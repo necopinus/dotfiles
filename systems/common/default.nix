@@ -21,13 +21,18 @@
   ];
 
   programs.dircolors.enable = true;
-  programs.npm.enable = true; # Keep the NodeJS version consistent
+  programs.npm.enable = true; # Just use Nix to avoid NodeJs package conflicts
+  programs.ripgrep.enable = pkgs.stdenv.isDarwin; # Installed at the system level on Linux
   programs.uv.enable = true;
 
-  home.packages = with pkgs; [
-    msgpack-tools
-    pnpm
-  ];
+  home.packages = with pkgs;
+    [
+      msgpack-tools
+      pnpm
+    ]
+    ++ lib.optionals pkgs.stdenv.isDarwin [
+      dos2unix
+    ];
 
   # Prefer to use ~/.cache, ~/.config, and ~/.local
   #
