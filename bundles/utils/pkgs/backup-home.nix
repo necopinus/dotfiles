@@ -14,6 +14,9 @@ writeShellApplication {
           -not \( -name ".DS_Store" \
                -o -name ".localized" \
                -o -name "*.pyc" \
+               -o -name "*.db-wal" \
+               -o -name "*.db-shm" \
+               -o -name "*.db-journal" \
                -o -name "*.swp" \
                -o -name "*~" \
                -o -name ".#*" \
