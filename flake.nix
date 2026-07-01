@@ -101,8 +101,6 @@
               imports = [
                 ./systems/common
                 ./systems/macos
-
-                ./bundles/hermes # Requires llm-agents
               ];
             };
           };

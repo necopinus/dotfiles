@@ -1,6 +1,5 @@
 {
   pkgs,
-  lib,
   llm-agents,
   ...
 }: let
@@ -11,30 +10,25 @@
     pyright-langserver = pkgs.callPackage ./pkgs/pyright-langserver.nix {};
   };
 in {
-  home.packages = with pkgs;
-    lib.optionals pkgs.stdenv.isLinux [
-      llmAgents.hermes-agent
-      llmAgents.hermes-hud
+  home.packages = with pkgs; [
+    llmAgents.hermes-agent
 
-      #### Additional deps ####
-      playwright
+    #### Additional deps ####
+    playwright
 
-      ##### LSP servers & dependencies ####
-      bash-language-server
-      dockerfile-language-server
-      kotlin-language-server
-      jdt-language-server
-      localPkgs.pyright
-      localPkgs.pyright-langserver
-      nixd
-      shellcheck
-      typescript
-      typescript-language-server
-      yaml-language-server
-    ]
-    ++ lib.optionals pkgs.stdenv.isDarwin [
-      llmAgents.hermes-desktop
-    ];
+    ##### LSP servers & dependencies ####
+    bash-language-server
+    dockerfile-language-server
+    kotlin-language-server
+    jdt-language-server
+    localPkgs.pyright
+    localPkgs.pyright-langserver
+    nixd
+    shellcheck
+    typescript
+    typescript-language-server
+    yaml-language-server
+  ];
 
   programs.npm.enable = true;
   programs.ripgrep.enable = true;
