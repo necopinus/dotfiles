@@ -65,6 +65,22 @@ writeShellApplication {
     nix store optimise -v
     echo ""
 
+    # Update Hermes
+    #
+    if [[ "$(hostname)" == "kitsune" ]] && [[ -n "$(which hermes)" ]]; then
+      hermes update
+
+      if [[ -d "$XDG_CONFIG_HOME"/bash/rc.d ]]; then
+        hermes completion bash > "$XDG_CONFIG_HOME"/bash/rc.d/hermes.sh
+      fi
+      if [[ -d "$XDG_CONFIG_HOME"/zsh/rc.d ]]; then
+        hermes completion zsh > "$XDG_CONFIG_HOME"/zsh/rc.d/hermes.zsh
+      fi
+      if [[ -d "$XDG_CONFIG_HOME"/fish/completions ]]; then
+        hermes completion fish > "$XDG_CONFIG_HOME"/fish/completions/hermes.fish
+      fi
+    fi
+
     # Git repositories
     #
     if [[ -d "$HOME/Projects" ]] || [[ -d "$HOME/src" ]]; then
@@ -90,9 +106,8 @@ writeShellApplication {
       )
     fi
 
-    # macOS system
-    #
-    # We do this last as this command may force a reboot
+    # macOS system update; we do this last as this command may force a
+    # reboot
     #
     if [[ "$OS" == "Darwin" ]]; then
       softwareupdate -ia --include-config --include-config-data

@@ -20,7 +20,7 @@ writeShellApplication {
                -o -name "*.swp" \
                -o -name "*~" \
                -o -name ".#*" \
-                -o -name "._*" \) \
+               -o -name "._*" \) \
         \) -exec realpath "{}" \; >> "$BACKUP_LIST"
       elif [[ -f "$1" ]]; then
         echo "Adding file:  $1 ..."
@@ -45,6 +45,7 @@ writeShellApplication {
     mkBackupList "$XDG_STATE_HOME/opencode"
 
     mkBackupList "$HOME/.hermes"
+    find "$HOME" -mindepth 1 -maxdepth 1 -type f -name "hermes-backup-*.zip" >> "$BACKUP_LIST"
 
     mkBackupList "$HOME/.bash_history"
     mkBackupList "$HOME/.zsh_history"
