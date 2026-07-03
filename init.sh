@@ -71,14 +71,12 @@ if [[ "$OS" == "Linux" ]]; then
     sudo apt install -y \
         adb \
         bind9-dnsutils \
-        bubblewrap \
         build-essential \
         coreutils \
         curl \
         dialog \
         diffutils \
         dos2unix \
-        exiv2 \
         eza \
         fastboot \
         ffmpeg \
