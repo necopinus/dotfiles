@@ -71,14 +71,11 @@ if [[ "$OS" == "Linux" ]]; then
     sudo apt install -y \
         adb \
         bind9-dnsutils \
-        bubblewrap \
         build-essential \
         coreutils \
         curl \
         dialog \
         diffutils \
-        dos2unix \
-        exiv2 \
         eza \
         fastboot \
         ffmpeg \
@@ -90,18 +87,14 @@ if [[ "$OS" == "Linux" ]]; then
         imagemagick \
         jq \
         kid3-cli \
-        libffi-dev \
         libjpeg-turbo-progs \
-        libopus0 \
         man-db \
         openssh-client \
         optipng \
         pdftk-java \
         poppler-utils \
         procps \
-        python3-dev \
         qalc \
-        ripgrep \
         rsgain \
         rsync \
         sed \
@@ -152,17 +145,6 @@ if [[ "$OS" == "Linux" ]]; then
       # 
       sudo sed -i "s/-t disableLeaveAlert=true/-t disableLeaveAlert=true -t fontFamily=monospace -t fontSize=14 -t 'theme={\"foreground\":\"#3c3836\",\"background\":\"#fbf1c7\",\"cursor\":\"#928374\",\"cursorAccent\":\"#282828\",\"selectionBackground\":\"#d5c4a1\",\"selectionForeground\":\"#282828\",\"black\":\"#fbf1c7\",\"red\":\"#cc241d\",\"green\":\"#98971a\",\"yellow\":\"#d79921\",\"blue\":\"#458588\",\"magenta\":\"#b16286\",\"cyan\":\"#689d6a\",\"white\":\"#7c6f64\",\"brightBlack\":\"#928374\",\"brightRed\":\"#9d0006\",\"brightGreen\":\"#79740e\",\"brightYellow\":\"#b57614\",\"brightBlue\":\"#076678\",\"brightMagenta\":\"#8f3f71\",\"brightCyan\":\"#427b58\",\"brightWhite\":\"#3c3836\"}'/" /etc/systemd/system/ttyd_uds.service
     fi
-
-    # Disable user namespace AppArmor enforcement if we're (1) on Ubuntu
-    # and (2) installing Hermes, as it prevents SUID binaries (i.e., the
-    # Chromium sandbox) from running in the Nix store (and thus breaks
-    # Herme's browser automation)
-    #
-    #   https://github.com/NixOS/nixpkgs/issues/121694
-    #
-    if [[ "$(hostname)" == "kitsune" ]] && [[ $(grep -c "ID=ubuntu" /etc/os-release) -ne 0 ]]; then
-        echo "kernel.apparmor_restrict_unprivileged_userns=0" | sudo tee /etc/sysctl.d/60-apparmor-disable-userns-restrictions.conf
-    fi
 fi
 
 # Clear out macOS settings that need to be set (or not set) explicitly
@@ -208,8 +190,6 @@ fi
         sudo -H nix run nix-darwin -- switch --flake .#macos
     elif [[ "$USER" == "droid" ]]; then
         nix run home-manager/master -- switch --flake .#android
-    elif [[ "$(hostname)" == "kitsune" ]]; then
-        nix run home-manager/master -- switch --flake .#hermes
     elif [[ "$USER" == "exedev" ]]; then
         nix run home-manager/master -- switch --flake .#exedev
     else

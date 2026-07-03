@@ -45,9 +45,6 @@ writeShellApplication {
       elif [[ "$USER" == "droid" ]]; then
         home-manager switch --flake .#android
         sudo "$(which non-nixos-gpu-setup)"
-      elif [[ "$(hostname)" == "kitsune" ]]; then
-        home-manager switch --flake .#hermes
-        sudo "$(which non-nixos-gpu-setup)"
       elif [[ "$USER" == "exedev" ]]; then
         home-manager switch --flake .#exedev
         sudo "$(which non-nixos-gpu-setup)"
@@ -64,22 +61,6 @@ writeShellApplication {
     nix store gc -v
     nix store optimise -v
     echo ""
-
-    # Update Hermes
-    #
-    if [[ "$(hostname)" == "kitsune" ]] && [[ -n "$(which hermes)" ]]; then
-      hermes update
-
-      if [[ -d "$XDG_CONFIG_HOME"/bash/rc.d ]]; then
-        hermes completion bash > "$XDG_CONFIG_HOME"/bash/rc.d/hermes.sh
-      fi
-      if [[ -d "$XDG_CONFIG_HOME"/zsh/rc.d ]]; then
-        hermes completion zsh > "$XDG_CONFIG_HOME"/zsh/rc.d/hermes.zsh
-      fi
-      if [[ -d "$XDG_CONFIG_HOME"/fish/completions ]]; then
-        hermes completion fish > "$XDG_CONFIG_HOME"/fish/completions/hermes.fish
-      fi
-    fi
 
     # Git repositories
     #

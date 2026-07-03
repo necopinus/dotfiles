@@ -44,9 +44,6 @@ writeShellApplication {
     mkBackupList "$XDG_DATA_HOME/opencode"
     mkBackupList "$XDG_STATE_HOME/opencode"
 
-    mkBackupList "$HOME/.hermes"
-    find "$HOME" -mindepth 1 -maxdepth 1 -type f -name "hermes-backup-*.zip" >> "$BACKUP_LIST"
-
     mkBackupList "$HOME/.bash_history"
     mkBackupList "$HOME/.zsh_history"
     mkBackupList "$XDG_CONFIG_HOME/zsh/.zsh_history"
