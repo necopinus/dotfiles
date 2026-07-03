@@ -32,6 +32,10 @@
     };
   };
 
+  # Fix `git log` pager issue on some systems
+  #
+  home.sessionVariables.PAGER = "less";
+
   # Wrap git to enable dynamically setting user.signingKey
   #
   xdg.configFile."bash/rc.d/git.sh" = {
