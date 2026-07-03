@@ -77,6 +77,7 @@ if [[ "$OS" == "Linux" ]]; then
         dialog \
         diffutils \
         dos2unix \
+        espeak-ng \
         eza \
         fastboot \
         ffmpeg \
@@ -204,10 +205,10 @@ fi
 
     if [[ "$OS" == "Darwin" ]]; then
         sudo -H nix run nix-darwin -- switch --flake .#macos
-    elif [[ "$USER" == "droid" ]]; then
-        nix run home-manager/master -- switch --flake .#android
     elif [[ "$(hostname)" == "kitsune" ]]; then
         nix run home-manager/master -- switch --flake .#hermes
+    elif [[ "$USER" == "droid" ]]; then
+        nix run home-manager/master -- switch --flake .#android
     elif [[ "$USER" == "exedev" ]]; then
         nix run home-manager/master -- switch --flake .#exedev
     else

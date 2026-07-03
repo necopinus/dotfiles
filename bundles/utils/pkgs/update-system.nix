@@ -42,11 +42,11 @@ writeShellApplication {
       git push
       if [[ "$OS" == "Darwin" ]]; then
         sudo darwin-rebuild switch --flake .#macos
-      elif [[ "$USER" == "droid" ]]; then
-        home-manager switch --flake .#android
-        sudo "$(which non-nixos-gpu-setup)"
       elif [[ "$(hostname)" == "kitsune" ]]; then
         home-manager switch --flake .#hermes
+        sudo "$(which non-nixos-gpu-setup)"
+      elif [[ "$USER" == "droid" ]]; then
+        home-manager switch --flake .#android
         sudo "$(which non-nixos-gpu-setup)"
       elif [[ "$USER" == "exedev" ]]; then
         home-manager switch --flake .#exedev
@@ -67,7 +67,7 @@ writeShellApplication {
 
     # Update Hermes
     #
-    if [[ "$(hostname)" == "kitsune" ]] && [[ -n "$(which hermes)" ]]; then
+    if [[ -n "$(which hermes 2> /dev/null)" ]]; then
       hermes update
 
       if [[ -d "$XDG_CONFIG_HOME"/bash/rc.d ]]; then

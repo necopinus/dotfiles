@@ -25,14 +25,10 @@
   programs.ripgrep.enable = pkgs.stdenv.isDarwin; # Installed at the system level on Linux
   programs.uv.enable = true;
 
-  home.packages = with pkgs;
-    [
-      msgpack-tools
-      pnpm
-    ]
-    ++ lib.optionals pkgs.stdenv.isDarwin [
-      dos2unix
-    ];
+  home.packages = with pkgs; [
+    msgpack-tools
+    pnpm
+  ];
 
   # Prefer to use ~/.cache, ~/.config, and ~/.local
   #
