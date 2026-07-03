@@ -22,6 +22,7 @@
 
   programs.dircolors.enable = true;
   programs.npm.enable = true; # Just use Nix to avoid NodeJs package conflicts
+  programs.ripgrep.enable = pkgs.stdenv.isDarwin; # Installed at the system level on Linux
   programs.uv.enable = true;
 
   home.packages = with pkgs;
