@@ -195,6 +195,7 @@
           }
 
           ./bundles/hermes # Requires llm-agents
+          ./bundles/opencode # Requires llm-agents
         ]
         ++ linuxHomeManagerCommonModules;
     };
