@@ -28,6 +28,14 @@ writeShellApplication {
       fi
     }
 
+    if [[ -n "$(which hermes 2> /dev/null)" ]]; then
+      mkdir -p "$XDG_CACHE_HOME/hermes"
+      if [[ -f "$XDG_CACHE_HOME/hermes/backup.zip" ]]; then
+        rm "$XDG_CACHE_HOME/hermes/backup.zip"
+      fi
+      hermes backup --output "$XDG_CACHE_HOME/hermes/backup.zip"
+    fi
+
     mkBackupList "$XDG_CONFIG_HOME/nix"
 
     mkBackupList "$HOME/.ssh"
@@ -45,7 +53,8 @@ writeShellApplication {
     mkBackupList "$XDG_STATE_HOME/opencode"
 
     mkBackupList "$HOME/.hermes"
-    find "$HOME" -mindepth 1 -maxdepth 1 -type f -name "hermes-backup-*.zip" >> "$BACKUP_LIST"
+    mkBackupList "$HOME/wiki"
+    mkBackupList "$XDG_CACHE_HOME/hermes/backup.zip"
 
     mkBackupList "$HOME/.bash_history"
     mkBackupList "$HOME/.zsh_history"
