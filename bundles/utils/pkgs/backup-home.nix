@@ -29,11 +29,8 @@ writeShellApplication {
     }
 
     if [[ -n "$(which hermes 2> /dev/null)" ]]; then
-      mkdir -p "$XDG_CACHE_HOME/hermes"
-      if [[ -f "$XDG_CACHE_HOME/hermes/backup.zip" ]]; then
-        rm "$XDG_CACHE_HOME/hermes/backup.zip"
-      fi
-      hermes backup --output "$XDG_CACHE_HOME/hermes/backup.zip"
+      hermes backup
+      crontab -l > "$HOME/exedev.crontab"
     fi
 
     mkBackupList "$XDG_CONFIG_HOME/nix"
@@ -52,9 +49,11 @@ writeShellApplication {
     mkBackupList "$XDG_DATA_HOME/opencode"
     mkBackupList "$XDG_STATE_HOME/opencode"
 
+    mkBackupList "$HOME/exedev.crontab"
     mkBackupList "$HOME/.hermes"
+    mkBackupList "$HOME/inaba"
     mkBackupList "$HOME/wiki"
-    mkBackupList "$XDG_CACHE_HOME/hermes/backup.zip"
+    find "$HOME" -mindepth 1 -maxdepth 1 -type f -name 'hermes-backup-*.zip' >> "$BACKUP_LIST"
 
     mkBackupList "$HOME/.bash_history"
     mkBackupList "$HOME/.zsh_history"
@@ -85,6 +84,6 @@ writeShellApplication {
       tar -cJv -f "$BACKUP_DIR/backup.tar.xz" -T "$BACKUP_LIST"
     )
 
-    rm -f "$BACKUP_LIST"
+    rm -f "$BACKUP_LIST" "$HOME/exedev.crontab" "$HOME"/hermes-backup-*
   '';
 }
