@@ -177,7 +177,7 @@ if [[ "$OS" == "Linux" ]]; then
 
     # Tweak Android terminal theme
     #
-    if [[ -f /etc/systemd/system/ttyd_uds.service ]] && [[ $(grep -c theme /etc/systemd/system/ttyd_uds.service) -eq 0 ]]; then
+    if [[ "$USER" == "droid" ]] && [[ -f /etc/systemd/system/ttyd_uds.service ]] && [[ $(grep -c theme /etc/systemd/system/ttyd_uds.service) -eq 0 ]]; then
       # Gruvbox Dark
       # 
       #sudo sed -i "s/-t disableLeaveAlert=true/-t disableLeaveAlert=true -t fontFamily=monospace -t fontSize=14 -t 'theme={\"foreground\":\"#ebdbb2\",\"background\":\"#282828\",\"cursor\":\"#928374\",\"cursorAccent\":\"#fbf1c7\",\"selectionBackground\":\"#504945\",\"selectionForeground\":\"#fbf1c7\",\"black\":\"#282828\",\"red\":\"#cc241d\",\"green\":\"#98971a\",\"yellow\":\"#d79921\",\"blue\":\"#458588\",\"magenta\":\"#b16286\",\"cyan\":\"#689d6a\",\"white\":\"#a89984\",\"brightBlack\":\"#928374\",\"brightRed\":\"#fb4934\",\"brightGreen\":\"#b8bb26\",\"brightYellow\":\"#fabd2f\",\"brightBlue\":\"#83a598\",\"brightMagenta\":\"#d3869b\",\"brightCyan\":\"#8ec07c\",\"brightWhite\":\"#ebdbb2\"}'/" /etc/systemd/system/ttyd_uds.service
@@ -210,6 +210,79 @@ if [[ "$OS" == "Linux" ]]; then
         # Install Hermes
         #
         curl -fsSL https://hermes-agent.nousresearch.com/install.sh | bash
+
+        # Create systemd service files
+        #
+        sudo tee /etc/systemd/system/hermes-dashboard.service <<-EOF
+		[Unit]
+		Description=Hermes Agent Dashboard - Online Portal
+		After=network-online.target
+		Wants=network-online.target
+		StartLimitIntervalSec=0
+		
+		[Service]
+		Type=simple
+		User=$USER
+		Group=$USER
+		ExecStart=$HOME/.hermes/hermes-agent/venv/bin/python -m hermes_cli.main dashboard --no-open
+		WorkingDirectory=$HOME/.hermes
+		Environment="HOME=$HOME"
+		Environment="USER=$USER"
+		Environment="LOGNAME=$USER"
+		Environment="PATH=$HOME/.hermes/hermes-agent/venc/bin:$HOME/.hermes/hermes-agent/node_modules/.bin:$HOME/.local/bin:$HOME/.nix-profile/bin:/nix/var/nix/profiles/default/bin:/bin:/usr/bin:/sbin:/usr/sbin:/exe.dev/bin:/usr/local/bin:$HOME/.brv-cli/bin
+		Environment="VIRTUAL_ENV=$HOME/.hermes/hermes-agent/venv"
+		Environment="HERMES_HOME=$HOME/.hermes"
+		Restart=always
+		RestartSec=5
+		RestartForceExitStatus=75
+		KillMode=mixed
+		KillSignal=SIGTERM
+		ExecReload=/bin/kill -USR1 \$MAINPID
+		TimeoutStopSec=90
+		StandardOutput=journal
+		StandardError=journal
+		
+		[Install]
+		WantedBy=multi-user.target
+		EOF
+        sudo ln -s /etc/systemd/system/hermes-dashboard.service /etc/systemd/system/multi-user.target.wants/hermes-dashboard.service
+        
+        sudo tee /etc/systemd/system/hermes-gateway.service <<-EOF
+		[Unit]
+		Description=Hermes Agent Gateway - Messaging Platform Integration
+		After=network-online.target
+		Wants=network-online.target
+		StartLimitIntervalSec=0
+		
+		[Service]
+		Type=simple
+		User=$USER
+		Group=$USER
+		ExecStart=$HOME/.hermes/hermes-agent/venv/bin/python -m hermes_cli.main gateway run
+		WorkingDirectory=$HOME/.hermes
+		Environment="HOME=$HOME"
+		Environment="USER=$USER"
+		Environment="LOGNAME=$USER"
+		Environment="PATH=$HOME/.hermes/hermes-agent/venc/bin:$HOME/.hermes/hermes-agent/node_modules/.bin:$HOME/.local/bin:$HOME/.nix-profile/bin:/nix/var/nix/profiles/default/bin:/bin:/usr/bin:/sbin:/usr/sbin:/exe.dev/bin:/usr/local/bin:$HOME/.brv-cli/bin
+		Environment="VIRTUAL_ENV=$HOME/.hermes/hermes-agent/venv"
+		Environment="HERMES_HOME=$HOME/.hermes"
+		Restart=always
+		RestartSec=5
+		RestartForceExitStatus=75
+		KillMode=mixed
+		KillSignal=SIGTERM
+		ExecReload=/bin/kill -USR1 \$MAINPID
+		ExecStopPost=-$HOME/.hermes/hermes-agent/venv/bin/python -m gateway.cgroup_cleanup
+		TimeoutStopSec=90
+		StandardOutput=journal
+		StandardError=journal
+		
+		[Install]
+		WantedBy=multi-user.target
+		EOF
+        sudo ln -s /etc/systemd/system/hermes-gateway.service /etc/systemd/system/multi-user.target.wants/hermes-gateway.service
+
+        sudo systemctl daemon-reload
     fi
 fi
 
