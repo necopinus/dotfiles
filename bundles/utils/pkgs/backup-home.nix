@@ -28,9 +28,12 @@ writeShellApplication {
       fi
     }
 
-    if [[ -n "$(which hermes 2> /dev/null)" ]]; then
+    if [[ "$(hostname)" == "kitsune" ]]; then
       hermes backup
       crontab -l > "$HOME/exedev.crontab"
+      if [[ -d "$HOME/wiki" ]]; then
+        npx --package=obsidian-headless -- ob sync --path "$HOME/wiki"
+      fi
     fi
 
     mkBackupList "$XDG_CONFIG_HOME/nix"
@@ -53,6 +56,7 @@ writeShellApplication {
     mkBackupList "$HOME/.hermes"
     mkBackupList "$HOME/inaba"
     mkBackupList "$HOME/wiki"
+    mkBackupList "$XDG_CONFIG_HOME/obsidian-headless"
     find "$HOME" -mindepth 1 -maxdepth 1 -type f -name 'hermes-backup-*.zip' >> "$BACKUP_LIST"
 
     mkBackupList "$HOME/.bash_history"
@@ -84,6 +88,6 @@ writeShellApplication {
       tar -cJv -f "$BACKUP_DIR/backup.tar.xz" -T "$BACKUP_LIST"
     )
 
-    rm -f "$BACKUP_LIST" "$HOME/exedev.crontab" "$HOME"/hermes-backup-*
+    rm -f "$BACKUP_LIST"
   '';
 }

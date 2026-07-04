@@ -68,13 +68,13 @@ writeShellApplication {
     # Update Hermes
     #
     if [[ -n "$(which hermes 2> /dev/null)" ]]; then
-      hermes update
+      hermes update --yes
 
       if [[ -d "$XDG_CONFIG_HOME"/bash/rc.d ]]; then
-        hermes completion bash > "$XDG_CONFIG_HOME"/bash/rc.d/hermes.sh
+        hermes completion bash > "$XDG_CONFIG_HOME"/bash/rc.d/hermes-completion.sh
       fi
       if [[ -d "$XDG_CONFIG_HOME"/zsh/rc.d ]]; then
-        hermes completion zsh > "$XDG_CONFIG_HOME"/zsh/rc.d/hermes.zsh
+        hermes completion zsh > "$XDG_CONFIG_HOME"/zsh/rc.d/hermes-completion.zsh
       fi
       if [[ -d "$XDG_CONFIG_HOME"/fish/completions ]]; then
         hermes completion fish > "$XDG_CONFIG_HOME"/fish/completions/hermes.fish

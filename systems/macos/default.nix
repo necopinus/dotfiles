@@ -11,7 +11,6 @@
   home.packages = with pkgs; [
     android-tools
     dos2unix
-    espeak
     libqalculate
     plistwatch
   ];

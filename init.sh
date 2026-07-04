@@ -72,7 +72,9 @@ if [[ "$OS" == "Linux" ]]; then
         adb \
         bind9-dnsutils \
         build-essential \
+        ca-certificates \
         coreutils \
+        cron \
         curl \
         dialog \
         diffutils \
@@ -82,6 +84,13 @@ if [[ "$OS" == "Linux" ]]; then
         fastboot \
         ffmpeg \
         findutils \
+        fonts-freefont-ttf \
+        fonts-ipafont-gothic \
+        fonts-liberation \
+        fonts-noto-color-emoji \
+        fonts-tlwg-loma-otf \
+        fonts-unifont \
+        fonts-wqy-zenhei \
         gawk \
         git \
         gnu-which \
@@ -89,9 +98,32 @@ if [[ "$OS" == "Linux" ]]; then
         imagemagick \
         jq \
         kid3-cli \
+        libasound2t64 \
+        libatk1.0-0t64 \
+        libatk-bridge2.0-0t64 \
+        libatspi2.0-0t64 \
+        libcairo2 \
+        libcups2t64 \
+        libdbus-1-3 \
+        libdrm2 \
         libffi-dev \
+        libfontconfig1 \
+        libfreetype6 \
+        libgbm1 \
+        libglib2.0-0t64 \
         libjpeg-turbo-progs \
+        libnspr4 \
+        libnss3 \
         libopus0 \
+        libpango-1.0-0 \
+        libx11-6 \
+        libxcb1 \
+        libxcomposite1 \
+        libxdamage1 \
+        libxext6 \
+        libxfixes3 \
+        libxkbcommon0 \
+        libxrandr2 \
         man-db \
         openssh-client \
         optipng \
@@ -108,6 +140,9 @@ if [[ "$OS" == "Linux" ]]; then
         tmux \
         unzip \
         uuid-runtime \
+        xfonts-cyrillic \
+        xfonts-scalable \
+        xvfb \
         xz-utils \
         zip
 
@@ -152,15 +187,29 @@ if [[ "$OS" == "Linux" ]]; then
       sudo sed -i "s/-t disableLeaveAlert=true/-t disableLeaveAlert=true -t fontFamily=monospace -t fontSize=14 -t 'theme={\"foreground\":\"#3c3836\",\"background\":\"#fbf1c7\",\"cursor\":\"#928374\",\"cursorAccent\":\"#282828\",\"selectionBackground\":\"#d5c4a1\",\"selectionForeground\":\"#282828\",\"black\":\"#fbf1c7\",\"red\":\"#cc241d\",\"green\":\"#98971a\",\"yellow\":\"#d79921\",\"blue\":\"#458588\",\"magenta\":\"#b16286\",\"cyan\":\"#689d6a\",\"white\":\"#7c6f64\",\"brightBlack\":\"#928374\",\"brightRed\":\"#9d0006\",\"brightGreen\":\"#79740e\",\"brightYellow\":\"#b57614\",\"brightBlue\":\"#076678\",\"brightMagenta\":\"#8f3f71\",\"brightCyan\":\"#427b58\",\"brightWhite\":\"#3c3836\"}'/" /etc/systemd/system/ttyd_uds.service
     fi
 
-    # Disable user namespace AppArmor enforcement if we're (1) on Ubuntu
-    # and (2) installing Hermes, as it prevents SUID binaries (i.e., the
-    # Chromium sandbox) from running in the Nix store (and thus breaks
-    # Herme's browser automation)
-    #
-    #   https://github.com/NixOS/nixpkgs/issues/121694
-    #
-    if [[ "$(hostname)" == "kitsune" ]] && [[ $(grep -c "ID=ubuntu" /etc/os-release) -ne 0 ]]; then
-        echo "kernel.apparmor_restrict_unprivileged_userns=0" | sudo tee /etc/sysctl.d/60-apparmor-disable-userns-restrictions.conf
+    if [[ "$(hostname)" == "kitsune" ]]; then
+        # Disable user namespace AppArmor enforcement if we're (1) on
+        # Ubuntu and (2) installing Hermes, as it prevents SUID binaries
+        # (i.e., the Chromium sandbox) from running in the Nix store
+        # (and thus breaks Hermes' browser automation)
+        #
+        #   https://github.com/NixOS/nixpkgs/issues/121694
+        #
+        if [[ $(grep -c "ID=ubuntu" /etc/os-release) -ne 0 ]]; then
+            echo "kernel.apparmor_restrict_unprivileged_userns=0" | sudo tee /etc/sysctl.d/60-apparmor-disable-userns-restrictions.conf
+        fi
+
+        # Install ByteRover
+        #
+        # NOTE: This will fail if installed *after* we build the home
+        # directory, as it tries to write to files that we manage using
+        # Nix
+        #
+        curl -fsSL https://byterover.dev/install.sh | bash
+
+        # Install Hermes
+        #
+        curl -fsSL https://hermes-agent.nousresearch.com/install.sh | bash
     fi
 fi
 
@@ -235,6 +284,29 @@ nix-collect-garbage -d
 sudo find /nix/var/nix/gcroots -xtype l -exec rm -v "{}" \;
 nix store gc -v
 nix store optimise -v
+
+# Install Hermes completions, if applicable
+#
+if [[ -n "$(which hermes 2> /dev/null)" ]]; then
+    if [[ -d "$XDG_CONFIG_HOME"/bash ]]; then
+        if [[ ! -d "$XDG_CONFIG_HOME"/bash/rc.d ]]; then
+            mkdir -p "$XDG_CONFIG_HOME"/bash/rc.d
+        fi
+        hermes completion bash > "$XDG_CONFIG_HOME"/bash/rc.d/hermes-completion.sh
+    fi
+    if [[ -d "$XDG_CONFIG_HOME"/zsh ]]; then
+        if [[ ! -d "$XDG_CONFIG_HOME"/zsh/rc.d ]]; then
+            mkdir -p "$XDG_CONFIG_HOME"/zsh/rc.d
+        fi
+        hermes completion zsh > "$XDG_CONFIG_HOME"/zsh/rc.d/hermes-completion.zsh
+    fi
+    if [[ -d "$XDG_CONFIG_HOME"/fish ]]; then
+        if [[ ! -d "$XDG_CONFIG_HOME"/fish/completions ]]; then
+            mkdir -p "$XDG_CONFIG_HOME"/fish/completions
+        fi
+        hermes completion fish > "$XDG_CONFIG_HOME"/fish/completions/hermes.fish
+    fi
+fi
 
 # Make sure that SSH is set up on macOS and Android (agent forwarding is
 # used for Linux VMs and exe.dev)
