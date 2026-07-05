@@ -8,6 +8,14 @@
   #
   nix.enable = false;
 
+  # FIXME: 2026-07-05 Temporary work-around for nix-darwing build
+  # failure on nixpkgs-unstable
+  #
+  # https://github.com/nix-darwin/nix-darwin/issues/1817
+  #
+  documentation.enable = false;
+  system.tools.darwin-uninstaller.enable = false;
+
   # Ensure that shell completions work correctly
   #
   environment.pathsToLink = [
