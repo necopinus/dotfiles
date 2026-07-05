@@ -5,6 +5,10 @@
   #
   targets.genericLinux.enable = true;
 
+  # Generating the man page cache is safe on Linux
+  #
+  programs.man.generateCaches = true;
+
   # https://github.com/nix-community/home-manager/issues/2033
   #
   news = {
