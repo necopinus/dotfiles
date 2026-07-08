@@ -93,7 +93,7 @@ in {
       ---
       description: Review code for security, quality, and best practices
       mode: subagent
-      model: opencode/gpt-5.5-pro
+      model: opencode-go/glm-5.2
       temperature: 0.2
       ---
       Review the code in this repository for security and best practices. DO NOT MAKE ANY CHANGES.
@@ -108,8 +108,8 @@ in {
     '';
 
     settings = {
-      model = "opencode/claude-opus-4-8";
-      small_model = "opencode/claude-haiku-4-5";
+      model = "opencode-go/glm-5.2";
+      small_model = "opencode-go/deepseek-v4-flash";
       shell = "bash";
       permission = "allow"; # YOLO mode
       lsp = true;
