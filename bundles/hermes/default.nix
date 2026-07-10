@@ -35,6 +35,9 @@ in {
     typescript
     typescript-language-server
     yaml-language-server
+
+    #### MCP servers & dependencies ####
+    markitdown-mcp
   ];
 
   programs.npm.enable = true; # Just use Nix to avoid NodeJs package conflicts
@@ -70,21 +73,21 @@ in {
     enable = config.programs.bash.enable;
     text = ''
       alias hermes="$(which hermes) --tui"
-      alias ob="${config.programs.npm.package}/bin/npx --package=obsidian-headless -- ob"
+      alias ob="${config.programs.npm.package}/bin/npx --package=obsidian-headless --yes -- ob"
     '';
   };
   xdg.configFile."zsh/rc.d/hermes.zsh" = {
     enable = config.programs.zsh.enable;
     text = ''
       alias hermes="$(which hermes) --tui"
-      alias ob="${config.programs.npm.package}/bin/npx --package=obsidian-headless -- ob"
+      alias ob="${config.programs.npm.package}/bin/npx --package=obsidian-headless --yes -- ob"
     '';
   };
   xdg.configFile."fish/rc.d/hermes.fish" = {
     enable = config.programs.fish.enable;
     text = ''
       alias hermes "$(which hermes) --tui"
-      alias ob="${config.programs.npm.package}/bin/npx --package=obsidian-headless -- ob"
+      alias ob="${config.programs.npm.package}/bin/npx --package=obsidian-headless --yes -- ob"
     '';
   };
 }

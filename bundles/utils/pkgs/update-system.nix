@@ -65,6 +65,13 @@ writeShellApplication {
     nix store optimise -v
     echo ""
 
+    # Clear local NPM cache (fixes library version mismatch issues after
+    # an upgrade)
+    #
+    if [[ -d "$HOME/.npm" ]]; then
+      rm -rf "$HOME/.npm"
+    fi
+
     # Update Hermes
     #
     if [[ -n "$(which hermes 2> /dev/null)" ]]; then
