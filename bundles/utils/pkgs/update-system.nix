@@ -87,6 +87,9 @@ writeShellApplication {
         hermes completion fish > "$XDG_CONFIG_HOME"/fish/completions/hermes.fish
       fi
     fi
+    if [[ -n "$(which brv 2> /dev/null)" ]]; then
+      brv update stable
+    fi
 
     # Git repositories
     #

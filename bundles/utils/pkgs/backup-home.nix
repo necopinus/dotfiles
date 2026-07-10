@@ -32,7 +32,7 @@ writeShellApplication {
       hermes backup
       crontab -l > "$HOME/exedev.crontab"
       if [[ -d "$HOME/wiki" ]]; then
-        npx --package=obsidian-headless -- ob sync --path "$HOME/wiki"
+        npx --package=obsidian-headless -- ob sync --path "$HOME/grimoire"
       fi
     fi
 
@@ -52,11 +52,17 @@ writeShellApplication {
     mkBackupList "$XDG_DATA_HOME/opencode"
     mkBackupList "$XDG_STATE_HOME/opencode"
 
+    mkBackupList "$HOME/.brv"
     mkBackupList "$HOME/exedev.crontab"
+    mkBackupList "$HOME/grimoire"
     mkBackupList "$HOME/.hermes"
     mkBackupList "$HOME/inaba"
-    mkBackupList "$HOME/wiki"
+    mkBackupList "$XDG_CONFIG_HOME/brv"
     mkBackupList "$XDG_CONFIG_HOME/obsidian-headless"
+    mkBackupList "$XDG_DATA_HOME/tirith"
+    mkBackupList "$XDG_STATE_HOME/brv"
+    mkBackupList "$XDG_STATE_HOME/hermes"
+    mkBackupList "$XDG_STATE_HOME/tirith"
     find "$HOME" -mindepth 1 -maxdepth 1 -type f -name 'hermes-backup-*.zip' >> "$BACKUP_LIST"
 
     mkBackupList "$HOME/.bash_history"
