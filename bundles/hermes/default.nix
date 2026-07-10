@@ -38,6 +38,7 @@ in {
 
     #### MCP servers & dependencies ####
     markitdown-mcp
+    officecli
   ];
 
   programs.npm.enable = true; # Just use Nix to avoid NodeJs package conflicts
