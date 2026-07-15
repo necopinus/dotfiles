@@ -37,6 +37,9 @@ writeShellApplication {
       if [[ -d "$HOME/journal" ]]; then
         npx --package=obsidian-headless -- ob sync --path "$HOME/journal"
       fi
+      if [[ -d "$HOME/research" ]]; then
+        npx --package=obsidian-headless -- ob sync --path "$HOME/research"
+      fi
     fi
 
     mkBackupList "$XDG_CONFIG_HOME/nix"
@@ -61,6 +64,7 @@ writeShellApplication {
     mkBackupList "$HOME/.hermes"
     mkBackupList "$HOME/inaba"
     mkBackupList "$HOME/journal"
+    mkBackupList "$HOME/research"
     mkBackupList "$XDG_CONFIG_HOME/brv"
     mkBackupList "$XDG_CONFIG_HOME/obsidian-headless"
     mkBackupList "$XDG_DATA_HOME/tirith"
