@@ -31,8 +31,11 @@ writeShellApplication {
     if [[ "$(hostname)" == "kitsune" ]]; then
       hermes backup
       crontab -l > "$HOME/exedev.crontab"
-      if [[ -d "$HOME/wiki" ]]; then
+      if [[ -d "$HOME/grimoire" ]]; then
         npx --package=obsidian-headless -- ob sync --path "$HOME/grimoire"
+      fi
+      if [[ -d "$HOME/journal" ]]; then
+        npx --package=obsidian-headless -- ob sync --path "$HOME/journal"
       fi
     fi
 
@@ -57,6 +60,7 @@ writeShellApplication {
     mkBackupList "$HOME/grimoire"
     mkBackupList "$HOME/.hermes"
     mkBackupList "$HOME/inaba"
+    mkBackupList "$HOME/journal"
     mkBackupList "$XDG_CONFIG_HOME/brv"
     mkBackupList "$XDG_CONFIG_HOME/obsidian-headless"
     mkBackupList "$XDG_DATA_HOME/tirith"
