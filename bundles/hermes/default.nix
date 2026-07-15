@@ -23,7 +23,10 @@ in {
     playwright-test
     tirith
 
-    ##### LSP servers & dependencies ####
+    #### Tools ####
+    python3Packages.weasyprint
+
+    #### LSP servers & dependencies ####
     bash-language-server
     dockerfile-language-server
     kotlin-language-server
