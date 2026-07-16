@@ -229,7 +229,7 @@ if [[ "$OS" == "Linux" ]]; then
 		Environment="HOME=$HOME"
 		Environment="USER=$USER"
 		Environment="LOGNAME=$USER"
-		Environment="PATH=$HOME/.hermes/hermes-agent/venv/bin:$HOME/.hermes/hermes-agent/node_modules/.bin:$HOME/.local/bin:$HOME/.nix-profile/bin:/nix/var/nix/profiles/default/bin:/bin:/usr/bin:/sbin:/usr/sbin:/exe.dev/bin:/usr/local/bin:$HOME/.brv-cli/bin
+		Environment="PATH=$HOME/.hermes/hermes-agent/venv/bin:$HOME/.hermes/hermes-agent/node_modules/.bin:$HOME/.local/bin:$HOME/.nix-profile/bin:/nix/var/nix/profiles/default/bin:/bin:/usr/bin:/sbin:/usr/sbin:/exe.dev/bin:/usr/local/bin:$HOME/.brv-cli/bin"
 		Environment="VIRTUAL_ENV=$HOME/.hermes/hermes-agent/venv"
 		Environment="HERMES_HOME=$HOME/.hermes"
 		Restart=always
@@ -263,7 +263,7 @@ if [[ "$OS" == "Linux" ]]; then
 		Environment="HOME=$HOME"
 		Environment="USER=$USER"
 		Environment="LOGNAME=$USER"
-		Environment="PATH=$HOME/.hermes/hermes-agent/venv/bin:$HOME/.hermes/hermes-agent/node_modules/.bin:$HOME/.local/bin:$HOME/.nix-profile/bin:/nix/var/nix/profiles/default/bin:/bin:/usr/bin:/sbin:/usr/sbin:/exe.dev/bin:/usr/local/bin:$HOME/.brv-cli/bin
+		Environment="PATH=$HOME/.hermes/hermes-agent/venv/bin:$HOME/.hermes/hermes-agent/node_modules/.bin:$HOME/.local/bin:$HOME/.nix-profile/bin:/nix/var/nix/profiles/default/bin:/bin:/usr/bin:/sbin:/usr/sbin:/exe.dev/bin:/usr/local/bin:$HOME/.brv-cli/bin"
 		Environment="VIRTUAL_ENV=$HOME/.hermes/hermes-agent/venv"
 		Environment="HERMES_HOME=$HOME/.hermes"
 		Restart=always
