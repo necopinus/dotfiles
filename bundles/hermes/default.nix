@@ -24,6 +24,7 @@ in {
     tirith
 
     #### Tools ####
+    jsonschema
     python3Packages.weasyprint
 
     #### LSP servers & dependencies ####
