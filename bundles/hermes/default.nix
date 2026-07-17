@@ -24,7 +24,7 @@ in {
     tirith
 
     #### Tools ####
-    jsonschema
+    python3Packages.jsonschema
     python3Packages.weasyprint
 
     #### LSP servers & dependencies ####
@@ -42,6 +42,7 @@ in {
 
     #### MCP servers & dependencies ####
     markitdown-mcp
+    mcp-nixos
     officecli
   ];
 
