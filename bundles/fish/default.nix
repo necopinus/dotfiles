@@ -28,11 +28,11 @@
         fish_add_path -a /opt/homebrew/bin
       end
 
-      # Append ~/.local/bin to PATH, as some systems will include
+      # Prepend ~/.local/bin to PATH, as some systems will include
       # binaries here that we need to reference
       #
       if test -d $HOME/.local/bin
-        fish_add_path -a $HOME/.local/bin
+        fish_add_path $HOME/.local/bin
       end
 
       # Make sure that environment defined in /etc/environment.d is

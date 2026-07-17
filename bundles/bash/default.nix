@@ -41,11 +41,11 @@
         export PATH="$PATH:/opt/homebrew/bin"
       fi
 
-      # Append ~/.local/bin to PATH, as some systems will include
+      # Prepend ~/.local/bin to PATH, as some systems will include
       # binaries here that we need to reference
       #
       if [ -d "$HOME"/.local/bin ]; then
-        export PATH="$PATH:$HOME/.local/bin"
+        export PATH="$HOME/.local/bin:$PATH"
       fi
 
       # Make sure that environment defined in /etc/environment.d is
