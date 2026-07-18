@@ -7,6 +7,7 @@
   llmAgents = llm-agents.packages.${pkgs.stdenv.hostPlatform.system}; # llm-agents defined in flake.nix
 
   localPkgs = {
+    inaba = pkgs.callPackage ./pkgs/inaba.nix {};
     pyright = pkgs.callPackage ./pkgs/pyright.nix {};
     pyright-langserver = pkgs.callPackage ./pkgs/pyright-langserver.nix {};
   };
@@ -18,6 +19,9 @@ in {
   #   curl -fsSL https://hermes-agent.nousresearch.com/install.sh | bash
   #
   home.packages = with pkgs; [
+    #### Convenience wrapper ####
+    localPkgs.inaba
+
     #### Additional deps ####
     llmAgents.agent-browser
     playwright-test
@@ -75,25 +79,26 @@ in {
 
   # Convenience aliases
   #
+  # NOTE: We DON'T prefix 'npx' here, as we want to make sure to use the
+  # same version of npx/npm/node as Hermes (this lives in ~/.local/bin,
+  # and is inserted into the PATH before ~/.nix-profile/bin)
+  #
   xdg.configFile."bash/rc.d/hermes.sh" = {
     enable = config.programs.bash.enable;
     text = ''
-      alias hermes="$(which hermes) --tui"
-      alias ob="${config.programs.npm.package}/bin/npx --package=obsidian-headless --yes -- ob"
+      alias ob="npx --package=obsidian-headless --yes -- ob"
     '';
   };
   xdg.configFile."zsh/rc.d/hermes.zsh" = {
     enable = config.programs.zsh.enable;
     text = ''
-      alias hermes="$(which hermes) --tui"
-      alias ob="${config.programs.npm.package}/bin/npx --package=obsidian-headless --yes -- ob"
+      alias ob="npx --package=obsidian-headless --yes -- ob"
     '';
   };
   xdg.configFile."fish/rc.d/hermes.fish" = {
     enable = config.programs.fish.enable;
     text = ''
-      alias hermes "$(which hermes) --tui"
-      alias ob="${config.programs.npm.package}/bin/npx --package=obsidian-headless --yes -- ob"
+      alias ob="npx --package=obsidian-headless --yes -- ob"
     '';
   };
 }
