@@ -224,7 +224,7 @@ if [[ "$OS" == "Linux" ]]; then
 		Type=simple
 		User=$USER
 		Group=$USER
-		ExecStart=$HOME/.hermes/hermes-agent/venv/bin/python -m hermes_cli.main dashboard --no-open
+		ExecStart=$HOME/.hermes/hermes-agent/venv/bin/python -m hermes_cli.main dashboard --host 0.0.0.0 --no-open
 		WorkingDirectory=$HOME/.hermes
 		Environment="HOME=$HOME"
 		Environment="USER=$USER"
