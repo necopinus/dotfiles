@@ -75,6 +75,9 @@ writeShellApplication {
     # Update Hermes
     #
     if [[ -n "$(which hermes 2> /dev/null)" ]]; then
+      sudo systemctl stop hermes-gateway.service
+      sudo systemctl stop hermes-dashboard.service
+
       hermes update --yes
 
       if [[ -d "$XDG_CONFIG_HOME"/bash/rc.d ]]; then
@@ -86,9 +89,13 @@ writeShellApplication {
       if [[ -d "$XDG_CONFIG_HOME"/fish/completions ]]; then
         hermes completion fish > "$XDG_CONFIG_HOME"/fish/completions/hermes.fish
       fi
-    fi
-    if [[ -n "$(which brv 2> /dev/null)" ]]; then
-      brv update stable
+
+      if [[ -n "$(which brv 2> /dev/null)" ]]; then
+        brv update stable
+      fi
+
+      sudo systemctl start hermes-dashboard.service
+      sudo systemctl start hermes-gateway.service
     fi
 
     # Git repositories
