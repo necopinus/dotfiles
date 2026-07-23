@@ -75,10 +75,17 @@ writeShellApplication {
     # Update Hermes
     #
     if [[ -n "$(which hermes 2> /dev/null)" ]]; then
+      sudo systemctl stop hermes-webui.service
       sudo systemctl stop hermes-gateway.service
       sudo systemctl stop hermes-dashboard.service
 
       hermes update --yes
+
+      (
+        cd "$HOME/.hermes/hermes-webui"
+        rm -rf .venv
+        git pull
+      )
 
       if [[ -d "$XDG_CONFIG_HOME"/bash/rc.d ]]; then
         hermes completion bash > "$XDG_CONFIG_HOME"/bash/rc.d/hermes-completion.sh
@@ -96,6 +103,7 @@ writeShellApplication {
 
       sudo systemctl start hermes-dashboard.service
       sudo systemctl start hermes-gateway.service
+      sudo systemctl start hermes-webui.service
     fi
 
     # Git repositories

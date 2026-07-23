@@ -211,6 +211,10 @@ if [[ "$OS" == "Linux" ]]; then
         #
         curl -fsSL https://hermes-agent.nousresearch.com/install.sh | bash
 
+        # Install Hermes WebUI
+        #
+        git clone https://github.com/nesquena/hermes-webui.git "$HOME/.hermes/hermes-webui"
+
         # Create systemd service files
         #
         sudo tee /etc/systemd/system/hermes-dashboard.service <<-EOF
@@ -281,6 +285,41 @@ if [[ "$OS" == "Linux" ]]; then
 		WantedBy=multi-user.target
 		EOF
         sudo ln -s /etc/systemd/system/hermes-gateway.service /etc/systemd/system/multi-user.target.wants/hermes-gateway.service
+
+        sudo tee /etc/systemd/system/hermes-webui.service <<-EOF
+		[Unit]
+		Description=Hermes WebUI
+		After=network-online.target
+		Wants=network-online.target
+		StartLimitIntervalSec=0
+		
+		[Service]
+		Type=simple
+		User=$USER
+		Group=$USER
+		ExecStart=$HOME/.hermes/hermes-agent/venv/bin/python $HOME/.hermes/hermes-webui/bootstrap.py --no-browser --skip-agent-install --foreground
+		WorkingDirectory=$HOME/.hermes/hermes-agent
+		Environment="HOME=$HOME"
+		Environment="USER=$USER"
+		Environment="LOGNAME=$USER"
+		Environment="PATH=$HOME/.hermes/hermes-agent/venv/bin:$HOME/.hermes/hermes-agent/node_modules/.bin:$HOME/.local/bin:$HOME/.nix-profile/bin:/nix/var/nix/profiles/default/bin:/bin:/usr/bin:/sbin:/usr/sbin:/exe.dev/bin:/usr/local/bin:$HOME/.brv-cli/bin"
+		Environment="VIRTUAL_ENV=$HOME/.hermes/hermes-agent/venv"
+		Environment="HERMES_HOME=$HOME/.hermes"
+		Environment="REPO_ROOT=$HOME/.hermes/hermes-webui"
+		Restart=always
+		RestartSec=5
+		RestartForceExitStatus=75
+		KillMode=mixed
+		KillSignal=SIGTERM
+		ExecReload=/bin/kill -USR1 \$MAINPID
+		TimeoutStopSec=90
+		StandardOutput=journal
+		StandardError=journal
+		
+		[Install]
+		WantedBy=multi-user.target
+		EOF
+        sudo ln -s /etc/systemd/system/hermes-webui.service /etc/systemd/system/multi-user.target.wants/hermes-webui.service
 
         sudo systemctl daemon-reload
     fi
