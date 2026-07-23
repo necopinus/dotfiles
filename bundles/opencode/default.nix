@@ -95,7 +95,7 @@ in {
       ---
       description: Review code for security, quality, and best practices
       mode: subagent
-      model: opencode-go/deepseek-v4-pro
+      model: opencode-go/minimax-m3
       temperature: 0.2
       ---
       Review the code in this repository for security and best practices. DO NOT MAKE ANY CHANGES.
@@ -110,7 +110,7 @@ in {
     '';
 
     settings = {
-      model = "opencode-go/deepseek-v4-pro";
+      model = "opencode-go/minimax-m3";
       small_model = "opencode-go/deepseek-v4-flash";
       shell = "bash";
       permission = "allow"; # YOLO mode
