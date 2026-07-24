@@ -87,6 +87,14 @@ writeShellApplication {
         git pull
       )
 
+      if [[ $(find "$HOME/.hermes" -type f -mtime +60 -name "kitsune.tailf702ce.ts.net.*" | wc -l) -gt 0 ]]; then
+        (
+          cd "$HOME/.hermes"
+          rm -f kitsune.tailf702ce.ts.net.*
+          tailscale cert kitsune.tailf702ce.ts.net
+        )
+      fi
+
       if [[ -d "$XDG_CONFIG_HOME"/bash/rc.d ]]; then
         hermes completion bash > "$XDG_CONFIG_HOME"/bash/rc.d/hermes-completion.sh
       fi
