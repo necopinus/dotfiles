@@ -81,6 +81,16 @@ writeShellApplication {
 
       hermes update --yes
 
+      if [[ -d "$HOME/.hermes/mnemosyne-venv" ]]; then
+        rm -rf "$HOME/.hermes/mnemosyne-venv"
+      fi
+      uv venv "$HOME/.hermes/mnemosyne-venv"
+      (
+        cd "$HOME/.hermes/mnemosyne-venv"
+        uv pip install mnemosyne-memory[embeddings] mnemosyne-hermes
+        uv run mnemosyne-hermes install --force --mode wrapper --python "$HOME/.hermes/mnemosyne-venv/bin/python" --hermes-home "$HOME/.hermes"
+      )
+
       (
         cd "$HOME/.hermes/hermes-webui"
         rm -rf .venv

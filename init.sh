@@ -211,8 +211,23 @@ if [[ "$OS" == "Linux" ]]; then
         #
         curl -fsSL https://hermes-agent.nousresearch.com/install.sh | bash
 
+        # Install Mnemosyne
+        #
+        if [[ -d "$HOME/.hermes/mnemosyne-venv" ]]; then
+            rm -rf "$HOME/.hermes/mnemosyne-venv"
+        fi
+        uv venv "$HOME/.hermes/mnemosyne-venv"
+        (
+            cd "$HOME/.hermes/mnemosyne-venv"
+            uv pip install mnemosyne-memory[embeddings] mnemosyne-hermes
+            uv run mnemosyne-hermes install --force --mode wrapper --python "$HOME/.hermes/mnemosyne-venv/bin/python" --hermes-home "$HOME/.hermes"
+        )
+
         # Install Hermes WebUI
         #
+        if [[ -d "$HOME/.hermes/hermes-webui" ]]; then
+            rm -rf "$HOME/.hermes/hermes-webui"
+        fi
         git clone https://github.com/nesquena/hermes-webui.git "$HOME/.hermes/hermes-webui"
 
         # Create systemd service files
