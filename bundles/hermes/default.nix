@@ -12,6 +12,13 @@
     pyright-langserver = pkgs.callPackage ./pkgs/pyright-langserver.nix {};
   };
 in {
+  # TODO: Remove this fix once https://github.com/NixOS/nixpkgs/pull/545267
+  # is live in nixpkgs-unstable
+  #
+  imports = [
+    ./fixes/pandas-stubs-20260729.nix
+  ];
+
   # IMPORTANT: We do NOT install llmAgents.hermes-agent, as it's just
   # missing too many bits. Instead, we install using the official "curl
   # a script from some random website into bash" method.
