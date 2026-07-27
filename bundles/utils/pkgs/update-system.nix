@@ -87,7 +87,7 @@ writeShellApplication {
       uv venv "$HOME/.hermes/mnemosyne-venv"
       (
         cd "$HOME/.hermes/mnemosyne-venv"
-        uv pip install mnemosyne-memory[embeddings] mnemosyne-hermes
+        uv pip install "fastembed" "mnemosyne-memory[embeddings]" "mnemosyne-hermes"
         uv run mnemosyne-hermes install --force --mode wrapper --python "$HOME/.hermes/mnemosyne-venv/bin/python" --hermes-home "$HOME/.hermes"
       )
 
@@ -113,10 +113,6 @@ writeShellApplication {
       fi
       if [[ -d "$XDG_CONFIG_HOME"/fish/completions ]]; then
         hermes completion fish > "$XDG_CONFIG_HOME"/fish/completions/hermes.fish
-      fi
-
-      if [[ -n "$(which brv 2> /dev/null)" ]]; then
-        brv update stable
       fi
 
       sudo systemctl start hermes-dashboard.service

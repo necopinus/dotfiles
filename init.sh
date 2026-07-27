@@ -199,14 +199,6 @@ if [[ "$OS" == "Linux" ]]; then
             echo "kernel.apparmor_restrict_unprivileged_userns=0" | sudo tee /etc/sysctl.d/60-apparmor-disable-userns-restrictions.conf
         fi
 
-        # Install ByteRover
-        #
-        # NOTE: This will fail if installed *after* we build the home
-        # directory, as it tries to write to files that we manage using
-        # Nix
-        #
-        curl -fsSL https://byterover.dev/install.sh | bash
-
         # Install Hermes
         #
         curl -fsSL https://hermes-agent.nousresearch.com/install.sh | bash
@@ -219,7 +211,7 @@ if [[ "$OS" == "Linux" ]]; then
         uv venv "$HOME/.hermes/mnemosyne-venv"
         (
             cd "$HOME/.hermes/mnemosyne-venv"
-            uv pip install mnemosyne-memory[embeddings] mnemosyne-hermes
+            uv pip install "fastembed" "mnemosyne-memory[embeddings]" "mnemosyne-hermes"
             uv run mnemosyne-hermes install --force --mode wrapper --python "$HOME/.hermes/mnemosyne-venv/bin/python" --hermes-home "$HOME/.hermes"
         )
 
@@ -248,7 +240,7 @@ if [[ "$OS" == "Linux" ]]; then
 		Environment="HOME=$HOME"
 		Environment="USER=$USER"
 		Environment="LOGNAME=$USER"
-		Environment="PATH=$HOME/.hermes/hermes-agent/venv/bin:$HOME/.hermes/hermes-agent/node_modules/.bin:$HOME/.local/bin:$HOME/.nix-profile/bin:/nix/var/nix/profiles/default/bin:/bin:/usr/bin:/sbin:/usr/sbin:/exe.dev/bin:/usr/local/bin:$HOME/.brv-cli/bin"
+		Environment="PATH=$HOME/.hermes/hermes-agent/venv/bin:$HOME/.hermes/hermes-agent/node_modules/.bin:$HOME/.local/bin:$HOME/.nix-profile/bin:/nix/var/nix/profiles/default/bin:/bin:/usr/bin:/sbin:/usr/sbin:/exe.dev/bin:/usr/local/bin"
 		Environment="VIRTUAL_ENV=$HOME/.hermes/hermes-agent/venv"
 		Environment="HERMES_HOME=$HOME/.hermes"
 		Restart=always
@@ -282,7 +274,7 @@ if [[ "$OS" == "Linux" ]]; then
 		Environment="HOME=$HOME"
 		Environment="USER=$USER"
 		Environment="LOGNAME=$USER"
-		Environment="PATH=$HOME/.hermes/hermes-agent/venv/bin:$HOME/.hermes/hermes-agent/node_modules/.bin:$HOME/.local/bin:$HOME/.nix-profile/bin:/nix/var/nix/profiles/default/bin:/bin:/usr/bin:/sbin:/usr/sbin:/exe.dev/bin:/usr/local/bin:$HOME/.brv-cli/bin"
+		Environment="PATH=$HOME/.hermes/hermes-agent/venv/bin:$HOME/.hermes/hermes-agent/node_modules/.bin:$HOME/.local/bin:$HOME/.nix-profile/bin:/nix/var/nix/profiles/default/bin:/bin:/usr/bin:/sbin:/usr/sbin:/exe.dev/bin:/usr/local/bin"
 		Environment="VIRTUAL_ENV=$HOME/.hermes/hermes-agent/venv"
 		Environment="HERMES_HOME=$HOME/.hermes"
 		Restart=always
@@ -317,7 +309,7 @@ if [[ "$OS" == "Linux" ]]; then
 		Environment="HOME=$HOME"
 		Environment="USER=$USER"
 		Environment="LOGNAME=$USER"
-		Environment="PATH=$HOME/.hermes/hermes-agent/venv/bin:$HOME/.hermes/hermes-agent/node_modules/.bin:$HOME/.local/bin:$HOME/.nix-profile/bin:/nix/var/nix/profiles/default/bin:/bin:/usr/bin:/sbin:/usr/sbin:/exe.dev/bin:/usr/local/bin:$HOME/.brv-cli/bin"
+		Environment="PATH=$HOME/.hermes/hermes-agent/venv/bin:$HOME/.hermes/hermes-agent/node_modules/.bin:$HOME/.local/bin:$HOME/.nix-profile/bin:/nix/var/nix/profiles/default/bin:/bin:/usr/bin:/sbin:/usr/sbin:/exe.dev/bin:/usr/local/bin"
 		Environment="VIRTUAL_ENV=$HOME/.hermes/hermes-agent/venv"
 		Environment="HERMES_HOME=$HOME/.hermes"
 		Environment="REPO_ROOT=$HOME/.hermes/hermes-webui"

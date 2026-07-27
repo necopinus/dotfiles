@@ -61,29 +61,6 @@ in {
   programs.ripgrep.enable = pkgs.stdenv.isDarwin; # Installed at the system level on Linux
   programs.uv.enable = true;
 
-  # Add ByteRover CLI to PATH
-  #
-  #   curl -fsSL https://byterover.dev/install.sh | bash
-  #
-  xdg.configFile."bash/env.d/byterover.sh" = {
-    enable = config.programs.bash.enable;
-    text = ''
-      export PATH="$PATH:$HOME/.brv-cli/bin"
-    '';
-  };
-  xdg.configFile."zsh/env.d/byterover.zsh" = {
-    enable = config.programs.zsh.enable;
-    text = ''
-      export PATH="$PATH:$HOME/.brv-cli/bin"
-    '';
-  };
-  xdg.configFile."fish/env.d/byterover.fish" = {
-    enable = config.programs.fish.enable;
-    text = ''
-      fish_add_path $HOME/.brv-cli/bin
-    '';
-  };
-
   # Convenience aliases
   #
   # NOTE: We DON'T prefix 'npx' here, as we want to make sure to use the

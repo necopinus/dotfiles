@@ -29,6 +29,10 @@ writeShellApplication {
     }
 
     if [[ "$(hostname)" == "kitsune" ]]; then
+      sudo systemctl stop hermes-webui.service
+      sudo systemctl stop hermes-gateway.service
+      sudo systemctl stop hermes-dashboard.service
+
       hermes backup
       crontab -l > "$HOME/exedev.crontab"
       if [[ -d "$HOME/grimoire" ]]; then
@@ -58,17 +62,14 @@ writeShellApplication {
     mkBackupList "$XDG_DATA_HOME/opencode"
     mkBackupList "$XDG_STATE_HOME/opencode"
 
-    mkBackupList "$HOME/.brv"
     mkBackupList "$HOME/exedev.crontab"
     mkBackupList "$HOME/grimoire"
     mkBackupList "$HOME/.hermes"
     mkBackupList "$HOME/inaba"
     mkBackupList "$HOME/journal"
     mkBackupList "$HOME/research"
-    mkBackupList "$XDG_CONFIG_HOME/brv"
     mkBackupList "$XDG_CONFIG_HOME/obsidian-headless"
     mkBackupList "$XDG_DATA_HOME/tirith"
-    mkBackupList "$XDG_STATE_HOME/brv"
     mkBackupList "$XDG_STATE_HOME/hermes"
     mkBackupList "$XDG_STATE_HOME/tirith"
     find "$HOME" -mindepth 1 -maxdepth 1 -type f -name 'hermes-backup-*.zip' >> "$BACKUP_LIST"
@@ -103,5 +104,11 @@ writeShellApplication {
     )
 
     rm -f "$BACKUP_LIST"
+
+    if [[ "$(hostname)" == "kitsune" ]]; then
+      sudo systemctl start hermes-webui.service
+      sudo systemctl start hermes-gateway.service
+      sudo systemctl start hermes-dashboard.service
+    fi
   '';
 }
