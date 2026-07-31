@@ -1,3 +1,4 @@
 [submodule "bundles/opencode/modules/simple-english"]
 	path = bundles/opencode/modules/simple-english
 	url = https://github.com/AminBlg/SimpleEnglish.git
+	branch = main
