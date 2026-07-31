@@ -372,15 +372,15 @@ fi
     cd "$HOME/.config/nix" || exit 1
 
     if [[ "$OS" == "Darwin" ]]; then
-        sudo -H nix run nix-darwin -- switch --flake .#macos
+        sudo -H nix run nix-darwin -- switch --flake .?submodules=1#macos
     elif [[ "$(hostname)" == "kitsune" ]]; then
-        nix run home-manager/master -- switch --flake .#hermes
+        nix run home-manager/master -- switch --flake .?submodules=1#hermes
     elif [[ "$USER" == "droid" ]]; then
-        nix run home-manager/master -- switch --flake .#android
+        nix run home-manager/master -- switch --flake .?submodules=1#android
     elif [[ "$USER" == "exedev" ]]; then
-        nix run home-manager/master -- switch --flake .#exedev
+        nix run home-manager/master -- switch --flake .?submodules=1#exedev
     else
-        nix run home-manager/master -- switch --flake .#linux
+        nix run home-manager/master -- switch --flake .?submodules=1#linux
     fi
 )
 

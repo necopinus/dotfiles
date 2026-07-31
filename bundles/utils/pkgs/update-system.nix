@@ -42,18 +42,18 @@ writeShellApplication {
       git -c user.signingKey="''${GIT_SIGNING_KEY:-$HOME/.ssh/id_ed25519}" commit -m "Automated system update: $(date)" || true
       git push --recurse-submodules=on-demand
       if [[ "$OS" == "Darwin" ]]; then
-        sudo darwin-rebuild switch --flake .#macos
+        sudo darwin-rebuild switch --flake .?submodules=1#macos
       elif [[ "$(hostname)" == "kitsune" ]]; then
-        home-manager switch --flake .#hermes
+        home-manager switch --flake .?submodules=1#hermes
         sudo "$(which non-nixos-gpu-setup)"
       elif [[ "$USER" == "droid" ]]; then
-        home-manager switch --flake .#android
+        home-manager switch --flake .?submodules=1#android
         sudo "$(which non-nixos-gpu-setup)"
       elif [[ "$USER" == "exedev" ]]; then
-        home-manager switch --flake .#exedev
+        home-manager switch --flake .?submodules=1#exedev
         sudo "$(which non-nixos-gpu-setup)"
       else
-        home-manager switch --flake .#linux
+        home-manager switch --flake .?submodules=1#linux
         sudo "$(which non-nixos-gpu-setup)"
       fi
     )
