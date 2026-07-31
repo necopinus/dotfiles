@@ -212,7 +212,7 @@ if [[ "$OS" == "Linux" ]]; then
         (
             cd "$HOME/.hermes/mnemosyne-venv"
             uv pip install "fastembed" "mnemosyne-memory[embeddings]" "mnemosyne-hermes"
-            uv run mnemosyne-hermes install --force --mode wrapper --python "$HOME/.hermes/mnemosyne-venv/bin/python" --hermes-home "$HOME/.hermes"
+            uv run mnemosyne-hermes --hermes-home "$HOME/.hermes" install --force --mode wrapper --python "$HOME/.hermes/mnemosyne-venv/bin/python"
         )
 
         # Install Hermes WebUI
