@@ -34,12 +34,13 @@ writeShellApplication {
       cd "$XDG_CONFIG_HOME"/nix
       mkdir -p "$XDG_CACHE_HOME"/nix/flakes
       cp flake.lock "$XDG_CACHE_HOME/nix/flakes/flake.$(date "+%Y%m%d%H%M%S").lock"
-      git pull
+      git pull --recurse-submodules
       nix flake update
       nix flake archive
+      git submodule foreach git pull --recurse-submodules
       git add -A -v
       git -c user.signingKey="''${GIT_SIGNING_KEY:-$HOME/.ssh/id_ed25519}" commit -m "Automated system update: $(date)" || true
-      git push
+      git push --recurse-submodules=on-demand
       if [[ "$OS" == "Darwin" ]]; then
         sudo darwin-rebuild switch --flake .#macos
       elif [[ "$(hostname)" == "kitsune" ]]; then

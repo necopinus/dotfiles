@@ -63,7 +63,7 @@ in {
 
       If you need an additional linter, you should ask the user to install one. Never disable linter checks without first receiving approval from the user. **The project is not complete until all warnings and errors have been resolved.**
 
-      ## Code Intelligence
+      ### Code Intelligence
 
       Prefer LSP over Grep/Glob/Read for code navigation:
 
@@ -80,7 +80,7 @@ in {
 
       After writing or editing code, check LSP diagnostics before moving on. Fix any type errors or missing imports immediately.
 
-      ## Committing Code
+      ### Committing Code
 
       Git commit signing is required, but the location of the signing key is context dependent.
 
@@ -89,7 +89,13 @@ in {
       - If the GIT_SIGNING_KEY environment variable is not set and the id_ed25519 SSH key does not exist, then no signing key is available and you will need to ask the user for assistance when committing code.
 
       Note that because SSH signing is used, it is not possible to verify the commit signature locally.
+
+      ## Communication Guidance
+
+      IMPORTANT: Load the `simple-english` skill NOW for important communication guidelines.
     '';
+
+    skills.simple-english = ./modules/simple-english/skills/simple-english;
 
     agents.code-review = ''
       ---
