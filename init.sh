@@ -222,6 +222,10 @@ if [[ "$OS" == "Linux" ]]; then
         fi
         git clone https://github.com/nesquena/hermes-webui.git "$HOME/.hermes/hermes-webui"
 
+        # Install `xurl` searxh tool
+        #
+        curl -fsSL https://raw.githubusercontent.com/xdevplatform/xurl/main/install.sh | bash
+
         # Create systemd service files
         #
         sudo tee /etc/systemd/system/hermes-dashboard.service <<-EOF

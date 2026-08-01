@@ -69,6 +69,7 @@ writeShellApplication {
     mkBackupList "$HOME/journal"
     mkBackupList "$HOME/research"
     mkBackupList "$HOME/workspace"
+    mkBackupList "$HOME/.xurl"
     mkBackupList "$XDG_CONFIG_HOME/obsidian-headless"
     mkBackupList "$XDG_DATA_HOME/tirith"
     mkBackupList "$XDG_STATE_HOME/hermes"

@@ -106,6 +106,8 @@ writeShellApplication {
         )
       fi
 
+      curl -fsSL https://raw.githubusercontent.com/xdevplatform/xurl/main/install.sh | bash
+
       if [[ -d "$XDG_CONFIG_HOME"/bash/rc.d ]]; then
         hermes completion bash > "$XDG_CONFIG_HOME"/bash/rc.d/hermes-completion.sh
       fi
