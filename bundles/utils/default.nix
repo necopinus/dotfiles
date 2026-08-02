@@ -33,6 +33,7 @@ in {
       findutils # macOS find is missing some useful flags
       gawk
       xz
+      yubikey-manager
 
       #### Convenience wrappers (see above) ####
       localPkgs.vault-sync

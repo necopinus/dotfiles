@@ -51,12 +51,11 @@
         name = "obsidian";
         greedy = true; # App core doesn't actually get auto-updated
       }
-      "protonvpn"
       "scroll-reverser"
+      "tailscale-app"
       "termius"
       "utm"
       "vlc"
-      "yubico-yubikey-manager"
     ];
   };
 

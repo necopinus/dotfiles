@@ -144,6 +144,7 @@ if [[ "$OS" == "Linux" ]]; then
         xfonts-scalable \
         xvfb \
         xz-utils \
+        yubikey-manager \
         zip
 
     sudo apt autoremove -y --purge --autoremove
