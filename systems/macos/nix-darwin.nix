@@ -120,7 +120,6 @@
         {app = "/Applications/Brave Browser.app";}
         {app = "/Users/${config.system.primaryUser}/Applications/FolderSync Desktop.app";}
         {app = "/Applications/KeePassXC.app";}
-        {app = "/System/Applications/Music.app";}
         {app = "/Applications/Obsidian.app";}
         {app = "/System/Applications/System Settings.app";}
         {app = "/Applications/Termius.app";}
