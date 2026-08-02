@@ -18,6 +18,7 @@ in {
 
       #### Installed at the system level on Linux ####
       ffmpeg
+      flac
       imagemagick
       libjpeg
       optipng

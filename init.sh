@@ -84,6 +84,7 @@ if [[ "$OS" == "Linux" ]]; then
         fastboot \
         ffmpeg \
         findutils \
+        flac \
         fonts-freefont-ttf \
         fonts-ipafont-gothic \
         fonts-liberation \
