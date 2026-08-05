@@ -35,8 +35,10 @@ in {
     tirith
 
     #### Tools ####
+    pandoc
     python3Packages.jsonschema
     python3Packages.weasyprint
+    texliveFullWithDocs
 
     #### LSP servers & dependencies ####
     bash-language-server
