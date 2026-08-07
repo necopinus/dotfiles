@@ -51,6 +51,7 @@ writeShellApplication {
     mkBackupList "$HOME/.ssh"
     mkBackupList "$HOME/.gnupg"
     mkBackupList "$HOME/.android"
+    mkBackupList "$XDG_CONFIG_HOME/git"
     mkBackupList "$XDG_CONFIG_HOME/shodan/api_key"
 
     mkBackupList "$HOME/.cddb"

@@ -84,11 +84,15 @@ in {
 
       Git commit signing is required, but the location of the signing key is context dependent.
 
-      - If the GIT_SIGNING_KEY environment variable is set, then use `git -c user.signingKey="key::$GIT_SIGNING_KEY"`.
-      - If the GIT_SIGNING_KEY environment variable is not set but the id_ed25519 SSH key exists, then use `git -c user.signingKey="${config.home.homeDirectory}/.ssh/id_ed25519"`.
+      - If the GIT_SIGNING_KEY environment variable is set, then use `git -c user.name="Nathan Acks" -c user.email="nathan.acks@cardboard-iguana.com" -c user.signingKey="key::$GIT_SIGNING_KEY"`.
+      - If the GIT_SIGNING_KEY environment variable is not set but the id_ed25519 SSH key exists, then use `git -c user.name="Nathan Acks" -c user.email="nathan.acks@cardboard-iguana.com" -c user.signingKey="${config.home.homeDirectory}/.ssh/id_ed25519"`.
       - If the GIT_SIGNING_KEY environment variable is not set and the id_ed25519 SSH key does not exist, then no signing key is available and you will need to ask the user for assistance when committing code.
 
-      Note that because SSH signing is used, it is not possible to verify the commit signature locally.
+      When making a commit, always add `Co-authored-by: OpenCode ($CURRENT_MODEL_IDENTIFIER) <noreply@opencode.ai>` as the *last* paragraph of the commit message. For example, if the GIT_SIGNING_KEY environment variable is not set, the id_ed25519 SSH key exists, the in-use model is MiniMax M3, and the desired commit message is "Added more cowbell", then the final commit command would look as follows:
+
+      ```bash
+      git -c user.name="Nathan Acks" -c user.email="nathan.acks@cardboard-iguana.com" -c user.signingKey="${config.home.homeDirectory}/.ssh/id_ed25519" commit -m "Added more cowbell" -m "Co-authored-by: OpenCode (minimax-m3) <noreply@opencode.ai>"
+      ```
 
       ## Communication Guidance
 

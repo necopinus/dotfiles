@@ -10,15 +10,14 @@
     lfs.enable = true;
 
     settings = {
-      user = {
-        name = "Nathan Acks";
-        email = "nathan.acks@cardboard-iguana.com";
-      };
       merge = {
         conflictStyle = "zdiff3";
       };
       pull = {
         rebase = false;
+      };
+      "gpg \"ssh\"" = {
+        allowedSignersFile = "${config.xdg.configHome}/git/allowed_signers";
       };
       "lfs \"customtransfer.xet\"" = {
         path = "${pkgs.git-xet}/bin/git-xet";
@@ -45,11 +44,11 @@
         GIT_EXEC="$(which git)"
 
         if [[ -n "$GIT_SIGNING_KEY" ]]; then
-          $GIT_EXEC -c user.signingKey="key::$GIT_SIGNING_KEY" "$@"
+          $GIT_EXEC -c user.name="Nathan Acks" -c user.email="nathan.acks@cardboard-iguana.com" -c user.signingKey="key::$GIT_SIGNING_KEY" "$@"
         elif [[ -f "${config.home.homeDirectory}/.ssh/id_ed25519" ]]; then
-          $GIT_EXEC -c user.signingKey="${config.home.homeDirectory}/.ssh/id_ed25519" "$@"
+          $GIT_EXEC -c user.name="Nathan Acks" -c user.email="nathan.acks@cardboard-iguana.com" -c user.signingKey="${config.home.homeDirectory}/.ssh/id_ed25519" "$@"
         else
-          $GIT_EXEC "$@"
+          $GIT_EXEC -c user.name="Nathan Acks" -c user.email="nathan.acks@cardboard-iguana.com" "$@"
         fi
       }
     '';
@@ -61,11 +60,11 @@
         GIT_EXEC="$(whence -p git)"
 
         if [[ -n "$GIT_SIGNING_KEY" ]]; then
-          $GIT_EXEC -c user.signingKey="key::$GIT_SIGNING_KEY" "$@"
+          $GIT_EXEC -c user.name="Nathan Acks" -c user.email="nathan.acks@cardboard-iguana.com" -c user.signingKey="key::$GIT_SIGNING_KEY" "$@"
         elif [[ -f "${config.home.homeDirectory}/.ssh/id_ed25519" ]]; then
-          $GIT_EXEC -c user.signingKey="${config.home.homeDirectory}/.ssh/id_ed25519" "$@"
+          $GIT_EXEC -c user.name="Nathan Acks" -c user.email="nathan.acks@cardboard-iguana.com" -c user.signingKey="${config.home.homeDirectory}/.ssh/id_ed25519" "$@"
         else
-          $GIT_EXEC "$@"
+          $GIT_EXEC -c user.name="Nathan Acks" -c user.email="nathan.acks@cardboard-iguana.com" "$@"
         fi
       }
     '';
@@ -77,11 +76,11 @@
         set GIT_EXEC $(which git)
 
         if test -n "$GIT_SIGNING_KEY"
-          $GIT_EXEC -c user.signingKey="key::$GIT_SIGNING_KEY" $argv
+          $GIT_EXEC -c user.name="Nathan Acks" -c user.email="nathan.acks@cardboard-iguana.com" -c user.signingKey="key::$GIT_SIGNING_KEY" $argv
         else if test -f "${config.home.homeDirectory}/.ssh/id_ed25519"
-          $GIT_EXEC -c user.signingKey="${config.home.homeDirectory}/.ssh/id_ed25519" $argv
+          $GIT_EXEC -c user.name="Nathan Acks" -c user.email="nathan.acks@cardboard-iguana.com" -c user.signingKey="${config.home.homeDirectory}/.ssh/id_ed25519" $argv
         else
-          $GIT_EXEC $argv
+          $GIT_EXEC -c user.name="Nathan Acks" -c user.email="nathan.acks@cardboard-iguana.com" $argv
         end
       end
     '';

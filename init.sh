@@ -9,9 +9,10 @@ if [[ ! -f "$HOME/.config/nix/flake.nix" ]]; then
     exit
 fi
 
-# Set OS type
+# Set OS type and HOST_NAME
 #
 OS="$(uname -s)"
+HOST_NAME="$(hostname)"
 
 # Make sure our user has unrestricted sudo access on Linux
 #
@@ -189,7 +190,7 @@ if [[ "$OS" == "Linux" ]]; then
       sudo sed -i "s/-t disableLeaveAlert=true/-t disableLeaveAlert=true -t fontFamily=monospace -t fontSize=14 -t 'theme={\"foreground\":\"#3c3836\",\"background\":\"#fbf1c7\",\"cursor\":\"#928374\",\"cursorAccent\":\"#282828\",\"selectionBackground\":\"#d5c4a1\",\"selectionForeground\":\"#282828\",\"black\":\"#fbf1c7\",\"red\":\"#cc241d\",\"green\":\"#98971a\",\"yellow\":\"#d79921\",\"blue\":\"#458588\",\"magenta\":\"#b16286\",\"cyan\":\"#689d6a\",\"white\":\"#7c6f64\",\"brightBlack\":\"#928374\",\"brightRed\":\"#9d0006\",\"brightGreen\":\"#79740e\",\"brightYellow\":\"#b57614\",\"brightBlue\":\"#076678\",\"brightMagenta\":\"#8f3f71\",\"brightCyan\":\"#427b58\",\"brightWhite\":\"#3c3836\"}'/" /etc/systemd/system/ttyd_uds.service
     fi
 
-    if [[ "$(hostname)" == "kitsune" ]]; then
+    if [[ "$HOST_NAME" == "kitsune" ]]; then
         # Disable user namespace AppArmor enforcement if we're (1) on
         # Ubuntu and (2) installing Hermes, as it prevents SUID binaries
         # (i.e., the Chromium sandbox) from running in the Nix store
@@ -379,7 +380,7 @@ fi
 
     if [[ "$OS" == "Darwin" ]]; then
         sudo -H nix run nix-darwin -- switch --flake .?submodules=1#macos
-    elif [[ "$(hostname)" == "kitsune" ]]; then
+    elif [[ "$HOST_NAME" == "kitsune" ]]; then
         nix run home-manager/master -- switch --flake .?submodules=1#hermes
     elif [[ "$USER" == "droid" ]]; then
         nix run home-manager/master -- switch --flake .?submodules=1#android
@@ -436,13 +437,17 @@ fi
 # Make sure that SSH is set up on macOS and Android (agent forwarding is
 # used for Linux VMs and exe.dev)
 #
-if [[ "$OS" == "Darwin" ]] || [[ "$USER" == "droid" ]]; then
+if [[ "$OS" == "Darwin" ]] || [[ "$USER" == "droid" ]] || [[ "$HOST_NAME" == "kitsune" ]]; then
     chmod 700 "$HOME/.ssh"
     find "$HOME/.ssh" -type d -exec chmod 700 "{}" \;
     find "$HOME/.ssh" -type f -exec chmod 600 "{}" \;
 
     if [[ $(find "$HOME/.ssh" -mindepth 1 -maxdepth 1 -type f -iname "id_ed25519" 2>/dev/null | wc -l) -eq 0 ]]; then
-        ssh-keygen -C "Nathan Acks <nathan.acks@cardboard-iguana.com> ($(date)) [$USER@$(hostname)]" -f "$HOME"/.ssh/id_ed25519 -t ed25519
+        if [[ "$HOST_NAME" == "kitsune" ]]; then
+            ssh-keygen -C "Inaba <inaba@cardboard-iguana.com> ($(date)) [$USER@$HOST_NAME]" -f "$HOME"/.ssh/id_ed25519 -t ed25519
+        else
+            ssh-keygen -C "Nathan Acks <nathan.acks@cardboard-iguana.com> ($(date)) [$USER@$HOST_NAME]" -f "$HOME"/.ssh/id_ed25519 -t ed25519
+        fi
         echo ""
         echo "-------------------"
         echo "New SSH key created"
