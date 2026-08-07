@@ -10,6 +10,10 @@
     lfs.enable = true;
 
     settings = {
+      credential = {
+        helper = "store";
+        usHttpPath = true;
+      };
       merge = {
         conflictStyle = "zdiff3";
       };
