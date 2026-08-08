@@ -473,9 +473,9 @@ if [[ "$OS" == "Darwin" ]] || [[ "$USER" == "droid" ]]; then
     fi
 
     (
-        if [[ "$(uname -s)" == "Darwin" ]] && [[ -d "$HOME/Projects" ]]; then
+        if [[ "$OS" == "Darwin" ]] && [[ -d "$HOME/Projects" ]]; then
             cd "$HOME/Projects" || exit 1
-        elif [[ "$(uname -s)" == "Linux" ]] && [[ -d "$HOME/src" ]]; then
+        elif [[ "$USER" == "droid" ]] && [[ -d "$HOME/src" ]]; then
             cd "$HOME/src" || exit 1
         else
             exit 1
@@ -504,15 +504,6 @@ if [[ "$OS" == "Darwin" ]] || [[ "$USER" == "droid" ]]; then
             fi
         done
 
-        if [[ ! -d hacker-hotel ]]; then
-            git clone --recurse-submodules \
-                git@github.com:cardboard-iguana/hacker-hotel.git
-        fi
-        if [[ ! -d smart-contracts-hacking ]]; then
-            git clone --recurse-submodules \
-                git@github.com:cardboard-iguana/smart-contracts-hacking.git
-        fi
-
         if [[ ! -d quartz ]]; then
             git clone --recurse-submodules \
                 https://github.com/jackyzha0/quartz.git
@@ -520,6 +511,16 @@ if [[ "$OS" == "Darwin" ]] || [[ "$USER" == "droid" ]]; then
         if [[ ! -d twitter-archive-parser ]]; then
             git clone --recurse-submodules \
                 https://github.com/timhutton/twitter-archive-parser.git
+        fi
+
+        if [[ "$OS" == "Darwin" ]]; then
+            mkdir -p "$HOME/Documents/Obsidian"
+            for VAULT_REPO in $(find . -mindepth 1 -maxdepth 1 -type d -iname 'obsidian-*'); do
+                VAULT_NAME="$(basename "$VAULT_REPO" | sed "s/^obsidian-//")"
+                echo cp -af "$VAULT_REPO" "$HOME/Documents/Obsidian/$VAULT_NAME"
+             done            
+        elif [[ "$USER" == "droid" ]]; then
+            rm -rf obsidian-* || true
         fi
     )
 fi
