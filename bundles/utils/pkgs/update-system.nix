@@ -39,7 +39,9 @@ writeShellApplication {
       nix flake archive
       git submodule foreach git pull --recurse-submodules
       git add -A -v
-      git -c user.signingKey="''${GIT_SIGNING_KEY:-$HOME/.ssh/id_ed25519}" commit -m "Automated system update: $(date)" || true
+      git -c user.name="Nathan Acks" \
+          -c user.email="nathan.acks@cardboard-iguana.com" \
+          -c user.signingKey="''${GIT_SIGNING_KEY:-$HOME/.ssh/id_ed25519}" commit -m "Automated system update: $(date)" || true
       git push --recurse-submodules=on-demand
       if [[ "$OS" == "Darwin" ]]; then
         sudo darwin-rebuild switch --flake .?submodules=1#macos
@@ -95,7 +97,7 @@ writeShellApplication {
       (
         cd "$HOME/.hermes/hermes-webui"
         rm -rf .venv
-        git pull
+        git pull --recurse-submodules
       )
 
       if [[ $(find "$HOME/.hermes" -type f -mtime +60 -name "kitsune.tailf702ce.ts.net.*" | wc -l) -gt 0 ]]; then
