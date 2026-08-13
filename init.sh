@@ -414,6 +414,13 @@ nix store optimise -v
 # Install Hermes completions, if applicable
 #
 if [[ -n "$(which hermes 2> /dev/null)" ]]; then
+    if [[ -d "$HOME"/.hermes/skills/officecli ]]; then
+        rm -rf "$HOME"/.hermes/skills/officecli
+    fi
+    officecli skill install
+    if [[ -d "$HOME"/.claude/skills/officecli ]]; then
+        rm -rf "$HOME"/.claude/skills/officecli
+    fi
     if [[ -d "$XDG_CONFIG_HOME"/bash ]]; then
         if [[ ! -d "$XDG_CONFIG_HOME"/bash/rc.d ]]; then
             mkdir -p "$XDG_CONFIG_HOME"/bash/rc.d
