@@ -67,7 +67,7 @@
     #   https://github.com/brave/brave-browser/issues/5074
     #
     "Library/Application Support/Google/Chrome/NativeMessagingHosts/org.keepassxc.keepassxc_browser.json" = {
-      enable = pkgs.stdenv.hostPLatform.isDarwin;
+      enable = pkgs.stdenv.hostPlatform.isDarwin;
       text = ''
         {
           "allowed_origins": [
