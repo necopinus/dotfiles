@@ -27,7 +27,7 @@ in {
       localPkgs.vi
       localPkgs.vim
     ]
-    ++ lib.optionals pkgs.stdenv.isDarwin [
+    ++ lib.optionals pkgs.stdenv.hostPLatform.isDarwin [
       #### Essential utilities ####
       coreutils-full # macOS coreutils is missing some utilities; use the *-full variant to get man pages
       findutils # macOS find is missing some useful flags

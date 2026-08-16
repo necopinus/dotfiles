@@ -2,7 +2,7 @@
   programs.bash = {
     enable = true;
     package =
-      if pkgs.stdenv.isDarwin
+      if pkgs.stdenv.hostPlatform.isDarwin
       then pkgs.bashInteractive # Bash on macOS is too old
       else null;
 

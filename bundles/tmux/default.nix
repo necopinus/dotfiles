@@ -7,7 +7,7 @@
   programs.tmux = {
     enable = true;
     package =
-      if pkgs.stdenv.isDarwin
+      if pkgs.stdenv.hostPlatform.isDarwin
       then pkgs.tmux
       else null;
 
@@ -140,7 +140,7 @@
         bind-key -T root M-0       select-window -t :=0
         bind-key -T root M-/       run-shell -b ${pkgs.tmuxPlugins.fuzzback}/share/tmux-plugins/fuzzback/scripts/fuzzback.sh
       ''
-      + lib.optionalString pkgs.stdenv.isDarwin ''
+      + lib.optionalString pkgs.stdenv.hostPlatform.isDarwin ''
 
         # tmuxPackages.sensible sets default-command using the SHELL
         # environment variable, but this happens when the command is
@@ -380,7 +380,7 @@
     '';
   };
   xdg.configFile."zsh/rc.d/zz_tmux.zsh" = {
-    enable = config.programs.zsh.enable && pkgs.stdenv.isDarwin;
+    enable = config.programs.zsh.enable && pkgs.stdenv.hostPlatform.isDarwin;
     text = ''
       if [[ -o interactive ]] && [[ -z "$TMUX" ]] && [[ ! -f "$HOME/notmux" ]] && [[ ! -f "$HOME/notmux.txt" ]] && [[ ! -f /mnt/shared/Documents/notmux ]] && [[ ! -f /mnt/shared/Documents/notmux.txt ]]; then
         TMUX_SESSION="$(tmux list-sessions -F '#{session_name}' -f '#{?session_attached,0,1}' | head -n1)"

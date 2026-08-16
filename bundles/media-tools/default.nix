@@ -10,10 +10,10 @@
     else pkgs.nodejs;
 in {
   home.packages = with pkgs;
-    lib.optionals pkgs.stdenv.isLinux [
+    lib.optionals pkgs.stdenv.hostPlatform.isLinux [
       libgourou # Broken on macOS as of 2026-06-09
     ]
-    ++ lib.optionals pkgs.stdenv.isDarwin [
+    ++ lib.optionals pkgs.stdenv.hostPlatform.isDarwin [
       xld # No longer available through Homebrew as of 2026-09-01
 
       #### Installed at the system level on Linux ####

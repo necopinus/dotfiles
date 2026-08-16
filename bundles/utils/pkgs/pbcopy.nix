@@ -6,7 +6,7 @@ writeShellApplication {
   name = "pbcopy";
 
   text =
-    if stdenv.isDarwin
+    if stdenv.hostPlatform.isDarwin
     then ''
       exec /usr/bin/pbcopy "$@"
     ''

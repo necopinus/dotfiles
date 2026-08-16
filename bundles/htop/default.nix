@@ -16,7 +16,7 @@ in {
         highlight_base_name = 1;
       }
       // (
-        if pkgs.stdenv.isDarwin
+        if pkgs.stdenv.hostPlatform.isDarwin
         then
           (with config.lib.htop;
             leftMeters [

@@ -60,7 +60,7 @@ in {
   ];
 
   programs.npm.enable = true; # Just use Nix to avoid NodeJs package conflicts
-  programs.ripgrep.enable = pkgs.stdenv.isDarwin; # Installed at the system level on Linux
+  programs.ripgrep.enable = pkgs.stdenv.hostPlatform.isDarwin; # Installed at the system level on Linux
   programs.uv.enable = true;
 
   # Convenience aliases

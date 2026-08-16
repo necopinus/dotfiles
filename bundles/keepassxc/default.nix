@@ -6,11 +6,11 @@
   programs.keepassxc = {
     enable = true;
     package =
-      if pkgs.stdenv.isDarwin
+      if pkgs.stdenv.hostPlatform.isDarwin
       then null
       else pkgs.keepassxc;
 
-    autostart = pkgs.stdenv.isLinux;
+    autostart = pkgs.stdenv.hostPlatform.isLinux;
 
     settings = {
       General = {
@@ -42,7 +42,7 @@
   };
 
   launchd.agents."org.keepassxc.KeePassXC" = {
-    enable = pkgs.stdenv.isDarwin;
+    enable = pkgs.stdenv.hostPlatform.isDarwin;
     config = {
       AssociatedBundleIdentifiers = "org.keepassxc.KeePassXC";
       Label = "org.keepassxc.KeePassXC";
@@ -57,7 +57,7 @@
 
   home.file = {
     "Library/Application Support/KeePassXC/keepassxc.ini" = {
-      enable = pkgs.stdenv.isDarwin;
+      enable = pkgs.stdenv.hostPlatform.isDarwin;
       source = config.xdg.configFile."keepassxc/keepassxc.ini".source;
     };
 
@@ -67,7 +67,7 @@
     #   https://github.com/brave/brave-browser/issues/5074
     #
     "Library/Application Support/Google/Chrome/NativeMessagingHosts/org.keepassxc.keepassxc_browser.json" = {
-      enable = pkgs.stdenv.isDarwin;
+      enable = pkgs.stdenv.hostPLatform.isDarwin;
       text = ''
         {
           "allowed_origins": [
