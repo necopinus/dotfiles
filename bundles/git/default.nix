@@ -21,7 +21,7 @@
         rebase = false;
       };
       "gpg \"ssh\"" = {
-        allowedSignersFile = "${config.xdg.configHome}/git/allowed_signers";
+        allowedSignersFile = ".allowed_signers";
       };
       "lfs \"customtransfer.xet\"" = {
         path = "${pkgs.git-xet}/bin/git-xet";
