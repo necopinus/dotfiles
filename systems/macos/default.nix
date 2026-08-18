@@ -13,6 +13,7 @@
     dos2unix
     libqalculate
     plistwatch
+    texliveFullWithDocs
   ];
 
   # Explicitly prevent man cache generation on macOS, as this doesn't

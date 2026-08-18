@@ -89,7 +89,12 @@ if [[ "$OS" == "Linux" ]]; then
         fonts-freefont-ttf \
         fonts-ipafont-gothic \
         fonts-liberation \
+        fonts-linuxlibertine \
+        fonts-noto \
+        fonts-noto-cjk \
+        fonts-noto-cjk-extra \
         fonts-noto-color-emoji \
+        fonts-noto-extra \
         fonts-tlwg-loma-otf \
         fonts-unifont \
         fonts-wqy-zenhei \
@@ -139,6 +144,7 @@ if [[ "$OS" == "Linux" ]]; then
         rsync \
         sed \
         tar \
+        texlive \
         tmux \
         unzip \
         uuid-runtime \
