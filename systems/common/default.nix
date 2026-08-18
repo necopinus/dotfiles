@@ -26,7 +26,6 @@
 
   home.packages = with pkgs; [
     msgpack-tools
-    pnpm
   ];
 
   # Prefer to use ~/.cache, ~/.config, and ~/.local

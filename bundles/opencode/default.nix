@@ -13,7 +13,6 @@ in {
     extraPackages = with pkgs; [
       #### Helper tools ####
       nodejs
-      pnpm
 
       #### Linters ####
       rslint
