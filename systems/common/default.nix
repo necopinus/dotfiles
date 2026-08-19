@@ -25,6 +25,7 @@
   programs.uv.enable = true;
 
   home.packages = with pkgs; [
+    go
     msgpack-tools
   ];
 
