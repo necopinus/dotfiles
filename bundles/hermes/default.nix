@@ -1,11 +1,8 @@
 {
   pkgs,
   config,
-  llm-agents,
   ...
 }: let
-  llmAgents = llm-agents.packages.${pkgs.stdenv.hostPlatform.system}; # llm-agents defined in flake.nix
-
   localPkgs = {
     inaba = pkgs.callPackage ./pkgs/inaba.nix {};
     pyright = pkgs.callPackage ./pkgs/pyright.nix {};
@@ -19,18 +16,12 @@ in {
     ./fixes/pandas-stubs-20260729.nix
   ];
 
-  # IMPORTANT: We do NOT install llmAgents.hermes-agent, as it's just
-  # missing too many bits. Instead, we install using the official "curl
-  # a script from some random website into bash" method.
-  #
-  #   curl -fsSL https://hermes-agent.nousresearch.com/install.sh | bash
-  #
   home.packages = with pkgs; [
     #### Convenience wrapper ####
     localPkgs.inaba
 
     #### Additional deps ####
-    llmAgents.agent-browser
+    agent-browser
     playwright-test
     tirith
 
