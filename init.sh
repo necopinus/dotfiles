@@ -253,16 +253,17 @@ if [[ "$OS" == "Linux" ]]; then
 		Environment="HOME=$HOME"
 		Environment="USER=$USER"
 		Environment="LOGNAME=$USER"
-		Environment="PATH=$HOME/.hermes/hermes-agent/venv/bin:$HOME/.hermes/hermes-agent/node_modules/.bin:$HOME/.local/bin:$HOME/.nix-profile/bin:/nix/var/nix/profiles/default/bin:/bin:/usr/bin:/sbin:/usr/sbin:/exe.dev/bin:/usr/local/bin"
+		Environment="PATH=$HOME/.hermes/hermes-agent/venv/bin:$HOME/.hermes/hermes-agent/node_modules/.bin:$HOME/.hermes/node/bin:$HOME/.local/bin:$HOME/.nix-profile/bin:/nix/var/nix/profiles/default/bin:/bin:/usr/bin:/sbin:/usr/sbin:/exe.dev/bin:/usr/local/bin"
 		Environment="VIRTUAL_ENV=$HOME/.hermes/hermes-agent/venv"
 		Environment="HERMES_HOME=$HOME/.hermes"
 		Restart=always
 		RestartSec=5
 		RestartForceExitStatus=75
+		RestartPreventExitStatus=78
 		KillMode=mixed
 		KillSignal=SIGTERM
 		ExecReload=/bin/kill -USR1 \$MAINPID
-		TimeoutStopSec=90
+		TimeoutStopSec=60
 		StandardOutput=journal
 		StandardError=journal
 		
@@ -287,17 +288,18 @@ if [[ "$OS" == "Linux" ]]; then
 		Environment="HOME=$HOME"
 		Environment="USER=$USER"
 		Environment="LOGNAME=$USER"
-		Environment="PATH=$HOME/.hermes/hermes-agent/venv/bin:$HOME/.hermes/hermes-agent/node_modules/.bin:$HOME/.local/bin:$HOME/.nix-profile/bin:/nix/var/nix/profiles/default/bin:/bin:/usr/bin:/sbin:/usr/sbin:/exe.dev/bin:/usr/local/bin"
+		Environment="PATH=$HOME/.hermes/hermes-agent/venv/bin:$HOME/.hermes/hermes-agent/node_modules/.bin:$HOME/.heres/node/bin:$HOME/.local/bin:$HOME/.nix-profile/bin:/nix/var/nix/profiles/default/bin:/bin:/usr/bin:/sbin:/usr/sbin:/exe.dev/bin:/usr/local/bin"
 		Environment="VIRTUAL_ENV=$HOME/.hermes/hermes-agent/venv"
 		Environment="HERMES_HOME=$HOME/.hermes"
 		Restart=always
 		RestartSec=5
 		RestartForceExitStatus=75
+		RestartPreventExitStatus=78
 		KillMode=mixed
 		KillSignal=SIGTERM
 		ExecReload=/bin/kill -USR1 \$MAINPID
 		ExecStopPost=-$HOME/.hermes/hermes-agent/venv/bin/python -m gateway.cgroup_cleanup
-		TimeoutStopSec=90
+		TimeoutStopSec=60
 		StandardOutput=journal
 		StandardError=journal
 		
@@ -322,17 +324,18 @@ if [[ "$OS" == "Linux" ]]; then
 		Environment="HOME=$HOME"
 		Environment="USER=$USER"
 		Environment="LOGNAME=$USER"
-		Environment="PATH=$HOME/.hermes/hermes-agent/venv/bin:$HOME/.hermes/hermes-agent/node_modules/.bin:$HOME/.local/bin:$HOME/.nix-profile/bin:/nix/var/nix/profiles/default/bin:/bin:/usr/bin:/sbin:/usr/sbin:/exe.dev/bin:/usr/local/bin"
+		Environment="PATH=$HOME/.hermes/hermes-agent/venv/bin:$HOME/.hermes/hermes-agent/node_modules/.bin:$HOME/.hermes/node/bin:$HOME/.local/bin:$HOME/.nix-profile/bin:/nix/var/nix/profiles/default/bin:/bin:/usr/bin:/sbin:/usr/sbin:/exe.dev/bin:/usr/local/bin"
 		Environment="VIRTUAL_ENV=$HOME/.hermes/hermes-agent/venv"
 		Environment="HERMES_HOME=$HOME/.hermes"
 		Environment="REPO_ROOT=$HOME/.hermes/hermes-webui"
 		Restart=always
 		RestartSec=5
 		RestartForceExitStatus=75
+		RestartPreventExitStatus=78
 		KillMode=mixed
 		KillSignal=SIGTERM
 		ExecReload=/bin/kill -USR1 \$MAINPID
-		TimeoutStopSec=90
+		TimeoutStopSec=60
 		StandardOutput=journal
 		StandardError=journal
 		
