@@ -63,7 +63,7 @@ writeShellApplication {
     # Garbage collection
     #
     nix-collect-garbage -d
-    sudo find /nix/var/nix/gcroots -xtype l -exec rm -v "{}" \;
+    sudo find /nix/var/nix/gcroots -xtype l -exec rm -v {} +;
     nix store gc -v
     nix store optimise -v
     echo ""

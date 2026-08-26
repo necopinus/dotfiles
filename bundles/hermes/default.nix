@@ -53,6 +53,18 @@ in {
   programs.ripgrep.enable = pkgs.stdenv.hostPlatform.isDarwin; # Installed at the system level on Linux
   programs.uv.enable = true;
 
+  # Hermes makes on-demand commits to a small set of repos using a
+  # tightly-scoped access token stored in the credential store. Every
+  # other system uses SSH keys exclusively, so the helper config lives
+  # here rather than in bundles/git (which is shared by all systems).
+  #
+  programs.git.settings = {
+    credential = {
+      helper = "store";
+      usHttpPath = true;
+    };
+  };
+
   # Convenience aliases
   #
   # NOTE: We DON'T prefix 'npx' here, as we want to make sure to use the

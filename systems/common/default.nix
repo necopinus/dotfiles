@@ -1,6 +1,5 @@
 {
   config,
-  pkgs,
   lib,
   ...
 }: {
@@ -23,11 +22,6 @@
   programs.dircolors.enable = true;
   programs.npm.enable = true; # Just use Nix to avoid NodeJs package conflicts
   programs.uv.enable = true;
-
-  home.packages = with pkgs; [
-    go
-    msgpack-tools
-  ];
 
   # Prefer to use ~/.cache, ~/.config, and ~/.local
   #

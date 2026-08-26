@@ -1,0 +1,10 @@
+# Linguist hints so GitHub correctly attributes file types when
+# computing language stats. Affects repo language bars and `.git-blame-ignore-revs`
+# tooling.
+
+*.nix linguist-language=Nix
+*.py linguist-language=Python
+*.sh linguist-language=Shell
+*.fish linguist-language=Shell
+*.zsh linguist-language=Shell
+*.toml linguist-language=TOML

@@ -13,7 +13,10 @@
     dos2unix
     libqalculate
     plistwatch
-    texliveFullWithDocs
+
+    # Closest nixpkgs equivalent to the Debian `texlive` meta-package:
+    # the medium TeX Live scheme (a reasonable collection, but not full).
+    texlive.scheme-medium
   ];
 
   # Explicitly prevent man cache generation on macOS, as this doesn't
@@ -27,15 +30,5 @@
     enable = true;
     setSessionVariables = true;
     videos = "${config.home.homeDirectory}/Movies";
-  };
-
-  # UTM SSH convenience setup
-  #
-  programs.ssh.settings."linux" = {
-    User = "${config.home.username}";
-    Hostname = "127.0.0.1";
-    Port = 2222;
-    RequestTTY = "yes";
-    RemoteCommand = "/home/necopinus/.nix-profile/bin/zellij attach -c";
   };
 }

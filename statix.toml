@@ -1,0 +1,21 @@
+# statix lint configuration. See https://github.com/oppiliappan/statix
+#
+# Disable lints that produce false positives on idiomatic Nix patterns:
+#
+# - `repeated_keys`: flags `xdg.configFile.<shell>/rc.d/<tool>.<ext>`
+#   defined separately for bash, zsh, and fish (statix sees these as
+#   multiple assignments to `xdg.configFile`), plus the same
+#   `home.<field>` / `programs.<program>` / `homeConfigurations.<host>`
+#   patterns used throughout the dotfiles. The pattern works correctly
+#   at evaluation time; the "duplicate" is just statix not understanding
+#   that each attribute path is distinct.
+#
+# - `empty_pattern`: the `{...}: {` form in bundles/zoxide/default.nix
+#   accepts an arbitrary attribute set and discards it. statix suggests
+#   using `_` instead, but that's not valid Nix syntax here — the spread
+#   alone is the right way to express "accept and discard."
+#
+disabled = [
+    "repeated_keys",
+    "empty_pattern",
+]

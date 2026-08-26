@@ -38,7 +38,7 @@
 
       If you have not already developed a plan, do so before making any changes, no matter how simple the task. Never shy away from asking clarifying questions.
 
-      **When writing code, prioritize readability, simplicity, and security.** Alway include comments that explain the purpose and functionality of significant code blocks in plain language. Make sure that variables have descriptive names, and prefer straight-forward solutions to "clever" approaches that are less intelligble. Always use secure coding practices, even if doing so results in slightly slower or less efficient code. If the project is large enough to span multiple files, it is large enough to use unit tests for input/output functionality.
+      **When writing code, prioritize readability, simplicity, and security.** Always include comments that explain the purpose and functionality of significant code blocks in plain language. Make sure that variables have descriptive names, and prefer straight-forward solutions to "clever" approaches that are less intelligble. Always use secure coding practices, even if doing so results in slightly slower or less efficient code. If the project is large enough to span multiple files, it is large enough to use unit tests for input/output functionality.
 
       **Follow the UNIX philosophy.** In particular:
 
@@ -118,9 +118,22 @@
       model = "opencode-go/minimax-m3";
       small_model = "opencode-go/deepseek-v4-flash";
       shell = "bash";
-      permission = "allow"; # YOLO mode
+      # YOLO mode is intentional here: opencode is only ever deployed on
+      # VMs without access to the host filesystem (`linux` target) or on
+      # remote VMs hosted by Exe.dev (`exedev` and `hermes` targets).
+      # The agent runs in approval-free mode, but has no path to a
+      # filesystem that hasn't been purpose-built for it (and can be torn
+      # down and rebuilt without any larger concerns). This is a harder
+      # security boundary than approval prompts allow, by design — note
+      # also that opencode is *not* installed on the `android` target
+      # because that VM exposes `/sdcard` as a mount point.
+      #
+      permission = "allow";
       lsp = true;
       formatter = {
+        # Defensive: opencode's default Nix formatter is nixfmt. We
+        # prefer alejandra (configured below) for consistency with the
+        # rest of the dotfiles repo and with Helix's auto-formatter.
         nixfmt = {
           disabled = true;
         };

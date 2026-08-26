@@ -85,6 +85,7 @@
     '';
 
     # ~/.bash_profile sources ~/.profile and then ~/.bashrc
+    #
 
     # ~/.bashrc
     #
@@ -107,7 +108,7 @@
     enableCompletion = true;
 
     initExtra = ''
-      # Hack to get Bash to more agressively save its history
+      # Hack to get Bash to more aggressively save its history
       #
       #   https://askubuntu.com/questions/67283/is-it-possible-to-make-writing-to-bash-history-immediate
       #

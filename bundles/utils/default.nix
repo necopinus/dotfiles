@@ -15,6 +15,9 @@
 in {
   home.packages = with pkgs;
     [
+      #### Misc tools ####
+      msgpack-tools
+
       #### Convenience wrappers (see above) ####
       localPkgs.backup-home
       localPkgs.editor

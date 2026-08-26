@@ -35,10 +35,6 @@ in {
     lfs.enable = true;
 
     settings = {
-      credential = {
-        helper = "store";
-        usHttpPath = true;
-      };
       core = {
         # Point git at each repo's .githooks/ directory. Repos without a
         # .githooks/ directory simply have no hooks (git's default hook
@@ -57,7 +53,7 @@ in {
       "lfs \"customtransfer.xet\"" = {
         path = "${pkgs.git-xet}/bin/git-xet";
         args = "transfer";
-        concurrent = "true";
+        concurrent = true;
       };
     };
     signing = {

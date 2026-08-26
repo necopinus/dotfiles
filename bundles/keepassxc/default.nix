@@ -31,7 +31,7 @@
         MinimizeToTray = true;
         MonospaceNotes = true;
         ShowTrayIcon = true;
-        TrayIconApearance = "monochrome-light";
+        TrayIconAppearance = "monochrome-light";
       };
       Security = {
         IconDownloadFallback = true;

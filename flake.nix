@@ -41,7 +41,7 @@
       exedev = "exedev";
     };
 
-    # Home Manager modules/imports
+    # Common home-manager modules shared by every Linux target
     #
     linuxHomeManagerCommonModules = [
       {
@@ -52,6 +52,42 @@
       ./systems/common
       ./systems/linux
     ];
+
+    # Common home-manager modules shared by the macOS target
+    #
+    macosHomeManagerCommonModules = [
+      {
+        nixpkgs.config.allowUnfree = true;
+        home.stateVersion = "${homeManagerStateVersion}";
+      }
+
+      ./systems/common
+      ./systems/macos
+    ];
+
+    # Linux home-manager configuration factory. Takes the architecture
+    # (e.g. "aarch64-linux") and any extra module imports to layer on
+    # top of the common ones.
+    #
+    mkLinuxHomeConfig = arch: extra:
+      home-manager.lib.homeManagerConfiguration {
+        # Looks weird, but just let's home-manager re-use the existing NixPkgs
+        # definition, which is more efficient. See:
+        #
+        #   https://discourse.nixos.org/t/two-ways-to-write-a-home-manager-flake-is-legacypackages-needed/28109
+        #
+        pkgs = nixpkgs.legacyPackages.${arch};
+
+        modules =
+          [
+            {
+              home.username = "${myUserName.standard}";
+              home.homeDirectory = "/home/${myUserName.standard}";
+            }
+          ]
+          ++ extra
+          ++ linuxHomeManagerCommonModules;
+      };
   in {
     # macOS configuration (nix-darwin + home-manager)
     #
@@ -82,10 +118,7 @@
               home.username = "${myUserName.standard}";
               home.homeDirectory = "/Users/${myUserName.standard}";
 
-              imports = [
-                ./systems/common
-                ./systems/macos
-              ];
+              imports = macosHomeManagerCommonModules;
             };
           };
         }
@@ -95,11 +128,6 @@
     # Android 16+ Linux Terminal configuration (home-manager)
     #
     homeConfigurations."android" = home-manager.lib.homeManagerConfiguration {
-      # Looks weird, but just let's home-manager re-use the existing NixPkgs
-      # definition, which is more efficient. See:
-      #
-      #   https://discourse.nixos.org/t/two-ways-to-write-a-home-manager-flake-is-legacypackages-needed/28109
-      #
       pkgs = nixpkgs.legacyPackages.aarch64-linux;
 
       modules =
@@ -114,71 +142,23 @@
 
     # Generic (isolated) Linux VM configuration (home-manager)
     #
-    homeConfigurations."linux" = home-manager.lib.homeManagerConfiguration {
-      # Looks weird, but just let's home-manager re-use the existing NixPkgs
-      # definition, which is more efficient. See:
-      #
-      #   https://discourse.nixos.org/t/two-ways-to-write-a-home-manager-flake-is-legacypackages-needed/28109
-      #
-      pkgs = nixpkgs.legacyPackages.aarch64-linux;
-
-      modules =
-        [
-          {
-            home.username = "${myUserName.standard}";
-            home.homeDirectory = "/home/${myUserName.standard}";
-          }
-
-          ./bundles/hacking
-          ./bundles/opencode
-        ]
-        ++ linuxHomeManagerCommonModules;
-    };
+    homeConfigurations."linux" = mkLinuxHomeConfig "aarch64-linux" [
+      ./bundles/hacking
+      ./bundles/opencode
+    ];
 
     # Generic exe.dev configuration (home-manager)
     #
-    homeConfigurations."exedev" = home-manager.lib.homeManagerConfiguration {
-      # Looks weird, but just let's home-manager re-use the existing NixPkgs
-      # definition, which is more efficient. See:
-      #
-      #   https://discourse.nixos.org/t/two-ways-to-write-a-home-manager-flake-is-legacypackages-needed/28109
-      #
-      pkgs = nixpkgs.legacyPackages.x86_64-linux;
-
-      modules =
-        [
-          {
-            home.username = "${myUserName.exedev}";
-            home.homeDirectory = "/home/${myUserName.exedev}";
-          }
-
-          ./bundles/hacking
-          ./bundles/opencode
-        ]
-        ++ linuxHomeManagerCommonModules;
-    };
+    homeConfigurations."exedev" = mkLinuxHomeConfig "x86_64-linux" [
+      ./bundles/hacking
+      ./bundles/opencode
+    ];
 
     # Hermes (exe.dev) server configuration (home-manager)
     #
-    homeConfigurations."hermes" = home-manager.lib.homeManagerConfiguration {
-      # Looks weird, but just let's home-manager re-use the existing NixPkgs
-      # definition, which is more efficient. See:
-      #
-      #   https://discourse.nixos.org/t/two-ways-to-write-a-home-manager-flake-is-legacypackages-needed/28109
-      #
-      pkgs = nixpkgs.legacyPackages.x86_64-linux;
-
-      modules =
-        [
-          {
-            home.username = "${myUserName.exedev}";
-            home.homeDirectory = "/home/${myUserName.exedev}";
-          }
-
-          ./bundles/hermes
-          ./bundles/opencode
-        ]
-        ++ linuxHomeManagerCommonModules;
-    };
+    homeConfigurations."hermes" = mkLinuxHomeConfig "x86_64-linux" [
+      ./bundles/hermes
+      ./bundles/opencode
+    ];
   };
 }
