@@ -33,14 +33,6 @@
     homeManagerStateVersion = "26.05";
     nixDarwinStateVersion = 7;
 
-    # User names
-    #
-    myUserName = {
-      standard = "necopinus";
-      android = "droid";
-      exedev = "exedev";
-    };
-
     # Common home-manager modules shared by every Linux target
     #
     linuxHomeManagerCommonModules = [
@@ -66,10 +58,10 @@
     ];
 
     # Linux home-manager configuration factory. Takes the architecture
-    # (e.g. "aarch64-linux") and any extra module imports to layer on
-    # top of the common ones.
+    # (e.g. "aarch64-linux"), the username, and any extra module imports
+    # to layer on top of the common ones.
     #
-    mkLinuxHomeConfig = arch: extra:
+    mkLinuxHomeConfig = arch: username: extra:
       home-manager.lib.homeManagerConfiguration {
         # Looks weird, but just let's home-manager re-use the existing NixPkgs
         # definition, which is more efficient. See:
@@ -81,8 +73,8 @@
         modules =
           [
             {
-              home.username = "${myUserName.standard}";
-              home.homeDirectory = "/home/${myUserName.standard}";
+              home.username = username;
+              home.homeDirectory = "/home/${username}";
             }
           ]
           ++ extra
@@ -98,10 +90,10 @@
         {
           nixpkgs.config.allowUnfree = true;
           system.stateVersion = nixDarwinStateVersion;
-          system.primaryUser = "${myUserName.standard}";
-          users.users."${myUserName.standard}" = {
-            name = "${myUserName.standard}";
-            home = "/Users/${myUserName.standard}";
+          system.primaryUser = "necopinus";
+          users.users.necopinus = {
+            name = "necopinus";
+            home = "/Users/necopinus";
           };
         }
 
@@ -113,10 +105,10 @@
             useGlobalPkgs = true;
             useUserPackages = false;
 
-            users."${myUserName.standard}" = {
+            users.necopinus = {
               home.stateVersion = "${homeManagerStateVersion}";
-              home.username = "${myUserName.standard}";
-              home.homeDirectory = "/Users/${myUserName.standard}";
+              home.username = "necopinus";
+              home.homeDirectory = "/Users/necopinus";
 
               imports = macosHomeManagerCommonModules;
             };
@@ -125,40 +117,26 @@
       ];
     };
 
-    # Android 16+ Linux Terminal configuration (home-manager)
+    # Linux home-manager configurations (one per target).
     #
-    homeConfigurations."android" = home-manager.lib.homeManagerConfiguration {
-      pkgs = nixpkgs.legacyPackages.aarch64-linux;
-
-      modules =
-        [
-          {
-            home.username = "${myUserName.android}";
-            home.homeDirectory = "/home/${myUserName.android}";
-          }
-        ]
-        ++ linuxHomeManagerCommonModules;
+    # Each call site specifies the username appropriate for that target:
+    # `necopinus` for personal VMs, `exedev` for exe.dev hosts, `droid` for
+    # the Android Terminal (which runs in its own VM).
+    #
+    homeConfigurations = {
+      "android" = mkLinuxHomeConfig "aarch64-linux" "droid" [];
+      "linux" = mkLinuxHomeConfig "aarch64-linux" "necopinus" [
+        ./bundles/hacking
+        ./bundles/opencode
+      ];
+      "exedev" = mkLinuxHomeConfig "x86_64-linux" "exedev" [
+        ./bundles/hacking
+        ./bundles/opencode
+      ];
+      "hermes" = mkLinuxHomeConfig "x86_64-linux" "exedev" [
+        ./bundles/hermes
+        ./bundles/opencode
+      ];
     };
-
-    # Generic (isolated) Linux VM configuration (home-manager)
-    #
-    homeConfigurations."linux" = mkLinuxHomeConfig "aarch64-linux" [
-      ./bundles/hacking
-      ./bundles/opencode
-    ];
-
-    # Generic exe.dev configuration (home-manager)
-    #
-    homeConfigurations."exedev" = mkLinuxHomeConfig "x86_64-linux" [
-      ./bundles/hacking
-      ./bundles/opencode
-    ];
-
-    # Hermes (exe.dev) server configuration (home-manager)
-    #
-    homeConfigurations."hermes" = mkLinuxHomeConfig "x86_64-linux" [
-      ./bundles/hermes
-      ./bundles/opencode
-    ];
   };
 }
