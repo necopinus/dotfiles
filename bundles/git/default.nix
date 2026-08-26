@@ -1,8 +1,33 @@
 {
-  pkgs,
   config,
+  pkgs,
   ...
-}: {
+}: let
+  # Linters / formatters / scanners required by various per-repo
+  # pre-commit hooks
+  hookPackages = with pkgs; [
+    #### Nix ####
+    alejandra
+    statix
+    deadnix
+
+    #### Shell ####
+    shellcheck
+    shfmt
+
+    #### YAML ####
+    yamllint
+
+    #### Python ####
+    ruff
+
+    #### Markdown ####
+    markdownlint-cli2
+
+    #### Secret scanning ####
+    betterleaks
+  ];
+in {
   programs.git = {
     enable = true;
     package = null; # Use system git
@@ -13,6 +38,12 @@
       credential = {
         helper = "store";
         usHttpPath = true;
+      };
+      core = {
+        # Point git at each repo's .githooks/ directory. Repos without a
+        # .githooks/ directory simply have no hooks (git's default hook
+        # lookup is silent when a hook script is missing).
+        hooksPath = ".githooks";
       };
       merge = {
         conflictStyle = "zdiff3";
@@ -35,11 +66,18 @@
     };
   };
 
+  # Make hook dependencies available on PATH
+  #
+  home.packages = hookPackages;
+
   # Fix `git log` pager issue on some systems
   #
   home.sessionVariables.PAGER = "less";
 
-  # Wrap git to enable dynamically setting user.signingKey
+  # Wrap git to enable dynamically setting user.signingKey. The
+  # core.hooksPath = ".githooks" setting above makes git pick up each
+  # repo's .githooks/pre-commit automatically (repos without .githooks/
+  # silently have no hooks).
   #
   xdg.configFile."bash/rc.d/git.sh" = {
     enable = config.programs.bash.enable;

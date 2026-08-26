@@ -55,6 +55,24 @@ in {
           };
           auto-format = true;
         }
+        {
+          name = "bash";
+          formatter = {
+            # -i 0 preserves whatever indent character the file already uses
+            # (tabs stay tabs, spaces stay spaces); only fixes mixed lines.
+            command = "shfmt";
+            args = ["-i" "0" "-w"];
+          };
+          auto-format = true;
+        }
+        {
+          name = "python";
+          formatter = {
+            command = "ruff";
+            args = ["format"];
+          };
+          auto-format = true;
+        }
       ];
     };
 
