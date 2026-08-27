@@ -48,10 +48,13 @@
     # Common home-manager modules shared by the macOS target
     #
     macosHomeManagerCommonModules = [
-      {
-        nixpkgs.config.allowUnfree = true;
-        home.stateVersion = "${homeManagerStateVersion}";
-      }
+      # You would think you could parallel linuxHomeManagerCommonModules
+      # here, but you would be wrong
+      #
+      #{
+      #  nixpkgs.config.allowUnfree = true;
+      #  home.stateVersion = "${homeManagerStateVersion}";
+      #}
 
       ./systems/common
       ./systems/macos
