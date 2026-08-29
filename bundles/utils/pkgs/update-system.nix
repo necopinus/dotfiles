@@ -135,15 +135,41 @@ writeShellApplication {
 
     # Git repositories
     #
-    if [[ -d "$HOME/Projects" ]] || [[ -d "$HOME/src" ]]; then
+    if [[ -d "$HOME/Documents/Obsidian" ]]; then
       (
-        if [[ "$(uname -s)" == "Darwin" ]] && [[ -d "$HOME/Projects" ]]; then
-          cd "$HOME/Projects" || exit 1
-        elif [[ "$(uname -s)" == "Linux" ]] && [[ -d "$HOME/src" ]]; then
-          cd "$HOME/src" || exit 1
-        else
-          exit 1
-        fi
+        cd "$HOME/Documents/Obsidian" || exit 1
+        while IFS= read -r -d "" OBJECT; do
+          if [[ -d "$OBJECT/.git" ]]; then
+            echo "Refreshing $(basename "$OBJECT")"
+            cd "$OBJECT"
+            git pull --recurse-submodules
+            if [[ "$(git config --get remote.origin.url)" =~ [^/]+@[^/]+\.[^/]+:.+\.git ]]; then
+              git push --recurse-submodules=on-demand
+            fi
+            cd ..
+          fi
+        done < <(find . -mindepth 1 -maxdepth 1 -type d -print0)
+      )
+    fi
+    if [[ -d "$HOME/Projects" ]]; then
+      (
+        cd "$HOME/Projects" || exit 1
+        while IFS= read -r -d "" OBJECT; do
+          if [[ -d "$OBJECT/.git" ]]; then
+            echo "Refreshing $(basename "$OBJECT")"
+            cd "$OBJECT"
+            git pull --recurse-submodules
+            if [[ "$(git config --get remote.origin.url)" =~ [^/]+@[^/]+\.[^/]+:.+\.git ]]; then
+              git push --recurse-submodules=on-demand
+            fi
+            cd ..
+          fi
+        done < <(find . -mindepth 1 -maxdepth 1 -type d -print0)
+      )
+    fi
+    if [[ -d "$HOME/src" ]]; then
+      (
+        cd "$HOME/src" || exit 1
         while IFS= read -r -d "" OBJECT; do
           if [[ -d "$OBJECT/.git" ]]; then
             echo "Refreshing $(basename "$OBJECT")"
