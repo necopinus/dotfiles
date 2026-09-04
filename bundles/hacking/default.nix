@@ -1,6 +1,6 @@
 {pkgs, ...}: {
   home.packages = with pkgs; [
-    #jadx # Frequently breaks
+    #jadx # Dependencies frequently break
     solc-select
   ];
 }
