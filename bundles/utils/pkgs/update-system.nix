@@ -183,6 +183,29 @@ writeShellApplication {
         done < <(find . -mindepth 1 -maxdepth 1 -type d -print0)
       )
     fi
+    if [[ "$(hostname)" == "kitsune" ]]; then
+      if [[ -d "$HOME/grimoire" ]]; then
+        (
+          cd "$HOME/grimoire" || exit 1
+          git pull --recurse-submodules
+          git push --recurse-submodules=on-demand
+        )
+      fi
+      if [[ -d "$HOME/journal" ]]; then
+        (
+          cd "$HOME/journal" || exit 1
+          git pull --recurse-submodules
+          git push --recurse-submodules=on-demand
+        )
+      fi
+      if [[ -d "$HOME/research" ]]; then
+        (
+          cd "$HOME/research" || exit 1
+          git pull --recurse-submodules
+          git push --recurse-submodules=on-demand
+        )
+      fi
+    fi
 
     # macOS system update; we do this last as this command may force a
     # reboot

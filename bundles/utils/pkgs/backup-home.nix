@@ -36,13 +36,22 @@ writeShellApplication {
       hermes backup
       crontab -l > "$HOME/exedev.crontab"
       if [[ -d "$HOME/grimoire" ]]; then
-        npx --package=obsidian-headless -- ob sync --path "$HOME/grimoire"
+        (
+          cd "$HOME/grimoire" || exit 1
+          git pull
+        )
       fi
       if [[ -d "$HOME/journal" ]]; then
-        npx --package=obsidian-headless -- ob sync --path "$HOME/journal"
+        (
+          cd "$HOME/journal" || exit 1
+          git pull
+        )
       fi
       if [[ -d "$HOME/research" ]]; then
-        npx --package=obsidian-headless -- ob sync --path "$HOME/research"
+        (
+          cd "$HOME/research" || exit 1
+          git pull
+        )
       fi
     fi
 
