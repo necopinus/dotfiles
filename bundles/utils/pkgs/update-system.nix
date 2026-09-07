@@ -122,7 +122,7 @@ writeShellApplication {
         hermes completion fish > "$XDG_CONFIG_HOME"/fish/completions/hermes.fish
       fi
 
-      hermes plugins update Codename-11/hermes-relay/plugin
+      hermes plugins install Codename-11/hermes-relay/plugin --enable --force
 
       sudo systemctl start hermes-dashboard.service
       sudo systemctl start hermes-gateway.service
