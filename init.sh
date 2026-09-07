@@ -226,13 +226,6 @@ if [[ "$OS" == "Linux" ]]; then
       uv run mnemosyne-hermes --hermes-home "$HOME/.hermes" install --force --mode wrapper --python "$HOME/.hermes/mnemosyne-venv/bin/python"
     )
 
-    # Install Hermes WebUI
-    #
-    if [[ -d "$HOME/.hermes/hermes-webui" ]]; then
-      rm -rf "$HOME/.hermes/hermes-webui"
-    fi
-    git clone https://github.com/nesquena/hermes-webui.git "$HOME/.hermes/hermes-webui"
-
     # Install `xurl` searxh tool
     #
     curl -fsSL https://raw.githubusercontent.com/xdevplatform/xurl/main/install.sh | bash
@@ -310,28 +303,29 @@ if [[ "$OS" == "Linux" ]]; then
 		EOF
     sudo ln -s /etc/systemd/system/hermes-gateway.service /etc/systemd/system/multi-user.target.wants/hermes-gateway.service
 
-    sudo tee /etc/systemd/system/hermes-webui.service <<-EOF
+    sudo tee /etc/systemd/system/hermes-relay.service <<-EOF
 			[Unit]
-			Description=Hermes WebUI
+			Description=Hermes-Relay Server - WSS Bridge for Android App
+			Documentation=https://github.com/Codename-11/hermes-relay/blob/main/docs/relay-server.md
 			After=network-online.target
 			Wants=network-online.target
-			StartLimitIntervalSec=0
+			StartLimitIntervalSec=600
+			StartLimitBurst=5
 
 			[Service]
 			Type=simple
 			User=$USER
 			Group=$USER
-			ExecStart=$HOME/.hermes/hermes-agent/venv/bin/python $HOME/.hermes/hermes-webui/bootstrap.py --no-browser --skip-agent-install --foreground
-			WorkingDirectory=$HOME/.hermes/hermes-agent
+			ExecStart=$HOME/.hermes/hermes-agent/venv/bin/python -m hermes_cli.main relay start --no-ssl --log-level INFO
+			WorkingDirectory=$HOME/.hermes/hermes-relay
 			Environment="HOME=$HOME"
 			Environment="USER=$USER"
 			Environment="LOGNAME=$USER"
-			Environment="PATH=$HOME/.hermes/hermes-agent/venv/bin:$HOME/.hermes/hermes-agent/node_modules/.bin:$HOME/.hermes/node/bin:$HOME/.local/bin:$HOME/.nix-profile/bin:/nix/var/nix/profiles/default/bin:/bin:/usr/bin:/sbin:/usr/sbin:/exe.dev/bin:/usr/local/bin"
+			Environment="PATH=$HOME/.hermes/hermes-agent/venv/bin:$HOME/.hermes/hermes-agent/node_modules/.bin:$HOME/.heres/node/bin:$HOME/.local/bin:$HOME/.nix-profile/bin:/nix/var/nix/profiles/default/bin:/bin:/usr/bin:/sbin:/usr/sbin:/exe.dev/bin:/usr/local/bin"
 			Environment="VIRTUAL_ENV=$HOME/.hermes/hermes-agent/venv"
 			Environment="HERMES_HOME=$HOME/.hermes"
-			Environment="REPO_ROOT=$HOME/.hermes/hermes-webui"
-			Restart=always
-			RestartSec=5
+			Restart=on-failure
+			RestartSec=30
 			RestartForceExitStatus=75
 			RestartPreventExitStatus=78
 			KillMode=mixed
@@ -344,7 +338,8 @@ if [[ "$OS" == "Linux" ]]; then
 			[Install]
 			WantedBy=multi-user.target
 		EOF
-    sudo ln -s /etc/systemd/system/hermes-webui.service /etc/systemd/system/multi-user.target.wants/hermes-webui.service
+    mkdir -p "$HOME/.hermes/hermes-relay"
+    sudo ln -s /etc/systemd/system/hermes-relay.service /etc/systemd/system/multi-user.target.wants/hermes-relay.service
 
     sudo systemctl daemon-reload
   fi
@@ -420,7 +415,7 @@ sudo find /nix/var/nix/gcroots -xtype l -exec rm -v {} +
 nix store gc -v
 nix store optimise -v
 
-# Install Hermes completions, if applicable
+# Install Hermes completions and plugins, if applicable
 #
 if [[ -n "$(which hermes 2>/dev/null)" ]]; then
   if [[ -d "$HOME"/.hermes/skills/officecli ]]; then
@@ -448,6 +443,15 @@ if [[ -n "$(which hermes 2>/dev/null)" ]]; then
     fi
     hermes completion fish >"$XDG_CONFIG_HOME"/fish/completions/hermes.fish
   fi
+
+  hermes plugins enable browser-browser-use
+  hermes plugins enable image_gen/openai
+  hermes plugins enable image_gen/xai
+  hermes plugins enable web-exa
+  hermes plugins enable video_gen/xai
+  hermes plugins enable web-xai
+
+  hermes plugins install Codename-11/hermes-relay/plugin --enable
 fi
 
 # Make sure that SSH is set up on macOS and Android (agent forwarding is

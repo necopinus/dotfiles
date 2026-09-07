@@ -78,7 +78,7 @@ writeShellApplication {
     # Update Hermes
     #
     if [[ -n "$(which hermes 2> /dev/null)" ]]; then
-      sudo systemctl stop hermes-webui.service
+      sudo systemctl stop hermes-relay.service
       sudo systemctl stop hermes-gateway.service
       sudo systemctl stop hermes-dashboard.service
 
@@ -92,12 +92,6 @@ writeShellApplication {
         cd "$HOME/.hermes/mnemosyne-venv"
         uv pip install "fastembed" "mnemosyne-memory[embeddings]" "mnemosyne-hermes"
         uv run mnemosyne-hermes --hermes-home "$HOME/.hermes" install --force --mode wrapper --python "$HOME/.hermes/mnemosyne-venv/bin/python"
-      )
-
-      (
-        cd "$HOME/.hermes/hermes-webui"
-        rm -rf .venv
-        git pull --recurse-submodules
       )
 
       if [[ $(find "$HOME/.hermes" -type f -mtime +60 -name "kitsune.tailf702ce.ts.net.*" | wc -l) -gt 0 ]]; then
@@ -128,9 +122,11 @@ writeShellApplication {
         hermes completion fish > "$XDG_CONFIG_HOME"/fish/completions/hermes.fish
       fi
 
+      hermes plugins update Codename-11/hermes-relay/plugin
+
       sudo systemctl start hermes-dashboard.service
       sudo systemctl start hermes-gateway.service
-      sudo systemctl start hermes-webui.service
+      sudo systemctl start hermes-relay.service
     fi
 
     # Git repositories

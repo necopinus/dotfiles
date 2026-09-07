@@ -44,6 +44,7 @@
       "adobe-creative-cloud"
       "brave-browser"
       "handbrake-app"
+      "hermes-desktop"
       "keepassxc"
       "kid3"
       "makemkv"
@@ -123,6 +124,7 @@
         {app = "/Applications/Adobe Lightroom CC/Adobe Lightroom.app";}
         {app = "/Applications/Brave Browser.app";}
         {app = "/Users/${config.system.primaryUser}/Applications/FolderSync Desktop.app";}
+        {app = "/Applications/Hermes.app";}
         {app = "/Applications/KeePassXC.app";}
         {app = "/Applications/Obsidian.app";}
         {app = "/System/Applications/System Settings.app";}

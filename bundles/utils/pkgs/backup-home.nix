@@ -29,7 +29,7 @@ writeShellApplication {
     }
 
     if [[ "$(hostname)" == "kitsune" ]]; then
-      sudo systemctl stop hermes-webui.service
+      sudo systemctl stop hermes-relay.service
       sudo systemctl stop hermes-gateway.service
       sudo systemctl stop hermes-dashboard.service
 
@@ -119,9 +119,9 @@ writeShellApplication {
     rm -f "$BACKUP_LIST"
 
     if [[ "$(hostname)" == "kitsune" ]]; then
-      sudo systemctl start hermes-webui.service
-      sudo systemctl start hermes-gateway.service
       sudo systemctl start hermes-dashboard.service
+      sudo systemctl start hermes-gateway.service
+      sudo systemctl start hermes-relay.service
     fi
   '';
 }
