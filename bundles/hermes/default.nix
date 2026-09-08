@@ -157,7 +157,7 @@ in {
         KillSignal = "SIGTERM";
         ExecReload = "/bin/kill -USR1 $MAINPID";
         ExecStopPost = "-${venv}/bin/python -m gateway.cgroup_cleanup";
-        TimeoutStopSec = 60;
+        TimeoutStopSec = 90;
         StandardOutput = "journal";
         StandardError = "journal";
       };
@@ -181,7 +181,7 @@ in {
         KillMode = "mixed";
         KillSignal = "SIGTERM";
         ExecReload = "/bin/kill -USR1 $MAINPID";
-        TimeoutStopSec = 60;
+        TimeoutStopSec = 90;
         StandardOutput = "journal";
         StandardError = "journal";
       };
@@ -207,7 +207,7 @@ in {
         KillMode = "mixed";
         KillSignal = "SIGTERM";
         ExecReload = "/bin/kill -USR1 $MAINPID";
-        TimeoutStopSec = 60;
+        TimeoutStopSec = 90;
         StandardOutput = "journal";
         StandardError = "journal";
       };
