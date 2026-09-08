@@ -342,6 +342,8 @@ if [[ "$OS" == "Linux" ]]; then
     sudo ln -s /etc/systemd/system/hermes-relay.service /etc/systemd/system/multi-user.target.wants/hermes-relay.service
 
     sudo systemctl daemon-reload
+
+    sudo loginctl enable-linger "$USER"
   fi
 fi
 
