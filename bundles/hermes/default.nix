@@ -46,13 +46,6 @@
     "HERMES_HOME=${hermesHome}"
   ];
 in {
-  # TODO: Remove this fix once https://github.com/NixOS/nixpkgs/pull/545267
-  # is live in nixpkgs-unstable
-  #
-  imports = [
-    ./fixes/pandas-stubs-20260729.nix
-  ];
-
   home.packages = with pkgs; [
     #### Convenience wrapper ####
     localPkgs.inaba
