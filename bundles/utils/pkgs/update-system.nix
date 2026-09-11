@@ -78,9 +78,9 @@ writeShellApplication {
     # Update Hermes
     #
     if [[ -n "$(which hermes 2> /dev/null)" ]]; then
-      systemctl --user stop hermes-relay.service
-      systemctl --user stop hermes-gateway.service
-      systemctl --user stop hermes-dashboard.service
+      sudo systemctl --user -M "''${USER}@" stop hermes-relay.service
+      sudo systemctl --user -M "''${USER}@" stop hermes-gateway.service
+      sudo systemctl --user -M "''${USER}@" stop hermes-dashboard.service
 
       hermes update --yes
 
@@ -124,9 +124,9 @@ writeShellApplication {
 
       hermes plugins install Codename-11/hermes-relay/plugin --enable --force
 
-      systemctl --user start hermes-dashboard.service
-      systemctl --user start hermes-gateway.service
-      systemctl --user start hermes-relay.service
+      sudo systemctl --user -M "''${USER}@" start hermes-dashboard.service
+      sudo systemctl --user -M "''${USER}@" start hermes-gateway.service
+      sudo systemctl --user -M "''${USER}@" start hermes-relay.service
     fi
 
     # Git repositories
