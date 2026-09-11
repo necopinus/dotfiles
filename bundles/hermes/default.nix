@@ -7,6 +7,9 @@
     inaba = pkgs.callPackage ./pkgs/inaba.nix {};
     pyright = pkgs.callPackage ./pkgs/pyright.nix {};
     pyright-langserver = pkgs.callPackage ./pkgs/pyright-langserver.nix {};
+    mcplogic = pkgs.callPackage ./pkgs/mcplogic {};
+    scimath-mcp = pkgs.callPackage ./pkgs/scimath-mcp {};
+    wiki-mcp = pkgs.callPackage ./pkgs/wiki-mcp {};
   };
 
   # Values used by the Hermes user-level systemd units below. Derived from
@@ -74,6 +77,9 @@ in {
     yaml-language-server
 
     #### MCP servers & dependencies ####
+    localPkgs.mcplogic
+    localPkgs.scimath-mcp
+    localPkgs.wiki-mcp
     markitdown-mcp
     mcp-nixos
     officecli
