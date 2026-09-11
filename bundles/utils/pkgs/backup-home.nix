@@ -29,9 +29,9 @@ writeShellApplication {
     }
 
     if [[ "$(hostname)" == "kitsune" ]]; then
-      sudo systemctl stop hermes-relay.service
-      sudo systemctl stop hermes-gateway.service
-      sudo systemctl stop hermes-dashboard.service
+      systemctl --user stop hermes-relay.service
+      systemctl --user stop hermes-gateway.service
+      systemctl --user stop hermes-dashboard.service
 
       hermes backup
       crontab -l > "$HOME/exedev.crontab"
@@ -119,9 +119,9 @@ writeShellApplication {
     rm -f "$BACKUP_LIST"
 
     if [[ "$(hostname)" == "kitsune" ]]; then
-      sudo systemctl start hermes-dashboard.service
-      sudo systemctl start hermes-gateway.service
-      sudo systemctl start hermes-relay.service
+      systemctl --user start hermes-dashboard.service
+      systemctl --user start hermes-gateway.service
+      systemctl --user start hermes-relay.service
     fi
   '';
 }
