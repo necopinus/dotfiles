@@ -1,0 +1,27 @@
+From f859522d35c079de98cc9681ff905ee362c0860d Mon Sep 17 00:00:00 2001
+From: Nathan Acks <nathan.acks@cardboard-iguana.com>
+Date: Sat, 12 Sep 2026 08:48:34 -0600
+Subject: [PATCH 1/2] Bump @mozilla/readability to ^0.6.0
+
+Fixes CVE-2025-2792 against the 0.5.x line. Remove this patch once
+upstream sets @mozilla/readability >= 0.6.0 in package.json.
+---
+ package.json | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/package.json b/package.json
+index 64aeedb..462c3e7 100644
+--- a/package.json
++++ b/package.json
+@@ -60,7 +60,7 @@
+   "license": "MIT",
+   "dependencies": {
+     "@modelcontextprotocol/sdk": "^1.0.0",
+-    "@mozilla/readability": "^0.5.0",
++    "@mozilla/readability": "^0.6.0",
+     "jsdom": "^25.0.0"
+   },
+   "devDependencies": {
+-- 
+2.43.0
+

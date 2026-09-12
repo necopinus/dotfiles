@@ -1,0 +1,39 @@
+From 683764bcf47a389576d2dd0a5f4fd3982d07654c Mon Sep 17 00:00:00 2001
+From: Nathan Acks <nathan.acks@cardboard-iguana.com>
+Date: Sat, 12 Sep 2026 08:59:33 -0600
+Subject: [PATCH 2/2] Bump vitest/tsup devDeps; override esbuild
+
+- vitest ^2.0.0 -> ^4.1.11 (fixes CVE-2026-47429, CVE-2026-84373)
+- tsup ^8.0.0 -> ^8.5.1 (pulls non-vulnerable esbuild/vite chains;
+  fixes CVE-2026-53571, CVE-2026-53632, GHSA-67mh-4wv8-2f99)
+- overrides.esbuild ^0.28.1 (fixes GHSA-g7r4-m6w7-qqqr)
+
+Remove this patch once upstream sets vitest >= 4.1.11 and
+tsup >= 8.5.1 with a locked esbuild >= 0.28.1 in package.json.
+---
+ package.json | 7 +++++--
+ 1 file changed, 5 insertions(+), 2 deletions(-)
+
+diff --git a/package.json b/package.json
+index 462c3e7..0f0a892 100644
+--- a/package.json
++++ b/package.json
+@@ -69,10 +69,13 @@
+     "@typescript-eslint/eslint-plugin": "^8.0.0",
+     "@typescript-eslint/parser": "^8.0.0",
+     "eslint": "^9.0.0",
+-    "tsup": "^8.0.0",
++    "tsup": "^8.5.1",
+     "tsx": "^4.0.0",
+     "typescript": "^5.5.0",
+-    "vitest": "^2.0.0"
++    "vitest": "^4.1.11"
++  },
++  "overrides": {
++    "esbuild": "^0.28.1"
+   },
+   "engines": {
+     "node": ">=18.0.0"
+-- 
+2.43.0
+
