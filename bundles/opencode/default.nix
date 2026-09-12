@@ -60,7 +60,7 @@
 
       ### Model Hierarchy & Subagent Delegation
 
-      The primary agent and `@code-review` run on `opencode-go/kimi-k3`, a model that is capable but expensive. The built-in `@general` and `@explore` subagents run on `opencode-go/deepseek-v4-pro`. This model is cheaper but still capable of routine work. The `small_model` is `opencode-go/deepseek-v4-flash` for ephemeral background tasks.
+      The primary agent and `@code-review` run on `opencode-go/kimi-k3`, a model that is capable but expensive. The built-in `@general` and `@explore` subagents run on `opencode-go/deepseek-v4.1-flash`. This model is cheaper but still capable of routine work. The `small_model` is `opencode-go/deepseek-v4-flash` for ephemeral background tasks.
 
       To minimize monetary cost and context window pressure, delegate routine work to subagents:
 
@@ -159,8 +159,8 @@
       # `@code-review` continue to use `opencode-go/kimi-k3`.
       # https://opencode.ai/docs/agents/#model
       agent = {
-        general.model = "opencode-go/deepseek-v4-pro";
-        explore.model = "opencode-go/deepseek-v4-pro";
+        general.model = "opencode-go/deepseek-v4.1-flash";
+        explore.model = "opencode-go/deepseek-v4.1-flash";
       };
       # YOLO mode is intentional here: opencode is only ever deployed on
       # VMs without access to the host filesystem (`linux` target) or on
