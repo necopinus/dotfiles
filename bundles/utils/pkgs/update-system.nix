@@ -77,7 +77,7 @@ writeShellApplication {
 
     # Update Hermes
     #
-    if [[ -n "$(which hermes 2> /dev/null)" ]]; then
+    if [[ "$(hostname)" == "kitsune" ]]; then
       sudo systemctl --user -M "''${USER}@" stop hermes-relay.service
       sudo systemctl --user -M "''${USER}@" stop hermes-gateway.service
       sudo systemctl --user -M "''${USER}@" stop hermes-dashboard.service
