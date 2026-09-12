@@ -55,7 +55,6 @@
       "scroll-reverser"
       "tailscale-app"
       "termius"
-      "utm"
       "vlc"
     ];
   };
@@ -234,13 +233,8 @@
       };
 
       "com.apple.Terminal" = {
-        # TODO: Switch theme font to "JetBrainsMono Nerd Font" once the
-        # Android Terminal supports custom fonts
-        #
         "Default Window Settings" = "Gruvbox Light";
         "Startup Window Settings" = "Gruvbox Light";
-        "PermanentServers" = ["linux"];
-        "PreviousCommands" = ["ssh linux"];
       };
 
       "com.apple.TextEdit" = {
@@ -290,13 +284,6 @@
       };
 
       "org.videolan.vlc".SUEnableAutomaticChecks = true;
-
-      "com.utmapp.UTM" = {
-        HideDockIcon = true;
-        KeepRunningAfterLastWindowClosed = true;
-        "NSStatusItem VisibleCC Item-0" = true;
-        ShowMenuIcon = true;
-      };
     };
   };
 }

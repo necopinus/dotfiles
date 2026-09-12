@@ -186,18 +186,6 @@ if [[ "$OS" == "Linux" ]]; then
   #
   sudo ln -sf /usr/share/zoneinfo/America/Denver /etc/localtime
 
-  # Tweak Android terminal theme
-  #
-  if [[ "$USER" == "droid" ]] && [[ -f /etc/systemd/system/ttyd_uds.service ]] && [[ $(grep -c theme /etc/systemd/system/ttyd_uds.service) -eq 0 ]]; then
-    # Gruvbox Dark
-    #
-    #sudo sed -i "s/-t disableLeaveAlert=true/-t disableLeaveAlert=true -t fontFamily=monospace -t fontSize=14 -t 'theme={\"foreground\":\"#ebdbb2\",\"background\":\"#282828\",\"cursor\":\"#928374\",\"cursorAccent\":\"#fbf1c7\",\"selectionBackground\":\"#504945\",\"selectionForeground\":\"#fbf1c7\",\"black\":\"#282828\",\"red\":\"#cc241d\",\"green\":\"#98971a\",\"yellow\":\"#d79921\",\"blue\":\"#458588\",\"magenta\":\"#b16286\",\"cyan\":\"#689d6a\",\"white\":\"#a89984\",\"brightBlack\":\"#928374\",\"brightRed\":\"#fb4934\",\"brightGreen\":\"#b8bb26\",\"brightYellow\":\"#fabd2f\",\"brightBlue\":\"#83a598\",\"brightMagenta\":\"#d3869b\",\"brightCyan\":\"#8ec07c\",\"brightWhite\":\"#ebdbb2\"}'/" /etc/systemd/system/ttyd_uds.service
-
-    # Gruvbox Light
-    #
-    sudo sed -i "s/-t disableLeaveAlert=true/-t disableLeaveAlert=true -t fontFamily=monospace -t fontSize=14 -t 'theme={\"foreground\":\"#3c3836\",\"background\":\"#fbf1c7\",\"cursor\":\"#928374\",\"cursorAccent\":\"#282828\",\"selectionBackground\":\"#d5c4a1\",\"selectionForeground\":\"#282828\",\"black\":\"#fbf1c7\",\"red\":\"#cc241d\",\"green\":\"#98971a\",\"yellow\":\"#d79921\",\"blue\":\"#458588\",\"magenta\":\"#b16286\",\"cyan\":\"#689d6a\",\"white\":\"#7c6f64\",\"brightBlack\":\"#928374\",\"brightRed\":\"#9d0006\",\"brightGreen\":\"#79740e\",\"brightYellow\":\"#b57614\",\"brightBlue\":\"#076678\",\"brightMagenta\":\"#8f3f71\",\"brightCyan\":\"#427b58\",\"brightWhite\":\"#3c3836\"}'/" /etc/systemd/system/ttyd_uds.service
-  fi
-
   if [[ "$HOST_NAME" == "kitsune" ]]; then
     # Disable user namespace AppArmor enforcement if we're (1) on
     # Ubuntu and (2) installing Hermes, as it prevents SUID binaries
@@ -277,12 +265,8 @@ fi
     sudo -H nix run nix-darwin -- switch --flake .?submodules=1#macos
   elif [[ "$HOST_NAME" == "kitsune" ]]; then
     nix run home-manager/master -- switch --flake .?submodules=1#hermes
-  elif [[ "$USER" == "droid" ]]; then
-    nix run home-manager/master -- switch --flake .?submodules=1#android
   elif [[ "$USER" == "exedev" ]]; then
     nix run home-manager/master -- switch --flake .?submodules=1#exedev
-  else
-    nix run home-manager/master -- switch --flake .?submodules=1#linux
   fi
 )
 
@@ -346,10 +330,9 @@ if [[ -n "$(which hermes 2>/dev/null)" ]]; then
   hermes plugins install Codename-11/hermes-relay/plugin --enable
 fi
 
-# Make sure that SSH is set up on macOS and Android (agent forwarding is
-# used for Linux VMs and exe.dev)
+# Make sure that SSH is set up on macOS and kitsune.exe.xyz
 #
-if [[ "$OS" == "Darwin" ]] || [[ "$USER" == "droid" ]] || [[ "$HOST_NAME" == "kitsune" ]]; then
+if [[ "$OS" == "Darwin" ]] || [[ "$HOST_NAME" == "kitsune" ]]; then
   chmod 700 "$HOME/.ssh"
   find "$HOME/.ssh" -type d -exec chmod 700 "{}" \;
   find "$HOME/.ssh" -type f -exec chmod 600 "{}" \;
@@ -375,23 +358,13 @@ if [[ "$OS" == "Darwin" ]] || [[ "$USER" == "droid" ]] || [[ "$HOST_NAME" == "ki
   fi
 fi
 
-# Check out a few useful code repositories
+# Create a code repository archive on macOS
 #
-if [[ "$OS" == "Darwin" ]] || [[ "$USER" == "droid" ]]; then
-  if [[ "$OS" == "Darwin" ]]; then
-    mkdir -p "$HOME"/Projects
-  else
-    mkdir -p "$HOME"/src
-  fi
+if [[ "$OS" == "Darwin" ]]; then
+  mkdir -p "$HOME"/Projects
 
   (
-    if [[ "$OS" == "Darwin" ]] && [[ -d "$HOME/Projects" ]]; then
-      cd "$HOME/Projects" || exit 1
-    elif [[ "$USER" == "droid" ]] && [[ -d "$HOME/src" ]]; then
-      cd "$HOME/src" || exit 1
-    else
-      exit 1
-    fi
+    cd "$HOME/Projects" || exit 1
 
     REPOS="$(
       (
@@ -427,15 +400,11 @@ if [[ "$OS" == "Darwin" ]] || [[ "$USER" == "droid" ]]; then
         https://github.com/timhutton/twitter-archive-parser.git
     fi
 
-    if [[ "$OS" == "Darwin" ]]; then
-      mkdir -p "$HOME/Documents/Obsidian"
-      while IFS= read -r -d '' VAULT_REPO; do
-        VAULT_NAME="$(basename "$VAULT_REPO" | sed "s/^obsidian-//")"
-        mv "$VAULT_REPO" "$HOME/Documents/Obsidian/$VAULT_NAME"
-      done < <(find . -mindepth 1 -maxdepth 1 -type d -iname 'obsidian-*' -print0)
-    elif [[ "$USER" == "droid" ]]; then
-      rm -rf obsidian-* || true
-    fi
+    mkdir -p "$HOME/Documents/Obsidian"
+    while IFS= read -r -d '' VAULT_REPO; do
+      VAULT_NAME="$(basename "$VAULT_REPO" | sed "s/^obsidian-//")"
+      mv "$VAULT_REPO" "$HOME/Documents/Obsidian/$VAULT_NAME"
+    done < <(find . -mindepth 1 -maxdepth 1 -type d -iname 'obsidian-*' -print0)
   )
 fi
 

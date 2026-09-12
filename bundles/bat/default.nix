@@ -23,10 +23,7 @@ in {
   #
   # https://github.com/ryanoasis/nerd-fonts/wiki/FAQ-and-Troubleshooting#less-settings
   #
-  home.sessionVariables.LESSUTFCHARDEF =
-    if "${config.home.username}" == "droid"
-    then null
-    else "e000-f8ff:p,f0001-fffff:p";
+  home.sessionVariables.LESSUTFCHARDEF = "e000-f8ff:p,f0001-fffff:p";
 
   # Convenience wrappers and aliases
   #

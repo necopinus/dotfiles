@@ -1,8 +1,4 @@
-{
-  pkgs,
-  config,
-  ...
-}: {
+{pkgs, ...}: {
   programs.eza = {
     enable = true;
 
@@ -13,10 +9,7 @@
 
     colors = "auto";
     git = true;
-    icons =
-      if "${config.home.username}" == "droid"
-      then "never" # TODO: Change to "auto" once the Android Terminal supports custom fonts
-      else "auto";
+    icons = "auto";
 
     extraOptions = [
       "-F"

@@ -163,14 +163,11 @@
         explore.model = "opencode-go/deepseek-v4.1-flash";
       };
       # YOLO mode is intentional here: opencode is only ever deployed on
-      # VMs without access to the host filesystem (`linux` target) or on
       # remote VMs hosted by Exe.dev (`exedev` and `hermes` targets).
       # The agent runs in approval-free mode, but has no path to a
       # filesystem that hasn't been purpose-built for it (and can be torn
       # down and rebuilt without any larger concerns). This is a harder
-      # security boundary than approval prompts allow, by design — note
-      # also that opencode is *not* installed on the `android` target
-      # because that VM exposes `/sdcard` as a mount point.
+      # security boundary than approval prompts allow, by design.
       #
       permission = "allow";
       lsp = true;

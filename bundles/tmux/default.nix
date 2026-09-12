@@ -198,18 +198,6 @@
           tweak_attribute window  window-status-current-style   "fg=#ebdbb2" "fg=#fbf1c7"
           tweak_attribute window  window-status-style           "fg=#ebdbb2" "fg=#fbf1c7"
         fi
-
-        if [[ "$USER" == "droid" ]]; then
-          tweak_attribute session status-left                  "" " "
-          tweak_attribute session status-right                 "" " "
-          tweak_attribute session status-right                 "" "\|"
-          tweak_attribute window  automatic-rename-format      "" "\|"
-          tweak_attribute window  automatic-rename-format      "…" "..."
-          tweak_attribute window  window-status-current-format "" " "
-          tweak_attribute window  window-status-current-format "" "\|"
-          tweak_attribute window  window-status-format         "" " "
-          tweak_attribute window  window-status-format         "" "\|"
-        fi
       '';
     };
     "tmux/scripts/zellij-session-name.sh" = {
@@ -367,7 +355,7 @@
   # always runs LAST
   #
   xdg.configFile."bash/rc.d/zz_tmux.sh" = {
-    enable = config.programs.bash.enable && ("${config.home.username}" == "droid");
+    enable = config.programs.bash.enable && false;
     text = ''
       if [[ $- == *i* ]] && [[ -z "$TMUX" ]] && [[ ! -f "$HOME/notmux" ]] && [[ ! -f "$HOME/notmux.txt" ]] && [[ ! -f /mnt/shared/Documents/notmux ]] && [[ ! -f /mnt/shared/Documents/notmux.txt ]]; then
         TMUX_SESSION="$(tmux list-sessions -F '#{session_name}' -f '#{?session_attached,0,1}' | head -n1)"

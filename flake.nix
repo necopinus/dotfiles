@@ -1,5 +1,5 @@
 {
-  description = "Nix-managed dotfiles for macOS, Debian(ish) VMs (including the Android 16+ Terminal), and exe.dev";
+  description = "Nix-managed dotfiles for macOS and exe.dev";
 
   # Input streams (flakes, not variables!)
   #
@@ -122,16 +122,7 @@
 
     # Linux home-manager configurations (one per target).
     #
-    # Each call site specifies the username appropriate for that target:
-    # `necopinus` for personal VMs, `exedev` for exe.dev hosts, `droid` for
-    # the Android Terminal (which runs in its own VM).
-    #
     homeConfigurations = {
-      "android" = mkLinuxHomeConfig "aarch64-linux" "droid" [];
-      "linux" = mkLinuxHomeConfig "aarch64-linux" "necopinus" [
-        ./bundles/hacking
-        ./bundles/opencode
-      ];
       "exedev" = mkLinuxHomeConfig "x86_64-linux" "exedev" [
         ./bundles/hacking
         ./bundles/opencode
