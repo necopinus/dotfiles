@@ -34,22 +34,21 @@ writeShellApplication {
       cd "$XDG_CONFIG_HOME"/nix
       mkdir -p "$XDG_CACHE_HOME"/nix/flakes
       cp flake.lock "$XDG_CACHE_HOME/nix/flakes/flake.$(date "+%Y%m%d%H%M%S").lock"
-      git pull --recurse-submodules
+      git pull
       nix flake update
       nix flake archive
-      git submodule foreach git pull --recurse-submodules
       git add -A -v
       git -c user.name="Nathan Acks" \
           -c user.email="nathan.acks@cardboard-iguana.com" \
           -c user.signingKey="''${GIT_SIGNING_KEY:-$HOME/.ssh/id_ed25519}" commit -m "Automated system update: $(date)" || true
-      git push --recurse-submodules=on-demand
+      git push
       if [[ "$OS" == "Darwin" ]]; then
-        sudo darwin-rebuild switch --flake .?submodules=1#macos
+        sudo darwin-rebuild switch --flake .#macos
       elif [[ "$(hostname)" == "kitsune" ]]; then
-        home-manager switch --flake .?submodules=1#hermes
+        home-manager switch --flake .#hermes
         sudo "$(which non-nixos-gpu-setup)"
       elif [[ "$USER" == "exedev" ]]; then
-        home-manager switch --flake .?submodules=1#exedev
+        home-manager switch --flake .#exedev
         sudo "$(which non-nixos-gpu-setup)"
       fi
     )
@@ -132,9 +131,9 @@ writeShellApplication {
           if [[ -d "$OBJECT/.git" ]]; then
             echo "Refreshing $(basename "$OBJECT")"
             cd "$OBJECT"
-            git pull --recurse-submodules
+            git pull
             if [[ "$(git config --get remote.origin.url)" =~ [^/]+@[^/]+\.[^/]+:.+\.git ]]; then
-              git push --recurse-submodules=on-demand
+              git push
             fi
             cd ..
           fi
@@ -177,22 +176,22 @@ writeShellApplication {
       if [[ -d "$HOME/grimoire" ]]; then
         (
           cd "$HOME/grimoire" || exit 1
-          git pull --recurse-submodules
-          git push --recurse-submodules=on-demand
+          git pull
+          git push
         )
       fi
       if [[ -d "$HOME/journal" ]]; then
         (
           cd "$HOME/journal" || exit 1
-          git pull --recurse-submodules
-          git push --recurse-submodules=on-demand
+          git pull
+          git push
         )
       fi
       if [[ -d "$HOME/research" ]]; then
         (
           cd "$HOME/research" || exit 1
-          git pull --recurse-submodules
-          git push --recurse-submodules=on-demand
+          git pull
+          git push
         )
       fi
     fi

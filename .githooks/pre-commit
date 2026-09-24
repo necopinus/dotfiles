@@ -2,8 +2,7 @@
 #
 # dotfiles pre-commit hook
 #
-# Runs linters/formatters on staged files. Excludes the
-# bundles/opencode/modules/simple-english submodule (third-party).
+# Runs linters/formatters on staged files.
 #
 # Requires: alejandra, statix, deadnix, shellcheck, shfmt, yamllint,
 # betterleaks. All are added to home.packages in modules/git/default.nix.
@@ -47,9 +46,7 @@ if [[ ${#STAGED[@]} -eq 0 ]]; then
   exit 0
 fi
 
-# --- filter to file types and exclude submodule + ignored -----------------
-
-EXCLUDE_RE='^bundles/opencode/modules/simple-english/'
+# --- filter to file types --------------------------------------------------
 
 NIX_FILES=()
 SH_FILES=()
@@ -58,7 +55,6 @@ ALL_FILES=()
 
 for f in "${STAGED[@]}"; do
   [[ -e "$REPO_ROOT/$f" ]] || continue
-  [[ "$f" =~ $EXCLUDE_RE ]] && continue
   ALL_FILES+=("$f")
   case "$f" in
   *.nix) NIX_FILES+=("$f") ;;
@@ -68,7 +64,7 @@ for f in "${STAGED[@]}"; do
 done
 
 if [[ ${#ALL_FILES[@]} -eq 0 ]]; then
-  log "all staged files excluded (submodule or filtered); nothing to check"
+  log "all staged files filtered out; nothing to check"
   exit 0
 fi
 
@@ -80,13 +76,13 @@ if [[ ${#NIX_FILES[@]} -gt 0 ]] && require_tool alejandra nix; then
 fi
 
 if [[ ${#NIX_FILES[@]} -gt 0 ]] && require_tool statix nix; then
-    log "statix: ${#NIX_FILES[@]} file(s) staged; running repo-wide check"
-    # statix only loads statix.toml when given a directory target. Run
-    # `statix check .` from the repo root so the config is honored (it
-    # disables the `repeated_keys` lint which fires on idiomatic
-    # home-manager patterns). Per-file invocation would also work, but
-    # would skip the config and thus false-positive on every commit.
-    (cd "$REPO_ROOT" && statix check .)
+  log "statix: ${#NIX_FILES[@]} file(s) staged; running repo-wide check"
+  # statix only loads statix.toml when given a directory target. Run
+  # `statix check .` from the repo root so the config is honored (it
+  # disables the `repeated_keys` lint which fires on idiomatic
+  # home-manager patterns). Per-file invocation would also work, but
+  # would skip the config and thus false-positive on every commit.
+  (cd "$REPO_ROOT" && statix check .)
 fi
 
 if [[ ${#NIX_FILES[@]} -gt 0 ]] && require_tool deadnix nix; then

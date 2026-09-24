@@ -2,7 +2,18 @@
   config,
   pkgs,
   ...
-}: {
+}: let
+  localPkgs = {
+    simple-english = pkgs.callPackage ./pkgs/simple-english {};
+  };
+in {
+  # Installed explicitly (not just referenced from programs.opencode.skills)
+  # so that the package's share dirs land in ~/.nix-profile/share: the skill
+  # at share/opencode/skills/simple-english, plus the package's symlink at
+  # share/hermes/skills/simple-english pointing at the same files.
+  #
+  home.packages = [localPkgs.simple-english];
+
   programs.opencode = {
     enable = true;
 
@@ -123,7 +134,10 @@
       - Performing mathematical or data manipulation operations without using external tools
     '';
 
-    skills.simple-english = ./modules/simple-english/skills/simple-english;
+    # home-manager accepts a store path here; the package vendors the
+    # upstream skill under share/opencode/skills.
+    #
+    skills.simple-english = "${localPkgs.simple-english}/share/opencode/skills/simple-english";
 
     agents.code-review = ''
       ---
