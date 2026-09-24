@@ -4,15 +4,19 @@
   ...
 }: let
   localPkgs = {
+    no-ai-slop = pkgs.callPackage ./pkgs/no-ai-slop {};
     simple-english = pkgs.callPackage ./pkgs/simple-english {};
   };
 in {
   # Installed explicitly (not just referenced from programs.opencode.skills)
-  # so that the package's share dirs land in ~/.nix-profile/share: the skill
-  # at share/opencode/skills/simple-english, plus the package's symlink at
-  # share/hermes/skills/simple-english pointing at the same files.
+  # so that each package's share dirs land in ~/.nix-profile/share: the skill
+  # at share/opencode/skills/<name>, plus the package's symlink at
+  # share/hermes/skills/<name> pointing at the same files.
   #
-  home.packages = [localPkgs.simple-english];
+  home.packages = with localPkgs; [
+    no-ai-slop
+    simple-english
+  ];
 
   programs.opencode = {
     enable = true;
@@ -134,9 +138,10 @@ in {
       - Performing mathematical or data manipulation operations without using external tools
     '';
 
-    # home-manager accepts a store path here; the package vendors the
+    # home-manager accepts store paths here; each package vendors the
     # upstream skill under share/opencode/skills.
     #
+    skills.no-ai-slop = "${localPkgs.no-ai-slop}/share/opencode/skills/no-ai-slop";
     skills.simple-english = "${localPkgs.simple-english}/share/opencode/skills/simple-english";
 
     agents.code-review = ''
