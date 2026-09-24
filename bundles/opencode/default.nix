@@ -4,16 +4,19 @@
   ...
 }: let
   localPkgs = {
+    context-mode = pkgs.callPackage ./pkgs/context-mode {};
     no-ai-slop = pkgs.callPackage ./pkgs/no-ai-slop {};
     simple-english = pkgs.callPackage ./pkgs/simple-english {};
   };
 in {
   # Installed explicitly (not just referenced from programs.opencode.skills)
   # so that each package's share dirs land in ~/.nix-profile/share: the skill
-  # at share/opencode/skills/<name>, plus the package's symlink at
-  # share/hermes/skills/<name> pointing at the same files.
+  # at share/opencode/skills/<name>, plus (for the skill-only packages) the
+  # package's symlink at share/hermes/skills/<name> pointing at the same
+  # files. context-mode additionally provides the context-mode{,-mcp} bins.
   #
   home.packages = with localPkgs; [
+    context-mode
     no-ai-slop
     simple-english
   ];
@@ -144,6 +147,17 @@ in {
     skills.no-ai-slop = "${localPkgs.no-ai-slop}/share/opencode/skills/no-ai-slop";
     skills.simple-english = "${localPkgs.simple-english}/share/opencode/skills/simple-english";
 
+    # context-mode's companion skills (usage guides for its MCP tools).
+    #
+    skills.context-mode = "${localPkgs.context-mode}/share/opencode/skills/context-mode";
+    skills.ctx-doctor = "${localPkgs.context-mode}/share/opencode/skills/ctx-doctor";
+    skills.ctx-index = "${localPkgs.context-mode}/share/opencode/skills/ctx-index";
+    skills.ctx-insight = "${localPkgs.context-mode}/share/opencode/skills/ctx-insight";
+    skills.ctx-purge = "${localPkgs.context-mode}/share/opencode/skills/ctx-purge";
+    skills.ctx-search = "${localPkgs.context-mode}/share/opencode/skills/ctx-search";
+    skills.ctx-stats = "${localPkgs.context-mode}/share/opencode/skills/ctx-stats";
+    skills.ctx-upgrade = "${localPkgs.context-mode}/share/opencode/skills/ctx-upgrade";
+
     agents.code-review = ''
       ---
       description: Review code for security, quality, and best practices
@@ -190,6 +204,16 @@ in {
       #
       permission = "allow";
       lsp = true;
+      # stdio MCP server from the local context-mode package (see
+      # pkgs/context-mode). Companion skills are registered above.
+      #
+      mcp = {
+        context-mode = {
+          type = "local";
+          command = ["${localPkgs.context-mode}/bin/context-mode-mcp"];
+          enabled = true;
+        };
+      };
       formatter = {
         # Defensive: opencode's default Nix formatter is nixfmt. We
         # prefer alejandra (configured below) for consistency with the

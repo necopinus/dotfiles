@@ -1,0 +1,18 @@
+diff --git a/hooks/ensure-deps.mjs b/hooks/ensure-deps.mjs
+index 89c43a9..b4fca08 100644
+--- a/hooks/ensure-deps.mjs
++++ b/hooks/ensure-deps.mjs
+@@ -168,6 +168,13 @@ export function ensureNativeCompat(pluginRoot) {
+   // The binary install/rebuild still runs — only the dlopen probe is skipped.
+   const skipProbe = hasModernSqlite();
+ 
++  // With node:sqlite available the server never loads better-sqlite3 (see
++  // src/db-base.ts loadDatabase), so the ABI probe/heal below guards a
++  // fallback that cannot trigger. Skip it entirely: the in-process probe
++  // dlopens the native addon, and its teardown can abort the MCP server on
++  // nixpkgs Node builds (upstream #564 class).
++  if (skipProbe) return;
++
+   try {
+     if (!existsSync(nativeDir)) return;
+ 
