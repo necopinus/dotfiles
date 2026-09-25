@@ -66,7 +66,7 @@ in {
     python3Packages.weasyprint
 
     #### Skills ####
-    locakPkgs.no-ai-slop
+    localPkgs.no-ai-slop
     localPkgs.simple-english
 
     #### LSP servers & dependencies ####

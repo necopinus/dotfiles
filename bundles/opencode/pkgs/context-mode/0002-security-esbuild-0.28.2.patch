@@ -1,0 +1,13 @@
+diff --git a/package.json b/package.json
+index de4a4cf..193e93e 100644
+--- a/package.json
++++ b/package.json
+@@ -114,7 +114,7 @@
+     "@types/better-sqlite3": "^7.6.13",
+     "@types/node": "^22.19.11",
+     "@types/turndown": "^5.0.5",
+-    "esbuild": "^0.27.3",
++    "esbuild": "^0.28.2",
+     "tsx": "^4.21.0",
+     "typescript": "^5.7.0",
+     "vitest": "^4.0.18"

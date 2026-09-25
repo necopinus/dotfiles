@@ -65,8 +65,19 @@ buildNpmPackage {
   #   the probe/heal on such runtimes; drop this patch once upstream gates
   #   the probe on the fallback actually being reachable.
   #
+  # - 0002-security-esbuild-0.28.2.patch:
+  #   esbuild ^0.27.3 -> ^0.28.2 (GHSA-g7r4-m6w7-qqqr). esbuild is a
+  #   devDependency that is never executed here (the build uses upstream's
+  #   prebuilt bundles and devDependencies are pruned before install), so
+  #   this silences lockfile scanners rather than closing live exposure.
+  #   Drop once upstream requires esbuild >= 0.28.2.
+  #
+  # The vendored package-lock.json below is regenerated from the patched
+  # manifest (see check-updates.sh).
+  #
   patches = [
     ./0001-stability-skip-better-sqlite3-probe-on-modern-node.patch
+    ./0002-security-esbuild-0.28.2.patch
   ];
 
   postPatch = ''
@@ -74,7 +85,7 @@ buildNpmPackage {
     chmod +w package-lock.json
   '';
 
-  npmDepsHash = "sha256-wYHuctFaJ0BKZVjbtULZRmnhDTnJzli+m5wSW2reYDU=";
+  npmDepsHash = "sha256-SssYg7qKAhFC+p0/vnZfxisRCPoaboGA7CC+JxmKY3Y=";
   npmFlags = ["--ignore-scripts"];
 
   nativeBuildInputs = [
