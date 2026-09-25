@@ -185,44 +185,6 @@ if [[ "$OS" == "Linux" ]]; then
   # I mostly exist in US Mountain Time
   #
   sudo ln -sf /usr/share/zoneinfo/America/Denver /etc/localtime
-
-  if [[ "$HOST_NAME" == "kitsune" ]]; then
-    # Disable user namespace AppArmor enforcement if we're (1) on
-    # Ubuntu and (2) installing Hermes, as it prevents SUID binaries
-    # (i.e., the Chromium sandbox) from running in the Nix store
-    # (and thus breaks Hermes' browser automation)
-    #
-    #   https://github.com/NixOS/nixpkgs/issues/121694
-    #
-    if [[ $(grep -c "ID=ubuntu" /etc/os-release) -ne 0 ]]; then
-      echo "kernel.apparmor_restrict_unprivileged_userns=0" | sudo tee /etc/sysctl.d/60-apparmor-disable-userns-restrictions.conf
-    fi
-
-    # Install Hermes
-    #
-    curl -fsSL https://hermes-agent.nousresearch.com/install.sh | bash
-
-    # Install Mnemosyne
-    #
-    if [[ -d "$HOME/.hermes/mnemosyne-venv" ]]; then
-      rm -rf "$HOME/.hermes/mnemosyne-venv"
-    fi
-    uv venv "$HOME/.hermes/mnemosyne-venv"
-    (
-      cd "$HOME/.hermes/mnemosyne-venv"
-      uv pip install "fastembed" "mnemosyne-memory[embeddings]" "mnemosyne-hermes"
-      uv run mnemosyne-hermes --hermes-home "$HOME/.hermes" install --force --mode wrapper --python "$HOME/.hermes/mnemosyne-venv/bin/python"
-    )
-
-    # Install `xurl` searxh tool
-    #
-    curl -fsSL https://raw.githubusercontent.com/xdevplatform/xurl/main/install.sh | bash
-
-    # Systemd setup
-    #
-    mkdir -p "$HOME/.hermes/hermes-relay"
-    sudo loginctl enable-linger "$USER"
-  fi
 fi
 
 # Clear out macOS settings that need to be set (or not set) explicitly
@@ -291,43 +253,105 @@ sudo find /nix/var/nix/gcroots -xtype l -exec rm -v {} +
 nix store gc -v
 nix store optimise -v
 
-# Install Hermes completions and plugins, if applicable
+# Set up Hermes
 #
-if [[ -n "$(which hermes 2>/dev/null)" ]]; then
-  if [[ -d "$HOME"/.hermes/skills/officecli ]]; then
-    rm -rf "$HOME"/.hermes/skills/officecli
-  fi
-  officecli skill install
-  if [[ -d "$HOME"/.claude/skills/officecli ]]; then
-    rm -rf "$HOME"/.claude/skills/officecli
-  fi
-  if [[ -d "$XDG_CONFIG_HOME"/bash ]]; then
-    if [[ ! -d "$XDG_CONFIG_HOME"/bash/rc.d ]]; then
-      mkdir -p "$XDG_CONFIG_HOME"/bash/rc.d
-    fi
-    hermes completion bash >"$XDG_CONFIG_HOME"/bash/rc.d/hermes-completion.sh
-  fi
-  if [[ -d "$XDG_CONFIG_HOME"/zsh ]]; then
-    if [[ ! -d "$XDG_CONFIG_HOME"/zsh/rc.d ]]; then
-      mkdir -p "$XDG_CONFIG_HOME"/zsh/rc.d
-    fi
-    hermes completion zsh >"$XDG_CONFIG_HOME"/zsh/rc.d/hermes-completion.zsh
-  fi
-  if [[ -d "$XDG_CONFIG_HOME"/fish ]]; then
-    if [[ ! -d "$XDG_CONFIG_HOME"/fish/completions ]]; then
-      mkdir -p "$XDG_CONFIG_HOME"/fish/completions
-    fi
-    hermes completion fish >"$XDG_CONFIG_HOME"/fish/completions/hermes.fish
+if [[ "$HOST_NAME" == "kitsune" ]]; then
+  # Disable user namespace AppArmor enforcement if we're (1) on
+  # Ubuntu and (2) installing Hermes, as it prevents SUID binaries
+  # (i.e., the Chromium sandbox) from running in the Nix store
+  # (and thus breaks Hermes' browser automation)
+  #
+  #   https://github.com/NixOS/nixpkgs/issues/121694
+  #
+  if [[ $(grep -c "ID=ubuntu" /etc/os-release) -ne 0 ]]; then
+    echo "kernel.apparmor_restrict_unprivileged_userns=0" | sudo tee /etc/sysctl.d/60-apparmor-disable-userns-restrictions.conf
   fi
 
-  hermes plugins enable browser-browser-use
-  hermes plugins enable image_gen/openai
-  hermes plugins enable image_gen/xai
-  hermes plugins enable web-exa
-  hermes plugins enable video_gen/xai
-  hermes plugins enable web-xai
+  # Install Hermes
+  #
+  curl -fsSL https://hermes-agent.nousresearch.com/install.sh | bash
 
-  hermes plugins install Codename-11/hermes-relay/plugin --enable
+  # Install Mnemosyne
+  #
+  if [[ -d "$HOME/.hermes/mnemosyne-venv" ]]; then
+    rm -rf "$HOME/.hermes/mnemosyne-venv"
+  fi
+  uv venv "$HOME/.hermes/mnemosyne-venv"
+  (
+    cd "$HOME/.hermes/mnemosyne-venv"
+    uv pip install "fastembed" "mnemosyne-memory[embeddings]" "mnemosyne-hermes"
+    uv run mnemosyne-hermes --hermes-home "$HOME/.hermes" install --force --mode wrapper --python "$HOME/.hermes/mnemosyne-venv/bin/python"
+  )
+
+  # Install `xurl` searxh tool
+  #
+  curl -fsSL https://raw.githubusercontent.com/xdevplatform/xurl/main/install.sh | bash
+
+  # Systemd setup
+  #
+  mkdir -p "$HOME/.hermes/hermes-relay"
+  sudo loginctl enable-linger "$USER"
+
+  # Link the skills installed into the Nix profile (see
+  # bundles/opencode/pkgs) into Hermes' skills directory. The links point
+  # at the profile path rather than the Nix store, so later home-manager
+  # switches update the targets atomically.
+  #
+  mkdir -p "$HOME"/.hermes/skills
+  for SKILL_SOURCE in "$HOME"/.nix-profile/share/hermes/skills/*; do
+    if [[ ! -d "$SKILL_SOURCE" ]]; then
+      continue
+    fi
+    SKILL_NAME="$(basename "$SKILL_SOURCE")"
+    SKILL_TARGET="$HOME/.hermes/skills/$SKILL_NAME"
+    # Never clobber a real directory (e.g. a skill Hermes installed
+    # itself); only replace links created by an earlier run of this loop.
+    #
+    if [[ -e "$SKILL_TARGET" ]] && [[ ! -L "$SKILL_TARGET" ]]; then
+      echo "WARNING: $SKILL_TARGET exists and is not a symlink; skipping"
+      continue
+    fi
+    ln -sfn "$SKILL_SOURCE" "$SKILL_TARGET"
+  done
+
+  # Install Hermes completions and plugins, if applicable
+  #
+  if [[ -n "$(which hermes 2>/dev/null)" ]]; then
+    if [[ -d "$HOME"/.hermes/skills/officecli ]]; then
+      rm -rf "$HOME"/.hermes/skills/officecli
+    fi
+    officecli skill install
+    if [[ -d "$HOME"/.claude/skills/officecli ]]; then
+      rm -rf "$HOME"/.claude/skills/officecli
+    fi
+    if [[ -d "$XDG_CONFIG_HOME"/bash ]]; then
+      if [[ ! -d "$XDG_CONFIG_HOME"/bash/rc.d ]]; then
+        mkdir -p "$XDG_CONFIG_HOME"/bash/rc.d
+      fi
+      hermes completion bash >"$XDG_CONFIG_HOME"/bash/rc.d/hermes-completion.sh
+    fi
+    if [[ -d "$XDG_CONFIG_HOME"/zsh ]]; then
+      if [[ ! -d "$XDG_CONFIG_HOME"/zsh/rc.d ]]; then
+        mkdir -p "$XDG_CONFIG_HOME"/zsh/rc.d
+      fi
+      hermes completion zsh >"$XDG_CONFIG_HOME"/zsh/rc.d/hermes-completion.zsh
+    fi
+    if [[ -d "$XDG_CONFIG_HOME"/fish ]]; then
+      if [[ ! -d "$XDG_CONFIG_HOME"/fish/completions ]]; then
+        mkdir -p "$XDG_CONFIG_HOME"/fish/completions
+      fi
+      hermes completion fish >"$XDG_CONFIG_HOME"/fish/completions/hermes.fish
+    fi
+
+    hermes plugins enable browser-browser-use
+    hermes plugins enable image_gen/openai
+    hermes plugins enable image_gen/xai
+    hermes plugins enable web-exa
+    hermes plugins enable video_gen/xai
+    hermes plugins enable web-xai
+
+    hermes plugins install Codename-11/hermes-relay/plugin --enable
+  fi
 fi
 
 # Make sure that SSH is set up on macOS and kitsune.exe.xyz

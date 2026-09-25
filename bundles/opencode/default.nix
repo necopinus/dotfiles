@@ -9,18 +9,6 @@
     simple-english = pkgs.callPackage ./pkgs/simple-english {};
   };
 in {
-  # Installed explicitly (not just referenced from programs.opencode.skills)
-  # so that each package's share dirs land in ~/.nix-profile/share: the skill
-  # at share/opencode/skills/<name>, plus (for the skill-only packages) the
-  # package's symlink at share/hermes/skills/<name> pointing at the same
-  # files. context-mode additionally provides the context-mode{,-mcp} bins.
-  #
-  home.packages = with localPkgs; [
-    context-mode
-    no-ai-slop
-    simple-english
-  ];
-
   programs.opencode = {
     enable = true;
 
@@ -76,9 +64,11 @@ in {
 
       If you need an additional linter, you should ask the user to install one. Never disable linter checks without first receiving approval from the user. **The project is not complete until all warnings and errors have been resolved.**
 
+      **Load the `context-mode` skill now.** This skill (and the associated MCP server) will help minimize context usage and allow you to work on more complex tasks for longer.
+
       ### Model Hierarchy & Subagent Delegation
 
-      The primary agent and `@code-review` run on `opencode-go/kimi-k3`, a model that is capable but expensive. The built-in `@general` and `@explore` subagents run on `opencode-go/deepseek-v4.1-flash`. This model is cheaper but still capable of routine work. The `small_model` is `opencode-go/deepseek-v4-flash` for ephemeral background tasks.
+      The primary agent and `@code-review` run on `opencode-go/kimi-k3`, a model that is capable but expensive. The built-in `@general` and `@explore` subagents run on `opencode-go/deepseek-v4.1-flash`. This model is cheaper but still capable of routine work. The `small_model` is `opencode-go/deepseek-v4.1-flash` for ephemeral tasks.
 
       To minimize monetary cost and context window pressure, delegate routine work to subagents:
 
@@ -122,7 +112,7 @@ in {
 
       ## Communication Guidance
 
-      IMPORTANT: Load the `simple-english` skill NOW for important communication guidelines.
+      IMPORTANT: Load the `no-ai-slop` and `simple-english` skills NOW for important communication guidelines. Apply these skills whenever feasible (not all guidelines will apply in all cases).
 
       ### What to Do
 
@@ -181,7 +171,7 @@ in {
 
     settings = {
       model = "opencode-go/kimi-k3";
-      small_model = "opencode-go/deepseek-v4-flash";
+      small_model = "opencode-go/deepseek-v4.1-flash";
       shell = "bash";
       # Shadow the built-in `general` and `explore` subagents to use a
       # cheaper but still capable model for the actual grind. Only `model`
@@ -211,6 +201,11 @@ in {
         context-mode = {
           type = "local";
           command = ["${localPkgs.context-mode}/bin/context-mode-mcp"];
+          enabled = true;
+        };
+        nix = {
+          type = "local";
+          command = ["${pkgs.mcp-nixos}/bin/mcp-nixos"];
           enabled = true;
         };
       };

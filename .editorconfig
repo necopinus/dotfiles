@@ -21,14 +21,12 @@ indent_size = 2
 indent_style = space
 indent_size = 4
 
-# Shell scripts may contain `<<-EOF` HEREDOC blocks whose body lines
-# *must* be tab-indented (otherwise the leading tab is part of the
-# substituted text). shfmt with -i 0 preserves tabs wherever the file
-# already uses them, but we set indent_style = tab here so that any
-# editor honoring editorconfig doesn't normalize them to spaces.
+# Shell scripts are formatted by shfmt -i 2 (see .githooks/pre-commit).
+# shfmt keeps the mandatory tab indentation of <<-EOF heredoc bodies and
+# closing delimiters even when indenting with spaces, so 2-space is safe.
 [*.sh]
-indent_style = tab
-indent_size = 4
+indent_style = space
+indent_size = 2
 
 # YAML in this repo is 2-space (matches alejandra's default style for
 # most data structures; yamllint's default indentation rule agrees).
