@@ -57,6 +57,7 @@ in {
 
     #### Additional deps ####
     agent-browser
+    clang
     playwright-test
     tirith
 
