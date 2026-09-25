@@ -276,7 +276,7 @@ if [[ "$HOST_NAME" == "kitsune" ]]; then
   if [[ -d "$HOME/.hermes/mnemosyne-venv" ]]; then
     rm -rf "$HOME/.hermes/mnemosyne-venv"
   fi
-  uv venv "$HOME/.hermes/mnemosyne-venv"
+  uv venv --python 3.14 "$HOME/.hermes/mnemosyne-venv"
   (
     cd "$HOME/.hermes/mnemosyne-venv"
     uv pip install "fastembed" "mnemosyne-memory[embeddings]" "mnemosyne-hermes"
