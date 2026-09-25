@@ -64,6 +64,8 @@ in {
 
       If you need an additional linter, you should ask the user to install one. Never disable linter checks without first receiving approval from the user. **The project is not complete until all warnings and errors have been resolved.**
 
+      When working in an existing project, conform to the programming languages, tool use patterns, and coding conventions already in use. The conventions in use by an existing project supersede the guidance of the global `AGENTS.md` file.
+
       **Load the `context-mode` skill now.** This skill (and the associated MCP server) will help minimize context usage and allow you to work on more complex tasks for longer.
 
       ### Model Hierarchy & Subagent Delegation
