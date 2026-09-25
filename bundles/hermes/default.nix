@@ -8,7 +8,9 @@
     pyright = pkgs.callPackage ./pkgs/pyright.nix {};
     pyright-langserver = pkgs.callPackage ./pkgs/pyright-langserver.nix {};
     mcplogic = pkgs.callPackage ./pkgs/mcplogic {};
+    no-ai-slop = pkgs.callPackage ../opencode/pkgs/no-ai-slop {};
     scimath-mcp = pkgs.callPackage ./pkgs/scimath-mcp {};
+    simple-english = pkgs.callPackage ../opencode/pkgs/simple-english {};
     wiki-mcp = pkgs.callPackage ./pkgs/wiki-mcp {};
   };
 
@@ -62,6 +64,10 @@ in {
     pandoc
     python3Packages.jsonschema
     python3Packages.weasyprint
+
+    #### Skills ####
+    locakPkgs.no-ai-slop
+    localPkgs.simple-english
 
     #### LSP servers & dependencies ####
     bash-language-server
