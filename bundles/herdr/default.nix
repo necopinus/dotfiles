@@ -154,4 +154,35 @@
       end
     '';
   };
+
+  # Auto-start Herder, but ONLY on non-SSH connections, and only on
+  # macOS (we auto-start Herdr on SSH connections)
+  #
+  # NOTE: The naming is funny because we want to be sure that this
+  # always runs LAST
+  #
+  xdg.configFile."bash/rc.d/zz_tmux.sh" = {
+    enable = config.programs.bash.enable && false;
+    text = ''
+      if [[ $- == *i* ]] && [[ -z "$HERDER_ENV" ]] && [[ -z "$SSH_TTY" ]] && [[ ! -f "$HOME/noherdr" ]] && [[ ! -f "$HOME/noherdr.txt" ]] && [[ ! -f /mnt/shared/Documents/noherdr ]] && [[ ! -f /mnt/shared/Documents/noherdr.txt ]]; then
+        herdr && exit
+      fi
+    '';
+  };
+  xdg.configFile."zsh/rc.d/zz_tmux.zsh" = {
+    enable = config.programs.zsh.enable && pkgs.stdenv.hostPlatform.isDarwin;
+    text = ''
+      if [[ -o interactive ]] && [[ -z "$HERDR_ENV" ]] && [[ -z "$SSH_TTY" ]] && [[ ! -f "$HOME/noherdr" ]] && [[ ! -f "$HOME/noherdr.txt" ]] && [[ ! -f /mnt/shared/Documents/noherdr ]] && [[ ! -f /mnt/shared/Documents/noherdr.txt ]]; then
+        herdr && exit
+      fi
+    '';
+  };
+  xdg.configFile."fish/rc.d/zz_tmux.fish" = {
+    enable = config.programs.fish.enable && false;
+    text = ''
+      if status --is-interactive; and test -z "$HERDR_ENV"; and test -z "$SSH_TTY"; and test ! -f $HOME/noherdr; and test ! -f $HOME/noherdr.txt; and test ! -f /mnt/shared/Documents/noherdr; and test ! -f /mnt/shared/Documents/noherdr.txt
+        herdr && exit
+      end
+    '';
+  };
 }
