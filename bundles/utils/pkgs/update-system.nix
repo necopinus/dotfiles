@@ -68,6 +68,12 @@ writeShellApplication {
       rm -rf "$HOME/.npm"
     fi
 
+    # Update OpenCode settings
+    #
+    if [[ -d "$XDG_CONFIG_HOME"/opencode ]]; then
+      herdr integration install opencode
+    fi
+
     # Update Hermes
     #
     if [[ "$(hostname)" == "kitsune" ]]; then
@@ -107,6 +113,8 @@ writeShellApplication {
       if [[ -d "$HOME"/.claude/skills/officecli ]]; then
         rm -rf "$HOME"/.claude/skills/officecli
       fi
+
+      herdr integration install hermes
 
       if [[ -d "$XDG_CONFIG_HOME"/bash/rc.d ]]; then
         hermes completion bash > "$XDG_CONFIG_HOME"/bash/rc.d/hermes-completion.sh

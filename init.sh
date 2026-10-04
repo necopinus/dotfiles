@@ -283,7 +283,7 @@ if [[ "$HOST_NAME" == "kitsune" ]]; then
     uv run mnemosyne-hermes --hermes-home "$HOME/.hermes" install --force --mode wrapper --python "$HOME/.hermes/mnemosyne-venv/bin/python"
   )
 
-  # Install `xurl` searxh tool
+  # Install `xurl` search tool
   #
   curl -fsSL https://raw.githubusercontent.com/xdevplatform/xurl/main/install.sh | bash
 
@@ -314,6 +314,12 @@ if [[ "$HOST_NAME" == "kitsune" ]]; then
     ln -sfn "$SKILL_SOURCE" "$SKILL_TARGET"
   done
 
+  # Set up OpenCode, if applicable
+  #
+  if [[ -d "$XDG_CONFIG_HOME"/opencode ]]; then
+    herdr integration install opencode
+  fi
+
   # Install Hermes completions and plugins, if applicable
   #
   if [[ -n "$(which hermes 2>/dev/null)" ]]; then
@@ -324,6 +330,7 @@ if [[ "$HOST_NAME" == "kitsune" ]]; then
     if [[ -d "$HOME"/.claude/skills/officecli ]]; then
       rm -rf "$HOME"/.claude/skills/officecli
     fi
+    herdr integration install hermes
     if [[ -d "$XDG_CONFIG_HOME"/bash ]]; then
       if [[ ! -d "$XDG_CONFIG_HOME"/bash/rc.d ]]; then
         mkdir -p "$XDG_CONFIG_HOME"/bash/rc.d

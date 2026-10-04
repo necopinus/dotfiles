@@ -10,11 +10,11 @@
     ../../bundles/fish
     ../../bundles/git
     ../../bundles/helix
+    ../../bundles/herdr # Depends on ../bundles/fish
     ../../bundles/htop
     ../../bundles/media-tools
     ../../bundles/ssh
     ../../bundles/starship
-    ../../bundles/tmux # Depends on ../bundles/fish
     ../../bundles/utils
     ../../bundles/zoxide
   ];
