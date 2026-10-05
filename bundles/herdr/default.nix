@@ -93,6 +93,12 @@
       };
       ui = {
         mouse_scroll_lines = 1;
+        tab_bar_right = [
+          {
+            type = "datetime";
+            format = "%Y-%m-%d %H:%M:%S";
+          }
+        ];
         status_indicators = "symbols";
         toast = {
           delivery = "system";
