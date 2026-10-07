@@ -5,13 +5,13 @@
 }:
 stdenvNoCC.mkDerivation {
   pname = "simple-english";
-  version = "2.1.0";
+  version = "2.1.1";
 
   src = fetchFromGitHub {
     owner = "AminBlg";
     repo = "SimpleEnglish";
-    tag = "v2.1.0";
-    hash = "sha256-CPD3x2wcU7INpOpqn0Hg4iY9gB1BAfuHU8e9w//s1sA=";
+    tag = "v2.1.1";
+    hash = "sha256-mWs9n465FMiMcyxD9diTV6olXWuTy2wW+bZ475Vc3to=";
   };
 
   # Upstream ships the skill (SKILL.md + references/) under

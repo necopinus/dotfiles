@@ -85,7 +85,7 @@ buildNpmPackage {
     chmod +w package-lock.json
   '';
 
-  npmDepsHash = "sha256-SssYg7qKAhFC+p0/vnZfxisRCPoaboGA7CC+JxmKY3Y=";
+  npmDepsHash = "sha256-yFtAJeRWuxkSoYX5zsfZDwBCCaqSZLj5DbGDopG47yQ=";
   npmFlags = ["--ignore-scripts"];
 
   nativeBuildInputs = [

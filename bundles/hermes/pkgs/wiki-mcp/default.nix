@@ -58,7 +58,7 @@ buildNpmPackage {
     sed -i '1i #!/usr/bin/env node' src/index.ts
   '';
 
-  npmDepsHash = "sha256-Od7Yc8wMJtP8QScQT6N4W3OMfCf/cvfl77BrOfi1HnE=";
+  npmDepsHash = "sha256-1Ow1vqiKycQa+qCf+GKLqxgkCizGSxeA34Xy8Cam2Uw=";
 
   meta = {
     description = "MCP server for Wikipedia and Wikidata APIs";
