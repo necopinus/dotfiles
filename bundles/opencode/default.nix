@@ -236,6 +236,7 @@ in {
     };
     tui = {
       theme = "gruvbox";
+      plugin = ["./herdr-tui-session.js"]; # Herdr integration
     };
   };
 }
