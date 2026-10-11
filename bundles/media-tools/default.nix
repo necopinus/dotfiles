@@ -2,9 +2,17 @@
   pkgs,
   lib,
   ...
-}: {
+}: let
+  localPkgs = {
+    yamlresume = pkgs.callPackage ./pkgs/yamlresume {};
+  };
+in {
   home.packages = with pkgs;
-    lib.optionals pkgs.stdenv.hostPlatform.isLinux [
+    [
+      #### Installed on both Linux and macOS ####
+      localPkgs.yamlresume
+    ]
+    ++ lib.optionals pkgs.stdenv.hostPlatform.isLinux [
       libgourou # Broken on macOS as of 2026-06-09
     ]
     ++ lib.optionals pkgs.stdenv.hostPlatform.isDarwin [
