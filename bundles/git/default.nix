@@ -82,9 +82,9 @@ in {
         GIT_EXEC="$(which git)"
 
         if [[ -n "$GIT_SIGNING_KEY" ]]; then
-          $GIT_EXEC -c user.name="Nathan Acks" -c user.email="nathan.acks@cardboard-iguana.com" -c user.signingKey="key::$GIT_SIGNING_KEY" "$@"
+          env SSH_COMMAND="ssh -i /dev/null" $GIT_EXEC -c user.name="Nathan Acks" -c user.email="nathan.acks@cardboard-iguana.com" -c user.signingKey="key::$GIT_SIGNING_KEY" "$@"
         elif [[ -f "${config.home.homeDirectory}/.ssh/id_ed25519" ]]; then
-          $GIT_EXEC -c user.name="Nathan Acks" -c user.email="nathan.acks@cardboard-iguana.com" -c user.signingKey="${config.home.homeDirectory}/.ssh/id_ed25519" "$@"
+          env SSH_COMMAND="ssh -i ${config.home.homeDirectory}/.ssh/id_ed25519" $GIT_EXEC -c user.name="Nathan Acks" -c user.email="nathan.acks@cardboard-iguana.com" -c user.signingKey="${config.home.homeDirectory}/.ssh/id_ed25519" "$@"
         else
           $GIT_EXEC -c user.name="Nathan Acks" -c user.email="nathan.acks@cardboard-iguana.com" "$@"
         fi
@@ -98,9 +98,9 @@ in {
         GIT_EXEC="$(whence -p git)"
 
         if [[ -n "$GIT_SIGNING_KEY" ]]; then
-          $GIT_EXEC -c user.name="Nathan Acks" -c user.email="nathan.acks@cardboard-iguana.com" -c user.signingKey="key::$GIT_SIGNING_KEY" "$@"
+          env SSH_COMMAND="ssh -i /dev/null" $GIT_EXEC -c user.name="Nathan Acks" -c user.email="nathan.acks@cardboard-iguana.com" -c user.signingKey="key::$GIT_SIGNING_KEY" "$@"
         elif [[ -f "${config.home.homeDirectory}/.ssh/id_ed25519" ]]; then
-          $GIT_EXEC -c user.name="Nathan Acks" -c user.email="nathan.acks@cardboard-iguana.com" -c user.signingKey="${config.home.homeDirectory}/.ssh/id_ed25519" "$@"
+          env SSH_COMMAND="ssh -i ${config.home.homeDirectory}/.ssh/id_ed25519" $GIT_EXEC -c user.name="Nathan Acks" -c user.email="nathan.acks@cardboard-iguana.com" -c user.signingKey="${config.home.homeDirectory}/.ssh/id_ed25519" "$@"
         else
           $GIT_EXEC -c user.name="Nathan Acks" -c user.email="nathan.acks@cardboard-iguana.com" "$@"
         fi
@@ -114,9 +114,9 @@ in {
         set GIT_EXEC $(which git)
 
         if test -n "$GIT_SIGNING_KEY"
-          $GIT_EXEC -c user.name="Nathan Acks" -c user.email="nathan.acks@cardboard-iguana.com" -c user.signingKey="key::$GIT_SIGNING_KEY" $argv
+          env SSH_COMMAND="ssh -i /dev/null" $GIT_EXEC -c user.name="Nathan Acks" -c user.email="nathan.acks@cardboard-iguana.com" -c user.signingKey="key::$GIT_SIGNING_KEY" $argv
         else if test -f "${config.home.homeDirectory}/.ssh/id_ed25519"
-          $GIT_EXEC -c user.name="Nathan Acks" -c user.email="nathan.acks@cardboard-iguana.com" -c user.signingKey="${config.home.homeDirectory}/.ssh/id_ed25519" $argv
+          env SSH_COMMAND="ssh -i ${config.home.homeDirectory}/.ssh/id_ed25519" $GIT_EXEC -c user.name="Nathan Acks" -c user.email="nathan.acks@cardboard-iguana.com" -c user.signingKey="${config.home.homeDirectory}/.ssh/id_ed25519" $argv
         else
           $GIT_EXEC -c user.name="Nathan Acks" -c user.email="nathan.acks@cardboard-iguana.com" $argv
         end
