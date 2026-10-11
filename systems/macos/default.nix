@@ -13,7 +13,6 @@
     dos2unix
     libqalculate
     plistwatch
-    texliveMedium # Closest Nixpkgs to Debian's `texlive`
   ];
 
   # Explicitly prevent man cache generation on macOS, as this doesn't
