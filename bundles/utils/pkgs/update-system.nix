@@ -217,5 +217,10 @@ writeShellApplication {
     if [[ "$OS" == "Darwin" ]]; then
       softwareupdate -ia --include-config --include-config-data
     fi
+
+    # Mark script finish; this makes it easier to tell when an error has
+    # occurred
+    #
+    echo "~*~ Update Complete ~*~"
   '';
 }
