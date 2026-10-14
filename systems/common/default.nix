@@ -47,8 +47,4 @@
     XDG_DATA_HOME = "${config.xdg.dataHome}";
     XDG_STATE_HOME = "${config.xdg.stateHome}";
   };
-
-  # https://github.com/nix-community/home-manager/issues/7935#issuecomment-3671184459
-  #
-  manual.manpages.enable = false;
 }
