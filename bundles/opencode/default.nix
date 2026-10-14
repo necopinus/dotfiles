@@ -70,7 +70,7 @@ in {
 
       ### Model Hierarchy & Subagent Delegation
 
-      The primary agent and `@code-review` run on `opencode-go/kimi-k3`, a model that is capable but expensive. The built-in `@general` and `@explore` subagents run on `opencode-go/deepseek-v4.1-flash`. This model is cheaper but still capable of routine work. The `small_model` is `opencode-go/deepseek-v4.1-flash` for ephemeral tasks.
+      The primary agent and `@code-review` run on `opencode-go/mimo-v2.6-pro`, a model that is capable but expensive. The built-in `@general` and `@explore` subagents run on `opencode-go/deepseek-v4.1-flash`. This model is cheaper but still capable of routine work. The `small_model` is `opencode-go/deepseek-v4.1-flash` for ephemeral tasks.
 
       To minimize monetary cost and context window pressure, delegate routine work to subagents:
 
@@ -106,10 +106,10 @@ in {
       - If the GIT_SIGNING_KEY environment variable is not set but the id_ed25519 SSH key exists, then use `git -c user.name="Nathan Acks" -c user.email="nathan.acks@cardboard-iguana.com" -c user.signingKey="${config.home.homeDirectory}/.ssh/id_ed25519"`.
       - If the GIT_SIGNING_KEY environment variable is not set and the id_ed25519 SSH key does not exist, then no signing key is available and you will need to ask the user for assistance when committing code.
 
-      When making a commit, always add `Co-authored-by: OpenCode ($CURRENT_MODEL_IDENTIFIER) <noreply@opencode.ai>` as the *last* paragraph of the commit message. For example, if the GIT_SIGNING_KEY environment variable is not set, the id_ed25519 SSH key exists, the in-use model is Kimi K3, and the desired commit message is "Added more cowbell", then the final commit command would look as follows:
+      When making a commit, always add `Co-authored-by: OpenCode ($CURRENT_MODEL_IDENTIFIER) <noreply@opencode.ai>` as the *last* paragraph of the commit message. For example, if the GIT_SIGNING_KEY environment variable is not set, the id_ed25519 SSH key exists, the in-use model is MiMo V2.6 Pro, and the desired commit message is "Added more cowbell", then the final commit command would look as follows:
 
       ```bash
-      git -c user.name="Nathan Acks" -c user.email="nathan.acks@cardboard-iguana.com" -c user.signingKey="${config.home.homeDirectory}/.ssh/id_ed25519" commit -m "Added more cowbell" -m "Co-authored-by: OpenCode (kimi-k3) <noreply@opencode.ai>"
+      git -c user.name="Nathan Acks" -c user.email="nathan.acks@cardboard-iguana.com" -c user.signingKey="${config.home.homeDirectory}/.ssh/id_ed25519" commit -m "Added more cowbell" -m "Co-authored-by: OpenCode (mimo-v2.6-pro) <noreply@opencode.ai>"
       ```
 
       ## Communication Guidance
@@ -136,6 +136,10 @@ in {
       - Don't repeat the user's framing
       - Don't overexplaining obvious things
       - Avoid sentence fragments, verbless sentences, and one-line paragraphs
+
+      ## Asking for help
+
+      You are more capable than you think, and you should be proud of your accomplishments. But don't let your pride get in the way! If you find yourself stuck on a decision, perseverating about the user's intent, or looping unsuccessfully in your thinking or tool calls, STOP and ask the user for help or clarification.
     '';
 
     # home-manager accepts store paths here; each package vendors the
@@ -155,11 +159,14 @@ in {
     skills.ctx-stats = "${localPkgs.context-mode}/share/opencode/skills/ctx-stats";
     skills.ctx-upgrade = "${localPkgs.context-mode}/share/opencode/skills/ctx-upgrade";
 
+    # NOTE: We use a different model here than the main orchestrator or
+    # subagent in order to get a "fresh perspective" during code review
+    #
     agents.code-review = ''
       ---
       description: Review code for security, quality, and best practices
       mode: subagent
-      model: opencode-go/kimi-k3
+      model: opencode-go/qwen3.8-max
       temperature: 0.2
       ---
       Review the code in this repository for security and best practices. DO NOT MAKE ANY CHANGES.
@@ -177,7 +184,7 @@ in {
     '';
 
     settings = {
-      model = "opencode-go/kimi-k3";
+      model = "opencode-go/mimo-v2.6-pro";
       small_model = "opencode-go/deepseek-v4.1-flash";
       shell = "bash";
       # Shadow the built-in `general` and `explore` subagents to use a
@@ -186,7 +193,7 @@ in {
       # subagent's built-in prompt, description, and permissions —
       # shadowing only the model future-proofs us against changes to the
       # built-in prompts. The primary agent (orchestrator/planner) and
-      # `@code-review` continue to use `opencode-go/kimi-k3`.
+      # `@code-review` continue to use `opencode-go/mimo-v2.6-pro`.
       # https://opencode.ai/docs/agents/#model
       agent = {
         general.model = "opencode-go/deepseek-v4.1-flash";
