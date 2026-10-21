@@ -93,7 +93,7 @@ writeShellApplication {
       uv venv --python 3.14 "$HOME/.hermes/mnemosyne-venv"
       (
         cd "$HOME/.hermes/mnemosyne-venv"
-        uv pip install --prerelease=explicit "fastembed" "mnemosyne-memory[embeddings]>=4.0.0b3" "mnemosyne-hermes"
+        uv pip install --prerelease=explicit "mnemosyne-hermes"
         uv run mnemosyne-hermes --hermes-home "$HOME/.hermes" install --force --mode wrapper --python "$HOME/.hermes/mnemosyne-venv/bin/python"
       )
 
