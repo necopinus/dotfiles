@@ -239,11 +239,35 @@ in {
           extensions = [".nix"];
         };
       };
-      plugin = ["opencode-pty"];
+      plugin = [{package = "opencode-pty/v2";}];
     };
-    tui = {
-      theme = "gruvbox";
+    cli = {
+      theme = {
+        name = "gruvbox";
+        mode = "light";
+      };
       plugin = ["./herdr-tui-session.js"]; # Herdr integration
     };
+  };
+
+  # Launch OpenCode in stand-alone mode to prevent surprises
+  #
+  xdg.configFile."bash/rc.d/opencode.sh" = {
+    enable = config.programs.bash.enable;
+    text = ''
+      alias opencode="${config.programs.opencode.package}/bin/opencode --standalone"
+    '';
+  };
+  xdg.configFile."zsh/rc.d/opencode.zsh" = {
+    enable = config.programs.zsh.enable;
+    text = ''
+      alias cat="${config.programs.opencode.package}/bin/opencode --standalone"
+    '';
+  };
+  xdg.configFile."fish/rc.d/opencode.fish" = {
+    enable = config.programs.fish.enable;
+    text = ''
+      alias opencode "${config.programs.opencode.package}/bin/opencode --standalone"
+    '';
   };
 }
