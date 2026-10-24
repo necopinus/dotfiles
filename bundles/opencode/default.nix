@@ -183,6 +183,7 @@ in {
       Results must be written to a document in the root of the working tree called CODE_REVIEW_RESULTS.md. Each finding is a Markdown todo item with one of the following severities as a label. The label is one of `CRITICAL`, `HIGH`, `MEDIUM`, or `LOW`. `CRITICAL` means a security flaw or correctness bug. `HIGH` means a likely bug or significant quality problem. `MEDIUM` means a style, performance, or maintainability issue. `LOW` means a minor suggestion or nit. The item body must describe the issue and recommend a remediation approach. If the file already exists, append the results to the end under a header with the date and time of the analysis to separate new results from those previously reported. The command `date "+%Y-%m-%d %H:%M"` outputs the current date and time for this purpose. Do not duplicate any findings that already exist.
     '';
 
+    mutableSettings = true;
     settings = {
       model = "opencode-go/mimo-v2.6-pro";
       small_model = "opencode-go/deepseek-v4.1-flash";

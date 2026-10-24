@@ -70,12 +70,8 @@ writeShellApplication {
 
     # Update OpenCode settings
     #
-    # NOTE: This fails when $XDG_CONFIG_HOME/opencode/tui.json is a
-    # symlink, even when no changes would be made. Hence the `|| true`
-    # construct
-    #
     if [[ -d "$XDG_CONFIG_HOME"/opencode ]]; then
-      herdr integration install opencode || true
+      herdr integration install opencode
     fi
 
     # Update Hermes
