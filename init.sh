@@ -305,6 +305,16 @@ if [[ "$HOST_NAME" == "kitsune" ]]; then
     ln -sfn "$SKILL_SOURCE" "$SKILL_TARGET"
   done
 
+  # Add herdr skill to Hermes
+  #
+  if [[ -d "$HOME"/.nix-profile/share/skills/herdr ]]; then
+    if [[ ! -e "$HOME"/.hermes/skills/herdr ]] || [[ -L "$HOME"/.hermes/skills/herdr ]]; then
+      ln -sfn "$HOME"/.nix-profile/share/skills/herdr "$HOME"/.hermes/skills/herdr
+    else
+      echo "WARNING: $HOME/.hermes/skills/herdr exists and is not a symlink; skipping"
+    fi
+  fi
+
   # Set up OpenCode, if applicable
   #
   if [[ -d "$XDG_CONFIG_HOME"/opencode ]]; then

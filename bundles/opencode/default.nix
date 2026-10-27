@@ -151,10 +151,10 @@ in {
     #
     skills.context-mode = "${pkgs.context-mode}/lib/context-mode/skills/context-mode";
     skills.ctx-doctor = "${pkgs.context-mode}/lib/context-mode/skills/ctx-doctor";
-    skills.ctx-index = "${pkgs.context-mode}/lib/context-mode/skills/ctx-index";
+    #skills.ctx-index = "${pkgs.context-mode}/lib/context-mode/skills/ctx-index"; # v1.0.152+
     skills.ctx-insight = "${pkgs.context-mode}/lib/context-mode/skills/ctx-insight";
     skills.ctx-purge = "${pkgs.context-mode}/lib/context-mode/skills/ctx-purge";
-    skills.ctx-search = "${pkgs.context-mode}/lib/context-mode/skills/ctx-search";
+    #skills.ctx-search = "${pkgs.context-mode}/lib/context-mode/skills/ctx-search"; # v1.0.152+
     skills.ctx-stats = "${pkgs.context-mode}/lib/context-mode/skills/ctx-stats";
     skills.ctx-upgrade = "${pkgs.context-mode}/lib/context-mode/skills/ctx-upgrade";
 
@@ -214,11 +214,15 @@ in {
           command = ["${pkgs.context-mode}/bin/context-mode-mcp"];
           enabled = true;
         };
-        nix = {
-          type = "local";
-          command = ["${pkgs.mcp-nixos}/bin/mcp-nixos"];
-          enabled = true;
-        };
+        # FIXME: Broken due to fastmcp issue as of 2026-10-19
+        #
+        # https://github.com/NixOS/nixpkgs/blob/master/pkgs/development/python-modules/fastmcp-slim/default.nix#L175
+        #
+        #nix = {
+        #  type = "local";
+        #  command = ["${pkgs.mcp-nixos}/bin/mcp-nixos"];
+        #  enabled = true;
+        #};
       };
       formatter = {
         # Defensive: opencode's default Nix formatter is nixfmt. We

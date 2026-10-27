@@ -38,7 +38,6 @@
     linuxHomeManagerCommonModules = [
       {
         nixpkgs.config.allowUnfree = true;
-        nixpkgs.config.problems.handlers.fastmcp-slim.broken = "ignore"; # 2026-10-27 work around mcp-nixos issue
         home.stateVersion = "${homeManagerStateVersion}";
       }
 
@@ -54,7 +53,6 @@
       #
       #{
       #  nixpkgs.config.allowUnfree = true;
-      #  nixpkgs.config.problems.handlers.fastmcp-slim.broken = "ignore"; # 2026-10-27 work around mcp-nixos issue
       #  home.stateVersion = "${homeManagerStateVersion}";
       #}
 
@@ -94,7 +92,6 @@
       modules = [
         {
           nixpkgs.config.allowUnfree = true;
-          nixpkgs.config.problems.handlers.fastmcp-slim.broken = "ignore"; # 2026-10-27 work around mcp-nixos issue
           system.stateVersion = nixDarwinStateVersion;
           system.primaryUser = "necopinus";
           users.users.necopinus = {

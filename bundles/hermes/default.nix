@@ -88,7 +88,11 @@ in {
     localPkgs.scimath-mcp
     localPkgs.wiki-mcp
     markitdown-mcp
-    mcp-nixos
+    # FIXME: Broken due to fastmcp issue as of 2026-10-19
+    #
+    # https://github.com/NixOS/nixpkgs/blob/master/pkgs/development/python-modules/fastmcp-slim/default.nix#L175
+    #
+    #mcp-nixos
     officecli
   ];
 

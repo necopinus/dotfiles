@@ -108,6 +108,10 @@
     };
   };
 
+  # Add herdr skill to OpenCode (if installed)
+  #
+  programs.opencode.skills.herdr = "${config.programs.herdr.package}/share/skills/herdr";
+
   # `terminal-notifier` is required by Herdr on macOS to enable delivery
   # of system notifications
   #
