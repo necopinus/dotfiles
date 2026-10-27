@@ -37,16 +37,28 @@ buildNpmPackage {
   #   drop once upstream requires @mozilla/readability >= 0.6.0.
   #
   # - 0002-security-vitest4-tsup8-esbuild-override.patch:
-  #   vitest ^2.0.0 -> ^4.1.11 (CVE-2026-47429, CVE-2026-84373),
+  #   vitest ^2.0.0 -> ^4.1.12 (CVE-2026-47429, CVE-2026-84373, and the
+  #   @vitest/mocker advisories GHSA-qxg6-89mg-rqv8 and GHSA-xp26-3454-mjgp),
   #   tsup ^8.0.0 -> ^8.5.1 (fixes the vulnerable vite and esbuild chains:
   #   CVE-2026-53571, CVE-2026-53632, GHSA-67mh-4wv8-2f99),
   #   plus an npm overrides entry forcing esbuild >= 0.28.1
   #   (GHSA-g7r4-m6w7-qqqr, a build-time-only concern);
-  #   drop once upstream requires vitest >= 4.1.11 and tsup >= 8.5.1 with
+  #   drop once upstream requires vitest >= 4.1.12 and tsup >= 8.5.1 with
   #   esbuild >= 0.28.1 reachable in its dependency tree.
   #
   # The patches touch only package.json; the vendored lockfile below is
   # regenerated from the patched manifest.
+  #
+  # The lockfile also carries security floors for transitive deps that no
+  # patch names. Each floor already fits inside its parent's declared
+  # semver range, so nothing is overridden: the pin only holds until the
+  # lockfile is regenerated. Keep these at or above when regenerating:
+  #
+  #   body-parser >= 2.4.0  (GHSA-27r3-jxmh-p828)
+  #   zod        >= 4.6.6   (GHSA-mrhx-c7xc-m3w5)
+  #   fast-uri   >= 3.1.9   (GHSA-w74x-v6f9-j3xg, GHSA-xhq7-xmqj-769h,
+  #                          GHSA-wjr9-j795-jxcr, GHSA-333x-w4r6-6crp)
+  #   ip-address >= 10.7.4  (GHSA-rxp7-6hxx-x8q5)
   patches = [
     ./0001-security-readability-0.6.0.patch
     ./0002-security-vitest4-tsup8-esbuild-override.patch
@@ -58,7 +70,7 @@ buildNpmPackage {
     sed -i '1i #!/usr/bin/env node' src/index.ts
   '';
 
-  npmDepsHash = "sha256-1Ow1vqiKycQa+qCf+GKLqxgkCizGSxeA34Xy8Cam2Uw=";
+  npmDepsHash = "sha256-SBK+gD5wMP6s+v/yWo74ci+YphJONRBogBkVALwVF0A=";
 
   meta = {
     description = "MCP server for Wikipedia and Wikidata APIs";

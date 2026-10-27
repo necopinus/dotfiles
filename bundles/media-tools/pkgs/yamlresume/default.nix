@@ -69,12 +69,20 @@ in
     # files are generated from the tarball's manifest with devDependencies
     # and scripts removed (dist/ is prebuilt, so neither is used); see
     # check-updates.sh for the regeneration steps.
+    #
+    # The lockfile pins one transitive security floor that no manifest
+    # change forces. It fits inside @ai-sdk/provider-utils' declared range
+    # (^7.29.0), so the pin only holds until the lockfile is regenerated.
+    # Keep this at or above when regenerating:
+    #
+    #   undici >= 7.30.1 (GHSA-4qv8-2p9j-2685, GHSA-f72v-6w45-q472,
+    #                      GHSA-xjj6-f33q-929c)
     postPatch = ''
       cp ${./package.json} package.json
       cp ${./package-lock.json} package-lock.json
     '';
 
-    npmDepsHash = "sha256-29YmsZsl8zKTFBkHhmcAlWG5+yPDERbgzLt9VV0ygu8=";
+    npmDepsHash = "sha256-R85xgABt5tYbNJyd1BPZGHOcS/EDoX+o8Dhz3Sbx+P0=";
 
     dontNpmBuild = true;
 

@@ -3,12 +3,14 @@ From: Nathan Acks <nathan.acks@cardboard-iguana.com>
 Date: Sat, 12 Sep 2026 08:59:33 -0600
 Subject: [PATCH 2/2] Bump vitest/tsup devDeps; override esbuild
 
-- vitest ^2.0.0 -> ^4.1.11 (fixes CVE-2026-47429, CVE-2026-84373)
+- vitest ^2.0.0 -> ^4.1.12 (fixes CVE-2026-47429, CVE-2026-84373, and the
+  @vitest/mocker advisories GHSA-qxg6-89mg-rqv8 and GHSA-xp26-3454-mjgp,
+  which need 4.1.12 rather than 4.1.11)
 - tsup ^8.0.0 -> ^8.5.1 (pulls non-vulnerable esbuild/vite chains;
   fixes CVE-2026-53571, CVE-2026-53632, GHSA-67mh-4wv8-2f99)
 - overrides.esbuild ^0.28.1 (fixes GHSA-g7r4-m6w7-qqqr)
 
-Remove this patch once upstream sets vitest >= 4.1.11 and
+Remove this patch once upstream sets vitest >= 4.1.12 and
 tsup >= 8.5.1 with a locked esbuild >= 0.28.1 in package.json.
 ---
  package.json | 7 +++++--
@@ -27,7 +29,7 @@ index 462c3e7..0f0a892 100644
      "tsx": "^4.0.0",
      "typescript": "^5.5.0",
 -    "vitest": "^2.0.0"
-+    "vitest": "^4.1.11"
++    "vitest": "^4.1.12"
 +  },
 +  "overrides": {
 +    "esbuild": "^0.28.1"

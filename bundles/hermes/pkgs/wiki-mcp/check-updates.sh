@@ -11,7 +11,7 @@
 #
 #   0001-security-readability-0.6.0.patch   -> @mozilla/readability >= 0.6.0
 #   0002-security-vitest4-tsup8-esbuild-override.patch
-#     -> vitest >= 4.1.11 and tsup >= 8.5.1 (esbuild >= 0.28.1 then closes
+#     -> vitest >= 4.1.12 and tsup >= 8.5.1 (esbuild >= 0.28.1 then closes
 #        via its tree; the npm overrides entry can go with the patch)
 #
 # The floor check below reports which patches can be dropped before the next
@@ -69,8 +69,8 @@ if [[ "${pinned}" == "${latest}" ]]; then
   new_deps=$(manifest_deps)
   echo "wiki-mcp is up to date"
   check_floor "@mozilla/readability" "0.6.0" "drop 0001-security-readability-0.6.0.patch" || true
-  check_floor "vitest" "4.1.11" "drop 0002-security-vitest4-tsup8-esbuild-override.patch (with tsup >= 8.5.1)" || true
-  check_floor "tsup" "8.5.1" "drop 0002-security-vitest4-tsup8-esbuild-override.patch (with vitest >= 4.1.11)" || true
+  check_floor "vitest" "4.1.12" "drop 0002-security-vitest4-tsup8-esbuild-override.patch (with tsup >= 8.5.1)" || true
+  check_floor "tsup" "8.5.1" "drop 0002-security-vitest4-tsup8-esbuild-override.patch (with vitest >= 4.1.12)" || true
   exit 0
 fi
 
@@ -88,10 +88,11 @@ else
   echo "  git clone https://github.com/${REPO}.git && cd wiki-mcp"
   echo "  npm install --package-lock-only"
   echo "  cp package-lock.json bundles/hermes/pkgs/wiki-mcp/package-lock.json"
+  echo "keep the transitive security floors listed in default.nix when you do"
 fi
 
 check_floor "@mozilla/readability" "0.6.0" "drop 0001-security-readability-0.6.0.patch" || true
-check_floor "vitest" "4.1.11" "drop 0002-security-vitest4-tsup8-esbuild-override.patch (with tsup >= 8.5.1)" || true
-check_floor "tsup" "8.5.1" "drop 0002-security-vitest4-tsup8-esbuild-override.patch (with vitest >= 4.1.11)" || true
+check_floor "vitest" "4.1.12" "drop 0002-security-vitest4-tsup8-esbuild-override.patch (with tsup >= 8.5.1)" || true
+check_floor "tsup" "8.5.1" "drop 0002-security-vitest4-tsup8-esbuild-override.patch (with vitest >= 4.1.12)" || true
 
 exit 1
