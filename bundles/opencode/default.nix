@@ -211,7 +211,7 @@ in {
       mcp = {
         context-mode = {
           type = "local";
-          command = ["${pkgs.context-mode}/bin/context-mode-mcp"];
+          command = ["${pkgs.context-mode}/bin/context-mode"];
           enabled = true;
         };
         # FIXME: Broken due to fastmcp issue as of 2026-10-19
