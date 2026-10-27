@@ -4,7 +4,6 @@
   ...
 }: let
   localPkgs = {
-    context-mode = pkgs.callPackage ./pkgs/context-mode {};
     no-ai-slop = pkgs.callPackage ./pkgs/no-ai-slop {};
     simple-english = pkgs.callPackage ./pkgs/simple-english {};
   };
@@ -150,14 +149,14 @@ in {
 
     # context-mode's companion skills (usage guides for its MCP tools).
     #
-    skills.context-mode = "${localPkgs.context-mode}/share/opencode/skills/context-mode";
-    skills.ctx-doctor = "${localPkgs.context-mode}/share/opencode/skills/ctx-doctor";
-    skills.ctx-index = "${localPkgs.context-mode}/share/opencode/skills/ctx-index";
-    skills.ctx-insight = "${localPkgs.context-mode}/share/opencode/skills/ctx-insight";
-    skills.ctx-purge = "${localPkgs.context-mode}/share/opencode/skills/ctx-purge";
-    skills.ctx-search = "${localPkgs.context-mode}/share/opencode/skills/ctx-search";
-    skills.ctx-stats = "${localPkgs.context-mode}/share/opencode/skills/ctx-stats";
-    skills.ctx-upgrade = "${localPkgs.context-mode}/share/opencode/skills/ctx-upgrade";
+    skills.context-mode = "${pkgs.context-mode}/lib/context-mode/skills/context-mode";
+    skills.ctx-doctor = "${pkgs.context-mode}/lib/context-mode/skills/ctx-doctor";
+    skills.ctx-index = "${pkgs.context-mode}/lib/context-mode/skills/ctx-index";
+    skills.ctx-insight = "${pkgs.context-mode}/lib/context-mode/skills/ctx-insight";
+    skills.ctx-purge = "${pkgs.context-mode}/lib/context-mode/skills/ctx-purge";
+    skills.ctx-search = "${pkgs.context-mode}/lib/context-mode/skills/ctx-search";
+    skills.ctx-stats = "${pkgs.context-mode}/lib/context-mode/skills/ctx-stats";
+    skills.ctx-upgrade = "${pkgs.context-mode}/lib/context-mode/skills/ctx-upgrade";
 
     # NOTE: We use a different model here than the main orchestrator or
     # subagent in order to get a "fresh perspective" during code review
@@ -209,13 +208,10 @@ in {
       #
       permission = "allow";
       lsp = true;
-      # stdio MCP server from the local context-mode package (see
-      # pkgs/context-mode). Companion skills are registered above.
-      #
       mcp = {
         context-mode = {
           type = "local";
-          command = ["${localPkgs.context-mode}/bin/context-mode-mcp"];
+          command = ["${pkgs.context-mode}/bin/context-mode-mcp"];
           enabled = true;
         };
         nix = {
