@@ -70,7 +70,7 @@ in {
 
       ### Model Hierarchy & Subagent Delegation
 
-      The primary agent and `@code-review` run on `opencode-go/mimo-v2.6-pro`, a model that is capable but expensive. The built-in `@general` and `@explore` subagents run on `opencode-go/deepseek-v4.1-flash`. This model is cheaper but still capable of routine work. The `small_model` is `opencode-go/deepseek-v4.1-flash` for ephemeral tasks.
+      The primary agent and `@code-review` run on `opencode-go/glm-5.3`, a model that is capable but expensive. The built-in `@general` and `@explore` subagents run on `opencode-go/deepseek-v4.1-flash`. This model is cheaper but still capable of routine work. The `small_model` is `opencode-go/deepseek-v4.1-flash` for ephemeral tasks.
 
       To minimize monetary cost and context window pressure, delegate routine work to subagents:
 
@@ -106,10 +106,10 @@ in {
       - If the GIT_SIGNING_KEY environment variable is not set but the id_ed25519 SSH key exists, then use `git -c user.name="Nathan Acks" -c user.email="nathan.acks@cardboard-iguana.com" -c user.signingKey="${config.home.homeDirectory}/.ssh/id_ed25519"`.
       - If the GIT_SIGNING_KEY environment variable is not set and the id_ed25519 SSH key does not exist, then no signing key is available and you will need to ask the user for assistance when committing code.
 
-      When making a commit, always add `Co-authored-by: OpenCode ($CURRENT_MODEL_IDENTIFIER) <noreply@opencode.ai>` as the *last* paragraph of the commit message. For example, if the GIT_SIGNING_KEY environment variable is not set, the id_ed25519 SSH key exists, the in-use model is MiMo V2.6 Pro, and the desired commit message is "Added more cowbell", then the final commit command would look as follows:
+      When making a commit, always add `Co-authored-by: OpenCode ($CURRENT_MODEL_IDENTIFIER) <noreply@opencode.ai>` as the *last* paragraph of the commit message. For example, if the GIT_SIGNING_KEY environment variable is not set, the id_ed25519 SSH key exists, the in-use model is GLM 5.3, and the desired commit message is "Added more cowbell", then the final commit command would look as follows:
 
       ```bash
-      git -c user.name="Nathan Acks" -c user.email="nathan.acks@cardboard-iguana.com" -c user.signingKey="${config.home.homeDirectory}/.ssh/id_ed25519" commit -m "Added more cowbell" -m "Co-authored-by: OpenCode (mimo-v2.6-pro) <noreply@opencode.ai>"
+      git -c user.name="Nathan Acks" -c user.email="nathan.acks@cardboard-iguana.com" -c user.signingKey="${config.home.homeDirectory}/.ssh/id_ed25519" commit -m "Added more cowbell" -m "Co-authored-by: OpenCode (glm-5.3) <noreply@opencode.ai>"
       ```
 
       ## Communication Guidance
@@ -185,7 +185,7 @@ in {
 
     mutableSettings = true;
     settings = {
-      model = "opencode-go/mimo-v2.6-pro";
+      model = "opencode-go/glm-5.3";
       small_model = "opencode-go/deepseek-v4.1-flash";
       shell = "bash";
       # Shadow the built-in `general` and `explore` subagents to use a
@@ -194,7 +194,7 @@ in {
       # subagent's built-in prompt, description, and permissions —
       # shadowing only the model future-proofs us against changes to the
       # built-in prompts. The primary agent (orchestrator/planner) and
-      # `@code-review` continue to use `opencode-go/mimo-v2.6-pro`.
+      # `@code-review` continue to use more powerful models.
       # https://opencode.ai/docs/agents/#model
       agent = {
         general.model = "opencode-go/deepseek-v4.1-flash";
