@@ -82,7 +82,7 @@ in
       cp ${./package-lock.json} package-lock.json
     '';
 
-    npmDepsHash = "sha256-R85xgABt5tYbNJyd1BPZGHOcS/EDoX+o8Dhz3Sbx+P0=";
+    npmDepsHash = "sha256-62R+eCcWVMXq7PysdZd3vNAGHuA9TuuAVDs/6lif8Vk=";
 
     dontNpmBuild = true;
 
