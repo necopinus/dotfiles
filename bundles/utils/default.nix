@@ -17,6 +17,7 @@ in {
     [
       #### Misc tools ####
       msgpack-tools
+      proton-pass-cli
 
       #### Convenience wrappers (see above) ####
       localPkgs.backup-home
