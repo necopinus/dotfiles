@@ -165,7 +165,7 @@ in {
       ---
       description: Review code for security, quality, and best practices
       mode: subagent
-      model: opencode-go/glm-5.3
+      model: opencode-go/qwen3.8-max
       temperature: 0.2
       ---
       Review the code in this repository for security and best practices. DO NOT MAKE ANY CHANGES.
