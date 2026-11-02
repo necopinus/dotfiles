@@ -214,15 +214,11 @@ in {
           command = ["${pkgs.context-mode}/bin/context-mode"];
           enabled = true;
         };
-        # FIXME: Broken due to fastmcp issue as of 2026-10-19
-        #
-        # https://github.com/NixOS/nixpkgs/blob/master/pkgs/development/python-modules/fastmcp-slim/default.nix#L175
-        #
-        #nix = {
-        #  type = "local";
-        #  command = ["${pkgs.mcp-nixos}/bin/mcp-nixos"];
-        #  enabled = true;
-        #};
+        nix = {
+          type = "local";
+          command = ["${pkgs.mcp-nixos}/bin/mcp-nixos"];
+          enabled = true;
+        };
       };
       formatter = {
         # Defensive: opencode's default Nix formatter is nixfmt. We
