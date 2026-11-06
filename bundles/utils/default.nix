@@ -36,6 +36,7 @@ in {
       coreutils-full # macOS coreutils is missing some utilities; use the *-full variant to get man pages
       findutils # macOS find is missing some useful flags
       gawk
+      gnupg
       xz
       yubikey-manager
 
