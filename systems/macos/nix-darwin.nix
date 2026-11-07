@@ -48,10 +48,6 @@
       "handbrake-app"
       "kid3"
       "makemkv"
-      {
-        name = "obsidian";
-        greedy = true; # App core doesn't actually get auto-updated
-      }
       "scroll-reverser"
       "tailscale-app"
       "termius"
@@ -120,7 +116,6 @@
         {app = "/Applications/Brave Browser.app";}
         {app = "/Users/${config.system.primaryUser}/Applications/FolderSync Desktop.app";}
         {app = "/Applications/Google Chrome.app";}
-        {app = "/Applications/Obsidian.app";}
         {app = "/System/Applications/System Settings.app";}
         {app = "/Applications/Termius.app";}
       ];

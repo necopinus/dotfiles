@@ -117,7 +117,6 @@ writeShellApplication {
     mkBackupList "$HOME/research"
     mkBackupList "$HOME/workspace"
     mkBackupList "$HOME/.xurl"
-    mkBackupList "$XDG_CONFIG_HOME/obsidian-headless"
     mkBackupList "$XDG_DATA_HOME/tirith"
     mkBackupList "$XDG_STATE_HOME/hermes"
     mkBackupList "$XDG_STATE_HOME/tirith"
@@ -128,7 +127,6 @@ writeShellApplication {
     mkBackupList "$XDG_CONFIG_HOME/zsh/.zsh_history"
     mkBackupList "$XDG_DATA_HOME/fish/fish_history"
 
-    mkBackupList "$HOME/Library/Application Support/obsidian"
     mkBackupList "$HOME/Library/Application Support/BraveSoftware"
 
     mkBackupList "$HOME/Projects"

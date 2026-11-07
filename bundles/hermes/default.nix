@@ -108,31 +108,6 @@ in {
     };
   };
 
-  # Convenience aliases
-  #
-  # NOTE: We DON'T prefix 'npx' here, as we want to make sure to use the
-  # same version of npx/npm/node as Hermes (this lives in ~/.local/bin,
-  # and is inserted into the PATH before ~/.nix-profile/bin)
-  #
-  xdg.configFile."bash/rc.d/hermes.sh" = {
-    enable = config.programs.bash.enable;
-    text = ''
-      alias ob="npx --package=obsidian-headless --yes -- ob"
-    '';
-  };
-  xdg.configFile."zsh/rc.d/hermes.zsh" = {
-    enable = config.programs.zsh.enable;
-    text = ''
-      alias ob="npx --package=obsidian-headless --yes -- ob"
-    '';
-  };
-  xdg.configFile."fish/rc.d/hermes.fish" = {
-    enable = config.programs.fish.enable;
-    text = ''
-      alias ob="npx --package=obsidian-headless --yes -- ob"
-    '';
-  };
-
   # Hermes long-running services as systemd --user units.
   #
   # Running them under the user manager gives the gateway a user D-Bus
