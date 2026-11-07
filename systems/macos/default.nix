@@ -4,7 +4,6 @@
   ...
 }: {
   imports = [
-    ../../bundles/keepassxc
     ../../bundles/zsh
   ];
 
