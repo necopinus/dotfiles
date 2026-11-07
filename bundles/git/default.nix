@@ -62,9 +62,9 @@ in {
     };
   };
 
-  # Make hook dependencies available on PATH
+  # Make dependencies available on PATH
   #
-  home.packages = hookPackages;
+  home.packages = [pkgs.proton-pass-cli] ++ hookPackages;
 
   # Fix `git log` pager issue on some systems
   #
@@ -79,15 +79,24 @@ in {
     enable = config.programs.bash.enable;
     text = ''
       git () {
-        GIT_EXEC="$(which git)"
-
-        if [[ -n "$GIT_SIGNING_KEY" ]]; then
-          env SSH_COMMAND="ssh -i /dev/null" $GIT_EXEC -c user.name="Nathan Acks" -c user.email="nathan.acks@cardboard-iguana.com" -c user.signingKey="key::$GIT_SIGNING_KEY" "$@"
-        elif [[ -f "${config.home.homeDirectory}/.ssh/id_ed25519" ]]; then
-          env SSH_COMMAND="ssh -i ${config.home.homeDirectory}/.ssh/id_ed25519" $GIT_EXEC -c user.name="Nathan Acks" -c user.email="nathan.acks@cardboard-iguana.com" -c user.signingKey="${config.home.homeDirectory}/.ssh/id_ed25519" "$@"
+        if [[ -n "$PORTABLE_PAT" ]]; then
+          PORTABLE_DIR="$(mktemp -d)"
+          env PROTON_PASS_PERSONAL_ACCESS_TOKEN="$PORTABLE_PAT" PROTON_PASS_SESSION_DIR="$PORTABLE_DIR" pass-cli login
+          PORTABLE_SSH_KEY="$(env PROTON_PASS_PERSONAL_ACCESS_TOKEN="$PORTABLE_PAT" PROTON_PASS_SESSION_DIR="$PORTABLE_DIR" pass-cli item view "pass://Portable/SSH :: Portable/Public key")"
+          env PROTON_PASS_PERSONAL_ACCESS_TOKEN="$PORTABLE_PAT" PROTON_PASS_SESSION_DIR="$PORTABLE_DIR" pass-cli ssh-agent load --vault-name Portable
+          env PROTON_PASS_PERSONAL_ACCESS_TOKEN="$PORTABLE_PAT" PROTON_PASS_SESSION_DIR="$PORTABLE_DIR" pass-cli logout
+          rm -rf "$PORTABLE_DIR"
         else
-          $GIT_EXEC -c user.name="Nathan Acks" -c user.email="nathan.acks@cardboard-iguana.com" "$@"
+          if ! pass-cli info &> /dev/null; then
+            pass-cli login
+          fi
+          PORTABLE_SSH_KEY="$(pass-cli item view "pass://Portable/SSH :: Portable/Public key")"
+          pass-cli ssh-agent load --vault-name Portable
         fi
+
+        env SSH_COMMAND="ssh -i /dev/null" $(which git) -c user.name="Nathan Acks" -c user.email="nathan.acks@cardboard-iguana.com" -c user.signingKey="key::$PORTABLE_SSH_KEY" "$@"
+
+        echo "$PORTABLE_SSH_KEY" | ssh-add -d -
       }
     '';
   };
@@ -95,15 +104,24 @@ in {
     enable = config.programs.zsh.enable;
     text = ''
       git () {
-        GIT_EXEC="$(whence -p git)"
-
-        if [[ -n "$GIT_SIGNING_KEY" ]]; then
-          env SSH_COMMAND="ssh -i /dev/null" $GIT_EXEC -c user.name="Nathan Acks" -c user.email="nathan.acks@cardboard-iguana.com" -c user.signingKey="key::$GIT_SIGNING_KEY" "$@"
-        elif [[ -f "${config.home.homeDirectory}/.ssh/id_ed25519" ]]; then
-          env SSH_COMMAND="ssh -i ${config.home.homeDirectory}/.ssh/id_ed25519" $GIT_EXEC -c user.name="Nathan Acks" -c user.email="nathan.acks@cardboard-iguana.com" -c user.signingKey="${config.home.homeDirectory}/.ssh/id_ed25519" "$@"
+        if [[ -n "$PORTABLE_PAT" ]]; then
+          PORTABLE_DIR="$(mktemp -d)"
+          env PROTON_PASS_PERSONAL_ACCESS_TOKEN="$PORTABLE_PAT" PROTON_PASS_SESSION_DIR="$PORTABLE_DIR" pass-cli login
+          PORTABLE_SSH_KEY="$(env PROTON_PASS_PERSONAL_ACCESS_TOKEN="$PORTABLE_PAT" PROTON_PASS_SESSION_DIR="$PORTABLE_DIR" pass-cli item view "pass://Portable/SSH :: Portable/Public key")"
+          env PROTON_PASS_PERSONAL_ACCESS_TOKEN="$PORTABLE_PAT" PROTON_PASS_SESSION_DIR="$PORTABLE_DIR" pass-cli ssh-agent load --vault-name Portable
+          env PROTON_PASS_PERSONAL_ACCESS_TOKEN="$PORTABLE_PAT" PROTON_PASS_SESSION_DIR="$PORTABLE_DIR" pass-cli logout
+          rm -rf "$PORTABLE_DIR"
         else
-          $GIT_EXEC -c user.name="Nathan Acks" -c user.email="nathan.acks@cardboard-iguana.com" "$@"
+          if ! pass-cli info &> /dev/null; then
+            pass-cli login
+          fi
+          PORTABLE_SSH_KEY="$(pass-cli item view "pass://Portable/SSH :: Portable/Public key")"
+          pass-cli ssh-agent load --vault-name Portable
         fi
+
+        env SSH_COMMAND="ssh -i /dev/null" $(whence -p git) -c user.name="Nathan Acks" -c user.email="nathan.acks@cardboard-iguana.com" -c user.signingKey="key::$PORTABLE_SSH_KEY" "$@"
+
+        echo "$PORTABLE_SSH_KEY" | ssh-add -d -
       }
     '';
   };
@@ -111,15 +129,27 @@ in {
     enable = config.programs.fish.enable;
     text = ''
       function git
+        if test -n "$PORTABLE_PAT"
+          set PORTABLE_DIR $(mktemp -d)
+          env PROTON_PASS_PERSONAL_ACCESS_TOKEN=$PORTABLE_PAT PROTON_PASS_SESSION_DIR=$PORTABLE_DIR pass-cli login
+          set PORTABLE_SSH_KEY $(env PROTON_PASS_PERSONAL_ACCESS_TOKEN=$PORTABLE_PAT PROTON_PASS_SESSION_DIR=$PORTABLE_DIR pass-cli item view "pass://Portable/SSH :: Portable/Public key")
+          env PROTON_PASS_PERSONAL_ACCESS_TOKEN=$PORTABLE_PAT PROTON_PASS_SESSION_DIR=$PORTABLE_DIR pass-cli ssh-agent load --vault-name Portable
+          env PROTON_PASS_PERSONAL_ACCESS_TOKEN=$PORTABLE_PAT PROTON_PASS_SESSION_DIR=$PORTABLE_DIR pass-cli logout
+          rm -rf $PORTABLE_DIR
+        else
+          pass-cli info &> /dev/null
+          if test $status -ne 0
+            pass-cli login
+          end
+          set PORTABLE_SSH_KEY $(pass-cli item view "pass://Portable/SSH :: Portable/Public key")
+          pass-cli ssh-agent load --vault-name Portable
+        end
+
         set GIT_EXEC $(which git)
 
-        if test -n "$GIT_SIGNING_KEY"
-          env SSH_COMMAND="ssh -i /dev/null" $GIT_EXEC -c user.name="Nathan Acks" -c user.email="nathan.acks@cardboard-iguana.com" -c user.signingKey="key::$GIT_SIGNING_KEY" $argv
-        else if test -f "${config.home.homeDirectory}/.ssh/id_ed25519"
-          env SSH_COMMAND="ssh -i ${config.home.homeDirectory}/.ssh/id_ed25519" $GIT_EXEC -c user.name="Nathan Acks" -c user.email="nathan.acks@cardboard-iguana.com" -c user.signingKey="${config.home.homeDirectory}/.ssh/id_ed25519" $argv
-        else
-          $GIT_EXEC -c user.name="Nathan Acks" -c user.email="nathan.acks@cardboard-iguana.com" $argv
-        end
+        env SSH_COMMAND="ssh -i /dev/null" $GIT_EXEC -c user.name="Nathan Acks" -c user.email="nathan.acks@cardboard-iguana.com" -c user.signingKey="key::$PORTABLE_SSH_KEY" $argv
+
+        echo $PORTABLE_SSH_KEY | ssh-add -d -
       end
     '';
   };

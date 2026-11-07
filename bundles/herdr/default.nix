@@ -128,8 +128,8 @@
   xdg.configFile."bash/rc.d/zz_herdr.sh" = {
     # Deliberately disabled, and deliberately still written in terms of
     # programs.bash.enable so that it parallels the equivalent blocks in
-    # the other shell components. This allows the GIT_SIGNING_KEY to be
-    # set correctly on exe.dev sessions.
+    # the other shell components. This allows the PORTABLE_PAT to be set
+    # correctly on exe.dev sessions.
     #
     enable = config.programs.bash.enable && false;
     text = ''
@@ -155,7 +155,7 @@
     # programs.fish.enable so that it parallels the equivalent blocks in
     # the other shell components. Herdr runs fish as its shell, so enabling
     # fish's Herdr integration risk Herdr launching Herdr -- an infinite
-    # loop. Do not "simplify" this to `false`.
+    # loop.
     #
     enable = config.programs.fish.enable && false;
     text = ''

@@ -28,6 +28,60 @@ writeShellApplication {
       fi
     }
 
+    if [[ -d "$HOME/Projects" ]]; then
+      (
+        cd "$HOME/Projects" || exit 1
+        while IFS= read -r -d "" OBJECT; do
+          if [[ -d "$OBJECT/.git" ]]; then
+            echo "Refreshing $(basename "$OBJECT")"
+            cd "$OBJECT"
+            git pull --recurse-submodules
+            if [[ "$(git config --get remote.origin.url)" =~ [^/]+@[^/]+\.[^/]+:.+\.git ]]; then
+              git push --recurse-submodules=on-demand
+            fi
+            cd ..
+          fi
+        done < <(find . -mindepth 1 -maxdepth 1 -type d -print0)
+      )
+    fi
+    if [[ -d "$HOME/src" ]]; then
+      (
+        cd "$HOME/src" || exit 1
+        while IFS= read -r -d "" OBJECT; do
+          if [[ -d "$OBJECT/.git" ]]; then
+            echo "Refreshing $(basename "$OBJECT")"
+            cd "$OBJECT"
+            git pull --recurse-submodules
+            if [[ "$(git config --get remote.origin.url)" =~ [^/]+@[^/]+\.[^/]+:.+\.git ]]; then
+              git push --recurse-submodules=on-demand
+            fi
+            cd ..
+          fi
+        done < <(find . -mindepth 1 -maxdepth 1 -type d -print0)
+      )
+    fi
+    if [[ -d "$HOME/grimoire" ]]; then
+      (
+        cd "$HOME/grimoire" || exit 1
+        git pull
+        git push
+      )
+    fi
+    if [[ -d "$HOME/journal" ]]; then
+      (
+        cd "$HOME/journal" || exit 1
+        git pull
+        git push
+      )
+    fi
+    if [[ -d "$HOME/research" ]]; then
+      (
+        cd "$HOME/research" || exit 1
+        git pull
+        git push
+      )
+    fi
+
     if [[ "$(hostname)" == "kitsune" ]]; then
       sudo systemctl --user -M "''${USER}@" stop hermes-relay.service
       sudo systemctl --user -M "''${USER}@" stop hermes-gateway.service
@@ -35,24 +89,6 @@ writeShellApplication {
 
       hermes backup
       crontab -l > "$HOME/exedev.crontab"
-      if [[ -d "$HOME/grimoire" ]]; then
-        (
-          cd "$HOME/grimoire" || exit 1
-          git pull
-        )
-      fi
-      if [[ -d "$HOME/journal" ]]; then
-        (
-          cd "$HOME/journal" || exit 1
-          git pull
-        )
-      fi
-      if [[ -d "$HOME/research" ]]; then
-        (
-          cd "$HOME/research" || exit 1
-          git pull
-        )
-      fi
     fi
 
     mkBackupList "$XDG_CONFIG_HOME/nix"

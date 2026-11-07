@@ -97,19 +97,49 @@ in {
 
       After writing or editing code, check LSP diagnostics before moving on. Fix any type errors or missing imports immediately.
 
-      ### Committing Code
+      ### Committing and Pushing Code
 
-      Git commit signing is required, but the location of the signing key is context dependent.
-
-      - If the GIT_SIGNING_KEY environment variable is set, then use `git -c user.name="Nathan Acks" -c user.email="nathan.acks@cardboard-iguana.com" -c user.signingKey="key::$GIT_SIGNING_KEY"`.
-      - If the GIT_SIGNING_KEY environment variable is not set but the id_ed25519 SSH key exists, then use `git -c user.name="Nathan Acks" -c user.email="nathan.acks@cardboard-iguana.com" -c user.signingKey="${config.home.homeDirectory}/.ssh/id_ed25519"`.
-      - If the GIT_SIGNING_KEY environment variable is not set and the id_ed25519 SSH key does not exist, then no signing key is available and you will need to ask the user for assistance when committing code.
-
-      When making a commit, always add `Co-authored-by: OpenCode ($CURRENT_MODEL_IDENTIFIER) <noreply@opencode.ai>` as the *last* paragraph of the commit message. For example, if the GIT_SIGNING_KEY environment variable is not set, the id_ed25519 SSH key exists, the in-use model is Kimi K3.1 Pro, and the desired commit message is "Added more cowbell", then the final commit command would look as follows:
+      Git commit signing is required using an SSH key, and most repositories will use an SSH remote. The relevant SSH identity is stored in Proton Pass, and is accessible via `pass-cli` using a process like the following:
 
       ```bash
-      git -c user.name="Nathan Acks" -c user.email="nathan.acks@cardboard-iguana.com" -c user.signingKey="${config.home.homeDirectory}/.ssh/id_ed25519" commit -m "Added more cowbell" -m "Co-authored-by: OpenCode (kimi-k3.1-pro) <noreply@opencode.ai>"
+      # Load the portable SSH key into the environment using an ephemeral Proton Pass session
+      #
+      PORTABLE_DIR="$(mktemp -d)"
+      env PROTON_PASS_PERSONAL_ACCESS_TOKEN="$PORTABLE_PAT" PROTON_PASS_SESSION_DIR="$PORTABLE_DIR" pass-cli login
+      export PORTABLE_SSH_KEY="$(env PROTON_PASS_PERSONAL_ACCESS_TOKEN="$PORTABLE_PAT" PROTON_PASS_SESSION_DIR="$PORTABLE_DIR" pass-cli item view "pass://Portable/SSH :: Portable/Public key")"
+      env PROTON_PASS_PERSONAL_ACCESS_TOKEN="$PORTABLE_PAT" PROTON_PASS_SESSION_DIR="$PORTABLE_DIR" pass-cli ssh-agent load --vault-name Portable
+      env PROTON_PASS_PERSONAL_ACCESS_TOKEN="$PORTABLE_PAT" PROTON_PASS_SESSION_DIR="$PORTABLE_DIR" pass-cli logout
+      rm -rf "$PORTABLE_DIR"
+
+      # Use git
+      #
+      env SSH_COMMAND="ssh -i /dev/null" git -c user.name="Nathan Acks" -c user.email="nathan.acks@cardboard-iguana.com" -c user.signingKey="key::$PORTABLE_SSH_KEY" $OTHER_GIT_OPTIONS_AND_SUB_COMMANDS
+
+      # Remove the SSH key from the agent
+      #
+      echo "$PORTABLE_SSH_KEY" | ssh-add -d -
+      unset PORTABLE_SSH_KEY
       ```
+
+      If the `PORTABLE_PAT` environment variable doesn't exist or `ssh-agent` isn't working, you will need to stop and ask the user for assistance.
+
+      When making a commit, always add `Co-authored-by: OpenCode ($CURRENT_MODEL_IDENTIFIER) <noreply@opencode.ai>` as the *last* paragraph of the commit message. For example, if the in-use model is Kimi K3.1 Pro and the desired commit message is "Added more cowbell", then making a commit would look something like the following:
+
+      ```bash
+      PORTABLE_DIR="$(mktemp -d)"
+      env PROTON_PASS_PERSONAL_ACCESS_TOKEN="$PORTABLE_PAT" PROTON_PASS_SESSION_DIR="$PORTABLE_DIR" pass-cli login
+      export PORTABLE_SSH_KEY="$(env PROTON_PASS_PERSONAL_ACCESS_TOKEN="$PORTABLE_PAT" PROTON_PASS_SESSION_DIR="$PORTABLE_DIR" pass-cli item view "pass://Portable/SSH :: Portable/Public key")"
+      env PROTON_PASS_PERSONAL_ACCESS_TOKEN="$PORTABLE_PAT" PROTON_PASS_SESSION_DIR="$PORTABLE_DIR" pass-cli ssh-agent load --vault-name Portable
+      env PROTON_PASS_PERSONAL_ACCESS_TOKEN="$PORTABLE_PAT" PROTON_PASS_SESSION_DIR="$PORTABLE_DIR" pass-cli logout
+      rm -rf "$PORTABLE_DIR"
+
+      env SSH_COMMAND="ssh -i /dev/null" git -c user.name="Nathan Acks" -c user.email="nathan.acks@cardboard-iguana.com" -c user.signingKey="key::$PORTABLE_SSH_KEY" commit -m "Added more cowbell" -m "Co-authored-by: OpenCode (kimi-k3.1-pro) <noreply@opencode.ai>"
+
+      echo "$PORTABLE_SSH_KEY" | ssh-add -d -
+      unset PORTABLE_SSH_KEY
+      ```
+
+      Note that working with `pass-cli` can introduce significant latency. If you know that multiple git operations are likely to be required, then you should set up the portable SSH key in the environment once, perform your operations, and then remove the key from `ssh-agent` at the very end. Prefer to "batch" git operations in this fashion rather than repeatedly instantiating an ephemeral Proton Pass session.
 
       ## Communication Guidance
 

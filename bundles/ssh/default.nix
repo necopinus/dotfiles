@@ -27,22 +27,62 @@
   xdg.configFile."bash/rc.d/ssh.sh" = {
     enable = config.programs.bash.enable && pkgs.stdenv.hostPlatform.isLinux && ("${config.home.username}" == "exedev");
     text = ''
-      ssh-agent-switcher --daemon &> /dev/null || true
-      export SSH_AUTH_SOCK="/tmp/ssh-agent.$USER"
+      if [[ "$SSH_AUTH_SOCK" != "/tmp/ssh-agent.$USER" ]]; then
+        if [[ -z "$SSH_AGENT_PID" ]] && [[ -f "$HOME"/.ssh/agent.env ]]; then
+          source "$HOME"/.ssh/agent.env
+        fi
+        if ! kill -0 $SSH_AGENT_PID &> /dev/null; then
+          if [[ ! -d "$HOME"/.ssh ]]; then
+            mkdir "$HOME"/.ssh
+            chmod 700 "$HOME"/.ssh
+          fi
+          ssh-agent -s | sed "/^echo /d" > "$HOME"/.ssh/agent.env
+          source "$HOME"/.ssh/agent.env
+        fi
+        ssh-agent-switcher --daemon &> /dev/null || true
+        export SSH_AUTH_SOCK="/tmp/ssh-agent.$USER"
+      fi
     '';
   };
   xdg.configFile."zsh/rc.d/ssh.zsh" = {
     enable = config.programs.zsh.enable && pkgs.stdenv.hostPlatform.isLinux && ("${config.home.username}" == "exedev");
     text = ''
-      ssh-agent-switcher --daemon &> /dev/null || true
-      export SSH_AUTH_SOCK="/tmp/ssh-agent.$USER"
+      if [[ "$SSH_AUTH_SOCK" != "/tmp/ssh-agent.$USER" ]]; then
+        if [[ -z "$SSH_AGENT_PID" ]] && [[ -f "$HOME"/.ssh/agent.env ]]; then
+          source "$HOME"/.ssh/agent.env
+        fi
+        if ! kill -0 $SSH_AGENT_PID &> /dev/null; then
+          if [[ ! -d "$HOME"/.ssh ]]; then
+            mkdir "$HOME"/.ssh
+            chmod 700 "$HOME"/.ssh
+          fi
+          ssh-agent -s | sed "/^echo /d" > "$HOME"/.ssh/agent.env
+          source "$HOME"/.ssh/agent.env
+        fi
+        ssh-agent-switcher --daemon &> /dev/null || true
+        export SSH_AUTH_SOCK="/tmp/ssh-agent.$USER"
+      fi
     '';
   };
   xdg.configFile."fish/rc.d/ssh.fish" = {
     enable = config.programs.fish.enable && pkgs.stdenv.hostPlatform.isLinux && ("${config.home.username}" == "exedev");
     text = ''
-      ssh-agent-switcher --daemon &> /dev/null || true
-      set -gx SSH_AUTH_SOCK "/tmp/ssh-agent.$USER"
+      if test "$SSH_AUTH_SOCK" != /tmp/ssh-agent.$USER
+        if test -z "$SSH_AGENT_PID"; and test -f $HOME/.ssh/agent.env
+          cat $HOME/.ssh/agent.env | ${pkgs.babelfish}/bin/babelfish | source
+        end
+        kill -0 $SSH_AGENT_PID &> /dev/null
+        if test ! $status -eq 0
+          if test ! -d $HOME/.ssh
+            mkdir $HOME/.ssh
+            chmod 700 $HOME/.ssh
+          end
+          ssh-agent -s | sed "/^echo /d" > $HOME/.ssh/agent.env
+          cat $HOME/.ssh/agent.env | ${pkgs.babelfish}/bin/babelfish | source
+        end
+        ssh-agent-switcher --daemon &> /dev/null || true
+        set -gx SSH_AUTH_SOCK /tmp/ssh-agent.$USER
+      end
     '';
   };
 }

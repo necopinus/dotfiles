@@ -2,6 +2,14 @@
 writeShellApplication {
   name = "update-system";
 
+  # Remove "nounset" from the options default list, as PORTABLE_PAT may
+  # be unset
+  #
+  bashOptions = [
+    "errexit"
+    "pipefail"
+  ];
+
   text = ''
     # Set OS type
     #
@@ -24,6 +32,26 @@ writeShellApplication {
       defaults delete kCFPreferencesAnyApplication AppleIconAppearanceTintColor 2>/dev/null || true
     fi
 
+    # Load the portable SSH key into the environment using an ephemeral Proton Pass session
+    #
+    if [[ -n "$PORTABLE_PAT" ]]; then
+      PORTABLE_DIR="$(mktemp -d)"
+      env PROTON_PASS_PERSONAL_ACCESS_TOKEN="$PORTABLE_PAT" PROTON_PASS_SESSION_DIR="$PORTABLE_DIR" pass-cli login
+      PORTABLE_SSH_KEY="$(env PROTON_PASS_PERSONAL_ACCESS_TOKEN="$PORTABLE_PAT" PROTON_PASS_SESSION_DIR="$PORTABLE_DIR" pass-cli item view "pass://Portable/SSH :: Portable/Public key")"
+      env PROTON_PASS_PERSONAL_ACCESS_TOKEN="$PORTABLE_PAT" PROTON_PASS_SESSION_DIR="$PORTABLE_DIR" pass-cli ssh-agent load --vault-name Portable
+      env PROTON_PASS_PERSONAL_ACCESS_TOKEN="$PORTABLE_PAT" PROTON_PASS_SESSION_DIR="$PORTABLE_DIR" pass-cli logout
+      rm -rf "$PORTABLE_DIR"
+    else
+      if ! pass-cli info &> /dev/null; then
+        pass-cli login
+      fi
+      PORTABLE_SSH_KEY="$(pass-cli item view "pass://Portable/SSH :: Portable/Public key")"
+      pass-cli ssh-agent load --vault-name Portable
+    fi
+
+    export PORTABLE_SSH_KEY
+    export SSH_COMMAND="ssh -i /dev/null"
+
     # Update Nix packages
     #
     sudo determinate-nixd upgrade
@@ -40,7 +68,8 @@ writeShellApplication {
       git add -A -v
       git -c user.name="Nathan Acks" \
           -c user.email="nathan.acks@cardboard-iguana.com" \
-          -c user.signingKey="''${GIT_SIGNING_KEY:-$HOME/.ssh/id_ed25519}" commit -m "Automated system update: $(date)" || true
+          -c user.signingKey="key::$PORTABLE_SSH_KEY" \
+           commit -m "Automated system update: $(date)" || true
       git push
       if [[ "$OS" == "Darwin" ]]; then
         sudo darwin-rebuild switch --flake .#macos
@@ -135,22 +164,6 @@ writeShellApplication {
 
     # Git repositories
     #
-    if [[ -d "$HOME/Documents/Obsidian" ]]; then
-      (
-        cd "$HOME/Documents/Obsidian" || exit 1
-        while IFS= read -r -d "" OBJECT; do
-          if [[ -d "$OBJECT/.git" ]]; then
-            echo "Refreshing $(basename "$OBJECT")"
-            cd "$OBJECT"
-            git pull
-            if [[ "$(git config --get remote.origin.url)" =~ [^/]+@[^/]+\.[^/]+:.+\.git ]]; then
-              git push
-            fi
-            cd ..
-          fi
-        done < <(find . -mindepth 1 -maxdepth 1 -type d -print0)
-      )
-    fi
     if [[ -d "$HOME/Projects" ]]; then
       (
         cd "$HOME/Projects" || exit 1
@@ -183,29 +196,32 @@ writeShellApplication {
         done < <(find . -mindepth 1 -maxdepth 1 -type d -print0)
       )
     fi
-    if [[ "$(hostname)" == "kitsune" ]]; then
-      if [[ -d "$HOME/grimoire" ]]; then
-        (
-          cd "$HOME/grimoire" || exit 1
-          git pull
-          git push
-        )
-      fi
-      if [[ -d "$HOME/journal" ]]; then
-        (
-          cd "$HOME/journal" || exit 1
-          git pull
-          git push
-        )
-      fi
-      if [[ -d "$HOME/research" ]]; then
-        (
-          cd "$HOME/research" || exit 1
-          git pull
-          git push
-        )
-      fi
+    if [[ -d "$HOME/grimoire" ]]; then
+      (
+        cd "$HOME/grimoire" || exit 1
+        git pull
+        git push
+      )
     fi
+    if [[ -d "$HOME/journal" ]]; then
+      (
+        cd "$HOME/journal" || exit 1
+        git pull
+        git push
+      )
+    fi
+    if [[ -d "$HOME/research" ]]; then
+      (
+        cd "$HOME/research" || exit 1
+        git pull
+        git push
+      )
+    fi
+
+    # Remove the portable SSH key from ssh-agent
+    #
+    echo "$PORTABLE_SSH_KEY" | ssh-add -d -
+    unset PORTABLE_SSH_KEY SSH_COMMAND
 
     # macOS system update; we do this last as this command may force a
     # reboot

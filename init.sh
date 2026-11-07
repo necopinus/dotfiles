@@ -394,50 +394,8 @@ fi
 #
 if [[ "$OS" == "Darwin" ]]; then
   mkdir -p "$HOME"/Projects
-
-  (
-    cd "$HOME/Projects" || exit 1
-
-    REPOS="$(
-      (
-        curl -sL -X GET \
-          -H "Accept: application/vnd.github+json" \
-          -H "X-GitHub-Api-Version: 2026-03-10" \
-          https://api.github.com/users/necopinus/repos &&
-          curl -sL -X GET \
-            -H "Accept: application/vnd.github+json" \
-            -H "X-GitHub-Api-Version: 2026-03-10" \
-            https://api.github.com/orgs/cardboard-iguana/repos &&
-          curl -sL -X GET \
-            -H "Accept: application/vnd.github+json" \
-            -H "X-GitHub-Api-Version: 2026-03-10" \
-            https://api.github.com/orgs/The-Yak-Collective/repos
-      ) |
-        jq -r '.[] | select(.archived==false) | .full_name' | xargs
-    )"
-
-    for REPO in $REPOS; do
-      if [[ ! -d "$(basename "$REPO")" ]]; then
-        git clone --recurse-submodules \
-          "git@github.com:${REPO}.git"
-      fi
-    done
-
-    if [[ ! -d quartz ]]; then
-      git clone --recurse-submodules \
-        https://github.com/jackyzha0/quartz.git
-    fi
-    if [[ ! -d twitter-archive-parser ]]; then
-      git clone --recurse-submodules \
-        https://github.com/timhutton/twitter-archive-parser.git
-    fi
-
-    mkdir -p "$HOME/Documents/Obsidian"
-    while IFS= read -r -d '' VAULT_REPO; do
-      VAULT_NAME="$(basename "$VAULT_REPO" | sed "s/^obsidian-//")"
-      mv "$VAULT_REPO" "$HOME/Documents/Obsidian/$VAULT_NAME"
-    done < <(find . -mindepth 1 -maxdepth 1 -type d -iname 'obsidian-*' -print0)
-  )
+elif [[ "$OS" == "Linux" ]] && [[ "$USER" != "exedev" ]]; then
+  mkdir -p "$HOME"/src
 fi
 
 # A reboot is STRONGLY recommended
