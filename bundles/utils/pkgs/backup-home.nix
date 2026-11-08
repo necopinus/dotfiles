@@ -2,6 +2,14 @@
 writeShellApplication {
   name = "backup-home";
 
+  # Remove "nounset" from the options default list, as PORTABLE_PAT may
+  # be unset
+  #
+  bashOptions = [
+    "errexit"
+    "pipefail"
+  ];
+
   text = ''
     BACKUP_LIST="$(mktemp)"
     BACKUP_LIST_TMP="$(mktemp)"
@@ -28,6 +36,28 @@ writeShellApplication {
       fi
     }
 
+    # Load the portable SSH key into the environment using an ephemeral Proton Pass session
+    #
+    if [[ -n "$PORTABLE_PAT" ]]; then
+      PORTABLE_DIR="$(mktemp -d)"
+      env PROTON_PASS_PERSONAL_ACCESS_TOKEN="$PORTABLE_PAT" PROTON_PASS_SESSION_DIR="$PORTABLE_DIR" pass-cli login
+      PORTABLE_SSH_KEY="$(env PROTON_PASS_PERSONAL_ACCESS_TOKEN="$PORTABLE_PAT" PROTON_PASS_SESSION_DIR="$PORTABLE_DIR" pass-cli item view "pass://Portable/SSH :: Portable/Public key")"
+      env PROTON_PASS_PERSONAL_ACCESS_TOKEN="$PORTABLE_PAT" PROTON_PASS_SESSION_DIR="$PORTABLE_DIR" pass-cli ssh-agent load --vault-name Portable
+      env PROTON_PASS_PERSONAL_ACCESS_TOKEN="$PORTABLE_PAT" PROTON_PASS_SESSION_DIR="$PORTABLE_DIR" pass-cli logout
+      rm -rf "$PORTABLE_DIR"
+    else
+      if ! pass-cli info &> /dev/null; then
+        pass-cli login
+      fi
+      PORTABLE_SSH_KEY="$(pass-cli item view "pass://Portable/SSH :: Portable/Public key")"
+      pass-cli ssh-agent load --vault-name Portable
+    fi
+
+    export PORTABLE_SSH_KEY
+    export SSH_COMMAND="ssh -i /dev/null"
+
+    # Make sure all git repos are up to date
+    #
     if [[ -d "$HOME/Projects" ]]; then
       (
         cd "$HOME/Projects" || exit 1
@@ -82,6 +112,13 @@ writeShellApplication {
       )
     fi
 
+    # Remove the portable SSH key from ssh-agent
+    #
+    echo "$PORTABLE_SSH_KEY" | ssh-add -d -
+    unset PORTABLE_SSH_KEY SSH_COMMAND
+
+    # Actual backups
+    #
     if [[ "$(hostname)" == "kitsune" ]]; then
       sudo systemctl --user -M "''${USER}@" stop hermes-relay.service
       sudo systemctl --user -M "''${USER}@" stop hermes-gateway.service
