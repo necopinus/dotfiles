@@ -189,7 +189,7 @@ writeShellApplication {
         (
           cd "$REPO_ROOT" || exit 1
           while IFS= read -r -d "" OBJECT; do
-            if [[ -d "$OBJECT/.git" ]]; then
+            if [[ -f "$OBJECT/.git/config" ]] && [[ $(grep -c "url = " "$OBJECT/.git/config") -gt 0 ]]; then
               echo "Refreshing $(basename "$OBJECT")"
               cd "$OBJECT"
               gitWithoutHooks pull --ff-only --recurse-submodules
