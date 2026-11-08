@@ -142,10 +142,10 @@
   # The interactive-shell test differs: bash uses `[[ $- == *i* ]]`, zsh
   # uses `[[ -o interactive ]]`. Do not merge these two blocks.
   #
-  xdg.configFile."zsh/rc.d/zz_herdr.sh" = {
+  xdg.configFile."zsh/rc.d/zz_herdr.zsh" = {
     enable = config.programs.zsh.enable;
     text = ''
-      if [[ -o interactive ]] && [[ -z "$HERDR_ENV" ]] && [[ ! -f "$HOME/noherdr" ]] && [[ ! -f "$HOME/noherdr.txt" ]]; then
+      if [[ -o interactive ]] && [[ "$TERM_PROGRAM" == "ghostty" ]] && [[ -z "$HERDR_ENV" ]] && [[ ! -f "$HOME/noherdr" ]] && [[ ! -f "$HOME/noherdr.txt" ]]; then
         ${config.programs.herdr.package}/bin/herdr && exit
       fi
     '';
@@ -165,7 +165,7 @@
     '';
   };
 
-  # Auto-start Herder, but ONLY on non-SSH connections, and only on
+  # Auto-start Herdr, but ONLY on non-SSH connections, and only on
   # macOS (we auto-start Herdr on SSH connections)
   #
   # NOTE: The naming is funny because we want to be sure that this
@@ -174,7 +174,7 @@
   xdg.configFile."bash/rc.d/zz_tmux.sh" = {
     enable = config.programs.bash.enable && false;
     text = ''
-      if [[ $- == *i* ]] && [[ -z "$HERDER_ENV" ]] && [[ -z "$SSH_TTY" ]] && [[ ! -f "$HOME/noherdr" ]] && [[ ! -f "$HOME/noherdr.txt" ]] && [[ ! -f /mnt/shared/Documents/noherdr ]] && [[ ! -f /mnt/shared/Documents/noherdr.txt ]]; then
+      if [[ $- == *i* ]] && [[ -z "$HERDR_ENV" ]] && [[ -z "$SSH_TTY" ]] && [[ ! -f "$HOME/noherdr" ]] && [[ ! -f "$HOME/noherdr.txt" ]] && [[ ! -f /mnt/shared/Documents/noherdr ]] && [[ ! -f /mnt/shared/Documents/noherdr.txt ]]; then
         herdr && exit
       fi
     '';

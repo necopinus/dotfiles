@@ -52,16 +52,20 @@
       # available
       #
       if [ -d /etc/environment.d ]; then
-        for FILE in $(find -L /etc/environment.d -type f -iname '*.conf' | sort); do
-          source "$FILE"
+        for FILE in /etc/environment.d/*.conf; do
+          if [[ -f "$FILE" ]]; then
+            source "$FILE"
+          fi
         done
       fi
 
       # Source files for local environment setup
       #
       if [ -d "$XDG_CONFIG_HOME"/bash/env.d ]; then
-        for FILE in $(find -L "$XDG_CONFIG_HOME"/bash/env.d -type f -iname '*.sh' | sort); do
-          source "$FILE"
+        for FILE in "$XDG_CONFIG_HOME"/bash/env.d/*.sh; do
+          if [[ -f "$FILE" ]]; then
+            source "$FILE"
+          fi
         done
       fi
 
@@ -70,7 +74,7 @@
       # We do this after the PATH has been fully configured to ensure
       # that we're catching the correct value
       #
-      export SHELL="$(which bash)"
+      export SHELL="$(command -v bash)"
       if shopt -q login_shell; then
         if [ -x "$(realpath /bin)"/bash ]; then
           export SHELL="$(realpath /bin)"/bash
@@ -116,14 +120,16 @@
 
       # Convenience aliases
       #
-      alias :e=editor
+      alias :e=hx
       alias :q=exit
 
       # Source files for interactive shell setup
       #
       if [[ -d "$XDG_CONFIG_HOME"/bash/rc.d ]]; then
-        for FILE in $(find -L "$XDG_CONFIG_HOME"/bash/rc.d -type f -iname '*.sh' | sort); do
-          source "$FILE"
+        for FILE in "$XDG_CONFIG_HOME"/bash/rc.d/*.sh; do
+          if [[ -f "$FILE" ]]; then
+            source "$FILE"
+          fi
         done
       fi
     '';

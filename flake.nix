@@ -20,6 +20,7 @@
   };
 
   outputs = {
+    self,
     nixpkgs,
     nix-darwin,
     home-manager,
@@ -84,6 +85,23 @@
           ++ linuxHomeManagerCommonModules;
       };
   in {
+    # Small, local checks for pre-push validation. The Darwin configuration is
+    # evaluated by `nix flake check`, but is not built on Linux.
+    #
+    checks.x86_64-linux = {
+      exedev = self.homeConfigurations.exedev.activationPackage;
+      hermes = self.homeConfigurations.hermes.activationPackage;
+      yamlresume = nixpkgs.legacyPackages.x86_64-linux.callPackage ./bundles/media-tools/pkgs/yamlresume/default.nix {};
+    };
+
+    # Build the macOS system and package on macOS. Linux-only activation
+    # packages are deliberately excluded from the Darwin checks.
+    #
+    checks.aarch64-darwin = {
+      macos = self.darwinConfigurations.macos.system;
+      yamlresume = nixpkgs.legacyPackages.aarch64-darwin.callPackage ./bundles/media-tools/pkgs/yamlresume/default.nix {};
+    };
+
     # macOS configuration (nix-darwin + home-manager)
     #
     darwinConfigurations."macos" = nix-darwin.lib.darwinSystem {

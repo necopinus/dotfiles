@@ -39,16 +39,20 @@
       # available
       #
       if test -d /etc/environment.d
-        for FILE in (find -L /etc/environment.d -type f -iname '*.conf' | sort)
-          cat "$FILE" | ${pkgs.babelfish}/bin/babelfish | source
+        for FILE in /etc/environment.d/*.conf
+          if test -f "$FILE"
+            cat "$FILE" | ${pkgs.babelfish}/bin/babelfish | source
+          end
         end
       end
 
       # Source files for local environment setup
       #
       if test -d $XDG_CONFIG_HOME/fish/env.d
-        for FILE in (find -L $XDG_CONFIG_HOME/fish/env.d -type f -iname '*.fish' | sort)
-          source "$FILE"
+        for FILE in "$XDG_CONFIG_HOME"/fish/env.d/*.fish
+          if test -f "$FILE"
+            source "$FILE"
+          end
         end
       end
 
@@ -57,7 +61,7 @@
       # We do this after the PATH has been fully configured to ensure
       # that we're catching the correct value
       #
-      set SHELL $(which fish)
+      set SHELL (command -s fish)
     '';
 
     # If defined, run `loginShellInit` for login shells
@@ -67,7 +71,7 @@
     interactiveShellInit = ''
       # Convenience aliases
       #
-      alias :e editor
+      alias :e hx
       alias :q exit
 
       # Suppress welcome message
@@ -77,8 +81,10 @@
       # Source files for interactive shell setup
       #
       if test -d $XDG_CONFIG_HOME/fish/rc.d
-        for FILE in (find -L $XDG_CONFIG_HOME/fish/rc.d -type f -iname '*.fish' | sort)
-          source "$FILE"
+        for FILE in "$XDG_CONFIG_HOME"/fish/rc.d/*.fish
+          if test -f "$FILE"
+            source "$FILE"
+          end
         end
       end
     '';

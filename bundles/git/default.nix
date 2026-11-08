@@ -27,20 +27,19 @@
     #### Secret scanning ####
     betterleaks
   ];
+
+  ephemeralGit = pkgs.callPackage ./pkgs/ephemeral-git.nix {};
 in {
   programs.git = {
     enable = true;
     package = null; # Use system git
 
-    lfs.enable = true;
-
+    # Disable repository-provided hooks by default. Conditional includes
+    # below override this only for the trusted repository roots and this
+    # dotfiles repository.
+    #
     settings = {
-      core = {
-        # Point git at each repo's .githooks/ directory. Repos without a
-        # .githooks/ directory simply have no hooks (git's default hook
-        # lookup is silent when a hook script is missing).
-        hooksPath = ".githooks";
-      };
+      core.hooksPath = "/dev/null";
       merge = {
         conflictStyle = "zdiff3";
       };
@@ -50,107 +49,54 @@ in {
       "gpg \"ssh\"" = {
         allowedSignersFile = ".allowed_signers";
       };
-      "lfs \"customtransfer.xet\"" = {
-        path = "${pkgs.git-xet}/bin/git-xet";
-        args = "transfer";
-        concurrent = true;
-      };
     };
+
+    includes =
+      map (condition: {
+        inherit condition;
+        contents.core.hooksPath = ".githooks";
+      }) [
+        "gitdir:~/Projects/"
+        "gitdir:~/src/"
+        "gitdir:~/workspace/"
+        "gitdir:~/.config/nix/.git"
+      ];
+
     signing = {
       format = "ssh";
       signByDefault = true;
     };
   };
 
-  # Make dependencies available on PATH
+  # Make dependencies available on PATH. The ephemeral helpers are referenced
+  # by absolute store path and deliberately are not installed on PATH.
   #
   home.packages = [pkgs.proton-pass-cli] ++ hookPackages;
 
   # Fix `git log` pager issue on some systems
   #
-  home.sessionVariables.PAGER = "less";
+  home.sessionVariables.PAGER = "${config.programs.bat.package}/bin/bat";
 
-  # Wrap git to enable dynamically setting user.signingKey. The
-  # core.hooksPath = ".githooks" setting above makes git pick up each
-  # repo's .githooks/pre-commit automatically (repos without .githooks/
-  # silently have no hooks).
+  # Use the external helper for every git invocation. It bypasses Proton Pass
+  # for local commands and manages temporary agents for commands that need
+  # authentication or signing.
   #
   xdg.configFile."bash/rc.d/git.sh" = {
     enable = config.programs.bash.enable;
     text = ''
-      git () {
-        if [[ -n "$PORTABLE_PAT" ]]; then
-          PORTABLE_DIR="$(mktemp -d)"
-          env PROTON_PASS_PERSONAL_ACCESS_TOKEN="$PORTABLE_PAT" PROTON_PASS_SESSION_DIR="$PORTABLE_DIR" pass-cli login
-          PORTABLE_SSH_KEY="$(env PROTON_PASS_PERSONAL_ACCESS_TOKEN="$PORTABLE_PAT" PROTON_PASS_SESSION_DIR="$PORTABLE_DIR" pass-cli item view "pass://Portable/SSH :: Portable/Public key")"
-          env PROTON_PASS_PERSONAL_ACCESS_TOKEN="$PORTABLE_PAT" PROTON_PASS_SESSION_DIR="$PORTABLE_DIR" pass-cli ssh-agent load --vault-name Portable
-          env PROTON_PASS_PERSONAL_ACCESS_TOKEN="$PORTABLE_PAT" PROTON_PASS_SESSION_DIR="$PORTABLE_DIR" pass-cli logout
-          rm -rf "$PORTABLE_DIR"
-        else
-          if ! pass-cli info &> /dev/null; then
-            pass-cli login
-          fi
-          PORTABLE_SSH_KEY="$(pass-cli item view "pass://Portable/SSH :: Portable/Public key")"
-          pass-cli ssh-agent load --vault-name Portable
-        fi
-
-        env SSH_COMMAND="ssh -i /dev/null" $(which git) -c user.name="Nathan Acks" -c user.email="nathan.acks@cardboard-iguana.com" -c user.signingKey="key::$PORTABLE_SSH_KEY" "$@"
-
-        echo "$PORTABLE_SSH_KEY" | ssh-add -d -
-      }
+      alias git="${ephemeralGit}/bin/ephemeral-git"
     '';
   };
   xdg.configFile."zsh/rc.d/git.zsh" = {
     enable = config.programs.zsh.enable;
     text = ''
-      git () {
-        if [[ -n "$PORTABLE_PAT" ]]; then
-          PORTABLE_DIR="$(mktemp -d)"
-          env PROTON_PASS_PERSONAL_ACCESS_TOKEN="$PORTABLE_PAT" PROTON_PASS_SESSION_DIR="$PORTABLE_DIR" pass-cli login
-          PORTABLE_SSH_KEY="$(env PROTON_PASS_PERSONAL_ACCESS_TOKEN="$PORTABLE_PAT" PROTON_PASS_SESSION_DIR="$PORTABLE_DIR" pass-cli item view "pass://Portable/SSH :: Portable/Public key")"
-          env PROTON_PASS_PERSONAL_ACCESS_TOKEN="$PORTABLE_PAT" PROTON_PASS_SESSION_DIR="$PORTABLE_DIR" pass-cli ssh-agent load --vault-name Portable
-          env PROTON_PASS_PERSONAL_ACCESS_TOKEN="$PORTABLE_PAT" PROTON_PASS_SESSION_DIR="$PORTABLE_DIR" pass-cli logout
-          rm -rf "$PORTABLE_DIR"
-        else
-          if ! pass-cli info &> /dev/null; then
-            pass-cli login
-          fi
-          PORTABLE_SSH_KEY="$(pass-cli item view "pass://Portable/SSH :: Portable/Public key")"
-          pass-cli ssh-agent load --vault-name Portable
-        fi
-
-        env SSH_COMMAND="ssh -i /dev/null" $(whence -p git) -c user.name="Nathan Acks" -c user.email="nathan.acks@cardboard-iguana.com" -c user.signingKey="key::$PORTABLE_SSH_KEY" "$@"
-
-        echo "$PORTABLE_SSH_KEY" | ssh-add -d -
-      }
+      alias git="${ephemeralGit}/bin/ephemeral-git"
     '';
   };
   xdg.configFile."fish/rc.d/git.fish" = {
     enable = config.programs.fish.enable;
     text = ''
-      function git
-        if test -n "$PORTABLE_PAT"
-          set PORTABLE_DIR $(mktemp -d)
-          env PROTON_PASS_PERSONAL_ACCESS_TOKEN=$PORTABLE_PAT PROTON_PASS_SESSION_DIR=$PORTABLE_DIR pass-cli login
-          set PORTABLE_SSH_KEY $(env PROTON_PASS_PERSONAL_ACCESS_TOKEN=$PORTABLE_PAT PROTON_PASS_SESSION_DIR=$PORTABLE_DIR pass-cli item view "pass://Portable/SSH :: Portable/Public key")
-          env PROTON_PASS_PERSONAL_ACCESS_TOKEN=$PORTABLE_PAT PROTON_PASS_SESSION_DIR=$PORTABLE_DIR pass-cli ssh-agent load --vault-name Portable
-          env PROTON_PASS_PERSONAL_ACCESS_TOKEN=$PORTABLE_PAT PROTON_PASS_SESSION_DIR=$PORTABLE_DIR pass-cli logout
-          rm -rf $PORTABLE_DIR
-        else
-          pass-cli info &> /dev/null
-          if test $status -ne 0
-            pass-cli login
-          end
-          set PORTABLE_SSH_KEY $(pass-cli item view "pass://Portable/SSH :: Portable/Public key")
-          pass-cli ssh-agent load --vault-name Portable
-        end
-
-        set GIT_EXEC $(which git)
-
-        env SSH_COMMAND="ssh -i /dev/null" $GIT_EXEC -c user.name="Nathan Acks" -c user.email="nathan.acks@cardboard-iguana.com" -c user.signingKey="key::$PORTABLE_SSH_KEY" $argv
-
-        echo $PORTABLE_SSH_KEY | ssh-add -d -
-      end
+      alias git "${ephemeralGit}/bin/ephemeral-git"
     '';
   };
 }

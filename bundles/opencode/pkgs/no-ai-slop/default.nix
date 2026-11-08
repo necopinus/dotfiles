@@ -38,6 +38,6 @@ stdenvNoCC.mkDerivation {
     description = "Skill that edits AI-slop patterns out of drafts while preserving the writer's voice";
     homepage = "https://github.com/petergyang/no-ai-slop";
     license = lib.licenses.mit;
-    platforms = lib.platforms.all;
+    platforms = with lib.platforms; ["x86_64-linux" "aarch64-linux" "aarch64-darwin"];
   };
 }

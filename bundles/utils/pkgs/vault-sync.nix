@@ -45,6 +45,13 @@ writeShellApplication {
     fi
 
     if [[ -d /Volumes/Vault ]] && [[ -d /Volumes/"Vault 1" ]]; then
+      # An empty source is never a valid sync input. Stop before rclone can
+      # delete the destination's existing contents.
+      #
+      if [[ -z "$(find /Volumes/Vault/ -mindepth 1 -maxdepth 1 -print -quit)" ]]; then
+        echo "Source vault is empty; refusing to sync." >&2
+        exit 1
+      fi
       rclone sync -Pv \
            --check-first \
            --create-empty-src-dirs \

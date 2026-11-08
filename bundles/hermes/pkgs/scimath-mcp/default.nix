@@ -47,6 +47,18 @@ python3.pkgs.buildPythonApplication {
 
   pythonImportsCheck = ["scimath_mcp"];
 
+  preCheck = ''
+    python - <<'PY'
+    from importlib.metadata import version
+
+    def numeric(value):
+        return tuple(int(part) for part in value.split(".")[:3])
+
+    assert numeric(version("mcp")) >= (2, 0, 0), version("mcp")
+    assert numeric(version("mpmath")) >= (1, 4), version("mpmath")
+    PY
+  '';
+
   nativeCheckInputs = with python3.pkgs; [pytestCheckHook];
 
   meta = {
@@ -54,6 +66,6 @@ python3.pkgs.buildPythonApplication {
     homepage = "https://github.com/matheusbgodoi/scimath-mcp";
     license = lib.licenses.mit;
     mainProgram = "scimath-mcp";
-    platforms = lib.platforms.all;
+    platforms = with lib.platforms; ["x86_64-linux" "aarch64-linux" "aarch64-darwin"];
   };
 }

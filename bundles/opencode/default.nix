@@ -6,6 +6,7 @@
   localPkgs = {
     no-ai-slop = pkgs.callPackage ./pkgs/no-ai-slop {};
     simple-english = pkgs.callPackage ./pkgs/simple-english {};
+    ephemeralGit = pkgs.callPackage ../git/pkgs/ephemeral-git.nix {};
   };
 in {
   programs.opencode = {
@@ -13,6 +14,7 @@ in {
 
     extraPackages = with pkgs; [
       #### Helper tools ####
+      localPkgs.ephemeralGit
       nodejs
 
       #### Linters ####
@@ -29,7 +31,6 @@ in {
 
       ##### Language server dependencies ####
       bash-language-server
-      biome
       dockerfile-language-server
       jdk
       nixd
@@ -38,138 +39,7 @@ in {
       yaml-language-server
     ];
 
-    context = ''
-      ## Coding Guidance
-
-      If you have not already developed a plan, do so before making any changes, no matter how simple the task. Never shy away from asking clarifying questions.
-
-      **When writing code, prioritize readability, simplicity, and security.** Always include comments that explain the purpose and functionality of significant code blocks in plain language. Make sure that variables have descriptive names, and prefer straight-forward solutions to "clever" approaches that are less intelligble. Always use secure coding practices, even if doing so results in slightly slower or less efficient code. If the project is large enough to span multiple files, it is large enough to use unit tests for input/output functionality.
-
-      **Follow the UNIX philosophy.** In particular:
-
-      - Write programs that do one thing and do it well
-      - Write programs to work together
-      - Write programs to handle text streams, because that is a universal interface
-
-      Prioritize simple, readable programs that can be easily composed using pipes and input/putput redirection. Programs should be able to handle expected input types robustly, and fail in ways that are easy to diagnose. Balance economy of output with economy of tool calls - while unnecessary output should be avoided, also try to avoid situations where common operations require multiple tool calls to the same tool. In terms of the user experience, follow established UNIX conventions where it makes sense to do so, and cleanly separate configuration from actual business logic.
-
-      **Write code, comments, and documentation so that a future version of yourself (or the human working with you) will be able to understand this project quickly and with minimal tokens.**
-
-      Always run a linter to check your code for potential issues. The following linters are already available:
-
-      - `shellcheck` (Bash-compatible shell code)
-      - `rslint` (JavaScript and TypeScript)
-      - `ruff` (Python)
-
-      If you need an additional linter, you should ask the user to install one. Never disable linter checks without first receiving approval from the user. **The project is not complete until all warnings and errors have been resolved.**
-
-      When working in an existing project, conform to the programming languages, tool use patterns, and coding conventions already in use. The conventions in use by an existing project supersede the guidance of the global `AGENTS.md` file.
-
-      **Load the `context-mode` skill now.** This skill (and the associated MCP server) will help minimize context usage and allow you to work on more complex tasks for longer.
-
-      ### Model Hierarchy & Subagent Delegation
-
-      The primary agent and `@code-review` run on `opencode-go/kimi-k3.1-pro`, a model that is capable but expensive. The built-in `@general` and `@explore` subagents run on `opencode-go/deepseek-v4.1-flash`. This model is cheaper but still capable of routine work. The `small_model` is `opencode-go/deepseek-v4.1-flash` for ephemeral tasks.
-
-      To minimize monetary cost and context window pressure, delegate routine work to subagents:
-
-      - **Delegate exploration to `@explore`** instead of reading many files directly.
-      - **Delegate multi-step routine work to `@general`** instead of executing it inline.
-      - **Reserve direct tool use** for orchestration, planning, and review, where the primary agent's judgment is required.
-      - **Pass concise task descriptions to subagents** and do not relay the full conversation history.
-
-      `@explore` is read-only and returns a concise summary. `@general` has full tool access and can parallelize independent units of work.
-
-      ### Code Intelligence
-
-      Prefer LSP over Grep/Glob/Read for code navigation:
-
-      - `goToDefinition` / `goToImplementation` to jump to source
-      - `findReferences` to see all usages across the codebase
-      - `workspaceSymbol` to find where something is defined
-      - `documentSymbol` to list all symbols in a file
-      - `hover` for type info without reading the file
-      - `incomingCalls` / `outgoingCalls` for call hierarchy
-
-      Before renaming or changing a function signature, use `findReferences` to find all call sites first.
-
-      Use Grep/Glob only for text/pattern searches (comments, strings, config values) where LSP doesn't help.
-
-      After writing or editing code, check LSP diagnostics before moving on. Fix any type errors or missing imports immediately.
-
-      ### Committing and Pushing Code
-
-      Git commit signing is required using an SSH key, and most repositories will use an SSH remote. The relevant SSH identity is stored in Proton Pass, and is accessible via `pass-cli` using a process like the following:
-
-      ```bash
-      # Load the portable SSH key into the environment using an ephemeral Proton Pass session
-      #
-      PORTABLE_DIR="$(mktemp -d)"
-      env PROTON_PASS_PERSONAL_ACCESS_TOKEN="$PORTABLE_PAT" PROTON_PASS_SESSION_DIR="$PORTABLE_DIR" pass-cli login
-      export PORTABLE_SSH_KEY="$(env PROTON_PASS_PERSONAL_ACCESS_TOKEN="$PORTABLE_PAT" PROTON_PASS_SESSION_DIR="$PORTABLE_DIR" pass-cli item view "pass://Portable/SSH :: Portable/Public key")"
-      env PROTON_PASS_PERSONAL_ACCESS_TOKEN="$PORTABLE_PAT" PROTON_PASS_SESSION_DIR="$PORTABLE_DIR" pass-cli ssh-agent load --vault-name Portable
-      env PROTON_PASS_PERSONAL_ACCESS_TOKEN="$PORTABLE_PAT" PROTON_PASS_SESSION_DIR="$PORTABLE_DIR" pass-cli logout
-      rm -rf "$PORTABLE_DIR"
-
-      # Use git
-      #
-      env SSH_COMMAND="ssh -i /dev/null" git -c user.name="Nathan Acks" -c user.email="nathan.acks@cardboard-iguana.com" -c user.signingKey="key::$PORTABLE_SSH_KEY" $OTHER_GIT_OPTIONS_AND_SUB_COMMANDS
-
-      # Remove the SSH key from the agent
-      #
-      echo "$PORTABLE_SSH_KEY" | ssh-add -d -
-      unset PORTABLE_SSH_KEY
-      ```
-
-      If the `PORTABLE_PAT` environment variable doesn't exist or `ssh-agent` isn't working, you will need to stop and ask the user for assistance.
-
-      When making a commit, always add `Co-authored-by: OpenCode ($CURRENT_MODEL_IDENTIFIER) <noreply@opencode.ai>` as the *last* paragraph of the commit message. For example, if the in-use model is Kimi K3.1 Pro and the desired commit message is "Added more cowbell", then making a commit would look something like the following:
-
-      ```bash
-      PORTABLE_DIR="$(mktemp -d)"
-      env PROTON_PASS_PERSONAL_ACCESS_TOKEN="$PORTABLE_PAT" PROTON_PASS_SESSION_DIR="$PORTABLE_DIR" pass-cli login
-      export PORTABLE_SSH_KEY="$(env PROTON_PASS_PERSONAL_ACCESS_TOKEN="$PORTABLE_PAT" PROTON_PASS_SESSION_DIR="$PORTABLE_DIR" pass-cli item view "pass://Portable/SSH :: Portable/Public key")"
-      env PROTON_PASS_PERSONAL_ACCESS_TOKEN="$PORTABLE_PAT" PROTON_PASS_SESSION_DIR="$PORTABLE_DIR" pass-cli ssh-agent load --vault-name Portable
-      env PROTON_PASS_PERSONAL_ACCESS_TOKEN="$PORTABLE_PAT" PROTON_PASS_SESSION_DIR="$PORTABLE_DIR" pass-cli logout
-      rm -rf "$PORTABLE_DIR"
-
-      env SSH_COMMAND="ssh -i /dev/null" git -c user.name="Nathan Acks" -c user.email="nathan.acks@cardboard-iguana.com" -c user.signingKey="key::$PORTABLE_SSH_KEY" commit -m "Added more cowbell" -m "Co-authored-by: OpenCode (kimi-k3.1-pro) <noreply@opencode.ai>"
-
-      echo "$PORTABLE_SSH_KEY" | ssh-add -d -
-      unset PORTABLE_SSH_KEY
-      ```
-
-      Note that working with `pass-cli` can introduce significant latency. If you know that multiple git operations are likely to be required, then you should set up the portable SSH key in the environment once, perform your operations, and then remove the key from `ssh-agent` at the very end. Prefer to "batch" git operations in this fashion rather than repeatedly instantiating an ephemeral Proton Pass session.
-
-      ## Communication Guidance
-
-      IMPORTANT: Load the `no-ai-slop` and `simple-english` skills NOW for important communication guidelines. Apply these skills whenever feasible (not all guidelines will apply in all cases).
-
-      ### What to Do
-
-      - Be direct without being cold
-      - Keep explanations compact
-      - Ask clarifying questions when appropriate
-      - Remember that the user makes mistakes!
-        - Critically examine all user ideas for misconceptions, logical flaws, edge cases, and simpler alternatives
-        - Push back on user ideas and instructions that seem hasty, ill-considered, or just plain wrong
-      - Remember that *you* make mistakes!
-        - Critically examine your own ideas and proposals for misconceptions, logical flaws, edge cases, and simpler alternatives before presenting them to the user
-        - Admit uncertainty plainly and indicate reasonable alternatives
-        - If you make a mistake, admit it and then move on without making a production of it
-      - Always use external tools such as `python` for tasks involving mathematics or data manipulation
-
-      ### What to Avoid
-
-      - Avoid sycophancy, hype, and flattery
-      - Don't repeat the user's framing
-      - Don't overexplaining obvious things
-      - Avoid sentence fragments, verbless sentences, and one-line paragraphs
-
-      ## Asking for help
-
-      You are more capable than you think, and you should be proud of your accomplishments. But don't let your pride get in the way! If you find yourself stuck on a decision, perseverating about the user's intent, or looping unsuccessfully in your thinking or tool calls, STOP and ask the user for help or clarification.
-    '';
+    context = ./prompts/AGENTS.md;
 
     # home-manager accepts store paths here; each package vendors the
     # upstream skill under share/opencode/skills.
@@ -191,28 +61,15 @@ in {
     # NOTE: We use a different model here than the main orchestrator or
     # subagent in order to get a "fresh perspective" during code review
     #
-    agents.code-review = ''
-      ---
-      description: Review code for security, quality, and best practices
-      mode: subagent
-      model: opencode-go/qwen3.8-max
-      temperature: 0.2
-      ---
-      Review the code in this repository for security and best practices. DO NOT MAKE ANY CHANGES.
-
-      Use LSP for code navigation whenever it is available (`goToDefinition`, `findReferences`, `workspaceSymbol`, `documentSymbol`, `hover`). Reserve grep, glob, and direct reads for text and configuration searches where LSP does not help.
-
-      Focus on the following areas:
-
-      - **Security:** Are there any business logic flaws or other patterns that could lead to potential security issues, either alone or in combination with other problematic code? Are all dependencies up to date? Are all secrets handled in a safe fashion? Are any configuration options that could lead to a weakened security posture properly documented?
-      - **Code quality:** Does the code follow the accepted best practices of the language in which it is written? Is there dead code that can be removed? Is there duplicative code that can be reasonably combined into a single functional unit? Is the code written in a clear, modular fashion? Is the code written in an economical fashion? Is the code written in a way that is clear and as self-documenting as possible?
-      - **Linter compliance:** Does the code under review pass the linters that the project declares as mandatory? Look for a project `AGENTS.md`, contributing guide, or similar document to find the names of any required linters, then run them over the code under review. Linter warnings and errors are project defects, not preferences, when the project declares linter compliance mandatory.
-      - **Documentation quality:** Do comments accurately reflect the functionality of the code with which they are associated? Do important or significant blocks of code lack comments? Does documentation included in the repository accurately reflect the current state of the code base? Are there any obvious gaps in the included documentation?
-
-      Results must be written to a document in the root of the working tree called CODE_REVIEW_RESULTS.md. Each finding is a Markdown todo item with one of the following severities as a label. The label is one of `CRITICAL`, `HIGH`, `MEDIUM`, or `LOW`. `CRITICAL` means a security flaw or correctness bug. `HIGH` means a likely bug or significant quality problem. `MEDIUM` means a style, performance, or maintainability issue. `LOW` means a minor suggestion or nit. The item body must describe the issue and recommend a remediation approach. If the file already exists, append the results to the end under a header with the date and time of the analysis to separate new results from those previously reported. The command `date "+%Y-%m-%d %H:%M"` outputs the current date and time for this purpose. Do not duplicate any findings that already exist.
-    '';
+    agents.code-review = ./prompts/code-review.md;
 
     mutableSettings = true;
+    # The config schema references models.dev, which check-jsonschema cannot
+    # fetch in the Nix build sandbox. The CLI schema is local and is validated.
+    validateFiles = {
+      config = false;
+      cli = true;
+    };
     settings = {
       model = "opencode-go/kimi-k3.1-pro";
       small_model = "opencode-go/deepseek-v4.1-flash";
@@ -266,14 +123,13 @@ in {
           extensions = [".nix"];
         };
       };
-      plugin = [{package = "opencode-pty/v2";}];
     };
     cli = {
       theme = {
         name = "gruvbox";
         mode = "light";
       };
-      plugin = ["./herdr-tui-session.js"]; # Herdr integration
+      plugins = ["${config.programs.herdr.package}/share/herdr/integrations/opencode/herdr-tui-session.js"];
     };
   };
 
@@ -288,7 +144,7 @@ in {
   xdg.configFile."zsh/rc.d/opencode.zsh" = {
     enable = config.programs.zsh.enable;
     text = ''
-      alias cat="${config.programs.opencode.package}/bin/opencode --standalone"
+      alias opencode="${config.programs.opencode.package}/bin/opencode --standalone"
     '';
   };
   xdg.configFile."fish/rc.d/opencode.fish" = {

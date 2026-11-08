@@ -1,16 +1,31 @@
-{writeShellApplication}:
+{
+  writeShellApplication,
+  ephemeralGit,
+}:
 writeShellApplication {
   name = "backup-home";
 
-  # Remove "nounset" from the options default list, as PORTABLE_PAT may
-  # be unset
-  #
-  bashOptions = [
-    "errexit"
-    "pipefail"
-  ];
-
   text = ''
+    # Fail before using a missing or relative path in a destructive operation.
+    # PORTABLE_PAT is handled separately because it is optional on some hosts.
+    #
+    function requireAbsolutePath {
+      if [[ -z "$2" || "$2" != /* ]]; then
+        printf '%s must be set to a non-empty absolute path\n' "$1" >&2
+        exit 1
+      fi
+    }
+    requireAbsolutePath HOME "''${HOME:-}"
+    requireAbsolutePath XDG_CONFIG_HOME "''${XDG_CONFIG_HOME:-}"
+    requireAbsolutePath XDG_DATA_HOME "''${XDG_DATA_HOME:-}"
+    requireAbsolutePath XDG_STATE_HOME "''${XDG_STATE_HOME:-}"
+
+    # Start one temporary agent and load one key before creating temporary
+    # files or performing system changes. Re-execution happens exactly once.
+    if [[ -z "''${EPHEMERAL_GIT_SESSION:-}" ]]; then
+      exec ${ephemeralGit}/bin/ephemeral-git --batch "$0" "$@"
+    fi
+
     BACKUP_LIST="$(mktemp)"
     BACKUP_LIST_TMP="$(mktemp)"
 
@@ -29,103 +44,103 @@ writeShellApplication {
                -o -name "*~" \
                -o -name ".#*" \
                -o -name "._*" \) \
-        \) -exec realpath "{}" \; >> "$BACKUP_LIST"
+        \) -exec realpath "{}" + >> "$BACKUP_LIST"
       elif [[ -f "$1" ]]; then
         echo "Adding file:  $1 ..."
         realpath "$1" >> "$BACKUP_LIST"
       fi
     }
 
-    # Load the portable SSH key into the environment using an ephemeral Proton Pass session
+    # Track the service stop window so every exit path attempts a restart.
+    # Explicit restarts still fail the script; exit cleanup is best-effort and
+    # preserves the original status.
     #
-    if [[ -n "$PORTABLE_PAT" ]]; then
-      PORTABLE_DIR="$(mktemp -d)"
-      env PROTON_PASS_PERSONAL_ACCESS_TOKEN="$PORTABLE_PAT" PROTON_PASS_SESSION_DIR="$PORTABLE_DIR" pass-cli login
-      PORTABLE_SSH_KEY="$(env PROTON_PASS_PERSONAL_ACCESS_TOKEN="$PORTABLE_PAT" PROTON_PASS_SESSION_DIR="$PORTABLE_DIR" pass-cli item view "pass://Portable/SSH :: Portable/Public key")"
-      env PROTON_PASS_PERSONAL_ACCESS_TOKEN="$PORTABLE_PAT" PROTON_PASS_SESSION_DIR="$PORTABLE_DIR" pass-cli ssh-agent load --vault-name Portable
-      env PROTON_PASS_PERSONAL_ACCESS_TOKEN="$PORTABLE_PAT" PROTON_PASS_SESSION_DIR="$PORTABLE_DIR" pass-cli logout
-      rm -rf "$PORTABLE_DIR"
-    else
-      if ! pass-cli info &> /dev/null; then
-        pass-cli login
+    HERMES_SERVICES_STOPPED=0
+    function restartHermesServices {
+      if [[ "$HERMES_SERVICES_STOPPED" == 1 ]]; then
+        sudo systemctl --user -M "''${USER}@" start hermes-dashboard.service
+        sudo systemctl --user -M "''${USER}@" start hermes-gateway.service
+        sudo systemctl --user -M "''${USER}@" start hermes-relay.service
+        HERMES_SERVICES_STOPPED=0
       fi
-      PORTABLE_SSH_KEY="$(pass-cli item view "pass://Portable/SSH :: Portable/Public key")"
-      pass-cli ssh-agent load --vault-name Portable
-    fi
+    }
+    function cleanupOnExit {
+      local exit_status=$?
+      restartHermesServices || true
+      return "$exit_status"
+    }
+    trap cleanupOnExit EXIT
 
-    export PORTABLE_SSH_KEY
-    export SSH_COMMAND="ssh -i /dev/null"
-
-    # Make sure all git repos are up to date
+    # Automated updates and backups must never execute repository-controlled
+    # hooks while credentials are available or a system update is in progress.
     #
-    if [[ -d "$HOME/Projects" ]]; then
-      (
-        cd "$HOME/Projects" || exit 1
-        while IFS= read -r -d "" OBJECT; do
-          if [[ -d "$OBJECT/.git" ]]; then
-            echo "Refreshing $(basename "$OBJECT")"
-            cd "$OBJECT"
-            git pull --recurse-submodules
-            if [[ "$(git config --get remote.origin.url)" =~ [^/]+@[^/]+\.[^/]+:.+\.git ]]; then
-              git push --recurse-submodules=on-demand
-            fi
-            cd ..
-          fi
-        done < <(find . -mindepth 1 -maxdepth 1 -type d -print0)
-      )
-    fi
-    if [[ -d "$HOME/src" ]]; then
-      (
-        cd "$HOME/src" || exit 1
-        while IFS= read -r -d "" OBJECT; do
-          if [[ -d "$OBJECT/.git" ]]; then
-            echo "Refreshing $(basename "$OBJECT")"
-            cd "$OBJECT"
-            git pull --recurse-submodules
-            if [[ "$(git config --get remote.origin.url)" =~ [^/]+@[^/]+\.[^/]+:.+\.git ]]; then
-              git push --recurse-submodules=on-demand
-            fi
-            cd ..
-          fi
-        done < <(find . -mindepth 1 -maxdepth 1 -type d -print0)
-      )
-    fi
-    if [[ -d "$HOME/grimoire" ]]; then
-      (
-        cd "$HOME/grimoire" || exit 1
-        git pull
-        git push
-      )
-    fi
-    if [[ -d "$HOME/journal" ]]; then
-      (
-        cd "$HOME/journal" || exit 1
-        git pull
-        git push
-      )
-    fi
-    if [[ -d "$HOME/research" ]]; then
-      (
-        cd "$HOME/research" || exit 1
-        git pull
-        git push
-      )
-    fi
+    function gitWithoutHooks {
+      ${ephemeralGit}/bin/ephemeral-git -c core.hooksPath=/dev/null "$@"
+    }
 
-    # Remove the portable SSH key from ssh-agent
+    # Match ssh:// URLs and scp-style user@host:path remotes, with or
+    # without a .git suffix. HTTP(S) and local paths do not match.
     #
-    echo "$PORTABLE_SSH_KEY" | ssh-add -d -
-    unset PORTABLE_SSH_KEY SSH_COMMAND
+    function isSshRemote {
+      [[ "$1" =~ ^ssh:// ]] || [[ "$1" =~ ^[^/]+@[^/]+:.+ ]]
+    }
+
+    # Make sure repositories in the configured roots are up to date. Each
+    # root is optional, and every child repository is refreshed without hooks.
+    #
+    for REPO_ROOT in "$HOME/Projects" "$HOME/src" "$HOME/workspace"; do
+      if [[ -d "$REPO_ROOT" ]]; then
+        (
+          cd "$REPO_ROOT" || exit 1
+          while IFS= read -r -d "" OBJECT; do
+            if [[ -d "$OBJECT/.git" ]]; then
+              echo "Refreshing $(basename "$OBJECT")"
+              if ! cd "$OBJECT"; then
+                echo "Unable to enter $OBJECT; skipping repository" >&2
+                continue
+              fi
+              if ! gitWithoutHooks pull --ff-only --recurse-submodules; then
+                echo "Pull failed for $OBJECT; skipping push" >&2
+                cd ..
+                continue
+              fi
+              if ! REMOTE_URL="$(gitWithoutHooks config --get remote.origin.url)"; then
+                echo "Unable to read the remote for $OBJECT; skipping push" >&2
+              elif isSshRemote "$REMOTE_URL"; then
+                if ! gitWithoutHooks push --recurse-submodules=on-demand; then
+                  echo "Push failed for $OBJECT; continuing backup" >&2
+                fi
+              fi
+              cd ..
+            fi
+          done < <(find . -mindepth 1 -maxdepth 1 -type d -print0)
+        )
+      fi
+    done
 
     # Actual backups
     #
     if [[ "$(hostname)" == "kitsune" ]]; then
+      HERMES_SERVICES_STOPPED=1
       sudo systemctl --user -M "''${USER}@" stop hermes-relay.service
       sudo systemctl --user -M "''${USER}@" stop hermes-gateway.service
       sudo systemctl --user -M "''${USER}@" stop hermes-dashboard.service
 
       hermes backup
-      crontab -l > "$HOME/exedev.crontab"
+
+      # Preserve the previous crontab backup unless `crontab -l` succeeds.
+      # Keep the temporary file on the same filesystem so the final rename is
+      # atomic. A missing crontab is not an error, but other failures are.
+      #
+      CRONTAB_BACKUP_DIR="$(mktemp -d "$HOME/.exedev.crontab.XXXXXX")"
+      if LC_ALL=C crontab -l > "$CRONTAB_BACKUP_DIR/crontab" 2> "$CRONTAB_BACKUP_DIR/error"; then
+        mv "$CRONTAB_BACKUP_DIR/crontab" "$HOME/exedev.crontab"
+      elif ! grep -q "no crontab for" "$CRONTAB_BACKUP_DIR/error"; then
+        cat "$CRONTAB_BACKUP_DIR/error" >&2
+        rm -rf "$CRONTAB_BACKUP_DIR"
+        exit 1
+      fi
+      rm -rf "$CRONTAB_BACKUP_DIR"
     fi
 
     mkBackupList "$XDG_CONFIG_HOME/nix"
@@ -147,11 +162,8 @@ writeShellApplication {
     mkBackupList "$XDG_STATE_HOME/opencode"
 
     mkBackupList "$HOME/exedev.crontab"
-    mkBackupList "$HOME/grimoire"
     mkBackupList "$HOME/.hermes"
     mkBackupList "$HOME/inaba"
-    mkBackupList "$HOME/journal"
-    mkBackupList "$HOME/research"
     mkBackupList "$HOME/workspace"
     mkBackupList "$HOME/.xurl"
     mkBackupList "$XDG_DATA_HOME/tirith"
@@ -164,12 +176,18 @@ writeShellApplication {
     mkBackupList "$XDG_CONFIG_HOME/zsh/.zsh_history"
     mkBackupList "$XDG_DATA_HOME/fish/fish_history"
 
-    mkBackupList "$HOME/Library/Application Support/BraveSoftware"
-
     mkBackupList "$HOME/Projects"
     mkBackupList "$HOME/src"
 
-    grep "^$HOME/" "$BACKUP_LIST" | sed "s#^$HOME/##g" | sort -u > "$BACKUP_LIST_TMP"
+    # Strip the home directory as a literal prefix, not as a regular
+    # expression. Paths outside the home directory remain excluded.
+    #
+    home_prefix="''${HOME%/}/"
+    while IFS= read -r path; do
+      if [[ "$path" == "$home_prefix"* ]]; then
+        printf '%s\n' "''${path#"$home_prefix"}"
+      fi
+    done < "$BACKUP_LIST" | sort -u > "$BACKUP_LIST_TMP"
     mv "$BACKUP_LIST_TMP" "$BACKUP_LIST"
 
     (
@@ -189,10 +207,6 @@ writeShellApplication {
 
     rm -f "$BACKUP_LIST"
 
-    if [[ "$(hostname)" == "kitsune" ]]; then
-      sudo systemctl --user -M "''${USER}@" start hermes-dashboard.service
-      sudo systemctl --user -M "''${USER}@" start hermes-gateway.service
-      sudo systemctl --user -M "''${USER}@" start hermes-relay.service
-    fi
+    restartHermesServices
   '';
 }

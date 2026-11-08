@@ -1,23 +1,36 @@
 #!/usr/bin/env bash
 
 set -e
+set -o pipefail
 
 # Sanity check
 #
 if [[ ! -f "$HOME/.config/nix/flake.nix" ]]; then
   echo "This configuration must be cloned into $HOME/.config/nix!"
-  exit
+  exit 1
 fi
 
 # Set OS type and HOST_NAME
 #
 OS="$(uname -s)"
-HOST_NAME="$(hostname)"
+HOST_NAME="$(hostname -s)"
 
-# Make sure our user has unrestricted sudo access on Linux
+# Make sure our user has unrestricted sudo access on Linux. Validate the rule
+# before installing it with the ownership and permissions sudo expects.
 #
 if [[ "$OS" == "Linux" ]]; then
-  echo "$USER ALL=(ALL) NOPASSWD:ALL" | sudo tee "/etc/sudoers.d/$USER"
+  CURRENT_USER="$(id -un)"
+  SUDOERS_TMP="$(mktemp)"
+  printf '%s ALL=(ALL) NOPASSWD:ALL\n' "$CURRENT_USER" >"$SUDOERS_TMP"
+  if ! sudo visudo -cf "$SUDOERS_TMP"; then
+    rm -f "$SUDOERS_TMP"
+    exit 1
+  fi
+  if ! sudo install -o root -g root -m 0440 "$SUDOERS_TMP" "/etc/sudoers.d/$CURRENT_USER"; then
+    rm -f "$SUDOERS_TMP"
+    exit 1
+  fi
+  rm -f "$SUDOERS_TMP"
 fi
 
 # Install (or set up) Homebrew on macOS
@@ -186,14 +199,32 @@ if [[ "$OS" == "Darwin" ]]; then
   defaults delete kCFPreferencesAnyApplication AppleIconAppearanceTintColor 2>/dev/null || true
 fi
 
-# Move files that we might overwrite out of the way
+# Disable GSSAPIAuthentication, as this breaks Nix's SSH client
 #
-# Each moved file is parked under ~/.moved-paths/<timestamp>/<original
-# path>/<original name>, preserving the original location in the path
-# structure so it's easy to identify what was moved and from where.
+if [[ -f /etc/ssh/ssh_config ]]; then
+  sudo sed -i 's/^    GSSAPIAuthentication yes/#   GSSAPIAuthentication yes/' /etc/ssh/ssh_config
+fi
+
+# Move files that we might overwrite out of the way before activation, but
+# restore them if activation fails. The backups use unique paths so repeated
+# runs cannot overwrite an earlier recovery copy.
 #
+MOVED_BASE=""
+BASHRC_BACKUP="$(mktemp "$HOME/.bashrc.XXXXXX")"
+PROFILE_BACKUP="$(mktemp "$HOME/.profile.XXXXXX")"
+BASHRC_EXISTED=0
+PROFILE_EXISTED=0
+RESTORE_NEEDED=1
+if [[ -e "$HOME"/.bashrc ]]; then
+  BASHRC_EXISTED=1
+fi
+if [[ -e "$HOME"/.profile ]]; then
+  PROFILE_EXISTED=1
+fi
+
 if [[ "$OS" == "Darwin" ]]; then
-  MOVED_BASE="$HOME/.moved-paths/$(date '+%Y%m%d%H%M%S')"
+  mkdir -p "$HOME/.moved-paths"
+  MOVED_BASE="$(mktemp -d "$HOME/.moved-paths/XXXXXX")"
   for FILE in /etc/bashrc /etc/pam.d/sudo_local /etc/zprofile /etc/zshenv /etc/zshrc; do
     if [[ -e "$FILE" ]]; then
       DEST_DIR="$MOVED_BASE$FILE"
@@ -202,11 +233,34 @@ if [[ "$OS" == "Darwin" ]]; then
     fi
   done
 fi
-if [[ -e "$HOME"/.bashrc ]]; then
-  mv "$HOME"/.bashrc "$HOME/.bashrc.$(date "+%Y%m%d%H%M%S")"
+
+trap '
+  if [[ "$RESTORE_NEEDED" == 1 ]]; then
+    if [[ "$OS" == "Darwin" ]]; then
+      for FILE in /etc/bashrc /etc/pam.d/sudo_local /etc/zprofile /etc/zshenv /etc/zshrc; do
+        if [[ -e "$MOVED_BASE$FILE/$(basename "$FILE")" ]]; then
+          sudo mv "$MOVED_BASE$FILE/$(basename "$FILE")" "$FILE" || true
+        fi
+      done
+    fi
+    if [[ "$BASHRC_EXISTED" == 1 ]]; then
+      mv "$BASHRC_BACKUP" "$HOME/.bashrc" || true
+    else
+      rm -f "$BASHRC_BACKUP"
+    fi
+    if [[ "$PROFILE_EXISTED" == 1 ]]; then
+      mv "$PROFILE_BACKUP" "$HOME/.profile" || true
+    else
+      rm -f "$PROFILE_BACKUP"
+    fi
+  fi
+' EXIT
+
+if [[ "$BASHRC_EXISTED" == 1 ]]; then
+  mv "$HOME"/.bashrc "$BASHRC_BACKUP"
 fi
-if [[ -e "$HOME"/.profile ]]; then
-  mv "$HOME"/.profile "$HOME/.profile.$(date "+%Y%m%d%H%M%S")"
+if [[ "$PROFILE_EXISTED" == 1 ]]; then
+  mv "$HOME"/.profile "$PROFILE_BACKUP"
 fi
 
 # Build configuration
@@ -214,27 +268,48 @@ fi
 (
   cd "$HOME/.config/nix" || exit 1
 
+  activateConfiguration() {
+    local configuration="$1"
+    local activation
+    activation="$(nix build "$configuration" --no-link --print-out-paths)"
+    if [[ ! -x "$activation/activate" ]]; then
+      echo "Activation script not found for $configuration" >&2
+      return 1
+    fi
+    if [[ "$OS" == "Darwin" ]]; then
+      sudo -H "$activation/activate"
+    else
+      "$activation/activate"
+    fi
+  }
+
   if [[ "$OS" == "Darwin" ]]; then
-    sudo -H nix run nix-darwin -- switch --flake .#macos
+    activateConfiguration .#darwinConfigurations.macos.system
   elif [[ "$HOST_NAME" == "kitsune" ]]; then
-    nix run home-manager/master -- switch --flake .#hermes
+    activateConfiguration .#homeConfigurations.hermes.activationPackage
   elif [[ "$USER" == "exedev" ]]; then
-    nix run home-manager/master -- switch --flake .#exedev
+    activateConfiguration .#homeConfigurations.exedev.activationPackage
+  else
+    echo "Unsupported host or user: $HOST_NAME/$USER" >&2
+    exit 1
   fi
 )
+RESTORE_NEEDED=0
 
 # Update runtime environment
 #
-unset __ETC_PROFILE_NIX_SOURCED
+unset __ETC_PROFILE_NIX_SOURCED __HM_SESS_VARS_SOURCED
 # shellcheck disable=SC1091  # path is only valid after Nix is installed
 source /nix/var/nix/profiles/default/etc/profile.d/nix-daemon.sh
-# shellcheck disable=SC1091
-source "$HOME/.nix-profile/etc/profile.d/hm-session-vars.sh"
+if [[ -f "$HOME/.nix-profile/etc/profile.d/hm-session-vars.sh" ]]; then
+  # shellcheck disable=SC1091
+  source "$HOME/.nix-profile/etc/profile.d/hm-session-vars.sh"
+fi
 
 # Run GPU setup for nixpkgs/home-manager
 #
 if [[ "$OS" == "Linux" ]]; then
-  sudo "$(which non-nixos-gpu-setup)"
+  sudo "$(command -v non-nixos-gpu-setup)"
 fi
 
 # Garbage collection
@@ -247,17 +322,6 @@ nix store optimise -v
 # Set up Hermes
 #
 if [[ "$HOST_NAME" == "kitsune" ]]; then
-  # Disable user namespace AppArmor enforcement if we're (1) on
-  # Ubuntu and (2) installing Hermes, as it prevents SUID binaries
-  # (i.e., the Chromium sandbox) from running in the Nix store
-  # (and thus breaks Hermes' browser automation)
-  #
-  #   https://github.com/NixOS/nixpkgs/issues/121694
-  #
-  if [[ $(grep -c "ID=ubuntu" /etc/os-release) -ne 0 ]]; then
-    echo "kernel.apparmor_restrict_unprivileged_userns=0" | sudo tee /etc/sysctl.d/60-apparmor-disable-userns-restrictions.conf
-  fi
-
   # Install Hermes
   #
   curl -fsSL https://hermes-agent.nousresearch.com/install.sh | bash
@@ -323,7 +387,20 @@ if [[ "$HOST_NAME" == "kitsune" ]]; then
 
   # Install Hermes completions and plugins, if applicable
   #
-  if [[ -n "$(which hermes 2>/dev/null)" ]]; then
+  writeCompletion() {
+    local shell_name="$1"
+    local target="$2"
+    local temporary_file
+    temporary_file="$(mktemp "''${target}.XXXXXX")"
+    if hermes completion "$shell_name" >"$temporary_file"; then
+      mv "$temporary_file" "$target"
+    else
+      rm -f "$temporary_file"
+      return 1
+    fi
+  }
+
+  if [[ -n "$(command -v hermes 2>/dev/null)" ]]; then
     if [[ -d "$HOME"/.hermes/skills/officecli ]]; then
       rm -rf "$HOME"/.hermes/skills/officecli
     fi
@@ -336,19 +413,19 @@ if [[ "$HOST_NAME" == "kitsune" ]]; then
       if [[ ! -d "$XDG_CONFIG_HOME"/bash/rc.d ]]; then
         mkdir -p "$XDG_CONFIG_HOME"/bash/rc.d
       fi
-      hermes completion bash >"$XDG_CONFIG_HOME"/bash/rc.d/hermes-completion.sh
+      writeCompletion bash "$XDG_CONFIG_HOME"/bash/rc.d/hermes-completion.sh
     fi
     if [[ -d "$XDG_CONFIG_HOME"/zsh ]]; then
       if [[ ! -d "$XDG_CONFIG_HOME"/zsh/rc.d ]]; then
         mkdir -p "$XDG_CONFIG_HOME"/zsh/rc.d
       fi
-      hermes completion zsh >"$XDG_CONFIG_HOME"/zsh/rc.d/hermes-completion.zsh
+      writeCompletion zsh "$XDG_CONFIG_HOME"/zsh/rc.d/hermes-completion.zsh
     fi
     if [[ -d "$XDG_CONFIG_HOME"/fish ]]; then
       if [[ ! -d "$XDG_CONFIG_HOME"/fish/completions ]]; then
         mkdir -p "$XDG_CONFIG_HOME"/fish/completions
       fi
-      hermes completion fish >"$XDG_CONFIG_HOME"/fish/completions/hermes.fish
+      writeCompletion fish "$XDG_CONFIG_HOME"/fish/completions/hermes.fish
     fi
 
     hermes plugins enable browser-browser-use
@@ -365,6 +442,7 @@ fi
 # Make sure that SSH is set up on macOS and kitsune.exe.xyz
 #
 if [[ "$OS" == "Darwin" ]] || [[ "$HOST_NAME" == "kitsune" ]]; then
+  mkdir -p "$HOME/.ssh"
   chmod 700 "$HOME/.ssh"
   find "$HOME/.ssh" -type d -exec chmod 700 "{}" \;
   find "$HOME/.ssh" -type f -exec chmod 600 "{}" \;
@@ -394,7 +472,9 @@ fi
 #
 if [[ "$OS" == "Darwin" ]]; then
   mkdir -p "$HOME"/Projects
-elif [[ "$OS" == "Linux" ]] && [[ "$USER" != "exedev" ]]; then
+elif [[ "$HOST_NAME" == "kitsune" ]]; then
+  mkdir -p "$HOME"/workspace
+else
   mkdir -p "$HOME"/src
 fi
 

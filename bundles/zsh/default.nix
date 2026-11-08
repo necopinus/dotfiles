@@ -51,16 +51,20 @@
       # available
       #
       if [[ -d /etc/environment.d ]]; then
-        for FILE in $(find -L /etc/environment.d -type f -iname '*.conf' | sort); do
-          source "$FILE"
+        for FILE in /etc/environment.d/*.conf; do
+          if [[ -f "$FILE" ]]; then
+            source "$FILE"
+          fi
         done
       fi
 
       # Source files for local environment setup
       #
       if [[ -d "$XDG_CONFIG_HOME"/zsh/env.d ]]; then
-        for FILE in $(find -L "$XDG_CONFIG_HOME"/zsh/env.d -type f -iname '*.zsh' | sort); do
-          source "$FILE"
+        for FILE in "$XDG_CONFIG_HOME"/zsh/env.d/*.zsh; do
+          if [[ -f "$FILE" ]]; then
+            source "$FILE"
+          fi
         done
       fi
 
@@ -130,7 +134,7 @@
       initExtra = lib.mkOrder 1000 ''
         # Convenience aliases
         #
-        alias :e=editor
+        alias :e=hx
         alias :q=exit
 
         # Source files for interactive shell setup

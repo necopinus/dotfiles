@@ -6,14 +6,18 @@
 # to re-verify, but a version bump still needs the vendored files and
 # hashes refreshed.
 #
-# Exit 0 when the pin is current, 1 when an update exists.
+# Exit 0 when the pin is current, 1 when an update exists, 2 on check failure.
 set -euo pipefail
 
+# shellcheck disable=SC1091
+source "$(dirname "$0")/../../../utils/pkgs/check-updates-lib.sh"
 PKG="yamlresume"
 DEFAULT_NIX="$(dirname "$0")/default.nix"
+REPO_DIR="$(git rev-parse --show-toplevel)"
 
-pinned=$(grep -oE 'version = "[0-9]+\.[0-9]+\.[0-9]+"' "$DEFAULT_NIX" | head -1 | sed -E 's/.*"([0-9]+\.[0-9]+\.[0-9]+)".*/\1/')
-latest=$(curl -fsSL "https://registry.npmjs.org/${PKG}/latest" | grep -oE '"version": ?"[0-9]+\.[0-9]+\.[0-9]+"' | head -1 | sed -E 's/.*"([0-9]+\.[0-9]+\.[0-9]+)".*/\1/')
+pinned=$(grep -oE 'version = "[0-9]+\.[0-9]+\.[0-9]+"' "$DEFAULT_NIX" | head -1 | sed -E 's/.*"([0-9]+\.[0-9]+\.[0-9]+)".*/\1/' || update_error "unable to find the pinned version in ${DEFAULT_NIX}")
+[[ -n "$pinned" ]] || update_error "no pinned version found in ${DEFAULT_NIX}"
+latest=$(latest_npm_version "$PKG")
 
 echo "pinned: ${pinned}"
 echo "latest: ${latest}"
@@ -23,19 +27,23 @@ if [[ "${pinned}" == "${latest}" ]]; then
   exit 0
 fi
 
-echo "update available: ${pinned} -> ${latest}"
-echo
-echo "to update:"
-echo "  1. fetch the new tarball and regenerate the vendored files:"
-echo "       cd \$(mktemp -d)"
-echo "       curl -fsSL -o pkg.tgz https://registry.npmjs.org/${PKG}/-/${PKG}-\${latest}.tgz"
-echo "       tar -xzOf pkg.tgz package/package.json > package.json"
-echo "       node -e 'const fs=require(\"fs\");const p=JSON.parse(fs.readFileSync(\"package.json\"));delete p.devDependencies;delete p.scripts;fs.writeFileSync(\"package.json\",JSON.stringify(p,null,2))'"
-echo "       npm install --package-lock-only --ignore-scripts --no-audit --no-fund"
-echo "       cp package.json package-lock.json bundles/media-tools/pkgs/yamlresume/"
-echo "  2. in default.nix, bump version and set the new src hash:"
-echo "       nix store prefetch-file --json https://registry.npmjs.org/${PKG}/-/${PKG}-\${latest}.tgz"
-echo "  3. set the new npmDepsHash:"
-echo "       nix run --inputs-from . nixpkgs#prefetch-npm-deps -- bundles/media-tools/pkgs/yamlresume/package-lock.json"
+WORK_DIR="$(mktemp -d)"
+
+cat <<EOF
+update available: ${pinned} -> ${latest}
+
+to update:
+  1. fetch the new tarball and regenerate the vendored files:
+       cd "${WORK_DIR}"
+       curl -fsSL -o pkg.tgz https://registry.npmjs.org/${PKG}/-/${PKG}-${latest}.tgz
+       tar -xzOf pkg.tgz package/package.json > package.json
+       node -e 'const fs=require("fs");const p=JSON.parse(fs.readFileSync("package.json"));delete p.devDependencies;delete p.scripts;fs.writeFileSync("package.json",JSON.stringify(p,null,2))'
+       npm install --package-lock-only --ignore-scripts --no-audit --no-fund
+       cp package.json package-lock.json "${REPO_DIR}/bundles/media-tools/pkgs/yamlresume/"
+  2. update version, src.url, and src.hash in ${DEFAULT_NIX}:
+       nix store prefetch-file --json https://registry.npmjs.org/${PKG}/-/${PKG}-${latest}.tgz
+  3. set the new npmDepsHash:
+       nix run --inputs-from "${REPO_DIR}" nixpkgs#prefetch-npm-deps -- "${REPO_DIR}/bundles/media-tools/pkgs/yamlresume/package-lock.json"
+EOF
 
 exit 1

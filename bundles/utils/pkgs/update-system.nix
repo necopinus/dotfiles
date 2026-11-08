@@ -1,16 +1,30 @@
-{writeShellApplication}:
+{
+  writeShellApplication,
+  ephemeralGit,
+}:
 writeShellApplication {
   name = "update-system";
 
-  # Remove "nounset" from the options default list, as PORTABLE_PAT may
-  # be unset
-  #
-  bashOptions = [
-    "errexit"
-    "pipefail"
-  ];
-
   text = ''
+    # Fail before using a missing or relative path in a destructive operation.
+    # PORTABLE_PAT is handled separately because it is optional on some hosts.
+    #
+    function requireAbsolutePath {
+      if [[ -z "$2" || "$2" != /* ]]; then
+        printf '%s must be set to a non-empty absolute path\n' "$1" >&2
+        exit 1
+      fi
+    }
+    requireAbsolutePath HOME "''${HOME:-}"
+    requireAbsolutePath XDG_CONFIG_HOME "''${XDG_CONFIG_HOME:-}"
+    requireAbsolutePath XDG_CACHE_HOME "''${XDG_CACHE_HOME:-}"
+
+    # Start one temporary agent and load one key before any system changes.
+    # Re-execution happens before package updates so they run only once.
+    if [[ -z "''${EPHEMERAL_GIT_SESSION:-}" ]]; then
+      exec ${ephemeralGit}/bin/ephemeral-git --batch "$0" "$@"
+    fi
+
     # Set OS type
     #
     OS="$(uname -s)"
@@ -32,63 +46,75 @@ writeShellApplication {
       defaults delete kCFPreferencesAnyApplication AppleIconAppearanceTintColor 2>/dev/null || true
     fi
 
-    # Load the portable SSH key into the environment using an ephemeral Proton Pass session
+    # Track the service stop window so every exit path attempts a restart.
+    # Explicit restarts still fail the script; exit cleanup is best-effort and
+    # preserves the original status.
     #
-    if [[ -n "$PORTABLE_PAT" ]]; then
-      PORTABLE_DIR="$(mktemp -d)"
-      env PROTON_PASS_PERSONAL_ACCESS_TOKEN="$PORTABLE_PAT" PROTON_PASS_SESSION_DIR="$PORTABLE_DIR" pass-cli login
-      PORTABLE_SSH_KEY="$(env PROTON_PASS_PERSONAL_ACCESS_TOKEN="$PORTABLE_PAT" PROTON_PASS_SESSION_DIR="$PORTABLE_DIR" pass-cli item view "pass://Portable/SSH :: Portable/Public key")"
-      env PROTON_PASS_PERSONAL_ACCESS_TOKEN="$PORTABLE_PAT" PROTON_PASS_SESSION_DIR="$PORTABLE_DIR" pass-cli ssh-agent load --vault-name Portable
-      env PROTON_PASS_PERSONAL_ACCESS_TOKEN="$PORTABLE_PAT" PROTON_PASS_SESSION_DIR="$PORTABLE_DIR" pass-cli logout
-      rm -rf "$PORTABLE_DIR"
-    else
-      if ! pass-cli info &> /dev/null; then
-        pass-cli login
+    HERMES_SERVICES_STOPPED=0
+    function restartHermesServices {
+      if [[ "$HERMES_SERVICES_STOPPED" == 1 ]]; then
+        sudo systemctl --user -M "''${USER}@" start hermes-dashboard.service
+        sudo systemctl --user -M "''${USER}@" start hermes-gateway.service
+        sudo systemctl --user -M "''${USER}@" start hermes-relay.service
+        HERMES_SERVICES_STOPPED=0
       fi
-      PORTABLE_SSH_KEY="$(pass-cli item view "pass://Portable/SSH :: Portable/Public key")"
-      pass-cli ssh-agent load --vault-name Portable
-    fi
+    }
+    function cleanupOnExit {
+      local exit_status=$?
+      restartHermesServices || true
+      return "$exit_status"
+    }
+    trap cleanupOnExit EXIT
 
-    export PORTABLE_SSH_KEY
-    export SSH_COMMAND="ssh -i /dev/null"
+    # Automated updates and backups must never execute repository-controlled
+    # hooks while credentials are available or a system update is in progress.
+    #
+    function gitWithoutHooks {
+      ${ephemeralGit}/bin/ephemeral-git -c core.hooksPath=/dev/null "$@"
+    }
+
+    # Match ssh:// URLs and scp-style user@host:path remotes, with or
+    # without a .git suffix. HTTP(S) and local paths do not match.
+    #
+    function isSshRemote {
+      [[ "$1" =~ ^ssh:// ]] || [[ "$1" =~ ^[^/]+@[^/]+:.+ ]]
+    }
 
     # Update Nix packages
     #
-    sudo determinate-nixd upgrade
+    sudo -H determinate-nixd upgrade
     if [[ "$OS" == "Darwin" ]] && [[ -d "$HOME"/.cache/nix/fetcher-locks ]]; then
-      sudo chown "$USER":staff "$HOME"/.cache/nix/fetcher-locks/*
+      # `find` handles an empty lock directory and filenames with spaces.
+      sudo find "$HOME/.cache/nix/fetcher-locks" -mindepth 1 -maxdepth 1 -exec chown "$USER":staff {} +
     fi
     (
       cd "$XDG_CONFIG_HOME"/nix
       mkdir -p "$XDG_CACHE_HOME"/nix/flakes
       cp flake.lock "$XDG_CACHE_HOME/nix/flakes/flake.$(date "+%Y%m%d%H%M%S").lock"
-      git pull
+      gitWithoutHooks pull --ff-only
       nix flake update
       nix flake archive
-      git add -A -v
-      git -c user.name="Nathan Acks" \
-          -c user.email="nathan.acks@cardboard-iguana.com" \
-          -c user.signingKey="key::$PORTABLE_SSH_KEY" \
-           commit -m "Automated system update: $(date)" || true
-      git push
+      # Commit only the generated lockfile. Other work in the repository must
+      # not become part of the automated update. Continue without a commit when
+      # the flake update leaves the lockfile unchanged.
+      #
+      gitWithoutHooks add -v -- flake.lock
+      if gitWithoutHooks diff --cached --quiet -- flake.lock; then
+        echo "No flake.lock changes to commit"
+      else
+        gitWithoutHooks commit -m "Automated system update: $(date)" -- flake.lock
+      fi
+      gitWithoutHooks push
       if [[ "$OS" == "Darwin" ]]; then
-        sudo darwin-rebuild switch --flake .#macos
+        sudo -H darwin-rebuild switch --flake .#macos
       elif [[ "$(hostname)" == "kitsune" ]]; then
         home-manager switch --flake .#hermes
-        sudo "$(which non-nixos-gpu-setup)"
+        sudo "$(command -v non-nixos-gpu-setup)"
       elif [[ "$USER" == "exedev" ]]; then
         home-manager switch --flake .#exedev
-        sudo "$(which non-nixos-gpu-setup)"
+        sudo "$(command -v non-nixos-gpu-setup)"
       fi
     )
-
-    # Garbage collection
-    #
-    nix-collect-garbage -d
-    sudo find /nix/var/nix/gcroots -xtype l -exec rm -v {} +;
-    nix store gc -v
-    nix store optimise -v
-    echo ""
 
     # Clear local NPM cache (fixes library version mismatch issues after
     # an upgrade)
@@ -106,6 +132,7 @@ writeShellApplication {
     # Update Hermes
     #
     if [[ "$(hostname)" == "kitsune" ]]; then
+      HERMES_SERVICES_STOPPED=1
       sudo systemctl --user -M "''${USER}@" stop hermes-relay.service
       sudo systemctl --user -M "''${USER}@" stop hermes-gateway.service
       sudo systemctl --user -M "''${USER}@" stop hermes-dashboard.service
@@ -121,14 +148,6 @@ writeShellApplication {
         uv pip install --prerelease=explicit "mnemosyne-memory[embeddings]>=4.0.0b5" "mnemosyne-hermes"
         uv run mnemosyne-hermes --hermes-home "$HOME/.hermes" install --force --mode wrapper --python "$HOME/.hermes/mnemosyne-venv/bin/python"
       )
-
-      if [[ $(find "$HOME/.hermes" -type f -mtime +60 -name "kitsune.tailf702ce.ts.net.*" | wc -l) -gt 0 ]]; then
-        (
-          cd "$HOME/.hermes"
-          rm -f kitsune.tailf702ce.ts.net.*
-          tailscale cert kitsune.tailf702ce.ts.net
-        )
-      fi
 
       curl -fsSL https://raw.githubusercontent.com/xdevplatform/xurl/main/install.sh | bash
 
@@ -157,71 +176,39 @@ writeShellApplication {
 
       hermes plugins install Codename-11/hermes-relay/plugin --enable --force
 
-      sudo systemctl --user -M "''${USER}@" start hermes-dashboard.service
-      sudo systemctl --user -M "''${USER}@" start hermes-gateway.service
-      sudo systemctl --user -M "''${USER}@" start hermes-relay.service
+      restartHermesServices
     fi
 
-    # Git repositories
+    # Git repositories in the configured roots. Each root is optional, and
+    # every immediate child repository is refreshed without running hooks.
     #
-    if [[ -d "$HOME/Projects" ]]; then
-      (
-        cd "$HOME/Projects" || exit 1
-        while IFS= read -r -d "" OBJECT; do
-          if [[ -d "$OBJECT/.git" ]]; then
-            echo "Refreshing $(basename "$OBJECT")"
-            cd "$OBJECT"
-            git pull --recurse-submodules
-            if [[ "$(git config --get remote.origin.url)" =~ [^/]+@[^/]+\.[^/]+:.+\.git ]]; then
-              git push --recurse-submodules=on-demand
+    for REPO_ROOT in "$HOME/Projects" "$HOME/src" "$HOME/workspace"; do
+      if [[ -d "$REPO_ROOT" ]]; then
+        (
+          cd "$REPO_ROOT" || exit 1
+          while IFS= read -r -d "" OBJECT; do
+            if [[ -d "$OBJECT/.git" ]]; then
+              echo "Refreshing $(basename "$OBJECT")"
+              cd "$OBJECT"
+              gitWithoutHooks pull --ff-only --recurse-submodules
+              if REMOTE_URL="$(gitWithoutHooks config --get remote.origin.url)" && isSshRemote "$REMOTE_URL"; then
+                gitWithoutHooks push --recurse-submodules=on-demand
+              fi
+              cd ..
             fi
-            cd ..
-          fi
-        done < <(find . -mindepth 1 -maxdepth 1 -type d -print0)
-      )
-    fi
-    if [[ -d "$HOME/src" ]]; then
-      (
-        cd "$HOME/src" || exit 1
-        while IFS= read -r -d "" OBJECT; do
-          if [[ -d "$OBJECT/.git" ]]; then
-            echo "Refreshing $(basename "$OBJECT")"
-            cd "$OBJECT"
-            git pull --recurse-submodules
-            if [[ "$(git config --get remote.origin.url)" =~ [^/]+@[^/]+\.[^/]+:.+\.git ]]; then
-              git push --recurse-submodules=on-demand
-            fi
-            cd ..
-          fi
-        done < <(find . -mindepth 1 -maxdepth 1 -type d -print0)
-      )
-    fi
-    if [[ -d "$HOME/grimoire" ]]; then
-      (
-        cd "$HOME/grimoire" || exit 1
-        git pull
-        git push
-      )
-    fi
-    if [[ -d "$HOME/journal" ]]; then
-      (
-        cd "$HOME/journal" || exit 1
-        git pull
-        git push
-      )
-    fi
-    if [[ -d "$HOME/research" ]]; then
-      (
-        cd "$HOME/research" || exit 1
-        git pull
-        git push
-      )
-    fi
+          done < <(find . -mindepth 1 -maxdepth 1 -type d -print0)
+        )
+      fi
+    done
 
-    # Remove the portable SSH key from ssh-agent
+    # Garbage collection runs only after every use of the ephemeral Git helper.
+    # This prevents collection of the store path that the running script uses.
     #
-    echo "$PORTABLE_SSH_KEY" | ssh-add -d -
-    unset PORTABLE_SSH_KEY SSH_COMMAND
+    nix-collect-garbage -d
+    sudo find /nix/var/nix/gcroots -xtype l -exec rm -v {} +;
+    nix store gc -v
+    nix store optimise -v
+    echo ""
 
     # macOS system update; we do this last as this command may force a
     # reboot

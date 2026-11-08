@@ -36,6 +36,6 @@ stdenvNoCC.mkDerivation {
     description = "ASD-STE100-inspired plain-English writing skill for AI agents";
     homepage = "https://github.com/AminBlg/SimpleEnglish";
     license = lib.licenses.mit;
-    platforms = lib.platforms.all;
+    platforms = with lib.platforms; ["x86_64-linux" "aarch64-linux" "aarch64-darwin"];
   };
 }

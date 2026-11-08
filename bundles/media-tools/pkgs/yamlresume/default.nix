@@ -53,14 +53,14 @@
     ];
   };
 in
-  buildNpmPackage {
+  buildNpmPackage (finalAttrs: {
     pname = "yamlresume";
     version = "0.17.0";
 
     # The npm registry tarball ships a prebuilt dist/, which avoids
     # vendoring the upstream pnpm monorepo (cli + 4 workspace deps).
     src = fetchurl {
-      url = "https://registry.npmjs.org/yamlresume/-/yamlresume-0.17.0.tgz";
+      url = "https://registry.npmjs.org/yamlresume/-/yamlresume-${finalAttrs.version}.tgz";
       hash = "sha256-Es92EOHeGE9ujmA2PB976NiUtdXJ80XAH2Jil/9nVMk=";
     };
 
@@ -96,6 +96,7 @@ in
       wrapProgram $out/bin/yamlresume \
         --prefix PATH : ${lib.makeBinPath [texlive fontconfig]} \
         --set FONTCONFIG_FILE ${fontsConf}
+      $out/bin/yamlresume --version | grep -qx '${finalAttrs.version}'
     '';
 
     meta = {
@@ -103,6 +104,6 @@ in
       homepage = "https://yamlresume.dev";
       license = lib.licenses.mit;
       mainProgram = "yamlresume";
-      platforms = lib.platforms.all;
+      platforms = with lib.platforms; ["x86_64-linux" "aarch64-linux" "aarch64-darwin"];
     };
-  }
+  })

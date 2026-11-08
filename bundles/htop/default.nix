@@ -2,11 +2,7 @@
   pkgs,
   config,
   ...
-}: let
-  localPkgs = {
-    top = pkgs.callPackage ./pkgs/top.nix {};
-  };
-in {
+}: {
   programs.htop = {
     enable = true;
 
@@ -50,9 +46,22 @@ in {
       );
   };
 
-  # Convenience wrapper
-  #
-  home.packages = [
-    localPkgs.top
-  ];
+  xdg.configFile."bash/rc.d/htop.sh" = {
+    enable = config.programs.bash.enable;
+    text = ''
+      alias top="${config.programs.htop.package}/bin/htop"
+    '';
+  };
+  xdg.configFile."zsh/rc.d/htop.zsh" = {
+    enable = config.programs.zsh.enable;
+    text = ''
+      alias top="${config.programs.htop.package}/bin/htop"
+    '';
+  };
+  xdg.configFile."fish/rc.d/htop.fish" = {
+    enable = config.programs.fish.enable;
+    text = ''
+      alias top "${config.programs.htop.package}/bin/htop"
+    '';
+  };
 }

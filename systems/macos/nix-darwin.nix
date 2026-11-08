@@ -42,7 +42,6 @@
 
     casks = [
       "adobe-creative-cloud"
-      "brave-browser"
       "dropbox"
       "google-chrome"
       "handbrake-app"
@@ -113,7 +112,6 @@
       persistent-apps = [
         {app = "/System/Applications/Apps.app";}
         {app = "/Applications/Adobe Lightroom CC/Adobe Lightroom.app";}
-        {app = "/Applications/Brave Browser.app";}
         {app = "/Users/${config.system.primaryUser}/Applications/FolderSync Desktop.app";}
         {app = "/Applications/Google Chrome.app";}
         {app = "/System/Applications/System Settings.app";}
@@ -151,7 +149,7 @@
       ShowSeconds = true;
     };
 
-    screencapture.location = "~/Downloads";
+    screencapture.location = "/Users/${config.system.primaryUser}/Downloads";
 
     screensaver = {
       askForPassword = true;

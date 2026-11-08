@@ -1,29 +1,36 @@
 # Personal dotfiles
 
-My dotfiles + a setup script for quickly configuring a new device or VM. Currently supports [macOS](https://www.apple.com/os/macos/) and [exe.dev](https://exe.dev/).
+My dotfiles and a setup script for configuring a new device or VM. It currently
+supports [macOS](https://www.apple.com/os/macos/) and [exe.dev](https://exe.dev/).
 
-You don't want to use these files directly, as they hard-code certain aspects of my setup (username, etc.). They are provided publicly as a potential source of information for folks and/or examples of how to solve various problems with cross-OS dotfiles.
+These files hard-code parts of my setup, including usernames. They are provided
+publicly as examples for solving cross-OS dotfile problems. You should not use
+them directly.
 
 ## Quick start
 
 > [!important]
-> On macOS, you _must_ grant Terminal.app (before running `init.sh` and Termius.app (after running `init.sh`) the "Full Disk Access" privilege.
+> On macOS, you _must_ grant Terminal.app (before running `init.sh`) and
+> Termius.app (after running `init.sh`) the "Full Disk Access" privilege.
 
 ```bash
 if [[ -n "$(which apt 2> /dev/null)" ]]; then
     sudo apt install git
 elif [[ -n "$(which xcode-select 2> /dev/null)" ]]; then
-	xcode-select --install || true
+    xcode-select --install || true
 
-	until xcode-select -p &>/dev/null; do
-		sleep 4;
-	done
+    until xcode-select -p &>/dev/null; do
+        sleep 4;
+    done
 fi
 
 cd $HOME
 
 mkdir -p $HOME/.config
-git clone git@github.com:necopinus/dotfiles.git $HOME/.config/nix
+git clone https://github.com/necopinus/dotfiles.git "$HOME/.config/nix"
 
-$HOME/.config/nix/init.sh
+bash "$HOME/.config/nix/init.sh"
+
+# After adding the generated public key to GitHub:
+git -C "$HOME/.config/nix" remote set-url origin git@github.com:necopinus/dotfiles.git
 ```

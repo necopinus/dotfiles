@@ -66,8 +66,27 @@ buildNpmPackage {
 
   postPatch = ''
     cp ${./package-lock.json} package-lock.json
-    sed -i 's/"vitest.config.ts"/"vitest.config.ts", "dist"/' package.json
-    sed -i '1i #!/usr/bin/env node' src/index.ts
+    node -e '
+      const fs = require("fs");
+      const manifest = JSON.parse(fs.readFileSync("package.json", "utf8"));
+      manifest.files = Array.isArray(manifest.files) ? manifest.files : [];
+      if (!manifest.files.includes("dist")) manifest.files.push("dist");
+      fs.writeFileSync("package.json", JSON.stringify(manifest, null, 2));
+      const entry = "src/index.ts";
+      const source = fs.readFileSync(entry, "utf8");
+      if (!source.startsWith("#!")) {
+        fs.writeFileSync(entry, "#!/usr/bin/env node\n" + source);
+      }
+    '
+    head -1 src/index.ts | grep -q '^#!/usr/bin/env node'
+  '';
+
+  postBuild = ''
+    test -f dist/index.js
+  '';
+
+  postInstall = ''
+    test -x $out/bin/wiki-mcp
   '';
 
   npmDepsHash = "sha256-CIgUqhSblfqjG9DqySYEW5rXbzirmT9/YKK0InqkLYo=";
@@ -77,6 +96,6 @@ buildNpmPackage {
     homepage = "https://github.com/Mohan-Kumar-Swamynathan/wiki-mcp";
     license = lib.licenses.mit;
     mainProgram = "wiki-mcp";
-    platforms = lib.platforms.all;
+    platforms = with lib.platforms; ["x86_64-linux" "aarch64-linux" "aarch64-darwin"];
   };
 }

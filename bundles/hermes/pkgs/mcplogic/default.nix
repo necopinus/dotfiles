@@ -44,6 +44,23 @@ stdenv.mkDerivation (finalAttrs: {
     runHook postBuild
   '';
 
+  doCheck = true;
+  checkPhase = ''
+    runHook preCheck
+    pnpm test
+    runHook postCheck
+  '';
+
+  postBuild = ''
+    test -f dist/index.js
+    test -f dist/cli.js
+  '';
+
+  postInstall = ''
+    test -x $out/bin/mcplogic
+    test -x $out/bin/mcplogic-mcp
+  '';
+
   # Keep the pnpm layout (relative symlinks into node_modules/.pnpm) intact
   # via `cp -a`; dev dependencies are pruned first. Upstream exposes the MCP
   # server as `node dist/index.js` with no bin entry, while the npm bin
@@ -66,6 +83,6 @@ stdenv.mkDerivation (finalAttrs: {
     homepage = "https://github.com/autonull/mcplogic";
     license = lib.licenses.mit;
     mainProgram = "mcplogic-mcp";
-    platforms = lib.platforms.all;
+    platforms = with lib.platforms; ["x86_64-linux" "aarch64-linux" "aarch64-darwin"];
   };
 })

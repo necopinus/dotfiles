@@ -104,7 +104,7 @@ in {
   programs.git.settings = {
     credential = {
       helper = "store";
-      usHttpPath = true;
+      useHttpPath = true;
     };
   };
 

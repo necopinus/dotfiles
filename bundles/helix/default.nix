@@ -58,8 +58,8 @@ in {
         {
           name = "bash";
           formatter = {
-            # -i 0 preserves whatever indent character the file already uses
-            # (tabs stay tabs, spaces stay spaces); only fixes mixed lines.
+            # Helix pipes the buffer on stdin and expects formatted source on
+            # stdout. -i 0 selects tabs for indentation.
             command = "shfmt";
             args = ["-i" "0" "-w"];
           };
@@ -68,8 +68,10 @@ in {
         {
           name = "python";
           formatter = {
+            # Read the buffer from stdin instead of recursively formatting the
+            # working directory. The formatted source goes to stdout.
             command = "ruff";
-            args = ["format"];
+            args = ["format" "-"];
           };
           auto-format = true;
         }
