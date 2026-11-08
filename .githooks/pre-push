@@ -3,8 +3,5 @@
 set -euo pipefail
 
 cd "$(git rev-parse --show-toplevel)"
-if [[ "$(uname -s)" == "Darwin" ]]; then
-  sudo nix flake check
-else
-  nix flake check
-fi
+sudo chown -R "$USER":staff "$HOME"/.cache/nix
+nix flake check

@@ -83,9 +83,8 @@ writeShellApplication {
     # Update Nix packages
     #
     sudo -H determinate-nixd upgrade
-    if [[ "$OS" == "Darwin" ]] && [[ -d "$HOME"/.cache/nix/fetcher-locks ]]; then
-      # `find` handles an empty lock directory and filenames with spaces.
-      sudo find "$HOME/.cache/nix/fetcher-locks" -mindepth 1 -maxdepth 1 -exec chown "$USER":staff {} +
+    if [[ "$OS" == "Darwin" ]] && [[ -d "$HOME"/.cache/nix ]]; then
+      sudo chown -R "$USER":staff "$HOME"/.cache/nix
     fi
     (
       cd "$XDG_CONFIG_HOME"/nix
@@ -115,6 +114,9 @@ writeShellApplication {
         sudo "$(command -v non-nixos-gpu-setup)"
       fi
     )
+    if [[ "$OS" == "Darwin" ]] && [[ -d "$HOME"/.cache/nix ]]; then
+      sudo chown -R "$USER":staff "$HOME"/.cache/nix
+    fi
 
     # Clear local NPM cache (fixes library version mismatch issues after
     # an upgrade)
