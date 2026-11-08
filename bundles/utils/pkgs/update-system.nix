@@ -176,7 +176,7 @@ writeShellApplication {
         hermes completion fish > "$XDG_CONFIG_HOME"/fish/completions/hermes.fish
       fi
 
-      hermes plugins install Codename-11/hermes-relay/plugin --enable --force
+      hermes plugins install Codename-11/hermes-relay/plugin --enable --yes-deps --force
 
       restartHermesServices
     fi
