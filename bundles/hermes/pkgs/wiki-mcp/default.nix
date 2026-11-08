@@ -2,6 +2,7 @@
   lib,
   buildNpmPackage,
   fetchFromGitHub,
+  nodejs,
 }:
 buildNpmPackage {
   pname = "wiki-mcp";
@@ -66,7 +67,8 @@ buildNpmPackage {
 
   postPatch = ''
     cp ${./package-lock.json} package-lock.json
-    node -e '
+    # npm-deps runs this phase without Node.js on PATH.
+    ${nodejs}/bin/node -e '
       const fs = require("fs");
       const manifest = JSON.parse(fs.readFileSync("package.json", "utf8"));
       manifest.files = Array.isArray(manifest.files) ? manifest.files : [];
