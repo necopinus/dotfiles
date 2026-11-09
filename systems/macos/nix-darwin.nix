@@ -112,7 +112,6 @@
       persistent-apps = [
         {app = "/System/Applications/Apps.app";}
         {app = "/Applications/Adobe Lightroom CC/Adobe Lightroom.app";}
-        {app = "/Users/${config.system.primaryUser}/Applications/FolderSync Desktop.app";}
         {app = "/Applications/Google Chrome.app";}
         {app = "/System/Applications/System Settings.app";}
         {app = "/Applications/Termius.app";}
