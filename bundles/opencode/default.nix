@@ -31,6 +31,7 @@ in {
 
       ##### Language server dependencies ####
       bash-language-server
+      #biome # FIXME: build seems to be broken as of 2026-11-08
       dockerfile-language-server
       jdk
       nixd
