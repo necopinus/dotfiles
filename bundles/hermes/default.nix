@@ -49,6 +49,7 @@
     "PATH=${servicePath}"
     "VIRTUAL_ENV=${venv}"
     "HERMES_HOME=${hermesHome}"
+    "HERMES_SUPERVISED_CHILD=1"
   ];
 in {
   home.packages = with pkgs; [
@@ -134,6 +135,7 @@ in {
         Restart = "always";
         RestartSec = 5;
         RestartForceExitStatus = 75;
+        SuccessExitStatus = 75;
         RestartPreventExitStatus = 78;
         KillMode = "mixed";
         KillSignal = "SIGTERM";
@@ -159,6 +161,7 @@ in {
         Restart = "always";
         RestartSec = 5;
         RestartForceExitStatus = 75;
+        SuccessExitStatus = 75;
         RestartPreventExitStatus = 78;
         KillMode = "mixed";
         KillSignal = "SIGTERM";
@@ -185,6 +188,7 @@ in {
         Restart = "on-failure";
         RestartSec = 30;
         RestartForceExitStatus = 75;
+        SuccessExitStatus = 75;
         RestartPreventExitStatus = 78;
         KillMode = "mixed";
         KillSignal = "SIGTERM";
