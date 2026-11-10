@@ -153,17 +153,6 @@ writeShellApplication {
 
       curl -fsSL https://raw.githubusercontent.com/xdevplatform/xurl/main/install.sh | bash
 
-      if [[ -d "$HOME"/.hermes/skills/officecli ]]; then
-        rm -rf "$HOME"/.hermes/skills/officecli
-      fi
-      if [[ -d "$XDG_CONFIG_HOME"/opencode/skills/officecli ]]; then
-        rm -rf "$XDG_CONFIG_HOME"/opencode/skills/officecli
-      fi
-      officecli skill install
-      if [[ -d "$HOME"/.claude/skills/officecli ]]; then
-        rm -rf "$HOME"/.claude/skills/officecli
-      fi
-
       herdr integration install hermes
 
       if [[ -d "$XDG_CONFIG_HOME"/bash/rc.d ]]; then

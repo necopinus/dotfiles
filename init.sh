@@ -150,7 +150,6 @@ if [[ "$OS" == "Linux" ]]; then
     rsync \
     sed \
     tar \
-    tmux \
     unzip \
     uuid-runtime \
     xfonts-cyrillic \
@@ -401,13 +400,6 @@ if [[ "$HOST_NAME" == "kitsune" ]]; then
   }
 
   if [[ -n "$(command -v hermes 2>/dev/null)" ]]; then
-    if [[ -d "$HOME"/.hermes/skills/officecli ]]; then
-      rm -rf "$HOME"/.hermes/skills/officecli
-    fi
-    officecli skill install
-    if [[ -d "$HOME"/.claude/skills/officecli ]]; then
-      rm -rf "$HOME"/.claude/skills/officecli
-    fi
     herdr integration install hermes
     if [[ -d "$XDG_CONFIG_HOME"/bash ]]; then
       if [[ ! -d "$XDG_CONFIG_HOME"/bash/rc.d ]]; then

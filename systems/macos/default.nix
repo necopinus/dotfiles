@@ -12,6 +12,7 @@
     dos2unix
     libqalculate
     plistwatch
+    rsync
   ];
 
   # Explicitly prevent man cache generation on macOS, as this doesn't

@@ -26,6 +26,7 @@
     enable = config.programs.bash.enable;
     text = ''
       alias cat="${config.programs.bat.package}/bin/bat -pp"
+      alias less="${config.programs.bat.package}/bin/bat"
       alias more="${config.programs.bat.package}/bin/bat"
     '';
   };
@@ -33,6 +34,7 @@
     enable = config.programs.zsh.enable;
     text = ''
       alias cat="${config.programs.bat.package}/bin/bat -pp"
+      alias less="${config.programs.bat.package}/bin/bat"
       alias more="${config.programs.bat.package}/bin/bat"
     '';
   };
@@ -40,6 +42,7 @@
     enable = config.programs.fish.enable;
     text = ''
       alias cat "${config.programs.bat.package}/bin/bat -pp"
+      alias less ${config.programs.bat.package}/bin/bat
       alias more ${config.programs.bat.package}/bin/bat
     '';
   };

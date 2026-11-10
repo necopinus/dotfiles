@@ -91,7 +91,6 @@ in {
     localPkgs.wiki-mcp
     markitdown-mcp
     mcp-nixos
-    officecli
   ];
 
   programs.npm.enable = true; # Just use Nix to avoid NodeJs package conflicts
