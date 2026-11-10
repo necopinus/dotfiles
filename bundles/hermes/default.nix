@@ -62,9 +62,11 @@ in {
     tirith
 
     #### Tools ####
+    lmodern # Needed by texliveMedium
     pandoc
     python3Packages.jsonschema
     python3Packages.weasyprint
+    texliveMedium
 
     #### Skills ####
     localPkgs.no-ai-slop
