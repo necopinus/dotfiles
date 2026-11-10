@@ -4,12 +4,14 @@
   ...
 }: let
   localPkgs = {
+    gpth-neo = pkgs.callPackage ./pkgs/gpth-neo {};
     yamlresume = pkgs.callPackage ./pkgs/yamlresume {};
   };
 in {
   home.packages = with pkgs;
     [
       #### Installed on both Linux and macOS ####
+      localPkgs.gpth-neo
       localPkgs.yamlresume
     ]
     ++ lib.optionals pkgs.stdenv.hostPlatform.isLinux [

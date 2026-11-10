@@ -1,0 +1,12 @@
+--- a/bin/gpth.dart
++++ b/bin/gpth.dart
+@@ -281,6 +281,9 @@
+     // Parse command line arguments
+     final config = await _parseArguments(parsedArguments);
+     if (config == null) {
++      // Service initialization starts ExifTool before argument parsing.
++      // Close it so --help does not leave the Dart event loop running.
++      await ServiceContainer.instance.dispose();
+       return; // Help was shown or other early exit
+     }
+ 
