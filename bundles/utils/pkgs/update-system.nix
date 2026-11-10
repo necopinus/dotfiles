@@ -32,10 +32,10 @@ writeShellApplication {
     # (Debian) Linux system packages
     #
     if [[ "$OS" == "Linux" ]]; then
-      sudo apt update
-      sudo apt full-upgrade
-      sudo apt autoremove --purge --autoremove
-      sudo apt clean
+      sudo apt update --assume-yes
+      sudo apt full-upgrade --assume-yes
+      sudo apt autoremove --assume-yes --purge --autoremove
+      sudo apt clean --assume-yes
     fi
 
     # Clear out macOS settings that need to be set (or not set) explicitly
