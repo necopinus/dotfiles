@@ -90,7 +90,7 @@
     #
     checks.x86_64-linux = {
       exedev = self.homeConfigurations.exedev.activationPackage;
-      gpth-neo = nixpkgs.legacyPackages.x86_64-linux.callPackage ./bundles/media-tools/pkgs/gpth-neo/default.nix {};
+      gpth-neo = nixpkgs.legacyPackages.x86_64-linux.callPackage ./bundles/utils/pkgs/gpth-neo/default.nix {};
       hermes = self.homeConfigurations.hermes.activationPackage;
       yamlresume = nixpkgs.legacyPackages.x86_64-linux.callPackage ./bundles/media-tools/pkgs/yamlresume/default.nix {};
     };
@@ -99,7 +99,7 @@
     # packages are deliberately excluded from the Darwin checks.
     #
     checks.aarch64-darwin = {
-      gpth-neo = nixpkgs.legacyPackages.aarch64-darwin.callPackage ./bundles/media-tools/pkgs/gpth-neo/default.nix {};
+      gpth-neo = nixpkgs.legacyPackages.aarch64-darwin.callPackage ./bundles/utils/pkgs/gpth-neo/default.nix {};
       macos = self.darwinConfigurations.macos.system;
       yamlresume = nixpkgs.legacyPackages.aarch64-darwin.callPackage ./bundles/media-tools/pkgs/yamlresume/default.nix {};
     };
