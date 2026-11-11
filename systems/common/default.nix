@@ -7,10 +7,9 @@
     ../../bundles/bash
     ../../bundles/bat
     ../../bundles/eza
-    ../../bundles/fish
-    ../../bundles/git
+    ../../bundles/git # Imports ../../bundles/delta and ../../bundles/bat
     ../../bundles/helix
-    ../../bundles/herdr # Depends on ../bundles/fish
+    ../../bundles/herdr # Imports ../../bundles/fish
     ../../bundles/htop
     ../../bundles/media-tools
     ../../bundles/ssh

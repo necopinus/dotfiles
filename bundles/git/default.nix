@@ -30,6 +30,10 @@
 
   ephemeralGit = pkgs.callPackage ./pkgs/ephemeral-git.nix {};
 in {
+  imports = [
+    ../../bundles/delta
+  ];
+
   programs.git = {
     enable = true;
     package = null; # Use system git
