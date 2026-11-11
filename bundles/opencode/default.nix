@@ -6,7 +6,7 @@
   localPkgs = {
     no-ai-slop = pkgs.callPackage ./pkgs/no-ai-slop {};
     simple-english = pkgs.callPackage ./pkgs/simple-english {};
-    ephemeralGit = pkgs.callPackage ../git/pkgs/ephemeral-git.nix {};
+    ephemeral-git = pkgs.callPackage ../git/pkgs/ephemeral-git.nix {};
   };
 in {
   programs.opencode = {
@@ -14,7 +14,7 @@ in {
 
     extraPackages = with pkgs; [
       #### Helper tools ####
-      localPkgs.ephemeralGit
+      localPkgs.ephemeral-git
       nodejs
 
       #### Linters ####
