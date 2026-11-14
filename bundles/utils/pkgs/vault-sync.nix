@@ -442,7 +442,7 @@ writeShellApplication {
       # Update the Google Photos backup
       if [[ -d "$DROPBOX_DIR/Nathan Acks/Archives/Google/Personal/Google Photos" ]]; then
         GOOGLE_PHOTOS_TAKEOUT_DIR="$DROPBOX_DIR/Nathan Acks/Archives/Google/Personal/Google Photos"
-        GOOGLE_PHOTOS_FINAL_DIR="$DROPBOX_DIR/Nathan Acks/Media/Pictures/GooglePhotos"
+        GOOGLE_PHOTOS_FINAL_DIR="$DROPBOX_DIR/Nathan Acks/Media/GooglePhotos"
 
         mkdir -p "$GOOGLE_PHOTOS_FINAL_DIR"
 
