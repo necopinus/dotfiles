@@ -2,9 +2,9 @@
 # Check yamlresume for a newer upstream release.
 #
 # Compares the version pinned in default.nix against the latest release on
-# the npm registry. Unlike the hermes packages there are no local patches
-# to re-verify, but a version bump still needs the vendored files and
-# hashes refreshed.
+# the npm registry. There are no local source patches, but a version bump
+# still needs the vendored files and hashes refreshed. The regeneration
+# command preserves the minimatch and glob security overrides.
 #
 # Exit 0 when the pin is current, 1 when an update exists, 2 on check failure.
 set -euo pipefail
@@ -37,7 +37,7 @@ to update:
        cd "${WORK_DIR}"
        curl -fsSL -o pkg.tgz https://registry.npmjs.org/${PKG}/-/${PKG}-${latest}.tgz
        tar -xzOf pkg.tgz package/package.json > package.json
-       node -e 'const fs=require("fs");const p=JSON.parse(fs.readFileSync("package.json"));delete p.devDependencies;delete p.scripts;fs.writeFileSync("package.json",JSON.stringify(p,null,2))'
+       node -e 'const fs=require("fs");const p=JSON.parse(fs.readFileSync("package.json"));delete p.devDependencies;delete p.scripts;p.overrides={...p.overrides,glob:"^14.0.2",minimatch:"^11.0.1"};fs.writeFileSync("package.json",JSON.stringify(p,null,2)+"\n")'
        npm install --package-lock-only --ignore-scripts --no-audit --no-fund
        cp package.json package-lock.json "${REPO_DIR}/bundles/media-tools/pkgs/yamlresume/"
   2. update version, src.url, and src.hash in ${DEFAULT_NIX}:

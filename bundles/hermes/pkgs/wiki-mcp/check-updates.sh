@@ -13,6 +13,9 @@
 #   0002-security-vitest4-tsup8-esbuild-override.patch
 #     -> vitest >= 4.1.12 and tsup >= 8.5.1 (esbuild >= 0.28.1 then closes
 #        via its tree; the npm overrides entry can go with the patch)
+#   0003-security-minimatch-11.0.1.patch
+#     -> @typescript-eslint/typescript-estree resolves minimatch >= 11.0.1
+#        without an override
 #
 # Exit 0 when the pin is current, 1 when an update exists, 2 on check failure.
 set -euo pipefail
@@ -74,11 +77,12 @@ if [[ "${old_deps}" == "${new_deps}" ]]; then
 else
   echo "dependency drift detected:"
   diff <(printf '%s\n' "${old_deps}") <(printf '%s\n' "${new_deps}") || true
-  echo "regenerate the lockfile from the pinned revision with both security patches applied:"
+  echo "regenerate the lockfile from the pinned revision with all security patches applied:"
   echo "  git clone https://github.com/${REPO}.git && cd wiki-mcp"
   echo "  git checkout ${latest}"
   echo "  git apply ${REPO_DIR}/bundles/hermes/pkgs/wiki-mcp/0001-security-readability-0.6.0.patch"
   echo "  git apply ${REPO_DIR}/bundles/hermes/pkgs/wiki-mcp/0002-security-vitest4-tsup8-esbuild-override.patch"
+  echo "  git apply ${REPO_DIR}/bundles/hermes/pkgs/wiki-mcp/0003-security-minimatch-11.0.1.patch"
   echo "  npm install --package-lock-only"
   echo "  cp package-lock.json ${REPO_DIR}/bundles/hermes/pkgs/wiki-mcp/package-lock.json"
   echo "keep the transitive security floors listed in default.nix when you do"
