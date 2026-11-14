@@ -122,10 +122,14 @@ writeShellApplication {
       fi
 
       mkdir -p "$destination"
+
+      # IMPORTANT: We need to use --delete-before here rather than
+      # --delete-after in order to make sure that there's enough space
+      # in $destination
       rclone sync --progress --verbose \
            --check-first \
            --create-empty-src-dirs \
-           --delete-after \
+           --delete-before \
            --exclude-from "$RCLONE_EXCLUDE" \
            --exclude-from "$RCLONE_VAULT_SYNC_EXCLUDE" \
            --modify-window 1s \
