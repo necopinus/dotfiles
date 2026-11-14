@@ -130,6 +130,7 @@ writeShellApplication {
            --check-first \
            --create-empty-src-dirs \
            --delete-before \
+           --copy-links \
            --exclude-from "$RCLONE_EXCLUDE" \
            --exclude-from "$RCLONE_VAULT_SYNC_EXCLUDE" \
            --modify-window 1s \
