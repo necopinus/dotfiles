@@ -28,7 +28,7 @@
     betterleaks
   ];
 
-  ephemeralGit = pkgs.callPackage ./pkgs/ephemeral-git.nix {};
+  ephemeral-git = pkgs.callPackage ./pkgs/ephemeral-git.nix {};
 in {
   imports = [
     ../../bundles/delta
@@ -88,19 +88,19 @@ in {
   xdg.configFile."bash/rc.d/git.sh" = {
     enable = config.programs.bash.enable;
     text = ''
-      alias git="${ephemeralGit}/bin/ephemeral-git"
+      alias git="${ephemeral-git}/bin/ephemeral-git"
     '';
   };
   xdg.configFile."zsh/rc.d/git.zsh" = {
     enable = config.programs.zsh.enable;
     text = ''
-      alias git="${ephemeralGit}/bin/ephemeral-git"
+      alias git="${ephemeral-git}/bin/ephemeral-git"
     '';
   };
   xdg.configFile."fish/rc.d/git.fish" = {
     enable = config.programs.fish.enable;
     text = ''
-      alias git "${ephemeralGit}/bin/ephemeral-git"
+      alias git "${ephemeral-git}/bin/ephemeral-git"
     '';
   };
 }

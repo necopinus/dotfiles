@@ -47,6 +47,12 @@ buildNpmPackage {
   #   drop once upstream requires vitest >= 4.1.12 and tsup >= 8.5.1 with
   #   esbuild >= 0.28.1 reachable in its dependency tree.
   #
+  # - 0003-security-minimatch-11.0.1.patch:
+  #   @typescript-eslint/typescript-estree minimatch ^10.2.2 -> ^11.0.1
+  #   (GHSA-g3hv-75wg-m249), without changing ESLint's unaffected minimatch
+  #   3.x dependencies; drop once upstream's dependency tree resolves
+  #   minimatch >= 11.0.1 without an override.
+  #
   # The patches touch only package.json; the vendored lockfile below is
   # regenerated from the patched manifest.
   #
@@ -55,14 +61,19 @@ buildNpmPackage {
   # semver range, so nothing is overridden: the pin only holds until the
   # lockfile is regenerated. Keep these at or above when regenerating:
   #
-  #   body-parser >= 2.4.0  (GHSA-27r3-jxmh-p828)
-  #   zod        >= 4.6.6   (GHSA-mrhx-c7xc-m3w5)
-  #   fast-uri   >= 3.1.9   (GHSA-w74x-v6f9-j3xg, GHSA-xhq7-xmqj-769h,
-  #                          GHSA-wjr9-j795-jxcr, GHSA-333x-w4r6-6crp)
-  #   ip-address >= 10.7.4  (GHSA-rxp7-6hxx-x8q5)
+  #   body-parser       >= 2.4.0  (GHSA-27r3-jxmh-p828)
+  #   zod               >= 4.6.6   (GHSA-mrhx-c7xc-m3w5)
+  #   fast-uri          >= 3.1.9   (GHSA-w74x-v6f9-j3xg, GHSA-xhq7-xmqj-769h,
+  #                                 GHSA-wjr9-j795-jxcr, GHSA-333x-w4r6-6crp)
+  #   ip-address        >= 10.7.4  (GHSA-rxp7-6hxx-x8q5)
+  #   hono              >= 4.13.16 (GHSA-4m76-xfj5-7975, GHSA-h7mg-cq63-vhpq,
+  #                                 GHSA-3gg2-335m-rxc6, GHSA-46wx-v44x-9hh2,
+  #                                 GHSA-4h7h-rv7c-7m2v)
+  #   @hono/node-server >= 2.1.6   (GHSA-qv5m-9pm6-hqp3, GHSA-jpvv-r467-5p4w)
   patches = [
     ./0001-security-readability-0.6.0.patch
     ./0002-security-vitest4-tsup8-esbuild-override.patch
+    ./0003-security-minimatch-11.0.1.patch
   ];
 
   postPatch = ''
@@ -91,7 +102,7 @@ buildNpmPackage {
     test -x $out/bin/wiki-mcp
   '';
 
-  npmDepsHash = "sha256-CIgUqhSblfqjG9DqySYEW5rXbzirmT9/YKK0InqkLYo=";
+  npmDepsHash = "sha256-bf5GumWZS5K+o2EcmzdsQEFW50axyrJpbNpQ2h+b60M=";
 
   meta = {
     description = "MCP server for Wikipedia and Wikidata APIs";

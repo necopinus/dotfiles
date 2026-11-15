@@ -1,0 +1,28 @@
+From: OpenCode <noreply@opencode.ai>
+Date: Sat, 14 Nov 2026 00:00:00 +0000
+Subject: [PATCH 3/3] Override vulnerable minimatch
+
+Force minimatch >= 11.0.1 for @typescript-eslint/typescript-estree
+(GHSA-g3hv-75wg-m249). The scoped override leaves ESLint's unaffected
+minimatch 3.x dependencies unchanged.
+
+Remove this patch once upstream's dependency tree resolves minimatch
+>= 11.0.1 without an override.
+---
+ package.json | 5 ++++-
+ 1 file changed, 4 insertions(+), 1 deletion(-)
+
+diff --git a/package.json b/package.json
+--- a/package.json
++++ b/package.json
+@@ -73,7 +73,10 @@
+   },
+   "overrides": {
+-    "esbuild": "^0.28.1"
++    "esbuild": "^0.28.1",
++    "@typescript-eslint/typescript-estree": {
++      "minimatch": "^11.0.1"
++    }
+   },
+   "engines": {
+     "node": ">=18.0.0"

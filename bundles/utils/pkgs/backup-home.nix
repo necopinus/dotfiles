@@ -1,9 +1,13 @@
 {
   writeShellApplication,
-  ephemeralGit,
+  ephemeral-git,
 }:
 writeShellApplication {
   name = "backup-home";
+
+  runtimeInputs = [
+    ephemeral-git
+  ];
 
   text = ''
     # Fail before using a missing or relative path in a destructive operation.
@@ -23,7 +27,7 @@ writeShellApplication {
     # Start one temporary agent and load one key before creating temporary
     # files or performing system changes. Re-execution happens exactly once.
     if [[ -z "''${EPHEMERAL_GIT_SESSION:-}" ]]; then
-      exec ${ephemeralGit}/bin/ephemeral-git --batch "$0" "$@"
+      exec ephemeral-git --batch "$0" "$@"
     fi
 
     BACKUP_LIST="$(mktemp)"
@@ -75,7 +79,7 @@ writeShellApplication {
     # hooks while credentials are available or a system update is in progress.
     #
     function gitWithoutHooks {
-      ${ephemeralGit}/bin/ephemeral-git -c core.hooksPath=/dev/null "$@"
+      ephemeral-git -c core.hooksPath=/dev/null "$@"
     }
 
     # Match ssh:// URLs and scp-style user@host:path remotes, with or

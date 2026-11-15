@@ -1,9 +1,13 @@
 {
   writeShellApplication,
-  ephemeralGit,
+  ephemeral-git,
 }:
 writeShellApplication {
   name = "update-system";
+
+  runtimeInputs = [
+    ephemeral-git
+  ];
 
   text = ''
     # Fail before using a missing or relative path in a destructive operation.
@@ -22,7 +26,7 @@ writeShellApplication {
     # Start one temporary agent and load one key before any system changes.
     # Re-execution happens before package updates so they run only once.
     if [[ -z "''${EPHEMERAL_GIT_SESSION:-}" ]]; then
-      exec ${ephemeralGit}/bin/ephemeral-git --batch "$0" "$@"
+      exec ephemeral-git --batch "$0" "$@"
     fi
 
     # Set OS type
@@ -70,7 +74,7 @@ writeShellApplication {
     # hooks while credentials are available or a system update is in progress.
     #
     function gitWithoutHooks {
-      ${ephemeralGit}/bin/ephemeral-git -c core.hooksPath=/dev/null "$@"
+      ephemeral-git -c core.hooksPath=/dev/null "$@"
     }
 
     # Match ssh:// URLs and scp-style user@host:path remotes, with or

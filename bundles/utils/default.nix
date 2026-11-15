@@ -1,13 +1,15 @@
 {pkgs, ...}: let
   localPkgs = {
-    # Absolute path to the shared Git helper. No module import or PATH entry is
+    # Absolute path to the shared helpers. No module import or PATH entry is
     # needed for its temporary SSH-agent and Proton Pass lifecycle management.
-    ephemeralGit = pkgs.callPackage ../git/pkgs/ephemeral-git.nix {};
-    backup-home = pkgs.callPackage ./pkgs/backup-home.nix {inherit (localPkgs) ephemeralGit;};
+    ephemeral-git = pkgs.callPackage ../../bundles/git/pkgs/ephemeral-git.nix {};
+    gpth-neo = pkgs.callPackage ./pkgs/gpth-neo {};
+
+    backup-home = pkgs.callPackage ./pkgs/backup-home.nix {inherit (localPkgs) ephemeral-git;};
     pbcopy = pkgs.callPackage ./pkgs/pbcopy.nix {};
     pbpaste = pkgs.callPackage ./pkgs/pbpaste.nix {};
-    update-system = pkgs.callPackage ./pkgs/update-system.nix {inherit (localPkgs) ephemeralGit;};
-    vault-sync = pkgs.callPackage ./pkgs/vault-sync.nix {};
+    update-system = pkgs.callPackage ./pkgs/update-system.nix {inherit (localPkgs) ephemeral-git;};
+    vault-sync = pkgs.callPackage ./pkgs/vault-sync.nix {inherit (localPkgs) ephemeral-git gpth-neo;};
   };
 in {
   home.packages = with pkgs;

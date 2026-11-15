@@ -55,13 +55,13 @@
 in
   buildNpmPackage (finalAttrs: {
     pname = "yamlresume";
-    version = "0.17.0";
+    version = "0.18.0";
 
     # The npm registry tarball ships a prebuilt dist/, which avoids
     # vendoring the upstream pnpm monorepo (cli + 4 workspace deps).
     src = fetchurl {
       url = "https://registry.npmjs.org/yamlresume/-/yamlresume-${finalAttrs.version}.tgz";
-      hash = "sha256-Es92EOHeGE9ujmA2PB976NiUtdXJ80XAH2Jil/9nVMk=";
+      hash = "sha256-ikgTSZFRo8Mc/Q0jMrJX1en/1asQJBQ1OsN3qivLA6o=";
     };
 
     # The tarball has no lockfile, and its devDependencies reference the
@@ -70,19 +70,19 @@ in
     # and scripts removed (dist/ is prebuilt, so neither is used); see
     # check-updates.sh for the regeneration steps.
     #
-    # The lockfile pins one transitive security floor that no manifest
-    # change forces. It fits inside @ai-sdk/provider-utils' declared range
-    # (^7.29.0), so the pin only holds until the lockfile is regenerated.
-    # Keep this at or above when regenerating:
+    # The vendored manifest carries npm overrides for two transitive
+    # security floors that js-beautify and editorconfig do not yet accept.
+    # Keep these at or above when regenerating, and drop the overrides once
+    # upstream's dependency tree resolves the fixed versions without them:
     #
-    #   undici >= 7.30.1 (GHSA-4qv8-2p9j-2685, GHSA-f72v-6w45-q472,
-    #                      GHSA-xjj6-f33q-929c)
+    #   minimatch >= 11.0.1 (GHSA-g3hv-75wg-m249)
+    #   glob      >= 14.0.2 (GHSA-3g3m-2fjr-6pw4)
     postPatch = ''
       cp ${./package.json} package.json
       cp ${./package-lock.json} package-lock.json
     '';
 
-    npmDepsHash = "sha256-62R+eCcWVMXq7PysdZd3vNAGHuA9TuuAVDs/6lif8Vk=";
+    npmDepsHash = "sha256-sGAqVUF17aeaFyIuAv725wWGTDxpa17yiuTDrIGHZrw=";
 
     dontNpmBuild = true;
 
