@@ -133,7 +133,7 @@
     #
     enable = config.programs.bash.enable && false;
     text = ''
-      if [[ $- == *i* ]] && [[ -z "$HERDR_ENV" ]] && [[ ! -f "$HOME/noherdr" ]] && [[ ! -f "$HOME/noherdr.txt" ]]; then
+      if [[ $- == *i* ]] && [[ -z "$HERDR_ENV" ]] && [[ -z "$REX_SESSION" ]] && [[ ! -f "$HOME/noherdr" ]] && [[ ! -f "$HOME/noherdr.txt" ]]; then
         ${config.programs.herdr.package}/bin/herdr && exit
       fi
     '';
@@ -145,7 +145,7 @@
   xdg.configFile."zsh/rc.d/zz_herdr.zsh" = {
     enable = config.programs.zsh.enable;
     text = ''
-      if [[ -o interactive ]] && [[ "$TERM_PROGRAM" == "ghostty" ]] && [[ -z "$HERDR_ENV" ]] && [[ ! -f "$HOME/noherdr" ]] && [[ ! -f "$HOME/noherdr.txt" ]]; then
+      if [[ -o interactive ]] && [[ -z "$HERDR_ENV" ]] && [[ -z "$REX_SESSION" ]] && [[ ! -f "$HOME/noherdr" ]] && [[ ! -f "$HOME/noherdr.txt" ]]; then
         ${config.programs.herdr.package}/bin/herdr && exit
       fi
     '';
@@ -159,7 +159,7 @@
     #
     enable = config.programs.fish.enable && false;
     text = ''
-      if status --is-interactive; and test -z "$HERDR_ENV"; and test ! -f $HOME/noherdr; and test ! -f $HOME/noherdr.txt
+      if status --is-interactive; and test -z "$HERDR_ENV"; and test -z "$REX_SESSION"; and test ! -f $HOME/noherdr; and test ! -f $HOME/noherdr.txt
         ${config.programs.herdr.package}/bin/herdr && exit
       end
     '';
