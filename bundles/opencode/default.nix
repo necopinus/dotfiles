@@ -72,7 +72,7 @@ in {
       cli = true;
     };
     settings = {
-      model = "opencode-go/glm-5.3";
+      model = "opencode-go/qwen3.8-max";
       small_model = "opencode-go/deepseek-v4.1-flash";
       shell = "bash";
       # Shadow the built-in `general` and `explore` subagents to use a

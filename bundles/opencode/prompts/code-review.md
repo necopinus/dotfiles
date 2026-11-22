@@ -1,7 +1,7 @@
 ---
 description: Review code for security, quality, and best practices
 mode: subagent
-model: opencode-go/qwen3.8-max
+model: opencode-go/glm-5.3
 temperature: 0.2
 ---
 # Code Review

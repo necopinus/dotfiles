@@ -52,7 +52,7 @@ tasks for longer.
 
 ## Model Hierarchy & Subagent Delegation
 
-The primary agent and `@code-review` run on `opencode-go/glm-5.3`, a model
+The primary agent and `@code-review` run on `opencode-go/qwen3.8-max`, a model
 that is capable but expensive. The built-in `@general` and `@explore` subagents
 run on `opencode-go/deepseek-v4.1-flash`. This model is cheaper but still
 capable of routine work. The `small_model` is `opencode-go/deepseek-v4.1-flash`
@@ -107,13 +107,13 @@ or the temporary SSH agent cannot start, stop and ask the user for assistance.
 
 When making a commit, always add `Co-authored-by: OpenCode
 ($CURRENT_MODEL_IDENTIFIER) <noreply@opencode.ai>` as the *last* paragraph of
-the commit message. For example, if the in-use model is GLM 5.3 and the desired
-commit message is "Added more cowbell", run:
+the commit message. For example, if the in-use model is Qwen 3.8 Max and the
+desired commit message is "Added more cowbell", run:
 
 ```bash
 ephemeral-git commit \
   -m "Added more cowbell" \
-  -m "Co-authored-by: OpenCode (glm-5.3) <noreply@opencode.ai>"
+  -m "Co-authored-by: OpenCode (qwen3.8-max) <noreply@opencode.ai>"
 ```
 
 The helper supplies the configured author identity and signing key. It also
