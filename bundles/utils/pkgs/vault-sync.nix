@@ -474,11 +474,6 @@ writeShellApplication {
         syncDirectory "$DROPBOX_DIR" "$PRIMARY_VAULT/Dropbox"
       fi
 
-      # Sync Lightroom
-      if [[ -d "$HOME/Pictures/Lightroom Library.lrlibrary" ]]; then
-        syncDirectory "$HOME/Pictures/Lightroom Library.lrlibrary" "$PRIMARY_VAULT/Archives/Lightroom Library.lrlibrary"
-      fi
-
       # Update GitHub repos
       for REPO_ROOT in "$HOME/Projects" "$HOME/src"; do
         if [[ -d "$REPO_ROOT" ]]; then
