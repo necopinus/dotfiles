@@ -41,7 +41,6 @@
     };
 
     casks = [
-      "adobe-creative-cloud"
       "dropbox"
       "google-chrome"
       "handbrake-app"
@@ -111,10 +110,14 @@
 
       persistent-apps = [
         {app = "/System/Applications/Apps.app";}
-        {app = "/Applications/Adobe Lightroom CC/Adobe Lightroom.app";}
         {app = "/Applications/Google Chrome.app";}
+        {app = "/Applications/HandBrake.app";}
+        {app = "/Applications/kid3.app";}
+        {app = "/Applications/MakeMKV.app";}
         {app = "/System/Applications/System Settings.app";}
         {app = "/Applications/Termius.app";}
+        {app = "/Applications/VLC.app";}
+        {app = "/Users/necopinus/Applications/Home Manager Apps/XLD.app";}
       ];
       persistent-others = [
         {
